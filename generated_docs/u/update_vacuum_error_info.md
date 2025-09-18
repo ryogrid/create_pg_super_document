@@ -1,7 +1,7 @@
 # update_vacuum_error_info
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 3170 - 3188
+[src/backend/access/heap/vacuumlazy.c:3170-3188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L3170-L3188)
 
 ## Overview
 Updates the vacuum error information for error callbacks, while optionally saving the current error state for later restoration.

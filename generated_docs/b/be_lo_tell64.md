@@ -1,7 +1,7 @@
 # be_lo_tell64
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 298 - 313
+[src/backend/libpq/be-fsstubs.c:298-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L298-L313)
 
 ## Overview
 A PostgreSQL backend function that returns the current read/write position within a large object as a 64-bit integer, supporting very large file positions.

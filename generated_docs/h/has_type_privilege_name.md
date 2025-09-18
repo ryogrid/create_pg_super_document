@@ -1,7 +1,7 @@
 # has_type_privilege_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4432 - 4455
+[src/backend/utils/adt/acl.c:4432-4455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4432-L4455)
 
 ## Overview
 Checks whether the current user has a particular privilege on a specified type, using the typename as a text string.

@@ -1,7 +1,7 @@
 # get_typavgwidth
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2578 - 2628
+[src/backend/utils/cache/lsyscache.c:2578-2628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2578-L2628)
 
 ## Overview
 Estimates the average width (in bytes) of values for a given PostgreSQL data type, used by the query planner for cost estimation and memory allocation planning.

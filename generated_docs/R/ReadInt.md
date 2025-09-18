@@ -1,7 +1,7 @@
 # ReadInt
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2143 - 2169
+[src/bin/pg_dump/pg_backup_archiver.c:2143-2169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2143-L2169)
 
 ## Overview
 ReadInt deserializes a signed integer from an archive stream, handling both legacy and current archive format versions with explicit sign bit processing.

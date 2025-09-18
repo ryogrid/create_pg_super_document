@@ -1,7 +1,7 @@
 # UnlockBufHdr
 
 ## Location
-src/include/storage/buf_internals.h: 362 - 375
+[src/include/storage/buf_internals.h:362-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L362-L375)
 
 ## Overview
 Releases the buffer header lock by atomically clearing the BM_LOCKED flag from the buffer's state, ensuring proper memory ordering with a write barrier.

@@ -1,7 +1,7 @@
 # inet_gist_union
 
 ## Location
-src/backend/utils/adt/network_gist.c: 505 - 541
+[src/backend/utils/adt/network_gist.c:505-541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L505-L541)
 
 ## Overview
 The GiST union function for inet data types that computes the union of multiple GiST index entries to create a single key representing the combined range.

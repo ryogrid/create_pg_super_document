@@ -1,7 +1,7 @@
 # tsm_system_handler
 
 ## Location
-src/backend/access/tablesample/system.c: 67 - 87
+[src/backend/access/tablesample/system.c:67-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/system.c#L67-L87)
 
 ## Overview
 Creates and initializes a TsmRoutine descriptor for the SYSTEM table sampling method, setting up the function pointers and parameters for system sampling operations.

@@ -1,7 +1,7 @@
 # on_error_rollback_hook
 
 ## Location
-src/bin/psql/startup.c: 1019 - 1039
+[src/bin/psql/startup.c:1019-1039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1019-L1039)
 
 ## Overview
 A validation hook function for the ON_ERROR_ROLLBACK psql variable that controls automatic transaction rollback behavior when SQL errors occur, with support for boolean and "interactive" modes.

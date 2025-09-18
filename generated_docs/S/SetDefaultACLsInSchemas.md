@@ -1,7 +1,7 @@
 # SetDefaultACLsInSchemas
 
 ## Location
-src/backend/catalog/aclchk.c: 1161 - 1202
+[src/backend/catalog/aclchk.c:1161-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L1161-L1202)
 
 ## Overview
 Applies default ACL settings to either database-wide scope (when no schemas specified) or to each schema in a provided list of target schemas.

@@ -1,7 +1,7 @@
 # signal_remove_temp
 
 ## Location
-src/test/regress/pg_regress.c: 479 - 499
+[src/test/regress/pg_regress.c:479-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L479-L499)
 
 ## Overview
 A signal handler function that performs cleanup of temporary socket directories when pg_regress receives termination signals, then re-raises the original signal.

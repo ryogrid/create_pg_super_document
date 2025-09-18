@@ -1,7 +1,7 @@
 # transformOnConflictClause
 
 ## Location
-src/backend/parser/analyze.c: 1118 - 1224
+[src/backend/parser/analyze.c:1118-1224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1118-L1224)
 
 ## Overview
 Transforms an ON CONFLICT clause in an INSERT statement, handling both DO NOTHING and DO UPDATE variants with proper namespace management for the EXCLUDED pseudo-relation.

@@ -1,7 +1,7 @@
 # intoasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 672 - 701
+[src/interfaces/ecpg/compatlib/informix.c:672-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L672-L701)
 
 ## Overview
 A compatibility wrapper function that converts an interval data structure to its ASCII string representation, providing Informix-style interval formatting functionality.

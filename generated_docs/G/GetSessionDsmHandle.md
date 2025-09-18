@@ -1,7 +1,7 @@
 # GetSessionDsmHandle
 
 ## Location
-src/backend/access/common/session.c: 70 - 154
+[src/backend/access/common/session.c:70-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/session.c#L70-L154)
 
 ## Overview
 Creates and initializes a per-session DSM (Dynamic Shared Memory) segment for sharing state between parallel worker processes, returning a handle that workers can use to attach to the segment.

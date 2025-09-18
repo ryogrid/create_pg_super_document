@@ -1,7 +1,7 @@
 # restoreTwoPhaseData
 
 ## Location
-src/backend/access/transam/twophase.c: 1889 - 1952
+[src/backend/access/transam/twophase.c:1889-1952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1889-L1952)
 
 ## Overview
 restoreTwoPhaseData scans the pg_twophase directory and populates the TwoPhaseState data structure with prepared transaction information found in on-disk state files during PostgreSQL startup recovery.

@@ -1,7 +1,7 @@
 # r_mark_yDU
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 861 - 871
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:861-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L861-L871)
 
 ## Overview
 This function marks or identifies the Turkish suffix 'yDU' in the Snowball stemming algorithm, used for Turkish text stemming in PostgreSQL's full-text search functionality.

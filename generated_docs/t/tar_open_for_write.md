@@ -1,7 +1,7 @@
 # tar_open_for_write
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 837 - 1006
+[src/bin/pg_basebackup/walmethods.c:837-1006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L837-L1006)
 
 ## Overview
 Opens a new file for writing within a TAR archive, handling TAR header creation, compression setup, and initial file positioning for PostgreSQL WAL operations.

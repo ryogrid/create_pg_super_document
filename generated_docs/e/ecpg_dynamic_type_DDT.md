@@ -1,7 +1,7 @@
 # ecpg_dynamic_type_DDT
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 64 - 83
+[src/interfaces/ecpg/ecpglib/descriptor.c:64-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L64-L83)
 
 ## Overview
 Maps PostgreSQL date/time type OIDs to SQL3 descriptor data type (DDT) constants for ECPG dynamic descriptor handling.

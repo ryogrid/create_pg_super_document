@@ -1,7 +1,7 @@
 # pg_crc32c_sse42_available
 
 ## Location
-src/port/pg_crc32c_sse42_choose.c: 34 - 53
+[src/port/pg_crc32c_sse42_choose.c:34-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_sse42_choose.c#L34-L53)
 
 ## Overview
 Detects whether the current CPU supports Intel SSE 4.2 instructions, specifically for hardware-accelerated CRC-32C computation.

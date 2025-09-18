@@ -1,7 +1,7 @@
 # ReportChangedGUCOptions
 
 ## Location
-src/backend/utils/misc/guc.c: 2598 - 2635
+[src/backend/utils/misc/guc.c:2598-2635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2598-L2635)
 
 ## Overview
 ReportChangedGUCOptions reports recently-changed PostgreSQL configuration variables marked with GUC_REPORT to the frontend client, ensuring efficient parameter status communication.

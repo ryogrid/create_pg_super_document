@@ -1,7 +1,7 @@
 # moveRightIfItNeeded
 
 ## Location
-src/backend/access/gin/ginget.c: 43 - 68
+[src/backend/access/gin/ginget.c:43-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L43-L68)
 
 ## Overview
 This is a static helper function in the GIN (Generalized Inverted Index) access method that handles page navigation by moving to the next page when the current scan position exceeds the bounds of the current page.

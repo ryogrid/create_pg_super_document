@@ -1,7 +1,7 @@
 # test_slru_shmem_request
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 198 - 207
+[src/test/modules/test_slru/test_slru.c:198-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L198-L207)
 
 ## Overview
 A shared memory request hook function for the test SLRU module that reserves the necessary shared memory space for SLRU buffer management during PostgreSQL startup.

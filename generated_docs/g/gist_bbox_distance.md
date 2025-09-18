@@ -1,7 +1,7 @@
 # gist_bbox_distance
 
 ## Location
-src/backend/access/gist/gistproc.c: 1479 - 1499
+[src/backend/access/gist/gistproc.c:1479-1499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1479-L1499)
 
 ## Overview
 A static utility function that calculates the minimum distance from a query point to a bounding box stored in a GiST entry, serving as a helper for various geometric distance methods.

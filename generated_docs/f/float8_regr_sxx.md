@@ -1,7 +1,7 @@
 # float8_regr_sxx
 
 ## Location
-src/backend/utils/adt/float.c: 3505 - 3525
+[src/backend/utils/adt/float.c:3505-3525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3505-L3525)
 
 ## Overview
 Extracts and returns the sum of squared deviations of X values (Sxx) from a regression transition state, implementing the SQL REGR_SXX aggregate function.

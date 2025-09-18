@@ -1,7 +1,7 @@
 # cleanup_background_workers
 
 ## Location
-src/test/modules/test_shm_mq/setup.c: 246 - 257
+[src/test/modules/test_shm_mq/setup.c:246-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/setup.c#L246-L257)
 
 ## Overview
 This static function serves as a cleanup callback to terminate all registered background worker processes when the dynamic shared memory segment is detached.

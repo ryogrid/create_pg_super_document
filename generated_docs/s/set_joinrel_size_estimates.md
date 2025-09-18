@@ -1,7 +1,7 @@
 # set_joinrel_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5321 - 5352
+[src/backend/optimizer/path/costsize.c:5321-5352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5321-L5352)
 
 ## Overview
 Sets the size estimates (row count) for a join relation by calculating the estimated number of rows the join will produce.

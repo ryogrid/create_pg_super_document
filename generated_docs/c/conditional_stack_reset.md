@@ -1,7 +1,7 @@
 # conditional_stack_reset
 
 ## Location
-src/fe_utils/conditional.c: 30 - 42
+[src/fe_utils/conditional.c:30-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L30-L42)
 
 ## Overview
 Empties a conditional stack by destroying all its elements while keeping the stack structure itself intact and ready for reuse.

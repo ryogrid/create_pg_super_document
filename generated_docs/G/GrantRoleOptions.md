@@ -1,7 +1,7 @@
 # GrantRoleOptions
 
 ## Location
-src/backend/commands/user.c: 78 - 79
+[src/backend/commands/user.c:78-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L78-L79)
 
 ## Overview
 A structure that encapsulates the various options that can be specified when granting roles, including admin, inherit, and set privileges along with flags indicating which options were explicitly specified.

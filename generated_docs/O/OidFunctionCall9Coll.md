@@ -1,7 +1,7 @@
 # OidFunctionCall9Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1503 - 1529
+[src/backend/utils/fmgr/fmgr.c:1503-1529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1503-L1529)
 
 ## Overview
 OidFunctionCall9Coll is a utility function that invokes a PostgreSQL function by its OID (Object Identifier) with nine arguments and explicit collation support.

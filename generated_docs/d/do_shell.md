@@ -1,7 +1,7 @@
 # do_shell
 
 ## Location
-src/bin/psql/command.c: 5282 - 5332
+[src/bin/psql/command.c:5282-5332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5282-L5332)
 
 ## Overview
 Executes shell commands from within the PostgreSQL psql client, either launching an interactive shell session or running a specific command.

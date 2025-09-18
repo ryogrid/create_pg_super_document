@@ -1,7 +1,7 @@
 # from_char_seq_search
 
 ## Location
-src/backend/utils/adt/formatting.c: 2719 - 2764
+[src/backend/utils/adt/formatting.c:2719-2764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2719-L2764)
 
 ## Overview
 A static function that provides a unified interface for performing case-insensitive sequential searches in either ASCII or localized string arrays, with integrated error handling and source string advancement for date/time parsing.

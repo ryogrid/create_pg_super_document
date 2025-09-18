@@ -1,7 +1,7 @@
 # raw_pg_bind_textdomain_codeset
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1187 - 1225
+[src/backend/utils/mb/mbutils.c:1187-1225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1187-L1225)
 
 ## Overview
 Performs a single bind_textdomain_codeset() call to set the character encoding for a gettext message domain, translating a PostgreSQL encoding ID to a gettext codeset name.

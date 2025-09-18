@@ -1,7 +1,7 @@
 # check_subscriber
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 961 - 1061
+[src/bin/pg_basebackup/pg_createsubscriber.c:961-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L961-L1061)
 
 ## Overview
 Validates that the standby server is properly configured and ready to become a logical replication subscriber by checking essential parameters and confirming recovery status.

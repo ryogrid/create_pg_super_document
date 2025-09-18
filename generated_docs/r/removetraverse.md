@@ -1,7 +1,7 @@
 # removetraverse
 
 ## Location
-src/backend/regex/regc_nfa.c: 1438 - 1487
+[src/backend/regex/regc_nfa.c:1438-1487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1438-L1487)
 
 ## Overview
 The recursive heart of the removeconstraints function that traverses an NFA and removes constraint arcs, replacing them with empty transitions.

@@ -1,7 +1,7 @@
 # pqParseIntParam
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7694 - 7744
+[src/interfaces/libpq/fe-connect.c:7694-7744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7694-L7744)
 
 ## Overview
 Parses and validates a string value as an integer for PostgreSQL connection parameters with proper error handling and range checking.

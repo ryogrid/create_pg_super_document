@@ -1,7 +1,7 @@
 # local_traverse_files
 
 ## Location
-src/bin/pg_rewind/local_source.c: 60 - 65
+[src/bin/pg_rewind/local_source.c:60-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L60-L65)
 
 ## Overview
 A static function that implements the traverse_files operation for local sources by calling traverse_datadir on the local data directory.

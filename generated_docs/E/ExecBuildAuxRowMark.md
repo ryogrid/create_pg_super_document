@@ -1,7 +1,7 @@
 # ExecBuildAuxRowMark
 
 ## Location
-src/backend/executor/execMain.c: 2402 - 2471
+[src/backend/executor/execMain.c:2402-2471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2402-L2471)
 
 ## Overview
 Creates an ExecAuxRowMark structure that maps row mark information to the specific junk columns in the target list, enabling efficient access to row identification data during execution.

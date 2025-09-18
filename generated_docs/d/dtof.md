@@ -1,7 +1,7 @@
 # dtof
 
 ## Location
-src/backend/utils/adt/float.c: 1188 - 1206
+[src/backend/utils/adt/float.c:1188-1206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1188-L1206)
 
 ## Overview
 A conversion function that converts a float8 (double precision) number to a float4 (single precision) number with overflow and underflow detection.

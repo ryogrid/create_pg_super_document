@@ -1,7 +1,7 @@
 # print_function_trftypes
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3412 - 3439
+[src/backend/utils/adt/ruleutils.c:3412-3439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3412-L3439)
 
 ## Overview
 A static helper function that appends PostgreSQL transform types information to a string buffer for function definitions.

@@ -1,7 +1,7 @@
 # lookup_fdw_validator_func
 
 ## Location
-src/backend/commands/foreigncmds.c: 510 - 528
+[src/backend/commands/foreigncmds.c:510-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L510-L528)
 
 ## Overview
 Converts a validator function name from the parser into an OID, ensuring it has the correct signature for a foreign-data wrapper validator function.

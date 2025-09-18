@@ -1,7 +1,7 @@
 # convert_link_to_directory
 
 ## Location
-src/backend/backup/basebackup.c: 2094 - 2110
+[src/backend/backup/basebackup.c:2094-2110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L2094-L2110)
 
 ## Overview
 Converts symbolic link entries to directory entries in file stat structures during base backup operations, ensuring proper handling of symlinked directories.

@@ -1,7 +1,7 @@
 # numeric_mul_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 3039 - 3139
+[src/backend/utils/adt/numeric.c:3039-3139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3039-L3139)
 
 ## Overview
 Internal PostgreSQL function that performs numeric multiplication with optional error handling, providing the core implementation for numeric multiplication operations with precise result calculation and rounding.

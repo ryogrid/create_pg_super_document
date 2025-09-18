@@ -1,7 +1,7 @@
 # int8not
 
 ## Location
-src/backend/utils/adt/int8.c: 1211 - 1218
+[src/backend/utils/adt/int8.c:1211-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1211-L1218)
 
 ## Overview
 The int8not function performs bitwise NOT operation on a single 64-bit integer, returning the bitwise complement as a 64-bit integer.

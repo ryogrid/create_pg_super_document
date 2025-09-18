@@ -1,7 +1,7 @@
 # CleanupInvalidationState
 
 ## Location
-src/backend/storage/ipc/sinvaladt.c: 328 - 369
+[src/backend/storage/ipc/sinvaladt.c:328-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinvaladt.c#L328-L369)
 
 ## Overview
 CleanupInvalidationState deactivates a backend process from the shared invalidation system during backend shutdown, cleaning up its registration and state.

@@ -1,7 +1,7 @@
 # CopyIndexTuple
 
 ## Location
-src/backend/access/common/indextuple.c: 547 - 575
+[src/backend/access/common/indextuple.c:547-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L547-L575)
 
 ## Overview
 Creates a palloc'd copy of an index tuple, providing memory allocation and duplication functionality for IndexTuple structures in PostgreSQL's indexing system.

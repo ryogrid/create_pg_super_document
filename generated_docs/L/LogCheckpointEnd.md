@@ -1,7 +1,7 @@
 # LogCheckpointEnd
 
 ## Location
-src/backend/access/transam/xlog.c: 6660 - 6762
+[src/backend/access/transam/xlog.c:6660-6762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6660-L6762)
 
 ## Overview
 LogCheckpointEnd logs the completion of checkpoint or restart point operations, providing comprehensive performance statistics and timing information for monitoring and performance analysis.

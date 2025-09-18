@@ -1,7 +1,7 @@
 # remove_tablespace_symlink
 
 ## Location
-src/backend/commands/tablespace.c: 883 - 929
+[src/backend/commands/tablespace.c:883-929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L883-L929)
 
 ## Overview
 Removes tablespace symlinks or directories from the pg_tblspc directory, handling both Unix symbolic links and Windows junction points with proper error handling.

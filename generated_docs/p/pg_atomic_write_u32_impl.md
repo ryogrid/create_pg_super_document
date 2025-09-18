@@ -1,7 +1,7 @@
 # pg_atomic_write_u32_impl
 
 ## Location
-src/backend/port/atomics.c: 124 - 136
+[src/backend/port/atomics.c:124-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L124-L136)
 
 ## Overview
 Implementation function that atomically writes a 32-bit unsigned integer value to an atomic variable, ensuring thread-safe modification.

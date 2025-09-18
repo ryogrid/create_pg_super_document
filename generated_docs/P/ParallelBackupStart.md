@@ -1,7 +1,7 @@
 # ParallelBackupStart
 
 ## Location
-src/bin/pg_dump/parallel.c: 897 - 1058
+[src/bin/pg_dump/parallel.c:897-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L897-L1058)
 
 ## Overview
 Initializes and starts parallel backup/restore operations by spawning worker processes or threads to handle multiple concurrent backup tasks.

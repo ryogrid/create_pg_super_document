@@ -1,7 +1,7 @@
 # AssignTypeArrayOid
 
 ## Location
-src/backend/commands/typecmds.c: 2410 - 2442
+[src/backend/commands/typecmds.c:2410-2442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2410-L2442)
 
 ## Overview
 AssignTypeArrayOid is a function that pre-assigns an OID for the array type associated with a PostgreSQL type, ensuring proper setup of the pg_type.typarray field during type creation.

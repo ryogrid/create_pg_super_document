@@ -1,7 +1,7 @@
 # ApplyUnsignedSortComparator
 
 ## Location
-src/include/utils/sortsupport.h: 233 - 266
+[src/include/utils/sortsupport.h:233-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sortsupport.h#L233-L266)
 
 ## Overview
 ApplyUnsignedSortComparator is an inline function that performs unsigned comparison of two Datum values, handling NULL values and sort direction according to sort support configuration.

@@ -1,7 +1,7 @@
 # paraminfo_get_equal_hashops
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 439 - 580
+[src/backend/optimizer/path/joinpath.c:439-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L439-L580)
 
 ## Overview
 Analyzes parameterization information and lateral variables to determine if they can be hashed for memoization, collecting the necessary expressions and operators for hash-based caching.

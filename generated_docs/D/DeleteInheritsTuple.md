@@ -1,7 +1,7 @@
 # DeleteInheritsTuple
 
 ## Location
-src/backend/catalog/pg_inherits.c: 552 - 619
+[src/backend/catalog/pg_inherits.c:552-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L552-L619)
 
 ## Overview
 Deletes inheritance relationship entries from the pg_inherits system catalog based on specified criteria and validates detach pending state.

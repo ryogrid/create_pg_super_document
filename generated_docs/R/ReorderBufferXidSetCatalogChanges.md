@@ -1,7 +1,7 @@
 # ReorderBufferXidSetCatalogChanges
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3530 - 3567
+[src/backend/replication/logical/reorderbuffer.c:3530-3567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3530-L3567)
 
 ## Overview
 Marks a transaction as containing catalog changes and maintains the catalog changes transaction list for logical replication processing.

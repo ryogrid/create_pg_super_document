@@ -1,7 +1,7 @@
 # jsonb_object_field_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 898 - 919
+[src/backend/utils/adt/jsonfuncs.c:898-919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L898-L919)
 
 ## Overview
 Extracts a field from a JSONB object by key name and returns the field value as text, or NULL if the key is not found, the input is not an object, or the value is JSON null.

@@ -1,7 +1,7 @@
 # varbit_recv
 
 ## Location
-src/backend/utils/adt/varbit.c: 636 - 680
+[src/backend/utils/adt/varbit.c:636-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L636-L680)
 
 ## Overview
 Converts external binary format to PostgreSQL's internal VarBit representation during data input operations.

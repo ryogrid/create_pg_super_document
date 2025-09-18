@@ -1,7 +1,7 @@
 # dumpCompositeType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 11787 - 11992
+[src/bin/pg_dump/pg_dump.c:11787-11992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L11787-L11992)
 
 ## Overview
 The dumpCompositeType function generates SQL statements to recreate a user-defined composite type during PostgreSQL database dumps.

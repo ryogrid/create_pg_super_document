@@ -1,7 +1,7 @@
 # standard_join_search
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3411 - 3581
+[src/backend/optimizer/path/allpaths.c:3411-3581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3411-L3581)
 
 ## Overview
 Implements PostgreSQL's standard dynamic programming algorithm to find optimal join paths by systematically building join relations from component relations through successive levels.

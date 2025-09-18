@@ -1,7 +1,7 @@
 # writeTimeLineHistoryFile
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 275 - 336
+[src/bin/pg_basebackup/receivelog.c:275-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L275-L336)
 
 ## Overview
 Creates and writes a timeline history file with given content to the PostgreSQL WAL directory, using atomic file operations to ensure data integrity.

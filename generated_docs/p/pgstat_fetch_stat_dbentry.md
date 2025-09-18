@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_dbentry
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 242 - 248
+[src/backend/utils/activity/pgstat_database.c:242-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L242-L248)
 
 ## Overview
 Retrieves the collected database statistics for a specified database OID, returning the statistics entry or NULL if no statistics exist.

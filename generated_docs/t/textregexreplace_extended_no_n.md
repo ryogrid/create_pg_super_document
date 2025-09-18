@@ -1,7 +1,7 @@
 # textregexreplace_extended_no_n
 
 ## Location
-src/backend/utils/adt/regexp.c: 744 - 750
+[src/backend/utils/adt/regexp.c:744-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L744-L750)
 
 ## Overview
 A wrapper function that delegates to textregexreplace_extended, created specifically to satisfy PostgreSQL's operator sanity regression tests.

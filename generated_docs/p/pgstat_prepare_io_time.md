@@ -1,7 +1,7 @@
 # pgstat_prepare_io_time
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 100 - 121
+[src/backend/utils/activity/pgstat_io.c:100-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L100-L121)
 
 ## Overview
 Initializes timing instrumentation for IO operations based on configuration settings, returning a timestamp for later duration calculations.

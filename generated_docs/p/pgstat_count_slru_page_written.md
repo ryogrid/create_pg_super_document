@@ -1,7 +1,7 @@
 # pgstat_count_slru_page_written
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 83 - 88
+[src/backend/utils/activity/pgstat_slru.c:83-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L83-L88)
 
 ## Overview
 Increments the blocks_written counter for a specific SLRU (Simple LRU) buffer cache to track statistics about page writes.

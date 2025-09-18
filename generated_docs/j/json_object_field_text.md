@@ -1,7 +1,7 @@
 # json_object_field_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 882 - 897
+[src/backend/utils/adt/jsonfuncs.c:882-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L882-L897)
 
 ## Overview
 Extracts a field from a JSON object by key name and returns the field value as text, or NULL if the key is not found or the input is not a valid JSON object.

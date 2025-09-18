@@ -1,7 +1,7 @@
 # BogusRealloc
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 293 - 300
+[src/backend/utils/mmgr/mcxt.c:293-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L293-L300)
 
 ## Overview
 An error handling function that reports invalid pointer usage when repalloc or similar reallocation functions are called with bogus pointers, providing diagnostic information for debugging.

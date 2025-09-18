@@ -1,7 +1,7 @@
 # be_gssapi_read
 
 ## Location
-src/backend/libpq/be-secure-gssapi.c: 269 - 429
+[src/backend/libpq/be-secure-gssapi.c:269-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-gssapi.c#L269-L429)
 
 ## Overview
 Reads data from a GSSAPI-encrypted connection, handling decryption of incoming packets and buffering of decrypted data for the caller.

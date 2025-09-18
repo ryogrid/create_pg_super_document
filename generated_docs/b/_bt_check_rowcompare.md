@@ -1,7 +1,7 @@
 # _bt_check_rowcompare
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3888 - 4071
+[src/backend/access/nbtree/nbtutils.c:3888-4071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3888-L4071)
 
 ## Overview
 Tests whether an index tuple satisfies a row-comparison scan condition by performing column-by-column comparisons for composite key conditions.

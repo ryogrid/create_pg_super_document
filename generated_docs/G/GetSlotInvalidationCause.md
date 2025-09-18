@@ -1,7 +1,7 @@
 # GetSlotInvalidationCause
 
 ## Location
-src/backend/replication/slot.c: 2405 - 2432
+[src/backend/replication/slot.c:2405-2432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2405-L2432)
 
 ## Overview
 Maps an invalidation reason string for a replication slot to its corresponding ReplicationSlotInvalidationCause enum value.

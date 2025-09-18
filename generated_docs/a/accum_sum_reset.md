@@ -1,7 +1,7 @@
 # accum_sum_reset
 
 ## Location
-src/backend/utils/adt/numeric.c: 11976 - 11991
+[src/backend/utils/adt/numeric.c:11976-11991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11976-L11991)
 
 ## Overview
 Resets a NumericSumAccum accumulator to zero state while preserving allocated digit buffers for efficient reuse in sum operations.

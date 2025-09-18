@@ -1,7 +1,7 @@
 # execute_attr_map_cols
 
 ## Location
-src/backend/access/common/tupconvert.c: 252 - 298
+[src/backend/access/common/tupconvert.c:252-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupconvert.c#L252-L298)
 
 ## Overview
 Converts a bitmap of columns according to an attribute mapping, transforming column references from input schema to output schema while accommodating PostgreSQL's system column numbering.

@@ -1,7 +1,7 @@
 # equalTupleDescs
 
 ## Location
-src/backend/access/common/tupdesc.c: 419 - 585
+[src/backend/access/common/tupdesc.c:419-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L419-L585)
 
 ## Overview
 equalTupleDescs performs comprehensive logical equality comparison between two TupleDesc structures, checking all attributes and constraints to determine if they represent equivalent tuple descriptors.

@@ -1,7 +1,7 @@
 # int2eq
 
 ## Location
-src/backend/utils/adt/int.c: 450 - 458
+[src/backend/utils/adt/int.c:450-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L450-L458)
 
 ## Overview
 A PostgreSQL built-in function that compares two 16-bit integers and returns true if they are equal.

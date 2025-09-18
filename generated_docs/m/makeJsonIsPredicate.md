@@ -1,7 +1,7 @@
 # makeJsonIsPredicate
 
 ## Location
-src/backend/nodes/makefuncs.c: 958 - 976
+[src/backend/nodes/makefuncs.c:958-976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L958-L976)
 
 ## Overview
 Creates a JsonIsPredicate node for representing JSON type predicate expressions that test whether a value is of a specific JSON type.

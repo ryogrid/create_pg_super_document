@@ -1,7 +1,7 @@
 # XLogReaderFree
 
 ## Location
-src/backend/access/transam/xlogreader.c: 161 - 189
+[src/backend/access/transam/xlogreader.c:161-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L161-L189)
 
 ## Overview
 This function deallocates an XLogReaderState structure and all its associated memory resources, properly closing any open WAL segment files.

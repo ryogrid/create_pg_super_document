@@ -1,7 +1,7 @@
 # set_stream_options
 
 ## Location
-src/backend/replication/logical/worker.c: 4351 - 4400
+[src/backend/replication/logical/worker.c:4351-4400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4351-L4400)
 
 ## Overview
 A function that configures streaming options for logical replication workers, setting up protocol parameters based on server version and subscription settings.

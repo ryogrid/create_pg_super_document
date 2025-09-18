@@ -1,7 +1,7 @@
 # _reconnectToDB
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3365 - 3415
+[src/bin/pg_dump/pg_backup_archiver.c:3365-3415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3365-L3415)
 
 ## Overview
 A static function that handles database reconnection during PostgreSQL restore operations, either by establishing an actual connection or outputting psql meta-commands to change databases.

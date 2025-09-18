@@ -1,7 +1,7 @@
 # libpqrcv_get_dbname_from_conninfo
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 502 - 550
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:502-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L502-L550)
 
 ## Overview
 Extracts the database name from a PostgreSQL connection string used for WAL receiver operations, returning NULL if no database name is specified.

@@ -1,7 +1,7 @@
 # IncrementalBackupInfo
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 76 - 143
+[src/backend/backup/basebackup_incremental.c:76-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L76-L143)
 
 ## Overview
 IncrementalBackupInfo is a structure that manages the state and metadata required for performing incremental backups in PostgreSQL, storing information from backup manifests and tracking block-level changes.

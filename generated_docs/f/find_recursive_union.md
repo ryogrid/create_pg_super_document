@@ -1,7 +1,7 @@
 # find_recursive_union
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5046 - 5075
+[src/backend/utils/adt/ruleutils.c:5046-5075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5046-L5075)
 
 ## Overview
 Locates the ancestor RecursiveUnion plan node that generates the work table accessed by a given WorkTableScan by matching their shared wtParam identifier.

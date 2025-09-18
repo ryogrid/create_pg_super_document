@@ -1,7 +1,7 @@
 # ExecParallelInitializeDSMContext
 
 ## Location
-src/backend/executor/execParallel.c: 118 - 123
+[src/backend/executor/execParallel.c:118-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L118-L123)
 
 ## Overview
 ExecParallelInitializeDSMContext is a context structure used during the Dynamic Shared Memory (DSM) initialization phase of parallel query execution to coordinate the setup of shared memory structures and instrumentation.

@@ -1,7 +1,7 @@
 # hex2_to_uchar
 
 ## Location
-src/backend/utils/adt/mac8.c: 59 - 96
+[src/backend/utils/adt/mac8.c:59-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L59-L96)
 
 ## Overview
 A static inline utility function that converts two consecutive hexadecimal digits to a single byte (unsigned char) value.

@@ -1,7 +1,7 @@
 # ExecMemoizeInitializeDSM
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1211 - 1235
+[src/backend/executor/nodeMemoize.c:1211-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1211-L1235)
 
 ## Overview
 Initializes Dynamic Shared Memory (DSM) space for collecting and sharing memoize execution statistics across parallel worker processes.

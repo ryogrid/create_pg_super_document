@@ -1,7 +1,7 @@
 # spgRedoVacuumRedirect
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 860 - 934
+[src/backend/access/spgist/spgxlog.c:860-934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L860-L934)
 
 ## Overview
 Replays a vacuum redirect operation from the WAL for SP-GiST indexes, reconstructing the cleanup of redirect tuples and conversion to placeholders during crash recovery.

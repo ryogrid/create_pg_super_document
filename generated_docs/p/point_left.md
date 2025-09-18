@@ -1,7 +1,7 @@
 # point_left
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1901 - 1909
+[src/backend/utils/adt/geo_ops.c:1901-1909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1901-L1909)
 
 ## Overview
 A PostgreSQL function that determines if one point is to the left of another point by comparing their x-coordinates.

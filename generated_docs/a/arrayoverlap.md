@@ -1,7 +1,7 @@
 # arrayoverlap
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4512 - 4529
+[src/backend/utils/adt/arrayfuncs.c:4512-4529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4512-L4529)
 
 ## Overview
 PostgreSQL function implementing the array overlap operator (&&) that determines whether two arrays have any elements in common.

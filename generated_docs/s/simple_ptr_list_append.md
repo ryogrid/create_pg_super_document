@@ -1,7 +1,7 @@
 # simple_ptr_list_append
 
 ## Location
-src/fe_utils/simple_list.c: 162 - 175
+[src/fe_utils/simple_list.c:162-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L162-L175)
 
 ## Overview
 Appends a generic pointer to a SimplePtrList, maintaining the linked list structure with proper tail pointer management.

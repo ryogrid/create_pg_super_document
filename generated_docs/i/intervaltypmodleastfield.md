@@ -1,7 +1,7 @@
 # intervaltypmodleastfield
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1221 - 1273
+[src/backend/utils/adt/timestamp.c:1221-1273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1221-L1273)
 
 ## Overview
 Determines the least significant (finest granularity) temporal field that an INTERVAL type modifier allows to be nonzero, returning a numeric code representing the field's significance level.

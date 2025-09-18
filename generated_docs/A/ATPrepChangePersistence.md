@@ -1,7 +1,7 @@
 # ATPrepChangePersistence
 
 ## Location
-src/backend/commands/tablecmds.c: 17088 - 17206
+[src/backend/commands/tablecmds.c:17088-17206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17088-L17206)
 
 ## Overview
 ATPrepChangePersistence validates and prepares for changing a table's persistence level (LOGGED/UNLOGGED) by checking constraints and publication membership to maintain referential integrity invariants.

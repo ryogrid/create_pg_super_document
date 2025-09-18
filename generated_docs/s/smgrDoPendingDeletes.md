@@ -1,7 +1,7 @@
 # smgrDoPendingDeletes
 
 ## Location
-src/backend/catalog/storage.c: 657 - 724
+[src/backend/catalog/storage.c:657-724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L657-L724)
 
 ## Overview
 smgrDoPendingDeletes executes relation file deletions that were deferred until transaction end, handling both commit and abort scenarios.

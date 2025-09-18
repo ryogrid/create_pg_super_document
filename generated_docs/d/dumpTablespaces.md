@@ -1,7 +1,7 @@
 # dumpTablespaces
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1335 - 1438
+[src/bin/pg_dump/pg_dumpall.c:1335-1438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1335-L1438)
 
 ## Overview
 Generates CREATE TABLESPACE statements to recreate all user-defined tablespaces in a PostgreSQL cluster, including their ownership, permissions, options, comments, and security labels.

@@ -1,7 +1,7 @@
 # generate_partitionwise_join_paths
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 4291 - 4362
+[src/backend/optimizer/path/allpaths.c:4291-4362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L4291-L4362)
 
 ## Overview
 Creates partitionwise join paths for partitioned relations by recursively building paths for child partitions and combining them into an append relation.

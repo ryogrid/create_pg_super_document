@@ -1,7 +1,7 @@
 # substitute_actual_srf_parameters_context
 
 ## Location
-src/backend/optimizer/util/clauses.c: 80 - 85
+[src/backend/optimizer/util/clauses.c:80-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L80-L85)
 
 ## Overview
 A context structure used during parameter substitution in Set-Returning Function (SRF) queries to track arguments and sublevel adjustments when replacing Param nodes within subqueries.

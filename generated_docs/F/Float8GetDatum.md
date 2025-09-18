@@ -1,7 +1,7 @@
 # Float8GetDatum
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1816 - 1831
+[src/backend/utils/fmgr/fmgr.c:1816-1831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1816-L1831)
 
 ## Overview
 Float8GetDatum converts a double-precision floating-point value to a PostgreSQL Datum representation, handling the memory allocation required when 8-byte floats are passed by reference.

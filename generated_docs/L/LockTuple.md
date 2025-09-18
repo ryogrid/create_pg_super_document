@@ -1,7 +1,7 @@
 # LockTuple
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 558 - 577
+[src/backend/storage/lmgr/lmgr.c:558-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L558-L577)
 
 ## Overview
 Obtain a tuple-level lock for a specific tuple identified by its ItemPointer, used in specialized scenarios where fine-grained tuple locking is required.

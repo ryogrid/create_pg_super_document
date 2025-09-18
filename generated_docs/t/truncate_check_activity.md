@@ -1,7 +1,7 @@
 # truncate_check_activity
 
 ## Location
-src/backend/commands/tablecmds.c: 2368 - 2390
+[src/backend/commands/tablecmds.c:2368-2390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L2368-L2390)
 
 ## Overview
 A static utility function that performs extra sanity checks to determine if a given relation is safe to truncate, focusing on activity-based restrictions.

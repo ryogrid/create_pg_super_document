@@ -1,7 +1,7 @@
 # dumpTableData_copy
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2166 - 2333
+[src/bin/pg_dump/pg_dump.c:2166-2333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2166-L2333)
 
 ## Overview
 Dumps a table's contents using the PostgreSQL COPY command, which is the efficient method for extracting table data during database dumps.

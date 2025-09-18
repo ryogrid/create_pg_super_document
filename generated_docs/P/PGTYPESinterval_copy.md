@@ -1,7 +1,7 @@
 # PGTYPESinterval_copy
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 1082 - 1088
+[src/interfaces/ecpg/pgtypeslib/interval.c:1082-1088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L1082-L1088)
 
 ## Overview
 Copies the contents of one interval structure to another interval structure in the PostgreSQL ECPG pgtypes library.

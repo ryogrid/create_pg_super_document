@@ -1,7 +1,7 @@
 # relmap_identify
 
 ## Location
-src/backend/access/rmgrdesc/relmapdesc.c: 35 - 47
+[src/backend/access/rmgrdesc/relmapdesc.c:35-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/relmapdesc.c#L35-L47)
 
 ## Overview
 Returns a human-readable string identifier for relation mapping (relmap) WAL record types.

@@ -1,7 +1,7 @@
 # RangeIOData
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 50 - 55
+[src/backend/utils/adt/rangetypes.c:50-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L50-L55)
 
 ## Overview
 RangeIOData is a cache structure used by PostgreSQL's range type I/O functions to store frequently needed information during input/output operations for range data types.

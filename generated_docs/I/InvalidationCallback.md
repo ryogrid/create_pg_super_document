@@ -1,7 +1,7 @@
 # InvalidationCallback
 
 ## Location
-src/backend/catalog/namespace.c: 4796 - 4818
+[src/backend/catalog/namespace.c:4796-4818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4796-L4818)
 
 ## Overview
 A syscache invalidation callback function that invalidates the search path cache when relevant system catalog changes occur.

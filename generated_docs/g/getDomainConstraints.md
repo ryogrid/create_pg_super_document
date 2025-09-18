@@ -1,7 +1,7 @@
 # getDomainConstraints
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 8010 - 8123
+[src/bin/pg_dump/pg_dump.c:8010-8123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L8010-L8123)
 
 ## Overview
 Retrieves and processes constraint information for PostgreSQL domains, including CHECK and NOT NULL constraints, preparing them for dump operations.

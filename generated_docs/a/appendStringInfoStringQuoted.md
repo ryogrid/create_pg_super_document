@@ -1,7 +1,7 @@
 # appendStringInfoStringQuoted
 
 ## Location
-src/backend/utils/mb/stringinfo_mb.c: 34 - 86
+[src/backend/utils/mb/stringinfo_mb.c:34-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/stringinfo_mb.c#L34-L86)
 
 ## Overview
 Appends a string to a StringInfo buffer with single quotes around it, doubling any existing single quotes for proper SQL escaping, and optionally truncating to a maximum length with ellipsis.

@@ -1,7 +1,7 @@
 # pg_localtime
 
 ## Location
-src/timezone/localtime.c: 1344 - 1356
+[src/timezone/localtime.c:1344-1356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1344-L1356)
 
 ## Overview
 The `pg_localtime` function converts a timestamp to local time representation according to a specified timezone, returning broken-down time components in a `pg_tm` structure.

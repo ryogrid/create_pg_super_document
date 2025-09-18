@@ -1,7 +1,7 @@
 # exec_command_quit
 
 ## Location
-src/bin/psql/command.c: 2333 - 2346
+[src/bin/psql/command.c:2333-2346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2333-L2346)
 
 ## Overview
 Implements the PostgreSQL psql `\q` and `\quit` commands that terminate the psql session and exit the program.

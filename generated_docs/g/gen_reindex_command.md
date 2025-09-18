@@ -1,7 +1,7 @@
 # gen_reindex_command
 
 ## Location
-src/bin/scripts/reindexdb.c: 506 - 588
+[src/bin/scripts/reindexdb.c:506-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/reindexdb.c#L506-L588)
 
 ## Overview
 Generates and appends a SQL REINDEX command to a buffer based on specified reindex type and options.

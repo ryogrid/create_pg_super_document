@@ -1,7 +1,7 @@
 # contain_windowfuncs
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 216 - 228
+[src/backend/rewrite/rewriteManip.c:216-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L216-L228)
 
 ## Overview
 Checks if an expression contains a window function call at the current query level, providing a simple boolean test for window function presence.

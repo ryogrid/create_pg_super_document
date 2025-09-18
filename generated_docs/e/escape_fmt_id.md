@@ -1,7 +1,7 @@
 # escape_fmt_id
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 389 - 445
+[src/test/modules/test_escape/test_escape.c:389-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L389-L445)
 
 ## Overview
 A static helper function that formats an unescaped string as a properly quoted PostgreSQL identifier using PostgreSQL's identifier escaping rules.

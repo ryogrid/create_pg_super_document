@@ -1,7 +1,7 @@
 # SharedRecordTableKey
 
 ## Location
-src/backend/utils/cache/typcache.c: 182 - 190
+[src/backend/utils/cache/typcache.c:182-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L182-L190)
 
 ## Overview
 SharedRecordTableKey is a versatile structure that serves as a hash table key for both local and shared tuple descriptors in the shared record type registry.

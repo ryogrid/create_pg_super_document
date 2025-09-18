@@ -1,7 +1,7 @@
 # XLogRegisterBlock
 
 ## Location
-src/backend/access/transam/xloginsert.c: 309 - 363
+[src/backend/access/transam/xloginsert.c:309-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L309-L363)
 
 ## Overview
 XLogRegisterBlock registers a block reference with the WAL record for pages that are not in the shared buffer pool, providing direct block identification parameters instead of a Buffer reference.

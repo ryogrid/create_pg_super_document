@@ -1,7 +1,7 @@
 # add_to_tsvector
 
 ## Location
-src/backend/tsearch/to_tsany.c: 443 - 491
+[src/backend/tsearch/to_tsany.c:443-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L443-L491)
 
 ## Overview
 A static callback function that parses lexemes from a JSON element value and adds them to a TSVectorBuildState for building text search vectors.

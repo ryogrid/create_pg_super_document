@@ -1,7 +1,7 @@
 # AlterCollation
 
 ## Location
-src/backend/commands/collationcmds.c: 428 - 510
+[src/backend/commands/collationcmds.c:428-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L428-L510)
 
 ## Overview
 AlterCollation implements the ALTER COLLATION REFRESH VERSION command, updating a collation's version information to reflect changes in the underlying locale library.

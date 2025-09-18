@@ -1,7 +1,7 @@
 # PrepareToInvalidateCacheTuple
 
 ## Location
-src/backend/utils/cache/catcache.c: 2356 - 2416
+[src/backend/utils/cache/catcache.c:2356-2416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2356-L2416)
 
 ## Overview
 PrepareToInvalidateCacheTuple is a function that prepares catalog cache invalidation entries for a tuple that has been inserted, updated, or deleted, computing hash values and registering them for later invalidation.

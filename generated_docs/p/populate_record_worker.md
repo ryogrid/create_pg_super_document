@@ -1,7 +1,7 @@
 # populate_record_worker
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3697 - 3808
+[src/backend/utils/adt/jsonfuncs.c:3697-3808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3697-L3808)
 
 ## Overview
 A common worker function that implements the core logic for JSON/JSONB to record conversion functions, handling both populate and to_record variants with comprehensive type resolution and caching.

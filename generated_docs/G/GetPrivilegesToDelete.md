@@ -1,7 +1,7 @@
 # GetPrivilegesToDelete
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1896 - 1952
+[src/bin/pg_ctl/pg_ctl.c:1896-1952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1896-L1952)
 
 ## Overview
 Retrieves a list of Windows privileges to remove from an access token, preserving only essential privileges needed for PostgreSQL operation while enhancing security.

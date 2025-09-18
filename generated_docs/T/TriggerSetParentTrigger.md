@@ -1,7 +1,7 @@
 # TriggerSetParentTrigger
 
 ## Location
-src/backend/commands/trigger.c: 1216 - 1286
+[src/backend/commands/trigger.c:1216-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1216-L1286)
 
 ## Overview
 TriggerSetParentTrigger establishes or removes parent-child relationships between triggers in partitioned table hierarchies, managing the inheritance linkage and associated dependencies.

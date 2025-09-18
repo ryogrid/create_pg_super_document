@@ -1,7 +1,7 @@
 # unicode_utf8len
 
 ## Location
-src/include/mb/pg_wchar.h: 623 - 644
+[src/include/mb/pg_wchar.h:623-644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L623-L644)
 
 ## Overview
 A static inline utility function that calculates the number of bytes required to represent a given Unicode character when encoded in UTF-8 format.

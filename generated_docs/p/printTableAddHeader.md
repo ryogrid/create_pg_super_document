@@ -1,7 +1,7 @@
 # printTableAddHeader
 
 ## Location
-src/fe_utils/print.c: 3220 - 3259
+[src/fe_utils/print.c:3220-3259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3220-L3259)
 
 ## Overview
 Adds a column header to a previously initialized printTableContent structure with optional translation and alignment specification.

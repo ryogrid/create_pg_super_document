@@ -1,7 +1,7 @@
 # _outConst
 
 ## Location
-src/backend/nodes/outfuncs.c: 382 - 401
+[src/backend/nodes/outfuncs.c:382-401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L382-L401)
 
 ## Overview
 Serializes a Const node to its string representation, outputting all metadata fields and the actual constant value using outDatum for complete node information.

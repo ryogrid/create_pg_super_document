@@ -1,7 +1,7 @@
 # get_object_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1177 - 1194
+[src/backend/utils/adt/jsonfuncs.c:1177-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1177-L1194)
 
 ## Overview
 A JSON semantic action callback function that handles the end of JSON object parsing and extracts the complete object text when the entire root object is being matched.

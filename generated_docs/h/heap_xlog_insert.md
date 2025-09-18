@@ -1,7 +1,7 @@
 # heap_xlog_insert
 
 ## Location
-src/backend/access/heap/heapam.c: 9592 - 9710
+[src/backend/access/heap/heapam.c:9592-9710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9592-L9710)
 
 ## Overview
 Replays XLOG_HEAP_INSERT WAL records during PostgreSQL recovery to restore tuple insertion operations and maintain proper page and visibility map state.

@@ -1,7 +1,7 @@
 # queue_listen
 
 ## Location
-src/backend/commands/async.c: 690 - 737
+[src/backend/commands/async.c:690-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L690-L737)
 
 ## Overview
 Common internal function for LISTEN, UNLISTEN, and UNLISTEN ALL commands that adds listen action requests to the pending actions list for execution during transaction commit.

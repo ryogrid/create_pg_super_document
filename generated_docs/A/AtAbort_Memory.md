@@ -1,7 +1,7 @@
 # AtAbort_Memory
 
 ## Location
-src/backend/access/transam/xact.c: 1853 - 1872
+[src/backend/access/transam/xact.c:1853-1872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1853-L1872)
 
 ## Overview
 AtAbort_Memory switches the current memory context to TransactionAbortContext to ensure cleanup operations have access to free memory during transaction abort processing.

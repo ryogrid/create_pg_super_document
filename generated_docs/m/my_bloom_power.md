@@ -1,7 +1,7 @@
 # my_bloom_power
 
 ## Location
-src/backend/lib/bloomfilter.c: 210 - 228
+[src/backend/lib/bloomfilter.c:210-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L210-L228)
 
 ## Overview
 The `my_bloom_power` function determines the power of two that represents the optimal size for a bloom filter bitset, given a target number of bits.

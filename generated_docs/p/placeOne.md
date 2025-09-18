@@ -1,7 +1,7 @@
 # placeOne
 
 ## Location
-src/backend/access/gist/gistsplit.c: 200 - 236
+[src/backend/access/gist/gistsplit.c:200-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L200-L236)
 
 ## Overview
 Places a single don't-care tuple into either the left or right side of a GiST split based on which side has the least penalty.

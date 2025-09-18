@@ -1,7 +1,7 @@
 # tablesample_getnext
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 320 - 363
+[src/backend/executor/nodeSamplescan.c:320-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L320-L363)
 
 ## Overview
 Retrieves the next tuple from a TABLESAMPLE scan by coordinating block-level and tuple-level sampling operations.

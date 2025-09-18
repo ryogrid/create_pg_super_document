@@ -1,7 +1,7 @@
 # should_apply_changes_for_rel
 
 ## Location
-src/backend/replication/logical/worker.c: 470 - 509
+[src/backend/replication/logical/worker.c:470-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L470-L509)
 
 ## Overview
 Determines whether a logical replication worker should apply changes for a given relation based on worker type and relation synchronization state.

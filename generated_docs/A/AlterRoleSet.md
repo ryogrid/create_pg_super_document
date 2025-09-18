@@ -1,7 +1,7 @@
 # AlterRoleSet
 
 ## Location
-src/backend/commands/user.c: 1000 - 1089
+[src/backend/commands/user.c:1000-1089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1000-L1089)
 
 ## Overview
 Implements the ALTER ROLE ... SET and ALTER ROLE ... IN DATABASE ... SET SQL statements for managing role-specific and database-specific configuration parameter settings.

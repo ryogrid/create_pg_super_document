@@ -1,7 +1,7 @@
 # multirange_ne
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1923 - 1935
+[src/backend/utils/adt/multirangetypes.c:1923-1935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1923-L1935)
 
 ## Overview
 Implements the inequality operator (<> or !=) for multirange types, comparing two multirange values to determine if they contain different sets of ranges or different ordering.

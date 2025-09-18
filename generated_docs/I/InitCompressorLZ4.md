@@ -1,7 +1,7 @@
 # InitCompressorLZ4
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 797 - 803
+[src/bin/pg_dump/compress_lz4.c:797-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L797-L803)
 
 ## Overview
 Initializes the LZ4 compressor state for use with PostgreSQL's pg_dump utility, setting up the compression context and function pointers for LZ4-based archive compression operations.

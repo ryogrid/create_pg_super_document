@@ -1,7 +1,7 @@
 # PLy_cursor_init_type
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 51 - 57
+[src/pl/plpython/plpy_cursorobject.c:51-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L51-L57)
 
 ## Overview
 Initializes the PLy_CursorType Python type object for use in the PL/Python extension.

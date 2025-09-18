@@ -1,7 +1,7 @@
 # finalize_primnode_context
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 54 - 58
+[src/backend/optimizer/plan/subselect.c:54-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L54-L58)
 
 ## Overview
 A context structure used during plan finalization to track and accumulate PARAM_EXEC parameter IDs that are referenced throughout the plan tree.

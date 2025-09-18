@@ -1,7 +1,7 @@
 # truncate_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1144 - 1185
+[src/backend/replication/logical/logical.c:1144-1185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1144-L1185)
 
 ## Overview
 A wrapper function that provides error handling and context management when calling logical replication output plugin truncate callbacks during logical decoding.

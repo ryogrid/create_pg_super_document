@@ -1,7 +1,7 @@
 # printTextLineWrap
 
 ## Location
-src/include/fe_utils/print.h: 67 - 68
+[src/include/fe_utils/print.h:67-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L67-L68)
 
 ## Overview
 printTextLineWrap is an enumeration type that defines different line wrapping conditions used when formatting text output in PostgreSQL's frontend printing utilities.

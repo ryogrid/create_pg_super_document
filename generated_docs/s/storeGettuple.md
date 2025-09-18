@@ -1,7 +1,7 @@
 # storeGettuple
 
 ## Location
-src/backend/access/spgist/spgscan.c: 959 - 1025
+[src/backend/access/spgist/spgscan.c:959-1025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L959-L1025)
 
 ## Overview
 Helper function for SPGiST index scanning that stores a retrieved heap tuple pointer and associated metadata during gettuple operations.

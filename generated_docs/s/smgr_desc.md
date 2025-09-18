@@ -1,7 +1,7 @@
 # smgr_desc
 
 ## Location
-src/backend/access/rmgrdesc/smgrdesc.c: 21 - 45
+[src/backend/access/rmgrdesc/smgrdesc.c:21-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/smgrdesc.c#L21-L45)
 
 ## Overview
 Provides human-readable descriptions of storage manager (SMGR) WAL record operations for debugging and logging purposes.

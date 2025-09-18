@@ -1,7 +1,7 @@
 # okeys_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 822 - 843
+[src/backend/utils/adt/jsonfuncs.c:822-843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L822-L843)
 
 ## Overview
 A semantic action callback function that validates the top-level JSON structure is an object (not a scalar value) for the json_object_keys function.

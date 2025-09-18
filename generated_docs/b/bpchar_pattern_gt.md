@@ -1,7 +1,7 @@
 # bpchar_pattern_gt
 
 ## Location
-src/backend/utils/adt/varchar.c: 1189 - 1204
+[src/backend/utils/adt/varchar.c:1189-1204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L1189-L1204)
 
 ## Overview
 Implements the "greater than" operator for pattern-based comparison of BPCHAR (blank-padded character) values, supporting character-by-character comparison suitable for LIKE clause indexing.

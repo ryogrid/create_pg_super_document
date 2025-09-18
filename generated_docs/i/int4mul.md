@@ -1,7 +1,7 @@
 # int4mul
 
 ## Location
-src/backend/utils/adt/int.c: 819 - 832
+[src/backend/utils/adt/int.c:819-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L819-L832)
 
 ## Overview
 Performs multiplication of two 32-bit integers with overflow checking, implementing the PostgreSQL SQL function for integer multiplication.

@@ -1,7 +1,7 @@
 # bthandler
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 101 - 158
+[src/backend/access/nbtree/nbtree.c:101-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L101-L158)
 
 ## Overview
 The bthandler function is the main access method handler for PostgreSQL B-tree indexes, returning a complete IndexAmRoutine structure with all access method parameters and callback functions.

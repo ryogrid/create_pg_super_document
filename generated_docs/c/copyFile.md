@@ -1,7 +1,7 @@
 # copyFile
 
 ## Location
-src/bin/pg_upgrade/file.c: 82 - 99
+[src/bin/pg_upgrade/file.c:82-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/file.c#L82-L99)
 
 ## Overview
 Copies a PostgreSQL relation file from a source path to a destination path during database upgrade operations, with platform-specific optimizations for Unix-like systems and Windows.

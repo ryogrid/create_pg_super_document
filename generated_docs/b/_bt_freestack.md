@@ -1,7 +1,7 @@
 # _bt_freestack
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 221 - 268
+[src/backend/access/nbtree/nbtutils.c:221-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L221-L268)
 
 ## Overview
 Frees a retracement stack that was created by _bt_search by traversing the linked list of BTStack nodes and deallocating each one.

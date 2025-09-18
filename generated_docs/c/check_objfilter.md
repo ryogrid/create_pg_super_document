@@ -1,7 +1,7 @@
 # check_objfilter
 
 ## Location
-src/bin/scripts/vacuumdb.c: 428 - 451
+[src/bin/scripts/vacuumdb.c:428-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L428-L451)
 
 ## Overview
 Validates that the object filtering options specified on the vacuumdb command line are mutually compatible and prevents conflicting filter combinations.

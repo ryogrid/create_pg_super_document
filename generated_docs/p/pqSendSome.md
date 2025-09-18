@@ -1,7 +1,7 @@
 # pqSendSome
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 810 - 978
+[src/interfaces/libpq/fe-misc.c:810-978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L810-L978)
 
 ## Overview
 Sends data from the output buffer to the PostgreSQL server, implementing sophisticated flow control and deadlock prevention strategies for both blocking and non-blocking connections.

@@ -1,7 +1,7 @@
 # make_placeholder_expr
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 54 - 82
+[src/backend/optimizer/util/placeholder.c:54-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L54-L82)
 
 ## Overview
 Creates a PlaceHolderVar node for a given expression, which is used in PostgreSQL's query optimizer to represent expressions that need to be computed at specific query levels and locations within the join tree.

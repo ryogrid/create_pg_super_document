@@ -1,7 +1,7 @@
 # SnapBuildSerialize
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1669 - 1908
+[src/backend/replication/logical/snapbuild.c:1669-1908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1669-L1908)
 
 ## Overview
 SnapBuildSerialize writes a snapshot builder's current state to disk as a serialized file at a specific LSN location, enabling recovery and continuation of logical replication decoding processes.

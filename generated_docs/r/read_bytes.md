@@ -1,7 +1,7 @@
 # read_bytes
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 533 - 550
+[src/bin/pg_combinebackup/reconstruct.c:533-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L533-L550)
 
 ## Overview
 A static utility function that reads a specified number of bytes from a reconstructed file (rfile) into a buffer, with error handling for incomplete reads.

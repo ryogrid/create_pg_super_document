@@ -1,7 +1,7 @@
 # PgStat_SnapshotEntry
 
 ## Location
-src/backend/utils/activity/pgstat.c: 132 - 137
+[src/backend/utils/activity/pgstat.c:132-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L132-L137)
 
 ## Overview
 PgStat_SnapshotEntry is a hash table entry structure used for storing statistics snapshots in PostgreSQL's statistics subsystem.

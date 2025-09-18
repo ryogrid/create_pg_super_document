@@ -1,7 +1,7 @@
 # mytype
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 132 - 146
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:132-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L132-L146)
 
 ## Overview
 mytype is a struct definition used in ECPG (Embedded SQL in C) test programs that represents a composite data record containing various data types commonly used in database operations.

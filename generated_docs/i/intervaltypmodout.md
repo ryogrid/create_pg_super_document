@@ -1,7 +1,7 @@
 # intervaltypmodout
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1135 - 1220
+[src/backend/utils/adt/timestamp.c:1135-1220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1135-L1220)
 
 ## Overview
 Converts internal INTERVAL type modifier values back into human-readable string representations, decoding the compressed typmod format into field specifications and precision information.

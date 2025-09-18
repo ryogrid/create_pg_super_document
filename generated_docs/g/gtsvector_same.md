@@ -1,7 +1,7 @@
 # gtsvector_same
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 429 - 489
+[src/backend/utils/adt/tsgistidx.c:429-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L429-L489)
 
 ## Overview
 The gtsvector_same function implements the GiST same operation for TSVector data types, determining whether two signature keys are identical for index optimization purposes.

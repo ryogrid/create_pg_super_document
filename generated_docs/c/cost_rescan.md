@@ -1,7 +1,7 @@
 # cost_rescan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 4528 - 4642
+[src/backend/optimizer/path/costsize.c:4528-4642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L4528-L4642)
 
 ## Overview
 Estimates the costs of rescanning a path after the first scan, accounting for plan types that cache results or avoid redoing startup calculations.

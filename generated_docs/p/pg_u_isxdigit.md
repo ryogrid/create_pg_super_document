@@ -1,7 +1,7 @@
 # pg_u_isxdigit
 
 ## Location
-src/common/unicode_category.c: 317 - 331
+[src/common/unicode_category.c:317-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L317-L331)
 
 ## Overview
 Tests whether a Unicode code point represents a hexadecimal digit character, with support for both POSIX-compliant and Unicode-standard behavior.

@@ -1,7 +1,7 @@
 # doabbr
 
 ## Location
-src/timezone/zic.c: 2630 - 2672
+[src/timezone/zic.c:2630-2672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2630-L2672)
 
 ## Overview
 The doabbr function generates timezone abbreviations from zone format strings, handling various formatting patterns and special cases like offset-based abbreviations and quoted non-alphabetic abbreviations.

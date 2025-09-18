@@ -1,7 +1,7 @@
 # database_to_xmlschema_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 3411 - 3453
+[src/backend/utils/adt/xml.c:3411-3453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3411-L3453)
 
 ## Overview
 Generates an XML Schema definition for all visible tables and schemas in the current database, serving as the internal implementation for database XML schema generation functions.

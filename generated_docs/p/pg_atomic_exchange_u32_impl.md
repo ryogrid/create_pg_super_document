@@ -1,7 +1,7 @@
 # pg_atomic_exchange_u32_impl
 
 ## Location
-src/include/port/atomics/generic-gcc.h: 190 - 198
+[src/include/port/atomics/generic-gcc.h:190-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic-gcc.h#L190-L198)
 
 ## Overview
 Provides atomic exchange operation for 32-bit unsigned integers with multiple implementation strategies depending on available hardware features.

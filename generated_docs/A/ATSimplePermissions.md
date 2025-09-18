@@ -1,7 +1,7 @@
 # ATSimplePermissions
 
 ## Location
-src/backend/commands/tablecmds.c: 6543 - 6617
+[src/backend/commands/tablecmds.c:6543-6617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6543-L6617)
 
 ## Overview
 A core permission validation function that ensures the current user has the necessary rights to perform ALTER TABLE operations on a relation, including target type validation, ownership checks, and system catalog protection.

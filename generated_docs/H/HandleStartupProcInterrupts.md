@@ -1,7 +1,7 @@
 # HandleStartupProcInterrupts
 
 ## Location
-src/backend/postmaster/startup.c: 154 - 202
+[src/backend/postmaster/startup.c:154-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L154-L202)
 
 ## Overview
 A central interrupt handling function that processes various signals and requests sent to the startup process during PostgreSQL recovery operations.

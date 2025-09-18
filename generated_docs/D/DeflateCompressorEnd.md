@@ -1,7 +1,7 @@
 # DeflateCompressorEnd
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 80 - 101
+[src/bin/pg_dump/compress_gzip.c:80-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L80-L101)
 
 ## Overview
 Finalizes and cleans up the deflate compression state, flushing any remaining compressed data and freeing allocated resources.

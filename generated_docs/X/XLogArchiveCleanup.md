@@ -1,7 +1,7 @@
 # XLogArchiveCleanup
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 712 - 725
+[src/backend/access/transam/xlogarchive.c:712-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L712-L725)
 
 ## Overview
 Cleans up archive notification status files for a particular WAL (Write-Ahead Log) segment after archiving operations are complete.

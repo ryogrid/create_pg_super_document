@@ -1,7 +1,7 @@
 # catalan_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c: 1396 - 1442
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c:1396-1442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_catalan.c#L1396-L1442)
 
 ## Overview
 The `catalan_ISO_8859_1_stem` function is the main entry point for the Catalan language stemming algorithm, coordinating the complete stemming process through multiple processing stages for ISO-8859-1 encoded text.

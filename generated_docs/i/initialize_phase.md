@@ -1,7 +1,7 @@
 # initialize_phase
 
 ## Location
-src/backend/executor/nodeAgg.c: 477 - 546
+[src/backend/executor/nodeAgg.c:477-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L477-L546)
 
 ## Overview
 Switches the aggregate execution to a new phase, managing tuplesort states and preparing for the next phase of multi-phase aggregate processing.

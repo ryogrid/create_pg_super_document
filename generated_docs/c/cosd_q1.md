@@ -1,7 +1,7 @@
 # cosd_q1
 
 ## Location
-src/backend/utils/adt/float.c: 2292 - 2310
+[src/backend/utils/adt/float.c:2292-2310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2292-L2310)
 
 ## Overview
 The `cosd_q1` function computes the cosine of an angle in degrees for the first quadrant (0 to 90 degrees), providing a continuous monotonic function with exact results at key angles.

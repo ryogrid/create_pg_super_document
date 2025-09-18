@@ -1,7 +1,7 @@
 # enable_subscription
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1840 - 1874
+[src/bin/pg_basebackup/pg_createsubscriber.c:1840-1874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1840-L1874)
 
 ## Overview
 The enable_subscription function activates a previously created but disabled subscription in PostgreSQL logical replication.

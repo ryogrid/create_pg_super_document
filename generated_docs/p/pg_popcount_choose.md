@@ -1,7 +1,7 @@
 # pg_popcount_choose
 
 ## Location
-src/port/pg_bitutils.c: 197 - 203
+[src/port/pg_bitutils.c:197-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L197-L203)
 
 ## Overview
 Initial chooser function for bulk popcount operations on byte arrays that triggers runtime CPU feature detection and then delegates to the selected optimal implementation.

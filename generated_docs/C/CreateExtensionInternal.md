@@ -1,7 +1,7 @@
 # CreateExtensionInternal
 
 ## Location
-src/backend/commands/extension.c: 1458 - 1696
+[src/backend/commands/extension.c:1458-1696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1458-L1696)
 
 ## Overview
 CreateExtensionInternal is the core worker function for the CREATE EXTENSION command that handles the complete installation of a PostgreSQL extension, including dependency resolution, schema management, and script execution.

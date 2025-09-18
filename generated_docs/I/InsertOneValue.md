@@ -1,7 +1,7 @@
 # InsertOneValue
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 626 - 663
+[src/backend/bootstrap/bootstrap.c:626-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L626-L663)
 
 ## Overview
 InsertOneValue converts a string value to its internal PostgreSQL representation and stores it in the global values array for the specified column position during bootstrap.

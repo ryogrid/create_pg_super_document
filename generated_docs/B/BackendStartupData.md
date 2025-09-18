@@ -1,7 +1,7 @@
 # BackendStartupData
 
 ## Location
-src/include/tcop/backend_startup.h: 34 - 37
+[src/include/tcop/backend_startup.h:34-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tcop/backend_startup.h#L34-L37)
 
 ## Overview
 BackendStartupData is a structure that carries initialization information from the postmaster process to a newly spawned backend process, specifically containing the connection acceptance state.

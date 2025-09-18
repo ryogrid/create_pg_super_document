@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesMVCC
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 960 - 1161
+[src/backend/access/heap/heapam_visibility.c:960-1161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L960-L1161)
 
 ## Overview
 HeapTupleSatisfiesMVCC determines if a heap tuple is visible according to MVCC (Multi-Version Concurrency Control) semantics for a given snapshot, implementing PostgreSQL's standard transaction isolation by checking tuple visibility against snapshot transaction boundaries.

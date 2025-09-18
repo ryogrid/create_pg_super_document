@@ -1,7 +1,7 @@
 # u_strToTitle_default_BI
 
 ## Location
-src/backend/utils/adt/formatting.c: 1608 - 1635
+[src/backend/utils/adt/formatting.c:1608-1635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1608-L1635)
 
 ## Overview
 A thin wrapper function around ICU's u_strToTitle that provides title case conversion with default break iterator behavior for PostgreSQL's string formatting functions.

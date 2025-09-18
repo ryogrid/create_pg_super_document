@@ -1,7 +1,7 @@
 # brin_memtuple_initialize
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 511 - 552
+[src/backend/access/brin/brin_tuple.c:511-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L511-L552)
 
 ## Overview
 Resets a BrinMemTuple to its initial empty state, preparing it for reuse by reinitializing all column structures and clearing the associated memory context.

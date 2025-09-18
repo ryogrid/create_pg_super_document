@@ -1,7 +1,7 @@
 # silly_cmp_tsvector
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 86 - 144
+[src/backend/utils/adt/tsvector_op.c:86-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L86-L144)
 
 ## Overview
 Internal comparison function for TSVector values that implements a comprehensive ordering based on size, lexeme count, word entries, and positional information with weights.

@@ -1,7 +1,7 @@
 # r_KER
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 188 - 193
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:188-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L188-L193)
 
 ## Overview
 Tests whether the current position follows the pattern of a consonant followed by 'er', used as a validation condition in Indonesian prefix removal operations.

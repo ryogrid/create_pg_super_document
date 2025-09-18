@@ -1,7 +1,7 @@
 # hindi_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hindi.c: 321 - 322
+[src/backend/snowball/libstemmer/stem_UTF_8_hindi.c:321-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hindi.c#L321-L322)
 
 ## Overview
 Properly closes and deallocates a Snowball environment structure used for Hindi text stemming operations.

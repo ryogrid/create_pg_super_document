@@ -1,7 +1,7 @@
 # DirectFunctionCall1Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 792 - 811
+[src/backend/utils/fmgr/fmgr.c:792-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L792-L811)
 
 ## Overview
 Directly invokes a PostgreSQL function with one argument and a specified collation, bypassing the standard function manager lookup mechanisms.

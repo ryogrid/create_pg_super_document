@@ -1,7 +1,7 @@
 # allocarc
 
 ## Location
-src/backend/regex/regc_nfa.c: 368 - 417
+[src/backend/regex/regc_nfa.c:368-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L368-L417)
 
 ## Overview
 Allocates memory for a new arc within an NFA using a memory management strategy that includes recycling freed arcs and batch allocation for efficiency.

@@ -1,7 +1,7 @@
 # CheckTableNotInUse
 
 ## Location
-src/backend/commands/tablecmds.c: 4281 - 4313
+[src/backend/commands/tablecmds.c:4281-4313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4281-L4313)
 
 ## Overview
 Verifies that a relation is not actively being used by the current backend session before allowing potentially destructive operations like ALTER TABLE, preventing concurrent access conflicts and data corruption.

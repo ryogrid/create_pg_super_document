@@ -1,7 +1,7 @@
 # exec_command_echo
 
 ## Location
-src/bin/psql/command.c: 1293 - 1337
+[src/bin/psql/command.c:1293-1337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1293-L1337)
 
 ## Overview
 Implements the \echo, \qecho, and \warn commands in psql, which output text to different streams (stdout, query output file, or stderr respectively).

@@ -1,7 +1,7 @@
 # DatumGetExpandedRecord
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 927 - 951
+[src/backend/utils/adt/expandedrecord.c:927-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L927-L951)
 
 ## Overview
 Retrieves a writable expanded record from an input Datum, returning either the existing expanded record if it's already writable or creating a new expanded record if necessary.

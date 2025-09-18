@@ -1,7 +1,7 @@
 # uuid_gt
 
 ## Location
-src/backend/utils/adt/uuid.c: 210 - 218
+[src/backend/utils/adt/uuid.c:210-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L210-L218)
 
 ## Overview
 Implements the greater than comparison operator (>) for PostgreSQL UUID data type, returning true if the first UUID is lexicographically greater than the second UUID.

@@ -1,7 +1,7 @@
 # ExecAlterObjectSchemaStmt
 
 ## Location
-src/backend/commands/alter.c: 521 - 613
+[src/backend/commands/alter.c:521-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L521-L613)
 
 ## Overview
 Executes an ALTER OBJECT SET SCHEMA statement by dispatching to the appropriate type-specific function based on the object type being altered.

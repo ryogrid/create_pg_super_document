@@ -1,7 +1,7 @@
 # coerce_fn_result_column
 
 ## Location
-src/backend/executor/functions.c: 2003 - 2068
+[src/backend/executor/functions.c:2003-2068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L2003-L2068)
 
 ## Overview
 Handles type coercion for individual columns in SQL function result sets, ensuring compatibility between actual and expected return types.

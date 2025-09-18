@@ -1,7 +1,7 @@
 # ReplicationSlotOnDisk
 
 ## Location
-src/backend/replication/slot.c: 64 - 82
+[src/backend/replication/slot.c:64-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L64-L82)
 
 ## Overview
 ReplicationSlotOnDisk is a structure that defines the on-disk data format for replication slots in PostgreSQL, providing a versioned and checksummed layout for persistent storage.

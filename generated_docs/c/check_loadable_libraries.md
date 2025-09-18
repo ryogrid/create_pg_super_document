@@ -1,7 +1,7 @@
 # check_loadable_libraries
 
 ## Location
-src/bin/pg_upgrade/function.c: 146 - 219
+[src/bin/pg_upgrade/function.c:146-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/function.c#L146-L219)
 
 ## Overview
 Verifies that all required libraries from the old PostgreSQL cluster are present and compatible in the new cluster by attempting to LOAD each library.

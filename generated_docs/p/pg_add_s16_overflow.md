@@ -1,7 +1,7 @@
 # pg_add_s16_overflow
 
 ## Location
-src/include/common/int.h: 47 - 64
+[src/include/common/int.h:47-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L47-L64)
 
 ## Overview
 A safe integer addition function that performs overflow checking for 16-bit signed integers, returning true if overflow occurs and storing the result if no overflow is detected.

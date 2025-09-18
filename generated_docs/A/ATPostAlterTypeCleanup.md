@@ -1,7 +1,7 @@
 # ATPostAlterTypeCleanup
 
 ## Location
-src/backend/commands/tablecmds.c: 13840 - 14030
+[src/backend/commands/tablecmds.c:13840-14030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13840-L14030)
 
 ## Overview
 ATPostAlterTypeCleanup handles the cleanup phase after ALTER TYPE or SET EXPRESSION operations, dropping and scheduling recreation of all dependent indexes, constraints, and statistics objects.

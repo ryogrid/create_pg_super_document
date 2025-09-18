@@ -1,7 +1,7 @@
 # int8gcd_internal
 
 ## Location
-src/backend/utils/adt/int8.c: 606 - 666
+[src/backend/utils/adt/int8.c:606-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L606-L666)
 
 ## Overview
 Internal implementation of the Greatest Common Divisor (GCD) algorithm for 64-bit signed integers using the Euclidean algorithm with special handling for edge cases.

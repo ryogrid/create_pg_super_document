@@ -1,7 +1,7 @@
 # rbt_copy_data
 
 ## Location
-src/backend/lib/rbtree.c: 127 - 144
+[src/backend/lib/rbtree.c:127-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L127-L144)
 
 ## Overview
 Copies additional data fields from one Red-Black Tree node to another, excluding the base RBTNode structure fields.

@@ -1,7 +1,7 @@
 # prompt1_hook
 
 ## Location
-src/bin/psql/startup.c: 1098 - 1104
+[src/bin/psql/startup.c:1098-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1098-L1104)
 
 ## Overview
 A validation and assignment hook function for the PROMPT1 psql variable that updates the primary prompt string used by psql.

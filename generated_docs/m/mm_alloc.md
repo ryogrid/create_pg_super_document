@@ -1,7 +1,7 @@
 # mm_alloc
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 13 - 24
+[src/interfaces/ecpg/preproc/type.c:13-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L13-L24)
 
 ## Overview
 A memory allocation wrapper function that provides error-checked malloc functionality for the ECPG preprocessor, ensuring program termination on allocation failure.

@@ -1,7 +1,7 @@
 # assign_hypothetical_collations
 
 ## Location
-src/backend/parser/parse_collate.c: 955 - 1058
+[src/backend/parser/parse_collate.c:955-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_collate.c#L955-L1058)
 
 ## Overview
 Handles collation assignment for hypothetical-set aggregates by unifying collations between paired hypothetical and aggregated arguments according to SQL standard requirements.

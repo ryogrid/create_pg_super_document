@@ -1,7 +1,7 @@
 # icu_convert_case
 
 ## Location
-src/backend/utils/adt/formatting.c: 1581 - 1607
+[src/backend/utils/adt/formatting.c:1581-1607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1581-L1607)
 
 ## Overview
 A utility function that performs locale-aware case conversion using ICU (International Components for Unicode) library functions with proper buffer management and error handling.

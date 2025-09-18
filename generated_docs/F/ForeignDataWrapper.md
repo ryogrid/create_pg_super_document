@@ -1,7 +1,7 @@
 # ForeignDataWrapper
 
 ## Location
-src/include/foreign/foreign.h: 24 - 32
+[src/include/foreign/foreign.h:24-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/foreign/foreign.h#L24-L32)
 
 ## Overview
 ForeignDataWrapper is a structure that represents a foreign data wrapper in PostgreSQL, which defines the interface for accessing external data sources through the Foreign Data Wrapper (FDW) system.

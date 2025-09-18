@@ -1,7 +1,7 @@
 # duplicate_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 7779 - 7797
+[src/backend/utils/adt/numeric.c:7779-7797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7779-L7797)
 
 ## Overview
 Creates a complete copy of a packed-format Numeric value, handling all numeric types including NaN and Infinity cases.

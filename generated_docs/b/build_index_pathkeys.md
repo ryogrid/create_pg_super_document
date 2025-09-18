@@ -1,7 +1,7 @@
 # build_index_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 738 - 841
+[src/backend/optimizer/path/pathkeys.c:738-841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L738-L841)
 
 ## Overview
 Builds a pathkeys list that describes the ordering induced by an index scan using the given index, supporting both forward and backward scan directions.

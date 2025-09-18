@@ -1,7 +1,7 @@
 # text
 
 ## Location
-src/include/c.h: 700 - 700
+[src/include/c.h:700-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L700-L700)
 
 ## Overview
 The  type is PostgreSQL's primary variable-length character string type, implemented as a typedef of the  structure, designed to store UTF-8 encoded text data without null-termination.

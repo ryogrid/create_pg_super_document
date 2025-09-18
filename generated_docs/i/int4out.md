@@ -1,7 +1,7 @@
 # int4out
 
 ## Location
-src/backend/utils/adt/int.c: 298 - 310
+[src/backend/utils/adt/int.c:298-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L298-L310)
 
 ## Overview
 Converts a 32-bit integer (int4) to its string representation for output.

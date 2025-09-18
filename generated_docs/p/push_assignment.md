@@ -1,7 +1,7 @@
 # push_assignment
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 21 - 32
+[src/interfaces/ecpg/preproc/descriptor.c:21-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L21-L32)
 
 ## Overview
 Adds a new assignment entry to the global assignments linked list, storing a variable name and its corresponding descriptor type value.

@@ -1,7 +1,7 @@
 # decodePageSplitRecord
 
 ## Location
-src/backend/access/gist/gistxlog.c: 223 - 246
+[src/backend/access/gist/gistxlog.c:223-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L223-L246)
 
 ## Overview
 Decodes a page split WAL record to extract an array of IndexTuple pointers from the serialized data.

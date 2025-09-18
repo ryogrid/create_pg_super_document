@@ -1,7 +1,7 @@
 # cost_tidrangescan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1357 - 1450
+[src/backend/optimizer/path/costsize.c:1357-1450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1357-L1450)
 
 ## Overview
 Determines and sets the costs of scanning a relation using a range of TIDs, providing cost estimation for TID range scan operations that can access contiguous blocks of tuples.

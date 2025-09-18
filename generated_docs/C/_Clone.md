@@ -1,7 +1,7 @@
 # _Clone
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 881 - 904
+[src/bin/pg_dump/pg_backup_custom.c:881-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L881-L904)
 
 ## Overview
 A specialized function that creates thread-private working state during parallel restoration by cloning format-specific data structures for each worker thread.

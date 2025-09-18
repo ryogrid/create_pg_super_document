@@ -1,7 +1,7 @@
 # write_reconstructed_file
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 551 - 750
+[src/bin/pg_combinebackup/reconstruct.c:551-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L551-L750)
 
 ## Overview
 A core function in the pg_combinebackup utility that reconstructs and writes a complete file from multiple incremental backup sources, handling block-by-block reconstruction with optional dry-run and debugging capabilities.

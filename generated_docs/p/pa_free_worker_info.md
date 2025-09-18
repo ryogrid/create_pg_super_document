@@ -1,7 +1,7 @@
 # pa_free_worker_info
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 595 - 621
+[src/backend/replication/logical/applyparallelworker.c:595-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L595-L621)
 
 ## Overview
 Frees parallel apply worker information structure and cleans up associated resources including message queues, serialized files, and dynamic shared memory segments.

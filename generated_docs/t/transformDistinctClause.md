@@ -1,7 +1,7 @@
 # transformDistinctClause
 
 ## Location
-src/backend/parser/parse_clause.c: 2985 - 3068
+[src/backend/parser/parse_clause.c:2985-3068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2985-L3068)
 
 ## Overview
 Transforms a DISTINCT clause in SQL queries by creating a list of SortGroupClause nodes that define the columns and expressions used for determining distinct rows.

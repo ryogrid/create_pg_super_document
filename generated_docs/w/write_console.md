@@ -1,7 +1,7 @@
 # write_console
 
 ## Location
-src/backend/utils/error/elog.c: 2576 - 2653
+[src/backend/utils/error/elog.c:2576-2653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2576-L2653)
 
 ## Overview
 The write_console function writes PostgreSQL log messages directly to the console (stderr), with platform-specific handling for character encoding conversion on Windows.

@@ -1,7 +1,7 @@
 # _WriteBuf
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 704 - 717
+[src/bin/pg_dump/pg_backup_custom.c:704-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L704-L717)
 
 ## Overview
 Writes a buffer of data to the PostgreSQL custom format archive file with comprehensive error handling.

@@ -1,7 +1,7 @@
 # get_ordering_op_for_equality_op
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 305 - 365
+[src/backend/utils/cache/lsyscache.c:305-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L305-L365)
 
 ## Overview
 Retrieves the OID of a datatype-specific btree ordering operator associated with a given equality operator.

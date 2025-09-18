@@ -1,7 +1,7 @@
 # get_source_line
 
 ## Location
-src/pl/plpython/plpy_elog.c: 435 - 476
+[src/pl/plpython/plpy_elog.c:435-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L435-L476)
 
 ## Overview
 Extracts a specific line from source code text as a palloc'd string, used for error reporting and debugging in PL/Python.

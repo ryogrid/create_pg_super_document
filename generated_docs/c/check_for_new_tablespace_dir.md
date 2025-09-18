@@ -1,7 +1,7 @@
 # check_for_new_tablespace_dir
 
 ## Location
-src/bin/pg_upgrade/check.c: 885 - 913
+[src/bin/pg_upgrade/check.c:885-913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L885-L913)
 
 ## Overview
 This function verifies that new cluster tablespace directories do not already exist, preventing conflicts during PostgreSQL upgrade operations that could occur from previous failed upgrade attempts.

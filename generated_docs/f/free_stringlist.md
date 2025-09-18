@@ -1,7 +1,7 @@
 # free_stringlist
 
 ## Location
-src/test/regress/pg_regress.c: 219 - 233
+[src/test/regress/pg_regress.c:219-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L219-L233)
 
 ## Overview
 A recursive utility function that deallocates all memory used by a `_stringlist` linked list and resets the head pointer to NULL.

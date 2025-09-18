@@ -1,7 +1,7 @@
 # bbstreamer_plain_writer_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 78 - 103
+[src/bin/pg_basebackup/bbstreamer_file.c:78-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L78-L103)
 
 ## Overview
 Creates a new base backup streamer that writes data directly to a file without any processing or compression.

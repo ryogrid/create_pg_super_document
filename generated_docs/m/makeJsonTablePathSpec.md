@@ -1,7 +1,7 @@
 # makeJsonTablePathSpec
 
 ## Location
-src/backend/nodes/makefuncs.c: 977 - 997
+[src/backend/nodes/makefuncs.c:977-997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L977-L997)
 
 ## Overview
 Creates a JsonTablePathSpec node for specifying path expressions used in JSON_TABLE operations, which define how to navigate and extract data from JSON documents.

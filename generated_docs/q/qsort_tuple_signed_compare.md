@@ -1,7 +1,7 @@
 # qsort_tuple_signed_compare
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 521 - 544
+[src/backend/utils/sort/tuplesort.c:521-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L521-L544)
 
 ## Overview
 A specialized inline comparison function for sorting tuples when the first sort key uses signed integer comparison, optimized for performance by avoiding indirect function calls.

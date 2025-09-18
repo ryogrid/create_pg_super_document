@@ -1,7 +1,7 @@
 # hbaPort
 
 ## Location
-src/include/libpq/hba.h: 168 - 186
+[src/include/libpq/hba.h:168-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L168-L186)
 
 ## Overview
 hbaPort is a type alias for the Port structure, providing a clean interface for HBA (Host-Based Authentication) functions without requiring inclusion of the full libpq-be.h header file.

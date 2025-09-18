@@ -1,7 +1,7 @@
 # pg_tzset
 
 ## Location
-src/timezone/pgtz.c: 234 - 319
+[src/timezone/pgtz.c:234-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L234-L319)
 
 ## Overview
 Loads a timezone definition from file or cache, providing the main interface for obtaining timezone data structures in PostgreSQL.

@@ -1,7 +1,7 @@
 # TransactionTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1410 - 1417
+[src/backend/utils/init/postinit.c:1410-1417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1410-L1417)
 
 ## Overview
 TransactionTimeoutHandler is a signal handler function that responds to transaction timeout events by setting flags to indicate a pending timeout and waking up the process for graceful transaction termination.

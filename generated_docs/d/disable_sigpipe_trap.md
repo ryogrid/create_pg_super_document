@@ -1,7 +1,7 @@
 # disable_sigpipe_trap
 
 ## Location
-src/fe_utils/print.c: 3039 - 3061
+[src/fe_utils/print.c:3039-3061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3039-L3061)
 
 ## Overview
 A utility function that disables SIGPIPE signal handling to prevent process termination when writing to broken pipes, particularly useful before writing to temporary query output files or pipes.

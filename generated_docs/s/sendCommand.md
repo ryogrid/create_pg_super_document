@@ -1,7 +1,7 @@
 # sendCommand
 
 ## Location
-src/bin/pgbench/pgbench.c: 3155 - 3207
+[src/bin/pgbench/pgbench.c:3155-3207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3155-L3207)
 
 ## Overview
 The sendCommand function sends a SQL command to the PostgreSQL server using the configured query mode (simple, extended, or prepared statements).

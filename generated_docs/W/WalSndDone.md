@@ -1,7 +1,7 @@
 # WalSndDone
 
 ## Location
-src/backend/replication/walsender.c: 3503 - 3545
+[src/backend/replication/walsender.c:3503-3545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3503-L3545)
 
 ## Overview
 WalSndDone handles graceful shutdown of WAL sender processes by ensuring all WAL data has been successfully replicated before terminating the connection and exiting.

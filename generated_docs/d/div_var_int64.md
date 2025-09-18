@@ -1,7 +1,7 @@
 # div_var_int64
 
 ## Location
-src/backend/utils/adt/numeric.c: 9681 - 9792
+[src/backend/utils/adt/numeric.c:9681-9792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L9681-L9792)
 
 ## Overview
 Divides a PostgreSQL numeric variable by a 64-bit integer with a specified weight, implementing the quotient operation var / (ival * NBASE^ival_weight).

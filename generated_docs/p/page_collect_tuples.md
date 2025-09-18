@@ -1,7 +1,7 @@
 # page_collect_tuples
 
 ## Location
-src/backend/access/heap/heapam.c: 488 - 537
+[src/backend/access/heap/heapam.c:488-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L488-L537)
 
 ## Overview
 page_collect_tuples is an inline helper function that scans through all tuples on a heap page and collects visible tuple offsets, serving as the core tuple visibility filtering loop for heap page scanning operations.

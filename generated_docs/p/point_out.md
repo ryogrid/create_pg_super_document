@@ -1,7 +1,7 @@
 # point_out
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1842 - 1852
+[src/backend/utils/adt/geo_ops.c:1842-1852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1842-L1852)
 
 ## Overview
 Converts PostgreSQL's internal Point data structure into its string representation for output.

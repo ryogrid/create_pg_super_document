@@ -1,7 +1,7 @@
 # sqlnotice
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-init.c: 117 - 125
+[src/interfaces/ecpg/test/expected/preproc-init.c:117-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-init.c#L117-L125)
 
 ## Overview
 A static callback function used in ECPG test programs to handle SQL notice messages during database operations.

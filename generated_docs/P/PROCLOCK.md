@@ -1,7 +1,7 @@
 # PROCLOCK
 
 ## Location
-src/include/storage/lock.h: 369 - 380
+[src/include/storage/lock.h:369-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L369-L380)
 
 ## Overview
 PROCLOCK represents the association between a process (PGPROC) and a lock object, tracking which lock types a process holds or is waiting for on a specific resource.

@@ -1,7 +1,7 @@
 # dolink
 
 ## Location
-src/timezone/zic.c: 1004 - 1105
+[src/timezone/zic.c:1004-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1004-L1105)
 
 ## Overview
 Creates a link (hard link, symbolic link, or file copy) from a target file to a linkname, implementing a fallback strategy when preferred linking methods fail.

@@ -1,7 +1,7 @@
 # startScan
 
 ## Location
-src/backend/access/gin/ginget.c: 603 - 654
+[src/backend/access/gin/ginget.c:603-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L603-L654)
 
 ## Overview
 Initializes a GIN index scan by starting all scan entries and implementing fuzzy search optimizations to control result set size for performance.

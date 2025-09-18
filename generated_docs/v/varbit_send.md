@@ -1,7 +1,7 @@
 # varbit_send
 
 ## Location
-src/backend/utils/adt/varbit.c: 681 - 701
+[src/backend/utils/adt/varbit.c:681-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L681-L701)
 
 ## Overview
 Converts PostgreSQL's internal VarBit representation to external binary format for data transmission over the binary protocol.

@@ -1,7 +1,7 @@
 # pgwin32_is_admin
 
 ## Location
-src/port/win32security.c: 49 - 119
+[src/port/win32security.c:49-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32security.c#L49-L119)
 
 ## Overview
 A Windows-specific function that determines whether the current user has administrative privileges by checking membership in the Administrators and PowerUsers groups.

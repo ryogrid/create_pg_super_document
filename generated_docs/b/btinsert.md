@@ -1,7 +1,7 @@
 # btinsert
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 182 - 205
+[src/backend/access/nbtree/nbtree.c:182-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L182-L205)
 
 ## Overview
 The btinsert function inserts an index tuple into a B-tree index by forming the tuple from provided values and delegating the actual insertion to the core B-tree insertion logic.

@@ -1,7 +1,7 @@
 # pg_role_aclcheck
 
 ## Location
-src/backend/utils/adt/acl.c: 4877 - 4906
+[src/backend/utils/adt/acl.c:4877-4906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4877-L4906)
 
 ## Overview
 This function performs access control checks for role-based privileges by evaluating whether a given role has the requested permissions on a target role using different privilege levels.

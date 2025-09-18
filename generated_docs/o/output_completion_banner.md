@@ -1,7 +1,7 @@
 # output_completion_banner
 
 ## Location
-src/bin/pg_upgrade/check.c: 762 - 795
+[src/bin/pg_upgrade/check.c:762-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L762-L795)
 
 ## Overview
 Displays the final success message and post-upgrade instructions to the user upon completion of the pg_upgrade process.

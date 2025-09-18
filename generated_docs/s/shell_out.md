@@ -1,7 +1,7 @@
 # shell_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 313 - 337
+[src/backend/utils/adt/pseudotypes.c:313-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L313-L337)
 
 ## Overview
 The shell_out function is an output function for PostgreSQL shell types that serves as a placeholder and error handler for incomplete type definitions.

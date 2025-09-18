@@ -1,7 +1,7 @@
 # FPne
 
 ## Location
-src/include/utils/geo_decls.h: 53 - 58
+[src/include/utils/geo_decls.h:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L53-L58)
 
 ## Overview
 FPne is a static inline function that performs floating-point inequality comparison with epsilon tolerance, designed to determine when two floating-point values are significantly different in geometric calculations.

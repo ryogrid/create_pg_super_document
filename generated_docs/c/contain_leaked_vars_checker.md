@@ -1,7 +1,7 @@
 # contain_leaked_vars_checker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1269 - 1274
+[src/backend/optimizer/util/clauses.c:1269-1274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1269-L1274)
 
 ## Overview
 The `contain_leaked_vars_checker` function is a helper function that determines whether a given function is leakproof or not by checking its leakproof property.

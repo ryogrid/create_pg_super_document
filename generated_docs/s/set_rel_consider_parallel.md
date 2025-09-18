@@ -1,7 +1,7 @@
 # set_rel_consider_parallel
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 589 - 763
+[src/backend/optimizer/path/allpaths.c:589-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L589-L763)
 
 ## Overview
 Determines whether a relation can be safely scanned within a parallel worker by evaluating various parallel safety constraints and setting the consider_parallel flag accordingly.

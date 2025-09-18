@@ -1,7 +1,7 @@
 # reject_target_detail
 
 ## Location
-src/backend/backup/basebackup_target.c: 213 - 231
+[src/backend/backup/basebackup_target.c:213-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L213-L231)
 
 ## Overview
 Validates that a backup target does not accept target details and raises an error if any detail is provided.

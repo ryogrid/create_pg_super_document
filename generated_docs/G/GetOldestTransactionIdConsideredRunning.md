@@ -1,7 +1,7 @@
 # GetOldestTransactionIdConsideredRunning
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2034 - 2046
+[src/backend/storage/ipc/procarray.c:2034-2046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2034-L2046)
 
 ## Overview
 GetOldestTransactionIdConsideredRunning returns the oldest transaction ID that any currently running backend might still consider as running, used for determining safe truncation points for system structures like pg_subtrans.

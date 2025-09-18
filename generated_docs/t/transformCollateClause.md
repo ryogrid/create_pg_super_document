@@ -1,7 +1,7 @@
 # transformCollateClause
 
 ## Location
-src/backend/parser/parse_expr.c: 2776 - 2815
+[src/backend/parser/parse_expr.c:2776-2815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L2776-L2815)
 
 ## Overview
 Handles explicit COLLATE clauses in PostgreSQL by transforming the argument expression and looking up the specified collation name to create a CollateExpr node.

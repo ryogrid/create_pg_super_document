@@ -1,7 +1,7 @@
 # XLOGShmemSize
 
 ## Location
-src/backend/access/transam/xlog.c: 4823 - 4872
+[src/backend/access/transam/xlog.c:4823-4872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4823-L4872)
 
 ## Overview
 Calculates the amount of shared memory required for XLOG (Write-Ahead Logging) functionality, including buffer management and WAL insertion locks.

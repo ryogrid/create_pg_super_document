@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_float8
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1909 - 1934
+[src/backend/access/brin/brin_minmax_multi.c:1909-1934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1909-L1934)
 
 ## Overview
 Computes the distance between two float8 values used as range boundaries in BRIN minmax-multi indexes, handling NaN values appropriately.

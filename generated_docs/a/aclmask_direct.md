@@ -1,7 +1,7 @@
 # aclmask_direct
 
 ## Location
-src/backend/utils/adt/acl.c: 1477 - 1539
+[src/backend/utils/adt/acl.c:1477-1539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1477-L1539)
 
 ## Overview
 Computes the bitmask of privileges held directly by a role ID, excluding privileges inherited through role membership.

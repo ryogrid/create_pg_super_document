@@ -1,7 +1,7 @@
 # _hash_firstfreebit
 
 ## Location
-src/backend/access/hash/hashovfl.c: 448 - 489
+[src/backend/access/hash/hashovfl.c:448-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashovfl.c#L448-L489)
 
 ## Overview
 Finds and returns the bit position of the first unset (free) bit in a 32-bit bitmap word, used for locating available overflow pages within bitmap segments.

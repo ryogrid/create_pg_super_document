@@ -1,7 +1,7 @@
 # numericvar_serialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 7740 - 7755
+[src/backend/utils/adt/numeric.c:7740-7755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7740-L7755)
 
 ## Overview
 Serializes a NumericVar structure to binary format for storage or transmission, allowing intermediate values with higher precision than the standard numeric type.

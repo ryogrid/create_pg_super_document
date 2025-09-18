@@ -1,7 +1,7 @@
 # heap_lock_updated_tuple
 
 ## Location
-src/backend/access/heap/heapam.c: 5997 - 6041
+[src/backend/access/heap/heapam.c:5997-6041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L5997-L6041)
 
 ## Overview
 heap_lock_updated_tuple follows and locks all tuples in an update chain after the initial tuple, ensuring consistent locking across tuple versions without checking visibility.

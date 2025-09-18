@@ -1,7 +1,7 @@
 # ForceSyncCommit
 
 ## Location
-src/backend/access/transam/xact.c: 1149 - 1163
+[src/backend/access/transam/xact.c:1149-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1149-L1163)
 
 ## Overview
 ForceSyncCommit is an interface function that allows commands to force a synchronous commit of the current top-level transaction, ensuring durability by writing transaction data to disk before returning.

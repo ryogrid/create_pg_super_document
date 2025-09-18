@@ -1,7 +1,7 @@
 # jsonPathToCstring
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 213 - 238
+[src/backend/utils/adt/jsonpath.c:213-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L213-L238)
 
 ## Overview
 Converts a JsonPath value to a C-string representation, optionally storing the result in a provided StringBuffer.

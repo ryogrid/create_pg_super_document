@@ -1,7 +1,7 @@
 # prepare_vacuum_command
 
 ## Location
-src/bin/scripts/vacuumdb.c: 976 - 1145
+[src/bin/scripts/vacuumdb.c:976-1145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L976-L1145)
 
 ## Overview
 This function constructs a SQL VACUUM or ANALYZE command string based on provided options and server version compatibility. It builds version-aware commands that utilize appropriate syntax for different PostgreSQL server versions.

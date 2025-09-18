@@ -1,7 +1,7 @@
 # TidStoreMemoryUsage
 
 ## Location
-src/backend/access/common/tidstore.c: 551 - 562
+[src/backend/access/common/tidstore.c:551-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L551-L562)
 
 ## Overview
 Returns the total memory usage of a TidStore, delegating to the appropriate implementation based on whether the store is shared or local.

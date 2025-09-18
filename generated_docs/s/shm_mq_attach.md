@@ -1,7 +1,7 @@
 # shm_mq_attach
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 290 - 318
+[src/backend/storage/ipc/shm_mq.c:290-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L290-L318)
 
 ## Overview
 Attaches to a shared memory message queue to enable sending or receiving messages between processes.

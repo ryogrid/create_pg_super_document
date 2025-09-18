@@ -1,7 +1,7 @@
 # getNSItemForSpecialRelationTypes
 
 ## Location
-src/backend/parser/parse_clause.c: 1013 - 1055
+[src/backend/parser/parse_clause.c:1013-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1013-L1055)
 
 ## Overview
 Checks if a RangeVar refers to a CTE (Common Table Expression) or EphemeralNamedRelation and creates an appropriate ParseNamespaceItem for it.

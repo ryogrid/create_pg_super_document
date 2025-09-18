@@ -1,7 +1,7 @@
 # bittypmodin
 
 ## Location
-src/backend/utils/adt/varbit.c: 429 - 436
+[src/backend/utils/adt/varbit.c:429-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L429-L436)
 
 ## Overview
 Processes type modifier input for the bit data type, validating and converting the length specification from SQL syntax into PostgreSQL's internal typmod representation.

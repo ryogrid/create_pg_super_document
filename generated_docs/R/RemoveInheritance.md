@@ -1,7 +1,7 @@
 # RemoveInheritance
 
 ## Location
-src/backend/commands/tablecmds.c: 16266 - 16433
+[src/backend/commands/tablecmds.c:16266-16433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16266-L16433)
 
 ## Overview
 Removes inheritance relationship between a child and parent table by adjusting column and constraint inheritance counters and removing catalog entries.

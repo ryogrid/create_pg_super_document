@@ -1,7 +1,7 @@
 # get_opfamily_proc
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 796 - 826
+[src/backend/utils/cache/lsyscache.c:796-826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L796-L826)
 
 ## Overview
 Retrieves the OID of a specific support function for a given operator family and datatypes from the pg_amproc system catalog.

@@ -1,7 +1,7 @@
 # SQLFunctionCache
 
 ## Location
-src/backend/executor/functions.c: 128 - 129
+[src/backend/executor/functions.c:128-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L128-L129)
 
 ## Overview
 SQLFunctionCache is a structure that caches parsed and planned SQL function data to avoid redundant parsing and planning operations during SQL function execution in PostgreSQL.

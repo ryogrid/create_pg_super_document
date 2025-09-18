@@ -1,7 +1,7 @@
 # create_upper_unique_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3103 - 3154
+[src/backend/optimizer/util/pathnode.c:3103-3154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3103-L3154)
 
 ## Overview
 Creates a pathnode that represents performing an explicit Unique step on presorted input to eliminate duplicate rows.

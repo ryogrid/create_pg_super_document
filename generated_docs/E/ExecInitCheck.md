@@ -1,7 +1,7 @@
 # ExecInitCheck
 
 ## Location
-src/backend/executor/execExpr.c: 307 - 326
+[src/backend/executor/execExpr.c:307-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L307-L326)
 
 ## Overview
 ExecInitCheck prepares a check constraint for execution by ExecCheck, treating NULL results as TRUE in accordance with SQL's CHECK constraint semantics.

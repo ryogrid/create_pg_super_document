@@ -1,7 +1,7 @@
 # btree_xlog_updates
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 557 - 597
+[src/backend/access/nbtree/nbtxlog.c:557-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L557-L597)
 
 ## Overview
 Processes WAL record data to update posting list tuples on a B-tree page by removing specified heap TIDs during recovery.

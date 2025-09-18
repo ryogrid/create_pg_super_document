@@ -1,7 +1,7 @@
 # _hash_init_metabuffer
 
 ## Location
-src/backend/access/hash/hashpage.c: 498 - 595
+[src/backend/access/hash/hashpage.c:498-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L498-L595)
 
 ## Overview
 Initializes the metadata page of a hash index with appropriate configuration based on estimated tuple count and fill factor.

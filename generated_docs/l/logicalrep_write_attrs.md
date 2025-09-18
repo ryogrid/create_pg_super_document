@@ -1,7 +1,7 @@
 # logicalrep_write_attrs
 
 ## Location
-src/backend/replication/logical/proto.c: 926 - 992
+[src/backend/replication/logical/proto.c:926-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L926-L992)
 
 ## Overview
 Serializes PostgreSQL relation attribute metadata to the logical replication output stream, including column information and replica identity markers for selected columns.

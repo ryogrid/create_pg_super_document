@@ -1,7 +1,7 @@
 # findBuiltin
 
 ## Location
-src/bin/pgbench/pgbench.c: 6156 - 6191
+[src/bin/pgbench/pgbench.c:6156-6191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L6156-L6191)
 
 ## Overview
 Searches for a built-in benchmark script by name, supporting partial name matching, and returns the script if unambiguous.

@@ -1,7 +1,7 @@
 # minmax_multi_get_strategy_procinfo
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2899 - 2953
+[src/backend/access/brin/brin_minmax_multi.c:2899-2953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2899-L2953)
 
 ## Overview
 Cache and return comparison operators for specific data types and strategy numbers in the minmax-multi operator class.

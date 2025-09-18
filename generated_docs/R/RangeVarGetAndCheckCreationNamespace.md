@@ -1,7 +1,7 @@
 # RangeVarGetAndCheckCreationNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 739 - 845
+[src/backend/catalog/namespace.c:739-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L739-L845)
 
 ## Overview
 A comprehensive function that determines the target namespace for creating a new relation, performs permission checks, handles existing relation conflicts, and manages concurrent DDL safety through invalidation message processing.

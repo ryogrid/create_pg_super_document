@@ -1,7 +1,7 @@
 # show_scan_qual
 
 ## Location
-src/backend/commands/explain.c: 2531 - 2544
+[src/backend/commands/explain.c:2531-2544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2531-L2544)
 
 ## Overview
 A specialized wrapper function for displaying qualifier expressions in scan plan nodes, automatically determining whether to use table prefixes based on the scan type and verbosity settings.

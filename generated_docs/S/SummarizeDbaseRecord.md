@@ -1,7 +1,7 @@
 # SummarizeDbaseRecord
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1246 - 1314
+[src/backend/postmaster/walsummarizer.c:1246-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1246-L1314)
 
 ## Overview
 Handles special processing of database-related WAL records (RM_DBASE_ID) during WAL summarization to ensure proper tracking of database creation and deletion operations.

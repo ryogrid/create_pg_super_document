@@ -1,7 +1,7 @@
 # XLogReaderSetDecodeBuffer
 
 ## Location
-src/backend/access/transam/xlogreader.c: 90 - 105
+[src/backend/access/transam/xlogreader.c:90-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L90-L105)
 
 ## Overview
 This function sets the size and location of the decoding buffer for an XLogReaderState, allowing caller-supplied memory to be used for WAL record decoding.

@@ -1,7 +1,7 @@
 # ExecEvalArrayExpr
 
 ## Location
-src/backend/executor/execExprInterp.c: 2845 - 3058
+[src/backend/executor/execExprInterp.c:2845-3058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2845-L3058)
 
 ## Overview
 ExecEvalArrayExpr evaluates ARRAY[] expressions by constructing array values from pre-computed element values, handling both simple scalar arrays and complex multidimensional nested arrays.

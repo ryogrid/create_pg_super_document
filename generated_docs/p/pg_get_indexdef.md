@@ -1,7 +1,7 @@
 # pg_get_indexdef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1158 - 1177
+[src/backend/utils/adt/ruleutils.c:1158-1177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1158-L1177)
 
 ## Overview
 A SQL-callable function that returns the complete CREATE INDEX statement for a given index OID using default formatting.

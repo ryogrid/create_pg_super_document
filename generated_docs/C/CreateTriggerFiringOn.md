@@ -1,7 +1,7 @@
 # CreateTriggerFiringOn
 
 ## Location
-src/backend/commands/trigger.c: 176 - 1215
+[src/backend/commands/trigger.c:176-1215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L176-L1215)
 
 ## Overview
 CreateTriggerFiringOn is the core PostgreSQL function that implements trigger creation with support for custom firing conditions, handling all the complex validation, catalog operations, and partition recursion.

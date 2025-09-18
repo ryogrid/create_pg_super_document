@@ -1,7 +1,7 @@
 # fmtQualifiedId
 
 ## Location
-src/fe_utils/string_utils.c: 296 - 312
+[src/fe_utils/string_utils.c:296-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L296-L312)
 
 ## Overview
 A convenience wrapper function that constructs a schema-qualified identifier name using the currently configured global encoding setting.

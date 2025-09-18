@@ -1,7 +1,7 @@
 # listDbRoleSettings
 
 ## Location
-src/bin/psql/describe.c: 3761 - 3829
+[src/bin/psql/describe.c:3761-3829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L3761-L3829)
 
 ## Overview
 A psql command function that implements the \\drds (describe role database settings) metacommand to display role-specific database configuration settings.

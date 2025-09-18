@@ -1,7 +1,7 @@
 # op_in_opfamily
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 66 - 82
+[src/backend/utils/cache/lsyscache.c:66-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L66-L82)
 
 ## Overview
 Checks whether a given operator is a member of a specified operator family, considering only search operators (not ordering operators).

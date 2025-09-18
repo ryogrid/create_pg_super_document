@@ -1,7 +1,7 @@
 # finite_interval_pl
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3447 - 3461
+[src/backend/utils/adt/timestamp.c:3447-3461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3447-L3461)
 
 ## Overview
 The `finite_interval_pl` function performs addition of two finite interval values with overflow protection, used internally by other interval arithmetic operations.

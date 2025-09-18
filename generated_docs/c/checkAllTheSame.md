@@ -1,7 +1,7 @@
 # checkAllTheSame
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 599 - 676
+[src/backend/access/spgist/spgdoinsert.c:599-676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L599-L676)
 
 ## Overview
 This function detects when a user-defined picksplit function fails to properly distribute leaf tuples across multiple nodes and randomly redistributes them to enable "allTheSame" mode in SPGiST.

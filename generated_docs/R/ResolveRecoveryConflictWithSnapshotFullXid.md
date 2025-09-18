@@ -1,7 +1,7 @@
 # ResolveRecoveryConflictWithSnapshotFullXid
 
 ## Location
-src/backend/storage/ipc/standby.c: 511 - 537
+[src/backend/storage/ipc/standby.c:511-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L511-L537)
 
 ## Overview
 This function is a variant of ResolveRecoveryConflictWithSnapshot that operates with 64-bit FullTransactionId values, providing extended transaction ID range support for recovery conflict resolution.

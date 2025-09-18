@@ -1,7 +1,7 @@
 # TuplesortIndexHashArg
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 138 - 149
+[src/backend/utils/sort/tuplesortvariants.c:138-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L138-L149)
 
 ## Overview
 A data structure that extends TuplesortIndexArg with hash-specific fields for sorting hash index tuples, providing masks and bucket information needed for hash index construction.

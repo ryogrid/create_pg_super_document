@@ -1,7 +1,7 @@
 # anybit_typmodout
 
 ## Location
-src/backend/utils/adt/varbit.c: 127 - 146
+[src/backend/utils/adt/varbit.c:127-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L127-L146)
 
 ## Overview
 A common utility function that converts internal type modifier values back to their string representation for PostgreSQL's bit and varbit data types.

@@ -1,7 +1,7 @@
 # be_lo_put
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 850 - 868
+[src/backend/libpq/be-fsstubs.c:850-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L850-L868)
 
 ## Overview
 A PostgreSQL backend function that updates a specific range within an existing large object by writing bytea data at a specified offset position.

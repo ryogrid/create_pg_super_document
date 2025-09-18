@@ -1,7 +1,7 @@
 # fix_infomask_from_infobits
 
 ## Location
-src/backend/access/heap/heapam.c: 9498 - 9518
+[src/backend/access/heap/heapam.c:9498-9518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9498-L9518)
 
 ## Overview
 Converts compressed infobits from WAL records back into the appropriate HEAP_* flags in tuple headers during PostgreSQL recovery operations.

@@ -1,7 +1,7 @@
 # DropDatabase
 
 ## Location
-src/backend/commands/dbcommands.c: 2303 - 2327
+[src/backend/commands/dbcommands.c:2303-2327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2303-L2327)
 
 ## Overview
 DropDatabase is a wrapper function that processes DROP DATABASE statement options and delegates the actual database deletion to the dropdb function.

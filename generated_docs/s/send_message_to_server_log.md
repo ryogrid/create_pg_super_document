@@ -1,7 +1,7 @@
 # send_message_to_server_log
 
 ## Location
-src/backend/utils/error/elog.c: 3186 - 3425
+[src/backend/utils/error/elog.c:3186-3425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L3186-L3425)
 
 ## Overview
 Central function responsible for formatting and routing error/log messages to various server-side logging destinations based on configuration.

@@ -1,7 +1,7 @@
 # inet_opr_codenum
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 836 - 878
+[src/backend/utils/adt/network_selfuncs.c:836-878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L836-L878)
 
 ## Overview
 Assigns useful code numbers for the subnet inclusion/overlap operators, providing a standardized numerical representation for inet network operators used in selectivity estimation.

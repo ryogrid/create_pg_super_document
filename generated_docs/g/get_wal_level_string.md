@@ -1,7 +1,7 @@
 # get_wal_level_string
 
 ## Location
-src/backend/access/rmgrdesc/xlogdesc.c: 40 - 57
+[src/backend/access/rmgrdesc/xlogdesc.c:40-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xlogdesc.c#L40-L57)
 
 ## Overview
 Converts a WAL level integer value to its corresponding string representation by looking up the value in the wal_level_options configuration table.

@@ -1,7 +1,7 @@
 # _getFilePos
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 936 - 955
+[src/bin/pg_dump/pg_backup_custom.c:936-955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L936-L955)
 
 ## Overview
 This function retrieves the current file position within a custom-format archive file, handling both seekable and non-seekable archives gracefully.

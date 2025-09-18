@@ -1,7 +1,7 @@
 # ExecForceStoreHeapTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1556 - 1598
+[src/backend/executor/execTuples.c:1556-1598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1556-L1598)
 
 ## Overview
 Stores a HeapTuple into any kind of TupleTableSlot, performing automatic type conversion and memory management as necessary to accommodate different slot types.

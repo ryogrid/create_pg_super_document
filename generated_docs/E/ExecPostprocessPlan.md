@@ -1,7 +1,7 @@
 # ExecPostprocessPlan
 
 ## Location
-src/backend/executor/execMain.c: 1431 - 1476
+[src/backend/executor/execMain.c:1431-1476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1431-L1476)
 
 ## Overview
 Provides plan nodes a final execution opportunity before shutdown, ensuring auxiliary ModifyTable nodes run to completion for predictable results regardless of main query fetch behavior.

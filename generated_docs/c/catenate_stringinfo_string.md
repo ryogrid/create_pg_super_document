@@ -1,7 +1,7 @@
 # catenate_stringinfo_string
 
 ## Location
-src/backend/utils/adt/json.c: 1200 - 1214
+[src/backend/utils/adt/json.c:1200-1214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1200-L1214)
 
 ## Overview
 A static helper function that combines a StringInfo buffer with an additional string and returns the result as a PostgreSQL text datum.

@@ -1,7 +1,7 @@
 # inter_sl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3238 - 3262
+[src/backend/utils/adt/geo_ops.c:3238-3262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3238-L3262)
 
 ## Overview
 Tests whether a line segment intersects with an infinite line.

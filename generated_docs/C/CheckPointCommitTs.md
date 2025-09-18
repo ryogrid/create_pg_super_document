@@ -1,7 +1,7 @@
 # CheckPointCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 827 - 848
+[src/backend/access/transam/commit_ts.c:827-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L827-L848)
 
 ## Overview
 Performs a checkpoint operation for the commit timestamp SLRU by writing all dirty pages to disk during either shutdown or on-the-fly checkpoints.

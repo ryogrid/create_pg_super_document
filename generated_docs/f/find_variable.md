@@ -1,7 +1,7 @@
 # find_variable
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 193 - 259
+[src/interfaces/ecpg/preproc/variable.c:193-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L193-L259)
 
 ## Overview
 Locates and returns a variable structure from the global variable list, handling complex variable references including arrays and struct members with proper error reporting for undeclared variables.

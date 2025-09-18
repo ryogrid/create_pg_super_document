@@ -1,7 +1,7 @@
 # SetRelationNumChecks
 
 ## Location
-src/backend/catalog/heap.c: 2712 - 2745
+[src/backend/catalog/heap.c:2712-2745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2712-L2745)
 
 ## Overview
 SetRelationNumChecks updates the count of check constraints in a relation's pg_class tuple and ensures relcache invalidation across all backends.

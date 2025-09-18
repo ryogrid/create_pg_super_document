@@ -1,7 +1,7 @@
 # array_cardinality
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1790 - 1819
+[src/backend/utils/adt/arrayfuncs.c:1790-1819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1790-L1819)
 
 ## Overview
 Returns the total number of elements in an array, providing the cardinality (total count) of all elements across all dimensions.

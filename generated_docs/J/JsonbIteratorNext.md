@@ -1,7 +1,7 @@
 # JsonbIteratorNext
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 852 - 1004
+[src/backend/utils/adt/jsonb_util.c:852-1004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L852-L1004)
 
 ## Overview
 Advances a JsonbIterator to the next token in a JSONB structure, handling complex nested containers with automatic memory management and state tracking.

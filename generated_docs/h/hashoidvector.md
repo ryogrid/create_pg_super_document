@@ -1,7 +1,7 @@
 # hashoidvector
 
 ## Location
-src/backend/access/hash/hashfunc.c: 232 - 239
+[src/backend/access/hash/hashfunc.c:232-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L232-L239)
 
 ## Overview
 Computes a hash value for an oidvector data structure containing an array of PostgreSQL object identifiers (OIDs).

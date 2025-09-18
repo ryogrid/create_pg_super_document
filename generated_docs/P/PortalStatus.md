@@ -1,7 +1,7 @@
 # PortalStatus
 
 ## Location
-src/include/utils/portal.h: 111 - 112
+[src/include/utils/portal.h:111-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/portal.h#L111-L112)
 
 ## Overview
 PortalStatus is an enumeration that defines the possible execution states of a portal throughout its lifecycle, enabling proper state management and transitions during query execution.

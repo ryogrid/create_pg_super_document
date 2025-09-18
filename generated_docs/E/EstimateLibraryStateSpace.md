@@ -1,7 +1,7 @@
 # EstimateLibraryStateSpace
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 637 - 653
+[src/backend/utils/fmgr/dfmgr.c:637-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L637-L653)
 
 ## Overview
 Calculates the amount of memory space needed to serialize the list of dynamically loaded libraries for parallel worker processes.

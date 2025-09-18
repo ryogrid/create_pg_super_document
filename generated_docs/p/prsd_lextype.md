@@ -1,7 +1,7 @@
 # prsd_lextype
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1878 - 1895
+[src/backend/tsearch/wparser_def.c:1878-1895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1878-L1895)
 
 ## Overview
 A PostgreSQL function that returns metadata about all lexical token types supported by the default text search parser, providing both numeric IDs and human-readable descriptions for each token type.

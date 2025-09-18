@@ -1,7 +1,7 @@
 # perform_pruning_base_step
 
 ## Location
-src/backend/partitioning/partprune.c: 3416 - 3563
+[src/backend/partitioning/partprune.c:3416-3563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3416-L3563)
 
 ## Overview
 Determines the indexes of datums that satisfy conditions specified in a partition pruning step, including whether special null-accepting and/or default partitions need to be scanned.

@@ -1,7 +1,7 @@
 # make_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 646 - 672
+[src/backend/utils/adt/multirangetypes.c:646-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L646-L672)
 
 ## Overview
 Creates a new multirange from an array of ranges by canonicalizing (sorting and merging) the input ranges and serializing them into an optimized binary representation.

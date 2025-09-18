@@ -1,7 +1,7 @@
 # printQueryOpt
 
 ## Location
-src/include/fe_utils/print.h: 183 - 193
+[src/include/fe_utils/print.h:183-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L183-L193)
 
 ## Overview
 The printQueryOpt struct extends printTableOpt with additional options specifically for printing query results, including null value handling, custom titles, footers, and internationalization support.

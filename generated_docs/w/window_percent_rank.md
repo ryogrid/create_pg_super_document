@@ -1,7 +1,7 @@
 # window_percent_rank
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 261 - 287
+[src/backend/utils/adt/windowfuncs.c:261-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L261-L287)
 
 ## Overview
 Implements the SQL PERCENT_RANK() window function, which returns the relative rank of each row as a fraction between 0 and 1, calculated as (rank - 1) / (total_rows - 1).

@@ -1,7 +1,7 @@
 # dropTablespaces
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1300 - 1334
+[src/bin/pg_dump/pg_dumpall.c:1300-1334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1300-L1334)
 
 ## Overview
 Generates DROP TABLESPACE statements for all user-defined tablespaces in the PostgreSQL cluster, excluding built-in system tablespaces.

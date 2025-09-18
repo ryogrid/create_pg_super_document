@@ -1,7 +1,7 @@
 # CacheInvalidateRelcacheByRelid
 
 ## Location
-src/backend/utils/cache/inval.c: 1422 - 1461
+[src/backend/utils/cache/inval.c:1422-1461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1422-L1461)
 
 ## Overview
 Registers invalidation of a relation's relcache entry by identifying the relation through its OID, providing the least efficient but most convenient interface when only the relation OID is available.

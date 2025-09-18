@@ -1,7 +1,7 @@
 # pg_do_encoding_conversion
 
 ## Location
-src/backend/utils/mb/mbutils.c: 356 - 468
+[src/backend/utils/mb/mbutils.c:356-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L356-L468)
 
 ## Overview
 Converts a string from one encoding to another using PostgreSQL's encoding conversion system, handling memory allocation and validation for the conversion process.

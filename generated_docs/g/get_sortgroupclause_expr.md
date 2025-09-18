@@ -1,7 +1,7 @@
 # get_sortgroupclause_expr
 
 ## Location
-src/backend/optimizer/util/tlist.c: 379 - 391
+[src/backend/optimizer/util/tlist.c:379-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L379-L391)
 
 ## Overview
 Finds the targetlist entry matching the given SortGroupClause by ressortgroupref and returns its expression.

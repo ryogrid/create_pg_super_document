@@ -1,7 +1,7 @@
 # tstoreStartupReceiver
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 56 - 121
+[src/backend/executor/tstoreReceiver.c:56-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L56-L121)
 
 ## Overview
 Initializes and prepares a tuplestore destination receiver to receive tuples from an executor, setting up the appropriate callback function based on whether detoasting or tuple conversion is needed.

@@ -1,7 +1,7 @@
 # isDataGram
 
 ## Location
-src/backend/port/win32/socket.c: 169 - 180
+[src/backend/port/win32/socket.c:169-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L169-L180)
 
 ## Overview
 isDataGram is a static utility function that determines whether a given Windows socket is of datagram type (UDP) by querying the sockets type option.

@@ -1,7 +1,7 @@
 # tts_virtual_copy_minimal_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 301 - 315
+[src/backend/executor/execTuples.c:301-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L301-L315)
 
 ## Overview
 Creates a MinimalTuple from a VirtualTupleTableSlot by forming a compact tuple representation from the slot's values and null indicators using the slot's tuple descriptor.

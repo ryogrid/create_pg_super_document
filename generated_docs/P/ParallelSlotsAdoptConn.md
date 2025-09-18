@@ -1,7 +1,7 @@
 # ParallelSlotsAdoptConn
 
 ## Location
-src/fe_utils/parallel_slot.c: 460 - 478
+[src/fe_utils/parallel_slot.c:460-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L460-L478)
 
 ## Overview
 Assigns an open database connection to a parallel slots array for reuse, transferring ownership from the caller to the slots management system.

@@ -1,7 +1,7 @@
 # lex_expect
 
 ## Location
-src/common/jsonapi.c: 250 - 258
+[src/common/jsonapi.c:250-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L250-L258)
 
 ## Overview
 A static inline function that conditionally advances the JSON lexer to the next token if the current token matches the expected token type, otherwise reports a parse error.

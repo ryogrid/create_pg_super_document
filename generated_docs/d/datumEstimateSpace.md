@@ -1,7 +1,7 @@
 # datumEstimateSpace
 
 ## Location
-src/backend/utils/adt/datum.c: 412 - 458
+[src/backend/utils/adt/datum.c:412-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L412-L458)
 
 ## Overview
 Computes the amount of space that datumSerialize will require to serialize a particular PostgreSQL Datum value.

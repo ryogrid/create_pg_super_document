@@ -1,7 +1,7 @@
 # sqlda_common_total_size
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 65 - 156
+[src/interfaces/ecpg/ecpglib/sqlda.c:65-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L65-L156)
 
 ## Overview
 Calculates the total memory size required to store all field values for a specific row in an SQLDA structure, accounting for proper data type alignment and storage requirements.

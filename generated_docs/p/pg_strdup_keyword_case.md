@@ -1,7 +1,7 @@
 # pg_strdup_keyword_case
 
 ## Location
-src/bin/psql/tab-complete.c: 5898 - 5929
+[src/bin/psql/tab-complete.c:5898-5929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5898-L5929)
 
 ## Overview
 Creates a case-converted duplicate of a string based on psql's keyword completion case settings and reference text context.

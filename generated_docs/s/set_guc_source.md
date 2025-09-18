@@ -1,7 +1,7 @@
 # set_guc_source
 
 ## Location
-src/backend/utils/misc/guc.c: 2113 - 2135
+[src/backend/utils/misc/guc.c:2113-2135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2113-L2135)
 
 ## Overview
 set_guc_source is a static helper function that safely updates a GUC variable's source field while maintaining the integrity of the guc_nondef_list.

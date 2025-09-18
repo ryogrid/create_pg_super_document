@@ -1,7 +1,7 @@
 # shm_mq_get_receiver
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 242 - 256
+[src/backend/storage/ipc/shm_mq.c:242-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L242-L256)
 
 ## Overview
 Retrieves the currently configured receiver process from a shared message queue in a thread-safe manner.

@@ -1,7 +1,7 @@
 # PredicateLockingNeededForRelation
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 498 - 515
+[src/backend/storage/lmgr/predicate.c:498-515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L498-L515)
 
 ## Overview
 Determines whether a given relation should participate in predicate locking as part of PostgreSQL's serializable snapshot isolation implementation.

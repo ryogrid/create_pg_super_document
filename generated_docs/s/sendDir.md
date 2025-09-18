@@ -1,7 +1,7 @@
 # sendDir
 
 ## Location
-src/backend/backup/basebackup.c: 1187 - 1571
+[src/backend/backup/basebackup.c:1187-1571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L1187-L1571)
 
 ## Overview
 sendDir recursively includes all files from a given directory in the output tar stream during PostgreSQL base backup operations, with comprehensive filtering and special handling for various file types.

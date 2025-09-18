@@ -1,7 +1,7 @@
 # get_object_class_descr
 
 ## Location
-src/backend/catalog/objectaddress.c: 2620 - 2627
+[src/backend/catalog/objectaddress.c:2620-2627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2620-L2627)
 
 ## Overview
 Retrieves a human-readable string description for a PostgreSQL system catalog class, providing descriptive names for catalog tables used in error messages and logging.

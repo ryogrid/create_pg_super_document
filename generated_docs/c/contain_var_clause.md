@@ -1,7 +1,7 @@
 # contain_var_clause
 
 ## Location
-src/backend/optimizer/util/var.c: 403 - 408
+[src/backend/optimizer/util/var.c:403-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L403-L408)
 
 ## Overview
 Recursively scans a clause to discover whether it contains any Var nodes of the current query level.

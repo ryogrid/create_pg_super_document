@@ -1,7 +1,7 @@
 # _dumpableObjectWithAcl
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 172 - 175
+[src/bin/pg_dump/pg_dump.h:172-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L172-L175)
 
 ## Overview
 The  structure is a generic composite structure that combines the base  with  for any database object type that supports Access Control Lists, providing a convenient way to access both object metadata and ACL information.

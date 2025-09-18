@@ -1,7 +1,7 @@
 # PublicationDropSchemas
 
 ## Location
-src/backend/commands/publicationcmds.c: 1854 - 1887
+[src/backend/commands/publicationcmds.c:1854-1887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1854-L1887)
 
 ## Overview
 Removes a list of schemas from an existing PostgreSQL publication by deleting their publication-namespace mappings from the system catalog.

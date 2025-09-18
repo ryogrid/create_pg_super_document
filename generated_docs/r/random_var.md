@@ -1,7 +1,7 @@
 # random_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 11339 - 11521
+[src/backend/utils/adt/numeric.c:11339-11521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11339-L11521)
 
 ## Overview
 Generates a uniformly distributed random numeric value within a specified range [rmin, rmax] using PostgreSQL's internal NumericVar representation.

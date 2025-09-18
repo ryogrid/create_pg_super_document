@@ -1,7 +1,7 @@
 # LogicalRepRelMapEntry
 
 ## Location
-src/include/replication/logicalrelation.h: 19 - 40
+[src/include/replication/logicalrelation.h:19-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalrelation.h#L19-L40)
 
 ## Overview
 LogicalRepRelMapEntry is a structure that represents an entry in the logical replication relation map, maintaining the mapping between remote and local relations along with their metadata and synchronization state.

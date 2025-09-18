@@ -1,7 +1,7 @@
 # RestoreScratchTarget
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2151 - 2172
+[src/backend/storage/lmgr/predicate.c:2151-2172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2151-L2172)
 
 ## Overview
 Re-inserts the dummy entry in the predicate lock target hash table, restoring a scratch target that was temporarily removed for safe manipulation.

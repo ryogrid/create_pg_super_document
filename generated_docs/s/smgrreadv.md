@@ -1,7 +1,7 @@
 # smgrreadv
 
 ## Location
-src/backend/storage/smgr/smgr.c: 600 - 630
+[src/backend/storage/smgr/smgr.c:600-630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L600-L630)
 
 ## Overview
 The smgrreadv function reads a range of blocks from a PostgreSQL relation into multiple supplied buffers in a single vectorized operation.

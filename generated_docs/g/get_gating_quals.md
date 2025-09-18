@@ -1,7 +1,7 @@
 # get_gating_quals
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1003 - 1022
+[src/backend/optimizer/plan/createplan.c:1003-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1003-L1022)
 
 ## Overview
 Extracts pseudoconstant qualifiers from a node's quals list for gating purposes in query execution plans.

@@ -1,7 +1,7 @@
 # colorcomplement
 
 ## Location
-src/backend/regex/regc_color.c: 1064 - 1126
+[src/backend/regex/regc_color.c:1064-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L1064-L1126)
 
 ## Overview
 Creates arcs for all complementary colors that are not matched by the output arcs of a given state, used in regular expression character class negation.

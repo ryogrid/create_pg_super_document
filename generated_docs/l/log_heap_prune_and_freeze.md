@@ -1,7 +1,7 @@
 # log_heap_prune_and_freeze
 
 ## Location
-src/backend/access/heap/pruneheap.c: 2053 - 2172
+[src/backend/access/heap/pruneheap.c:2053-2172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L2053-L2172)
 
 ## Overview
 Writes an XLOG_HEAP2_PRUNE_FREEZE WAL record for various page maintenance operations including pruning, freezing, and vacuum cleanup operations.

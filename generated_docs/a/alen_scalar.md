@@ -1,7 +1,7 @@
 # alen_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1912 - 1925
+[src/backend/utils/adt/jsonfuncs.c:1912-1925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1912-L1925)
 
 ## Overview
 A JSON parser callback function that validates that the JSON input is not a scalar value when determining array length.

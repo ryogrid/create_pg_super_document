@@ -1,7 +1,7 @@
 # CheckPasswordAuth
 
 ## Location
-src/backend/libpq/auth.c: 795 - 829
+[src/backend/libpq/auth.c:795-829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L795-L829)
 
 ## Overview
 CheckPasswordAuth implements plaintext password authentication for PostgreSQL client connections, handling the exchange of password credentials and their verification against stored role passwords.

@@ -1,7 +1,7 @@
 # PQconnectPoll
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2596 - 2873
+[src/interfaces/libpq/fe-connect.c:2596-2873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2596-L2873)
 
 ## Overview
 `PQconnectPoll` is a public libpq function that performs non-blocking polling of an asynchronous PostgreSQL database connection, advancing the connection state machine without blocking program execution.

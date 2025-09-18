@@ -1,7 +1,7 @@
 # HbaLine
 
 ## Location
-src/include/libpq/hba.h: 94 - 138
+[src/include/libpq/hba.h:94-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L94-L138)
 
 ## Overview
 HbaLine is a comprehensive structure that represents a single parsed line from the pg_hba.conf configuration file, containing all authentication and authorization parameters for host-based access control.

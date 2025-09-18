@@ -1,7 +1,7 @@
 # histsize_substitute_hook
 
 ## Location
-src/bin/psql/startup.c: 929 - 936
+[src/bin/psql/startup.c:929-936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L929-L936)
 
 ## Overview
 A static substitute hook function in psql that provides a default value of "500" for the HISTSIZE variable when no value is explicitly set.

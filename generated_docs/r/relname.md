@@ -1,7 +1,7 @@
 # relname
 
 ## Location
-src/timezone/zic.c: 951 - 995
+[src/timezone/zic.c:951-995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L951-L995)
 
 ## Overview
 Generates a relative path from a target file to a linkname, computing the necessary "../" components to navigate from the linkname directory to the target file.

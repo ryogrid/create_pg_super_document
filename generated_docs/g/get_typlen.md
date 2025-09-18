@@ -1,7 +1,7 @@
 # get_typlen
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2197 - 2221
+[src/backend/utils/cache/lsyscache.c:2197-2221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2197-L2221)
 
 ## Overview
 Retrieves the storage length of a PostgreSQL data type given its OID, providing essential size information for memory allocation and data handling operations.

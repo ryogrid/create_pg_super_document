@@ -1,7 +1,7 @@
 # pq_getmsgfloat8
 
 ## Location
-src/backend/libpq/pqformat.c: 488 - 507
+[src/backend/libpq/pqformat.c:488-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L488-L507)
 
 ## Overview
 Extracts a 64-bit double-precision floating-point number from a message buffer using IEEE 754 binary format conversion.

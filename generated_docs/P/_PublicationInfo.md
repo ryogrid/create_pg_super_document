@@ -1,7 +1,7 @@
 # _PublicationInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 632 - 641
+[src/bin/pg_dump/pg_dump.h:632-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L632-L641)
 
 ## Overview
 The `_PublicationInfo` structure represents logical replication publications in pg_dump, capturing all configuration settings needed to recreate publication objects during database operations.

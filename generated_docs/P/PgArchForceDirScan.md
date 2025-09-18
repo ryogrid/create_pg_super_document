@@ -1,7 +1,7 @@
 # PgArchForceDirScan
 
 ## Location
-src/backend/postmaster/pgarch.c: 802 - 815
+[src/backend/postmaster/pgarch.c:802-815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L802-L815)
 
 ## Overview
 A function that forces the PostgreSQL archiver process to perform a directory scan on its next iteration, ensuring immediate detection of important files like timeline history files.

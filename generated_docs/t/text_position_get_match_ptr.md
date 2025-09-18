@@ -1,7 +1,7 @@
 # text_position_get_match_ptr
 
 ## Location
-src/backend/utils/adt/varlena.c: 1468 - 1478
+[src/backend/utils/adt/varlena.c:1468-1478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1468-L1478)
 
 ## Overview
 Returns a pointer to the current match found in a text search operation within the TextPositionState structure.

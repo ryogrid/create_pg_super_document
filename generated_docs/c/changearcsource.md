@@ -1,7 +1,7 @@
 # changearcsource
 
 ## Location
-src/backend/regex/regc_nfa.c: 489 - 532
+[src/backend/regex/regc_nfa.c:489-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L489-L532)
 
 ## Overview
 Changes the source state of an existing arc by unlinking it from the old source state and linking it to a new source state.

@@ -1,7 +1,7 @@
 # slist_head_element_off
 
 ## Location
-src/include/lib/ilist.h: 1062 - 1071
+[src/include/lib/ilist.h:1062-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1062-L1071)
 
 ## Overview
 An internal support function that computes the address of the structure containing the head element of a singly-linked list, given an offset to the list node member within that structure.

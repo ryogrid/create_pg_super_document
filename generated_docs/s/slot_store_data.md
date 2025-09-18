@@ -1,7 +1,7 @@
 # slot_store_data
 
 ## Location
-src/backend/replication/logical/worker.c: 799 - 899
+[src/backend/replication/logical/worker.c:799-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L799-L899)
 
 ## Overview
 Converts and stores tuple data from logical replication format into a TupleTableSlot, handling both text and binary data formats with appropriate type conversion and error handling.

@@ -1,7 +1,7 @@
 # PrepareRedoAdd
 
 ## Location
-src/backend/access/transam/twophase.c: 2470 - 2571
+[src/backend/access/transam/twophase.c:2470-2571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2470-L2571)
 
 ## Overview
 PrepareRedoAdd creates and registers a global transaction entry in shared memory during WAL recovery, tracking prepared transaction state from either WAL records or existing disk files.

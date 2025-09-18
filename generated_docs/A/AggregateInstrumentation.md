@@ -1,7 +1,7 @@
 # AggregateInstrumentation
 
 ## Location
-src/include/nodes/execnodes.h: 2427 - 2432
+[src/include/nodes/execnodes.h:2427-2432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2427-L2432)
 
 ## Overview
 AggregateInstrumentation is a structure that captures performance metrics for hash aggregate operations, tracking memory and disk usage statistics per worker.

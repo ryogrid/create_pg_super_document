@@ -1,7 +1,7 @@
 # CompressionNameToMethod
 
 ## Location
-src/backend/access/common/toast_compression.c: 285 - 303
+[src/backend/access/common/toast_compression.c:285-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_compression.c#L285-L303)
 
 ## Overview
 Converts a compression method name string to its corresponding compression method identifier, searching through available built-in compression methods.

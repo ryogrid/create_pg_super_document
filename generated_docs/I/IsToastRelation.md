@@ -1,7 +1,7 @@
 # IsToastRelation
 
 ## Location
-src/backend/catalog/catalog.c: 175 - 194
+[src/backend/catalog/catalog.c:175-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L175-L194)
 
 ## Overview
 Determines whether a given relation is a TOAST (The Oversized-Attribute Storage Technique) support relation or index by checking if it belongs to a pg_toast namespace.

@@ -1,7 +1,7 @@
 # array_lower
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1706 - 1732
+[src/backend/utils/adt/arrayfuncs.c:1706-1732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1706-L1732)
 
 ## Overview
 Returns the lower bound of a specified dimension for a PostgreSQL array, providing access to the starting index of that dimension.

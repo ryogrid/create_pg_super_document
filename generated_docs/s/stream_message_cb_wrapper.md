@@ -1,7 +1,7 @@
 # stream_message_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1560 - 1600
+[src/backend/replication/logical/logical.c:1560-1600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1560-L1600)
 
 ## Overview
 A wrapper function that safely invokes the optional output plugin's stream_message_cb callback during logical replication streaming for handling transactional and non-transactional messages.

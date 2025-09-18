@@ -1,7 +1,7 @@
 # getJsonPathVariable
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3141 - 3172
+[src/backend/utils/adt/jsonpath_exec.c:3141-3172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3141-L3172)
 
 ## Overview
 Retrieves the value of a variable passed to the JSON path executor by name and sets up the execution context appropriately.

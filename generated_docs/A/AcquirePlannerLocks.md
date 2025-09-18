@@ -1,7 +1,7 @@
 # AcquirePlannerLocks
 
 ## Location
-src/backend/utils/cache/plancache.c: 1828 - 1852
+[src/backend/utils/cache/plancache.c:1828-1852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1828-L1852)
 
 ## Overview
 Acquires or releases locks needed for planning of a query tree list by delegating lock management to ScanQueryForLocks for each query in the list.

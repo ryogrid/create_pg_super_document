@@ -1,7 +1,7 @@
 # RelationCacheInitFilePreInvalidate
 
 ## Location
-src/backend/utils/cache/relcache.c: 6766 - 6790
+[src/backend/utils/cache/relcache.c:6766-6790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6766-L6790)
 
 ## Overview
 Invalidates (removes) the relation cache initialization files during commit of a transaction that modified relations stored in the init files, ensuring cache consistency.

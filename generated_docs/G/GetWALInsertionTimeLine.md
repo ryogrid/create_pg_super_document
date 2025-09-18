@@ -1,7 +1,7 @@
 # GetWALInsertionTimeLine
 
 ## Location
-src/backend/access/transam/xlog.c: 6499 - 6514
+[src/backend/access/transam/xlog.c:6499-6514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6499-L6514)
 
 ## Overview
 Returns the current timeline ID of a system that is not in recovery, providing the timeline context for WAL operations.

@@ -1,7 +1,7 @@
 # RelationGetIndexAttrBitmap
 
 ## Location
-src/backend/utils/cache/relcache.c: 5249 - 5521
+[src/backend/utils/cache/relcache.c:5249-5521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5249-L5521)
 
 ## Overview
 Retrieves a bitmap of attribute numbers for columns used in indexes on a relation, with different bitmap types for specific use cases like foreign keys, primary keys, replica identity, HOT blocking, and summarized indexes.

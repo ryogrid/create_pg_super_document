@@ -1,7 +1,7 @@
 # execute_jsp_gin_node
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 799 - 847
+[src/backend/utils/adt/jsonb_gin.c:799-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L799-L847)
 
 ## Overview
 Recursively evaluates a JsonPathGinNode expression tree using GIN index entry match results, implementing three-valued logic (TRUE/FALSE/MAYBE) for jsonpath query consistency checking.

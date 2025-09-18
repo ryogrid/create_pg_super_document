@@ -1,7 +1,7 @@
 # get_db_conn
 
 ## Location
-src/bin/pg_upgrade/server.c: 57 - 91
+[src/bin/pg_upgrade/server.c:57-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L57-L91)
 
 ## Overview
 Creates a PostgreSQL database connection using cluster configuration parameters and proper connection string formatting.

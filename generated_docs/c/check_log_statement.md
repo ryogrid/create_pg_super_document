@@ -1,7 +1,7 @@
 # check_log_statement
 
 ## Location
-src/backend/tcop/postgres.c: 2368 - 2406
+[src/backend/tcop/postgres.c:2368-2406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2368-L2406)
 
 ## Overview
 Determines whether SQL commands should be logged based on the log_statement configuration setting by examining statement types.

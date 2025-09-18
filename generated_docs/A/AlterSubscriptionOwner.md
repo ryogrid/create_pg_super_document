@@ -1,7 +1,7 @@
 # AlterSubscriptionOwner
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 1959 - 1994
+[src/backend/commands/subscriptioncmds.c:1959-1994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L1959-L1994)
 
 ## Overview
 AlterSubscriptionOwner changes the owner of a subscription identified by name, serving as the public interface for subscription ownership changes.

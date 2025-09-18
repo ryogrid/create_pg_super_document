@@ -1,7 +1,7 @@
 # jsonb_eq
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 222 - 235
+[src/backend/utils/adt/jsonb_op.c:222-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L222-L235)
 
 ## Overview
 Tests equality between two JSONB values, returning true if they are equal, false otherwise.

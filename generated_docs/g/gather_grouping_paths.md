@@ -1,7 +1,7 @@
 # gather_grouping_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 7578 - 7662
+[src/backend/optimizer/plan/planner.c:7578-7662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L7578-L7662)
 
 ## Overview
 Generates optimized Gather and Gather Merge paths for grouping relations by creating both unsorted gather operations and sorted gather merge operations with intelligent sorting strategies.

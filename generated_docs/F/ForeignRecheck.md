@@ -1,7 +1,7 @@
 # ForeignRecheck
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 78 - 117
+[src/backend/executor/nodeForeignscan.c:78-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L78-L117)
 
 ## Overview
 ForeignRecheck is a static function that validates whether a tuple still meets the qualification conditions during EvalPlanQual processing for foreign scan operations.

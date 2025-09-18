@@ -1,7 +1,7 @@
 # parent_offset
 
 ## Location
-src/common/binaryheap.c: 102 - 115
+[src/common/binaryheap.c:102-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L102-L115)
 
 ## Overview
 A static inline utility function that calculates the parent node index in a binary heap data structure using 0-based array indexing.

@@ -1,7 +1,7 @@
 # errbacktrace
 
 ## Location
-src/backend/utils/error/elog.c: 1092 - 1115
+[src/backend/utils/error/elog.c:1092-1115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1092-L1115)
 
 ## Overview
 Adds a backtrace to the current error context for debugging purposes in PostgreSQL's error reporting system.

@@ -1,7 +1,7 @@
 # getOwnedSeqs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 7252 - 7316
+[src/bin/pg_dump/pg_dump.c:7252-7316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L7252-L7316)
 
 ## Overview
 The getOwnedSeqs function identifies sequences that are owned by table columns and marks them as dumpable if their owning table is being dumped, handling special cases for identity sequences versus regular owned sequences.

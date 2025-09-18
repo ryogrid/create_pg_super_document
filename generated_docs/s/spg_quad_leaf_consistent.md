@@ -1,7 +1,7 @@
 # spg_quad_leaf_consistent
 
 ## Location
-src/backend/access/spgist/spgquadtreeproc.c: 407 - 471
+[src/backend/access/spgist/spgquadtreeproc.c:407-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgquadtreeproc.c#L407-L471)
 
 ## Overview
 An SP-GiST operator function that determines whether a leaf-level tuple satisfies all query constraints in the quadtree spatial index, performing exact matching against scan key conditions.

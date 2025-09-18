@@ -1,7 +1,7 @@
 # expandNSItemAttrs
 
 ## Location
-src/backend/parser/parse_relation.c: 3187 - 3252
+[src/backend/parser/parse_relation.c:3187-3252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3187-L3252)
 
 ## Overview
 This function is the workhorse for "*" expansion in PostgreSQL's parser, producing a list of target entries for all attributes of a given namespace item.

@@ -1,7 +1,7 @@
 # ecpg_actual_connection_init
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 24 - 29
+[src/interfaces/ecpg/ecpglib/connect.c:24-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L24-L29)
 
 ## Overview
 Initializes a pthread thread-specific data key used to store the current database connection per thread in the ECPG library.

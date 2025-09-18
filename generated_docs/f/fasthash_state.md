@@ -1,7 +1,7 @@
 # fasthash_state
 
 ## Location
-src/include/common/hashfn_unstable.h: 93 - 99
+[src/include/common/hashfn_unstable.h:93-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L93-L99)
 
 ## Overview
 A state structure used for incremental hashing with the fasthash algorithm, allowing multiple inputs to be combined into a single hash value through a series of operations.

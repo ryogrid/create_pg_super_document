@@ -1,7 +1,7 @@
 # plainnode
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 62 - 96
+[src/backend/utils/adt/tsquery_cleanup.c:62-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L62-L96)
 
 ## Overview
 The `plainnode` function converts a binary tree representation of a TSQuery back into a flat array representation, performing a depth-first traversal while maintaining correct operator precedence and positioning information.

@@ -1,7 +1,7 @@
 # interactive_getc
 
 ## Location
-src/backend/tcop/postgres.c: 336 - 363
+[src/backend/tcop/postgres.c:336-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L336-L363)
 
 ## Overview
 A signal-aware character input function that safely reads one character from stdin while handling PostgreSQL interrupts and signals.

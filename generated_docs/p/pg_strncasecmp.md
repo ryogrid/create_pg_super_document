@@ -1,7 +1,7 @@
 # pg_strncasecmp
 
 ## Location
-src/port/pgstrcasecmp.c: 69 - 104
+[src/port/pgstrcasecmp.c:69-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgstrcasecmp.c#L69-L104)
 
 ## Overview
 Performs case-independent comparison of two strings that are not necessarily null-terminated, examining at most n bytes from each string.

@@ -1,7 +1,7 @@
 # sha256_bytea
 
 ## Location
-src/backend/utils/adt/cryptohashfuncs.c: 148 - 155
+[src/backend/utils/adt/cryptohashfuncs.c:148-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cryptohashfuncs.c#L148-L155)
 
 ## Overview
 Computes the SHA-256 hash of a bytea (binary data) value and returns the result as binary data (bytea).

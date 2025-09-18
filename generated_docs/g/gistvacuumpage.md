@@ -1,7 +1,7 @@
 # gistvacuumpage
 
 ## Location
-src/backend/access/gist/gistvacuum.c: 272 - 460
+[src/backend/access/gist/gistvacuum.c:272-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvacuum.c#L272-L460)
 
 ## Overview
 Processes a single page during GiST index vacuum operations, handling tuple deletion, page recycling, split detection, and maintaining vacuum state.

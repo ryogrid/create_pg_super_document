@@ -1,7 +1,7 @@
 # CteScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1987 - 1998
+[src/include/nodes/execnodes.h:1987-1998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1987-L1998)
 
 ## Overview
 CteScanState is the execution state node for scanning Common Table Expression (CTE) queries in PostgreSQL. It manages the reading of rows from CTE queries that can be consumed by multiple readers through a shared tuplestore mechanism.

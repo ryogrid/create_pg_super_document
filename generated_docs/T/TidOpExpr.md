@@ -1,7 +1,7 @@
 # TidOpExpr
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 45 - 50
+[src/backend/executor/nodeTidrangescan.c:45-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L45-L50)
 
 ## Overview
 TidOpExpr represents an upper or lower range bound for TID (tuple identifier) range scans in PostgreSQL's executor, encapsulating the expression state and boundary conditions for efficient row scanning by physical location.

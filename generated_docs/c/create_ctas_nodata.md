@@ -1,7 +1,7 @@
 # create_ctas_nodata
 
 ## Location
-src/backend/commands/createas.c: 153 - 220
+[src/backend/commands/createas.c:153-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L153-L220)
 
 ## Overview
 Creates a CTAS (CREATE TABLE AS) or materialized view relation when the WITH NO DATA option is specified, deriving column definitions from the SELECT statement's target list.

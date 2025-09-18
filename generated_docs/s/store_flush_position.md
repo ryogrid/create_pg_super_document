@@ -1,7 +1,7 @@
 # store_flush_position
 
 ## Location
-src/backend/replication/logical/worker.c: 3449 - 3474
+[src/backend/replication/logical/worker.c:3449-3474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3449-L3474)
 
 ## Overview
 Stores current remote/local LSN pairs in the tracking list for logical replication flush position management.

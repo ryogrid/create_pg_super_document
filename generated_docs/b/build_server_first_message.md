@@ -1,7 +1,7 @@
 # build_server_first_message
 
 ## Location
-src/backend/libpq/auth-scram.c: 1189 - 1252
+[src/backend/libpq/auth-scram.c:1189-1252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L1189-L1252)
 
 ## Overview
 Builds the first server-side message sent to the client in a SCRAM authentication exchange, containing the server nonce, salt, and iteration count according to RFC 5802.

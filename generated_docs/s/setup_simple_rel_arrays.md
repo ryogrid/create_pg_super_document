@@ -1,7 +1,7 @@
 # setup_simple_rel_arrays
 
 ## Location
-src/backend/optimizer/util/relnode.c: 94 - 162
+[src/backend/optimizer/util/relnode.c:94-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L94-L162)
 
 ## Overview
 Initializes and prepares the arrays used by the PostgreSQL query planner for quickly accessing base relations and AppendRelInfos.

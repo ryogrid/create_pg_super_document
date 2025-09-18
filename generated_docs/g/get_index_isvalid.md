@@ -1,7 +1,7 @@
 # get_index_isvalid
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3578 - 3600
+[src/backend/utils/cache/lsyscache.c:3578-3600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3578-L3600)
 
 ## Overview
 Determines whether a given index is valid and can be used for queries, which is essential for index lifecycle management and query planning.

@@ -1,7 +1,7 @@
 # window_ntile
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 411 - 482
+[src/backend/utils/adt/windowfuncs.c:411-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L411-L482)
 
 ## Overview
 This function implements the SQL NTILE() window function, which distributes rows of a partition into a specified number of approximately equal-sized buckets and returns the bucket number for each row.

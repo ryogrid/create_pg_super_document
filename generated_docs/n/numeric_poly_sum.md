@@ -1,7 +1,7 @@
 # numeric_poly_sum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6086 - 6113
+[src/backend/utils/adt/numeric.c:6086-6113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6086-L6113)
 
 ## Overview
 Final function for polymorphic sum aggregate operations that computes the final sum result from the accumulated state.

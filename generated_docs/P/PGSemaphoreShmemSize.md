@@ -1,7 +1,7 @@
 # PGSemaphoreShmemSize
 
 ## Location
-src/backend/port/posix_sema.c: 165 - 195
+[src/backend/port/posix_sema.c:165-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L165-L195)
 
 ## Overview
 PGSemaphoreShmemSize calculates the amount of shared memory required to store semaphore data structures for a specified number of semaphores in PostgreSQL's POSIX semaphore implementation.

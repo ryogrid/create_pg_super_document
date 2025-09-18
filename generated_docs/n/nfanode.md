@@ -1,7 +1,7 @@
 # nfanode
 
 ## Location
-src/backend/regex/regcomp.c: 2351 - 2390
+[src/backend/regex/regcomp.c:2351-2390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2351-L2390)
 
 ## Overview
 Processes a single NFA node in the regular expression parse tree, creating an optimized NFA fragment from a subre (sub-regular expression) structure.

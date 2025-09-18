@@ -1,7 +1,7 @@
 # find_compatible_trans
 
 ## Location
-src/backend/optimizer/prep/prepagg.c: 458 - 521
+[src/backend/optimizer/prep/prepagg.c:458-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepagg.c#L458-L521)
 
 ## Overview
 Searches for a previously initialized transition state that can be shared with the current aggregate, enabling optimization where different aggregates can reuse the same transition computation.

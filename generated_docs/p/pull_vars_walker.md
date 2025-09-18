@@ -1,7 +1,7 @@
 # pull_vars_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 355 - 402
+[src/backend/optimizer/util/var.c:355-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L355-L402)
 
 ## Overview
 A tree walker callback function that identifies and collects Var and PlaceHolderVar nodes at a specific query nesting level.

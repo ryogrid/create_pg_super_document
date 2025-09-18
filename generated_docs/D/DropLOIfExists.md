@@ -1,7 +1,7 @@
 # DropLOIfExists
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 673 - 680
+[src/bin/pg_dump/pg_backup_db.c:673-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L673-L680)
 
 ## Overview
 DropLOIfExists generates SQL to conditionally drop a large object if it exists, used during pg_restore operations to handle existing large objects.

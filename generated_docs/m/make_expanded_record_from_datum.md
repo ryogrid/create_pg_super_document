@@ -1,7 +1,7 @@
 # make_expanded_record_from_datum
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 580 - 651
+[src/backend/utils/adt/expandedrecord.c:580-651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L580-L651)
 
 ## Overview
 Creates an expanded record directly from a composite Datum, combining record creation and tuple assignment while deferring tuple descriptor lookup for performance optimization.

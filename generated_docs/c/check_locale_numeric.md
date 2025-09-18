@@ -1,7 +1,7 @@
 # check_locale_numeric
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 393 - 398
+[src/backend/utils/adt/pg_locale.c:393-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L393-L398)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates whether a given locale string is valid for the LC_NUMERIC locale category before assignment.

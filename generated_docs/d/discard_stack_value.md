@@ -1,7 +1,7 @@
 # discard_stack_value
 
 ## Location
-src/backend/utils/misc/guc.c: 848 - 873
+[src/backend/utils/misc/guc.c:848-873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L848-L873)
 
 ## Overview
 A static utility function in PostgreSQL's GUC system that safely discards values stored in a stack entry, handling memory cleanup for string values and associated extra data.

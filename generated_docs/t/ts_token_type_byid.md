@@ -1,7 +1,7 @@
 # ts_token_type_byid
 
 ## Location
-src/backend/tsearch/wparser.c: 106 - 124
+[src/backend/tsearch/wparser.c:106-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L106-L124)
 
 ## Overview
 A PostgreSQL SQL-callable function that returns token type information for a specified text search parser as a set of rows.

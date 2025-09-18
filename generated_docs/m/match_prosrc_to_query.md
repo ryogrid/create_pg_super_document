@@ -1,7 +1,7 @@
 # match_prosrc_to_query
 
 ## Location
-src/backend/catalog/pg_proc.c: 1069 - 1126
+[src/backend/catalog/pg_proc.c:1069-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L1069-L1126)
 
 ## Overview
 Locates a function body string literal within the original CREATE FUNCTION or DO command text and maps character positions between them.

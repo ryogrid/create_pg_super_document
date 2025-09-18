@@ -1,7 +1,7 @@
 # run_tablesync_worker
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1711 - 1736
+[src/backend/replication/logical/tablesync.c:1711-1736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1711-L1736)
 
 ## Overview
 run_tablesync_worker orchestrates the complete table synchronization workflow, from initial data copy through streaming setup to continuous catchup with the main apply worker.

@@ -1,7 +1,7 @@
 # build_setop_child_paths
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 504 - 695
+[src/backend/optimizer/prep/prepunion.c:504-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L504-L695)
 
 ## Overview
 Builds execution paths for a set operation child relation, creating both sorted and unsorted subquery scan paths as needed for optimal set operation processing.

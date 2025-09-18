@@ -1,7 +1,7 @@
 # window_cume_dist_support
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 371 - 410
+[src/backend/utils/adt/windowfuncs.c:371-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L371-L410)
 
 ## Overview
 This function serves as the prosupport function for the window_cume_dist() function, providing optimization hints and monotonicity information to PostgreSQL's query planner.

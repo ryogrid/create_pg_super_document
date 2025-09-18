@@ -1,7 +1,7 @@
 # injection_points_cleanup
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 159 - 177
+[src/test/modules/injection_points/injection_points.c:159-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L159-L177)
 
 ## Overview
 A static cleanup callback function that removes all locally attached injection points when a process is about to exit.

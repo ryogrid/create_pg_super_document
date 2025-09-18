@@ -1,7 +1,7 @@
 # JsonTablePlanNextRow
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4293 - 4319
+[src/backend/utils/adt/jsonpath_exec.c:4293-4319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4293-L4319)
 
 ## Overview
 JsonTablePlanNextRow is a dispatcher function that fetches the next row from a JSON table plan by delegating to the appropriate plan-specific function based on the plan type.

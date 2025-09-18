@@ -1,7 +1,7 @@
 # WalSndInitStopping
 
 ## Location
-src/backend/replication/walsender.c: 3787 - 3812
+[src/backend/replication/walsender.c:3787-3812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3787-L3812)
 
 ## Overview
 WalSndInitStopping signals all active WAL sender processes to transition to a stopping state, preventing further WAL generation as part of PostgreSQL's graceful shutdown sequence.

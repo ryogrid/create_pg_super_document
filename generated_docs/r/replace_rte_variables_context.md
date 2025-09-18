@@ -1,7 +1,7 @@
 # replace_rte_variables_context
 
 ## Location
-src/include/rewrite/rewriteManip.h: 22 - 27
+[src/include/rewrite/rewriteManip.h:22-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/rewrite/rewriteManip.h#L22-L27)
 
 ## Overview
 A context structure that carries state and configuration information for the variable replacement callback mechanism used during query tree transformations.

@@ -1,7 +1,7 @@
 # RangeTableFuncCol
 
 ## Location
-src/include/nodes/parsenodes.h: 673 - 683
+[src/include/nodes/parsenodes.h:673-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L673-L683)
 
 ## Overview
 RangeTableFuncCol represents a single column definition within a RangeTableFunc, specifying the column's name, data type, extraction expression, and various column properties for table functions like XMLTABLE.

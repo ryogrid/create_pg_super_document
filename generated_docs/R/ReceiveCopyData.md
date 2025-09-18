@@ -1,7 +1,7 @@
 # ReceiveCopyData
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1014 - 1060
+[src/bin/pg_basebackup/pg_basebackup.c:1014-1060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1014-L1060)
 
 ## Overview
 A core function that manages the reception of PostgreSQL COPY protocol data streams and dispatches each received chunk to a user-provided callback function for processing.

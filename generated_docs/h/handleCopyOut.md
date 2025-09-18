@@ -1,7 +1,7 @@
 # handleCopyOut
 
 ## Location
-src/bin/psql/copy.c: 434 - 507
+[src/bin/psql/copy.c:434-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L434-L507)
 
 ## Overview
 Handles the client-side processing of COPY TO STDOUT operations by reading data from a PostgreSQL connection and writing it to a specified output stream.

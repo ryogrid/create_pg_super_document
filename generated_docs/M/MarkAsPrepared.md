@@ -1,7 +1,7 @@
 # MarkAsPrepared
 
 ## Location
-src/backend/access/transam/twophase.c: 530 - 551
+[src/backend/access/transam/twophase.c:530-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L530-L551)
 
 ## Overview
 Marks a GlobalTransaction as fully valid and registers it with the global ProcArray, completing the transition to the prepared state in two-phase commit.

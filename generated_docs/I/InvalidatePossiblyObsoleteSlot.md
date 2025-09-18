@@ -1,7 +1,7 @@
 # InvalidatePossiblyObsoleteSlot
 
 ## Location
-src/backend/replication/slot.c: 1543 - 1774
+[src/backend/replication/slot.c:1543-1774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1543-L1774)
 
 ## Overview
 Helper function that attempts to acquire and invalidate a specific replication slot if it meets the obsolescence criteria, handling active slot owners through process termination.

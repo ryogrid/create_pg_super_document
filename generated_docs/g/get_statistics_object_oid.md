@@ -1,7 +1,7 @@
 # get_statistics_object_oid
 
 ## Location
-src/backend/catalog/namespace.c: 2575 - 2631
+[src/backend/catalog/namespace.c:2575-2631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2575-L2631)
 
 ## Overview
 Finds a statistics object by its possibly qualified name and returns its OID, with support for both schema-qualified and unqualified names.

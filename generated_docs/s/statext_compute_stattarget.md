@@ -1,7 +1,7 @@
 # statext_compute_stattarget
 
 ## Location
-src/backend/statistics/extended_stats.c: 347 - 388
+[src/backend/statistics/extended_stats.c:347-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L347-L388)
 
 ## Overview
 statext_compute_stattarget computes the effective statistics target for an extended statistics object by considering the object's own target, individual attribute targets, and system defaults in a hierarchical fashion.

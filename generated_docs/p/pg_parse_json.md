@@ -1,7 +1,7 @@
 # pg_parse_json
 
 ## Location
-src/common/jsonapi.c: 522 - 587
+[src/common/jsonapi.c:522-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L522-L587)
 
 ## Overview
 The primary publicly visible entry point for PostgreSQL's JSON parser that processes JSON input using a lexing context and semantic action callbacks.

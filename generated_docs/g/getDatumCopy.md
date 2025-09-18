@@ -1,7 +1,7 @@
 # getDatumCopy
 
 ## Location
-src/backend/access/gin/ginbulk.c: 128 - 147
+[src/backend/access/gin/ginbulk.c:128-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L128-L147)
 
 ## Overview
 A specialized version of datumCopy that additionally tracks allocated memory usage in a BuildAccumulator during GIN index bulk loading.

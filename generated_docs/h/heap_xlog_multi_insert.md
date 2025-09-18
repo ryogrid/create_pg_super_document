@@ -1,7 +1,7 @@
 # heap_xlog_multi_insert
 
 ## Location
-src/backend/access/heap/heapam.c: 9711 - 9857
+[src/backend/access/heap/heapam.c:9711-9857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9711-L9857)
 
 ## Overview
 Replays XLOG_HEAP2_MULTI_INSERT WAL records during PostgreSQL recovery to restore multiple tuple insertion operations in a single atomic operation, optimizing bulk insert performance.

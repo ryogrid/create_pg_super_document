@@ -1,7 +1,7 @@
 # cash_div_int2
 
 ## Location
-src/backend/utils/adt/cash.c: 916 - 927
+[src/backend/utils/adt/cash.c:916-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L916-L927)
 
 ## Overview
 A PostgreSQL function that divides a Cash value by a 16-bit integer, providing division operations for the cash data type with int2 operands.

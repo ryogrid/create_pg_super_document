@@ -1,7 +1,7 @@
 # connection_failed
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4381 - 4395
+[src/interfaces/libpq/fe-connect.c:4381-4395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4381-L4395)
 
 ## Overview
 `connection_failed` is a static function that serves as the out-of-line implementation of the CONNECTION_FAILED() macro, handling connection failures by marking the current encryption method as failed and selecting the next method to retry.

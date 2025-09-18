@@ -1,7 +1,7 @@
 # _PQconninfoOption
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 255 - 267
+[src/interfaces/libpq/libpq-fe.h:255-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L255-L267)
 
 ## Overview
 The  struct represents a single connection parameter definition used by PostgreSQL's libpq library. It contains metadata about connection options including their keywords, default values, and display characteristics.

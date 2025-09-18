@@ -1,7 +1,7 @@
 # _bt_checkpage
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 797 - 844
+[src/backend/access/nbtree/nbtpage.c:797-844](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L797-L844)
 
 ## Overview
 _bt_checkpage performs basic sanity checks on a freshly-read B-tree page to detect corruption and ensure the page structure is valid for B-tree operations.

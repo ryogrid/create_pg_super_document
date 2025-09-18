@@ -1,7 +1,7 @@
 # MemoryGroup
 
 ## Location
-src/include/jit/SectionMemoryManager.h: 191 - 226
+[src/include/jit/SectionMemoryManager.h:191-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/SectionMemoryManager.h#L191-L226)
 
 ## Overview
 MemoryGroup is a struct within PostgreSQL's JIT compilation system that manages memory allocation and tracking for different types of memory sections (code, read-only data, and read-write data) in the LLVM-based JIT execution engine.

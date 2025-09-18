@@ -1,7 +1,7 @@
 # EachState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 108 - 118
+[src/backend/utils/adt/jsonfuncs.c:108-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L108-L118)
 
 ## Overview
 EachState is a structure that maintains state information for the json_each functionality, which is used to decompose JSON objects into key-value pairs.

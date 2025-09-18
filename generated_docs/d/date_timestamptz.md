@@ -1,7 +1,7 @@
 # date_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 1327 - 1341
+[src/backend/utils/adt/date.c:1327-1341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1327-L1341)
 
 ## Overview
 Converts a PostgreSQL date value to a timestamp with time zone (timestamptz) data type, adding time component as 00:00:00 in the current timezone.

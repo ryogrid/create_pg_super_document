@@ -1,7 +1,7 @@
 # pgoutput_commit_prepared_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 673 - 686
+[src/backend/replication/pgoutput/pgoutput.c:673-686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L673-L686)
 
 ## Overview
 Handles the COMMIT PREPARED callback for two-phase commit transactions in logical replication, finalizing previously prepared transactions.

@@ -1,7 +1,7 @@
 # SetMessageEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1171 - 1186
+[src/backend/utils/mb/mbutils.c:1171-1186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1171-L1186)
 
 ## Overview
 Sets the global message encoding by validating the provided encoding identifier and updating the global MessageEncoding pointer for error messages and client communication.

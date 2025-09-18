@@ -1,7 +1,7 @@
 # multixact_twophase_postabort
 
 ## Location
-src/backend/access/transam/multixact.c: 1927 - 1938
+[src/backend/access/transam/multixact.c:1927-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L1927-L1938)
 
 ## Overview
 This function handles multixact cleanup during the post-abort phase of two-phase commit transactions, providing identical functionality to the post-commit case.

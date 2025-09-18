@@ -1,7 +1,7 @@
 # heap_hot_search_buffer
 
 ## Location
-src/backend/access/heap/heapam.c: 1675 - 1826
+[src/backend/access/heap/heapam.c:1675-1826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1675-L1826)
 
 ## Overview
 This function searches through a HOT (Heap-Only Tuples) chain to find the first tuple that satisfies a given snapshot's visibility requirements, optionally tracking whether all chain members are globally dead.

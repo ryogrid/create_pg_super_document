@@ -1,7 +1,7 @@
 # float4_pl
 
 ## Location
-src/include/utils/float.h: 146 - 157
+[src/include/utils/float.h:146-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L146-L157)
 
 ## Overview
 Performs single-precision floating-point addition with overflow detection and error reporting.

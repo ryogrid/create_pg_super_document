@@ -1,7 +1,7 @@
 # getNotify
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1498 - 1553
+[src/interfaces/libpq/fe-protocol3.c:1498-1553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1498-L1553)
 
 ## Overview
 Processes asynchronous notification messages from the PostgreSQL server, creating PGnotify structures and adding them to the connection's notification queue.

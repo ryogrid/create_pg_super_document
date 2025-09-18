@@ -1,7 +1,7 @@
 # float4ne
 
 ## Location
-src/backend/utils/adt/float.c: 828 - 836
+[src/backend/utils/adt/float.c:828-836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L828-L836)
 
 ## Overview
 PostgreSQL SQL-callable function that tests whether two single-precision floating-point numbers are not equal, handling NaN values according to IEEE floating-point standards.

@@ -1,7 +1,7 @@
 # ST_SWAPN
 
 ## Location
-src/include/lib/sort_template.h: 282 - 291
+[src/include/lib/sort_template.h:282-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/sort_template.h#L282-L291)
 
 ## Overview
 ST_SWAPN is a macro that generates a type-specific function name for swapping N consecutive elements between two arrays in PostgreSQL's sort template system.

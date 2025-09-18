@@ -1,7 +1,7 @@
 # renametrig_partition
 
 ## Location
-src/backend/commands/trigger.c: 1648 - 1720
+[src/backend/commands/trigger.c:1648-1720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1648-L1720)
 
 ## Overview
 A recursive helper function for renaming triggers on partitioned tables that finds and renames corresponding child triggers in partition relations.

@@ -1,7 +1,7 @@
 # dump_variables
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 436 - 464
+[src/interfaces/ecpg/preproc/variable.c:436-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L436-L464)
 
 ## Overview
 A recursive function that traverses and outputs the code generation for all variables in an argument list, processing from the end to maintain proper order and optionally deallocating the list nodes.

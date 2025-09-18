@@ -1,7 +1,7 @@
 # getvacant
 
 ## Location
-src/backend/regex/rege_dfa.c: 973 - 1043
+[src/backend/regex/rege_dfa.c:973-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L973-L1043)
 
 ## Overview
 A static function that obtains a vacant state set for reuse in the DFA regex engine, clearing its inbound and outbound arcs while preserving the caller's responsibility for clearing internal state.

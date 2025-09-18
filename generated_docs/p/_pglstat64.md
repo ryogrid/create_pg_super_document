@@ -1,7 +1,7 @@
 # _pglstat64
 
 ## Location
-src/port/win32stat.c: 113 - 197
+[src/port/win32stat.c:113-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32stat.c#L113-L197)
 
 ## Overview
 Windows implementation of the lstat() system call that retrieves file status information, including proper handling of junction points as symbolic links.

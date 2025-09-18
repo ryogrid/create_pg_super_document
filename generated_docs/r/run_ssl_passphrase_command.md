@@ -1,7 +1,7 @@
 # run_ssl_passphrase_command
 
 ## Location
-src/backend/libpq/be-secure-common.c: 40 - 113
+[src/backend/libpq/be-secure-common.c:40-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-common.c#L40-L113)
 
 ## Overview
 Executes the configured SSL passphrase command to retrieve passwords for encrypted SSL keys, substituting placeholders with provided prompts.

@@ -1,7 +1,7 @@
 # contain_outer_selfref
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1083 - 1096
+[src/backend/optimizer/plan/subselect.c:1083-1096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1083-L1096)
 
 ## Overview
 Determines whether there is an external recursive self-reference within a query tree by checking for CTE (Common Table Expression) self-references that reference CTEs defined at a higher query level than the current context.

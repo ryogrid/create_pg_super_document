@@ -1,7 +1,7 @@
 # AtSubAbort_smgr
 
 ## Location
-src/backend/catalog/storage.c: 959 - 964
+[src/backend/catalog/storage.c:959-964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L959-L964)
 
 ## Overview
 AtSubAbort_smgr handles subtransaction abort by immediately executing pending relation deletions for the aborting subtransaction, since it will not commit.

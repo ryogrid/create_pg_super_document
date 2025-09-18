@@ -1,7 +1,7 @@
 # flatten_join_alias_vars
 
 ## Location
-src/backend/optimizer/util/var.c: 744 - 766
+[src/backend/optimizer/util/var.c:744-766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L744-L766)
 
 ## Overview
 Replaces Vars that reference JOIN outputs with references to the original relation variables, allowing quals involving such vars to be pushed down.

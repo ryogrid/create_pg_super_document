@@ -1,7 +1,7 @@
 # r_residual_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_spanish.c: 941 - 987
+[src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:941-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_spanish.c#L941-L987)
 
 ## Overview
 This function handles residual suffixes that remain after other suffix processing steps, performing final cleanup operations with either deletion or replacement.

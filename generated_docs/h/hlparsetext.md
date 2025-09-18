@@ -1,7 +1,7 @@
 # hlparsetext
 
 ## Location
-src/backend/tsearch/ts_parse.c: 540 - 606
+[src/backend/tsearch/ts_parse.c:540-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L540-L606)
 
 ## Overview
 A core function that parses input text using PostgreSQL's text search framework and populates a HeadlineParsedText structure with processed lexemes and their associations with query terms.

@@ -1,7 +1,7 @@
 # canChangeResultMode
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1925 - 1947
+[src/interfaces/libpq/fe-exec.c:1925-1947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1925-L1947)
 
 ## Overview
 canChangeResultMode is a static utility function that determines whether it's safe to change the partial-result mode for a PostgreSQL connection at the current time.

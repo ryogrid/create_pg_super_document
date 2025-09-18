@@ -1,7 +1,7 @@
 # log_heap_visible
 
 ## Location
-src/backend/access/heap/heapam.c: 8782 - 8815
+[src/backend/access/heap/heapam.c:8782-8815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8782-L8815)
 
 ## Overview
 Performs XLogInsert for a heap-visible operation, generating a write-ahead log (WAL) record when a heap page is marked as all-visible in the visibility map.

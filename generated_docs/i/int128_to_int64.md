@@ -1,7 +1,7 @@
 # int128_to_int64
 
 ## Location
-src/include/common/int128.h: 269 - 276
+[src/include/common/int128.h:269-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int128.h#L269-L276)
 
 ## Overview
 Converts a 128-bit signed integer to a 64-bit signed integer by truncating the high-order bits, potentially losing precision.

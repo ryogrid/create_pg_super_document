@@ -1,7 +1,7 @@
 # drandom_normal
 
 ## Location
-src/backend/utils/adt/pseudorandomfuncs.c: 102 - 125
+[src/backend/utils/adt/pseudorandomfuncs.c:102-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudorandomfuncs.c#L102-L125)
 
 ## Overview
 Returns a pseudo-random floating-point number from a normal (Gaussian) distribution with specified mean and standard deviation parameters.

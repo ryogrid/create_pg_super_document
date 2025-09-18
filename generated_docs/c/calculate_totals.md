@@ -1,7 +1,7 @@
 # calculate_totals
 
 ## Location
-src/bin/pg_rewind/filemap.c: 499 - 539
+[src/bin/pg_rewind/filemap.c:499-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L499-L539)
 
 ## Overview
 Calculates the total size of files to be processed and the total size of data to be fetched for progress reporting during pg_rewind operations.

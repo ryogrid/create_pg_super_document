@@ -1,7 +1,7 @@
 # ignore_slash_options
 
 ## Location
-src/bin/psql/command.c: 3206 - 3222
+[src/bin/psql/command.c:3206-3222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3206-L3222)
 
 ## Overview
 This function reads and discards "normal" slash command options from the input stream, used during inactive-branch processing to consume command parameters without executing them.

@@ -1,7 +1,7 @@
 # init_libpq_conn
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 111 - 163
+[src/bin/pg_rewind/libpq_source.c:111-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L111-L163)
 
 ## Overview
 Initializes and configures a PostgreSQL connection for safe use by pg_rewind, setting appropriate timeouts, read-only mode, and preparing necessary statements.

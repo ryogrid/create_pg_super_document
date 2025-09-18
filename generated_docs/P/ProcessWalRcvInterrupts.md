@@ -1,7 +1,7 @@
 # ProcessWalRcvInterrupts
 
 ## Location
-src/backend/replication/walreceiver.c: 162 - 182
+[src/backend/replication/walreceiver.c:162-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L162-L182)
 
 ## Overview
 ProcessWalRcvInterrupts handles interrupts for the WAL receiver process, specifically processing shutdown requests that arrive via SIGTERM signals.

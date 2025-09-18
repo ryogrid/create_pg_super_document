@@ -1,7 +1,7 @@
 # lo_write
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 295 - 343
+[src/interfaces/libpq/fe-lobj.c:295-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L295-L343)
 
 ## Overview
 Writes data to a large object using a file descriptor obtained from lo_open or lo_creat.

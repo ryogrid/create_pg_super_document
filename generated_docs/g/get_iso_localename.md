@@ -1,7 +1,7 @@
 # get_iso_localename
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1126 - 1200
+[src/backend/utils/adt/pg_locale.c:1126-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1126-L1200)
 
 ## Overview
 Converts a Windows locale name to an ISO-formatted locale identifier, handling both direct matches and system enumeration to find appropriate locale mappings for Visual Studio 2015 or greater.

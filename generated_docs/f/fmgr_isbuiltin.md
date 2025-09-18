@@ -1,7 +1,7 @@
 # fmgr_isbuiltin
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 76 - 100
+[src/backend/utils/fmgr/fmgr.c:76-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L76-L100)
 
 ## Overview
 A fast lookup function that searches the builtin function table by Oid to determine if a function is a PostgreSQL builtin function and returns its metadata.

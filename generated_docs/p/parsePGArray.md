@@ -1,7 +1,7 @@
 # parsePGArray
 
 ## Location
-src/fe_utils/string_utils.c: 819 - 901
+[src/fe_utils/string_utils.c:819-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L819-L901)
 
 ## Overview
 Deconstructs the text representation of a 1-dimensional PostgreSQL array into individual string items.

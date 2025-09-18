@@ -1,7 +1,7 @@
 # jit_release_context
 
 ## Location
-src/backend/jit/jit.c: 137 - 150
+[src/backend/jit/jit.c:137-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/jit.c#L137-L150)
 
 ## Overview
 A function that releases resources associated with a JIT compilation context, including both provider-specific resources and the context structure itself.

@@ -1,7 +1,7 @@
 # drop_local_obsolete_slots
 
 ## Location
-src/backend/replication/logical/slotsync.c: 417 - 473
+[src/backend/replication/logical/slotsync.c:417-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L417-L473)
 
 ## Overview
 Removes local synchronized replication slots that are no longer needed, either because they don't exist on the primary or are invalidated locally while still valid on the primary.

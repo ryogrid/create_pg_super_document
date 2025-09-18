@@ -1,7 +1,7 @@
 # heap_page_prune_execute
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1561 - 1736
+[src/backend/access/heap/pruneheap.c:1561-1736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1561-L1736)
 
 ## Overview
 Performs the actual physical modifications to a heap page during pruning, including redirecting line pointers, marking items as dead or unused, and repairing page fragmentation.

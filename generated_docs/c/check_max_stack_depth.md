@@ -1,7 +1,7 @@
 # check_max_stack_depth
 
 ## Location
-src/backend/tcop/postgres.c: 3605 - 3621
+[src/backend/tcop/postgres.c:3605-3621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3605-L3621)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the max_stack_depth configuration parameter to ensure it doesn't exceed the platform's stack limit.

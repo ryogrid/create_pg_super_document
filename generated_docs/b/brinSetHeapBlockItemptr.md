@@ -1,7 +1,7 @@
 # brinSetHeapBlockItemptr
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 155 - 193
+[src/backend/access/brin/brin_revmap.c:155-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L155-L193)
 
 ## Overview
 Sets the item pointer (TID) for a specific heap block in a BRIN revmap page, establishing the mapping from heap block range to index tuple location.

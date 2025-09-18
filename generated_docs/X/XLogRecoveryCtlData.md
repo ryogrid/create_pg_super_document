@@ -1,7 +1,7 @@
 # XLogRecoveryCtlData
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 304 - 362
+[src/backend/access/transam/xlogrecovery.c:304-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L304-L362)
 
 ## Overview
 XLogRecoveryCtlData is a shared-memory structure that maintains the state and control information for WAL (Write-Ahead Log) recovery operations in PostgreSQL.

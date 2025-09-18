@@ -1,7 +1,7 @@
 # numeric_pg_lsn
 
 ## Location
-src/backend/utils/adt/numeric.c: 4766 - 4809
+[src/backend/utils/adt/numeric.c:4766-4809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4766-L4809)
 
 ## Overview
 Converts a PostgreSQL numeric value to a pg_lsn (Log Sequence Number) value, performing range validation and rejecting special numeric values.

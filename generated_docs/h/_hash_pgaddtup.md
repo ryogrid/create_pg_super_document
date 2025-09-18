@@ -1,7 +1,7 @@
 # _hash_pgaddtup
 
 ## Location
-src/backend/access/hash/hashinsert.c: 274 - 330
+[src/backend/access/hash/hashinsert.c:274-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashinsert.c#L274-L330)
 
 ## Overview
 The  function adds a single index tuple to a specific page in a hash index while maintaining the page's hashkey ordering.

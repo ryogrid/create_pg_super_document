@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_multirange_pg_type_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 76 - 86
+[src/backend/utils/adt/pg_upgrade_support.c:76-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L76-L86)
 
 ## Overview
 Sets the OID to be assigned to the next multirange type created during binary upgrade operations.

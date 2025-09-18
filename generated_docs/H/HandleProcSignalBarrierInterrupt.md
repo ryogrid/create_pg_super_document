@@ -1,7 +1,7 @@
 # HandleProcSignalBarrierInterrupt
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 448 - 463
+[src/backend/storage/ipc/procsignal.c:448-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L448-L463)
 
 ## Overview
 Handles receipt of an interrupt indicating a global barrier event by setting flags to defer the actual processing work to a safe context.

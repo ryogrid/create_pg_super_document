@@ -1,7 +1,7 @@
 # HeapTupleGetUpdateXid
 
 ## Location
-src/backend/access/heap/heapam.c: 7558 - 7573
+[src/backend/access/heap/heapam.c:7558-7573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7558-L7573)
 
 ## Overview
 Public function that extracts the updating transaction ID from a heap tuple header, serving as a convenient wrapper around MultiXactIdGetUpdateXid.

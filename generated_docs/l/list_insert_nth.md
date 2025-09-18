@@ -1,7 +1,7 @@
 # list_insert_nth
 
 ## Location
-src/backend/nodes/list.c: 439 - 452
+[src/backend/nodes/list.c:439-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L439-L452)
 
 ## Overview
 Inserts a given datum (void pointer) at a specified position in a PostgreSQL List, maintaining the list's structure and updating pointers accordingly.

@@ -1,7 +1,7 @@
 # update_progress_txn_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1648 - 1694
+[src/backend/replication/logical/logical.c:1648-1694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1648-L1694)
 
 ## Overview
 A wrapper function that handles progress updates during logical replication transaction processing, notifying clients of replication progress without allowing output writes.

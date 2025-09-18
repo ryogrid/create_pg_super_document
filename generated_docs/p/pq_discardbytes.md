@@ -1,7 +1,7 @@
 # pq_discardbytes
 
 ## Location
-src/backend/libpq/pqcomm.c: 1096 - 1125
+[src/backend/libpq/pqcomm.c:1096-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1096-L1125)
 
 ## Overview
 Discards a specified number of bytes from the PostgreSQL communication receive buffer without copying the data, primarily used for resynchronization after read errors.

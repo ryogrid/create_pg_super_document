@@ -1,7 +1,7 @@
 # birthinfo
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-variable.c: 56 - 77
+[src/interfaces/ecpg/test/expected/preproc-variable.c:56-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-variable.c#L56-L77)
 
 ## Overview
 A struct definition used in ECPG (Embedded SQL in C) test cases to represent basic personal information including birth year and age.

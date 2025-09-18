@@ -1,7 +1,7 @@
 # xid8cmp
 
 ## Location
-src/backend/utils/adt/xid.c: 277 - 290
+[src/backend/utils/adt/xid.c:277-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L277-L290)
 
 ## Overview
 Implements a three-way comparison function for full transaction IDs (xid8), returning -1, 0, or 1 based on whether the first transaction ID is less than, equal to, or greater than the second.

@@ -1,7 +1,7 @@
 # truncate_check_rel
 
 ## Location
-src/backend/commands/tablecmds.c: 2302 - 2349
+[src/backend/commands/tablecmds.c:2302-2349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L2302-L2349)
 
 ## Overview
 truncate_check_rel validates that a given relation is safe and allowed to be truncated, performing relation type checks, foreign data wrapper capability validation, and system catalog protection.

@@ -1,7 +1,7 @@
 # fmgr_info_cxt_security
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 147 - 280
+[src/backend/utils/fmgr/fmgr.c:147-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L147-L280)
 
 ## Overview
 The core function that initializes FmgrInfo structs by looking up function metadata, handling both builtin and catalog-defined functions with optional security enforcement.

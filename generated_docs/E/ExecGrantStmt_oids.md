@@ -1,7 +1,7 @@
 # ExecGrantStmt_oids
 
 ## Location
-src/backend/catalog/aclchk.c: 602 - 668
+[src/backend/catalog/aclchk.c:602-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L602-L668)
 
 ## Overview
 Internal dispatcher function that routes privilege grant/revoke operations to the appropriate object-type-specific execution functions based on the object type.

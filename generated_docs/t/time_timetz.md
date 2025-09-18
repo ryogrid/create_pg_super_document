@@ -1,7 +1,7 @@
 # time_timetz
 
 ## Location
-src/backend/utils/adt/date.c: 2828 - 2853
+[src/backend/utils/adt/date.c:2828-2853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2828-L2853)
 
 ## Overview
 Converts a plain time (TimeADT) value to a time with time zone (TimeTzADT) by adding the current session's timezone information.

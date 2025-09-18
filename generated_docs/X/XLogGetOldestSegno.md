@@ -1,7 +1,7 @@
 # XLogGetOldestSegno
 
 ## Location
-src/backend/access/transam/xlog.c: 3751 - 3788
+[src/backend/access/transam/xlog.c:3751-3788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3751-L3788)
 
 ## Overview
 XLogGetOldestSegno scans the WAL directory to find and return the oldest WAL segment number that exists for a specified timeline, or 0 if none are found.

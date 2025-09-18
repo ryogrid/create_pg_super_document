@@ -1,7 +1,7 @@
 # DatumGetUUIDP
 
 ## Location
-src/include/utils/uuid.h: 35 - 39
+[src/include/utils/uuid.h:35-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/uuid.h#L35-L39)
 
 ## Overview
 Converts a PostgreSQL Datum back to a pg_uuid_t pointer for UUID data type manipulation.

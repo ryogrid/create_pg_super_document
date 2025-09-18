@@ -1,7 +1,7 @@
 # italian_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_italian.c: 1027 - 1028
+[src/backend/snowball/libstemmer/stem_UTF_8_italian.c:1027-1028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_italian.c#L1027-L1028)
 
 ## Overview
 The italian_UTF_8_create_env function creates and initializes a new Snowball environment structure specifically configured for Italian UTF-8 text stemming operations.

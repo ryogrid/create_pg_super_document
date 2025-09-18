@@ -1,7 +1,7 @@
 # ATExecValidateConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 11704 - 11892
+[src/backend/commands/tablecmds.c:11704-11892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L11704-L11892)
 
 ## Overview
 ATExecValidateConstraint implements the ALTER TABLE VALIDATE CONSTRAINT command, which validates a previously created NOT VALID constraint by checking all existing data against the constraint and marking it as validated in the catalog.

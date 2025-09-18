@@ -1,7 +1,7 @@
 # CheckpointerSlotMapping
 
 ## Location
-src/backend/postmaster/checkpointer.c: 1162 - 1269
+[src/backend/postmaster/checkpointer.c:1162-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L1162-L1269)
 
 ## Overview
 A local structure used in the CompactCheckpointerRequestQueue function to map checkpointer requests to their slot positions in a hash table for duplicate elimination during queue compaction.

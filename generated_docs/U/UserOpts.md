@@ -1,7 +1,7 @@
 # UserOpts
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 330 - 335
+[src/bin/pg_upgrade/pg_upgrade.h:330-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L330-L335)
 
 ## Overview
 UserOpts is a structure that stores user-configurable options for the pg_upgrade utility, controlling various aspects of the PostgreSQL cluster upgrade process.

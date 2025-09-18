@@ -1,7 +1,7 @@
 # initial_cost_mergejoin
 
 ## Location
-src/backend/optimizer/path/costsize.c: 3514 - 3744
+[src/backend/optimizer/path/costsize.c:3514-3744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L3514-L3744)
 
 ## Overview
 Provides a preliminary estimate of the cost of a mergejoin path, producing lower-bound estimates to quickly evaluate path viability before detailed costing.

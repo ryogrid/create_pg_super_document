@@ -1,7 +1,7 @@
 # sort_snapshot
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 173 - 186
+[src/backend/utils/adt/xid8funcs.c:173-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L173-L186)
 
 ## Overview
 Sorts the transaction IDs in a snapshot structure and removes any duplicate entries to ensure efficient searching and consistent on-disk representation.

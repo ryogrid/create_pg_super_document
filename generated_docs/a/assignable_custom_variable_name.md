@@ -1,7 +1,7 @@
 # assignable_custom_variable_name
 
 ## Location
-src/backend/utils/misc/guc.c: 1123 - 1178
+[src/backend/utils/misc/guc.c:1123-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1123-L1178)
 
 ## Overview
 Determines whether an unrecognized configuration variable name is allowed to be SET by validating naming rules and checking against reserved namespace prefixes.

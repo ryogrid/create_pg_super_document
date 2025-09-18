@@ -1,7 +1,7 @@
 # ResetCatalogCachesExt
 
 ## Location
-src/backend/utils/cache/catcache.c: 804 - 833
+[src/backend/utils/cache/catcache.c:804-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L804-L833)
 
 ## Overview
 Extended version of catalog cache reset that iterates through all catalog caches and resets each one, with optional debug mode support.

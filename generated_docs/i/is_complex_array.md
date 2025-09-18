@@ -1,7 +1,7 @@
 # is_complex_array
 
 ## Location
-src/backend/parser/parse_coerce.c: 3368 - 3381
+[src/backend/parser/parse_coerce.c:3368-3381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L3368-L3381)
 
 ## Overview
 Determines whether a given type is an array of composite (complex) types by checking if its element type is composite.

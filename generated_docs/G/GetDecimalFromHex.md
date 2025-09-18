@@ -1,7 +1,7 @@
 # GetDecimalFromHex
 
 ## Location
-src/backend/commands/copyfromparse.c: 1509 - 1536
+[src/backend/commands/copyfromparse.c:1509-1536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L1509-L1536)
 
 ## Overview
 GetDecimalFromHex converts a single hexadecimal character ('0'-'9', 'a'-'f', 'A'-'F') to its corresponding decimal integer value (0-15).

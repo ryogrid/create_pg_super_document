@@ -1,7 +1,7 @@
 # ECPGsetcommit
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 158 - 194
+[src/interfaces/ecpg/ecpglib/connect.c:158-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L158-L194)
 
 ## Overview
 Controls the autocommit behavior of an ECPG database connection, allowing applications to switch between automatic and manual transaction commit modes.

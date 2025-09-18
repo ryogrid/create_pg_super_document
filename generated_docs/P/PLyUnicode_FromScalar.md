@@ -1,7 +1,7 @@
 # PLyUnicode_FromScalar
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 642 - 654
+[src/pl/plpython/plpy_typeio.c:642-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L642-L654)
 
 ## Overview
 Converts a PostgreSQL scalar datum to a Python unicode object using the data type's output function for generic text representation.

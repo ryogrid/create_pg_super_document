@@ -1,7 +1,7 @@
 # RS_compile
 
 ## Location
-src/backend/tsearch/regis.c: 85 - 165
+[src/backend/tsearch/regis.c:85-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/regis.c#L85-L165)
 
 ## Overview
 Compiles a regular expression string into a linked list of RegisNode structures for efficient pattern matching in PostgreSQL's text search system.

@@ -1,7 +1,7 @@
 # MinMaxOp
 
 ## Location
-src/include/nodes/primnodes.h: 1504 - 1505
+[src/include/nodes/primnodes.h:1504-1505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1504-L1505)
 
 ## Overview
 MinMaxOp is an enumeration that specifies the operation type for MinMaxExpr nodes, distinguishing between GREATEST and LEAST functions in PostgreSQL.

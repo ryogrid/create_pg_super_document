@@ -1,7 +1,7 @@
 # int8range_canonical
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1511 - 1557
+[src/backend/utils/adt/rangetypes.c:1511-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1511-L1557)
 
 ## Overview
 Converts an int8range (64-bit integer range) to its canonical form by normalizing bounds to use consistent inclusivity/exclusivity conventions.

@@ -1,7 +1,7 @@
 # ExecIndexEvalRuntimeKeys
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 599 - 660
+[src/backend/executor/nodeIndexscan.c:599-660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L599-L660)
 
 ## Overview
 Evaluates runtime key expressions and updates the scankeys with their computed values during index scan operations.

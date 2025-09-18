@@ -1,7 +1,7 @@
 # GetSerializationMetrics
 
 ## Location
-src/backend/commands/explain.c: 5581 - 5592
+[src/backend/commands/explain.c:5581-5592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5581-L5592)
 
 ## Overview
 Retrieves performance metrics from a destination receiver, returning actual serialization metrics if it's a SerializeDestReceiver or zero-initialized metrics otherwise.

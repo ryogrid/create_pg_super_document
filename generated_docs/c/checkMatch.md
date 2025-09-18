@@ -1,7 +1,7 @@
 # checkMatch
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 771 - 787
+[src/backend/tsearch/dict_thesaurus.c:771-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L771-L787)
 
 ## Overview
 Checks if a thesaurus pattern matches at the current lexeme position and returns the corresponding substitution if found.

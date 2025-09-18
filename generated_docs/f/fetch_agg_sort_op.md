@@ -1,7 +1,7 @@
 # fetch_agg_sort_op
 
 ## Location
-src/backend/optimizer/plan/planagg.c: 497 - 512
+[src/backend/optimizer/plan/planagg.c:497-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planagg.c#L497-L512)
 
 ## Overview
 Retrieves the sort operator OID associated with an aggregate function from the system catalog to determine if it's a MIN/MAX aggregate.

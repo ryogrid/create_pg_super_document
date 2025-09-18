@@ -1,7 +1,7 @@
 # get_relation_statistics
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1470 - 1575
+[src/backend/optimizer/util/plancat.c:1470-1575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1470-L1575)
 
 ## Overview
 Retrieves extended statistics metadata defined on a table and prepares StatisticExtInfo objects containing identifying information for the optimizer's use.

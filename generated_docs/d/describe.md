@@ -1,7 +1,7 @@
 # describe
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 228 - 234
+[src/interfaces/ecpg/preproc/type.h:228-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L228-L234)
 
 ## Overview
 A structure used in ECPG (Embedded C for PostgreSQL) preprocessor to store information about DESCRIBE statement operations during SQL preprocessing.

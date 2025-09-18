@@ -1,7 +1,7 @@
 # _bt_preprocess_array_keys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 269 - 550
+[src/backend/access/nbtree/nbtutils.c:269-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L269-L550)
 
 ## Overview
 Preprocesses SK_SEARCHARRAY scan keys by deconstructing arrays and setting up BTArrayKeyInfo for each equality-type key, performing optimization by merging arrays and eliminating redundant elements.

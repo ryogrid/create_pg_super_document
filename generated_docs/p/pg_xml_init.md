@@ -1,7 +1,7 @@
 # pg_xml_init
 
 ## Location
-src/backend/utils/adt/xml.c: 1211 - 1291
+[src/backend/utils/adt/xml.c:1211-1291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1211-L1291)
 
 ## Overview
 The pg_xml_init function initializes libxml2 with comprehensive error handling support and establishes PostgreSQL's custom error handler and entity loader for secure XML processing.

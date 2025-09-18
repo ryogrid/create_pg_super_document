@@ -1,7 +1,7 @@
 # PgArchShmemInit
 
 ## Location
-src/backend/postmaster/pgarch.c: 168 - 196
+[src/backend/postmaster/pgarch.c:168-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L168-L196)
 
 ## Overview
 PgArchShmemInit allocates and initializes the shared memory structure used by the PostgreSQL archiver subsystem.

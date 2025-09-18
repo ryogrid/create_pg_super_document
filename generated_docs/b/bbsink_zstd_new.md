@@ -1,7 +1,7 @@
 # bbsink_zstd_new
 
 ## Location
-src/backend/backup/basebackup_zstd.c: 61 - 87
+[src/backend/backup/basebackup_zstd.c:61-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_zstd.c#L61-L87)
 
 ## Overview
 Creates a new basebackup sink that performs zstd compression on backup data, wrapping another basebackup sink to provide compression functionality in the backup pipeline.

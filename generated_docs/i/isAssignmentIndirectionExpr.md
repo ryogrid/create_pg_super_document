@@ -1,7 +1,7 @@
 # isAssignmentIndirectionExpr
 
 ## Location
-src/backend/executor/execExpr.c: 3309 - 3345
+[src/backend/executor/execExpr.c:3309-3345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L3309-L3345)
 
 ## Overview
 Determines if an expression is a nested assignment indirection that requires the old element value to be passed down via the CaseTestExpr mechanism.

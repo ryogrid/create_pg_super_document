@@ -1,7 +1,7 @@
 # renameatt_check
 
 ## Location
-src/backend/commands/tablecmds.c: 3663 - 3711
+[src/backend/commands/tablecmds.c:3663-3711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3663-L3711)
 
 ## Overview
 renameatt_check performs comprehensive validation before allowing an attribute (column) rename operation, checking relation types, ownership permissions, and system catalog restrictions.

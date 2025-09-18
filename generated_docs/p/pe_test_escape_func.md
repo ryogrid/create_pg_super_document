@@ -1,7 +1,7 @@
 # pe_test_escape_func
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 41 - 71
+[src/test/modules/test_escape/test_escape.c:41-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L41-L71)
 
 ## Overview
 A structure that defines the interface and capabilities of PostgreSQL escape functions to be tested by the test_escape module.

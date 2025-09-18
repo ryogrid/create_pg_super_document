@@ -1,7 +1,7 @@
 # bytea_substr
 
 ## Location
-src/backend/utils/adt/varlena.c: 3005 - 3018
+[src/backend/utils/adt/varlena.c:3005-3018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3005-L3018)
 
 ## Overview
 bytea_substr is a PostgreSQL internal function that extracts a substring from a bytea value starting at a specified position with a specified length.

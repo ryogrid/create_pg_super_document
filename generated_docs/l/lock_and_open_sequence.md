@@ -1,7 +1,7 @@
 # lock_and_open_sequence
 
 ## Location
-src/backend/commands/sequence.c: 1085 - 1112
+[src/backend/commands/sequence.c:1085-1112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1085-L1112)
 
 ## Overview
 Locks and opens a sequence relation, ensuring proper transaction-level locking for sequence operations.

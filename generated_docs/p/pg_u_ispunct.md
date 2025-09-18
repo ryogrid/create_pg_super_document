@@ -1,7 +1,7 @@
 # pg_u_ispunct
 
 ## Location
-src/common/unicode_category.c: 290 - 310
+[src/common/unicode_category.c:290-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L290-L310)
 
 ## Overview
 Determines whether a Unicode character is a punctuation character, with different behavior depending on whether POSIX or Unicode classification is requested.

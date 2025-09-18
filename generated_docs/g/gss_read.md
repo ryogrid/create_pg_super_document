@@ -1,7 +1,7 @@
 # gss_read
 
 ## Location
-src/interfaces/libpq/fe-secure-gssapi.c: 435 - 478
+[src/interfaces/libpq/fe-secure-gssapi.c:435-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-gssapi.c#L435-L478)
 
 ## Overview
 A static wrapper function for pqsecure_raw_read that provides enhanced error handling and polling status reporting for GSSAPI connection establishment.

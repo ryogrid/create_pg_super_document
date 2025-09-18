@@ -1,7 +1,7 @@
 # pull_up_subqueries
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 934 - 977
+[src/backend/optimizer/prep/prepjointree.c:934-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L934-L977)
 
 ## Overview
 Entry point function that identifies and pulls up subqueries from the range table into the parent query's jointree to enable better optimization opportunities.

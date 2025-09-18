@@ -1,7 +1,7 @@
 # OidSendFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1782 - 1806
+[src/backend/utils/fmgr/fmgr.c:1782-1806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1782-L1806)
 
 ## Overview
 OidSendFunctionCall is a convenience function that calls a datatype binary-output (send) function identified by its OID to convert internal Datum values to binary format.

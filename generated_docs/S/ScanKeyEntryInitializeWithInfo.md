@@ -1,7 +1,7 @@
 # ScanKeyEntryInitializeWithInfo
 
 ## Location
-src/backend/access/common/scankey.c: 101 - 117
+[src/backend/access/common/scankey.c:101-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/scankey.c#L101-L117)
 
 ## Overview
 Initializes a scan key entry using a pre-existing FmgrInfo function lookup record, providing efficiency when the function information is already available.

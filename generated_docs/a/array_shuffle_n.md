@@ -1,7 +1,7 @@
 # array_shuffle_n
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1537 - 1625
+[src/backend/utils/adt/array_userfuncs.c:1537-1625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1537-L1625)
 
 ## Overview
 A static helper function that returns a copy of an array containing n randomly chosen items from the first dimension, using the Fisher-Yates shuffle algorithm.

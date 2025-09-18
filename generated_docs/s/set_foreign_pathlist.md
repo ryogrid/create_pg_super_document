@@ -1,7 +1,7 @@
 # set_foreign_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 926 - 943
+[src/backend/optimizer/path/allpaths.c:926-943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L926-L943)
 
 ## Overview
 Builds access paths for a foreign table by delegating to the Foreign Data Wrapper's path generation function.

@@ -1,7 +1,7 @@
 # dumpDumpableObject
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10522 - 10714
+[src/bin/pg_dump/pg_dump.c:10522-10714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10522-L10714)
 
 ## Overview
 The central dispatcher function in pg_dump that routes each database object to its appropriate dump function based on object type.

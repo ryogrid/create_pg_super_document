@@ -1,7 +1,7 @@
 # SnapBuildBuildSnapshot
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 499 - 578
+[src/backend/replication/logical/snapbuild.c:499-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L499-L578)
 
 ## Overview
 Creates a new historic MVCC snapshot based on currently committed catalog-modifying transactions, providing the foundation for consistent logical decoding operations.

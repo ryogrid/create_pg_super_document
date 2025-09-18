@@ -1,7 +1,7 @@
 # repairViewRuleLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 958 - 977
+[src/bin/pg_dump/pg_dump_sort.c:958-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L958-L977)
 
 ## Overview
 repairViewRuleLoop resolves circular dependency loops between views (including materialized views) and their ON SELECT rules by removing the implicit rule-to-view dependency.

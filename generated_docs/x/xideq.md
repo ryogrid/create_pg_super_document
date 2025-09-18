@@ -1,7 +1,7 @@
 # xideq
 
 ## Location
-src/backend/utils/adt/xid.c: 80 - 91
+[src/backend/utils/adt/xid.c:80-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L80-L91)
 
 ## Overview
 The xideq function implements the equality comparison operator for the xid (TransactionId) data type, determining whether two transaction IDs are equal.

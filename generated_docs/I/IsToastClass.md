@@ -1,7 +1,7 @@
 # IsToastClass
 
 ## Location
-src/backend/catalog/catalog.c: 195 - 211
+[src/backend/catalog/catalog.c:195-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L195-L211)
 
 ## Overview
 Determines whether a given pg_class tuple represents a TOAST support relation by checking if it belongs to a pg_toast namespace.

@@ -1,7 +1,7 @@
 # ss_get_location
 
 ## Location
-src/backend/access/common/syncscan.c: 254 - 288
+[src/backend/access/common/syncscan.c:254-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/syncscan.c#L254-L288)
 
 ## Overview
 Retrieves the optimal starting location for a sequential scan based on previously recorded scan positions from other concurrent scans.

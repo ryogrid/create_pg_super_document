@@ -1,7 +1,7 @@
 # planstate_walk_members
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 4782 - 4795
+[src/backend/nodes/nodeFuncs.c:4782-4795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L4782-L4795)
 
 ## Overview
 Walks through an array of PlanState nodes that represent constituent plans of composite execution nodes like ModifyTable, Append, MergeAppend, BitmapAnd, or BitmapOr.

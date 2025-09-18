@@ -1,7 +1,7 @@
 # entryGetLeftMostPage
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 446 - 458
+[src/backend/access/gin/ginentrypage.c:446-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L446-L458)
 
 ## Overview
 Returns the block number of the leftmost child page from a non-leaf GIN index page by extracting the downlink from the first index tuple.

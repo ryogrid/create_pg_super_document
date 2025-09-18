@@ -1,7 +1,7 @@
 # point_invsl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2039 - 2064
+[src/backend/utils/adt/geo_ops.c:2039-2064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2039-L2064)
 
 ## Overview
 Calculates the inverse slope (negative reciprocal) of a line defined by two points, used primarily for finding perpendicular line slopes.

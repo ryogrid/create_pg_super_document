@@ -1,7 +1,7 @@
 # replace_vars_in_jointree
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2368 - 2473
+[src/backend/optimizer/prep/prepjointree.c:2368-2473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2368-L2473)
 
 ## Overview
 Helper routine for perform_pullup_replace_vars that recursively processes every expression in the jointree structure, performing variable replacement without modifying the jointree structure itself.

@@ -1,7 +1,7 @@
 # tstoreReceiveSlot_notoast
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 122 - 135
+[src/backend/executor/tstoreReceiver.c:122-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L122-L135)
 
 ## Overview
 A lightweight callback function that receives tuples from the executor and stores them directly in a tuplestore without any detoasting or tuple format conversion processing.

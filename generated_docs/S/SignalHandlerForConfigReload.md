@@ -1,7 +1,7 @@
 # SignalHandlerForConfigReload
 
 ## Location
-src/backend/postmaster/interrupt.c: 61 - 72
+[src/backend/postmaster/interrupt.c:61-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/interrupt.c#L61-L72)
 
 ## Overview
 SignalHandlerForConfigReload is a simple signal handler designed to trigger configuration reloads in PostgreSQL processes, typically in response to SIGHUP signals.

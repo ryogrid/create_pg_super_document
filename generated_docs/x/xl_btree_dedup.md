@@ -1,7 +1,7 @@
 # xl_btree_dedup
 
 ## Location
-src/include/access/nbtxlog.h: 170 - 175
+[src/include/access/nbtxlog.h:170-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L170-L175)
 
 ## Overview
 The xl_btree_dedup structure represents a WAL record for B-tree deduplication operations, which merge consecutive tuples with equal keys into posting list tuples to save space.

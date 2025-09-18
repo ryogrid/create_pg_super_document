@@ -1,7 +1,7 @@
 # hungarian_ISO_8859_2_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 861 - 862
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:861-862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L861-L862)
 
 ## Overview
 Cleans up and deallocates a Snowball stemming environment that was created for Hungarian language text processing using the ISO-8859-2 character encoding.

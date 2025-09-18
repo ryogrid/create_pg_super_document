@@ -1,7 +1,7 @@
 # pg_fe_scram_build_secret
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 892 - 930
+[src/interfaces/libpq/fe-auth-scram.c:892-930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L892-L930)
 
 ## Overview
 Builds a new SCRAM secret from a plain text password by performing SASLprep normalization, generating a random salt, and creating the SCRAM authentication secret.

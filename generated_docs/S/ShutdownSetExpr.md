@@ -1,7 +1,7 @@
 # ShutdownSetExpr
 
 ## Location
-src/backend/executor/execSRF.c: 810 - 833
+[src/backend/executor/execSRF.c:810-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L810-L833)
 
 ## Overview
 ShutdownSetExpr is a callback function responsible for properly cleaning up a SetExprState structure when it needs to be shut down before completion, ensuring all allocated resources are properly released.

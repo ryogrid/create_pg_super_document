@@ -1,7 +1,7 @@
 # regrolerecv
 
 ## Location
-src/backend/utils/adt/regproc.c: 1633 - 1642
+[src/backend/utils/adt/regproc.c:1633-1642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1633-L1642)
 
 ## Overview
 The regrolerecv function converts external binary format data to the regrole data type, which is used to store references to database roles (users/groups) by their OID.

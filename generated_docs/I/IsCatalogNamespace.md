@@ -1,7 +1,7 @@
 # IsCatalogNamespace
 
 ## Location
-src/backend/catalog/catalog.c: 212 - 229
+[src/backend/catalog/catalog.c:212-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L212-L229)
 
 ## Overview
 Determines whether a given namespace OID represents the pg_catalog system schema where PostgreSQL's built-in system tables and functions reside.

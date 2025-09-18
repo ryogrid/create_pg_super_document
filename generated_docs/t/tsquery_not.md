@@ -1,7 +1,7 @@
 # tsquery_not
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 159 - 188
+[src/backend/utils/adt/tsquery_op.c:159-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L159-L188)
 
 ## Overview
 Creates a negation query that matches documents where the specified tsquery does not match, implementing the NOT logical operator for text search queries.

@@ -1,7 +1,7 @@
 # int8_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5612 - 5631
+[src/backend/utils/adt/numeric.c:5612-5631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5612-L5631)
 
 ## Overview
 The int8_accum function is an accumulator function for 64-bit integer (int8/bigint) values in PostgreSQL's aggregate operations, managing accumulation state for statistical and mathematical aggregate functions.

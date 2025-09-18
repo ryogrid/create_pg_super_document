@@ -1,7 +1,7 @@
 # tsq_mcontains
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 307 - 353
+[src/backend/utils/adt/tsquery_op.c:307-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L307-L353)
 
 ## Overview
 Implements the PostgreSQL text search query containment operator, determining if the first TSQuery contains all the terms present in the second TSQuery.

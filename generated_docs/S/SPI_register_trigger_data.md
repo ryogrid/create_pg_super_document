@@ -1,7 +1,7 @@
 # SPI_register_trigger_data
 
 ## Location
-src/backend/executor/spi.c: 3364 - 3404
+[src/backend/executor/spi.c:3364-3404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3364-L3404)
 
 ## Overview
 Registers transient relations from trigger data using the current SPI connection, making transition tables visible to queries run in the connection.

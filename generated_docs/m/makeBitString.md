@@ -1,7 +1,7 @@
 # makeBitString
 
 ## Location
-src/backend/nodes/value.c: 77 - 83
+[src/backend/nodes/value.c:77-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/value.c#L77-L83)
 
 ## Overview
 The makeBitString function creates a new BitString node containing a specified bit string value, used for representing bit string literals in PostgreSQL's parse tree structure.

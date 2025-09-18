@@ -1,7 +1,7 @@
 # ChooseIndexNameAddition
 
 ## Location
-src/backend/commands/indexcmds.c: 2598 - 2631
+[src/backend/commands/indexcmds.c:2598-2631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2598-L2631)
 
 ## Overview
 ChooseIndexNameAddition generates a column-based name component for PostgreSQL indexes by concatenating column names with underscores, truncating as needed to fit within PostgreSQL's naming constraints.

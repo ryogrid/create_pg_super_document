@@ -1,7 +1,7 @@
 # cache_locale_time
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 829 - 1059
+[src/backend/utils/adt/pg_locale.c:829-1059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L829-L1059)
 
 ## Overview
 Updates the localization cache for time-related locale data by extracting localized day and month names using strftime() and converting them to the database encoding for efficient reuse.

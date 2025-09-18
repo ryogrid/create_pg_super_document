@@ -1,7 +1,7 @@
 # transformExplainStmt
 
 ## Location
-src/backend/parser/analyze.c: 2961 - 3012
+[src/backend/parser/analyze.c:2961-3012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2961-L3012)
 
 ## Overview
 Transforms an EXPLAIN statement into a CMD_UTILITY Query node after transforming the contained query and handling generic plan parameters.

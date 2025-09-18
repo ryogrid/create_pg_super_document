@@ -1,7 +1,7 @@
 # TupleHashTableData
 
 ## Location
-src/include/nodes/execnodes.h: 818 - 836
+[src/include/nodes/execnodes.h:818-836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L818-L836)
 
 ## Overview
 TupleHashTableData is the core data structure that implements a hash table specifically designed for efficient tuple storage, lookup, and manipulation in PostgreSQLs execution engine.

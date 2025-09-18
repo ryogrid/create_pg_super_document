@@ -1,7 +1,7 @@
 # qsortCompareItemPointers
 
 ## Location
-src/backend/access/gin/ginbulk.c: 246 - 256
+[src/backend/access/gin/ginbulk.c:246-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L246-L256)
 
 ## Overview
 A static comparison function used as a callback for qsort operations on ItemPointer arrays, ensuring no duplicate ItemPointers exist during sorting.

@@ -1,7 +1,7 @@
 # get_partkey_exec_paramids
 
 ## Location
-src/backend/partitioning/partprune.c: 3380 - 3415
+[src/backend/partitioning/partprune.c:3380-3415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3380-L3415)
 
 ## Overview
 Loops through given pruning steps and finds out which exec Params are used, returning a Bitmapset of Param IDs.

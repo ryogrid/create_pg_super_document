@@ -1,7 +1,7 @@
 # PredIterInfoData
 
 ## Location
-src/backend/optimizer/util/predtest.c: 59 - 70
+[src/backend/optimizer/util/predtest.c:59-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L59-L70)
 
 ## Overview
 PredIterInfoData is the core structure that implements a generic iteration framework for traversing different types of expression nodes in PostgreSQL's predicate testing system during query optimization.

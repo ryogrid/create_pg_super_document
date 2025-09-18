@@ -1,7 +1,7 @@
 # XidCacheRemoveRunningXids
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3990 - 4077
+[src/backend/storage/ipc/procarray.c:3990-4077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3990-L4077)
 
 ## Overview
 Removes a group of transaction IDs from the list of known-running subtransactions for the current backend, typically used during transaction abort operations.

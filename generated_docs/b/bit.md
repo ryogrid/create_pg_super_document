@@ -1,7 +1,7 @@
 # bit
 
 ## Location
-src/backend/utils/adt/varbit.c: 391 - 428
+[src/backend/utils/adt/varbit.c:391-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L391-L428)
 
 ## Overview
 Converts a variable-length bit string to a fixed-length bit string with a specified length, handling both explicit and implicit type casts with appropriate validation and padding.

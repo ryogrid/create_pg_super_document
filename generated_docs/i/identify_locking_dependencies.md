@@ -1,7 +1,7 @@
 # identify_locking_dependencies
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4839 - 4902
+[src/bin/pg_dump/pg_backup_archiver.c:4839-4902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4839-L4902)
 
 ## Overview
 This function identifies database objects that require exclusive locks during parallel restore operations, specifically for POST_DATA section items, and records their dump IDs in the entry's lockDeps array.

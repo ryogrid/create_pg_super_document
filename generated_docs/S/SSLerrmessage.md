@@ -1,7 +1,7 @@
 # SSLerrmessage
 
 ## Location
-src/common/hmac_openssl.c: 103 - 121
+[src/common/hmac_openssl.c:103-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L103-L121)
 
 ## Overview
 Obtains a human-readable error message string for a given OpenSSL error code, providing consistent error reporting across PostgreSQL's SSL implementation.

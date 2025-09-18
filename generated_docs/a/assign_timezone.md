@@ -1,7 +1,7 @@
 # assign_timezone
 
 ## Location
-src/backend/commands/variable.c: 381 - 389
+[src/backend/commands/variable.c:381-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L381-L389)
 
 ## Overview
 A GUC (Grand Unified Configuration) assignment hook function that applies a validated timezone configuration by setting the global session_timezone variable.

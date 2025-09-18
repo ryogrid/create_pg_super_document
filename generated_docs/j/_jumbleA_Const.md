@@ -1,7 +1,7 @@
 # _jumbleA_Const
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 323 - 354
+[src/backend/nodes/queryjumblefuncs.c:323-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L323-L354)
 
 ## Overview
 The `_jumbleA_Const` function is a specialized jumbling function in PostgreSQL's query normalization system that processes A_Const (Abstract Syntax Tree Constant) nodes, handling different types of literal constants while preserving their semantic meaning in the query jumble.

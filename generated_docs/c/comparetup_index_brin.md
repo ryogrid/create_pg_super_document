@@ -1,7 +1,7 @@
 # comparetup_index_brin
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1725 - 1740
+[src/backend/utils/sort/tuplesortvariants.c:1725-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1725-L1740)
 
 ## Overview
 Compares two BRIN index tuples during sorting operations by comparing their block numbers stored in the datum1 field.

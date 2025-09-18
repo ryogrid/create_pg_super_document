@@ -1,7 +1,7 @@
 # CreateSQLFunctionDestReceiver
 
 ## Location
-src/backend/executor/functions.c: 2069 - 2087
+[src/backend/executor/functions.c:2069-2087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L2069-L2087)
 
 ## Overview
 Creates and initializes a DestReceiver object specifically designed to handle result tuples from SQL function execution.

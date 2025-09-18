@@ -1,7 +1,7 @@
 # pthread_barrier_wait
 
 ## Location
-src/port/pthread_barrier_wait.c: 38 - 71
+[src/port/pthread_barrier_wait.c:38-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pthread_barrier_wait.c#L38-L71)
 
 ## Overview
 Waits at a synchronization barrier until all expected threads have arrived, implementing a sense-reversing barrier algorithm.

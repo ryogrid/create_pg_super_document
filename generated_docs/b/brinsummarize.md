@@ -1,7 +1,7 @@
 # brinsummarize
 
 ## Location
-src/backend/access/brin/brin.c: 1878 - 1975
+[src/backend/access/brin/brin.c:1878-1975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1878-L1975)
 
 ## Overview
 Summarizes page ranges in a BRIN index that are not already summarized, optionally processing the entire table or a specific page range.

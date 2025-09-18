@@ -1,7 +1,7 @@
 # RmgrNotFound
 
 ## Location
-src/backend/access/transam/rmgr.c: 91 - 106
+[src/backend/access/transam/rmgr.c:91-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/rmgr.c#L91-L106)
 
 ## Overview
 Emits an error when encountering a WAL record with an unregistered resource manager ID.

@@ -1,7 +1,7 @@
 # makeJsonTablePathScan
 
 ## Location
-src/backend/parser/parse_jsontable.c: 499 - 533
+[src/backend/parser/parse_jsontable.c:499-533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L499-L533)
 
 ## Overview
 Creates a JsonTablePathScan plan node for scanning JSON data along a specified JSONPath with defined error handling behavior and column range specifications.

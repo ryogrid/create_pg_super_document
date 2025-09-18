@@ -1,7 +1,7 @@
 # bms_join
 
 ## Location
-src/backend/nodes/bitmapset.c: 1230 - 1305
+[src/backend/nodes/bitmapset.c:1230-1305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1230-L1305)
 
 ## Overview
 Performs union of two bitmap sets with the flexibility to recycle either input bitmap set, choosing the larger one as the base for maximum efficiency.

@@ -1,7 +1,7 @@
 # GinScanEntryData
 
 ## Location
-src/include/access/gin_private.h: 336 - 367
+[src/include/access/gin_private.h:336-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L336-L367)
 
 ## Overview
 GinScanEntryData represents a specific index search condition extracted from GIN scan queries, containing query information, current scan state, and result data structures.

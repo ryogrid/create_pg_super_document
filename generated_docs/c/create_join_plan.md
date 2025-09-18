@@ -1,7 +1,7 @@
 # create_join_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1082 - 1140
+[src/backend/optimizer/plan/createplan.c:1082-1140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1082-L1140)
 
 ## Overview
 Creates execution plans for join operations by dispatching to specific join type implementations and optionally adding gating logic for pseudoconstant qualifiers.

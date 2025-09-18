@@ -1,7 +1,7 @@
 # make_jsp_expr_node_binary
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 395 - 407
+[src/backend/utils/adt/jsonb_gin.c:395-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L395-L407)
 
 ## Overview
 Creates a binary JSON path GIN expression node with two child arguments for use in GIN index operations on JSONB data.

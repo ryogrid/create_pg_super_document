@@ -1,7 +1,7 @@
 # _bt_spool
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 525 - 535
+[src/backend/access/nbtree/nbtsort.c:525-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L525-L535)
 
 ## Overview
 Adds a single index tuple to a BTSpool structure for temporary storage during B-tree index construction.

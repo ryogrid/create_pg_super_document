@@ -1,7 +1,7 @@
 # PSQLexecWatch
 
 ## Location
-src/bin/psql/common.c: 675 - 704
+[src/bin/psql/common.c:675-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L675-L704)
 
 ## Overview
 PSQLexecWatch is a specialized function in psql designed to execute queries for the \watch command, providing timing information and proper result processing for repeated query execution.

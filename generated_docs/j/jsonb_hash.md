@@ -1,7 +1,7 @@
 # jsonb_hash
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 253 - 294
+[src/backend/utils/adt/jsonb_op.c:253-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L253-L294)
 
 ## Overview
 Computes a hash value for a JSONB value, enabling its use in hash-based data structures like hash indexes and hash joins.

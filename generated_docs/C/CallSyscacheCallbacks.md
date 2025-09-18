@@ -1,7 +1,7 @@
 # CallSyscacheCallbacks
 
 ## Location
-src/backend/utils/cache/inval.c: 1580 - 1606
+[src/backend/utils/cache/inval.c:1580-1606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1580-L1606)
 
 ## Overview
 Invokes all registered callback functions for a specific system cache when invalidation events occur.

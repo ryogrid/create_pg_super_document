@@ -1,7 +1,7 @@
 # freearc
 
 ## Location
-src/backend/regex/regc_nfa.c: 418 - 488
+[src/backend/regex/regc_nfa.c:418-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L418-L488)
 
 ## Overview
 Frees an arc from an NFA by unlinking it from state chains, cleaning up color chains, and adding it to the freelist for reuse.

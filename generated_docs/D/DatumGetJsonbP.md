@@ -1,7 +1,7 @@
 # DatumGetJsonbP
 
 ## Location
-src/include/utils/jsonb.h: 374 - 379
+[src/include/utils/jsonb.h:374-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonb.h#L374-L379)
 
 ## Overview
 DatumGetJsonbP is a convenience macro function that converts a Datum value to a Jsonb pointer, handling TOAST decompression automatically.

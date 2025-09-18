@@ -1,7 +1,7 @@
 # elements_worker
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2306 - 2347
+[src/backend/utils/adt/jsonfuncs.c:2306-2347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2306-L2347)
 
 ## Overview
 A static worker function that parses JSON text and extracts array elements using PostgreSQL's JSON parsing framework with semantic actions.

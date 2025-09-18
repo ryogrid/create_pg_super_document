@@ -1,7 +1,7 @@
 # updateAclDependencies
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 491 - 511
+[src/backend/catalog/pg_shdepend.c:491-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L491-L511)
 
 ## Overview
 Updates shared dependency records for an object's ACL during GRANT/REVOKE operations, tracking which roles have privileges on database objects.

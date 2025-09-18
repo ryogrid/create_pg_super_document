@@ -1,7 +1,7 @@
 # _getObjectDescription
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3664 - 3757
+[src/bin/pg_dump/pg_backup_archiver.c:3664-3757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3664-L3757)
 
 ## Overview
 Extracts an object description for a TOC entry and appends it to a buffer, primarily used for generating ALTER ... OWNER TO statements in pg_dump operations.

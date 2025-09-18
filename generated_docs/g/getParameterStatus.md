@@ -1,7 +1,7 @@
 # getParameterStatus
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1469 - 1497
+[src/interfaces/libpq/fe-protocol3.c:1469-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1469-L1497)
 
 ## Overview
 Reads and processes a ParameterStatus message from the PostgreSQL server, extracting parameter name-value pairs and storing them in the connection state.

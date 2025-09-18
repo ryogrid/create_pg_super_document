@@ -1,7 +1,7 @@
 # nonemptyReloptions
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 19027 - 19038
+[src/bin/pg_dump/pg_dump.c:19027-19038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L19027-L19038)
 
 ## Overview
 A simple utility function that checks whether a PostgreSQL reloptions array string contains meaningful options beyond the empty array representation.

@@ -1,7 +1,7 @@
 # be_tls_init
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 98 - 425
+[src/backend/libpq/be-secure-openssl.c:98-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L98-L425)
 
 ## Overview
 Initializes the OpenSSL TLS/SSL subsystem for PostgreSQL server connections, creating and configuring an SSL context with certificates, keys, protocol versions, and security settings.

@@ -1,7 +1,7 @@
 # brinbuild
 
 ## Location
-src/backend/access/brin/brin.c: 1095 - 1263
+[src/backend/access/brin/brin.c:1095-1263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1095-L1263)
 
 ## Overview
 The main function responsible for building a new BRIN (Block Range Index) from scratch, including metadata initialization, tuple scanning, and optional parallel processing.

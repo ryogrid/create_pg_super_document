@@ -1,7 +1,7 @@
 # gistdoinsert
 
 ## Location
-src/backend/access/gist/gist.c: 634 - 908
+[src/backend/access/gist/gist.c:634-908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L634-L908)
 
 ## Overview
 This is the workhouse routine for inserting a tuple into a GiST (Generalized Search Tree) index, handling the complex tree traversal, page splits, and concurrency control required for safe index insertion.

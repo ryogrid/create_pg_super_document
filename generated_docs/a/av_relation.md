@@ -1,7 +1,7 @@
 # av_relation
 
 ## Location
-src/backend/postmaster/autovacuum.c: 186 - 193
+[src/backend/postmaster/autovacuum.c:186-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L186-L193)
 
 ## Overview
 The  structure is used by PostgreSQL autovacuum workers to track table-specific information during the first pass of determining which tables need vacuuming or analyzing.

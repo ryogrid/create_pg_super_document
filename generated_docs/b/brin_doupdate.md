@@ -1,7 +1,7 @@
 # brin_doupdate
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 53 - 322
+[src/backend/access/brin/brin_pageops.c:53-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L53-L322)
 
 ## Overview
 Updates a BRIN (Block Range Index) tuple by replacing an existing tuple with a new one, handling both same-page and cross-page updates with proper WAL logging and revmap maintenance.

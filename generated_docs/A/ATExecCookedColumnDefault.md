@@ -1,7 +1,7 @@
 # ATExecCookedColumnDefault
 
 ## Location
-src/backend/commands/tablecmds.c: 7994 - 8022
+[src/backend/commands/tablecmds.c:7994-8022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7994-L8022)
 
 ## Overview
 ATExecCookedColumnDefault adds a pre-cooked (pre-processed) default expression to a column in a PostgreSQL relation, returning the address of the affected column.

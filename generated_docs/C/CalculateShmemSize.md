@@ -1,7 +1,7 @@
 # CalculateShmemSize
 
 ## Location
-src/backend/storage/ipc/ipci.c: 90 - 177
+[src/backend/storage/ipc/ipci.c:90-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipci.c#L90-L177)
 
 ## Overview
 Calculates the total amount of shared memory required by PostgreSQL and the number of semaphores needed for all subsystems.

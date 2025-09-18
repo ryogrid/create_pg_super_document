@@ -1,7 +1,7 @@
 # LagTrackerWrite
 
 ## Location
-src/backend/replication/walsender.c: 4137 - 4201
+[src/backend/replication/walsender.c:4137-4201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L4137-L4201)
 
 ## Overview
 Records the end of WAL and the time it was flushed locally to enable lag computation when the standby reports receipt of this WAL location.

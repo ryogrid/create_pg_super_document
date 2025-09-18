@@ -1,7 +1,7 @@
 # ProcArrayClearTransaction
 
 ## Location
-src/backend/storage/ipc/procarray.c: 907 - 966
+[src/backend/storage/ipc/procarray.c:907-966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L907-L966)
 
 ## Overview
 ProcArrayClearTransaction clears transaction fields from a PGPROC entry after successfully preparing a 2-phase transaction, while maintaining the transaction's visibility through the associated global transaction entry.

@@ -1,7 +1,7 @@
 # CheckAndCreateToastTable
 
 ## Location
-src/backend/catalog/toasting.c: 78 - 97
+[src/backend/catalog/toasting.c:78-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/toasting.c#L78-L97)
 
 ## Overview
 CheckAndCreateToastTable is a static function that serves as the common implementation backend for all TOAST table creation variants, handling relation opening, delegation to create_toast_table, and cleanup.

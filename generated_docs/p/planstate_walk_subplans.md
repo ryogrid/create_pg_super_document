@@ -1,7 +1,7 @@
 # planstate_walk_subplans
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 4760 - 4781
+[src/backend/nodes/nodeFuncs.c:4760-4781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L4760-L4781)
 
 ## Overview
 A specialized helper function that walks through a list of SubPlan or initPlan nodes during planstate tree traversal.

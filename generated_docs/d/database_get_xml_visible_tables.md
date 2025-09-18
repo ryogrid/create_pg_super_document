@@ -1,7 +1,7 @@
 # database_get_xml_visible_tables
 
 ## Location
-src/backend/utils/adt/xml.c: 2849 - 2867
+[src/backend/utils/adt/xml.c:2849-2867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2849-L2867)
 
 ## Overview
 Retrieves a list of table OIDs that are visible to the current user across all accessible schemas within the current database for XML mapping operations.

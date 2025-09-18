@@ -1,7 +1,7 @@
 # timestamp_mi_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3166 - 3191
+[src/backend/utils/adt/timestamp.c:3166-3191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3166-L3191)
 
 ## Overview
 Subtracts an interval from a timestamp by negating the interval and then using the timestamp addition function.

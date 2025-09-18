@@ -1,7 +1,7 @@
 # inet_server_port
 
 ## Location
-src/backend/utils/adt/network.c: 1825 - 1856
+[src/backend/utils/adt/network.c:1825-1856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1825-L1856)
 
 ## Overview
 Returns the port number that the PostgreSQL server accepted the current connection on, or NULL if the connection is through a Unix socket.

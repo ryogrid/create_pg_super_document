@@ -1,7 +1,7 @@
 # get_ri_constraint_root
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2194 - 2227
+[src/backend/utils/adt/ri_triggers.c:2194-2227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2194-L2227)
 
 ## Overview
 Returns the OID of the root parent constraint in a constraint inheritance hierarchy for partitioned foreign keys.

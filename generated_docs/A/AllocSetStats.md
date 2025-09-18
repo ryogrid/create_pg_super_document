@@ -1,7 +1,7 @@
 # AllocSetStats
 
 ## Location
-src/backend/utils/mmgr/aset.c: 1521 - 1598
+[src/backend/utils/mmgr/aset.c:1521-1598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L1521-L1598)
 
 ## Overview
 Computes comprehensive statistics about memory consumption of an AllocSet memory context, including total space, free space, and block counts.

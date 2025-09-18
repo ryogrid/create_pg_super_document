@@ -1,7 +1,7 @@
 # date_sortsupport
 
 ## Location
-src/backend/utils/adt/date.c: 450 - 458
+[src/backend/utils/adt/date.c:450-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L450-L458)
 
 ## Overview
 Provides sort support optimization for PostgreSQL DATE values by setting up a fast integer-based comparison function for sorting operations.

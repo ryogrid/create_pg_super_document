@@ -1,7 +1,7 @@
 # XLogRecGetBlockRefInfo
 
 ## Location
-src/backend/access/rmgrdesc/xlogdesc.c: 231 - 353
+[src/backend/access/rmgrdesc/xlogdesc.c:231-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xlogdesc.c#L231-L353)
 
 ## Overview
 Generates formatted information about all block references contained in a WAL (Write-Ahead Log) record, including details about full-page images and compression.

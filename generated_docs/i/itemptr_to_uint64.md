@@ -1,7 +1,7 @@
 # itemptr_to_uint64
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 87 - 101
+[src/backend/access/gin/ginpostinglist.c:87-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L87-L101)
 
 ## Overview
 Converts an ItemPointer to a 64-bit unsigned integer representation for efficient storage and comparison in GIN index posting lists.

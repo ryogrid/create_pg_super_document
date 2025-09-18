@@ -1,7 +1,7 @@
 # BlockRefTableComparator
 
 ## Location
-src/common/blkreftable.c: 1152 - 1183
+[src/common/blkreftable.c:1152-1183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L1152-L1183)
 
 ## Overview
 A static comparator function used for sorting BlockRefTableSerializedEntry objects, arranging them by tablespace OID, database OID, relation number, and fork number to match the on-disk tree structure.

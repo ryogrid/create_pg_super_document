@@ -1,7 +1,7 @@
 # transformCheckConstraints
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2697 - 2725
+[src/backend/parser/parse_utilcmd.c:2697-2725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2697-L2725)
 
 ## Overview
 Handles CHECK constraints during table creation and alteration, with special logic for skipping validation on new tables while marking constraints as valid.

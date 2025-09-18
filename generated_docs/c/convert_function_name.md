@@ -1,7 +1,7 @@
 # convert_function_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3556 - 3576
+[src/backend/utils/adt/acl.c:3556-3576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3556-L3576)
 
 ## Overview
 Converts a function name given as text into its corresponding function OID for privilege checking operations.

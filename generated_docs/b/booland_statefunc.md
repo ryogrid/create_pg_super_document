@@ -1,7 +1,7 @@
 # booland_statefunc
 
 ## Location
-src/backend/utils/adt/bool.c: 287 - 298
+[src/backend/utils/adt/bool.c:287-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L287-L298)
 
 ## Overview
 The booland_statefunc function implements the state transition function for the Boolean AND aggregate (EVERY and bool_and), performing logical AND operations between Boolean values during aggregate computation.

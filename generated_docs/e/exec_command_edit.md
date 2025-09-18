@@ -1,7 +1,7 @@
 # exec_command_edit
 
 ## Location
-src/bin/psql/command.c: 1081 - 1176
+[src/bin/psql/command.c:1081-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1081-L1176)
 
 ## Overview
 Implements the \e and \edit commands in psql for editing the current query buffer or a specified file using an external editor, then loading the result back into the query buffer.

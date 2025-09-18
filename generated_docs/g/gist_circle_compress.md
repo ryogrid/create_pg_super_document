@@ -1,7 +1,7 @@
 # gist_circle_compress
 
 ## Location
-src/backend/access/gist/gistproc.c: 1100 - 1129
+[src/backend/access/gist/gistproc.c:1100-1129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1100-L1129)
 
 ## Overview
 Compresses circle data for GiST index storage by computing and storing the bounding box representation of the circle's spatial extent.

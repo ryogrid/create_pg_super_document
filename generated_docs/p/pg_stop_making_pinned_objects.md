@@ -1,7 +1,7 @@
 # pg_stop_making_pinned_objects
 
 ## Location
-src/backend/catalog/catalog.c: 695 - 710
+[src/backend/catalog/catalog.c:695-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L695-L710)
 
 ## Overview
 A SQL-callable function that stops the generation of pinned object IDs during database initialization, transitioning to unpinned object creation.

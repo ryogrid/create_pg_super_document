@@ -1,7 +1,7 @@
 # injection_notice
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 189 - 200
+[src/test/modules/injection_points/injection_points.c:189-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L189-L200)
 
 ## Overview
 A callback function that logs a NOTICE message when an injection point is triggered, used for testing and debugging injection point functionality.

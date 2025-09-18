@@ -1,7 +1,7 @@
 # PQserverVersion
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7149 - 7158
+[src/interfaces/libpq/fe-connect.c:7149-7158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7149-L7158)
 
 ## Overview
 Returns the version number of the PostgreSQL server that the connection is connected to, encoded as an integer for easy version comparison.

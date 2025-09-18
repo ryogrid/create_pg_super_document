@@ -1,7 +1,7 @@
 # oideq
 
 ## Location
-src/backend/utils/adt/oid.c: 272 - 280
+[src/backend/utils/adt/oid.c:272-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L272-L280)
 
 ## Overview
 A PostgreSQL function that tests equality between two Oid (Object Identifier) values, returning a boolean result indicating whether the two Oids are equal.

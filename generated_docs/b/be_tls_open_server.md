@@ -1,7 +1,7 @@
 # be_tls_open_server
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 435 - 730
+[src/backend/libpq/be-secure-openssl.c:435-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L435-L730)
 
 ## Overview
 Establishes an SSL/TLS connection with a client by performing the SSL handshake, configuring ALPN protocol negotiation, and extracting client certificate information.

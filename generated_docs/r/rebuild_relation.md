@@ -1,7 +1,7 @@
 # rebuild_relation
 
 ## Location
-src/backend/commands/cluster.c: 633 - 687
+[src/backend/commands/cluster.c:633-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L633-L687)
 
 ## Overview
 Rebuilds an existing relation in either index order (clustering) or physical order by creating a new heap, copying data in the desired order, and swapping the files.

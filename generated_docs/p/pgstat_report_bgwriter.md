@@ -1,7 +1,7 @@
 # pgstat_report_bgwriter
 
 ## Location
-src/backend/utils/activity/pgstat_bgwriter.c: 30 - 46
+[src/backend/utils/activity/pgstat_bgwriter.c:30-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_bgwriter.c#L30-L46)
 
 ## Overview
 Reports background writer statistics and IO statistics from the pending statistics buffer to the shared statistics memory, clearing the buffer after reporting.

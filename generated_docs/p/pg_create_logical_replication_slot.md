@@ -1,7 +1,7 @@
 # pg_create_logical_replication_slot
 
 ## Location
-src/backend/replication/slotfuncs.c: 173 - 221
+[src/backend/replication/slotfuncs.c:173-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L173-L221)
 
 ## Overview
 SQL function for creating a new logical replication slot with comprehensive configuration support and returns slot name and confirmed flush LSN.

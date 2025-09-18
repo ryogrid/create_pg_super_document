@@ -1,7 +1,7 @@
 # float8_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 735 - 784
+[src/backend/utils/adt/timestamp.c:735-784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L735-L784)
 
 ## Overview
 PostgreSQL SQL function that converts a Unix epoch timestamp (as double precision seconds) to a PostgreSQL timestamptz value.

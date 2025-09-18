@@ -1,7 +1,7 @@
 # pqsecure_open_gss
 
 ## Location
-src/interfaces/libpq/fe-secure-gssapi.c: 479 - 755
+[src/interfaces/libpq/fe-secure-gssapi.c:479-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-gssapi.c#L479-L755)
 
 ## Overview
 Negotiates GSSAPI transport encryption for a PostgreSQL connection, managing the complete handshake process and buffer setup for secure communication.

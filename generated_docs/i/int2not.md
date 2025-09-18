@@ -1,7 +1,7 @@
 # int2not
 
 ## Location
-src/backend/utils/adt/int.c: 1473 - 1481
+[src/backend/utils/adt/int.c:1473-1481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1473-L1481)
 
 ## Overview
 Performs bitwise NOT (complement) operation on a 16-bit signed integer (smallint type in PostgreSQL).

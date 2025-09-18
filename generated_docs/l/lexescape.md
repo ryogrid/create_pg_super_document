@@ -1,7 +1,7 @@
 # lexescape
 
 ## Location
-src/backend/regex/regc_lex.c: 601 - 779
+[src/backend/regex/regc_lex.c:601-779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L601-L779)
 
 ## Overview
 Parses Advanced Regular Expression (ARE) backslash escape sequences after the backslash has already been consumed, converting them into appropriate tokens for the regex parser.

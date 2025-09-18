@@ -1,7 +1,7 @@
 # sts_initialize
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 126 - 177
+[src/backend/utils/sort/sharedtuplestore.c:126-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L126-L177)
 
 ## Overview
 Initializes a SharedTuplestore structure in existing shared memory and returns an accessor for the calling participant to interact with the shared tuple store.

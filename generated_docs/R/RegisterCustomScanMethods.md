@@ -1,7 +1,7 @@
 # RegisterCustomScanMethods
 
 ## Location
-src/backend/nodes/extensible.c: 88 - 99
+[src/backend/nodes/extensible.c:88-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/extensible.c#L88-L99)
 
 ## Overview
 Registers a new type of custom scan node in PostgreSQL's extensible node system, enabling extensions to provide custom scan implementations.

@@ -1,7 +1,7 @@
 # set_defaults
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 246 - 260
+[src/tools/pg_bsd_indent/args.c:246-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L246-L260)
 
 ## Overview
 The set_defaults function initializes all indentation parameters to their default values by iterating through the parameter configuration table.

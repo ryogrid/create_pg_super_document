@@ -1,7 +1,7 @@
 # approximate_joinrel_size
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1926 - 1967
+[src/backend/optimizer/path/indxpath.c:1926-1967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1926-L1967)
 
 ## Overview
 Provides a rough estimate of the size of a join relation by multiplying the sizes of all constituent base relations.

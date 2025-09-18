@@ -1,7 +1,7 @@
 # generate_join_implied_equalities_normal
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1547 - 1722
+[src/backend/optimizer/path/equivclass.c:1547-1722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1547-L1722)
 
 ## Overview
 Generates join-implied equality clauses for a non-broken EquivalenceClass by optimally selecting member pairs and creating appropriate join conditions.

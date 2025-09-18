@@ -1,7 +1,7 @@
 # ginFinishOldSplit
 
 ## Location
-src/backend/access/gin/ginbtree.c: 779 - 815
+[src/backend/access/gin/ginbtree.c:779-815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L779-L815)
 
 ## Overview
 ginFinishOldSplit completes previously incomplete page splits discovered during GIN B-tree traversal, handling lock upgrades safely for scenarios where incomplete splits are found opportunistically.

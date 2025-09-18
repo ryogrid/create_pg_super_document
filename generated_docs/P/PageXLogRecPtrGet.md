@@ -1,7 +1,7 @@
 # PageXLogRecPtrGet
 
 ## Location
-src/include/storage/bufpage.h: 101 - 105
+[src/include/storage/bufpage.h:101-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L101-L105)
 
 ## Overview
 PageXLogRecPtrGet is an inline function that converts a PageXLogRecPtr structure to a 64-bit XLogRecPtr value, combining the high and low 32-bit components into a single WAL record pointer.

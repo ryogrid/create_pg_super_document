@@ -1,7 +1,7 @@
 # lazy_scan_new_or_empty
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 1285 - 1388
+[src/backend/access/heap/vacuumlazy.c:1285-1388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L1285-L1388)
 
 ## Overview
 lazy_scan_new_or_empty handles new and empty page processing during vacuum operations, managing FSM updates and visibility map maintenance for these special page types.

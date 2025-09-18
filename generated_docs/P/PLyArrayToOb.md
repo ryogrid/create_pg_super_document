@@ -1,7 +1,7 @@
 # PLyArrayToOb
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 35 - 38
+[src/pl/plpython/plpy_typeio.h:35-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L35-L38)
 
 ## Overview
 PLyArrayToOb is a struct that contains conversion information for transforming PostgreSQL array types to Python list objects.

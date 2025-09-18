@@ -1,7 +1,7 @@
 # aclitem_match
 
 ## Location
-src/backend/utils/adt/acl.c: 713 - 723
+[src/backend/utils/adt/acl.c:713-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L713-L723)
 
 ## Overview
 Determines if two AclItem structures represent the same grantee-grantor relationship, ignoring the specific privileges granted.

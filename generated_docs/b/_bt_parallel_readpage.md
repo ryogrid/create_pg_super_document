@@ -1,7 +1,7 @@
 # _bt_parallel_readpage
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2347 - 2377
+[src/backend/access/nbtree/nbtsearch.c:2347-2377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2347-L2377)
 
 ## Overview
 Reads the current page containing valid data for a parallel B-tree scan, handling page initialization and positioning for parallel index scans.

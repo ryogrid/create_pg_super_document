@@ -1,7 +1,7 @@
 # mkVoidAffix
 
 ## Location
-src/backend/tsearch/spell.c: 1907 - 1960
+[src/backend/tsearch/spell.c:1907-1960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1907-L1960)
 
 ## Overview
 mkVoidAffix creates root void nodes in the prefix tree to handle affixes with empty replacement strings, which represent deletion-only operations.

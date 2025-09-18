@@ -1,7 +1,7 @@
 # AuxiliaryProcKill
 
 ## Location
-src/backend/storage/lmgr/proc.c: 972 - 1022
+[src/backend/storage/lmgr/proc.c:972-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L972-L1022)
 
 ## Overview
 Cut-down version of ProcKill specifically designed for auxiliary processes (bgwriter, checkpointer, etc.), marking the PGPROC as not-in-use without releasing it to freelists.

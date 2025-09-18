@@ -1,7 +1,7 @@
 # convert_saop_to_hashed_saop
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2287 - 2292
+[src/backend/optimizer/util/clauses.c:2287-2292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2287-L2292)
 
 ## Overview
 This function optimizes ScalarArrayOpExpr nodes by identifying opportunities to use hash table evaluation instead of linear search for array operations, improving performance for large arrays with constant elements.

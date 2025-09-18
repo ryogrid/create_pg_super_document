@@ -1,7 +1,7 @@
 # ExecShutdownCustomScan
 
 ## Location
-src/backend/executor/nodeCustom.c: 221 - 227
+[src/backend/executor/nodeCustom.c:221-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L221-L227)
 
 ## Overview
 ExecShutdownCustomScan is a function that performs shutdown operations for custom scan nodes in PostgreSQL's executor, providing a standardized interface for custom scan implementations to clean up resources during parallel query execution shutdown.

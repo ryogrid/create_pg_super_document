@@ -1,7 +1,7 @@
 # list_append_unique
 
 ## Location
-src/backend/nodes/list.c: 1343 - 1355
+[src/backend/nodes/list.c:1343-1355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1343-L1355)
 
 ## Overview
 Appends a datum to a list only if it is not already present in the list, using deep comparison via the equal() function to determine membership.

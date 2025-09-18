@@ -1,7 +1,7 @@
 # standard_planner
 
 ## Location
-src/backend/optimizer/plan/planner.c: 288 - 628
+[src/backend/optimizer/plan/planner.c:288-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L288-L628)
 
 ## Overview
 The standard_planner function is PostgreSQL's core query planning implementation that converts a parsed Query structure into an optimized executable PlannedStmt, handling parallelism assessment, cost optimization, and plan finalization.

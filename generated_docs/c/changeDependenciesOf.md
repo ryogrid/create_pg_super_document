@@ -1,7 +1,7 @@
 # changeDependenciesOf
 
 ## Location
-src/backend/catalog/pg_depend.c: 566 - 621
+[src/backend/catalog/pg_depend.c:566-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L566-L621)
 
 ## Overview
 Adjusts all dependency records to redirect them from an old referencing object to a new referencing object of the same type, effectively transferring all dependencies.

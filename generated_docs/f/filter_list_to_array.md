@@ -1,7 +1,7 @@
 # filter_list_to_array
 
 ## Location
-src/backend/commands/event_trigger.c: 356 - 385
+[src/backend/commands/event_trigger.c:356-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L356-L385)
 
 ## Overview
 Transforms a List of String nodes representing a filter clause (like WHEN tag IN ('cmd1', 'cmd2')) into a text array format suitable for catalog storage.

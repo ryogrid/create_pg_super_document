@@ -1,7 +1,7 @@
 # worktable
 
 ## Location
-src/test/modules/worker_spi/worker_spi.c: 62 - 66
+[src/test/modules/worker_spi/worker_spi.c:62-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/worker_spi/worker_spi.c#L62-L66)
 
 ## Overview
 The `worktable` struct is a simple data structure used in PostgreSQL's worker_spi test module to represent schema and table information for background worker processes that demonstrate SPI (Server Programming Interface) usage.

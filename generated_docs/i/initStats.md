@@ -1,7 +1,7 @@
 # initStats
 
 ## Location
-src/bin/pgbench/pgbench.c: 1434 - 1450
+[src/bin/pgbench/pgbench.c:1434-1450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1434-L1450)
 
 ## Overview
 Initializes a StatsData structure to default values with a specified start time, preparing it for collecting comprehensive pgbench performance statistics.

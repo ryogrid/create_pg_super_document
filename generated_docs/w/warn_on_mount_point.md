@@ -1,7 +1,7 @@
 # warn_on_mount_point
 
 ## Location
-src/bin/initdb/initdb.c: 3016 - 3028
+[src/bin/initdb/initdb.c:3016-3028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L3016-L3028)
 
 ## Overview
 Provides specific warnings and guidance when initdb detects that a directory appears to be a filesystem mount point, helping users avoid potential issues with using mount points directly as PostgreSQL data directories.

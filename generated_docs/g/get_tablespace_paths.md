@@ -1,7 +1,7 @@
 # get_tablespace_paths
 
 ## Location
-src/bin/pg_upgrade/tablespace.c: 40 - 102
+[src/bin/pg_upgrade/tablespace.c:40-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/tablespace.c#L40-L102)
 
 ## Overview
 Scans the pg_tablespace system catalog and retrieves all user-defined tablespace paths, validating their existence and accessibility for pg_upgrade operations.

@@ -1,7 +1,7 @@
 # sync_dir_recurse
 
 ## Location
-src/common/file_utils.c: 220 - 270
+[src/common/file_utils.c:220-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L220-L270)
 
 ## Overview
 A convenient wrapper function that synchronizes a directory and all its contents using either syncfs() or fsync() methods depending on the specified synchronization method.

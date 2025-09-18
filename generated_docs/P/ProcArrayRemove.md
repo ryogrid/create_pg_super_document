@@ -1,7 +1,7 @@
 # ProcArrayRemove
 
 ## Location
-src/backend/storage/ipc/procarray.c: 565 - 666
+[src/backend/storage/ipc/procarray.c:565-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L565-L666)
 
 ## Overview
 Removes a specified PGPROC from the shared process array, maintaining the sorted order and optionally advancing transaction completion tracking for 2PC transactions.

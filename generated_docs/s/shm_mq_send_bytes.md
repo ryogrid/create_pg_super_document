@@ -1,7 +1,7 @@
 # shm_mq_send_bytes
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 914 - 1078
+[src/backend/storage/ipc/shm_mq.c:914-1078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L914-L1078)
 
 ## Overview
 Writes bytes into a shared memory message queue, handling flow control, synchronization, and efficient data transfer between processes.

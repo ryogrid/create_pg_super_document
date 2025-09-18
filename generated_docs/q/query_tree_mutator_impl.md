@@ -1,7 +1,7 @@
 # query_tree_mutator_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 3750 - 3840
+[src/backend/nodes/nodeFuncs.c:3750-3840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L3750-L3840)
 
 ## Overview
 This function initiates modification of a Query's expression subtrees, creating a modified copy of the entire query structure while allowing selective transformation of specific components.

@@ -1,7 +1,7 @@
 # complete_from_versioned_query
 
 ## Location
-src/bin/psql/tab-complete.c: 5168 - 5183
+[src/bin/psql/tab-complete.c:5168-5183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5168-L5183)
 
 ## Overview
 Provides tab completion functionality for PostgreSQL commands by selecting an appropriate query from a version-dependent array based on the current server version.

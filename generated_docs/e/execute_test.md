@@ -1,7 +1,7 @@
 # execute_test
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-declare.c: 216 - 580
+[src/interfaces/ecpg/test/expected/sql-declare.c:216-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-declare.c#L216-L580)
 
 ## Overview
 The execute_test function serves as a comprehensive test suite for PostgreSQL's ECPG (Embedded SQL in C) functionality, specifically testing DECLARE STATEMENT operations across different database connections and execution methods.

@@ -1,7 +1,7 @@
 # max_parallel_hazard_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 829 - 992
+[src/backend/optimizer/util/clauses.c:829-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L829-L992)
 
 ## Overview
 The core expression tree walker function that recursively traverses PostgreSQL expression trees to identify parallel-unsafe or parallel-restricted constructs, implementing the detailed logic for parallel safety analysis.

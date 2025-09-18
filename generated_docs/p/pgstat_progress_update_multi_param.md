@@ -1,7 +1,7 @@
 # pgstat_progress_update_multi_param
 
 ## Location
-src/backend/utils/activity/backend_progress.c: 122 - 150
+[src/backend/utils/activity/backend_progress.c:122-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_progress.c#L122-L150)
 
 ## Overview
 Atomically updates multiple progress parameters in a single operation, ensuring readers see a consistent snapshot of all related progress metrics simultaneously.

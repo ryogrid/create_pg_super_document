@@ -1,7 +1,7 @@
 # mulPow5divPow2
 
 ## Location
-src/common/f2s.c: 168 - 173
+[src/common/f2s.c:168-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L168-L173)
 
 ## Overview
 A helper function that multiplies a value by a power of 5 and then divides by a power of 2, used in floating-point to decimal string conversion.

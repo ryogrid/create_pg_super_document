@@ -1,7 +1,7 @@
 # StatisticsGetRelation
 
 ## Location
-src/backend/commands/statscmds.c: 898 - 917
+[src/backend/commands/statscmds.c:898-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L898-L917)
 
 ## Overview
 Retrieves the OID of the relation (table) that a given extended statistics object is defined on by looking up the statistics object in the system catalog.

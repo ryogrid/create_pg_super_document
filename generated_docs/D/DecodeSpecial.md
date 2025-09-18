@@ -1,7 +1,7 @@
 # DecodeSpecial
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 635 - 668
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:635-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L635-L668)
 
 ## Overview
 A cached lookup function that decodes special date/time keywords and tokens using the main date token lookup table, optimized for performance through caching.

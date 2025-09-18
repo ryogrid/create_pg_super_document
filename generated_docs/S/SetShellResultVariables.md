@@ -1,7 +1,7 @@
 # SetShellResultVariables
 
 ## Location
-src/bin/psql/common.c: 501 - 522
+[src/bin/psql/common.c:501-522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L501-L522)
 
 ## Overview
 SetShellResultVariables updates psql's special variables to track the success and exit status of shell commands executed within psql.

@@ -1,7 +1,7 @@
 # pathkeys_useful_for_setop
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 2197 - 2211
+[src/backend/optimizer/path/pathkeys.c:2197-2211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L2197-L2211)
 
 ## Overview
 Counts the number of leading common pathkeys between the query's setop pathkeys and a given pathkeys list for set operations optimization.

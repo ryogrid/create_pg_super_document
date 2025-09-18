@@ -1,7 +1,7 @@
 # contain_invalid_rfcolumn_walker
 
 ## Location
-src/backend/commands/publicationcmds.c: 219 - 257
+[src/backend/commands/publicationcmds.c:219-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L219-L257)
 
 ## Overview
 A tree walker function that checks whether any column referenced in a row filter expression is not part of the table's REPLICA IDENTITY.

@@ -1,7 +1,7 @@
 # XLogFileCopy
 
 ## Location
-src/backend/access/transam/xlog.c: 3395 - 3539
+[src/backend/access/transam/xlog.c:3395-3539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3395-L3539)
 
 ## Overview
 Creates a new XLOG file segment by copying data from a pre-existing segment, supporting recovery operations where WAL segments need to be duplicated across timelines.

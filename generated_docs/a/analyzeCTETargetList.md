@@ -1,7 +1,7 @@
 # analyzeCTETargetList
 
 ## Location
-src/backend/parser/parse_cte.c: 571 - 647
+[src/backend/parser/parse_cte.c:571-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L571-L647)
 
 ## Overview
 Computes derived fields of a CTE including column names, types, type modifiers, and collations from the transformed output target list.

@@ -1,7 +1,7 @@
 # get_equal_strategy_number_for_am
 
 ## Location
-src/backend/executor/execReplication.c: 49 - 74
+[src/backend/executor/execReplication.c:49-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L49-L74)
 
 ## Overview
 Returns the fixed strategy number for the equality operator of a given index access method, supporting only B-tree and Hash indexes.

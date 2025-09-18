@@ -1,7 +1,7 @@
 # date_cmp_timestamp_internal
 
 ## Location
-src/backend/utils/adt/date.c: 743 - 759
+[src/backend/utils/adt/date.c:743-759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L743-L759)
 
 ## Overview
 Internal function that compares a date value with a timestamp value, returning an integer indicating their relative order.

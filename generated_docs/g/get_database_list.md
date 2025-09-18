@@ -1,7 +1,7 @@
 # get_database_list
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1792 - 1876
+[src/backend/postmaster/autovacuum.c:1792-1876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1792-L1876)
 
 ## Overview
 get_database_list retrieves a list of all valid databases from pg_database catalog, creating avw_dbase structures with essential database information for autovacuum processing.

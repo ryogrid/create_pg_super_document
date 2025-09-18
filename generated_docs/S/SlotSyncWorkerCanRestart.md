@@ -1,7 +1,7 @@
 # SlotSyncWorkerCanRestart
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1630 - 1649
+[src/backend/replication/logical/slotsync.c:1630-1649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1630-L1649)
 
 ## Overview
 Determines whether the slot synchronization worker process can be restarted by checking if sufficient time has elapsed since the last restart attempt.

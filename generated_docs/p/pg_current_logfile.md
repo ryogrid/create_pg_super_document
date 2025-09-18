@@ -1,7 +1,7 @@
 # pg_current_logfile
 
 ## Location
-src/backend/utils/adt/misc.c: 1000 - 1091
+[src/backend/utils/adt/misc.c:1000-1091](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L1000-L1091)
 
 ## Overview
 A PostgreSQL function that reports the current log file path used by the log collector by reading the current_logfiles metadata file.

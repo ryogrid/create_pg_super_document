@@ -1,7 +1,7 @@
 # int24div
 
 ## Location
-src/backend/utils/adt/int.c: 1030 - 1048
+[src/backend/utils/adt/int.c:1030-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1030-L1048)
 
 ## Overview
  is a PostgreSQL function that performs division between a 16-bit integer (int2/smallint) and a 32-bit integer (int4/integer), returning a 32-bit integer result with division by zero checking.

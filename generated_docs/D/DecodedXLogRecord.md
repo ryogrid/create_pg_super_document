@@ -1,7 +1,7 @@
 # DecodedXLogRecord
 
 ## Location
-src/include/access/xlogreader.h: 156 - 173
+[src/include/access/xlogreader.h:156-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L156-L173)
 
 ## Overview
 DecodedXLogRecord represents the parsed and decoded contents of a WAL record, providing structured access to WAL record data including metadata, transaction information, and backup block data.

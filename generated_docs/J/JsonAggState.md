@@ -1,7 +1,7 @@
 # JsonAggState
 
 ## Location
-src/backend/utils/adt/json.c: 76 - 84
+[src/backend/utils/adt/json.c:76-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L76-L84)
 
 ## Overview
 JsonAggState is a state structure used during JSON aggregation operations in PostgreSQL, maintaining the accumulated state and metadata for both json_agg() and json_object_agg() aggregate functions.

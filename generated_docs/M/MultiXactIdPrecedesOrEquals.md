@@ -1,7 +1,7 @@
 # MultiXactIdPrecedesOrEquals
 
 ## Location
-src/backend/access/transam/multixact.c: 3323 - 3334
+[src/backend/access/transam/multixact.c:3323-3334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3323-L3334)
 
 ## Overview
 MultiXactIdPrecedesOrEquals determines whether one MultiXactId is logically less than or equal to another, handling wrap-around behavior in the MultiXact ID space.

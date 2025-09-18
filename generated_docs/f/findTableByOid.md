@@ -1,7 +1,7 @@
 # findTableByOid
 
 ## Location
-src/bin/pg_dump/common.c: 852 - 869
+[src/bin/pg_dump/common.c:852-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L852-L869)
 
 ## Overview
 Finds and returns the DumpableObject for a table with the specified OID, returning NULL if not found.

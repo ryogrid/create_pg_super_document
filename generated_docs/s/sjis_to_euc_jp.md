@@ -1,7 +1,7 @@
 # sjis_to_euc_jp
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c: 77 - 92
+[src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:77-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c#L77-L92)
 
 ## Overview
 PostgreSQL encoding conversion function that converts text from Shift_JIS (SJIS) encoding to EUC-JP (Extended Unix Code for Japanese) encoding.

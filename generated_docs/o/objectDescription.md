@@ -1,7 +1,7 @@
 # objectDescription
 
 ## Location
-src/bin/psql/describe.c: 1252 - 1444
+[src/bin/psql/describe.c:1252-1444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L1252-L1444)
 
 ## Overview
 Implements the \dd command in psql to display comments for database objects that don't have their own dedicated describe commands.

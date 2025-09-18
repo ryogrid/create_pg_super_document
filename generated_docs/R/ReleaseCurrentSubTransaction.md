@@ -1,7 +1,7 @@
 # ReleaseCurrentSubTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 4717 - 4744
+[src/backend/access/transam/xact.c:4717-4744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4717-L4744)
 
 ## Overview
 ReleaseCurrentSubTransaction commits the innermost subtransaction, regardless of its savepoint name, and is designed for internal use without requiring CommitTransactionCommand/StartTransactionCommand cycling.

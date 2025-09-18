@@ -1,7 +1,7 @@
 # box_sub
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4246 - 4260
+[src/backend/utils/adt/geo_ops.c:4246-4260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4246-L4260)
 
 ## Overview
 Subtracts a point from a box by translating both the high and low corners of the box by the negative of the point coordinates.

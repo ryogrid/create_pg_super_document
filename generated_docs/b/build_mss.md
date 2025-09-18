@@ -1,7 +1,7 @@
 # build_mss
 
 ## Location
-src/backend/statistics/mcv.c: 347 - 378
+[src/backend/statistics/mcv.c:347-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L347-L378)
 
 ## Overview
 Constructs a MultiSortSupport structure for multi-column sorting operations in statistical analysis, setting up the necessary sorting infrastructure for all attributes in the statistics build data.

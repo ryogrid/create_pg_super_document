@@ -1,7 +1,7 @@
 # SetArchiveOptions
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 266 - 278
+[src/bin/pg_dump/pg_backup_archiver.c:266-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L266-L278)
 
 ## Overview
 Configures an archive with dump and restore options, providing flexibility to work with either or both option sets by synthesizing missing options when needed.

@@ -1,7 +1,7 @@
 # AtCleanup_Memory
 
 ## Location
-src/backend/access/transam/xact.c: 1943 - 1978
+[src/backend/access/transam/xact.c:1943-1978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1943-L1978)
 
 ## Overview
 AtCleanup_Memory is a static function that performs comprehensive memory context cleanup when a transaction ends, releasing all transaction-local memory and resetting context pointers.

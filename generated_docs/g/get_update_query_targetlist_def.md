@@ -1,7 +1,7 @@
 # get_update_query_targetlist_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6919 - 7070
+[src/backend/utils/adt/ruleutils.c:6919-7070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6919-L7070)
 
 ## Overview
 Generates the SET clause portion of an UPDATE statement by deparsing the targetList, handling both simple assignments and complex multi-assignment scenarios.

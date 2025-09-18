@@ -1,7 +1,7 @@
 # CheckForBufferLeaks
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3608 - 3653
+[src/backend/storage/buffer/bufmgr.c:3608-3653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3608-L3653)
 
 ## Overview
 CheckForBufferLeaks is a debugging function that verifies no buffer pins remain held by the current backend process, helping detect buffer pin leaks during development.

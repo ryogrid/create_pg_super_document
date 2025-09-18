@@ -1,7 +1,7 @@
 # LagTrackerRead
 
 ## Location
-src/backend/replication/walsender.c: 4202 - 4297
+[src/backend/replication/walsender.c:4202-4297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L4202-L4297)
 
 ## Overview
 Computes the time elapsed between when a WAL location was flushed locally and a given timestamp, using data stored by LagTrackerWrite to measure replication lag.

@@ -1,7 +1,7 @@
 # check_compressed_file
 
 ## Location
-src/bin/pg_dump/compress_io.c: 220 - 240
+[src/bin/pg_dump/compress_io.c:220-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L220-L240)
 
 ## Overview
 Checks if a compressed file with a specified extension exists at the given path and updates the filename buffer with the constructed full filename.

@@ -1,7 +1,7 @@
 # ScanSourceDatabasePgClassPage
 
 ## Location
-src/backend/commands/dbcommands.c: 328 - 390
+[src/backend/commands/dbcommands.c:328-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L328-L390)
 
 ## Overview
 ScanSourceDatabasePgClassPage processes a single page of the source database's pg_class relation to extract visible tuples and build a list of relations that need to be copied during database creation.

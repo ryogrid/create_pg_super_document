@@ -1,7 +1,7 @@
 # datetime_to_char_body
 
 ## Location
-src/backend/utils/adt/formatting.c: 4181 - 4249
+[src/backend/utils/adt/formatting.c:4181-4249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4181-L4249)
 
 ## Overview
 Core formatting function that converts date/time or interval data into a formatted string according to a specified format string template.

@@ -1,7 +1,7 @@
 # simplify_boolean_equality
 
 ## Location
-src/backend/optimizer/util/clauses.c: 3990 - 4058
+[src/backend/optimizer/util/clauses.c:3990-4058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L3990-L4058)
 
 ## Overview
 A specialized optimization function that simplifies boolean equality and inequality expressions involving constant boolean values, transforming patterns like "x = true" into "x" and "x = false" into "NOT x".

@@ -1,7 +1,7 @@
 # rbt_begin_iterate
 
 ## Location
-src/backend/lib/rbtree.c: 802 - 825
+[src/backend/lib/rbtree.c:802-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L802-L825)
 
 ## Overview
 Initializes an RBTreeIterator structure to prepare for traversing a red-black tree in a specified order (left-right or right-left).

@@ -1,7 +1,7 @@
 # line_intersect
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1137 - 1145
+[src/backend/utils/adt/geo_ops.c:1137-1145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1137-L1145)
 
 ## Overview
 Determines whether two LINE objects intersect in PostgreSQL's geometric data type system.

@@ -1,7 +1,7 @@
 # dshash_delete_entry
 
 ## Location
-src/backend/lib/dshash.c: 541 - 557
+[src/backend/lib/dshash.c:541-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L541-L557)
 
 ## Overview
 The  function removes an entry from a dynamic shared hash table using a direct entry pointer, automatically releasing the associated exclusive lock.

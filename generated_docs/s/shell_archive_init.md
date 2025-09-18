@@ -1,7 +1,7 @@
 # shell_archive_init
 
 ## Location
-src/backend/archive/shell_archive.c: 40 - 45
+[src/backend/archive/shell_archive.c:40-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/archive/shell_archive.c#L40-L45)
 
 ## Overview
 This function serves as the initialization entry point for the shell-based WAL archiving module, returning a pointer to the callback structure that defines the module's archiving interface.

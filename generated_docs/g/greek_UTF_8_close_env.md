@@ -1,7 +1,7 @@
 # greek_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3672 - 3673
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3672-3673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3672-L3673)
 
 ## Overview
 Properly cleans up and deallocates a Snowball stemmer environment that was created for Greek text processing in UTF-8 encoding.

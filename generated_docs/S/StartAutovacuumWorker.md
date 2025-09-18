@@ -1,7 +1,7 @@
 # StartAutovacuumWorker
 
 ## Location
-src/backend/postmaster/postmaster.c: 3962 - 4052
+[src/backend/postmaster/postmaster.c:3962-4052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3962-L4052)
 
 ## Overview
 StartAutovacuumWorker creates and manages autovacuum worker processes, handling the full lifecycle from process creation to backend registration and error handling.

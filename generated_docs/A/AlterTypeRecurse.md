@@ -1,7 +1,7 @@
 # AlterTypeRecurse
 
 ## Location
-src/backend/commands/typecmds.c: 4563 - 4707
+[src/backend/commands/typecmds.c:4563-4707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L4563-L4707)
 
 ## Overview
 A recursive function that applies type property changes to a base type and automatically propagates appropriate changes to its array type and all domains built on top of it.

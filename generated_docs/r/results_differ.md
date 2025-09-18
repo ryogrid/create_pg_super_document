@@ -1,7 +1,7 @@
 # results_differ
 
 ## Location
-src/test/regress/pg_regress.c: 1402 - 1547
+[src/test/regress/pg_regress.c:1402-1547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1402-L1547)
 
 ## Overview
 Compares actual test results against expected output files, trying multiple alternative expected files and returning whether differences exist, while generating diff output for failed comparisons.

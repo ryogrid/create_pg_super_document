@@ -1,7 +1,7 @@
 # show_sort_info
 
 ## Location
-src/backend/commands/explain.c: 2945 - 3035
+[src/backend/commands/explain.c:2945-3035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2945-L3035)
 
 ## Overview
 A static function that displays detailed sorting statistics and performance information for Sort nodes in PostgreSQL's EXPLAIN ANALYZE output, including sort method, space usage, and parallel worker information.

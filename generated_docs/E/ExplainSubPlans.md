@@ -1,7 +1,7 @@
 # ExplainSubPlans
 
 ## Location
-src/backend/commands/explain.c: 4416 - 4458
+[src/backend/commands/explain.c:4416-4458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4416-L4458)
 
 ## Overview
 ExplainSubPlans is a static function in PostgreSQL's explain module that handles the explanation of a list of SubPlans (including initPlans) within a query execution plan, ensuring each subplan is printed only once even when referenced multiple times.

@@ -1,7 +1,7 @@
 # DeleteExpandedObject
 
 ## Location
-src/backend/utils/adt/expandeddatum.c: 136 - 145
+[src/backend/utils/adt/expandeddatum.c:136-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandeddatum.c#L136-L145)
 
 ## Overview
 Deletes an expanded object by destroying its associated memory context, effectively freeing all memory allocated for the object.

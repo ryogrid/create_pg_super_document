@@ -1,7 +1,7 @@
 # choose_next_subplan_for_worker
 
 ## Location
-src/backend/executor/nodeAppend.c: 702 - 827
+[src/backend/executor/nodeAppend.c:702-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L702-L827)
 
 ## Overview
 Chooses the next subplan for a parallel-aware Append node to execute, coordinating work distribution among parallel workers by managing the selection and assignment of subplans in a thread-safe manner.

@@ -1,7 +1,7 @@
 # ReleaseAllPlanCacheRefsInOwner
 
 ## Location
-src/backend/utils/cache/plancache.c: 2234 - 2241
+[src/backend/utils/cache/plancache.c:2234-2241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L2234-L2241)
 
 ## Overview
 A resource management function that releases all cached plan references owned by a specific resource owner.

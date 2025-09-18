@@ -1,7 +1,7 @@
 # find_appinfos_by_relids
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 733 - 788
+[src/backend/optimizer/util/appendinfo.c:733-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L733-L788)
 
 ## Overview
 Finds AppendRelInfo structures for base relations listed in a given relids bitmapset, commonly used in join planning to identify child relations in partitioned or inheritance hierarchies.

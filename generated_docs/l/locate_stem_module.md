@@ -1,7 +1,7 @@
 # locate_stem_module
 
 ## Location
-src/backend/snowball/dict_snowball.c: 179 - 219
+[src/backend/snowball/dict_snowball.c:179-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/dict_snowball.c#L179-L219)
 
 ## Overview
 This function locates and initializes the appropriate Snowball stemmer module for a given language and encoding combination.

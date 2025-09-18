@@ -1,7 +1,7 @@
 # enable_startup_progress_timeout
 
 ## Location
-src/backend/postmaster/startup.c: 323 - 342
+[src/backend/postmaster/startup.c:323-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L323-L342)
 
 ## Overview
 Sets the start timestamp of the current startup operation and enables the periodic timeout for logging progress reports during PostgreSQL recovery operations.

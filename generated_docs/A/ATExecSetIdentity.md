@@ -1,7 +1,7 @@
 # ATExecSetIdentity
 
 ## Location
-src/backend/commands/tablecmds.c: 8129 - 8245
+[src/backend/commands/tablecmds.c:8129-8245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8129-L8245)
 
 ## Overview
 ATExecSetIdentity implements the ALTER TABLE ALTER COLUMN SET { GENERATED or sequence options } command, allowing modification of identity column properties in PostgreSQL relations.

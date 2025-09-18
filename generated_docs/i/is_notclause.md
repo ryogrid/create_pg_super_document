@@ -1,7 +1,7 @@
 # is_notclause
 
 ## Location
-src/include/nodes/nodeFuncs.h: 125 - 133
+[src/include/nodes/nodeFuncs.h:125-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L125-L133)
 
 ## Overview
 Tests whether a given clause is a NOT clause (BoolExpr with NOT_EXPR operator).

@@ -1,7 +1,7 @@
 # RestoreBlockImage
 
 ## Location
-src/backend/access/transam/xlogreader.c: 2066 - 2176
+[src/backend/access/transam/xlogreader.c:2066-2176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L2066-L2176)
 
 ## Overview
 Restores a full-page image from a backup block attached to an XLog record, handling compressed images and blocks with holes.

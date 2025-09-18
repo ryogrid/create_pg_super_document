@@ -1,7 +1,7 @@
 # numeric_to_cstring
 
 ## Location
-src/backend/utils/adt/dbsize.c: 611 - 618
+[src/backend/utils/adt/dbsize.c:611-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L611-L618)
 
 ## Overview
 This static helper function converts a PostgreSQL Numeric value to its C string representation using the numeric output function.

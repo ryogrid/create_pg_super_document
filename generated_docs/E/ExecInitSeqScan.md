@@ -1,7 +1,7 @@
 # ExecInitSeqScan
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 123 - 183
+[src/backend/executor/nodeSeqscan.c:123-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L123-L183)
 
 ## Overview
 ExecInitSeqScan initializes a sequential scan node by creating the execution state, setting up the scan relation, and initializing all necessary components for tuple processing and projection.

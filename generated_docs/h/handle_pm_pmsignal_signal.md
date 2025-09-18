@@ -1,7 +1,7 @@
 # handle_pm_pmsignal_signal
 
 ## Location
-src/backend/postmaster/postmaster.c: 2076 - 2085
+[src/backend/postmaster/postmaster.c:2076-2085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2076-L2085)
 
 ## Overview
 Signal handler that processes SIGUSR1 signals from child processes and pg_ctl to notify the postmaster of pending 'pmsignals'.

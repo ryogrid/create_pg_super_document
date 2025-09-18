@@ -1,7 +1,7 @@
 # GetCachedExpression
 
 ## Location
-src/backend/utils/cache/plancache.c: 1677 - 1733
+[src/backend/utils/cache/plancache.c:1677-1733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1677-L1733)
 
 ## Overview
 Constructs a CachedExpression for an expression by performing the same transformations as expression_planner() and storing the result in a long-lived memory context for reuse.

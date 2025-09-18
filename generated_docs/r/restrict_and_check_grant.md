@@ -1,7 +1,7 @@
 # restrict_and_check_grant
 
 ## Location
-src/backend/catalog/aclchk.c: 241 - 391
+[src/backend/catalog/aclchk.c:241-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L241-L391)
 
 ## Overview
 Validates and restricts privilege operations to what the grantor can actually grant or revoke, issuing appropriate SQL standard-mandated warnings and errors.

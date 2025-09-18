@@ -1,7 +1,7 @@
 # getPolicies
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3950 - 4116
+[src/bin/pg_dump/pg_dump.c:3950-4116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3950-L4116)
 
 ## Overview
 Retrieves information about all Row-Level Security (RLS) policies on dumpable tables from the PostgreSQL system catalogs and creates PolicyInfo objects for them.

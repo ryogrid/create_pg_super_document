@@ -1,7 +1,7 @@
 # DatumGetUInt64
 
 ## Location
-src/include/postgres.h: 419 - 435
+[src/include/postgres.h:419-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L419-L435)
 
 ## Overview
 DatumGetUInt64 extracts a 64-bit unsigned integer value from a Datum, providing platform-independent access to uint64 values regardless of whether they are stored by value or by reference.

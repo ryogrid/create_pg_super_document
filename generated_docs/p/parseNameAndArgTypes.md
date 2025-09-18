@@ -1,7 +1,7 @@
 # parseNameAndArgTypes
 
 ## Location
-src/backend/utils/adt/regproc.c: 1895 - 2038
+[src/backend/utils/adt/regproc.c:1895-2038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1895-L2038)
 
 ## Overview
 A complex parsing function that extracts a qualified function or operator name and its argument type list from a formatted string, converting the input into structured data for PostgreSQL's regtype system.

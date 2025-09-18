@@ -1,7 +1,7 @@
 # sql_check
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-test_informix2.c: 100 - 135
+[src/interfaces/ecpg/test/expected/compat_informix-test_informix2.c:100-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-test_informix2.c#L100-L135)
 
 ## Overview
 A static error handling function in PostgreSQL's ECPG (Embedded SQL in C) test framework that checks the SQLCODE status and provides standardized error reporting and recovery.

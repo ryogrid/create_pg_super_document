@@ -1,7 +1,7 @@
 # PreCommit_on_commit_actions
 
 ## Location
-src/backend/commands/tablecmds.c: 17581 - 17687
+[src/backend/commands/tablecmds.c:17581-17687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17581-L17687)
 
 ## Overview
 PreCommit_on_commit_actions performs ON COMMIT actions for temporary tables just before transaction commit, handling both table truncation (ON COMMIT DELETE ROWS) and table dropping (ON COMMIT DROP).

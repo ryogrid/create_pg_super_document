@@ -1,7 +1,7 @@
 # bpchartypmodout
 
 ## Location
-src/backend/utils/adt/varchar.c: 425 - 456
+[src/backend/utils/adt/varchar.c:425-456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L425-L456)
 
 ## Overview
 Converts internal type modifier representation for the bpchar data type back to its external string format for display purposes.

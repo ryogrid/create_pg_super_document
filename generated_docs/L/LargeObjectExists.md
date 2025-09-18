@@ -1,7 +1,7 @@
 # LargeObjectExists
 
 ## Location
-src/backend/catalog/pg_largeobject.c: 155 - 184
+[src/backend/catalog/pg_largeobject.c:155-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_largeobject.c#L155-L184)
 
 ## Overview
 Checks whether a large object with the specified OID exists by scanning the pg_largeobject_metadata catalog table using a current snapshot.

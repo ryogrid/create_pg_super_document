@@ -1,7 +1,7 @@
 # FPgt
 
 ## Location
-src/include/utils/geo_decls.h: 71 - 76
+[src/include/utils/geo_decls.h:71-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L71-L76)
 
 ## Overview
 FPgt is a static inline function that performs floating-point greater-than comparison with epsilon tolerance, designed to handle floating-point precision issues in geometric ordering operations.

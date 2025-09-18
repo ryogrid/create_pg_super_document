@@ -1,7 +1,7 @@
 # RelationRemoveInheritance
 
 ## Location
-src/backend/catalog/heap.c: 1526 - 1558
+[src/backend/catalog/heap.c:1526-1558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1526-L1558)
 
 ## Overview
 Removes inheritance relationships for a relation by deleting all pg_inherits catalog entries where the relation appears as a child.

@@ -1,7 +1,7 @@
 # verbosity_substitute_hook
 
 ## Location
-src/bin/psql/startup.c: 1119 - 1126
+[src/bin/psql/startup.c:1119-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1119-L1126)
 
 ## Overview
 A variable substitute hook function that provides a default value for the VERBOSITY variable in psql when no value is specified or when the value is NULL.

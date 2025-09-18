@@ -1,7 +1,7 @@
 # ReorderBufferGetCatalogChangesXacts
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3568 - 3602
+[src/backend/replication/logical/reorderbuffer.c:3568-3602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3568-L3602)
 
 ## Overview
 Returns a sorted array of transaction IDs that have made catalog changes, used for snapshot serialization and logical replication processing.

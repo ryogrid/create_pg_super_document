@@ -1,7 +1,7 @@
 # set_baserel_partition_constraint
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2624 - 2646
+[src/backend/optimizer/util/plancat.c:2624-2646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2624-L2646)
 
 ## Overview
 Builds and sets the partition constraint for a base relation by retrieving the partition qualification from the relation metadata and processing it for query optimization use.

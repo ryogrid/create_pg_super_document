@@ -1,7 +1,7 @@
 # CommitTransactionCommand
 
 ## Location
-src/backend/access/transam/xact.c: 3093 - 3110
+[src/backend/access/transam/xact.c:3093-3110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3093-L3110)
 
 ## Overview
 CommitTransactionCommand is a wrapper function that handles the iterative process of committing transactions and subtransactions, preventing dangerous recursion in CommitTransactionCommandInternal.

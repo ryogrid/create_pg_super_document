@@ -1,7 +1,7 @@
 # transformAExprOp
 
 ## Location
-src/backend/parser/parse_expr.c: 923 - 1003
+[src/backend/parser/parse_expr.c:923-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L923-L1003)
 
 ## Overview
 Transforms binary operator expressions (A_Expr) from the parse tree into executable expression nodes, handling special cases like NULL equality comparisons, row operations, and subquery operations.

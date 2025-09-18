@@ -1,7 +1,7 @@
 # lookup_rowtype_tupdesc_copy
 
 ## Location
-src/backend/utils/cache/typcache.c: 1867 - 1888
+[src/backend/utils/cache/typcache.c:1867-1888](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1867-L1888)
 
 ## Overview
 Public function to lookup a row type's tuple descriptor and return an independent copy in the current memory context without reference counting.

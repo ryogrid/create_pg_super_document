@@ -1,7 +1,7 @@
 # gistBufferingBuildInsert
 
 ## Location
-src/backend/access/gist/gistbuild.c: 907 - 922
+[src/backend/access/gist/gistbuild.c:907-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L907-L922)
 
 ## Overview
 Insert function for buffering-mode GiST index construction that routes index tuples to appropriate buffers and manages buffer emptying when thresholds are reached.

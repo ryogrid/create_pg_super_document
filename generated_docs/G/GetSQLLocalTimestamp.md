@@ -1,7 +1,7 @@
 # GetSQLLocalTimestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1686 - 1699
+[src/backend/utils/adt/timestamp.c:1686-1699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1686-L1699)
 
 ## Overview
 Implements the SQL LOCALTIMESTAMP and LOCALTIMESTAMP(n) functions by returning the current transaction's start timestamp converted to local time without timezone information.

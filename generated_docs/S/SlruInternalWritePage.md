@@ -1,7 +1,7 @@
 # SlruInternalWritePage
 
 ## Location
-src/backend/access/transam/slru.c: 652 - 728
+[src/backend/access/transam/slru.c:652-728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L652-L728)
 
 ## Overview
 Internal function that writes a page from a shared buffer to disk if necessary, handling synchronization and error recovery during SLRU (Simple LRU) page write operations.

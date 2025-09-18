@@ -1,7 +1,7 @@
 # serializeAnalyzeReceive
 
 ## Location
-src/backend/commands/explain.c: 5387 - 5489
+[src/backend/commands/explain.c:5387-5489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5387-L5489)
 
 ## Overview
 A callback function that collects and measures tuples for EXPLAIN (SERIALIZE) operations, tracking performance metrics while simulating tuple serialization.

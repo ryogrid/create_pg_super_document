@@ -1,7 +1,7 @@
 # ReleaseCatCacheList
 
 ## Location
-src/backend/utils/cache/catcache.c: 2073 - 2078
+[src/backend/utils/cache/catcache.c:2073-2078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2073-L2078)
 
 ## Overview
 Decrements the reference count of a catalog cache list, serving as a wrapper function for resource management.

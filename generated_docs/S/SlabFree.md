@@ -1,7 +1,7 @@
 # SlabFree
 
 ## Location
-src/backend/utils/mmgr/slab.c: 701 - 825
+[src/backend/utils/mmgr/slab.c:701-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L701-L825)
 
 ## Overview
 SlabFree deallocates memory chunks from the slab memory context, managing block lists and potentially freeing or reusing empty blocks to optimize memory usage.

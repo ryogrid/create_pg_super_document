@@ -1,7 +1,7 @@
 # XidIsConcurrent
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3962 - 3980
+[src/backend/storage/lmgr/predicate.c:3962-3980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3962-L3980)
 
 ## Overview
 Determines whether a given top-level transaction ID is concurrent (overlapping) with the current transaction for serializable snapshot isolation purposes.

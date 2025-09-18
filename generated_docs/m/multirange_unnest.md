@@ -1,7 +1,7 @@
 # multirange_unnest
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2713 - 2719
+[src/backend/utils/adt/multirangetypes.c:2713-2719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2713-L2719)
 
 ## Overview
 Converts a multirange into a set of individual ranges, returning each range as a separate row in a set-returning function.

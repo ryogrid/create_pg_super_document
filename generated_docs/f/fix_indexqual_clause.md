@@ -1,7 +1,7 @@
 # fix_indexqual_clause
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5093 - 5163
+[src/backend/optimizer/plan/createplan.c:5093-5163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5093-L5163)
 
 ## Overview
 Converts a single indexqual clause to the form needed by PostgreSQL's executor, handling parameter replacement and index key variable transformation.

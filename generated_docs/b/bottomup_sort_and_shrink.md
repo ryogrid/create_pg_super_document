@@ -1,7 +1,7 @@
 # bottomup_sort_and_shrink
 
 ## Location
-src/backend/access/heap/heapam.c: 8653 - 8781
+[src/backend/access/heap/heapam.c:8653-8781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8653-L8781)
 
 ## Overview
 A helper function for heap_index_delete_tuples() that sorts and optimizes the deltids array for bottom-up deletion processing, applying sophisticated heuristics to maximize deletion efficiency.

@@ -1,7 +1,7 @@
 # findDontCares
 
 ## Location
-src/backend/access/gist/gistsplit.c: 113 - 166
+[src/backend/access/gist/gistsplit.c:113-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L113-L166)
 
 ## Overview
 Identifies tuples that are "don't cares" - tuples that could be moved to the other side of a GiST index split with zero penalty for a specific column.

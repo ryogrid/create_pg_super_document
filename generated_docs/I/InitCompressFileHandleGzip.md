@@ -1,7 +1,7 @@
 # InitCompressFileHandleGzip
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 432 - 437
+[src/bin/pg_dump/compress_gzip.c:432-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L432-L437)
 
 ## Overview
 Initializes a CompressFileHandle structure for gzip file compression, setting up function pointers for file-based gzip operations using the zlib library.

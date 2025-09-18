@@ -1,7 +1,7 @@
 # cmpLexemeInfo
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 334 - 355
+[src/backend/tsearch/dict_thesaurus.c:334-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L334-L355)
 
 ## Overview
 Compares two LexemeInfo structures for ordering purposes during thesaurus dictionary compilation and sorting operations.

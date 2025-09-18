@@ -1,7 +1,7 @@
 # add_row_identity_columns
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 884 - 964
+[src/backend/optimizer/util/appendinfo.c:884-964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L884-L964)
 
 ## Overview
 Adds the standard row identity columns needed by PostgreSQL's core code for UPDATE/DELETE/MERGE operations, handling different relation types with appropriate row identification mechanisms.

@@ -1,7 +1,7 @@
 # getHashMurmur2
 
 ## Location
-src/bin/pgbench/pgbench.c: 1270 - 1302
+[src/bin/pgbench/pgbench.c:1270-1302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1270-L1302)
 
 ## Overview
 Implements the Murmur2 hash function that produces a 64-bit hash value from an input integer and seed, based on Austin Appleby's original work.

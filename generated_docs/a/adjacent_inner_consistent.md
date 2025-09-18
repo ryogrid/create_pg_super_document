@@ -1,7 +1,7 @@
 # adjacent_inner_consistent
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 887 - 916
+[src/backend/utils/adt/rangetypes_spgist.c:887-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L887-L916)
 
 ## Overview
 Enhanced version of  that considers previous level centroid information to improve search precision during adjacent range queries.

@@ -1,7 +1,7 @@
 # next
 
 ## Location
-src/backend/regex/regc_lex.c: 200 - 600
+[src/backend/regex/regc_lex.c:200-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L200-L600)
 
 ## Overview
 The main lexical analysis function that retrieves the next token from the regular expression input stream, handling different lexical contexts and character interpretations based on the current regex mode.

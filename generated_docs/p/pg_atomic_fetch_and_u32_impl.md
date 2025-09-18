@@ -1,7 +1,7 @@
 # pg_atomic_fetch_and_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 205 - 215
+[src/include/port/atomics/generic.h:205-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L205-L215)
 
 ## Overview
 Provides an atomic fetch-and-bitwise-AND operation for 32-bit unsigned integers using GCC's legacy sync builtin functions, returning the original value before the operation.

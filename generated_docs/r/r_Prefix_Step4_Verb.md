@@ -1,7 +1,7 @@
 # r_Prefix_Step4_Verb
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1189 - 1202
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1189-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1189-L1202)
 
 ## Overview
 This function implements Step 4 of Arabic prefix processing for verbs in the Arabic stemming algorithm, handling specific prefix patterns and setting internal state variables.

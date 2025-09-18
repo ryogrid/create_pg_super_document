@@ -1,7 +1,7 @@
 # hash_mask
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 1121 - 1158
+[src/backend/access/hash/hash_xlog.c:1121-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L1121-L1158)
 
 ## Overview
 This function masks (removes) non-essential data from hash index pages before performing consistency checks during WAL replay, ensuring that transient page state doesn't cause false consistency check failures.

@@ -1,7 +1,7 @@
 # psql_completion
 
 ## Location
-src/bin/psql/tab-complete.c: 1651 - 1671
+[src/bin/psql/tab-complete.c:1651-1671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1651-L1671)
 
 ## Overview
 The main tab completion function for PostgreSQL's psql command-line client that provides context-aware SQL and psql command completions based on the current input line.

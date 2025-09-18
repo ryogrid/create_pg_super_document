@@ -1,7 +1,7 @@
 # escape_quotes
 
 ## Location
-src/bin/scripts/vacuumdb.c: 452 - 474
+[src/bin/scripts/vacuumdb.c:452-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L452-L474)
 
 ## Overview
 A wrapper function that escapes single quotes and backslashes in strings to make them suitable for insertion into configuration files or SQL E-string literals.

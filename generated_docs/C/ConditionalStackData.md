@@ -1,7 +1,7 @@
 # ConditionalStackData
 
 ## Location
-src/include/fe_utils/conditional.h: 66 - 69
+[src/include/fe_utils/conditional.h:66-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/conditional.h#L66-L69)
 
 ## Overview
 ConditionalStackData is a struct that serves as the main container for managing a stack of conditional states in PostgreSQL frontend utilities.

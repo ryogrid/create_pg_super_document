@@ -1,7 +1,7 @@
 # float8_regr_avgy
 
 ## Location
-src/backend/utils/adt/float.c: 3587 - 3605
+[src/backend/utils/adt/float.c:3587-3605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3587-L3605)
 
 ## Overview
 Computes and returns the average of Y values from a regression transition array, used in statistical regression analysis.

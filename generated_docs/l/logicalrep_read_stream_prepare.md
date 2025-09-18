@@ -1,7 +1,7 @@
 # logicalrep_read_stream_prepare
 
 ## Location
-src/backend/replication/logical/proto.c: 376 - 384
+[src/backend/replication/logical/proto.c:376-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L376-L384)
 
 ## Overview
 This function reads a STREAM PREPARE message from the logical replication input stream, parsing the preparation data for a streamed transaction in PostgreSQL's two-phase commit protocol.

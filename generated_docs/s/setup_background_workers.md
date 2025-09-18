@@ -1,7 +1,7 @@
 # setup_background_workers
 
 ## Location
-src/test/modules/test_shm_mq/setup.c: 175 - 245
+[src/test/modules/test_shm_mq/setup.c:175-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/setup.c#L175-L245)
 
 ## Overview
 This static function registers and creates background worker processes for shared memory message queue testing, handling proper memory management and cleanup registration.

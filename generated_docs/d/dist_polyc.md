@@ -1,7 +1,7 @@
 # dist_polyc
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2600 - 2611
+[src/backend/utils/adt/geo_ops.c:2600-2611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2600-L2611)
 
 ## Overview
 PostgreSQL SQL-callable function that calculates the distance from a polygon to a circle.

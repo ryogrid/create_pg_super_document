@@ -1,7 +1,7 @@
 # jsonb_path_query_array
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 607 - 612
+[src/backend/utils/adt/jsonpath_exec.c:607-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L607-L612)
 
 ## Overview
 PostgreSQL function that executes a JSONPath query against a JSONB document and returns all matching values as a JSONB array.

@@ -1,7 +1,7 @@
 # getTables
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 6806 - 7251
+[src/bin/pg_dump/pg_dump.c:6806-7251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L6806-L7251)
 
 ## Overview
 The getTables function retrieves all tables and table-like objects from the PostgreSQL system catalogs and returns them in a TableInfo structure array for use by pg_dump, implementing sophisticated filtering and locking mechanisms.

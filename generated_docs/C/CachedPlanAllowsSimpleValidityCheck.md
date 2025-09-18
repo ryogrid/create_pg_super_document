@@ -1,7 +1,7 @@
 # CachedPlanAllowsSimpleValidityCheck
 
 ## Location
-src/backend/utils/cache/plancache.c: 1336 - 1450
+[src/backend/utils/cache/plancache.c:1336-1450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1336-L1450)
 
 ## Overview
 Determines whether a cached plan qualifies for fast path revalidation by checking if it requires no table locks, enabling optimized validity checking for simple generic plans.

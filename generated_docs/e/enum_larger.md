@@ -1,7 +1,7 @@
 # enum_larger
 
 ## Location
-src/backend/utils/adt/enum.c: 369 - 377
+[src/backend/utils/adt/enum.c:369-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L369-L377)
 
 ## Overview
 PostgreSQL function that returns the larger of two enum values by comparing their defined ordering and returning the enum value that appears later in the type definition.

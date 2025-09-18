@@ -1,7 +1,7 @@
 # partition_bounds_create
 
 ## Location
-src/backend/partitioning/partbounds.c: 299 - 346
+[src/backend/partitioning/partbounds.c:299-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L299-L346)
 
 ## Overview
 Builds a PartitionBoundInfo structure from an array of PartitionBoundSpec nodes, creating the internal representation of partition bounds with canonical ordering and mapping.

@@ -1,7 +1,7 @@
 # XLogRecGetBlockData
 
 ## Location
-src/backend/access/transam/xlogreader.c: 2035 - 2065
+[src/backend/access/transam/xlogreader.c:2035-2065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L2035-L2065)
 
 ## Overview
 Retrieves the data associated with a specific block reference in an XLog record, returning NULL if no data is available (e.g., when a full-page image was stored instead).

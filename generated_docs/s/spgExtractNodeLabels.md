@@ -1,7 +1,7 @@
 # spgExtractNodeLabels
 
 ## Location
-src/backend/access/spgist/spgutils.c: 1152 - 1194
+[src/backend/access/spgist/spgutils.c:1152-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L1152-L1194)
 
 ## Overview
 Extracts the label datums from child nodes within an SP-GiST inner tuple, returning an array of label values or NULL if all labels are null.

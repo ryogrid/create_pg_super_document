@@ -1,7 +1,7 @@
 # PLy_spi_exception_set
 
 ## Location
-src/pl/plpython/plpy_spi.c: 621 - 658
+[src/pl/plpython/plpy_spi.c:621-658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L621-L658)
 
 ## Overview
 A static function within PostgreSQL's PL/Python extension that creates and raises Python exceptions from PostgreSQL SPI (Server Programming Interface) error data, providing detailed error information to Python code.

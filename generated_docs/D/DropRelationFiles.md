@@ -1,7 +1,7 @@
 # DropRelationFiles
 
 ## Location
-src/backend/storage/smgr/md.c: 1448 - 1479
+[src/backend/storage/smgr/md.c:1448-1479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1448-L1479)
 
 ## Overview
 Drops (deletes) the physical files associated with multiple relations, handling both normal operation and WAL replay scenarios.

@@ -1,7 +1,7 @@
 # ReadBufferExtended
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 792 - 828
+[src/backend/storage/buffer/bufmgr.c:792-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L792-L828)
 
 ## Overview
 Comprehensive buffer reading function supporting multiple read modes, fork selection, and buffer access strategies for relation block access.

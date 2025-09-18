@@ -1,7 +1,7 @@
 # xmlroot
 
 ## Location
-src/backend/utils/adt/xml.c: 1063 - 1118
+[src/backend/utils/adt/xml.c:1063-1118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L1063-L1118)
 
 ## Overview
 The xmlroot function modifies the XML declaration of an existing XML document, allowing changes to the version and standalone attributes while preserving the document content.

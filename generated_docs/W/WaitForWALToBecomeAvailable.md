@@ -1,7 +1,7 @@
 # WaitForWALToBecomeAvailable
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 3542 - 4030
+[src/backend/access/transam/xlogrecovery.c:3542-4030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L3542-L4030)
 
 ## Overview
 WaitForWALToBecomeAvailable implements a sophisticated state machine that manages WAL retrieval from multiple sources (archive, pg_wal, streaming) during PostgreSQL recovery, handling source switching and waiting logic.

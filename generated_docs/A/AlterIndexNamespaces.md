@@ -1,7 +1,7 @@
 # AlterIndexNamespaces
 
 ## Location
-src/backend/commands/tablecmds.c: 17392 - 17436
+[src/backend/commands/tablecmds.c:17392-17436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17392-L17436)
 
 ## Overview
 A static function that moves all indexes associated with a specified relation from one namespace to another as part of table namespace changes.

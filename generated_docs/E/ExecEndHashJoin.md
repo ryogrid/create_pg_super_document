@@ -1,7 +1,7 @@
 # ExecEndHashJoin
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 859 - 889
+[src/backend/executor/nodeHashjoin.c:859-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L859-L889)
 
 ## Overview
 ExecEndHashJoin performs cleanup operations for a HashJoin node during query plan shutdown, destroying the hash table and recursively cleaning up child nodes.

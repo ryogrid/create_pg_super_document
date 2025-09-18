@@ -1,7 +1,7 @@
 # AlterUserMapping
 
 ## Location
-src/backend/commands/foreigncmds.c: 1237 - 1334
+[src/backend/commands/foreigncmds.c:1237-1334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1237-L1334)
 
 ## Overview
 Modifies the options and configuration of an existing user mapping for accessing a foreign server in PostgreSQL's foreign data wrapper system.

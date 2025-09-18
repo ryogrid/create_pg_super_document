@@ -1,7 +1,7 @@
 # rank_context
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 24 - 27
+[src/backend/utils/adt/windowfuncs.c:24-27](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L24-L27)
 
 ## Overview
 The rank_context struct stores ranking process information for window functions in PostgreSQL, maintaining the current rank value across window function evaluations.

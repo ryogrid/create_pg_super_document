@@ -1,7 +1,7 @@
 # text_cmp
 
 ## Location
-src/backend/utils/adt/varlena.c: 1594 - 1618
+[src/backend/utils/adt/varlena.c:1594-1618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1594-L1618)
 
 ## Overview
 Internal comparison function that extracts variable-length string data from PostgreSQL text objects and delegates to varstr_cmp for actual comparison logic.

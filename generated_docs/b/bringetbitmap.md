@@ -1,7 +1,7 @@
 # bringetbitmap
 
 ## Location
-src/backend/access/brin/brin.c: 558 - 947
+[src/backend/access/brin/brin.c:558-947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L558-L947)
 
 ## Overview
 Executes a BRIN index scan and returns a bitmap of heap pages that match the scan keys by reading index tuples from the revmap and comparing their summary values against scan conditions.

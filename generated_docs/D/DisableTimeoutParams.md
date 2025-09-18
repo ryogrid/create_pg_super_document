@@ -1,7 +1,7 @@
 # DisableTimeoutParams
 
 ## Location
-src/include/utils/timeout.h: 73 - 96
+[src/include/utils/timeout.h:73-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/timeout.h#L73-L96)
 
 ## Overview
 DisableTimeoutParams is a structure used to specify parameters when disabling multiple timeouts at once in PostgreSQL's timeout management system.

@@ -1,7 +1,7 @@
 # read_whole_file
 
 ## Location
-src/backend/commands/extension.c: 3517 - 3554
+[src/backend/commands/extension.c:3517-3554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L3517-L3554)
 
 ## Overview
 Reads the entire contents of a file into memory as a single null-terminated string buffer.

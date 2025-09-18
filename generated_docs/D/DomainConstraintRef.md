@@ -1,7 +1,7 @@
 # DomainConstraintRef
 
 ## Location
-src/include/utils/typcache.h: 164 - 174
+[src/include/utils/typcache.h:164-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/typcache.h#L164-L174)
 
 ## Overview
 DomainConstraintRef is a structure that maintains a long-lived reference to a domain type's constraint set, providing memory management and constraint state tracking for domain validation operations.

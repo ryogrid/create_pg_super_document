@@ -1,7 +1,7 @@
 # PLy_result_nrows
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 187 - 195
+[src/pl/plpython/plpy_resultobject.c:187-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L187-L195)
 
 ## Overview
 Returns the number of rows affected or returned by a SQL command executed in PLython, providing access to the result set size information.

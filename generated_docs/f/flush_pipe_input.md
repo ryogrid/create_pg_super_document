@@ -1,7 +1,7 @@
 # flush_pipe_input
 
 ## Location
-src/backend/postmaster/syslogger.c: 1043 - 1093
+[src/backend/postmaster/syslogger.c:1043-1093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1043-L1093)
 
 ## Overview
 Forces out any buffered data from the syslogger pipe input, primarily used during syslogger shutdown to ensure all pending log data is written.

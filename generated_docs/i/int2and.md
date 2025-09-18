@@ -1,7 +1,7 @@
 # int2and
 
 ## Location
-src/backend/utils/adt/int.c: 1446 - 1454
+[src/backend/utils/adt/int.c:1446-1454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1446-L1454)
 
 ## Overview
 Performs bitwise AND operation between two 16-bit signed integers (smallint type in PostgreSQL).

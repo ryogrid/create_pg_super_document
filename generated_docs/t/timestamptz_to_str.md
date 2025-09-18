@@ -1,7 +1,7 @@
 # timestamptz_to_str
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1853 - 1873
+[src/backend/utils/adt/timestamp.c:1853-1873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1853-L1873)
 
 ## Overview
 timestamptz_to_str is a utility function that converts a TimestampTz value into a C-string representation, primarily for use in emitting messages and logging.

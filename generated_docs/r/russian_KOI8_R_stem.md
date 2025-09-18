@@ -1,7 +1,7 @@
 # russian_KOI8_R_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_KOI8_R_russian.c: 569 - 678
+[src/backend/snowball/libstemmer/stem_KOI8_R_russian.c:569-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_KOI8_R_russian.c#L569-L678)
 
 ## Overview
 The main stemming function for Russian text using KOI8-R character encoding that reduces Russian words to their base forms by removing inflectional endings and suffixes.

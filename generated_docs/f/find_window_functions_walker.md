@@ -1,7 +1,7 @@
 # find_window_functions_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 239 - 288
+[src/backend/optimizer/util/clauses.c:239-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L239-L288)
 
 ## Overview
 A recursive tree walker function that collects WindowFunc nodes from an expression tree and organizes them by window reference ID into the provided WindowFuncLists structure.

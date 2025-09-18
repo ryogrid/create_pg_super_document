@@ -1,7 +1,7 @@
 # r_SUFFIX_I_OK
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 159 - 170
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:159-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L159-L170)
 
 ## Overview
 A static boolean function in the Indonesian stemmer that validates whether the '-i' suffix removal is acceptable based on morphological rules and preceding character constraints.

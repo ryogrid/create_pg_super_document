@@ -1,7 +1,7 @@
 # SH_PREV
 
 ## Location
-src/include/lib/simplehash.h: 375 - 385
+[src/include/lib/simplehash.h:375-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L375-L385)
 
 ## Overview
 Returns the previous bucket before the current bucket in a PostgreSQL simple hash table, handling wraparound for backward linear probing.

@@ -1,7 +1,7 @@
 # cost_tablefuncscan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1592 - 1647
+[src/backend/optimizer/path/costsize.c:1592-1647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1592-L1647)
 
 ## Overview
 Determines and returns the cost of scanning a table function, calculating costs for accessing results from table functions like XMLTABLE, JSON_TABLE, etc.

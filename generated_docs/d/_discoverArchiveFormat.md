@@ -1,7 +1,7 @@
 # _discoverArchiveFormat
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2221 - 2354
+[src/bin/pg_dump/pg_backup_archiver.c:2221-2354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2221-L2354)
 
 ## Overview
 _discoverArchiveFormat is a static function that automatically detects the format of a PostgreSQL archive by examining its contents and structure.

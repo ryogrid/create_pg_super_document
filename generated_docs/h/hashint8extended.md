@@ -1,7 +1,7 @@
 # hashint8extended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 103 - 115
+[src/backend/access/hash/hashfunc.c:103-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L103-L115)
 
 ## Overview
 The hashint8extended function computes an extended hash value for a 64-bit signed integer (int8) using an additional 64-bit seed value, while maintaining cross-type hash compatibility with smaller integer types.

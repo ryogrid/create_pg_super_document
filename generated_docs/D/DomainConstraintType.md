@@ -1,7 +1,7 @@
 # DomainConstraintType
 
 ## Location
-src/include/nodes/execnodes.h: 1005 - 1006
+[src/include/nodes/execnodes.h:1005-1006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1005-L1006)
 
 ## Overview
 An enumeration that specifies the type of domain constraint to be checked during domain value coercion operations in PostgreSQL.

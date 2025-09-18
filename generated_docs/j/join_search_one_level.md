@@ -1,7 +1,7 @@
 # join_search_one_level
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 73 - 279
+[src/backend/optimizer/path/joinrels.c:73-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L73-L279)
 
 ## Overview
 A core function in PostgreSQL's dynamic programming join search algorithm that considers all ways to produce join relations containing exactly 'level' jointree items in one step of the optimization process.

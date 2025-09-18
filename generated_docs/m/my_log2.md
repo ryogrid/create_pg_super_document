@@ -1,7 +1,7 @@
 # my_log2
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1754 - 1771
+[src/backend/utils/hash/dynahash.c:1754-1771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1754-L1771)
 
 ## Overview
 Calculates the ceiling of the base-2 logarithm of a given number, with platform-specific optimizations.

@@ -1,7 +1,7 @@
 # in_grouping_U
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 117 - 128
+[src/backend/snowball/libstemmer/utilities.c:117-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L117-L128)
 
 ## Overview
 Checks if the current UTF-8 character at the cursor position belongs to a specified character group, advancing the cursor if a match is found.

@@ -1,7 +1,7 @@
 # ExecEvalMinMax
 
 ## Location
-src/backend/executor/execExprInterp.c: 3120 - 3172
+[src/backend/executor/execExprInterp.c:3120-3172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3120-L3172)
 
 ## Overview
 Evaluates GREATEST() or LEAST() expressions by comparing pre-evaluated arguments using a comparison function and selecting the appropriate value based on the operation type.

@@ -1,7 +1,7 @@
 # SPI_repalloc
 
 ## Location
-src/backend/executor/spi.c: 1347 - 1353
+[src/backend/executor/spi.c:1347-1353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1347-L1353)
 
 ## Overview
 Reallocates memory for a previously allocated pointer, providing a memory reallocation interface for SPI-connected procedures.

@@ -1,7 +1,7 @@
 # JsonPathMutableContext
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1256 - 1272
+[src/backend/utils/adt/jsonpath.c:1256-1272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1256-L1272)
 
 ## Overview
 JsonPathMutableContext is a context structure used to track state during the recursive analysis of JSONPath expressions to determine whether they are mutable and could potentially change based on different execution contexts or timezone settings.

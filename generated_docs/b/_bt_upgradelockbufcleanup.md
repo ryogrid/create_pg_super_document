@@ -1,7 +1,7 @@
 # _bt_upgradelockbufcleanup
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1109 - 1128
+[src/backend/access/nbtree/nbtpage.c:1109-1128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1109-L1128)
 
 ## Overview
 _bt_upgradelockbufcleanup upgrades a standard B-tree buffer lock to a cleanup lock, providing exclusive access needed for maintenance operations like page cleaning and reorganization.

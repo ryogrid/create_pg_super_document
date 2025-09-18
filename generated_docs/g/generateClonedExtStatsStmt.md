@@ -1,7 +1,7 @@
 # generateClonedExtStatsStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 1865 - 1991
+[src/backend/parser/parse_utilcmd.c:1865-1991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L1865-L1991)
 
 ## Overview
 Generates a CreateStatsStmt node by cloning the structure and properties of an existing extended statistics object, adjusting attribute numbers according to a provided mapping for use in table creation scenarios.

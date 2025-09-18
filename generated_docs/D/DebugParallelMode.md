@@ -1,7 +1,7 @@
 # DebugParallelMode
 
 ## Location
-src/include/optimizer/optimizer.h: 109 - 185
+[src/include/optimizer/optimizer.h:109-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/optimizer.h#L109-L185)
 
 ## Overview
 DebugParallelMode is an enumeration type that defines the possible values for the `debug_parallel_query` GUC parameter, which controls how PostgreSQL forces the use of parallel query execution for testing and debugging purposes.

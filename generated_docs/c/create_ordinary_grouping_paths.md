@@ -1,7 +1,7 @@
 # create_ordinary_grouping_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 4071 - 4210
+[src/backend/optimizer/plan/planner.c:4071-4210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L4071-L4210)
 
 ## Overview
 Creates grouping paths for ordinary (non-degenerate) GROUP BY cases, handling both sorted and hashed aggregation strategies while supporting partial aggregation and partitionwise aggregation optimization techniques.

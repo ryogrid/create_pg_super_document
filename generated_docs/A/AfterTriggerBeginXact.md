@@ -1,7 +1,7 @@
 # AfterTriggerBeginXact
 
 ## Location
-src/backend/commands/trigger.c: 5073 - 5104
+[src/backend/commands/trigger.c:5073-5104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5073-L5104)
 
 ## Overview
 Initializes the after-trigger system state at the beginning of a transaction, setting up the necessary data structures for deferred trigger execution.

@@ -1,7 +1,7 @@
 # create_reloptions_table
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 76 - 138
+[src/test/modules/dummy_index_am/dummy_index_am.c:76-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L76-L138)
 
 ## Overview
 Creates a comprehensive set of relation option types for the dummy index access method, demonstrating various option patterns and types.

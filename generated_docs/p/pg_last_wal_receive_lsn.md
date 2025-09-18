@@ -1,7 +1,7 @@
 # pg_last_wal_receive_lsn
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 337 - 355
+[src/backend/access/transam/xlogfuncs.c:337-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L337-L355)
 
 ## Overview
 Returns the last WAL receive location, indicating the position up to which WAL data has been received and synced to disk by the walreceiver process.

@@ -1,7 +1,7 @@
 # assign_max_stack_depth
 
 ## Location
-src/backend/tcop/postgres.c: 3622 - 3632
+[src/backend/tcop/postgres.c:3622-3632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3622-L3632)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that sets the global max_stack_depth_bytes variable when the max_stack_depth configuration parameter is changed.

@@ -1,7 +1,7 @@
 # troff_ms_escaped_print
 
 ## Location
-src/fe_utils/print.c: 2810 - 2826
+[src/fe_utils/print.c:2810-2826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2810-L2826)
 
 ## Overview
 A utility function that escapes special characters in strings for proper output in troff -ms format, specifically handling backslash characters that need special treatment in troff documents.

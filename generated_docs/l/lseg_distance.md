@@ -1,7 +1,7 @@
 # lseg_distance
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2306 - 2315
+[src/backend/utils/adt/geo_ops.c:2306-2315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2306-L2315)
 
 ## Overview
 Calculates the minimum distance between two line segments in PostgreSQL's geometric coordinate system.

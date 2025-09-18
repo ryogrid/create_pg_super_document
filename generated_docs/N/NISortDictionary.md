@@ -1,7 +1,7 @@
 # NISortDictionary
 
 ## Location
-src/backend/tsearch/spell.c: 1721 - 1829
+[src/backend/tsearch/spell.c:1721-1829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1721-L1829)
 
 ## Overview
 NISortDictionary builds the dictionary tree and optimizes affix data from the imported dictionary and affixes for efficient text search operations.

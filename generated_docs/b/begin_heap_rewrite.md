@@ -1,7 +1,7 @@
 # begin_heap_rewrite
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 234 - 296
+[src/backend/access/heap/rewriteheap.c:234-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L234-L296)
 
 ## Overview
 Initializes a table rewrite operation by setting up necessary data structures and memory contexts for rewriting tuples from an old heap relation to a new heap relation.

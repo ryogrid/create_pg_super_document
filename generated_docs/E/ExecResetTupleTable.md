@@ -1,7 +1,7 @@
 # ExecResetTupleTable
 
 ## Location
-src/backend/executor/execTuples.c: 1278 - 1324
+[src/backend/executor/execTuples.c:1278-1324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1278-L1324)
 
 ## Overview
 Releases all resources held by slots in a tuple table and optionally frees the memory occupied by both the slots and the table structure itself.

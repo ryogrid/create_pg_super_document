@@ -1,7 +1,7 @@
 # InitSync
 
 ## Location
-src/backend/storage/sync/sync.c: 124 - 176
+[src/backend/storage/sync/sync.c:124-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L124-L176)
 
 ## Overview
 Initializes data structures for file synchronization tracking, creating necessary hash tables and memory contexts when running as a standalone process or checkpointer.

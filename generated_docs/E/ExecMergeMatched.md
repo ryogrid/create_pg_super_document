@@ -1,7 +1,7 @@
 # ExecMergeMatched
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2890 - 3400
+[src/backend/executor/nodeModifyTable.c:2890-3400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2890-L3400)
 
 ## Overview
 Handles execution of WHEN MATCHED and WHEN NOT MATCHED BY SOURCE actions in MERGE statements, including concurrent update detection and recovery logic.

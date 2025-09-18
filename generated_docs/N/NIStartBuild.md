@@ -1,7 +1,7 @@
 # NIStartBuild
 
 ## Location
-src/backend/tsearch/spell.c: 88 - 102
+[src/backend/tsearch/spell.c:88-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L88-L102)
 
 ## Overview
 NIStartBuild initializes the construction of an ISpell dictionary by setting up the required memory context for dictionary building operations.

@@ -1,7 +1,7 @@
 # list_append_unique_ptr
 
 ## Location
-src/backend/nodes/list.c: 1356 - 1367
+[src/backend/nodes/list.c:1356-1367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1356-L1367)
 
 ## Overview
 Appends a datum to a list only if it is not already present in the list, using simple pointer equality to determine membership.

@@ -1,7 +1,7 @@
 # countitem_compare_count
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 780 - 791
+[src/backend/utils/adt/array_typanalyze.c:780-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L780-L791)
 
 ## Overview
 A static comparison function used to sort DECountItem pointers in ascending order of their count values for array distinct element statistics collection.

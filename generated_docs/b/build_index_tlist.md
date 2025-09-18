@@ -1,7 +1,7 @@
 # build_index_tlist
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1885 - 1946
+[src/backend/optimizer/util/plancat.c:1885-1946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1885-L1946)
 
 ## Overview
 Constructs a target list representing the columns of a specified index, with each column represented by a Var or expression in base-relation terms.

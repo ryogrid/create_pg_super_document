@@ -1,7 +1,7 @@
 # numeric_half_rounded
 
 ## Location
-src/backend/utils/adt/dbsize.c: 638 - 659
+[src/backend/utils/adt/dbsize.c:638-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L638-L659)
 
 ## Overview
 This static helper function performs half-rounding on a PostgreSQL Numeric value, implementing a custom rounding algorithm that adds or subtracts 1 before dividing by 2.

@@ -1,7 +1,7 @@
 # exec_replication_command
 
 ## Location
-src/backend/replication/walsender.c: 1992 - 2224
+[src/backend/replication/walsender.c:1992-2224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1992-L2224)
 
 ## Overview
 exec_replication_command is the central dispatcher for processing incoming replication commands from clients, handling the full lifecycle from parsing to execution of various PostgreSQL replication protocol commands.

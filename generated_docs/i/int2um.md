@@ -1,7 +1,7 @@
 # int2um
 
 ## Location
-src/backend/utils/adt/int.c: 886 - 897
+[src/backend/utils/adt/int.c:886-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L886-L897)
 
 ## Overview
 Performs unary minus (negation) operation on a 16-bit integer with overflow checking, implementing the PostgreSQL SQL function for smallint negation.

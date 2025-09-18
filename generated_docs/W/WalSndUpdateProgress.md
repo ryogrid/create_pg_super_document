@@ -1,7 +1,7 @@
 # WalSndUpdateProgress
 
 ## Location
-src/backend/replication/walsender.c: 1672 - 1687
+[src/backend/replication/walsender.c:1672-1687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1672-L1687)
 
 ## Overview
 WalSndUpdateProgress is a callback function used by the logical decoding context to track replication lag and send keepalive messages during logical replication.

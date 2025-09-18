@@ -1,7 +1,7 @@
 # ReorderBufferGetChange
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 503 - 517
+[src/backend/replication/logical/reorderbuffer.c:503-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L503-L517)
 
 ## Overview
 Allocates and initializes a new ReorderBufferChange structure from the reorder buffer's change memory context.

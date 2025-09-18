@@ -1,7 +1,7 @@
 # InsertPgClassTuple
 
 ## Location
-src/backend/catalog/heap.c: 896 - 968
+[src/backend/catalog/heap.c:896-968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L896-L968)
 
 ## Overview
 Constructs and inserts a new tuple into the pg_class system catalog to register a relation's metadata and properties.

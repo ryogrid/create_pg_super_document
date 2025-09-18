@@ -1,7 +1,7 @@
 # TableSampleClause
 
 ## Location
-src/include/nodes/parsenodes.h: 1344 - 1350
+[src/include/nodes/parsenodes.h:1344-1350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1344-L1350)
 
 ## Overview
 TableSampleClause represents a TABLESAMPLE clause that appears in a transformed FROM clause, providing table sampling functionality for query execution.

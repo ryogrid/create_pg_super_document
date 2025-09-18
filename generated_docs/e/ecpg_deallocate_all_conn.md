@@ -1,7 +1,7 @@
 # ecpg_deallocate_all_conn
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 337 - 349
+[src/interfaces/ecpg/ecpglib/prepare.c:337-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L337-L349)
 
 ## Overview
 A utility function that deallocates all prepared statements associated with a specific database connection in the ECPG library.

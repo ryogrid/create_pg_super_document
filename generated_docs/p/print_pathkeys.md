@@ -1,7 +1,7 @@
 # print_pathkeys
 
 ## Location
-src/backend/nodes/print.c: 426 - 465
+[src/backend/nodes/print.c:426-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/print.c#L426-L465)
 
 ## Overview
 A debugging utility function that prints a formatted representation of pathkeys, which are used in PostgreSQL's query planner to represent sort ordering requirements.

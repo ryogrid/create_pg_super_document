@@ -1,7 +1,7 @@
 # Path
 
 ## Location
-src/include/nodes/pathnodes.h: 1621 - 1668
+[src/include/nodes/pathnodes.h:1621-1668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1621-L1668)
 
 ## Overview
 Path is the base structure representing execution paths in PostgreSQL's query planner, containing cost estimates, output specifications, and metadata for different scan and join methods.

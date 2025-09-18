@@ -1,7 +1,7 @@
 # in_range_date_interval
 
 ## Location
-src/backend/utils/adt/date.c: 1039 - 1065
+[src/backend/utils/adt/date.c:1039-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1039-L1065)
 
 ## Overview
 Provides in_range support function for date data type, determining if a date value falls within a specified range defined by a base date and an interval offset.

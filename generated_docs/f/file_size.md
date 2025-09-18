@@ -1,7 +1,7 @@
 # file_size
 
 ## Location
-src/test/regress/pg_regress.c: 1261 - 1280
+[src/test/regress/pg_regress.c:1261-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1261-L1280)
 
 ## Overview
 A utility function that determines the size in bytes of a specified file.

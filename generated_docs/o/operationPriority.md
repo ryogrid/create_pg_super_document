@@ -1,7 +1,7 @@
 # operationPriority
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 917 - 953
+[src/backend/utils/adt/jsonpath.c:917-953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L917-L953)
 
 ## Overview
 Returns the precedence level of JSON path operations to ensure correct operator precedence during expression evaluation and formatting.

@@ -1,7 +1,7 @@
 # libpqsrv_cancel
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 386 - 457
+[src/include/libpq/libpq-be-fe-helpers.h:386-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L386-L457)
 
 ## Overview
 Submits a cancel request to a PostgreSQL connection with timeout support and interrupt handling, providing safe query cancellation in server contexts.

@@ -1,7 +1,7 @@
 # hash_update_hash_key
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1146 - 1258
+[src/backend/utils/hash/dynahash.c:1146-1258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1146-L1258)
 
 ## Overview
 Changes the hash key of an existing entry in a PostgreSQL dynamic hash table without removing the entry from memory, providing safe hash key updates even in concurrent environments.

@@ -1,7 +1,7 @@
 # build_server_final_message
 
 ## Location
-src/backend/libpq/auth-scram.c: 1399 - 1457
+[src/backend/libpq/auth-scram.c:1399-1457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L1399-L1457)
 
 ## Overview
 Builds the final server-side message in a SCRAM authentication exchange, containing the server signature that proves the server's knowledge of the client's credentials.

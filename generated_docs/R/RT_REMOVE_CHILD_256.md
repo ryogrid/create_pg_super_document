@@ -1,7 +1,7 @@
 # RT_REMOVE_CHILD_256
 
 ## Location
-src/include/lib/radixtree.h: 2373 - 2403
+[src/include/lib/radixtree.h:2373-2403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2373-L2403)
 
 ## Overview
 A macro that defines a function name for removing a child pointer from a node256 in the radix tree and conditionally shrinking the node if it becomes sufficiently sparse.

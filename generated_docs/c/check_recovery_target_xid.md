@@ -1,7 +1,7 @@
 # check_recovery_target_xid
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 5012 - 5034
+[src/backend/access/transam/xlogrecovery.c:5012-5034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L5012-L5034)
 
 ## Overview
 A GUC check hook function that validates recovery_target_xid parameter values, ensuring they are valid transaction IDs.

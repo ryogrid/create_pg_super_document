@@ -1,7 +1,7 @@
 # ExecReScanSeqScan
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 212 - 237
+[src/backend/executor/nodeSeqscan.c:212-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L212-L237)
 
 ## Overview
 ExecReScanSeqScan is a function that rescans a sequential scan relation, allowing the scan to restart from the beginning of the table.

@@ -1,7 +1,7 @@
 # BTPageGetDeleteXid
 
 ## Location
-src/include/access/nbtree.h: 260 - 290
+[src/include/access/nbtree.h:260-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L260-L290)
 
 ## Overview
 BTPageGetDeleteXid is a static inline function that retrieves the safe transaction ID from a deleted B-tree page, indicating when the page can be safely recycled.

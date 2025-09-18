@@ -1,7 +1,7 @@
 # range_overlaps_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1993 - 2014
+[src/backend/utils/adt/multirangetypes.c:1993-2014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1993-L2014)
 
 ## Overview
 Internal function that determines if a single range overlaps with any range within a multirange using efficient binary search.

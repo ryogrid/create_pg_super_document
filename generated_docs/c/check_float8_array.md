@@ -1,7 +1,7 @@
 # check_float8_array
 
 ## Location
-src/backend/utils/adt/float.c: 2832 - 2855
+[src/backend/utils/adt/float.c:2832-2855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2832-L2855)
 
 ## Overview
 Internal helper function that validates and extracts data from a PostgreSQL array expected to contain float8 elements for statistical aggregate functions.

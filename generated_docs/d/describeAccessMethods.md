@@ -1,7 +1,7 @@
 # describeAccessMethods
 
 ## Location
-src/bin/psql/describe.c: 141 - 214
+[src/bin/psql/describe.c:141-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L141-L214)
 
 ## Overview
 Implements the \dA psql command to display a list of access methods in the database, supporting both index and table access methods with optional verbose output.

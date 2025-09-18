@@ -1,7 +1,7 @@
 # ExecParallelHashTupleAlloc
 
 ## Location
-src/backend/executor/nodeHash.c: 2956 - 3103
+[src/backend/executor/nodeHash.c:2956-3103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2956-L3103)
 
 ## Overview
 Allocates space for hash join tuples in shared memory for parallel hash operations, handling dynamic growth of batches and buckets while coordinating between parallel workers.

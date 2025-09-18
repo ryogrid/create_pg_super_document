@@ -1,7 +1,7 @@
 # NumLWLocksForNamedTranches
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 408 - 422
+[src/backend/storage/lmgr/lwlock.c:408-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L408-L422)
 
 ## Overview
 Computes the total number of lightweight locks required by all registered named tranches for allocation in the main LWLock array.

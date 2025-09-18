@@ -1,7 +1,7 @@
 # HandleWalSndInitStopping
 
 ## Location
-src/backend/replication/walsender.c: 3602 - 3623
+[src/backend/replication/walsender.c:3602-3623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3602-L3623)
 
 ## Overview
 HandleWalSndInitStopping handles the PROCSIG_WALSND_INIT_STOPPING signal to initiate graceful shutdown of a WAL sender process, with different behavior depending on whether replication is currently active.

@@ -1,7 +1,7 @@
 # BackgroundWorkerStateChange
 
 ## Location
-src/backend/postmaster/bgworker.c: 246 - 431
+[src/backend/postmaster/bgworker.c:246-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L246-L431)
 
 ## Overview
 Processes changes to background worker state in shared memory, handling new worker registrations and termination requests while running in the postmaster process.

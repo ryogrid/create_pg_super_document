@@ -1,7 +1,7 @@
 # MultiExecParallelHash
 
 ## Location
-src/backend/executor/nodeHash.c: 214 - 359
+[src/backend/executor/nodeHash.c:214-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L214-L359)
 
 ## Overview
 MultiExecParallelHash implements the parallel-aware hash table building algorithm, coordinating multiple backend processes to build a shared hash table using barriers and phases for synchronization.

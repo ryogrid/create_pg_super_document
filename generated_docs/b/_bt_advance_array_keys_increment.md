@@ -1,7 +1,7 @@
 # _bt_advance_array_keys_increment
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1381 - 1466
+[src/backend/access/nbtree/nbtutils.c:1381-1466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1381-L1466)
 
 ## Overview
 Advances array keys by a single increment in the current scan direction, handling rollover from lower-order arrays to higher-order arrays, and returns whether more array combinations remain.

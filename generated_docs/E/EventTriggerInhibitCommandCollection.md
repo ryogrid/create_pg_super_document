@@ -1,7 +1,7 @@
 # EventTriggerInhibitCommandCollection
 
 ## Location
-src/backend/commands/event_trigger.c: 1554 - 1565
+[src/backend/commands/event_trigger.c:1554-1565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1554-L1565)
 
 ## Overview
 Inhibits DDL command collection for event triggers by setting a flag in the current event trigger state.

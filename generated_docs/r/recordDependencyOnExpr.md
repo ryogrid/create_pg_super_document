@@ -1,7 +1,7 @@
 # recordDependencyOnExpr
 
 ## Location
-src/backend/catalog/dependency.c: 1553 - 1595
+[src/backend/catalog/dependency.c:1553-1595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L1553-L1595)
 
 ## Overview
 Records dependencies between a database object and all objects referenced within an expression tree, enabling proper dependency tracking for rules, constraints, and other expression-based database objects.

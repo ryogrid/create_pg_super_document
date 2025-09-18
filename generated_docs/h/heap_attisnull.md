@@ -1,7 +1,7 @@
 # heap_attisnull
 
 ## Location
-src/backend/access/common/heaptuple.c: 455 - 518
+[src/backend/access/common/heaptuple.c:455-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L455-L518)
 
 ## Overview
 heap_attisnull determines whether a specific attribute (column) in a heap tuple is NULL, handling both regular attributes and system attributes with special logic for missing attributes in tuple descriptors.

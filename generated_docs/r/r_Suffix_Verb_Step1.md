@@ -1,7 +1,7 @@
 # r_Suffix_Verb_Step1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1303 - 1331
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1303-1331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1303-L1331)
 
 ## Overview
 This function performs Step 1 of verb suffix removal in the Arabic stemming algorithm, handling multiple categories of Arabic verb suffixes with different minimum length requirements.

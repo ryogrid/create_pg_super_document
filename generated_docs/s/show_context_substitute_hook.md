@@ -1,7 +1,7 @@
 # show_context_substitute_hook
 
 ## Location
-src/bin/psql/startup.c: 1156 - 1163
+[src/bin/psql/startup.c:1156-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1156-L1163)
 
 ## Overview
 A substitute hook function for the show_context parameter in psql that provides a default value when none is specified.

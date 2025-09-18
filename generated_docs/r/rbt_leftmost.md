@@ -1,7 +1,7 @@
 # rbt_leftmost
 
 ## Location
-src/backend/lib/rbtree.c: 235 - 262
+[src/backend/lib/rbtree.c:235-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L235-L262)
 
 ## Overview
 Returns the leftmost (smallest-valued) node in a Red-Black Tree, which represents the minimum element according to the tree's ordering.

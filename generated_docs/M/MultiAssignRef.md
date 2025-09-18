@@ -1,7 +1,7 @@
 # MultiAssignRef
 
 ## Location
-src/include/nodes/parsenodes.h: 532 - 538
+[src/include/nodes/parsenodes.h:532-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L532-L538)
 
 ## Overview
 MultiAssignRef is a parse tree node used in UPDATE statements to represent individual column targets when assigning values from a row-valued expression using multi-column assignment syntax like SET (a,b,c) = row-valued-expression.

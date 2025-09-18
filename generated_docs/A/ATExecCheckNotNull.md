@@ -1,7 +1,7 @@
 # ATExecCheckNotNull
 
 ## Location
-src/backend/commands/tablecmds.c: 7842 - 7870
+[src/backend/commands/tablecmds.c:7842-7870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7842-L7870)
 
 ## Overview
 ATExecCheckNotNull is a validation function that verifies a column already has the NOT NULL constraint set, used primarily for partition validation when ALTER TABLE ONLY ... SET NOT NULL is applied to partitioned tables.

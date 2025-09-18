@@ -1,7 +1,7 @@
 # removeObjectDependency
 
 ## Location
-src/bin/pg_dump/common.c: 832 - 851
+[src/bin/pg_dump/common.c:832-851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L832-L851)
 
 ## Overview
 Removes dependency links from a DumpableObject, eliminating references to a specific object ID from the dependency list.

@@ -1,7 +1,7 @@
 # TimestampDifferenceMilliseconds
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1766 - 1789
+[src/backend/utils/adt/timestamp.c:1766-1789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1766-L1789)
 
 ## Overview
 Converts the difference between two timestamps into integer milliseconds, specifically designed for wait timeout calculations with proper overflow handling and rounding.

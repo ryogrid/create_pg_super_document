@@ -1,7 +1,7 @@
 # index_delete_check_htid
 
 ## Location
-src/backend/access/heap/heapam.c: 8035 - 8094
+[src/backend/access/heap/heapam.c:8035-8094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8035-L8094)
 
 ## Overview
 A helper function for heap_index_delete_tuples that performs corruption checks on heap tuple identifiers (HTIDs) found in index tuples during bulk deletion operations.

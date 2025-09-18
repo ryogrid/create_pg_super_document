@@ -1,7 +1,7 @@
 # gtsquery_compress
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 27 - 52
+[src/backend/utils/adt/tsquery_gist.c:27-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L27-L52)
 
 ## Overview
 gtsquery_compress is a GiST (Generalized Search Tree) compression function that compresses TSQuery (text search query) values for efficient storage and searching in GiST indexes.

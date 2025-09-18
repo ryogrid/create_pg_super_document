@@ -1,7 +1,7 @@
 # range_lower_inf
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 521 - 530
+[src/backend/utils/adt/rangetypes.c:521-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L521-L530)
 
 ## Overview
 Checks whether the lower bound of a range type is infinite (unbounded), returning a boolean result indicating if the range extends to negative infinity on the lower end.

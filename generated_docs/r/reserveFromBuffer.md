@@ -1,7 +1,7 @@
 # reserveFromBuffer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1484 - 1509
+[src/backend/utils/adt/jsonb_util.c:1484-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1484-L1509)
 
 ## Overview
 reserveFromBuffer reserves a specified number of bytes at the end of a StringInfo buffer, enlarging it if necessary, and returns the offset to the reserved area.

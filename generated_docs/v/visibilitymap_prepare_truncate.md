@@ -1,7 +1,7 @@
 # visibilitymap_prepare_truncate
 
 ## Location
-src/backend/access/heap/visibilitymap.c: 438 - 537
+[src/backend/access/heap/visibilitymap.c:438-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/visibilitymap.c#L438-L537)
 
 ## Overview
 Prepares the visibility map for truncation by calculating the new size and clearing unused bits in the last remaining map page.

@@ -1,7 +1,7 @@
 # SetOpStatePerGroup
 
 ## Location
-src/include/nodes/execnodes.h: 2779 - 2780
+[src/include/nodes/execnodes.h:2779-2780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2779-L2780)
 
 ## Overview
 SetOpStatePerGroup is a pointer type to SetOpStatePerGroupData, representing per-group working state for set operations like UNION, INTERSECT, and EXCEPT in PostgreSQL's executor.

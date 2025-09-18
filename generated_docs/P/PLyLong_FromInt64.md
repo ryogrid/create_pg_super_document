@@ -1,7 +1,7 @@
 # PLyLong_FromInt64
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 616 - 621
+[src/pl/plpython/plpy_typeio.c:616-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L616-L621)
 
 ## Overview
 Converts a PostgreSQL int8 (bigint) value to a Python long object in the PL/Python extension.

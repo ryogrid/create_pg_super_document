@@ -1,7 +1,7 @@
 # finnish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 658 - 718
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:658-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L658-L718)
 
 ## Overview
 The finnish_UTF_8_stem function is the main entry point for performing Finnish language stemming on UTF-8 encoded text, implementing the complete Finnish stemming algorithm by orchestrating various morphological analysis steps.

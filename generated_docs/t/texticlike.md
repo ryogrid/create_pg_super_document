@@ -1,7 +1,7 @@
 # texticlike
 
 ## Location
-src/backend/utils/adt/like.c: 400 - 411
+[src/backend/utils/adt/like.c:400-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L400-L411)
 
 ## Overview
 A PostgreSQL function that performs case-insensitive LIKE pattern matching on text data types using the ILIKE operator.

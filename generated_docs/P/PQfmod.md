@@ -1,7 +1,7 @@
 # PQfmod
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3741 - 3751
+[src/interfaces/libpq/fe-exec.c:3741-3751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3741-L3751)
 
 ## Overview
 PQfmod retrieves the type modifier value for a specified field in a PostgreSQL query result, providing information about column-specific formatting or constraints.

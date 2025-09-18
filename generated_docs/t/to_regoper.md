@@ -1,7 +1,7 @@
 # to_regoper
 
 ## Location
-src/backend/utils/adt/regproc.c: 527 - 544
+[src/backend/utils/adt/regproc.c:527-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L527-L544)
 
 ## Overview
 Converts an operator name string to an operator OID, returning NULL if the operator is not found.

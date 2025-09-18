@@ -1,7 +1,7 @@
 # pqGetInt
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 216 - 252
+[src/interfaces/libpq/fe-misc.c:216-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L216-L252)
 
 ## Overview
 Reads a 2 or 4 byte integer from the input buffer and converts it from network byte order to local byte order.

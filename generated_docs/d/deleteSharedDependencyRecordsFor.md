@@ -1,7 +1,7 @@
 # deleteSharedDependencyRecordsFor
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1047 - 1068
+[src/backend/catalog/pg_shdepend.c:1047-1068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1047-L1068)
 
 ## Overview
 Removes all shared dependency entries for an object being dropped or modified, handling both whole objects and individual sub-objects with appropriate cleanup scope.

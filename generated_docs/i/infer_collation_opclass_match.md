@@ -1,7 +1,7 @@
 # infer_collation_opclass_match
 
 ## Location
-src/backend/optimizer/util/plancat.c: 978 - 1059
+[src/backend/optimizer/util/plancat.c:978-1059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L978-L1059)
 
 ## Overview
 Verifies that inference specification elements match the collation and operator class requirements of indexed attributes during ON CONFLICT clause processing.

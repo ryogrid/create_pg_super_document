@@ -1,7 +1,7 @@
 # text_format_parse_format
 
 ## Location
-src/backend/utils/adt/varlena.c: 5964 - 6040
+[src/backend/utils/adt/varlena.c:5964-6040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5964-L6040)
 
 ## Overview
 The  function parses the components of a printf-style format specifier, extracting argument positions, flags, width specifications, and other formatting parameters.

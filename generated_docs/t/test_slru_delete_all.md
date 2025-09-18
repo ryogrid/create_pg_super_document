@@ -1,7 +1,7 @@
 # test_slru_delete_all
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 185 - 197
+[src/test/modules/test_slru/test_slru.c:185-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L185-L197)
 
 ## Overview
 A PostgreSQL test function that deletes all SLRU segments by scanning the entire SLRU directory and removing each segment found.

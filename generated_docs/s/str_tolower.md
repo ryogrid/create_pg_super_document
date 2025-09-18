@@ -1,7 +1,7 @@
 # str_tolower
 
 ## Location
-src/backend/utils/adt/formatting.c: 1636 - 1783
+[src/backend/utils/adt/formatting.c:1636-1783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1636-L1783)
 
 ## Overview
 A collation-aware, wide-character-aware function that converts a string to lowercase, supporting multiple collation providers including ICU, built-in Unicode, and libc.

@@ -1,7 +1,7 @@
 # ExecSimpleRelationDelete
 
 ## Location
-src/backend/executor/execReplication.c: 623 - 655
+[src/backend/executor/execReplication.c:623-655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L623-L655)
 
 ## Overview
 ExecSimpleRelationDelete performs a complete tuple deletion operation, including trigger execution and proper cleanup of the specified tuple from the relation.

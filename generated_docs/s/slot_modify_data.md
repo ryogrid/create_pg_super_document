@@ -1,7 +1,7 @@
 # slot_modify_data
 
 ## Location
-src/backend/replication/logical/worker.c: 900 - 992
+[src/backend/replication/logical/worker.c:900-992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L900-L992)
 
 ## Overview
 Creates a modified tuple by copying data from a source tuple slot and selectively replacing specified columns with new values from logical replication data, similar to heap_modify_tuple but with type conversion handling.

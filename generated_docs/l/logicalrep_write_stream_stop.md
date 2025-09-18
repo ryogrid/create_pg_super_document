@@ -1,7 +1,7 @@
 # logicalrep_write_stream_stop
 
 ## Location
-src/backend/replication/logical/proto.c: 1103 - 1111
+[src/backend/replication/logical/proto.c:1103-1111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1103-L1111)
 
 ## Overview
 Writes a stream stop message to the logical replication output stream to signal the end of a streaming transaction.

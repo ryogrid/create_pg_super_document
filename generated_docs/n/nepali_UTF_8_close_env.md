@@ -1,7 +1,7 @@
 # nepali_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_nepali.c: 420 - 421
+[src/backend/snowball/libstemmer/stem_UTF_8_nepali.c:420-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_nepali.c#L420-L421)
 
 ## Overview
 Releases and deallocates a Snowball stemming environment that was previously created for processing Nepali text in UTF-8 encoding.

@@ -1,7 +1,7 @@
 # GetConfFilesInDir
 
 ## Location
-src/backend/utils/misc/conffiles.c: 70 - 164
+[src/backend/utils/misc/conffiles.c:70-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/conffiles.c#L70-L164)
 
 ## Overview
 Returns an alphabetically sorted list of configuration files (ending in ".conf") found in a specified directory, with comprehensive error handling and validation.

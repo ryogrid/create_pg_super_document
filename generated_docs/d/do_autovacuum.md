@@ -1,7 +1,7 @@
 # do_autovacuum
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1877 - 2587
+[src/backend/postmaster/autovacuum.c:1877-2587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1877-L2587)
 
 ## Overview
 do_autovacuum is the main function that processes an entire database table-by-table, determining which tables need vacuum or analyze operations and performing autovacuum work items.

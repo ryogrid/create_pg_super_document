@@ -1,7 +1,7 @@
 # errtablecolname
 
 ## Location
-src/backend/utils/cache/relcache.c: 5998 - 6010
+[src/backend/utils/cache/relcache.c:5998-6010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5998-L6010)
 
 ## Overview
 Stores schema name, table name, and column name of a table column within the current error context, where the column name is provided directly.

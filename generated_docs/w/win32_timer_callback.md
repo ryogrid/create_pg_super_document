@@ -1,7 +1,7 @@
 # win32_timer_callback
 
 ## Location
-src/bin/pgbench/pgbench.c: 7762 - 7767
+[src/bin/pgbench/pgbench.c:7762-7767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7762-L7767)
 
 ## Overview
 A Windows-specific timer callback function used in pgbench to signal when the specified time duration has been exceeded during benchmark execution.

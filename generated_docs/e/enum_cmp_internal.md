@@ -1,7 +1,7 @@
 # enum_cmp_internal
 
 ## Location
-src/backend/utils/adt/enum.c: 252 - 305
+[src/backend/utils/adt/enum.c:252-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L252-L305)
 
 ## Overview
 Internal comparison engine for PostgreSQL enum values that handles the core logic for comparing two enum OIDs, with optimizations for common cases and proper handling of enum type metadata.

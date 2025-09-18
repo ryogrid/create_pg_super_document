@@ -1,7 +1,7 @@
 # brinRevmapDesummarizeRange
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 323 - 441
+[src/backend/access/brin/brin_revmap.c:323-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L323-L441)
 
 ## Overview
 Deletes an index tuple from a BRIN index, marking a page range as unsummarized and removing its summary information from both the reverse map and the regular index pages.

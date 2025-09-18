@@ -1,7 +1,7 @@
 # pg_popcount_masked
 
 ## Location
-src/include/port/pg_bitutils.h: 370 - 397
+[src/include/port/pg_bitutils.h:370-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L370-L397)
 
 ## Overview
 The pg_popcount_masked function counts the number of 1-bits in a buffer after applying a bitmask to each byte, providing optimized performance for masked bit counting operations commonly used in visibility maps and other PostgreSQL subsystems.

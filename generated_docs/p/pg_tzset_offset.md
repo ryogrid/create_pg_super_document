@@ -1,7 +1,7 @@
 # pg_tzset_offset
 
 ## Location
-src/timezone/pgtz.c: 320 - 360
+[src/timezone/pgtz.c:320-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L320-L360)
 
 ## Overview
 Creates a timezone object for a fixed GMT offset specified in seconds, used primarily for SQL-spec SET TIME ZONE INTERVAL operations.

@@ -1,7 +1,7 @@
 # network_abbrev_abort
 
 ## Location
-src/backend/utils/adt/network.c: 488 - 624
+[src/backend/utils/adt/network.c:488-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L488-L624)
 
 ## Overview
 Callback function that estimates the effectiveness of abbreviated key optimization during sorting of network data types, determining whether to abort the abbreviation strategy based on cardinality analysis.

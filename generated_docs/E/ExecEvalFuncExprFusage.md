@@ -1,7 +1,7 @@
 # ExecEvalFuncExprFusage
 
 ## Location
-src/backend/executor/execExprInterp.c: 2452 - 2472
+[src/backend/executor/execExprInterp.c:2452-2472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2452-L2472)
 
 ## Overview
 Out-of-line helper function that executes a function call expression (EEOP_FUNCEXPR_FUSAGE) with function usage statistics tracking enabled.

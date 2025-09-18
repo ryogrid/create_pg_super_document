@@ -1,7 +1,7 @@
 # FindDbnameInConnParams
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 282 - 307
+[src/bin/pg_basebackup/streamutil.c:282-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L282-L307)
 
 ## Overview
 A helper function that extracts the database name value from a PQconninfoOption parameter array.

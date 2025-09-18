@@ -1,7 +1,7 @@
 # jsonb_populate_record
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2462 - 2474
+[src/backend/utils/adt/jsonfuncs.c:2462-2474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2462-L2474)
 
 ## Overview
 This SQL function populates a PostgreSQL record (row type) with field values from a JSONB object, mapping JSON key-value pairs to record columns by name.

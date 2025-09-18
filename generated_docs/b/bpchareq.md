@@ -1,7 +1,7 @@
 # bpchareq
 
 ## Location
-src/backend/utils/adt/varchar.c: 743 - 787
+[src/backend/utils/adt/varchar.c:743-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L743-L787)
 
 ## Overview
 Implements equality comparison between two BPCHAR (blank-padded character) values, with proper collation support and optimization for C locale.

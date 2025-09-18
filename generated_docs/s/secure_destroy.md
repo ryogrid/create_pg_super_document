@@ -1,7 +1,7 @@
 # secure_destroy
 
 ## Location
-src/backend/libpq/be-secure.c: 86 - 96
+[src/backend/libpq/be-secure.c:86-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L86-L96)
 
 ## Overview
 Destroys the global security context and cleans up resources used by PostgreSQL's secure communication layer, serving as the cleanup counterpart to secure_initialize.

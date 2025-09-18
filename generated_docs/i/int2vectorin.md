@@ -1,7 +1,7 @@
 # int2vectorin
 
 ## Location
-src/backend/utils/adt/int.c: 141 - 206
+[src/backend/utils/adt/int.c:141-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L141-L206)
 
 ## Overview
 Converts a string representation of space-separated smallint values ("num num ...") into the internal PostgreSQL int2vector data type.

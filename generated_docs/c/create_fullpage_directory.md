@@ -1,7 +1,7 @@
 # create_fullpage_directory
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 128 - 160
+[src/bin/pg_waldump/pg_waldump.c:128-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L128-L160)
 
 ## Overview
 Creates a directory for storing full-page images extracted from WAL records, ensuring the directory is empty and properly accessible.

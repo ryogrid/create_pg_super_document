@@ -1,7 +1,7 @@
 # ExecASTruncateTriggers
 
 ## Location
-src/backend/commands/trigger.c: 3354 - 3370
+[src/backend/commands/trigger.c:3354-3370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3354-L3370)
 
 ## Overview
 Executes AFTER STATEMENT TRUNCATE triggers for a given table relation during a TRUNCATE operation.

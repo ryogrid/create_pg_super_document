@@ -1,7 +1,7 @@
 # replorigin_by_oid
 
 ## Location
-src/backend/replication/logical/origin.c: 465 - 505
+[src/backend/replication/logical/origin.c:465-505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L465-L505)
 
 ## Overview
 Looks up a replication origin by its internal OID and returns the external name, providing reverse mapping from origin ID to origin name.

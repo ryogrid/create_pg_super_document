@@ -1,7 +1,7 @@
 # PGEvent
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 161 - 168
+[src/interfaces/libpq/libpq-int.h:161-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L161-L168)
 
 ## Overview
 A structure that represents a registered event handler in PostgreSQL's libpq event system, storing callback functions and associated data for handling connection and result events.

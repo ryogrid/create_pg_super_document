@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesHistoricMVCC
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1587 - 1766
+[src/backend/access/heap/heapam_visibility.c:1587-1766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1587-L1766)
 
 ## Overview
 HeapTupleSatisfiesHistoricMVCC implements historic MVCC visibility semantics for catalog tables, determining tuple visibility for time-travel queries during logical decoding.

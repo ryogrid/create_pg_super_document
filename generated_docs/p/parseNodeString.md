@@ -1,7 +1,7 @@
 # parseNodeString
 
 ## Location
-src/backend/nodes/readfuncs.c: 562 - 570
+[src/backend/nodes/readfuncs.c:562-570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L562-L570)
 
 ## Overview
 This function parses a character string representing a PostgreSQL node tree and creates the corresponding internal node structure.

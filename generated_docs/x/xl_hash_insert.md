@@ -1,7 +1,7 @@
 # xl_hash_insert
 
 ## Location
-src/include/access/hash_xlog.h: 62 - 65
+[src/include/access/hash_xlog.h:62-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L62-L65)
 
 ## Overview
 A PostgreSQL WAL (Write-Ahead Logging) record structure that represents the data needed to replay a simple hash index insertion operation during recovery.

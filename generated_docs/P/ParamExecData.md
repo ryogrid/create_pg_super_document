@@ -1,7 +1,7 @@
 # ParamExecData
 
 ## Location
-src/include/nodes/params.h: 146 - 151
+[src/include/nodes/params.h:146-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/params.h#L146-L151)
 
 ## Overview
 ParamExecData is a struct used for executor internal parameters that represent values being passed into or out of sub-queries, supporting lazy evaluation through optional execution plan references.

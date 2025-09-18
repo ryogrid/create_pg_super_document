@@ -1,7 +1,7 @@
 # date2timestamp_opt_overflow
 
 ## Location
-src/backend/utils/adt/date.c: 564 - 607
+[src/backend/utils/adt/date.c:564-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L564-L607)
 
 ## Overview
 Converts a DateADT value to a Timestamp with optional overflow handling, allowing callers to detect and handle out-of-range conditions gracefully.

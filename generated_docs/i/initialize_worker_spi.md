@@ -1,7 +1,7 @@
 # initialize_worker_spi
 
 ## Location
-src/test/modules/worker_spi/worker_spi.c: 73 - 137
+[src/test/modules/worker_spi/worker_spi.c:73-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/worker_spi/worker_spi.c#L73-L137)
 
 ## Overview
 This function initializes the workspace for a PostgreSQL worker process by creating the necessary schema and table structure if they don't already exist.

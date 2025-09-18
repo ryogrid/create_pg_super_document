@@ -1,7 +1,7 @@
 # ccondissect
 
 ## Location
-src/backend/regex/regexec.c: 829 - 909
+[src/backend/regex/regexec.c:829-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L829-L909)
 
 ## Overview
 Dissects a match for a concatenation node by finding the optimal split point between left and right subexpressions and recursively matching both parts.

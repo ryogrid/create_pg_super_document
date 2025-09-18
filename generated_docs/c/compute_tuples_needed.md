@@ -1,7 +1,7 @@
 # compute_tuples_needed
 
 ## Location
-src/backend/executor/nodeLimit.c: 431 - 446
+[src/backend/executor/nodeLimit.c:431-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLimit.c#L431-L446)
 
 ## Overview
 compute_tuples_needed calculates the maximum number of tuples that a Limit node needs to retrieve from its child to satisfy the LIMIT/OFFSET requirements.

@@ -1,7 +1,7 @@
 # multixactoffsetssyncfiletag
 
 ## Location
-src/backend/access/transam/multixact.c: 3567 - 3575
+[src/backend/access/transam/multixact.c:3567-3575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3567-L3575)
 
 ## Overview
 multixactoffsetssyncfiletag is an entrypoint function for sync.c to synchronize multixact offsets files to disk using the SLRU synchronization infrastructure.

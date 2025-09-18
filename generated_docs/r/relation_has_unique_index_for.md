@@ -1,7 +1,7 @@
 # relation_has_unique_index_for
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3440 - 3613
+[src/backend/optimizer/path/indxpath.c:3440-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3440-L3613)
 
 ## Overview
 Determines whether a relation provably has at most one row satisfying a set of equality conditions by checking if the conditions constrain all columns of some unique index.

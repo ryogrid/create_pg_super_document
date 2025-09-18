@@ -1,7 +1,7 @@
 # print_gen
 
 ## Location
-src/backend/optimizer/geqo/geqo_misc.c: 91 - 111
+[src/backend/optimizer/geqo/geqo_misc.c:91-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_misc.c#L91-L111)
 
 ## Overview
 The print_gen function outputs a summary of generation statistics for a genetic algorithm population, including best, worst, mean, and average fitness values.

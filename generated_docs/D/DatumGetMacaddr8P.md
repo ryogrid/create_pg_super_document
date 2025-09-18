@@ -1,7 +1,7 @@
 # DatumGetMacaddr8P
 
 ## Location
-src/include/utils/inet.h: 163 - 168
+[src/include/utils/inet.h:163-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L163-L168)
 
 ## Overview
 A static inline function that converts a PostgreSQL Datum value to a macaddr8 pointer, used for accessing MAC address data stored in PostgreSQL's internal format.

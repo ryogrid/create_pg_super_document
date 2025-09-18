@@ -1,7 +1,7 @@
 # clogsyncfiletag
 
 ## Location
-src/backend/access/transam/clog.c: 1149 - 1152
+[src/backend/access/transam/clog.c:1149-1152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L1149-L1152)
 
 ## Overview
 clogsyncfiletag is an entrypoint function for the sync.c module to synchronize CLOG (Commit Log) files to persistent storage.

@@ -1,7 +1,7 @@
 # _bt_slideleft
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 683 - 713
+[src/backend/access/nbtree/nbtsort.c:683-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L683-L713)
 
 ## Overview
 Slides the array of ItemIds on a page back one slot to remove the unneeded P_HIKEY line pointer space from rightmost pages during B-tree construction.

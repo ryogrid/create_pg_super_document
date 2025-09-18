@@ -1,7 +1,7 @@
 # preprocess_phv_expression
 
 ## Location
-src/backend/optimizer/plan/planner.c: 1302 - 1334
+[src/backend/optimizer/plan/planner.c:1302-1334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L1302-L1334)
 
 ## Overview
 Preprocesses a PlaceHolderVar expression that has been pulled up from a LATERAL subquery to ensure proper expression handling in PostgreSQL's query planner.

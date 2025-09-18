@@ -1,7 +1,7 @@
 # pending_list_header_init
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4454 - 4460
+[src/bin/pg_dump/pg_backup_archiver.c:4454-4460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4454-L4460)
 
 ## Overview
 Initializes the header of a pending-items list, creating a circular doubly-linked list structure with a dummy TocEntry as the header node.

@@ -1,7 +1,7 @@
 # TidRangeQualFromRestrictInfoList
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 387 - 414
+[src/backend/optimizer/path/tidpath.c:387-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L387-L414)
 
 ## Overview
 A static function that extracts CTID range conditions from a list of RestrictInfos, returning range qualifications suitable for TID range scan optimization if supported by the table's access method.

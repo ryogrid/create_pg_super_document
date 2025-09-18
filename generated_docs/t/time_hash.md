@@ -1,7 +1,7 @@
 # time_hash
 
 ## Location
-src/backend/utils/adt/date.c: 1747 - 1752
+[src/backend/utils/adt/date.c:1747-1752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1747-L1752)
 
 ## Overview
 The time_hash function computes a hash value for PostgreSQL's TimeADT data type, enabling efficient hashing operations for time values in hash tables and indexes.

@@ -1,7 +1,7 @@
 # getRelationsInNamespace
 
 ## Location
-src/backend/catalog/aclchk.c: 938 - 975
+[src/backend/catalog/aclchk.c:938-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L938-L975)
 
 ## Overview
 Returns a list of relation OIDs in a given namespace, filtered by a specific relation kind (e.g., tables, sequences, views).

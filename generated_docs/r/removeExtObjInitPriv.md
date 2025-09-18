@@ -1,7 +1,7 @@
 # removeExtObjInitPriv
 
 ## Location
-src/backend/catalog/aclchk.c: 4573 - 4655
+[src/backend/catalog/aclchk.c:4573-4655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4573-L4655)
 
 ## Overview
 Removes all initial privilege entries for a database object and its sub-objects from pg_init_privs when the object is dropped from an extension via ALTER EXTENSION DROP.

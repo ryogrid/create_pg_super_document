@@ -1,7 +1,7 @@
 # match_expr_to_partition_keys
 
 ## Location
-src/backend/optimizer/util/relnode.c: 2236 - 2284
+[src/backend/optimizer/util/relnode.c:2236-2284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L2236-L2284)
 
 ## Overview
 Attempts to match an expression against the partition keys of a partitioned relation, returning the ordinal position of the matched key or -1 if no match is found.

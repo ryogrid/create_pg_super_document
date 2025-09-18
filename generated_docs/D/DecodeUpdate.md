@@ -1,7 +1,7 @@
 # DecodeUpdate
 
 ## Location
-src/backend/replication/logical/decode.c: 965 - 1031
+[src/backend/replication/logical/decode.c:965-1031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L965-L1031)
 
 ## Overview
 DecodeUpdate processes HEAP_UPDATE and HEAP_HOT_UPDATE WAL records in PostgreSQL's logical replication, extracting update operations and converting them into reorder buffer changes with both old and new tuple data.

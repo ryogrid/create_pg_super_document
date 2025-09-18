@@ -1,7 +1,7 @@
 # pg_atomic_read_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 46 - 52
+[src/include/port/atomics/generic.h:46-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L46-L52)
 
 ## Overview
 Provides a generic implementation for reading a 32-bit unsigned integer from an atomic variable without any memory synchronization guarantees.

@@ -1,7 +1,7 @@
 # MemoryContextStrdup
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1682 - 1694
+[src/backend/utils/mmgr/mcxt.c:1682-1694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1682-L1694)
 
 ## Overview
 MemoryContextStrdup is a PostgreSQL memory management function that duplicates a C string within a specified memory context, similar to the standard strdup() function but using PostgreSQL's memory context system.

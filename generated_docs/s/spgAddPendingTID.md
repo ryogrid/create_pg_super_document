@@ -1,7 +1,7 @@
 # spgAddPendingTID
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 63 - 88
+[src/backend/access/spgist/spgvacuum.c:63-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L63-L88)
 
 ## Overview
 Adds a TID (Tuple Identifier) to the pending list during SP-GiST vacuum operations, but only if the TID is not already present in the list.

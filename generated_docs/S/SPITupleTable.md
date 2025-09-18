@@ -1,7 +1,7 @@
 # SPITupleTable
 
 ## Location
-src/include/executor/spi.h: 22 - 34
+[src/include/executor/spi.h:22-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/spi.h#L22-L34)
 
 ## Overview
 SPITupleTable is a structure that represents a result table returned by SPI (Server Programming Interface) operations, containing an array of tuples along with their metadata and memory management information.

@@ -1,7 +1,7 @@
 # on_error_stop_hook
 
 ## Location
-src/bin/psql/startup.c: 881 - 886
+[src/bin/psql/startup.c:881-886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L881-L886)
 
 ## Overview
 A hook function used in PostgreSQL's psql client to validate and set the ON_ERROR_STOP variable, which controls whether psql should stop processing commands when an error occurs.

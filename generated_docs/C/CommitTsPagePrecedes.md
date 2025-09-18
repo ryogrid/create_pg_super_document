@@ -1,7 +1,7 @@
 # CommitTsPagePrecedes
 
 ## Location
-src/backend/access/transam/commit_ts.c: 977 - 995
+[src/backend/access/transam/commit_ts.c:977-995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L977-L995)
 
 ## Overview
 Determines whether one commit timestamp SLRU page "precedes" another for truncation purposes, similar to CLOGPagePrecedes but with special handling for commit timestamp page boundaries.

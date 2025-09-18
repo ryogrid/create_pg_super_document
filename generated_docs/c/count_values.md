@@ -1,7 +1,7 @@
 # count_values
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1415 - 1475
+[src/backend/access/brin/brin_minmax_multi.c:1415-1475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1415-L1475)
 
 ## Overview
 Calculates the total number of boundary values required to store an array of expanded ranges in a BRIN minmax-multi index structure.

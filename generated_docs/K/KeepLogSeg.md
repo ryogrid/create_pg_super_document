@@ -1,7 +1,7 @@
 # KeepLogSeg
 
 ## Location
-src/backend/access/transam/xlog.c: 7967 - 8038
+[src/backend/access/transam/xlog.c:7967-8038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7967-L8038)
 
 ## Overview
 KeepLogSeg calculates the oldest WAL segment that must be retained based on wal_keep_size, replication slot requirements, and WAL summarization needs, updating the provided segment number accordingly.

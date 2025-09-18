@@ -1,7 +1,7 @@
 # buffertag_comparator
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5789 - 5822
+[src/backend/storage/buffer/bufmgr.c:5789-5822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5789-L5822)
 
 ## Overview
 A static inline comparison function that compares two BufferTag structures to establish an ordering for buffer management operations in PostgreSQL.

@@ -1,7 +1,7 @@
 # check_new_cluster_logical_replication_slots
 
 ## Location
-src/bin/pg_upgrade/check.c: 1812 - 1884
+[src/bin/pg_upgrade/check.c:1812-1884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1812-L1884)
 
 ## Overview
 Validates that the new PostgreSQL cluster is properly configured to receive logical replication slots during an upgrade, ensuring no existing slots conflict and that required parameters are set correctly.

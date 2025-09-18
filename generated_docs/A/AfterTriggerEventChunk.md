@@ -1,7 +1,7 @@
 # AfterTriggerEventChunk
 
 ## Location
-src/backend/commands/trigger.c: 3785 - 3792
+[src/backend/commands/trigger.c:3785-3792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3785-L3792)
 
 ## Overview
 AfterTriggerEventChunk is a memory management structure that stores trigger events in successively-larger chunks to avoid palloc overhead, implementing an expandable array design for deferred trigger events.

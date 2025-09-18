@@ -1,7 +1,7 @@
 # tar_get_file_name
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 825 - 836
+[src/bin/pg_basebackup/walmethods.c:825-836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L825-L836)
 
 ## Overview
 Constructs a complete filename by concatenating a pathname with an optional temporary suffix for TAR-based WAL file operations.

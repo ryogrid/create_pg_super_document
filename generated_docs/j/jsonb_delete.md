@@ -1,7 +1,7 @@
 # jsonb_delete
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4640 - 4692
+[src/backend/utils/adt/jsonfuncs.c:4640-4692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4640-L4692)
 
 ## Overview
 Removes a specified key-value pair or array element from a JSONB value, returning a new JSONB object without the deleted item.

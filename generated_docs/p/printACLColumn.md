@@ -1,7 +1,7 @@
 # printACLColumn
 
 ## Location
-src/bin/psql/describe.c: 6659 - 6676
+[src/bin/psql/describe.c:6659-6676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6659-L6676)
 
 ## Overview
 A static helper function that generates standardized SQL expressions for formatting Access Control List (ACL) privilege columns in psql describe commands.

@@ -1,7 +1,7 @@
 # WalSummarizerShmemSize
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 171 - 179
+[src/backend/postmaster/walsummarizer.c:171-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L171-L179)
 
 ## Overview
 Returns the amount of shared memory required for the WAL summarizer module.

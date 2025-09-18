@@ -1,7 +1,7 @@
 # dicostestimate
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 204 - 223
+[src/test/modules/dummy_index_am/dummy_index_am.c:204-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L204-L223)
 
 ## Overview
 A cost estimation function for the dummy index access method that intentionally returns prohibitively high costs to prevent the PostgreSQL planner from using this index in query plans.

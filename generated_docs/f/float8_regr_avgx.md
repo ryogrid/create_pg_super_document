@@ -1,7 +1,7 @@
 # float8_regr_avgx
 
 ## Location
-src/backend/utils/adt/float.c: 3568 - 3586
+[src/backend/utils/adt/float.c:3568-3586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3568-L3586)
 
 ## Overview
 Computes and returns the average of X values from a regression transition array, used in statistical regression analysis.

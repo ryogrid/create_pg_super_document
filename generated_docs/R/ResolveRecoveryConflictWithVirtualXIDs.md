@@ -1,7 +1,7 @@
 # ResolveRecoveryConflictWithVirtualXIDs
 
 ## Location
-src/backend/storage/ipc/standby.c: 359 - 466
+[src/backend/storage/ipc/standby.c:359-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L359-L466)
 
 ## Overview
 This function serves as the main executioner for query backends that conflict with recovery processing by waiting for virtual transaction IDs to complete and terminating them if necessary.

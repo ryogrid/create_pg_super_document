@@ -1,7 +1,7 @@
 # romanian_ISO_8859_2_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c: 964 - 965
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c:964-965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c#L964-L965)
 
 ## Overview
 A cleanup function that properly deallocates and releases resources associated with a Romanian ISO-8859-2 Snowball stemming environment.

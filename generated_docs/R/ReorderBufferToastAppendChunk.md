@@ -1,7 +1,7 @@
 # ReorderBufferToastAppendChunk
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4838 - 4920
+[src/backend/replication/logical/reorderbuffer.c:4838-4920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4838-L4920)
 
 ## Overview
 Processes and stores individual TOAST chunks during logical replication, maintaining proper sequencing and accumulating data needed for eventual reconstruction of large column values.

@@ -1,7 +1,7 @@
 # heap_inplace_update
 
 ## Location
-src/backend/access/heap/heapam.c: 6523 - 6605
+[src/backend/access/heap/heapam.c:6523-6605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L6523-L6605)
 
 ## Overview
 A deprecated function that performs in-place updates of heap tuples without creating new tuple versions, maintained for backward compatibility with modules that haven't migrated to the newer systable_inplace_update_begin() API.

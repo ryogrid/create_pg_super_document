@@ -1,7 +1,7 @@
 # rdayofweek
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 604 - 611
+[src/interfaces/ecpg/compatlib/informix.c:604-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L604-L611)
 
 ## Overview
 Returns the day of the week for a given date value in the ECPG Informix compatibility library.

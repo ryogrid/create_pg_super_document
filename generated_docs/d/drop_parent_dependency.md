@@ -1,7 +1,7 @@
 # drop_parent_dependency
 
 ## Location
-src/backend/commands/tablecmds.c: 16434 - 16485
+[src/backend/commands/tablecmds.c:16434-16485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16434-L16485)
 
 ## Overview
 Removes dependency entries from pg_depend catalog that were created during table inheritance or typed table relationships.

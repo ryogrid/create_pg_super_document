@@ -1,7 +1,7 @@
 # eqin
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 233 - 245
+[src/tools/pg_bsd_indent/args.c:233-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L233-L245)
 
 ## Overview
 The eqin function performs prefix matching by checking if one string is a prefix of another and returns a pointer to the remainder of the second string if it matches.

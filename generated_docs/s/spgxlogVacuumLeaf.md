@@ -1,7 +1,7 @@
 # spgxlogVacuumLeaf
 
 ## Location
-src/include/access/spgxlog.h: 201 - 221
+[src/include/access/spgxlog.h:201-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L201-L221)
 
 ## Overview
 The spgxlogVacuumLeaf struct is a PostgreSQL WAL record structure used to log vacuum operations on SP-GiST leaf pages, which removes dead tuples and reorganizes the page structure during index maintenance.

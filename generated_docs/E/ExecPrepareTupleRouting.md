@@ -1,7 +1,7 @@
 # ExecPrepareTupleRouting
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 3893 - 3952
+[src/backend/executor/nodeModifyTable.c:3893-3952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L3893-L3952)
 
 ## Overview
 Prepares for routing a tuple to the appropriate partition by determining the target partition and converting the tuple format if necessary.

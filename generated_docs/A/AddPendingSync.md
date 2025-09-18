@@ -1,7 +1,7 @@
 # AddPendingSync
 
 ## Location
-src/backend/catalog/storage.c: 85 - 120
+[src/backend/catalog/storage.c:85-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L85-L120)
 
 ## Overview
 AddPendingSync queues a relation file for synchronization at transaction commit time, ensuring data durability by deferring fsync operations until the transaction is ready to commit.

@@ -1,7 +1,7 @@
 # euc_jp_to_mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c: 93 - 108
+[src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:93-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c#L93-L108)
 
 ## Overview
 PostgreSQL encoding conversion function that converts text from EUC-JP (Extended Unix Code for Japanese) encoding to MIC (Mule Internal Code) encoding.

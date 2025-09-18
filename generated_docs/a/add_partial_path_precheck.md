@@ -1,7 +1,7 @@
 # add_partial_path_precheck
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 865 - 926
+[src/backend/optimizer/util/pathnode.c:865-926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L865-L926)
 
 ## Overview
 Performs a preliminary check to determine whether a proposed partial path is worth considering before performing the full add_partial_path evaluation.

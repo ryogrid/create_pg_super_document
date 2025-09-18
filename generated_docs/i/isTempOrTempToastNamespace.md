@@ -1,7 +1,7 @@
 # isTempOrTempToastNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3673 - 3686
+[src/backend/catalog/namespace.c:3673-3686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3673-L3686)
 
 ## Overview
 Determines whether a given namespace OID corresponds to either the current session's temporary table namespace or temporary TOAST table namespace.

@@ -1,7 +1,7 @@
 # line_distance
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1261 - 1285
+[src/backend/utils/adt/geo_ops.c:1261-1285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1261-L1285)
 
 ## Overview
 Calculates the shortest distance between two lines, returning 0.0 if they intersect or the perpendicular distance if they are parallel.

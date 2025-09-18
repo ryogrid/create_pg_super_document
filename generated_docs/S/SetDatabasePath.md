@@ -1,7 +1,7 @@
 # SetDatabasePath
 
 ## Location
-src/backend/utils/init/miscinit.c: 329 - 341
+[src/backend/utils/init/miscinit.c:329-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L329-L341)
 
 ## Overview
 Sets the global database path variable for the current PostgreSQL backend process, ensuring it's only set once per process lifetime.

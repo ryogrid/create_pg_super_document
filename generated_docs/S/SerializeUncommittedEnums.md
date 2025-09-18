@@ -1,7 +1,7 @@
 # SerializeUncommittedEnums
 
 ## Location
-src/backend/catalog/pg_enum.c: 827 - 872
+[src/backend/catalog/pg_enum.c:827-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L827-L872)
 
 ## Overview
 Serializes uncommitted enum types and values into a memory buffer for parallel query worker processes.

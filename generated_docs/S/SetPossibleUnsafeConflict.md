@@ -1,7 +1,7 @@
 # SetPossibleUnsafeConflict
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 666 - 690
+[src/backend/storage/lmgr/predicate.c:666-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L666-L690)
 
 ## Overview
 Records a potential unsafe conflict between a read-only transaction and an active read-write transaction for later evaluation during serialization conflict detection.

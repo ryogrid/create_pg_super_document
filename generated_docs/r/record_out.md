@@ -1,7 +1,7 @@
 # record_out
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 329 - 479
+[src/backend/utils/adt/rowtypes.c:329-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L329-L479)
 
 ## Overview
 Converts the internal binary representation of a composite type (record) into its string representation for PostgreSQL output.

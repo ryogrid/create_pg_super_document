@@ -1,7 +1,7 @@
 # get_id
 
 ## Location
-src/bin/initdb/initdb.c: 812 - 830
+[src/bin/initdb/initdb.c:812-830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L812-L830)
 
 ## Overview
 This function determines the current user identity and ensures that initdb is not being run as the root user on Unix systems for security reasons.

@@ -1,7 +1,7 @@
 # WakeupRecovery
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4479 - 4487
+[src/backend/access/transam/xlogrecovery.c:4479-4487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4479-L4487)
 
 ## Overview
 Signals the startup process to wake up and continue WAL recovery operations or respond to failover requests.

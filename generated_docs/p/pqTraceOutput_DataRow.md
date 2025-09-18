@@ -1,7 +1,7 @@
 # pqTraceOutput_DataRow
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 273 - 290
+[src/interfaces/libpq/fe-trace.c:273-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L273-L290)
 
 ## Overview
 Outputs a formatted trace of a PostgreSQL DataRow message to a file stream, parsing and displaying the number of fields and their corresponding values.

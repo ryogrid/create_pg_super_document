@@ -1,7 +1,7 @@
 # RT_SHRINK_NODE_16
 
 ## Location
-src/include/lib/radixtree.h: 2473 - 2497
+[src/include/lib/radixtree.h:2473-2497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2473-L2497)
 
 ## Overview
 RT_SHRINK_NODE_16 is a macro that expands to a function responsible for converting a node16 to a smaller node4 while simultaneously deleting a specific entry in PostgreSQL's radix tree implementation.

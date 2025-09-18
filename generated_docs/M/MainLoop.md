@@ -1,7 +1,7 @@
 # MainLoop
 
 ## Location
-src/bin/psql/mainloop.c: 33 - 662
+[src/bin/psql/mainloop.c:33-662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/mainloop.c#L33-L662)
 
 ## Overview
 MainLoop is the core interactive command processor for psql that handles reading, parsing, and executing SQL commands and psql meta-commands from input sources, supporting both interactive sessions and script file processing.

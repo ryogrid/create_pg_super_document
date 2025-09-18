@@ -1,7 +1,7 @@
 # ExecHashIncreaseNumBuckets
 
 ## Location
-src/backend/executor/nodeHash.c: 1469 - 1531
+[src/backend/executor/nodeHash.c:1469-1531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1469-L1531)
 
 ## Overview
 ExecHashIncreaseNumBuckets dynamically increases the number of buckets in a hash table to reduce the number of tuples per bucket, improving hash lookup performance when the optimal bucket count differs from the initial allocation.

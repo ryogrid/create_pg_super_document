@@ -1,7 +1,7 @@
 # SH_DELETE_ITEM
 
 ## Location
-src/include/lib/simplehash.h: 928 - 982
+[src/include/lib/simplehash.h:928-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L928-L982)
 
 ## Overview
 A macro that defines the public hash table deletion-by-pointer function name using the SH_MAKE_NAME naming convention for PostgreSQL's generic simple hash table implementation.

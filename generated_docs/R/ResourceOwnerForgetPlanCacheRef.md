@@ -1,7 +1,7 @@
 # ResourceOwnerForgetPlanCacheRef
 
 ## Location
-src/backend/utils/cache/plancache.c: 140 - 154
+[src/backend/utils/cache/plancache.c:140-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L140-L154)
 
 ## Overview
 A convenience wrapper function that unregisters a CachedPlan from a ResourceOwner, removing it from the resource tracking system.

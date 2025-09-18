@@ -1,7 +1,7 @@
 # pg_tzenumerate_end
 
 ## Location
-src/timezone/pgtz.c: 414 - 425
+[src/timezone/pgtz.c:414-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.c#L414-L425)
 
 ## Overview
 Cleans up and deallocates resources used by timezone enumeration, closing all open directory descriptors and freeing memory allocated for the pg_tzenum structure.

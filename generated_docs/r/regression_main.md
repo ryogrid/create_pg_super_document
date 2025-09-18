@@ -1,7 +1,7 @@
 # regression_main
 
 ## Location
-src/test/regress/pg_regress.c: 2064 - 2565
+[src/test/regress/pg_regress.c:2064-2565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L2064-L2565)
 
 ## Overview
 The main entry point function for PostgreSQL's regression testing framework that handles command-line parsing, test environment setup, and coordination of the entire testing process.

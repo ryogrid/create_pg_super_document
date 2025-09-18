@@ -1,7 +1,7 @@
 # pqTraceOutputMessage
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 514 - 695
+[src/interfaces/libpq/fe-trace.c:514-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L514-L695)
 
 ## Overview
 Main dispatcher function for PostgreSQL's protocol message tracing system that parses and formats protocol messages between client and server for debugging purposes.

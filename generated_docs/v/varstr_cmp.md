@@ -1,7 +1,7 @@
 # varstr_cmp
 
 ## Location
-src/backend/utils/adt/varlena.c: 1539 - 1593
+[src/backend/utils/adt/varlena.c:1539-1593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1539-L1593)
 
 ## Overview
 Core string comparison function for text strings with given lengths that provides locale-aware collation support and serves as the foundation for all PostgreSQL text comparison operations.

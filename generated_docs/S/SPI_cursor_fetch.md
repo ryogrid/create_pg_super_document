@@ -1,7 +1,7 @@
 # SPI_cursor_fetch
 
 ## Location
-src/backend/executor/spi.c: 1806 - 1820
+[src/backend/executor/spi.c:1806-1820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1806-L1820)
 
 ## Overview
 SPI_cursor_fetch retrieves rows from an open cursor in either forward or backward direction, storing the results in SPI global variables for access by the calling code.

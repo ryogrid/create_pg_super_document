@@ -1,7 +1,7 @@
 # libpqrcv_processTuples
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 1159 - 1234
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1159-1234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L1159-L1234)
 
 ## Overview
 libpqrcv_processTuples converts a PGresult containing tuple data from a query execution into a PostgreSQL tuplestore, handling proper type conversion and memory management for integration with the executor framework.

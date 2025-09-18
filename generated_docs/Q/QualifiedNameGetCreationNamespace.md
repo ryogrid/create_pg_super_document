@@ -1,7 +1,7 @@
 # QualifiedNameGetCreationNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3487 - 3534
+[src/backend/catalog/namespace.c:3487-3534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3487-L3534)
 
 ## Overview
 Parses a possibly-qualified object name and determines the appropriate namespace for object creation, extracting the object name and handling default schema resolution.

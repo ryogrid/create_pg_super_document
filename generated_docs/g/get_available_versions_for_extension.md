@@ -1,7 +1,7 @@
 # get_available_versions_for_extension
 
 ## Location
-src/backend/commands/extension.c: 2146 - 2259
+[src/backend/commands/extension.c:2146-2259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2146-L2259)
 
 ## Overview
 This static function is the core logic that discovers all available versions for a specific extension and populates the result tuplestore with detailed version information.

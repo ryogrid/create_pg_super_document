@@ -1,7 +1,7 @@
 # get_eol_offset
 
 ## Location
-src/bin/pg_combinebackup/backup_label.c: 201 - 223
+[src/bin/pg_combinebackup/backup_label.c:201-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/backup_label.c#L201-L223)
 
 ## Overview
 A static utility function that finds the offset position of the next line in a StringInfo buffer or returns the buffer end position if no newline is found.

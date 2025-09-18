@@ -1,7 +1,7 @@
 # check_file_excluded
 
 ## Location
-src/bin/pg_rewind/filemap.c: 409 - 472
+[src/bin/pg_rewind/filemap.c:409-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L409-L472)
 
 ## Overview
 A static function that determines whether a given file path should be excluded from pg_rewind processing based on predefined exclusion rules for temporary files, cache files, and runtime directories.

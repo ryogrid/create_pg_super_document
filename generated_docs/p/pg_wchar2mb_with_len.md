@@ -1,7 +1,7 @@
 # pg_wchar2mb_with_len
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1008 - 1014
+[src/backend/utils/mb/mbutils.c:1008-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1008-L1014)
 
 ## Overview
 Converts a wide character string to a multibyte character string with a specified length limit, using the current database encoding.

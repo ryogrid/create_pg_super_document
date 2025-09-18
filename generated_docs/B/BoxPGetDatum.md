@@ -1,7 +1,7 @@
 # BoxPGetDatum
 
 ## Location
-src/include/utils/geo_decls.h: 239 - 242
+[src/include/utils/geo_decls.h:239-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L239-L242)
 
 ## Overview
 BoxPGetDatum is a static inline function that converts a BOX pointer to a PostgreSQL Datum value, enabling geometric box data to be stored and manipulated within PostgreSQL's internal data representation system.

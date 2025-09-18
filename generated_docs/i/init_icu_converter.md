@@ -1,7 +1,7 @@
 # init_icu_converter
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2684 - 2713
+[src/backend/utils/adt/pg_locale.c:2684-2713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2684-L2713)
 
 ## Overview
 Initializes the ICU character encoding converter for database operations by setting up a UConverter instance for the current database encoding.

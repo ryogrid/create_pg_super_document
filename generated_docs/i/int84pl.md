@@ -1,7 +1,7 @@
 # int84pl
 
 ## Location
-src/backend/utils/adt/int8.c: 890 - 903
+[src/backend/utils/adt/int8.c:890-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L890-L903)
 
 ## Overview
 Adds a 64-bit signed integer and a 32-bit signed integer with overflow detection, returning the sum as a 64-bit integer.

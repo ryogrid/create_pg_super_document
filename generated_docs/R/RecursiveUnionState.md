@@ -1,7 +1,7 @@
 # RecursiveUnionState
 
 ## Location
-src/include/nodes/execnodes.h: 1508 - 1521
+[src/include/nodes/execnodes.h:1508-1521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1508-L1521)
 
 ## Overview
 RecursiveUnionState is the runtime state structure for executing recursive UNION queries, managing the iterative computation of recursive CTEs (Common Table Expressions).

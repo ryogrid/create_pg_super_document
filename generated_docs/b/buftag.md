@@ -1,7 +1,7 @@
 # buftag
 
 ## Location
-src/include/storage/buf_internals.h: 93 - 99
+[src/include/storage/buf_internals.h:93-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L93-L99)
 
 ## Overview
 The  is a fundamental data structure that uniquely identifies which disk block a buffer contains in PostgreSQL's buffer management system.

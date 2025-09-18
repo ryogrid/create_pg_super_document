@@ -1,7 +1,7 @@
 # AutoVacuumWorkItem
 
 ## Location
-src/backend/postmaster/autovacuum.c: 258 - 266
+[src/backend/postmaster/autovacuum.c:258-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L258-L266)
 
 ## Overview
 AutoVacuumWorkItem is a structure used in PostgreSQL's autovacuum system to represent specific work requests that can be submitted by other processes for autovacuum workers to perform.

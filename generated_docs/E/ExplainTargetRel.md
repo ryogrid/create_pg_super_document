@@ -1,7 +1,7 @@
 # ExplainTargetRel
 
 ## Location
-src/backend/commands/explain.c: 4034 - 4171
+[src/backend/commands/explain.c:4034-4171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4034-L4171)
 
 ## Overview
 ExplainTargetRel is a static function that displays the target relation information for various types of scan and modify operations in PostgreSQL's EXPLAIN output.

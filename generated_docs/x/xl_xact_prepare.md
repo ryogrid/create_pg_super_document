@@ -1,7 +1,7 @@
 # xl_xact_prepare
 
 ## Location
-src/include/access/xact.h: 346 - 364
+[src/include/access/xact.h:346-364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L346-L364)
 
 ## Overview
 Structure representing the two-phase commit prepare record in PostgreSQL's Write-Ahead Log (WAL), containing comprehensive transaction state information needed for later commit or rollback.

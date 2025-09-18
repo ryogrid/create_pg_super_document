@@ -1,7 +1,7 @@
 # cmpaffix
 
 ## Location
-src/backend/tsearch/spell.c: 311 - 348
+[src/backend/tsearch/spell.c:311-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L311-L348)
 
 ## Overview
 A static comparison function used for sorting affixes, prioritizing prefixes over suffixes and then sorting by replacement strings using appropriate comparison methods.

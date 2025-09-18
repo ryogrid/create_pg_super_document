@@ -1,7 +1,7 @@
 # index_beginscan_parallel
 
 ## Location
-src/backend/access/index/indexam.c: 541 - 573
+[src/backend/access/index/indexam.c:541-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L541-L573)
 
 ## Overview
 The `index_beginscan_parallel` function initializes and joins a parallel index scan, allowing a worker process to participate in a coordinated parallel index scanning operation.

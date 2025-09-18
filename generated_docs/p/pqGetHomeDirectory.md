@@ -1,7 +1,7 @@
 # pqGetHomeDirectory
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7667 - 7693
+[src/interfaces/libpq/fe-connect.c:7667-7693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7667-L7693)
 
 ## Overview
 Obtains the user's home directory path in a cross-platform manner for PostgreSQL client library usage.

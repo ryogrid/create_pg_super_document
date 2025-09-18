@@ -1,7 +1,7 @@
 # heap_xlog_confirm
 
 ## Location
-src/backend/access/heap/heapam.c: 10130 - 10165
+[src/backend/access/heap/heapam.c:10130-10165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10130-L10165)
 
 ## Overview
 Handles the replay of tuple confirmation operations during WAL recovery by updating the tuple's self-reference (t_ctid) to confirm its final insertion location.

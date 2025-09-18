@@ -1,7 +1,7 @@
 # minimal_expand_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1053 - 1064
+[src/backend/access/common/heaptuple.c:1053-1064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1053-L1064)
 
 ## Overview
 Public wrapper function that creates an expanded MinimalTuple from a source tuple with fewer attributes, using default values for missing attributes.

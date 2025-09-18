@@ -1,7 +1,7 @@
 # pg_u_prop_white_space
 
 ## Location
-src/common/unicode_category.c: 170 - 180
+[src/common/unicode_category.c:170-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L170-L180)
 
 ## Overview
 Determines whether a Unicode code point has the White_Space property, identifying characters that are considered whitespace according to the Unicode Standard.

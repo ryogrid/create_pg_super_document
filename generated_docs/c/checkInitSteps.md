@@ -1,7 +1,7 @@
 # checkInitSteps
 
 ## Location
-src/bin/pgbench/pgbench.c: 5239 - 5258
+[src/bin/pgbench/pgbench.c:5239-5258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5239-L5258)
 
 ## Overview
 Validates an initialization-steps string to ensure all specified characters correspond to valid pgbench initialization steps.

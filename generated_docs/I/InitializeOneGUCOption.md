@@ -1,7 +1,7 @@
 # InitializeOneGUCOption
 
 ## Location
-src/backend/utils/misc/guc.c: 1646 - 1762
+[src/backend/utils/misc/guc.c:1646-1762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1646-L1762)
 
 ## Overview
 Initializes a single GUC parameter to its compiled-in default value, properly setting up all metadata fields and executing validation and assignment hooks.

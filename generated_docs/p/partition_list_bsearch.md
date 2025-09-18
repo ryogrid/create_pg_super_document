@@ -1,7 +1,7 @@
 # partition_list_bsearch
 
 ## Location
-src/backend/partitioning/partbounds.c: 3607 - 3652
+[src/backend/partitioning/partbounds.c:3607-3652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3607-L3652)
 
 ## Overview
 Performs binary search on list partition bounds to find the greatest bound datum that is less than or equal to a given value.

@@ -1,7 +1,7 @@
 # SpGistSetLastUsedPage
 
 ## Location
-src/backend/access/spgist/spgutils.c: 665 - 699
+[src/backend/access/spgist/spgutils.c:665-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L665-L699)
 
 ## Overview
 Updates the lastUsedPages cache when a page has been modified, maintaining an optimal cache of pages with available free space for future insertions.

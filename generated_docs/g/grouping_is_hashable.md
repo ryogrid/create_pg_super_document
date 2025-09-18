@@ -1,7 +1,7 @@
 # grouping_is_hashable
 
 ## Location
-src/backend/optimizer/util/tlist.c: 560 - 590
+[src/backend/optimizer/util/tlist.c:560-590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L560-L590)
 
 ## Overview
 Determines whether a grouping list can be implemented by hashing by checking if all SortGroupClause entries have the hashable flag set.

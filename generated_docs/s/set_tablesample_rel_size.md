@@ -1,7 +1,7 @@
 # set_tablesample_rel_size
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 814 - 853
+[src/backend/optimizer/path/allpaths.c:814-853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L814-L853)
 
 ## Overview
 Sets size estimates for a sampled relation by calling the table sampling method's estimation function to determine pages and tuples to be processed.

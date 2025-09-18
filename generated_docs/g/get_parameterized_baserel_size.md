@@ -1,7 +1,7 @@
 # get_parameterized_baserel_size
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5272 - 5320
+[src/backend/optimizer/path/costsize.c:5272-5320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5272-L5320)
 
 ## Overview
 Estimates the number of rows for a parameterized scan of a base relation by applying both additional join clauses and the relation's own restriction clauses.

@@ -1,7 +1,7 @@
 # LockHasWaitersRelation
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 363 - 386
+[src/backend/storage/lmgr/lmgr.c:363-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L363-L386)
 
 ## Overview
 LockHasWaitersRelation checks whether other transactions are waiting for a specific lock mode on a relation that the current transaction is holding.

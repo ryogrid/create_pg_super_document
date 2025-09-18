@@ -1,7 +1,7 @@
 # anytime_typmodin
 
 ## Location
-src/backend/utils/adt/date.c: 50 - 70
+[src/backend/utils/adt/date.c:50-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L50-L70)
 
 ## Overview
 Common code for processing type modifiers for TIME and TIMETZ data types, validating the input array and extracting the precision modifier.

@@ -1,7 +1,7 @@
 # int8abs
 
 ## Location
-src/backend/utils/adt/int8.c: 546 - 562
+[src/backend/utils/adt/int8.c:546-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L546-L562)
 
 ## Overview
 Computes the absolute value of a 64-bit signed integer (bigint) with overflow protection for the minimum value case.

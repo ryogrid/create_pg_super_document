@@ -1,7 +1,7 @@
 # IsCheckpointOnSchedule
 
 ## Location
-src/backend/postmaster/checkpointer.c: 783 - 861
+[src/backend/postmaster/checkpointer.c:783-861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L783-L861)
 
 ## Overview
 Determines whether a checkpoint (or restartpoint during recovery) is progressing on schedule to complete within the target time frame based on time elapsed and WAL segments written.

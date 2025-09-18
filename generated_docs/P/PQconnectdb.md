@@ -1,7 +1,7 @@
 # PQconnectdb
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 744 - 759
+[src/interfaces/libpq/fe-connect.c:744-759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L744-L759)
 
 ## Overview
 Establishes a synchronous connection to a PostgreSQL backend through the postmaster using connection information specified in a connection string.

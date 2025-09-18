@@ -1,7 +1,7 @@
 # range_set_contain_empty
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1937 - 1951
+[src/backend/utils/adt/rangetypes.c:1937-1951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1937-L1951)
 
 ## Overview
 Sets the RANGE_CONTAIN_EMPTY flag bit in an existing range value, used specifically for GiST index operations.

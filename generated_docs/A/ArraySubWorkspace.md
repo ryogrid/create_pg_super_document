@@ -1,7 +1,7 @@
 # ArraySubWorkspace
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 29 - 45
+[src/backend/utils/adt/arraysubs.c:29-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L29-L45)
 
 ## Overview
 ArraySubWorkspace is a workspace structure used during array subscripting operations in PostgreSQL, containing cached type information and converted subscript indices for efficient array element access.

@@ -1,7 +1,7 @@
 # cost_valuesscan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1648 - 1697
+[src/backend/optimizer/path/costsize.c:1648-1697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1648-L1697)
 
 ## Overview
 Determines and returns the cost of scanning a VALUES RTE (Range Table Entry), calculating startup and run costs for evaluating a VALUES clause in a query.

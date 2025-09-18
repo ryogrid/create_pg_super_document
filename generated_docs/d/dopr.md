@@ -1,7 +1,7 @@
 # dopr
 
 ## Location
-src/port/snprintf.c: 373 - 745
+[src/port/snprintf.c:373-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L373-L745)
 
 ## Overview
 The core formatting engine of PostgreSQL's portable printf implementation that parses format strings and converts arguments to their textual representations.

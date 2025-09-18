@@ -1,7 +1,7 @@
 # anycompatiblearray_send
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 184 - 196
+[src/backend/utils/adt/pseudotypes.c:184-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L184-L196)
 
 ## Overview
 A wrapper function that provides binary output capability for the anycompatiblearray pseudotype by delegating to the array_send function.

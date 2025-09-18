@@ -1,7 +1,7 @@
 # errdetail_internal
 
 ## Location
-src/backend/utils/error/elog.c: 1230 - 1250
+[src/backend/utils/error/elog.c:1230-1250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1230-L1250)
 
 ## Overview
 Adds a detail error message text to the current error without translation, intended for technical details that are not worth translating for general users.

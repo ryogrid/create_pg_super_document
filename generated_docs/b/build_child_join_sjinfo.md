@@ -1,7 +1,7 @@
 # build_child_join_sjinfo
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1694 - 1747
+[src/backend/optimizer/path/joinrels.c:1694-1747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1694-L1747)
 
 ## Overview
 Constructs a SpecialJoinInfo structure for a child join by translating the SpecialJoinInfo from the parent join between partitioned relations.

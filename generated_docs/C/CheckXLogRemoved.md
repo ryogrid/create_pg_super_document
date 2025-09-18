@@ -1,7 +1,7 @@
 # CheckXLogRemoved
 
 ## Location
-src/backend/access/transam/xlog.c: 3704 - 3734
+[src/backend/access/transam/xlog.c:3704-3734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3704-L3734)
 
 ## Overview
 CheckXLogRemoved verifies that a specified WAL segment has not been removed or recycled, throwing an error if the segment is no longer available.

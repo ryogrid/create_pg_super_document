@@ -1,7 +1,7 @@
 # gcd_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 10008 - 10077
+[src/backend/utils/adt/numeric.c:10008-10077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L10008-L10077)
 
 ## Overview
 The `gcd_var` function calculates the greatest common divisor (GCD) of two numeric values using the Euclidean algorithm, implementing this mathematical operation for PostgreSQL's `NumericVar` data type.

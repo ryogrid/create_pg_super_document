@@ -1,7 +1,7 @@
 # euc_kr_to_mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_kr_and_mic/euc_kr_and_mic.c: 41 - 56
+[src/backend/utils/mb/conversion_procs/euc_kr_and_mic/euc_kr_and_mic.c:41-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_kr_and_mic/euc_kr_and_mic.c#L41-L56)
 
 ## Overview
 Converts text from EUC-KR encoding to PostgreSQL's internal MULE encoding format, serving as the PostgreSQL function interface for EUC-KR to MULE conversion.

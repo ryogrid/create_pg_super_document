@@ -1,7 +1,7 @@
 # scram_channel_bound
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 154 - 177
+[src/interfaces/libpq/fe-auth-scram.c:154-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L154-L177)
 
 ## Overview
 Determines whether channel binding was successfully employed during a completed SCRAM authentication exchange on the client side.

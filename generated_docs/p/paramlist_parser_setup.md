@@ -1,7 +1,7 @@
 # paramlist_parser_setup
 
 ## Location
-src/backend/nodes/params.c: 120 - 130
+[src/backend/nodes/params.c:120-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/params.c#L120-L130)
 
 ## Overview
 Sets up parser hooks to handle parameter references during query parsing when parameters are sourced from a ParamListInfo structure.

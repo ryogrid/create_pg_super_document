@@ -1,7 +1,7 @@
 # int8_sum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6625 - 6665
+[src/backend/utils/adt/numeric.c:6625-6665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6625-L6665)
 
 ## Overview
 An obsolete SQL aggregate transition function that computes the sum of bigint (int8) values using Numeric arithmetic, no longer used for SUM(int8) operations.

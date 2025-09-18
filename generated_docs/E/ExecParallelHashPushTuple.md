@@ -1,7 +1,7 @@
 # ExecParallelHashPushTuple
 
 ## Location
-src/backend/executor/nodeHash.c: 3461 - 3478
+[src/backend/executor/nodeHash.c:3461-3478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3461-L3478)
 
 ## Overview
 A static inline function that atomically inserts a tuple at the front of a chain of tuples in DSA (Dynamic Shared Area) memory, providing thread-safe tuple insertion for parallel hash operations.

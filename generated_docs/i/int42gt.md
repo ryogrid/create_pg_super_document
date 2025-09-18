@@ -1,7 +1,7 @@
 # int42gt
 
 ## Location
-src/backend/utils/adt/int.c: 594 - 602
+[src/backend/utils/adt/int.c:594-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L594-L602)
 
 ## Overview
 Compares a 32-bit integer with a 16-bit integer to determine if the first is greater than the second, returning a boolean result.

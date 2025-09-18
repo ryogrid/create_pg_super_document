@@ -1,7 +1,7 @@
 # expanded_record_set_tuple
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 440 - 579
+[src/backend/utils/adt/expandedrecord.c:440-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L440-L579)
 
 ## Overview
 Sets the tuple value of an expanded record, handling copying, external field detoasting, domain constraint checking, and proper memory management of old and new tuple data.

@@ -1,7 +1,7 @@
 # bbstreamer_lz4_decompressor_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 275 - 309
+[src/bin/pg_basebackup/bbstreamer_lz4.c:275-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L275-L309)
 
 ## Overview
 Creates a new base backup streamer that performs LZ4 decompression of compressed backup blocks.

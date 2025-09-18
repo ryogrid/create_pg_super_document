@@ -1,7 +1,7 @@
 # local_queue_fetch_file
 
 ## Location
-src/bin/pg_rewind/local_source.c: 77 - 127
+[src/bin/pg_rewind/local_source.c:77-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L77-L127)
 
 ## Overview
 A static function that copies an entire file from the local source to the target during pg_rewind operations, with size verification to ensure data integrity.

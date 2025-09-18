@@ -1,7 +1,7 @@
 # cursor_to_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 2913 - 2966
+[src/backend/utils/adt/xml.c:2913-2966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2913-L2966)
 
 ## Overview
 SQL/XML function that converts data from an existing cursor into XML format, allowing incremental processing of large result sets with controlled row count fetching.

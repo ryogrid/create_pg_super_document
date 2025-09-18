@@ -1,7 +1,7 @@
 # free_struct_lconv
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 467 - 485
+[src/backend/utils/adt/pg_locale.c:467-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L467-L485)
 
 ## Overview
 This static function safely deallocates the dynamically allocated string members of a  structure, providing memory cleanup for locale-specific formatting information.

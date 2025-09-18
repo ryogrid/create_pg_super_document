@@ -1,7 +1,7 @@
 # addDatum
 
 ## Location
-src/backend/access/gin/ginfast.c: 685 - 708
+[src/backend/access/gin/ginfast.c:685-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L685-L708)
 
 ## Overview
 Adds a datum and its associated null category to a KeyArray, automatically resizing the array if needed.

@@ -1,7 +1,7 @@
 # asyncQueuePageDiff
 
 ## Location
-src/backend/commands/async.c: 466 - 475
+[src/backend/commands/async.c:466-475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L466-L475)
 
 ## Overview
 A simple inline function that computes the arithmetic difference between two queue page numbers in PostgreSQL's asynchronous notification system.

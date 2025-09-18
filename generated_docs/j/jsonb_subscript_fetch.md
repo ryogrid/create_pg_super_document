@@ -1,7 +1,7 @@
 # jsonb_subscript_fetch
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 235 - 260
+[src/backend/utils/adt/jsonbsubs.c:235-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L235-L260)
 
 ## Overview
 Evaluates a SubscriptingRef fetch operation to extract an element from a JSONB container using the processed subscripts.

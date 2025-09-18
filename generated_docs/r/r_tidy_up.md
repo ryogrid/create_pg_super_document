@@ -1,7 +1,7 @@
 # r_tidy_up
 
 ## Location
-src/backend/snowball/libstemmer/stem_KOI8_R_russian.c: 531 - 568
+[src/backend/snowball/libstemmer/stem_KOI8_R_russian.c:531-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_KOI8_R_russian.c#L531-L568)
 
 ## Overview
 The r_tidy_up function performs final cleanup operations in the Russian stemming process, handling superlative endings and cleaning up remaining morphological artifacts in the KOI8-R encoding variant.

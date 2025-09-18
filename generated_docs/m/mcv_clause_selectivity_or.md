@@ -1,7 +1,7 @@
 # mcv_clause_selectivity_or
 
 ## Location
-src/backend/statistics/mcv.c: 2126 - 2175
+[src/backend/statistics/mcv.c:2126-2175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L2126-L2175)
 
 ## Overview
 Estimates the selectivity of a clause that appears in an ORed list of clauses using MCV (Most Common Values) statistics, providing detailed overlap analysis for accurate combined selectivity calculations.

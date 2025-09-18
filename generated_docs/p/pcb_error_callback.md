@@ -1,7 +1,7 @@
 # pcb_error_callback
 
 ## Location
-src/backend/parser/parse_node.c: 170 - 188
+[src/backend/parser/parse_node.c:170-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_node.c#L170-L188)
 
 ## Overview
 An error context callback function that inserts parser error location information into error reports occurring during parser operations.

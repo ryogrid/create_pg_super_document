@@ -1,7 +1,7 @@
 # tamil_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1875 - 1876
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1875-1876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1875-L1876)
 
 ## Overview
 Creates and initializes a Snowball stemmer environment specifically configured for Tamil language text processing in UTF-8 encoding.

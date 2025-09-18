@@ -1,7 +1,7 @@
 # llvm_shutdown
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 993 - 1051
+[src/backend/jit/llvm/llvmjit.c:993-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L993-L1051)
 
 ## Overview
 Cleans up LLVM JIT resources during PostgreSQL process shutdown, disposing of ORC JIT instances and thread-safe contexts while handling fatal error scenarios.

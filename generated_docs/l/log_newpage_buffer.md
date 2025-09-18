@@ -1,7 +1,7 @@
 # log_newpage_buffer
 
 ## Location
-src/backend/access/transam/xloginsert.c: 1237 - 1269
+[src/backend/access/transam/xloginsert.c:1237-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L1237-L1269)
 
 ## Overview
 log_newpage_buffer writes a WAL record containing a full image of a page for crash recovery, operating on a buffer and automatically extracting the page location information.

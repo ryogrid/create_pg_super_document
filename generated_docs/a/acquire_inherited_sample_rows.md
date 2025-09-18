@@ -1,7 +1,7 @@
 # acquire_inherited_sample_rows
 
 ## Location
-src/backend/commands/analyze.c: 1345 - 1608
+[src/backend/commands/analyze.c:1345-1608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1345-L1608)
 
 ## Overview
 Acquires sample rows from an inheritance tree by collecting samples proportionally from all inheritance children, handling tuple conversion between different table structures as needed.

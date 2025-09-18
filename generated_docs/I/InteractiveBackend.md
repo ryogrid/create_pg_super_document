@@ -1,7 +1,7 @@
 # InteractiveBackend
 
 ## Location
-src/backend/tcop/postgres.c: 248 - 335
+[src/backend/tcop/postgres.c:248-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L248-L335)
 
 ## Overview
 A function that handles interactive user input in PostgreSQL's backend process, reading SQL commands from stdin and preparing them for execution.

@@ -1,7 +1,7 @@
 # enum_endpoint
 
 ## Location
-src/backend/utils/adt/enum.c: 392 - 436
+[src/backend/utils/adt/enum.c:392-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L392-L436)
 
 ## Overview
 A static helper function that implements common code for finding the first or last member of an enum type by scanning the pg_enum system catalog in a specified direction.

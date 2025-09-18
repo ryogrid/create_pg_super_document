@@ -1,7 +1,7 @@
 # add_variable_to_tail
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 389 - 406
+[src/interfaces/ecpg/preproc/variable.c:389-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L389-L406)
 
 ## Overview
 Appends a new variable and its optional indicator variable at the end of an argument list, implementing a FIFO (First In, First Out) insertion strategy.

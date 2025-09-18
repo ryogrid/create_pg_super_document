@@ -1,7 +1,7 @@
 # HandleChildCrash
 
 ## Location
-src/backend/postmaster/postmaster.c: 2875 - 3061
+[src/backend/postmaster/postmaster.c:2875-3061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2875-L3061)
 
 ## Overview
 HandleChildCrash manages the emergency shutdown sequence when a critical PostgreSQL process crashes, cleaning up local state and signaling all remaining child processes to terminate immediately.

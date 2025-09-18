@@ -1,7 +1,7 @@
 # ConditionVariableSleep
 
 ## Location
-src/backend/storage/lmgr/condition_variable.c: 96 - 111
+[src/backend/storage/lmgr/condition_variable.c:96-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/condition_variable.c#L96-L111)
 
 ## Overview
 Puts the current process to sleep until the condition variable is signaled, serving as the primary blocking mechanism in condition variable-based synchronization patterns.

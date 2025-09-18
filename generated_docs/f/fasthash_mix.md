@@ -1,7 +1,7 @@
 # fasthash_mix
 
 ## Location
-src/include/common/hashfn_unstable.h: 118 - 127
+[src/include/common/hashfn_unstable.h:118-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L118-L127)
 
 ## Overview
 Core mixing function used in the fasthash algorithm for both combining input values and finalizing hash calculations.

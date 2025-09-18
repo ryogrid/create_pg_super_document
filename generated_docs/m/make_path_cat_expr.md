@@ -1,7 +1,7 @@
 # make_path_cat_expr
 
 ## Location
-src/backend/rewrite/rewriteSearchCycle.c: 180 - 202
+[src/backend/rewrite/rewriteSearchCycle.c:180-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSearchCycle.c#L180-L202)
 
 ## Overview
 Creates an array concatenation expression that appends a new row to an existing path array for CTE SEARCH depth-first or CYCLE path tracking.

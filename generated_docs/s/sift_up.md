@@ -1,7 +1,7 @@
 # sift_up
 
 ## Location
-src/common/binaryheap.c: 270 - 312
+[src/common/binaryheap.c:270-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L270-L312)
 
 ## Overview
 A static helper function that moves a node upward in the heap to maintain the heap property by comparing it with parent nodes.

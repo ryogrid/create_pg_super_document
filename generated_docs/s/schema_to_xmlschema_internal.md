@@ -1,7 +1,7 @@
 # schema_to_xmlschema_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 3270 - 3314
+[src/backend/utils/adt/xml.c:3270-3314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3270-L3314)
 
 ## Overview
 Internal function that generates XML Schema (XSD) definition for all visible tables in a PostgreSQL schema, providing the core implementation for schema-to-XSD conversion functionality.

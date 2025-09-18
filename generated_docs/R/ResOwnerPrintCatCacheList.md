@@ -1,7 +1,7 @@
 # ResOwnerPrintCatCacheList
 
 ## Location
-src/backend/utils/cache/catcache.c: 2446 - 2453
+[src/backend/utils/cache/catcache.c:2446-2453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2446-L2453)
 
 ## Overview
 Generates a debug string representation of a catalog cache list (CatCList) resource for resource owner debugging and error reporting purposes.

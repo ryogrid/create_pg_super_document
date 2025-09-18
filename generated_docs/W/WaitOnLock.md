@@ -1,7 +1,7 @@
 # WaitOnLock
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1818 - 1907
+[src/backend/storage/lmgr/lock.c:1818-1907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1818-L1907)
 
 ## Overview
 WaitOnLock causes the current process to sleep until a requested lock can be acquired, handling deadlock detection and process status updates during the wait.

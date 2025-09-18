@@ -1,7 +1,7 @@
 # test_shm_mq_main
 
 ## Location
-src/test/modules/test_shm_mq/worker.c: 47 - 153
+[src/test/modules/test_shm_mq/worker.c:47-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/worker.c#L47-L153)
 
 ## Overview
 The main entry point function for a background worker process that demonstrates how to use shared memory message queues (shm_mq) for parallel computation in PostgreSQL.

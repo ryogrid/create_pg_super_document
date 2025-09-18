@@ -1,7 +1,7 @@
 # CacheInvalidateRelcache
 
 ## Location
-src/backend/utils/cache/inval.c: 1363 - 1386
+[src/backend/utils/cache/inval.c:1363-1386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1363-L1386)
 
 ## Overview
 Registers invalidation of a specified relation's relcache entry at the end of the current command, used to force relcache rebuilds when changes don't affect recognized cache contributors.

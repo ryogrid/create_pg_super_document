@@ -1,7 +1,7 @@
 # hash_agg_check_limits
 
 ## Location
-src/backend/executor/nodeAgg.c: 1856 - 1881
+[src/backend/executor/nodeAgg.c:1856-1881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1856-L1881)
 
 ## Overview
 Monitors memory usage and group count in hash aggregation operations and triggers spill mode when configured limits are exceeded to prevent out-of-memory conditions.

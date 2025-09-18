@@ -1,7 +1,7 @@
 # element_hash
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 710 - 724
+[src/backend/utils/adt/array_typanalyze.c:710-724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L710-L724)
 
 ## Overview
 The element_hash function computes hash values for array elements using the element type's default hash function and appropriate collation.

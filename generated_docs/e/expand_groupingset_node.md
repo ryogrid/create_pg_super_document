@@ -1,7 +1,7 @@
 # expand_groupingset_node
 
 ## Location
-src/backend/parser/parse_agg.c: 1657 - 1758
+[src/backend/parser/parse_agg.c:1657-1758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1657-L1758)
 
 ## Overview
 A recursive function that expands GroupingSet nodes into their constituent grouping combinations, handling EMPTY, SIMPLE, ROLLUP, CUBE, and nested SET operations according to SQL GROUPING SETS semantics.

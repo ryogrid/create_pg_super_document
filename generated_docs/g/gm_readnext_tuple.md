@@ -1,7 +1,7 @@
 # gm_readnext_tuple
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 707 - 738
+[src/backend/executor/nodeGatherMerge.c:707-738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L707-L738)
 
 ## Overview
 Reads the next tuple from a specific parallel worker's tuple queue and creates a copy of it for buffering in the Gather Merge operation.

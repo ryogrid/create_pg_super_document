@@ -1,7 +1,7 @@
 # DumpSignalInformation
 
 ## Location
-src/bin/pg_dump/parallel.c: 163 - 171
+[src/bin/pg_dump/parallel.c:163-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L163-L171)
 
 ## Overview
 DumpSignalInformation is a struct that maintains state information for signal handling in pg_dump's parallel processing operations, managing database connection cancellation and worker process coordination.

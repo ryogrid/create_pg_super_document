@@ -1,7 +1,7 @@
 # RegisterDynamicBackgroundWorker
 
 ## Location
-src/backend/postmaster/bgworker.c: 970 - 1081
+[src/backend/postmaster/bgworker.c:970-1081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L970-L1081)
 
 ## Overview
 Registers a new dynamic background worker from a regular backend process that can be started on-demand during normal database operation.

@@ -1,7 +1,7 @@
 # pg_popcount32_choose
 
 ## Location
-src/port/pg_bitutils.c: 183 - 189
+[src/port/pg_bitutils.c:183-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L183-L189)
 
 ## Overview
 Initial chooser function for 32-bit popcount operations that triggers runtime CPU feature detection and then delegates to the selected optimal implementation.

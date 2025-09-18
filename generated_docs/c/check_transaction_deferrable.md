@@ -1,7 +1,7 @@
 # check_transaction_deferrable
 
 ## Location
-src/backend/commands/variable.c: 620 - 647
+[src/backend/commands/variable.c:620-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L620-L647)
 
 ## Overview
 This function validates changes to the transaction deferrable setting, ensuring that deferrable mode modifications follow PostgreSQL's transaction timing constraints.

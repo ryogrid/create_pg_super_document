@@ -1,7 +1,7 @@
 # open_write_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 185 - 200
+[src/bin/pg_dump/compress_none.c:185-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L185-L200)
 
 ## Overview
 A static function that opens an uncompressed file for writing using a file path in PostgreSQL's pg_dump compression abstraction layer.

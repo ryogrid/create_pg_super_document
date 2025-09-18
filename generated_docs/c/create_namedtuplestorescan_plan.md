@@ -1,7 +1,7 @@
 # create_namedtuplestorescan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3986 - 4024
+[src/backend/optimizer/plan/createplan.c:3986-4024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3986-L4024)
 
 ## Overview
 Creates a NamedTuplestoreScan plan node for scanning a named tuplestore relation with the specified target list and scan clauses.

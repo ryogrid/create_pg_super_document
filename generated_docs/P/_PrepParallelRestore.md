@@ -1,7 +1,7 @@
 # _PrepParallelRestore
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 829 - 880
+[src/bin/pg_dump/pg_backup_custom.c:829-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L829-L880)
 
 ## Overview
 A specialized function that prepares archive data for parallel restore by calculating data length information for TOC entries to optimize job ordering during parallel operations.

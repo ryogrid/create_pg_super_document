@@ -1,7 +1,7 @@
 # pq_getmsgstring
 
 ## Location
-src/backend/libpq/pqformat.c: 579 - 607
+[src/backend/libpq/pqformat.c:579-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L579-L607)
 
 ## Overview
 Extracts a null-terminated text string from a message buffer with optional character encoding conversion, returning either a direct pointer or a converted copy.

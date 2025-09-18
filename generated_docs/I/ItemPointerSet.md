@@ -1,7 +1,7 @@
 # ItemPointerSet
 
 ## Location
-src/include/storage/itemptr.h: 135 - 146
+[src/include/storage/itemptr.h:135-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L135-L146)
 
 ## Overview
 Sets a disk item pointer to the specified block number and offset number, providing a convenient interface for initializing ItemPointerData structures with specific tuple location information.

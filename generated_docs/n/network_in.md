@@ -1,7 +1,7 @@
 # network_in
 
 ## Location
-src/backend/utils/adt/network.c: 75 - 120
+[src/backend/utils/adt/network.c:75-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L75-L120)
 
 ## Overview
 A common input parsing function for INET and CIDR data types that converts string representations of network addresses into PostgreSQL's internal inet structure.

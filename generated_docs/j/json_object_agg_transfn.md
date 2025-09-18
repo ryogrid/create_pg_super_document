@@ -1,7 +1,7 @@
 # json_object_agg_transfn
 
 ## Location
-src/backend/utils/adt/json.c: 1141 - 1149
+[src/backend/utils/adt/json.c:1141-1149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1141-L1149)
 
 ## Overview
 This function serves as the PostgreSQL SQL-callable wrapper for the basic json_object_agg aggregate function, providing the standard behavior without unique key enforcement or null value filtering.

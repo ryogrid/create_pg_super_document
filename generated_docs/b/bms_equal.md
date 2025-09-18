@@ -1,7 +1,7 @@
 # bms_equal
 
 ## Location
-src/backend/nodes/bitmapset.c: 142 - 182
+[src/backend/nodes/bitmapset.c:142-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L142-L182)
 
 ## Overview
 Compares two Bitmapsets for equality, returning true if they contain exactly the same set of bits or if both are NULL.

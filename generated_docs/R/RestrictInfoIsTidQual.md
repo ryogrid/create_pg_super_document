@@ -1,7 +1,7 @@
 # RestrictInfoIsTidQual
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 234 - 279
+[src/backend/optimizer/path/tidpath.c:234-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L234-L279)
 
 ## Overview
 A static function that determines whether a RestrictInfo clause can be used as a CTID (Current Tuple ID) qualification for a specified relation, considering security and validity constraints.

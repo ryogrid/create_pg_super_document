@@ -1,7 +1,7 @@
 # inter_sb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3315 - 3327
+[src/backend/utils/adt/geo_ops.c:3315-3327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3315-L3327)
 
 ## Overview
 Tests whether a line segment intersects with a box.

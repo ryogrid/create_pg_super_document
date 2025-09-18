@@ -1,7 +1,7 @@
 # RelationSetNewRelfilenumber
 
 ## Location
-src/backend/utils/cache/relcache.c: 3769 - 3970
+[src/backend/utils/cache/relcache.c:3769-3970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3769-L3970)
 
 ## Overview
 RelationSetNewRelfilenumber assigns a new physical file number (and optionally new persistence setting) to a relation, enabling transactionally safe full rewrites of relations.

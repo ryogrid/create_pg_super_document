@@ -1,7 +1,7 @@
 # ConditionVariableTimedSleep
 
 ## Location
-src/backend/storage/lmgr/condition_variable.c: 112 - 229
+[src/backend/storage/lmgr/condition_variable.c:112-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/condition_variable.c#L112-L229)
 
 ## Overview
 Waits for a condition variable to be signaled or for a specified timeout to be reached, providing the fundamental timed blocking mechanism for condition variable synchronization.

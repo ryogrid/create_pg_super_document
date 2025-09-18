@@ -1,7 +1,7 @@
 # logicalrep_read_tuple
 
 ## Location
-src/backend/replication/logical/proto.c: 866 - 925
+[src/backend/replication/logical/proto.c:866-925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L866-L925)
 
 ## Overview
 Deserializes tuple (row) data from a logical replication input stream into a LogicalRepTupleData structure, handling various column representations including NULL, unchanged, text, and binary formats.

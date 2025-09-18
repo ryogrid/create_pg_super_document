@@ -1,7 +1,7 @@
 # TupleDescCopy
 
 ## Location
-src/backend/access/common/tupdesc.c: 251 - 288
+[src/backend/access/common/tupdesc.c:251-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L251-L288)
 
 ## Overview
 Copies a tuple descriptor into caller-supplied memory without copying constraints and defaults, primarily used for shared memory scenarios.

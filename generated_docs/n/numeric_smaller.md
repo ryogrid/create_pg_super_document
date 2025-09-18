@@ -1,7 +1,7 @@
 # numeric_smaller
 
 ## Location
-src/backend/utils/adt/numeric.c: 3486 - 3507
+[src/backend/utils/adt/numeric.c:3486-3507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3486-L3507)
 
 ## Overview
 Returns the smaller of two numeric values, handling NaN comparisons consistently with PostgreSQL comparison operators.

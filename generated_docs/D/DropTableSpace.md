@@ -1,7 +1,7 @@
 # DropTableSpace
 
 ## Location
-src/backend/commands/tablespace.c: 395 - 571
+[src/backend/commands/tablespace.c:395-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L395-L571)
 
 ## Overview
 Removes a tablespace by validating ownership and emptiness, deleting catalog entries, removing filesystem directories, and logging the operation in WAL with comprehensive dependency checking.

@@ -1,7 +1,7 @@
 # SharedRecordTypmodRegistry
 
 ## Location
-src/backend/utils/cache/typcache.c: 166 - 181
+[src/backend/utils/cache/typcache.c:166-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L166-L181)
 
 ## Overview
 SharedRecordTypmodRegistry is a structure that manages shared record type definitions across multiple backend processes involved in parallel queries.

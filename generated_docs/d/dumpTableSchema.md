@@ -1,7 +1,7 @@
 # dumpTableSchema
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15946 - 16807
+[src/bin/pg_dump/pg_dump.c:15946-16807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15946-L16807)
 
 ## Overview
 Generates the SQL declaration (schema definition) for a user-defined table, view, materialized view, foreign table, or partitioned table, handling all structural elements without data content.

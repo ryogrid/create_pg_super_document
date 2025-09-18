@@ -1,7 +1,7 @@
 # FetchPreparedStatement
 
 ## Location
-src/backend/commands/prepare.c: 431 - 462
+[src/backend/commands/prepare.c:431-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L431-L462)
 
 ## Overview
 Retrieves an existing prepared statement from the hash table by name, with optional error handling for non-existent statements.

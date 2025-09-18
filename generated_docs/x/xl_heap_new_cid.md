@@ -1,7 +1,7 @@
 # xl_heap_new_cid
 
 ## Location
-src/include/access/heapam_xlog.h: 446 - 462
+[src/include/access/heapam_xlog.h:446-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L446-L462)
 
 ## Overview
 A WAL record structure that logs new command ID (CID) assignments for tuple visibility tracking during transaction processing.

@@ -1,7 +1,7 @@
 # get_hash_memory_limit
 
 ## Location
-src/backend/executor/nodeHash.c: 3602 - 3613
+[src/backend/executor/nodeHash.c:3602-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3602-L3613)
 
 ## Overview
 Calculates the maximum memory limit available for hash-based operations by multiplying work_mem with the hash_mem_multiplier configuration parameter.

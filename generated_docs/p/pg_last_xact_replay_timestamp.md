@@ -1,7 +1,7 @@
 # pg_last_xact_replay_timestamp
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 627 - 641
+[src/backend/access/transam/xlogfuncs.c:627-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L627-L641)
 
 ## Overview
 Returns the timestamp of the latest processed commit/abort record during WAL replay, or NULL if the server was started normally without recovery.

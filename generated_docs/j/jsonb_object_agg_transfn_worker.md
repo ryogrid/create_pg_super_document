@@ -1,7 +1,7 @@
 # jsonb_object_agg_transfn_worker
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1673 - 1895
+[src/backend/utils/adt/jsonb.c:1673-1895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1673-L1895)
 
 ## Overview
 Core worker function that implements the transition logic for JSONB object aggregation, handling key-value pair accumulation with configurable null handling and key uniqueness policies.

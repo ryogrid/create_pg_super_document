@@ -1,7 +1,7 @@
 # pg_replication_origin_create
 
 ## Location
-src/backend/replication/logical/origin.c: 1269 - 1309
+[src/backend/replication/logical/origin.c:1269-1309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1269-L1309)
 
 ## Overview
 SQL function that creates a new replication origin with the specified name and returns the assigned origin identifier (OID) for use in logical replication tracking.

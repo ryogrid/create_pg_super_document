@@ -1,7 +1,7 @@
 # unicode_to_utf8word
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 60 - 90
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:60-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L60-L90)
 
 ## Overview
 Converts Unicode code points to word-formatted UTF-8 representation, encoding the multi-byte UTF-8 sequence into a single 32-bit integer value.

@@ -1,7 +1,7 @@
 # PresortedKeyData
 
 ## Location
-src/include/nodes/execnodes.h: 2311 - 2316
+[src/include/nodes/execnodes.h:2311-2316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2311-L2316)
 
 ## Overview
 PresortedKeyData represents information about a sorting key that is already sorted in the input dataset, used as an optimization in multi-key sorting operations to take advantage of existing partial ordering.

@@ -1,7 +1,7 @@
 # hash_xlog_move_page_contents
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 501 - 626
+[src/backend/access/hash/hash_xlog.c:501-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L501-L626)
 
 ## Overview
 Replays the movement of page contents during a hash index squeeze operation, transferring index tuples from one page to another while maintaining proper locking.

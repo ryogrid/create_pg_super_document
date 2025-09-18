@@ -1,7 +1,7 @@
 # wait_for_tests
 
 ## Location
-src/test/regress/pg_regress.c: 1548 - 1614
+[src/test/regress/pg_regress.c:1548-1614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1548-L1614)
 
 ## Overview
 Waits for multiple child test processes to complete, collecting their exit statuses and stop times in a cross-platform manner for PostgreSQL regression testing.

@@ -1,7 +1,7 @@
 # LimitOption
 
 ## Location
-src/include/nodes/nodes.h: 432 - 434
+[src/include/nodes/nodes.h:432-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodes.h#L432-L434)
 
 ## Overview
 LimitOption is an enumeration that defines the type of LIMIT clause behavior for query result limiting in PostgreSQL's query execution engine.

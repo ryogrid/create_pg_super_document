@@ -1,7 +1,7 @@
 # timestamptz_cmp_date
 
 ## Location
-src/backend/utils/adt/date.c: 1024 - 1038
+[src/backend/utils/adt/date.c:1024-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1024-L1038)
 
 ## Overview
 Compares a timestamptz value with a date value, returning an integer comparison result suitable for sorting operations.

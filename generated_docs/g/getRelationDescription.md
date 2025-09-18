@@ -1,7 +1,7 @@
 # getRelationDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 4088 - 4162
+[src/backend/catalog/objectaddress.c:4088-4162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L4088-L4162)
 
 ## Overview
 A specialized subroutine that generates human-readable descriptions of PostgreSQL relations (tables, indexes, views, etc.) by examining the relation kind and formatting appropriate descriptive text.

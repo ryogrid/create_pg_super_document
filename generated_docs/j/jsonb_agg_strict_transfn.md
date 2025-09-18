@@ -1,7 +1,7 @@
 # jsonb_agg_strict_transfn
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1634 - 1639
+[src/backend/utils/adt/jsonb.c:1634-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1634-L1639)
 
 ## Overview
 Transition function for the strict variant of JSONB array aggregation that excludes NULL values from the aggregated array.

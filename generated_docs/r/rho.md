@@ -1,7 +1,7 @@
 # rho
 
 ## Location
-src/backend/lib/hyperloglog.c: 242 - 255
+[src/backend/lib/hyperloglog.c:242-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/hyperloglog.c#L242-L255)
 
 ## Overview
 Calculates the position of the first set bit in the first b bits of a 32-bit integer, used as a helper function in HyperLogLog cardinality estimation algorithms.

@@ -1,7 +1,7 @@
 # bbsink_lz4_begin_archive
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 132 - 179
+[src/backend/backup/basebackup_lz4.c:132-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L132-L179)
 
 ## Overview
 Prepares the LZ4 compression context for compressing a new archive file, initializing the compression context and writing the LZ4 frame header.

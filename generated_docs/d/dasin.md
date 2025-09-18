@@ -1,7 +1,7 @@
 # dasin
 
 ## Location
-src/backend/utils/adt/float.c: 1779 - 1809
+[src/backend/utils/adt/float.c:1779-1809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1779-L1809)
 
 ## Overview
 The dasin function implements PostgreSQL's inverse sine (arcsine) function, returning the arcsine of the input argument in radians.

@@ -1,7 +1,7 @@
 # range_before_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2402 - 2423
+[src/backend/utils/adt/multirangetypes.c:2402-2423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2402-L2423)
 
 ## Overview
 Internal function that determines whether a single range is strictly before (left of) a multirange by comparing range bounds.

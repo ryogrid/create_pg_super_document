@@ -1,7 +1,7 @@
 # pq_sendint8
 
 ## Location
-src/include/libpq/pqformat.h: 128 - 135
+[src/include/libpq/pqformat.h:128-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L128-L135)
 
 ## Overview
 Appends a binary 8-bit unsigned integer to a StringInfo buffer for network transmission in PostgreSQL protocol messages.

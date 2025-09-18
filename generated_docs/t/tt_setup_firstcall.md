@@ -1,7 +1,7 @@
 # tt_setup_firstcall
 
 ## Location
-src/backend/tsearch/wparser.c: 47 - 76
+[src/backend/tsearch/wparser.c:47-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L47-L76)
 
 ## Overview
 Initializes function context and retrieves token type information for PostgreSQL text search parser functions during their first call.

@@ -1,7 +1,7 @@
 # tblspc_identify
 
 ## Location
-src/backend/access/rmgrdesc/tblspcdesc.c: 41 - 56
+[src/backend/access/rmgrdesc/tblspcdesc.c:41-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/tblspcdesc.c#L41-L56)
 
 ## Overview
 Returns a human-readable string identifier for tablespace-related Write-Ahead Logging (WAL) record types, used for debugging and logging purposes in PostgreSQL's WAL system.

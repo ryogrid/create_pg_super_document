@@ -1,7 +1,7 @@
 # ResetSequenceCaches
 
 ## Location
-src/backend/commands/sequence.c: 1887 - 1901
+[src/backend/commands/sequence.c:1887-1901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1887-L1901)
 
 ## Overview
 ResetSequenceCaches flushes all cached sequence information by destroying the sequence hash table and resetting sequence-related global variables.

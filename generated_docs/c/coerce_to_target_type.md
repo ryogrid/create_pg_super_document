@@ -1,7 +1,7 @@
 # coerce_to_target_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 78 - 156
+[src/backend/parser/parse_coerce.c:78-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L78-L156)
 
 ## Overview
 Converts an expression to a target type and typmod, serving as the general-purpose entry point for arbitrary type coercion operations in PostgreSQL's parser.

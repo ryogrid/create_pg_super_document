@@ -1,7 +1,7 @@
 # LockDatabaseObject
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1000 - 1023
+[src/backend/storage/lmgr/lmgr.c:1000-1023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1000-L1023)
 
 ## Overview
 LockDatabaseObject obtains a lock on a general database object within the current database, providing a way to synchronize access to catalog objects and other non-relation database objects.

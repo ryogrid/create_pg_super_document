@@ -1,7 +1,7 @@
 # plperlu_inline_handler
 
 ## Location
-src/pl/plperl/plperl.c: 2075 - 2082
+[src/pl/plperl/plperl.c:2075-2082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2075-L2082)
 
 ## Overview
 Entry point function for executing PL/PerlU (untrusted Perl) inline code blocks, delegating to the main Perl inline handler.

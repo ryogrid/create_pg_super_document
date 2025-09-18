@@ -1,7 +1,7 @@
 # verify_final_nonce
 
 ## Location
-src/backend/libpq/auth-scram.c: 1113 - 1134
+[src/backend/libpq/auth-scram.c:1113-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L1113-L1134)
 
 ## Overview
 A validation function that verifies the client's final nonce in SCRAM authentication by ensuring it correctly concatenates the original client nonce with the server nonce.

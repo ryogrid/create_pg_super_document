@@ -1,7 +1,7 @@
 # tlist_member
 
 ## Location
-src/backend/optimizer/util/tlist.c: 79 - 101
+[src/backend/optimizer/util/tlist.c:79-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L79-L101)
 
 ## Overview
 Searches a target list for an entry whose expression matches a given expression using deep equality comparison.

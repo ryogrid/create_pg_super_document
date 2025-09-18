@@ -1,7 +1,7 @@
 # charlt
 
 ## Location
-src/backend/utils/adt/char.c: 145 - 153
+[src/backend/utils/adt/char.c:145-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L145-L153)
 
 ## Overview
 The `charlt` function implements the "less than" comparison operation for PostgreSQL's single-byte character (`char`) data type.

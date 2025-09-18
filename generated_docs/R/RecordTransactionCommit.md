@@ -1,7 +1,7 @@
 # RecordTransactionCommit
 
 ## Location
-src/backend/access/transam/xact.c: 1304 - 1557
+[src/backend/access/transam/xact.c:1304-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1304-L1557)
 
 ## Overview
 RecordTransactionCommit handles the critical process of recording a transaction's commit to persistent storage, including writing commit records to WAL, managing synchronous/asynchronous commit decisions, and returning the latest transaction ID among the transaction and its children.

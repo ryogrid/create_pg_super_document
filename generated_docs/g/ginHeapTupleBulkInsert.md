@@ -1,7 +1,7 @@
 # ginHeapTupleBulkInsert
 
 ## Location
-src/backend/access/gin/gininsert.c: 253 - 276
+[src/backend/access/gin/gininsert.c:253-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L253-L276)
 
 ## Overview
 Extracts index entries from a single indexable item and adds them to the BuildAccumulator during initial GIN index creation.

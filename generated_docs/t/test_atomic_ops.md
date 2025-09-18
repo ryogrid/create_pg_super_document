@@ -1,7 +1,7 @@
 # test_atomic_ops
 
 ## Location
-src/test/regress/regress.c: 1001 - 1021
+[src/test/regress/regress.c:1001-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L1001-L1021)
 
 ## Overview
 A PostgreSQL test function that validates the correct operation of atomic operations and spinlock mechanisms used throughout the PostgreSQL codebase.

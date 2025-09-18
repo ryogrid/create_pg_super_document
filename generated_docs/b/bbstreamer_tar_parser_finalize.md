@@ -1,7 +1,7 @@
 # bbstreamer_tar_parser_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 319 - 340
+[src/bin/pg_basebackup/bbstreamer_tar.c:319-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L319-L340)
 
 ## Overview
 Performs end-of-stream processing for a tar parser, validating the final state and forwarding any remaining archive trailer data.

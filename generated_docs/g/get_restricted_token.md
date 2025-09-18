@@ -1,7 +1,7 @@
 # get_restricted_token
 
 ## Location
-src/common/restricted_token.c: 129 - 174
+[src/common/restricted_token.c:129-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/restricted_token.c#L129-L174)
 
 ## Overview
 Ensures PostgreSQL utility programs run with a restricted Windows security token by re-executing themselves with reduced privileges when necessary.

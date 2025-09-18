@@ -1,7 +1,7 @@
 # geqo_mutation
 
 ## Location
-src/backend/optimizer/geqo/geqo_mutation.c: 43 - 68
+[src/backend/optimizer/geqo/geqo_mutation.c:43-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_mutation.c#L43-L68)
 
 ## Overview
 The geqo_mutation function implements a mutation operator for the Genetic Query Optimizer (GEQO) in PostgreSQL, performing random swaps between genes in a tour to introduce genetic diversity during the evolutionary optimization process.

@@ -1,7 +1,7 @@
 # gistxlogPageSplit
 
 ## Location
-src/include/access/gistxlog.h: 68 - 80
+[src/include/access/gistxlog.h:68-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gistxlog.h#L68-L80)
 
 ## Overview
 The  structure represents a WAL record for GiST index page split operations, capturing all necessary information to replay page splits during recovery.

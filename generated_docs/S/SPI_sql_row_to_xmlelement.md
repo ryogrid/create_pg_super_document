@@ -1,7 +1,7 @@
 # SPI_sql_row_to_xmlelement
 
 ## Location
-src/backend/utils/adt/xml.c: 4086 - 4155
+[src/backend/utils/adt/xml.c:4086-4155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4086-L4155)
 
 ## Overview
 Maps an SQL row from the active SPI cursor to an XML element representation, following SQL/XML:2008 section 9.10 standards.

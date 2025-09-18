@@ -1,7 +1,7 @@
 # has_legal_joinclause
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1241 - 1304
+[src/backend/optimizer/path/joinrels.c:1241-1304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1241-L1304)
 
 ## Overview
 Detects whether a specified relation can legally be joined to any other relations using join clauses, serving as a heuristic to optimize join planning by identifying relations that have valid join opportunities.

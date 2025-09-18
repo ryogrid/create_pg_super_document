@@ -1,7 +1,7 @@
 # smgropen
 
 ## Location
-src/backend/storage/smgr/smgr.c: 198 - 249
+[src/backend/storage/smgr/smgr.c:198-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L198-L249)
 
 ## Overview
 Returns an SMgrRelation object for the specified relation, creating it if necessary, with transaction-scoped lifetime management.

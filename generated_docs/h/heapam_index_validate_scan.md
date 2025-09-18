@@ -1,7 +1,7 @@
 # heapam_index_validate_scan
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 1748 - 1994
+[src/backend/access/heap/heapam_handler.c:1748-1994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L1748-L1994)
 
 ## Overview
 Validates an index by scanning the heap relation and comparing it against existing index entries, inserting any missing tuples that should be indexed.

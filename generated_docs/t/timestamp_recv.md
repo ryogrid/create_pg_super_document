@@ -1,7 +1,7 @@
 # timestamp_recv
 
 ## Location
-src/backend/utils/adt/timestamp.c: 258 - 290
+[src/backend/utils/adt/timestamp.c:258-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L258-L290)
 
 ## Overview
 Converts external binary format data to PostgreSQL timestamp data type during deserialization from network or storage.

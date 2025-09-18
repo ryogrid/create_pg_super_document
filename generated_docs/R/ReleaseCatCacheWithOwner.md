@@ -1,7 +1,7 @@
 # ReleaseCatCacheWithOwner
 
 ## Location
-src/backend/utils/cache/catcache.c: 1630 - 1662
+[src/backend/utils/cache/catcache.c:1630-1662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1630-L1662)
 
 ## Overview
 Core implementation for releasing catalog cache entries with explicit resource owner management, handling reference counting and potential cache entry removal.

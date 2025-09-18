@@ -1,7 +1,7 @@
 # transformReturningList
 
 ## Location
-src/backend/parser/analyze.c: 2560 - 2618
+[src/backend/parser/analyze.c:2560-2618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2560-L2618)
 
 ## Overview
 Handles RETURNING clause transformation in INSERT, UPDATE, DELETE, and MERGE statements by converting the returning list to a proper target list with appropriate result number assignment and type resolution.

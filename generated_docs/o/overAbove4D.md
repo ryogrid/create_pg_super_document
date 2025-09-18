@@ -1,7 +1,7 @@
 # overAbove4D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 367 - 373
+[src/backend/utils/adt/geo_spgist.c:367-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L367-L373)
 
 ## Overview
 A static helper function that determines if any rectangle from a given RectBox does not extend below a specified query range.

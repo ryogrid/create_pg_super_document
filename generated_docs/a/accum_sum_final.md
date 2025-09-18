@@ -1,7 +1,7 @@
 # accum_sum_final
 
 ## Location
-src/backend/utils/adt/numeric.c: 12202 - 12252
+[src/backend/utils/adt/numeric.c:12202-12252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L12202-L12252)
 
 ## Overview
 Finalizes the accumulator computation by performing final carry propagation and converting the accumulated positive and negative sums into a single NumericVar result.

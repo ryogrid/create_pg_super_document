@@ -1,7 +1,7 @@
 # _check_database_version
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 33 - 73
+[src/bin/pg_dump/pg_backup_db.c:33-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L33-L73)
 
 ## Overview
 Validates PostgreSQL server version compatibility and determines standby status for pg_dump operations.

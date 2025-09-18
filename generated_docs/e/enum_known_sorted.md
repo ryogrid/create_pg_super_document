@@ -1,7 +1,7 @@
 # enum_known_sorted
 
 ## Location
-src/backend/utils/cache/typcache.c: 2448 - 2476
+[src/backend/utils/cache/typcache.c:2448-2476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2448-L2476)
 
 ## Overview
 enum_known_sorted is a static inline helper function that checks whether a given enum value OID is part of the subset that can be sorted by direct OID comparisons rather than requiring explicit enum value lookups.

@@ -1,7 +1,7 @@
 # XLogRecordBuffer
 
 ## Location
-src/include/replication/decode.h: 17 - 22
+[src/include/replication/decode.h:17-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/decode.h#L17-L22)
 
 ## Overview
 XLogRecordBuffer is a structure used in PostgreSQL's logical decoding system to encapsulate information about a WAL (Write-Ahead Log) record being processed for replication purposes.

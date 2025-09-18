@@ -1,7 +1,7 @@
 # pg_lfind32_one_by_one_helper
 
 ## Location
-src/include/port/pg_lfind.h: 90 - 108
+[src/include/port/pg_lfind.h:90-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_lfind.h#L90-L108)
 
 ## Overview
 A simple scalar implementation for searching 32-bit integers one element at a time, serving as a fallback when vectorized SIMD operations are not available or appropriate.

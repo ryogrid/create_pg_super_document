@@ -1,7 +1,7 @@
 # SerialControlData
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 345 - 350
+[src/backend/storage/lmgr/predicate.c:345-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L345-L350)
 
 ## Overview
 SerialControlData is a control structure that manages the serializable isolation implementation's SLRU (Simple LRU) buffer for tracking serializable transactions.

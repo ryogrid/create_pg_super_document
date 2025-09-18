@@ -1,7 +1,7 @@
 # CreateTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 112 - 132
+[src/backend/access/common/tupdesc.c:112-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L112-L132)
 
 ## Overview
 Creates a complete tuple descriptor by copying attribute definitions from a given Form_pg_attribute array into a new TupleDesc structure.

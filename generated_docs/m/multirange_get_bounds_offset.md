@@ -1,7 +1,7 @@
 # multirange_get_bounds_offset
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 673 - 694
+[src/backend/utils/adt/multirangetypes.c:673-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L673-L694)
 
 ## Overview
 This function calculates the byte offset of bounds values for the i-th range within a multirange by iterating through the multirange's item array and accumulating offsets until reaching the desired position.

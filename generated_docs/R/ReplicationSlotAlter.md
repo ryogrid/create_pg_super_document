@@ -1,7 +1,7 @@
 # ReplicationSlotAlter
 
 ## Location
-src/backend/replication/slot.c: 807 - 867
+[src/backend/replication/slot.c:807-867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L807-L867)
 
 ## Overview
 Changes the definition of a replication slot identified by name, specifically allowing modification of the failover property with comprehensive validation checks.

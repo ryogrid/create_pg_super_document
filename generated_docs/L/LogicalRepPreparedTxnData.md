@@ -1,7 +1,7 @@
 # LogicalRepPreparedTxnData
 
 ## Location
-src/include/replication/logicalproto.h: 144 - 151
+[src/include/replication/logicalproto.h:144-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L144-L151)
 
 ## Overview
 LogicalRepPreparedTxnData is a structure that holds protocol information for prepared transactions in PostgreSQL logical replication, specifically used for begin_prepare and prepare messages.

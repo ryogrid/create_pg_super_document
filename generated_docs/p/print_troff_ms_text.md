@@ -1,7 +1,7 @@
 # print_troff_ms_text
 
 ## Location
-src/fe_utils/print.c: 2827 - 2918
+[src/fe_utils/print.c:2827-2918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2827-L2918)
 
 ## Overview
 A function responsible for rendering tabular data in troff -ms format, handling table structure, headers, data cells, borders, and footers with proper troff markup.

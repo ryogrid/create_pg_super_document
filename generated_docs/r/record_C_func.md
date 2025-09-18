@@ -1,7 +1,7 @@
 # record_C_func
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 539 - 579
+[src/backend/utils/fmgr/fmgr.c:539-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L539-L579)
 
 ## Overview
 Records or updates information about a C function in PostgreSQL's internal CFuncHash hash table, maintaining metadata for efficient function lookup and execution.

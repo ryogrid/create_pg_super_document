@@ -1,7 +1,7 @@
 # drop_replication_slot
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1373 - 1412
+[src/bin/pg_basebackup/pg_createsubscriber.c:1373-1412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1373-L1412)
 
 ## Overview
 A utility function that drops a logical replication slot from a PostgreSQL database connection, primarily used in the pg_createsubscriber tool for cleanup operations.

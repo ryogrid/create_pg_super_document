@@ -1,7 +1,7 @@
 # ECPGstruct_member_dup
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 37 - 76
+[src/interfaces/ecpg/preproc/type.c:37-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L37-L76)
 
 ## Overview
 Creates a deep copy of a linked list of struct members, recursively duplicating complex nested types including structs, unions, and arrays.

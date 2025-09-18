@@ -1,7 +1,7 @@
 # filetime_to_time
 
 ## Location
-src/port/win32stat.c: 25 - 47
+[src/port/win32stat.c:25-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32stat.c#L25-L47)
 
 ## Overview
 Converts a Windows FILETIME structure to a 64-bit time_t value representing Unix epoch time.

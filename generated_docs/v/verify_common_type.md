@@ -1,7 +1,7 @@
 # verify_common_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 1608 - 1627
+[src/backend/parser/parse_coerce.c:1608-1627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1608-L1627)
 
 ## Overview
 Verifies that all input expressions can be implicitly coerced to a proposed common type, returning true if all coercions are possible.

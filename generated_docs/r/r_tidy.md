@@ -1,7 +1,7 @@
 # r_tidy
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 573 - 657
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:573-657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L573-L657)
 
 ## Overview
 The r_tidy function performs final cleanup operations during Finnish text stemming, removing redundant characters and normalizing vowel-consonant patterns to produce the final stemmed form.

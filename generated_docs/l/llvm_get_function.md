@@ -1,7 +1,7 @@
 # llvm_get_function
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 381 - 454
+[src/backend/jit/llvm/llvmjit.c:381-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L381-L454)
 
 ## Overview
 Retrieves a compiled function pointer by name from the LLVM JIT context, triggering compilation if needed and handling version-specific LLVM symbol lookup.

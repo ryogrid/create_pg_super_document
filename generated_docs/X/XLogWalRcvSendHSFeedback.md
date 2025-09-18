@@ -1,7 +1,7 @@
 # XLogWalRcvSendHSFeedback
 
 ## Location
-src/backend/replication/walreceiver.c: 1169 - 1264
+[src/backend/replication/walreceiver.c:1169-1264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1169-L1264)
 
 ## Overview
 Sends hot standby feedback messages to the primary server, communicating the oldest transaction ID that the standby still needs to keep alive for query consistency.

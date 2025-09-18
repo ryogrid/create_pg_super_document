@@ -1,7 +1,7 @@
 # GenerationDelete
 
 ## Location
-src/backend/utils/mmgr/generation.c: 328 - 342
+[src/backend/utils/mmgr/generation.c:328-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L328-L342)
 
 ## Overview
 Completely destroys a Generation memory context by freeing all allocated memory and the context structure itself.

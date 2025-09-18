@@ -1,7 +1,7 @@
 # ExecBitmapHeapEstimate
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 817 - 830
+[src/backend/executor/nodeBitmapHeapscan.c:817-830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L817-L830)
 
 ## Overview
 This function estimates the amount of shared memory space needed for a parallel bitmap heap scan operation.

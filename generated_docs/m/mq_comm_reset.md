@@ -1,7 +1,7 @@
 # mq_comm_reset
 
 ## Location
-src/backend/libpq/pqmq.c: 86 - 91
+[src/backend/libpq/pqmq.c:86-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L86-L91)
 
 ## Overview
 A no-op implementation of the communication reset method for shared memory message queue communication in PostgreSQL's parallel processing infrastructure.

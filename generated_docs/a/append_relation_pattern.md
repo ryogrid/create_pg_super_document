@@ -1,7 +1,7 @@
 # append_relation_pattern
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1478 - 1493
+[src/bin/pg_amcheck/pg_amcheck.c:1478-1493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1478-L1493)
 
 ## Overview
 Adds a relation name pattern to be matched against both heap tables and btree indexes without type restrictions.

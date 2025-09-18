@@ -1,7 +1,7 @@
 # pg_nextpower2_32
 
 ## Location
-src/include/port/pg_bitutils.h: 189 - 211
+[src/include/port/pg_bitutils.h:189-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L189-L211)
 
 ## Overview
 Returns the next higher power of 2 above a given number, or the number itself if it is already a power of 2, optimized for 32-bit values.

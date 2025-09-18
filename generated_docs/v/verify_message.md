@@ -1,7 +1,7 @@
 # verify_message
 
 ## Location
-src/test/modules/test_shm_mq/test.c: 258 - 273
+[src/test/modules/test_shm_mq/test.c:258-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/test.c#L258-L273)
 
 ## Overview
 A utility function that performs byte-by-byte comparison between two messages to verify data integrity in shared memory message queue tests.

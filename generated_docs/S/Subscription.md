@@ -1,7 +1,7 @@
 # Subscription
 
 ## Location
-src/include/catalog/pg_subscription.h: 129 - 160
+[src/include/catalog/pg_subscription.h:129-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_subscription.h#L129-L160)
 
 ## Overview
 The Subscription structure represents a logical replication subscription in PostgreSQL, containing all the configuration parameters and metadata needed to manage replication from a publication on a remote server.

@@ -1,7 +1,7 @@
 # valueTruth
 
 ## Location
-src/bin/pgbench/pgbench.c: 2024 - 2044
+[src/bin/pgbench/pgbench.c:2024-2044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2024-L2044)
 
 ## Overview
 Evaluates the truthiness of a PgBenchValue for conditional expressions, implementing C-like truthiness rules across all pgbench data types.

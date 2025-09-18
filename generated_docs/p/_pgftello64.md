@@ -1,7 +1,7 @@
 # _pgftello64
 
 ## Location
-src/port/win32fseek.c: 56 - 75
+[src/port/win32fseek.c:56-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32fseek.c#L56-L75)
 
 ## Overview
 Windows-specific wrapper for the ftell() function that provides 64-bit file position support with proper error handling for non-seeking devices.

@@ -1,7 +1,7 @@
 # spgvalidate
 
 ## Location
-src/backend/access/spgist/spgvalidate.c: 39 - 331
+[src/backend/access/spgist/spgvalidate.c:39-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvalidate.c#L39-L331)
 
 ## Overview
 The `spgvalidate` function serves as the validation function for SP-GiST (Space-Partitioned Generalized Search Tree) operator classes, ensuring that all required support functions and operators are properly defined with correct signatures.

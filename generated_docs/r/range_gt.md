@@ -1,7 +1,7 @@
 # range_gt
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1319 - 1329
+[src/backend/utils/adt/rangetypes.c:1319-1329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1319-L1329)
 
 ## Overview
 PostgreSQL function that implements the "greater than" comparison operator for range data types, returning true if the first range is greater than the second range according to B-tree ordering.

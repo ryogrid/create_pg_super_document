@@ -1,7 +1,7 @@
 # pg_popcount_optimized
 
 ## Location
-src/port/pg_bitutils.c: 515 - 524
+[src/port/pg_bitutils.c:515-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L515-L524)
 
 ## Overview
 Efficiently counts the number of 1 bits in a buffer of arbitrary length, providing optimized population count operations for large data blocks.

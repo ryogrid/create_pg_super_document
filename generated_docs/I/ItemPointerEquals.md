@@ -1,7 +1,7 @@
 # ItemPointerEquals
 
 ## Location
-src/backend/storage/page/itemptr.c: 35 - 50
+[src/backend/storage/page/itemptr.c:35-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/itemptr.c#L35-L50)
 
 ## Overview
 ItemPointerEquals is a utility function that compares two ItemPointer structures to determine if they point to the same physical location (same block and offset) within a PostgreSQL heap file.

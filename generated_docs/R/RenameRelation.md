@@ -1,7 +1,7 @@
 # RenameRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 4071 - 4134
+[src/backend/commands/tablecmds.c:4071-4134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4071-L4134)
 
 ## Overview
 RenameRelation is the top-level function that handles renaming of database relations including tables, indexes, sequences, views, materialized views, and foreign tables.

@@ -1,7 +1,7 @@
 # FunctionCall1Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1129 - 1148
+[src/backend/utils/fmgr/fmgr.c:1129-1148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1129-L1148)
 
 ## Overview
 FunctionCall1Coll is a utility function that invokes a previously-looked-up PostgreSQL function with one parameter and an explicit collation setting.

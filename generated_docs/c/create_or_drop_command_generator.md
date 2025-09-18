@@ -1,7 +1,7 @@
 # create_or_drop_command_generator
 
 ## Location
-src/bin/psql/tab-complete.c: 5102 - 5130
+[src/bin/psql/tab-complete.c:5102-5130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5102-L5130)
 
 ## Overview
 A common utility function used by PostgreSQL's psql tab completion system to generate command completions for CREATE and DROP statements while excluding specific entries based on provided flags.

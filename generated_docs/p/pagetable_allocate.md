@@ -1,7 +1,7 @@
 # pagetable_allocate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1494 - 1521
+[src/backend/nodes/tidbitmap.c:1494-1521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1494-L1521)
 
 ## Overview
 A callback function for allocating memory for hashtable elements in TID bitmaps, supporting both regular memory contexts and dynamic shared memory areas.

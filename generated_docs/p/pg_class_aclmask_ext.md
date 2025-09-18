@@ -1,7 +1,7 @@
 # pg_class_aclmask_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3339 - 3468
+[src/backend/catalog/aclchk.c:3339-3468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3339-L3468)
 
 ## Overview
 An extended version of  that provides comprehensive privilege checking for table/relation objects with additional support for missing object detection and enhanced permission logic.

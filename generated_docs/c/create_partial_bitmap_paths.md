@@ -1,7 +1,7 @@
 # create_partial_bitmap_paths
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 4167 - 4202
+[src/backend/optimizer/path/allpaths.c:4167-4202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L4167-L4202)
 
 ## Overview
 Creates partial bitmap heap scan paths for parallel execution, enabling bitmap scans to be parallelized across multiple worker processes.

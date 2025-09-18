@@ -1,7 +1,7 @@
 # _bt_end_vacuum_callback
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4513 - 4521
+[src/backend/access/nbtree/nbtutils.c:4513-4521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4513-L4521)
 
 ## Overview
 A callback wrapper function for  designed to be used with PostgreSQL's error cleanup mechanism.

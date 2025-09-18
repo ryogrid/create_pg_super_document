@@ -1,7 +1,7 @@
 # PQresetPoll
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4944 - 4985
+[src/interfaces/libpq/fe-connect.c:4944-4985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4944-L4985)
 
 ## Overview
 Continues the asynchronous reset process of a PostgreSQL database connection initiated by PQresetStart, returning the current status of the reset operation.

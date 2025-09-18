@@ -1,7 +1,7 @@
 # oidout
 
 ## Location
-src/backend/utils/adt/oid.c: 47 - 59
+[src/backend/utils/adt/oid.c:47-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L47-L59)
 
 ## Overview
 The oidout function converts an internal OID (object identifier) value to its string representation, serving as the output function for the OID data type in PostgreSQL.

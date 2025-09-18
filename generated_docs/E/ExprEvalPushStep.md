@@ -1,7 +1,7 @@
 # ExprEvalPushStep
 
 ## Location
-src/backend/executor/execExpr.c: 2602 - 2627
+[src/backend/executor/execExpr.c:2602-2627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L2602-L2627)
 
 ## Overview
 ExprEvalPushStep adds a new evaluation step to an ExprState's step array, handling dynamic memory allocation and array resizing as needed.

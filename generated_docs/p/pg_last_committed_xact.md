@@ -1,7 +1,7 @@
 # pg_last_committed_xact
 
 ## Location
-src/backend/access/transam/commit_ts.c: 420 - 463
+[src/backend/access/transam/commit_ts.c:420-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L420-L463)
 
 ## Overview
 A PostgreSQL SQL function that returns comprehensive information about the latest committed transaction, including transaction ID, commit timestamp, and replication origin.

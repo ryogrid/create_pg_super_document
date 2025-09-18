@@ -1,7 +1,7 @@
 # json_extract_path_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1013 - 1021
+[src/backend/utils/adt/jsonfuncs.c:1013-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1013-L1021)
 
 ## Overview
 Extracts a JSON value from a JSON document following a specified path of object keys and array indices, returning the result as text with JSON string values unescaped.

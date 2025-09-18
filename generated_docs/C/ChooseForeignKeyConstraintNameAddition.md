@@ -1,7 +1,7 @@
 # ChooseForeignKeyConstraintNameAddition
 
 ## Location
-src/backend/commands/tablecmds.c: 9428 - 9469
+[src/backend/commands/tablecmds.c:9428-9469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L9428-L9469)
 
 ## Overview
 ChooseForeignKeyConstraintNameAddition generates the column-name portion of foreign key constraint names by concatenating the referencing column names with underscores.

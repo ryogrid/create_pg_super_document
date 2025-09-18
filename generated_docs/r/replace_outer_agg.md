@@ -1,7 +1,7 @@
 # replace_outer_agg
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 224 - 269
+[src/backend/optimizer/util/paramassign.c:224-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L224-L269)
 
 ## Overview
 Generates a Param node to replace the given Aggref which is expected to have agglevelsup > 0, and records the need for the Aggref in the proper upper-level root->plan_params.

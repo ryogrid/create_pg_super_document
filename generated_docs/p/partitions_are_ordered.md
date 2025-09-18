@@ -1,7 +1,7 @@
 # partitions_are_ordered
 
 ## Location
-src/backend/partitioning/partbounds.c: 2852 - 2895
+[src/backend/partitioning/partbounds.c:2852-2895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2852-L2895)
 
 ## Overview
 Determines whether partitions are ordered such that earlier partitions contain keys strictly less than later ones, enabling sequential scan optimizations.

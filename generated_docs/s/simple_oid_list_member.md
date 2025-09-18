@@ -1,7 +1,7 @@
 # simple_oid_list_member
 
 ## Location
-src/fe_utils/simple_list.c: 45 - 62
+[src/fe_utils/simple_list.c:45-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L45-L62)
 
 ## Overview
 Checks whether a specific OID (Object Identifier) value exists in a simple linked list structure designed for frontend PostgreSQL utilities.

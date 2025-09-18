@@ -1,7 +1,7 @@
 # PGresAttDesc
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 298 - 322
+[src/interfaces/libpq/libpq-fe.h:298-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L298-L322)
 
 ## Overview
 PGresAttDesc is a structure that describes a single column (attribute) in a PostgreSQL query result, containing metadata about the column's name, source, data type, and formatting information.

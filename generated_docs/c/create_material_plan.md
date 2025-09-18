@@ -1,7 +1,7 @@
 # create_material_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1639 - 1666
+[src/backend/optimizer/plan/createplan.c:1639-1666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1639-L1666)
 
 ## Overview
 Creates a Material plan node that materializes (stores) the output of its child plan in memory or on disk, allowing multiple passes over the same result set without re-executing the child plan.

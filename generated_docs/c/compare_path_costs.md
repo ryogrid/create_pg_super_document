@@ -1,7 +1,7 @@
 # compare_path_costs
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 69 - 114
+[src/backend/optimizer/util/pathnode.c:69-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L69-L114)
 
 ## Overview
 Compares the costs of two paths and returns an integer indicating which path is cheaper based on either startup cost or total cost criteria.

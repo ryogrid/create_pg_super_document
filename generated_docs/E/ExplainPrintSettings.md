@@ -1,7 +1,7 @@
 # ExplainPrintSettings
 
 ## Location
-src/backend/commands/explain.c: 807 - 876
+[src/backend/commands/explain.c:807-876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L807-L876)
 
 ## Overview
 ExplainPrintSettings prints a summary of modified GUC (Grand Unified Configuration) settings that affect query planning in EXPLAIN output.

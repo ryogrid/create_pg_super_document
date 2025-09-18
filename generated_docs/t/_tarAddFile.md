@@ -1,7 +1,7 @@
 # _tarAddFile
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 1014 - 1065
+[src/bin/pg_dump/pg_backup_tar.c:1014-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L1014-L1065)
 
 ## Overview
 A static function that adds a file to a TAR archive by writing the TAR header followed by the file content, with proper padding to TAR block boundaries.

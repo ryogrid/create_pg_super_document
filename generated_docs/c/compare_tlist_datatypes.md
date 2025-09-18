@@ -1,7 +1,7 @@
 # compare_tlist_datatypes
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3779 - 3811
+[src/backend/optimizer/path/allpaths.c:3779-3811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3779-L3811)
 
 ## Overview
 This function compares the data types in a subquery's target list against the expected output types from a set operation (UNION/INTERSECT), marking columns as unsafe for pushdown when type mismatches are detected.

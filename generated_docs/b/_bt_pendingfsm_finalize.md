@@ -1,7 +1,7 @@
 # _bt_pendingfsm_finalize
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 2995 - 3061
+[src/backend/access/nbtree/nbtpage.c:2995-3061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L2995-L3061)
 
 ## Overview
 _bt_pendingfsm_finalize safely places newly deleted btree pages into the free space map at the end of a vacuum operation, when it can reliably determine which pages are safe to recycle.

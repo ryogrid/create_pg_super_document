@@ -1,7 +1,7 @@
 # CloneFkReferencing
 
 ## Location
-src/backend/commands/tablecmds.c: 10830 - 11070
+[src/backend/commands/tablecmds.c:10830-11070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L10830-L11070)
 
 ## Overview
 CloneFkReferencing handles cloning foreign key constraints where the parent relation appears on the referencing side, attempting to reuse existing constraints before creating new ones.

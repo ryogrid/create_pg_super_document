@@ -1,7 +1,7 @@
 # void_in
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 263 - 268
+[src/backend/utils/adt/pseudotypes.c:263-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L263-L268)
 
 ## Overview
 An input function for the void pseudotype that accepts any input and returns a void value, primarily used to support PL functions that return VOID.

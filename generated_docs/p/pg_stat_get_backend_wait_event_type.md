@@ -1,7 +1,7 @@
 # pg_stat_get_backend_wait_event_type
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 766 - 786
+[src/backend/utils/adt/pgstatfuncs.c:766-786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L766-L786)
 
 ## Overview
 Returns the wait event type name for a specific backend process, providing information about what kind of resource or operation the backend is currently waiting for.

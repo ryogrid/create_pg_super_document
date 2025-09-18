@@ -1,7 +1,7 @@
 # rcomp
 
 ## Location
-src/timezone/zic.c: 1151 - 1157
+[src/timezone/zic.c:1151-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1151-L1157)
 
 ## Overview
 A comparison function used for sorting rule structures by their rule name in the PostgreSQL timezone handling system.

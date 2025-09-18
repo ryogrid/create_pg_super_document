@@ -1,7 +1,7 @@
 # jsonb_contains
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 112 - 129
+[src/backend/utils/adt/jsonb_op.c:112-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L112-L129)
 
 ## Overview
 Tests whether a JSONB value contains another JSONB value as a subset, performing deep containment checking.

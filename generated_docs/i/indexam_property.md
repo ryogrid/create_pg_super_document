@@ -1,7 +1,7 @@
 # indexam_property
 
 ## Location
-src/backend/utils/adt/amutils.c: 151 - 408
+[src/backend/utils/adt/amutils.c:151-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L151-L408)
 
 ## Overview
 Core function that tests properties of index access methods, indexes, or individual index columns, providing a unified interface for property queries across different levels of the indexing system.

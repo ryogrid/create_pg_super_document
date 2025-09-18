@@ -1,7 +1,7 @@
 # DefineOperator
 
 ## Location
-src/backend/commands/operatorcmds.c: 67 - 274
+[src/backend/commands/operatorcmds.c:67-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/operatorcmds.c#L67-L274)
 
 ## Overview
 DefineOperator is the main entry point for creating new SQL operators in PostgreSQL, processing the CREATE OPERATOR command by parsing parameters and delegating the actual creation to OperatorCreate().

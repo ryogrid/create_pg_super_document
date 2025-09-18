@@ -1,7 +1,7 @@
 # extract_grouping_collations
 
 ## Location
-src/backend/optimizer/util/tlist.c: 489 - 513
+[src/backend/optimizer/util/tlist.c:489-513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L489-L513)
 
 ## Overview
 Extracts collation OIDs from grouping column expressions in a SortGroupClause list and returns them as an array for use in planning GROUP BY operations.

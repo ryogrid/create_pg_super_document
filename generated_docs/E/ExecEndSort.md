@@ -1,7 +1,7 @@
 # ExecEndSort
 
 ## Location
-src/backend/executor/nodeSort.c: 301 - 328
+[src/backend/executor/nodeSort.c:301-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L301-L328)
 
 ## Overview
 Cleans up and releases resources used by a Sort plan node, including tuplesort state and child plan nodes.

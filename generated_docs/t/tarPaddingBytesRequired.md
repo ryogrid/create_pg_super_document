@@ -1,7 +1,7 @@
 # tarPaddingBytesRequired
 
 ## Location
-src/include/pgtar.h: 79 - 84
+[src/include/pgtar.h:79-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgtar.h#L79-L84)
 
 ## Overview
 Computes the number of padding bytes required for an entry in a tar archive to align it to a multiple of TAR_BLOCK_SIZE.

@@ -1,7 +1,7 @@
 # getbits
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 349 - 381
+[src/backend/utils/adt/inet_net_pton.c:349-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L349-L381)
 
 ## Overview
 Parses and validates a numeric string representing bit count for network prefix lengths, ensuring proper format and range validation.

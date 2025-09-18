@@ -1,7 +1,7 @@
 # LogOpts
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 316 - 329
+[src/bin/pg_upgrade/pg_upgrade.h:316-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L316-L329)
 
 ## Overview
 LogOpts is a configuration structure that manages logging and output options for the pg_upgrade utility, controlling verbosity, log file handling, and output directory organization.

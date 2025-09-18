@@ -1,7 +1,7 @@
 # ExecMaterial
 
 ## Location
-src/backend/executor/nodeMaterial.c: 39 - 163
+[src/backend/executor/nodeMaterial.c:39-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMaterial.c#L39-L163)
 
 ## Overview
 ExecMaterial is the main execution function for Material nodes that collects and buffers tuples from its subplan in a tuplestore, allowing for backward scanning, rescanning, and mark/restore operations.

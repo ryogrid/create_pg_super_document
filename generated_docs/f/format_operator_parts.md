@@ -1,7 +1,7 @@
 # format_operator_parts
 
 ## Location
-src/backend/utils/adt/regproc.c: 806 - 838
+[src/backend/utils/adt/regproc.c:806-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L806-L838)
 
 ## Overview
 Decomposes an operator OID into its constituent parts (schema name, operator name, and argument types) returned as separate lists for use in object identity operations.

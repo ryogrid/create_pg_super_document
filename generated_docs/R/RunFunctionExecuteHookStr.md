@@ -1,7 +1,7 @@
 # RunFunctionExecuteHookStr
 
 ## Location
-src/backend/catalog/objectaccess.c: 265 - 273
+[src/backend/catalog/objectaccess.c:265-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L265-L273)
 
 ## Overview
 Invokes the string-based object access hook for function execution events, allowing extensions to monitor or control function executions by function name rather than OID.

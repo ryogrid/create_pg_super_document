@@ -1,7 +1,7 @@
 # PartitionDirectoryEntry
 
 ## Location
-src/backend/partitioning/partdesc.c: 42 - 47
+[src/backend/partitioning/partdesc.c:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L42-L47)
 
 ## Overview
 PartitionDirectoryEntry is a structure that represents an individual entry in a partition directory hash table, caching a partition descriptor along with its associated relation.

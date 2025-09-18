@@ -1,7 +1,7 @@
 # IsAbortedTransactionBlockState
 
 ## Location
-src/backend/access/transam/xact.c: 404 - 422
+[src/backend/access/transam/xact.c:404-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L404-L422)
 
 ## Overview
 Returns true if we are within an aborted transaction block, indicating that the current transaction has failed and is in an error state.

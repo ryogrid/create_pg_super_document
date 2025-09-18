@@ -1,7 +1,7 @@
 # porter_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c: 714 - 715
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c:714-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c#L714-L715)
 
 ## Overview
 The porter_ISO_8859_1_create_env function creates and initializes a Snowball environment structure specifically configured for the Porter stemming algorithm with ISO-8859-1 character encoding.

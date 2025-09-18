@@ -1,7 +1,7 @@
 # getMetaCommand
 
 ## Location
-src/bin/pgbench/pgbench.c: 2880 - 2921
+[src/bin/pgbench/pgbench.c:2880-2921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2880-L2921)
 
 ## Overview
 Converts a command name string to its corresponding meta-command enum identifier used in pgbench script processing.

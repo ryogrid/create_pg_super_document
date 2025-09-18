@@ -1,7 +1,7 @@
 # dummy_seclabel_dummy
 
 ## Location
-src/test/modules/dummy_seclabel/dummy_seclabel.c: 57 - 60
+[src/test/modules/dummy_seclabel/dummy_seclabel.c:57-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_seclabel/dummy_seclabel.c#L57-L60)
 
 ## Overview
 A placeholder PostgreSQL function that exists solely to ensure the dummy_seclabel extension has callable functionality for proper dynamic library loading.

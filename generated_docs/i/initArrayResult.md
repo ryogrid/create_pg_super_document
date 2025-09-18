@@ -1,7 +1,7 @@
 # initArrayResult
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5281 - 5297
+[src/backend/utils/adt/arrayfuncs.c:5281-5297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5281-L5297)
 
 ## Overview
 Initializes an empty ArrayBuildState structure for accumulating array elements, providing a convenient interface for building arrays with known element type and memory management preferences.

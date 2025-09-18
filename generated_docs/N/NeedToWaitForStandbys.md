@@ -1,7 +1,7 @@
 # NeedToWaitForStandbys
 
 ## Location
-src/backend/replication/walsender.c: 1762 - 1793
+[src/backend/replication/walsender.c:1762-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1762-L1793)
 
 ## Overview
 NeedToWaitForStandbys determines whether a logical failover slot should wait for standby servers to catch up to a specified LSN position before proceeding.

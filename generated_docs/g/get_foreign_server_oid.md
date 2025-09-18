@@ -1,7 +1,7 @@
 # get_foreign_server_oid
 
 ## Location
-src/backend/foreign/foreign.c: 704 - 740
+[src/backend/foreign/foreign.c:704-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L704-L740)
 
 ## Overview
 Looks up the OID (Object Identifier) of a foreign server given its name, with optional error handling control.

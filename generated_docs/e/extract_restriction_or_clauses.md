@@ -1,7 +1,7 @@
 # extract_restriction_or_clauses
 
 ## Location
-src/backend/optimizer/util/orclauses.c: 75 - 125
+[src/backend/optimizer/util/orclauses.c:75-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/orclauses.c#L75-L125)
 
 ## Overview
 Examines join OR-of-AND clauses to extract useful restriction OR clauses that can be applied to individual base relations, enabling early filtering during relation scans.

@@ -1,7 +1,7 @@
 # XLogSendPhysical
 
 ## Location
-src/backend/replication/walsender.c: 3100 - 3409
+[src/backend/replication/walsender.c:3100-3409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3100-L3409)
 
 ## Overview
 XLogSendPhysical reads and streams physical WAL data to replication clients, handling timeline switches, buffering constraints, and various replication scenarios including primary-standby and cascading replication.

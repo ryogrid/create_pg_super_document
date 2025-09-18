@@ -1,7 +1,7 @@
 # ExecCleanTargetListLength
 
 ## Location
-src/backend/executor/execUtils.c: 1119 - 1137
+[src/backend/executor/execUtils.c:1119-1137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1119-L1137)
 
 ## Overview
 Counts the number of items in a target list, excluding any resjunk items that are used for internal executor purposes.

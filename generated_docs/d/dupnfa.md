@@ -1,7 +1,7 @@
 # dupnfa
 
 ## Location
-src/backend/regex/regc_nfa.c: 1355 - 1378
+[src/backend/regex/regc_nfa.c:1355-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1355-L1378)
 
 ## Overview
 Duplicates a sub-NFA (non-deterministic finite automaton) between specified start and stop states, creating a copy that is connected from a source state to a destination state.

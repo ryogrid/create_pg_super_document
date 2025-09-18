@@ -1,7 +1,7 @@
 # TextFreq
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 39 - 45
+[src/backend/tsearch/ts_selfuncs.c:39-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L39-L45)
 
 ## Overview
 TextFreq is a lookup table structure used for binary searching through Most Common Elements (MCELEMs) in PostgreSQL's text search statistics, storing text elements with their frequency values.

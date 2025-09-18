@@ -1,7 +1,7 @@
 # hash_xlog_vacuum_one_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 991 - 1066
+[src/backend/access/hash/hash_xlog.c:991-1066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L991-L1066)
 
 ## Overview
 This function replays vacuum operations on a single hash index page during WAL recovery, removing tuples marked as DEAD and updating the meta page tuple count accordingly.

@@ -1,7 +1,7 @@
 # ECPGdump_a_type
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 241 - 410
+[src/interfaces/ecpg/preproc/type.c:241-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L241-L410)
 
 ## Overview
 A comprehensive function that generates C code for ECPG type declarations, handling complex type conversions, variable validation, and indicator variable processing for embedded SQL operations.

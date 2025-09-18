@@ -1,7 +1,7 @@
 # pg_column_toast_chunk_id
 
 ## Location
-src/backend/utils/adt/varlena.c: 5114 - 5161
+[src/backend/utils/adt/varlena.c:5114-5161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5114-L5161)
 
 ## Overview
 Returns the chunk ID (va_valueid) of an on-disk TOASTed value, or NULL if the value is not TOASTed or not stored on disk.

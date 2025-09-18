@@ -1,7 +1,7 @@
 # get_singleton_append_subpath
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2132 - 2165
+[src/backend/optimizer/path/allpaths.c:2132-2165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2132-L2165)
 
 ## Overview
 Extracts the single subpath from an Append or MergeAppend path node, or returns the original path if it doesn't contain exactly one subpath.

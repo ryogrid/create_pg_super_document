@@ -1,7 +1,7 @@
 # validate_zone
 
 ## Location
-src/bin/initdb/findtimezone.c: 1728 - 1756
+[src/bin/initdb/findtimezone.c:1728-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L1728-L1756)
 
 ## Overview
 Validates whether a given timezone name is both valid and acceptable for use in PostgreSQL by attempting to load the timezone and checking its acceptability criteria.

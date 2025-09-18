@@ -1,7 +1,7 @@
 # hashrescan
 
 ## Location
-src/backend/access/hash/hash.c: 397 - 430
+[src/backend/access/hash/hash.c:397-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L397-L430)
 
 ## Overview
 Resets and reinitializes an existing hash index scan with new scan keys, cleaning up any previous scan state.

@@ -1,7 +1,7 @@
 # PrepareQuery
 
 ## Location
-src/backend/commands/prepare.c: 56 - 146
+[src/backend/commands/prepare.c:56-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L56-L146)
 
 ## Overview
 Implements the 'PREPARE' utility statement, creating a named prepared statement by parsing, analyzing, and storing a SQL statement with optional parameter types for later execution.

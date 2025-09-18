@@ -1,7 +1,7 @@
 # ec_member_matches_indexcol
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3382 - 3439
+[src/backend/optimizer/path/indxpath.c:3382-3439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3382-L3439)
 
 ## Overview
 Tests whether an EquivalenceClass member matches an index column for generating implied equalities during query optimization.

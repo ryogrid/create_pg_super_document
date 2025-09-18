@@ -1,7 +1,7 @@
 # interval_hash_extended
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2611 - 2630
+[src/backend/utils/adt/timestamp.c:2611-2630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2611-L2630)
 
 ## Overview
 The interval_hash_extended function computes an extended hash value for PostgreSQL Interval data types using an additional seed value, providing improved hash distribution for advanced hashing scenarios.

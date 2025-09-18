@@ -1,7 +1,7 @@
 # numeric_serialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5330 - 5385
+[src/backend/utils/adt/numeric.c:5330-5385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5330-L5385)
 
 ## Overview
 Serializes NumericAggState for numeric aggregates that require sumX2 (sum of squares), converting the complete aggregate state including second-moment calculations into bytea format.

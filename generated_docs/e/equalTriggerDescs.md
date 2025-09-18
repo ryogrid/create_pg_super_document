@@ -1,7 +1,7 @@
 # equalTriggerDescs
 
 ## Location
-src/backend/commands/trigger.c: 2177 - 2271
+[src/backend/commands/trigger.c:2177-2271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2177-L2271)
 
 ## Overview
 equalTriggerDescs compares two TriggerDesc structures for exact equality, performing deep comparison of all trigger properties to determine if they represent identical trigger configurations.

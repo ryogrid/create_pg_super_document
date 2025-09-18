@@ -1,7 +1,7 @@
 # get_range_collation
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3433 - 3457
+[src/backend/utils/cache/lsyscache.c:3433-3457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3433-L3457)
 
 ## Overview
 Returns the collation OID of a given PostgreSQL range type.

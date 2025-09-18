@@ -1,7 +1,7 @@
 # ExplainEndOutput
 
 ## Location
-src/backend/commands/explain.c: 5154 - 5182
+[src/backend/commands/explain.c:5154-5182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5154-L5182)
 
 ## Overview
 Emits the end-of-output boilerplate for different EXPLAIN output formats. This function closes the output structure that was opened by ExplainBeginOutput.

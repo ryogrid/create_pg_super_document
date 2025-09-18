@@ -1,7 +1,7 @@
 # pg_re_throw
 
 ## Location
-src/backend/utils/error/elog.c: 2001 - 2055
+[src/backend/utils/error/elog.c:2001-2055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2001-L2055)
 
 ## Overview
 pg_re_throw is the out-of-line implementation of the PG_RE_THROW() macro, responsible for propagating errors through PostgreSQL's exception handling mechanism using setjmp/longjmp.

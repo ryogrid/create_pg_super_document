@@ -1,7 +1,7 @@
 # addObjectDependency
 
 ## Location
-src/bin/pg_dump/common.c: 807 - 831
+[src/bin/pg_dump/common.c:807-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L807-L831)
 
 ## Overview
 Adds a dependency link to a DumpableObject, establishing that one object depends on another during the dump process.

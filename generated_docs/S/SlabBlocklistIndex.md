@@ -1,7 +1,7 @@
 # SlabBlocklistIndex
 
 ## Location
-src/backend/utils/mmgr/slab.c: 211 - 250
+[src/backend/utils/mmgr/slab.c:211-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L211-L250)
 
 ## Overview
 SlabBlocklistIndex is an internal function that determines which blocklist index a memory block should be assigned to based on the number of free chunks it contains.

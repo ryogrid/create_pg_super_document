@@ -1,7 +1,7 @@
 # finish_xact_command
 
 ## Location
-src/backend/tcop/postgres.c: 2798 - 2829
+[src/backend/tcop/postgres.c:2798-2829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2798-L2829)
 
 ## Overview
 A convenience function that commits a transaction command and performs cleanup operations including timeout disabling and optional memory context checking.

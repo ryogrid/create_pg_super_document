@@ -1,7 +1,7 @@
 # JsonbAggState
 
 ## Location
-src/backend/utils/adt/jsonb.c: 36 - 43
+[src/backend/utils/adt/jsonb.c:36-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L36-L43)
 
 ## Overview
 JsonbAggState is a state structure used by JSONB aggregate functions to maintain aggregation state and type conversion information during the aggregation process.

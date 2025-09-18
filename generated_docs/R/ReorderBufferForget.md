@@ -1,7 +1,7 @@
 # ReorderBufferForget
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3061 - 3102
+[src/backend/replication/logical/reorderbuffer.c:3061-3102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3061-L3102)
 
 ## Overview
 Forgets the contents of a committed transaction that we are not interested in, while still processing any catalog invalidation messages.

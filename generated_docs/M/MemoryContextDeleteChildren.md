@@ -1,7 +1,7 @@
 # MemoryContextDeleteChildren
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 539 - 567
+[src/backend/utils/mmgr/mcxt.c:539-567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L539-L567)
 
 ## Overview
 Deletes all descendants of the named context and releases all space allocated therein, while leaving the named context itself untouched.

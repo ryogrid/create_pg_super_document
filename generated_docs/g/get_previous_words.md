@@ -1,7 +1,7 @@
 # get_previous_words
 
 ## Location
-src/bin/psql/tab-complete.c: 6253 - 6379
+[src/bin/psql/tab-complete.c:6253-6379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L6253-L6379)
 
 ## Overview
 Parses all words before the cursor position in psql's command line, returning them in reverse order for tab completion context analysis.

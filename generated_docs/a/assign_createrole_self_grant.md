@@ -1,7 +1,7 @@
 # assign_createrole_self_grant
 
 ## Location
-src/backend/commands/user.c: 2568 - 2581
+[src/backend/commands/user.c:2568-2581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L2568-L2581)
 
 ## Overview
 This function serves as a GUC (Grand Unified Configuration) assign hook for the  configuration parameter, responsible for setting up role grant options when the configuration value changes.

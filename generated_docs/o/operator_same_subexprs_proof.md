@@ -1,7 +1,7 @@
 # operator_same_subexprs_proof
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2032 - 2073
+[src/backend/optimizer/util/predtest.c:2032-2073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2032-L2073)
 
 ## Overview
 Attempts to prove or refute a predicate assuming a clause with the same subexpressions is true, using operator relationships like negators or btree opfamily semantics.

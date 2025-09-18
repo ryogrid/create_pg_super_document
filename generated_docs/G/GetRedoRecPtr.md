@@ -1,7 +1,7 @@
 # GetRedoRecPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 6416 - 6445
+[src/backend/access/transam/xlog.c:6416-6445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6416-L6445)
 
 ## Overview
 GetRedoRecPtr returns the current Redo pointer from shared memory and updates the local RedoRecPtr copy as a side effect.

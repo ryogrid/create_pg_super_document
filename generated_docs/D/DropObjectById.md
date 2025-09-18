@@ -1,7 +1,7 @@
 # DropObjectById
 
 ## Location
-src/backend/catalog/dependency.c: 1189 - 1245
+[src/backend/catalog/dependency.c:1189-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L1189-L1245)
 
 ## Overview
 DropObjectById is a static utility function that removes an object from its catalog table by OID, used as a low-level deletion mechanism for most PostgreSQL system catalogs when no special processing is required.

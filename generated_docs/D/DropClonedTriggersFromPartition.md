@@ -1,7 +1,7 @@
 # DropClonedTriggersFromPartition
 
 ## Location
-src/backend/commands/tablecmds.c: 19722 - 19786
+[src/backend/commands/tablecmds.c:19722-19786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19722-L19786)
 
 ## Overview
 DropClonedTriggersFromPartition removes triggers that were cloned to a partition when it was created or attached, undoing the work performed by CloneRowTriggersToPartition.

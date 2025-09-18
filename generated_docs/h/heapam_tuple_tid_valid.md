@@ -1,7 +1,7 @@
 # heapam_tuple_tid_valid
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 205 - 213
+[src/backend/access/heap/heapam_handler.c:205-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L205-L213)
 
 ## Overview
 This function validates whether a given tuple identifier (TID) is valid within the context of a heap table scan, checking both the TID's format validity and whether it references a block within the scan's range.

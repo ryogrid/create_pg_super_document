@@ -1,7 +1,7 @@
 # build_path_tlist
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 826 - 865
+[src/backend/optimizer/plan/createplan.c:826-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L826-L865)
 
 ## Overview
 Builds a target list (list of TargetEntry nodes) from a Path's pathtarget, handling nestloop parameter replacement for parameterized paths.

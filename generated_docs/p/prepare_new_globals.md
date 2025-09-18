@@ -1,7 +1,7 @@
 # prepare_new_globals
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 514 - 535
+[src/bin/pg_upgrade/pg_upgrade.c:514-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L514-L535)
 
 ## Overview
 Sets up global objects in the new cluster during pg_upgrade by restoring frozen XIDs for initdb-created tables and restoring global database objects like roles and tablespaces.

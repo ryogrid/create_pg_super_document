@@ -1,7 +1,7 @@
 # unicode_strlower
 
 ## Location
-src/common/unicode_case.c: 69 - 99
+[src/common/unicode_case.c:69-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L69-L99)
 
 ## Overview
 Converts a UTF-8 encoded string to lowercase using Unicode case mapping rules and returns the result length.

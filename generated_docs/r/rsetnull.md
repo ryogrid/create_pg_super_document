@@ -1,7 +1,7 @@
 # rsetnull
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 1042 - 1048
+[src/interfaces/ecpg/compatlib/informix.c:1042-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L1042-L1048)
 
 ## Overview
 Sets a value to NULL for a given data type in the Informix compatibility layer of PostgreSQL's ECPG (Embedded SQL in C) interface.

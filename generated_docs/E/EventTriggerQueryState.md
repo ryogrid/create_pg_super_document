@@ -1,7 +1,7 @@
 # EventTriggerQueryState
 
 ## Location
-src/backend/commands/event_trigger.c: 59 - 79
+[src/backend/commands/event_trigger.c:59-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L59-L79)
 
 ## Overview
 EventTriggerQueryState is a struct that maintains state information for event trigger processing during command execution, managing memory context, SQL drop operations, table rewrites, and command collection.

@@ -1,7 +1,7 @@
 # local_relopt
 
 ## Location
-src/include/access/reloptions.h: 158 - 162
+[src/include/access/reloptions.h:158-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L158-L162)
 
 ## Overview
 A structure that defines a local relation option entry, mapping an option definition to its storage offset in a parsed bytea structure.

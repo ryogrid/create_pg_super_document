@@ -1,7 +1,7 @@
 # brin_minmax_add_value
 
 ## Location
-src/backend/access/brin/brin_minmax.c: 64 - 136
+[src/backend/access/brin/brin_minmax.c:64-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax.c#L64-L136)
 
 ## Overview
 Updates BRIN minmax index summary values by comparing a new heap tuple value against existing minimum and maximum boundaries, expanding the range if necessary.

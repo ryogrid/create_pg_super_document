@@ -1,7 +1,7 @@
 # smgrdosyncall
 
 ## Location
-src/backend/storage/smgr/smgr.c: 426 - 461
+[src/backend/storage/smgr/smgr.c:426-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L426-L461)
 
 ## Overview
 Immediately synchronizes all forks of multiple relations to persistent storage, providing an optimized bulk sync operation.

@@ -1,7 +1,7 @@
 # get_environ
 
 ## Location
-src/test/regress/regress.c: 651 - 673
+[src/test/regress/regress.c:651-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L651-L673)
 
 ## Overview
 A PostgreSQL test function that retrieves all environment variables from the current process and returns them as a PostgreSQL text array.

@@ -1,7 +1,7 @@
 # heap_xlog_deserialize_prune_and_freeze
 
 ## Location
-src/backend/access/rmgrdesc/heapdesc.c: 104 - 182
+[src/backend/access/rmgrdesc/heapdesc.c:104-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/heapdesc.c#L104-L182)
 
 ## Overview
 A critical deserialization function that unpacks complex heap prune and freeze WAL record data into separate component arrays, enabling both WAL replay and description functionality.

@@ -1,7 +1,7 @@
 # drop_primary_replication_slot
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1252 - 1281
+[src/bin/pg_basebackup/pg_createsubscriber.c:1252-1281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1252-L1281)
 
 ## Overview
 Drops the physical replication slot on the primary server that was previously used by the standby, as it becomes unnecessary after the standby-to-subscriber transformation.

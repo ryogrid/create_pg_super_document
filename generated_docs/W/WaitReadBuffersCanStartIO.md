@@ -1,7 +1,7 @@
 # WaitReadBuffersCanStartIO
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1382 - 1394
+[src/backend/storage/buffer/bufmgr.c:1382-1394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1382-L1394)
 
 ## Overview
 WaitReadBuffersCanStartIO determines whether a buffer I/O operation can be initiated, handling both local and shared buffers with different validation mechanisms.

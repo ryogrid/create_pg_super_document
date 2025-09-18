@@ -1,7 +1,7 @@
 # get_extension_script_directory
 
 ## Location
-src/backend/commands/extension.c: 403 - 425
+[src/backend/commands/extension.c:403-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L403-L425)
 
 ## Overview
 Determines and returns the directory path where extension script files are located, based on the directory specification in the extension's control file.

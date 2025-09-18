@@ -1,7 +1,7 @@
 # CreateCast
 
 ## Location
-src/backend/commands/functioncmds.c: 1521 - 1783
+[src/backend/commands/functioncmds.c:1521-1783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L1521-L1783)
 
 ## Overview
 Implements the CREATE CAST command to define type conversion operations between source and target data types using various coercion methods.

@@ -1,7 +1,7 @@
 # check_locale_name
 
 ## Location
-src/bin/initdb/initdb.c: 2184 - 2246
+[src/bin/initdb/initdb.c:2184-2246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2184-L2246)
 
 ## Overview
 Validates that a locale name is valid for a specific locale category and optionally returns the canonical name of the locale.

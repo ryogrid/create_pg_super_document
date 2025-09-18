@@ -1,7 +1,7 @@
 # pqTraceOutput_NotificationResponse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 219 - 227
+[src/interfaces/libpq/fe-trace.c:219-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L219-L227)
 
 ## Overview
 A static function that parses and outputs the contents of a PostgreSQL NotificationResponse protocol message to the trace log.

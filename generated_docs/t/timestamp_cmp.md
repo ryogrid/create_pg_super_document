@@ -1,7 +1,7 @@
 # timestamp_cmp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2270 - 2280
+[src/backend/utils/adt/timestamp.c:2270-2280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2270-L2280)
 
 ## Overview
 Compares two timestamp values and returns an integer indicating their relative order (-1, 0, or 1).

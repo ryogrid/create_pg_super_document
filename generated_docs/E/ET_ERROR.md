@@ -1,7 +1,7 @@
 # ET_ERROR
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 219 - 221
+[src/interfaces/ecpg/preproc/type.h:219-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L219-L221)
 
 ## Overview
 ET_ERROR is an enumeration value in the errortype enum that represents an error condition in the ECPG (Embedded SQL in C) preprocessor's error handling system.

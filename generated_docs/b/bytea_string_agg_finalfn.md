@@ -1,7 +1,7 @@
 # bytea_string_agg_finalfn
 
 ## Location
-src/backend/utils/adt/varlena.c: 551 - 578
+[src/backend/utils/adt/varlena.c:551-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L551-L578)
 
 ## Overview
 Final function for the bytea string_agg() aggregate that produces the final concatenated bytea result by stripping the leading delimiter from the accumulated binary data.

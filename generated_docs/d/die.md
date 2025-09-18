@@ -1,7 +1,7 @@
 # die
 
 ## Location
-src/backend/tcop/postgres.c: 2999 - 3028
+[src/backend/tcop/postgres.c:2999-3028](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2999-L3028)
 
 ## Overview
 Signal handler function that schedules graceful process termination when a shutdown signal is received from the postmaster.

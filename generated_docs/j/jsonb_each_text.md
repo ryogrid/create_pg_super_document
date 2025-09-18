@@ -1,7 +1,7 @@
 # jsonb_each_text
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1966 - 1971
+[src/backend/utils/adt/jsonfuncs.c:1966-1971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1966-L1971)
 
 ## Overview
 The jsonb_each_text function is a PostgreSQL SQL function that expands a JSONB object into a set of key-value pairs, where both keys and values are returned as text.

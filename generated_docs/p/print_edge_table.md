@@ -1,7 +1,7 @@
 # print_edge_table
 
 ## Location
-src/backend/optimizer/geqo/geqo_misc.c: 112 - 132
+[src/backend/optimizer/geqo/geqo_misc.c:112-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_misc.c#L112-L132)
 
 ## Overview
 The print_edge_table function outputs a formatted representation of an edge table data structure used in GEQO's edge recombination crossover operations.

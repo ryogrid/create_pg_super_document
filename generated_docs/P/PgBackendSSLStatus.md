@@ -1,7 +1,7 @@
 # PgBackendSSLStatus
 
 ## Location
-src/include/utils/backend_status.h: 49 - 64
+[src/include/utils/backend_status.h:49-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/backend_status.h#L49-L64)
 
 ## Overview
 PgBackendSSLStatus is a structure that stores SSL connection information for each PostgreSQL backend process in shared memory, providing detailed SSL session data for monitoring and administrative purposes.

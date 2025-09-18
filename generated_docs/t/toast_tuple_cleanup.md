@@ -1,7 +1,7 @@
 # toast_tuple_cleanup
 
 ## Location
-src/backend/access/table/toast_helper.c: 275 - 317
+[src/backend/access/table/toast_helper.c:275-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/toast_helper.c#L275-L317)
 
 ## Overview
 Performs cleanup operations after TOAST processing is complete, including freeing temporary memory allocations and deleting obsolete external values from the TOAST table.

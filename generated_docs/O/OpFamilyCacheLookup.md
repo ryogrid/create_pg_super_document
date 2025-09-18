@@ -1,7 +1,7 @@
 # OpFamilyCacheLookup
 
 ## Location
-src/backend/commands/opclasscmds.c: 81 - 138
+[src/backend/commands/opclasscmds.c:81-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L81-L138)
 
 ## Overview
 OpFamilyCacheLookup is a static function that looks up an existing operator family by name in the PostgreSQL system catalog, returning a syscache tuple reference for further processing.

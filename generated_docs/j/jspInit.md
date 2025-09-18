@@ -1,7 +1,7 @@
 # jspInit
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 973 - 982
+[src/backend/utils/adt/jsonpath.c:973-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L973-L982)
 
 ## Overview
 Initializes a JsonPathItem structure from a JsonPath object, serving as the entry point for JSON path expression processing by reading the root node.

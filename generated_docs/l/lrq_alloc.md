@@ -1,7 +1,7 @@
 # lrq_alloc
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 202 - 226
+[src/backend/access/transam/xlogprefetcher.c:202-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L202-L226)
 
 ## Overview
 Allocates and initializes a new LSN read queue for managing WAL (Write-Ahead Logging) record prefetching operations in PostgreSQL.

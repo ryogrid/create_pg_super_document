@@ -1,7 +1,7 @@
 # HandleAutoVacLauncherInterrupts
 
 ## Location
-src/backend/postmaster/autovacuum.c: 740 - 774
+[src/backend/postmaster/autovacuum.c:740-774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L740-L774)
 
 ## Overview
 Processes incoming interrupts for the autovacuum launcher process, handling shutdown requests, configuration reloads, and various signal-based events.

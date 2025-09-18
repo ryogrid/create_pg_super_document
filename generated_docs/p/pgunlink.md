@@ -1,7 +1,7 @@
 # pgunlink
 
 ## Location
-src/port/dirmod.c: 119 - 181
+[src/port/dirmod.c:119-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirmod.c#L119-L181)
 
 ## Overview
 A robust cross-platform file unlinking function that handles both regular files and symbolic links/junction points with retry logic for sharing violations and special Windows file system states.

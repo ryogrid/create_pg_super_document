@@ -1,7 +1,7 @@
 # RT_COPY_ARRAYS_AND_DELETE
 
 ## Location
-src/include/lib/radixtree.h: 2301 - 2335
+[src/include/lib/radixtree.h:2301-2335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2301-L2335)
 
 ## Overview
 A macro that defines a helper function name for copying array elements from source to destination arrays while skipping a specific element to be deleted.

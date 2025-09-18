@@ -1,7 +1,7 @@
 # shm_mq_wait_internal
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 1218 - 1269
+[src/backend/storage/ipc/shm_mq.c:1218-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L1218-L1269)
 
 ## Overview
 Waits for a counterparty process to attach to a shared message queue by monitoring a specific memory pointer until it becomes non-NULL.

@@ -1,7 +1,7 @@
 # cmpEntryAccumulator
 
 ## Location
-src/backend/access/gin/ginbulk.c: 72 - 84
+[src/backend/access/gin/ginbulk.c:72-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L72-L84)
 
 ## Overview
 A comparator function for rbtree.c that compares two GinEntryAccumulator nodes during GIN index bulk loading operations.

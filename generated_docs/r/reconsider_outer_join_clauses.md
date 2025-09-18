@@ -1,7 +1,7 @@
 # reconsider_outer_join_clauses
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1992 - 2113
+[src/backend/optimizer/path/equivclass.c:1992-2113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1992-L2113)
 
 ## Overview
 Re-examines outer join clauses to derive EquivalenceClasses and create transitivity-based equality constraints that can be safely pushed to inner relations.

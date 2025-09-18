@@ -1,7 +1,7 @@
 # add_new_column_to_pathtarget
 
 ## Location
-src/backend/optimizer/util/tlist.c: 741 - 751
+[src/backend/optimizer/util/tlist.c:741-751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L741-L751)
 
 ## Overview
 Appends a target column to a PathTarget, but only if it's not equal() to any pre-existing target expression in the PathTarget.

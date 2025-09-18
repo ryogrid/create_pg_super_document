@@ -1,7 +1,7 @@
 # makeBoolAggState
 
 ## Location
-src/backend/utils/adt/bool.c: 311 - 327
+[src/backend/utils/adt/bool.c:311-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L311-L327)
 
 ## Overview
 Creates and initializes a new BoolAggState structure for boolean aggregation functions in the appropriate memory context.

@@ -1,7 +1,7 @@
 # pg_atomic_fetch_add_u64_impl
 
 ## Location
-src/include/port/atomics/generic-gcc.h: 288 - 294
+[src/include/port/atomics/generic-gcc.h:288-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic-gcc.h#L288-L294)
 
 ## Overview
 Implements atomic fetch-and-add operation for 64-bit unsigned integers, atomically adding a value and returning the previous value.

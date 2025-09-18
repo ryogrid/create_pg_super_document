@@ -1,7 +1,7 @@
 # areasel
 
 ## Location
-src/backend/utils/adt/geo_selfuncs.c: 48 - 53
+[src/backend/utils/adt/geo_selfuncs.c:48-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_selfuncs.c#L48-L53)
 
 ## Overview
 A selectivity estimation function for geometric operators that depend on area calculations, such as the "overlap" operator.

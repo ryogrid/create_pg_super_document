@@ -1,7 +1,7 @@
 # pg_get_statisticsobj_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1634 - 1817
+[src/backend/utils/adt/ruleutils.c:1634-1817](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1634-L1817)
 
 ## Overview
 The internal workhorse function that decompiles an extended statistics object into its textual definition, supporting various output modes for different use cases.

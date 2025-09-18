@@ -1,7 +1,7 @@
 # list_oid_cmp
 
 ## Location
-src/backend/nodes/list.c: 1703 - 1709
+[src/backend/nodes/list.c:1703-1709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1703-L1709)
 
 ## Overview
 A comparator function used by list_sort to sort PostgreSQL lists containing OID (Object Identifier) values in ascending order.

@@ -1,7 +1,7 @@
 # filter_prepare_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1186 - 1217
+[src/backend/replication/logical/logical.c:1186-1217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1186-L1217)
 
 ## Overview
 A wrapper function that provides error handling and context management when calling logical replication output plugin filter prepare callbacks for two-phase commit transactions.

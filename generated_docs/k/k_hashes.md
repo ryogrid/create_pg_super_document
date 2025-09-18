@@ -1,7 +1,7 @@
 # k_hashes
 
 ## Location
-src/backend/lib/bloomfilter.c: 250 - 287
+[src/backend/lib/bloomfilter.c:250-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L250-L287)
 
 ## Overview
 The `k_hashes` function generates k hash values for a given element using enhanced double hashing to support up to MAX_HASH_FUNCS hash functions with only two independent hash computations.

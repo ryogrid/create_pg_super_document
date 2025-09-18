@@ -1,7 +1,7 @@
 # mul_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 8685 - 8892
+[src/backend/utils/adt/numeric.c:8685-8892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8685-L8892)
 
 ## Overview
 Performs multiplication of two NumericVar values using schoolbook multiplication algorithm, with optimizations for performance and precision control.

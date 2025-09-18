@@ -1,7 +1,7 @@
 # PQsendTypedCommand
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2589 - 2666
+[src/interfaces/libpq/fe-exec.c:2589-2666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2589-L2666)
 
 ## Overview
 PQsendTypedCommand is a common internal utility function that constructs and sends Describe or Close commands to the PostgreSQL server, handling the low-level message protocol details.

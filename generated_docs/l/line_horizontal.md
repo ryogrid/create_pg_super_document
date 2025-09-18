@@ -1,7 +1,7 @@
 # line_horizontal
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1182 - 1193
+[src/backend/utils/adt/geo_ops.c:1182-1193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1182-L1193)
 
 ## Overview
 Determines whether a line is horizontal by checking if its slope is zero (coefficient A equals zero in the line equation Ax + By + C = 0).

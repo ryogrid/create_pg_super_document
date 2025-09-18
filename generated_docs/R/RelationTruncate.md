@@ -1,7 +1,7 @@
 # RelationTruncate
 
 ## Location
-src/backend/catalog/storage.c: 288 - 448
+[src/backend/catalog/storage.c:288-448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L288-L448)
 
 ## Overview
 RelationTruncate physically truncates a relation to a specified number of blocks, handling WAL logging, buffer management, and coordination with auxiliary structures like FSM and visibility map.

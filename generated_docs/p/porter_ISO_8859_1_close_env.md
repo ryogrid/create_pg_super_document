@@ -1,7 +1,7 @@
 # porter_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c: 716 - 717
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c:716-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c#L716-L717)
 
 ## Overview
 The porter_ISO_8859_1_close_env function properly deallocates and cleans up a Snowball environment structure that was created for the Porter stemming algorithm with ISO-8859-1 character encoding.

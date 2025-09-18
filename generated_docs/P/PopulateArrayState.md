@@ -1,7 +1,7 @@
 # PopulateArrayState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 272 - 280
+[src/backend/utils/adt/jsonfuncs.c:272-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L272-L280)
 
 ## Overview
 A state structure specifically used by PostgreSQL's populate_array_json() function to track parsing state and current element information during JSON array processing.

@@ -1,7 +1,7 @@
 # pgstat_assert_is_up
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1279 - 1292
+[src/backend/utils/activity/pgstat.c:1279-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1279-L1292)
 
 ## Overview
 A debugging assertion function that verifies the PostgreSQL statistics subsystem is properly initialized and has not been shut down.

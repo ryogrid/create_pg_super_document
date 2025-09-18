@@ -1,7 +1,7 @@
 # pgwin32_signal_initialize
 
 ## Location
-src/backend/port/win32/signal.c: 79 - 119
+[src/backend/port/win32/signal.c:79-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L79-L119)
 
 ## Overview
 pgwin32_signal_initialize initializes the Windows-specific signal handling system for PostgreSQL processes.

@@ -1,7 +1,7 @@
 # compute_return_type
 
 ## Location
-src/backend/commands/functioncmds.c: 88 - 182
+[src/backend/commands/functioncmds.c:88-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L88-L182)
 
 ## Overview
 Examines the RETURNS clause of a CREATE FUNCTION statement and determines the return type information, including whether it returns a set, while handling shell type creation for new types.

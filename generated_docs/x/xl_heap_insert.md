@@ -1,7 +1,7 @@
 # xl_heap_insert
 
 ## Location
-src/include/access/heapam_xlog.h: 159 - 165
+[src/include/access/heapam_xlog.h:159-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L159-L165)
 
 ## Overview
 The xl_heap_insert struct represents the WAL record data for heap tuple insertion operations in PostgreSQL's recovery and replication system.

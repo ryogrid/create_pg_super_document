@@ -1,7 +1,7 @@
 # cost_windowagg
 
 ## Location
-src/backend/optimizer/path/costsize.c: 3068 - 3162
+[src/backend/optimizer/path/costsize.c:3068-3162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L3068-L3162)
 
 ## Overview
 Determines and returns the cost of performing a WindowAgg plan node, including the cost of its input data which is assumed already properly sorted.

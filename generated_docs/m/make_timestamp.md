@@ -1,7 +1,7 @@
 # make_timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 654 - 673
+[src/backend/utils/adt/timestamp.c:654-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L654-L673)
 
 ## Overview
 PostgreSQL SQL function constructor that creates a timestamp (without timezone) from individual date and time components.

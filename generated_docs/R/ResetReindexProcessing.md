@@ -1,7 +1,7 @@
 # ResetReindexProcessing
 
 ## Location
-src/backend/catalog/index.c: 4109 - 4122
+[src/backend/catalog/index.c:4109-4122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4109-L4122)
 
 ## Overview
 Clears the global reindexing state by resetting the currently reindexed heap and index OIDs to invalid values, indicating that no reindex operation is currently in progress.

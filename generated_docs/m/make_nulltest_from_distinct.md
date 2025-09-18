@@ -1,7 +1,7 @@
 # make_nulltest_from_distinct
 
 ## Location
-src/backend/parser/parse_expr.c: 3097 - 3120
+[src/backend/parser/parse_expr.c:3097-3120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3097-L3120)
 
 ## Overview
 Creates a NullTest node from an IS [NOT] DISTINCT FROM NULL construct during SQL expression parsing.

@@ -1,7 +1,7 @@
 # varchar_1
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-variable.c: 80 - 86
+[src/interfaces/ecpg/test/expected/preproc-variable.c:80-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-variable.c#L80-L86)
 
 ## Overview
 A struct definition used in ECPG test cases to represent variable-length character strings with explicit length tracking.

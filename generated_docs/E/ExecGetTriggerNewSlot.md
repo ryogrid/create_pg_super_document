@@ -1,7 +1,7 @@
 # ExecGetTriggerNewSlot
 
 ## Location
-src/backend/executor/execUtils.c: 1160 - 1181
+[src/backend/executor/execUtils.c:1160-1181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1160-L1181)
 
 ## Overview
 Returns a tuple slot for storing the NEW tuple values in trigger processing, creating it lazily if it doesn't already exist.

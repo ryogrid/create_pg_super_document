@@ -1,7 +1,7 @@
 # TmToChar
 
 ## Location
-src/backend/utils/adt/formatting.c: 482 - 487
+[src/backend/utils/adt/formatting.c:482-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L482-L487)
 
 ## Overview
 A comprehensive structure that extends the fmt_tm structure to include fractional seconds and timezone information for datetime-to-character conversion operations.

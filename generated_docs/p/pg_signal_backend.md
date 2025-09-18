@@ -1,7 +1,7 @@
 # pg_signal_backend
 
 ## Location
-src/backend/storage/ipc/signalfuncs.c: 49 - 121
+[src/backend/storage/ipc/signalfuncs.c:49-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/signalfuncs.c#L49-L121)
 
 ## Overview
 Internal function that provides the core mechanism for sending Unix signals to PostgreSQL backend processes with proper permission checking and validation.

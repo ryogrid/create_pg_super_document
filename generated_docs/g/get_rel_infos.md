@@ -1,7 +1,7 @@
 # get_rel_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 445 - 639
+[src/bin/pg_upgrade/info.c:445-639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L445-L639)
 
 ## Overview
 The get_rel_infos function collects metadata for all user tables, materialized views, toast tables, and indexes within a specific database during the PostgreSQL upgrade process.

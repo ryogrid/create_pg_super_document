@@ -1,7 +1,7 @@
 # setPathObject
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5262 - 5400
+[src/backend/utils/adt/jsonfuncs.c:5262-5400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5262-L5400)
 
 ## Overview
 setPathObject is a specialized object walker function that handles path-based modifications within JSON objects, supporting key lookup, value replacement, deletion, and creation of new key-value pairs.

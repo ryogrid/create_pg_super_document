@@ -1,7 +1,7 @@
 # cparc
 
 ## Location
-src/backend/regex/regc_nfa.c: 608 - 619
+[src/backend/regex/regc_nfa.c:608-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L608-L619)
 
 ## Overview
 Creates a new arc in an NFA by copying the type and color properties from an existing arc but with new source and destination states.

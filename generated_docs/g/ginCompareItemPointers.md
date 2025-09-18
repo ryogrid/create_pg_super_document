@@ -1,7 +1,7 @@
 # ginCompareItemPointers
 
 ## Location
-src/include/access/gin_private.h: 488 - 498
+[src/include/access/gin_private.h:488-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L488-L498)
 
 ## Overview
 ginCompareItemPointers is an inline function that compares two ItemPointer values for ordering, optimized for performance in GIN scan operations where item pointer comparisons occur frequently.

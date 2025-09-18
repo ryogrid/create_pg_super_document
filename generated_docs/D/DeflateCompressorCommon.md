@@ -1,7 +1,7 @@
 # DeflateCompressorCommon
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 102 - 143
+[src/bin/pg_dump/compress_gzip.c:102-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L102-L143)
 
 ## Overview
 Core compression worker function that handles the actual deflate compression process and manages output buffer operations.

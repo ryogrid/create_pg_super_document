@@ -1,7 +1,7 @@
 # pa_can_start
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 265 - 326
+[src/backend/replication/logical/applyparallelworker.c:265-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L265-L326)
 
 ## Overview
 Determines whether it is safe to start a parallel apply worker in PostgreSQL logical replication.

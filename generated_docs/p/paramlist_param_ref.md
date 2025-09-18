@@ -1,7 +1,7 @@
 # paramlist_param_ref
 
 ## Location
-src/backend/nodes/params.c: 131 - 166
+[src/backend/nodes/params.c:131-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/params.c#L131-L166)
 
 ## Overview
 Transforms a ParamRef node into a Param node during parsing, resolving parameter type information from a ParamListInfo structure.

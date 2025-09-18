@@ -1,7 +1,7 @@
 # CheckOpSlotCompatibility
 
 ## Location
-src/backend/executor/execExprInterp.c: 2037 - 2083
+[src/backend/executor/execExprInterp.c:2037-2083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2037-L2083)
 
 ## Overview
 CheckOpSlotCompatibility is a static function that verifies slot compatibility with EEOP_*_FETCHSOME operations during expression evaluation, ensuring type safety in PostgreSQL's tuple slot handling.

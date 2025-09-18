@@ -1,7 +1,7 @@
 # forkname_chars
 
 ## Location
-src/common/relpath.c: 81 - 109
+[src/common/relpath.c:81-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/relpath.c#L81-L109)
 
 ## Overview
 Determines if a string begins with a valid PostgreSQL fork name and returns the length of the matching fork name prefix, helping identify relation fork files in database directories.

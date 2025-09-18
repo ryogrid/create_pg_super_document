@@ -1,7 +1,7 @@
 # cpstrdup
 
 ## Location
-src/backend/tsearch/spell.c: 162 - 174
+[src/backend/tsearch/spell.c:162-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L162-L174)
 
 ## Overview
 cpstrdup is a static utility function that duplicates a C string using the ISpell dictionary's custom memory allocation system.

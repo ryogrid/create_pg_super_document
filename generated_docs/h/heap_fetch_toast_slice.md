@@ -1,7 +1,7 @@
 # heap_fetch_toast_slice
 
 ## Location
-src/backend/access/heap/heaptoast.c: 626 - 793
+[src/backend/access/heap/heaptoast.c:626-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heaptoast.c#L626-L793)
 
 ## Overview
 Fetches a specified slice (byte range) from a TOAST value stored in chunks across a heap table, assembling the requested portion into a result buffer.

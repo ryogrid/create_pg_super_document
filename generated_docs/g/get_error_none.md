@@ -1,7 +1,7 @@
 # get_error_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 114 - 119
+[src/bin/pg_dump/compress_none.c:114-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L114-L119)
 
 ## Overview
 The `get_error_none` function provides error message retrieval functionality for the uncompressed file handling implementation in PostgreSQL's pg_dump utility.

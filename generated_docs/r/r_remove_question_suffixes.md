@@ -1,7 +1,7 @@
 # r_remove_question_suffixes
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1079 - 1104
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1079-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1079-L1104)
 
 ## Overview
 Removes Tamil question suffixes from words and replaces them with appropriate forms while ensuring minimum word length requirements.

@@ -1,7 +1,7 @@
 # pgstat_get_stat_snapshot_timestamp
 
 ## Location
-src/backend/utils/activity/pgstat.c: 907 - 923
+[src/backend/utils/activity/pgstat.c:907-923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L907-L923)
 
 ## Overview
 This function returns the timestamp of a statistics snapshot if one exists, providing information about when the current snapshot was taken.

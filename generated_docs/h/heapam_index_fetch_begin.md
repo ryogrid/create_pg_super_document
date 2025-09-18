@@ -1,7 +1,7 @@
 # heapam_index_fetch_begin
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 80 - 90
+[src/backend/access/heap/heapam_handler.c:80-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L80-L90)
 
 ## Overview
 Initializes and returns a heap-specific index fetch data structure for beginning an index scan on a heap relation.

@@ -1,7 +1,7 @@
 # datumTransfer
 
 ## Location
-src/backend/utils/adt/datum.c: 194 - 222
+[src/backend/utils/adt/datum.c:194-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L194-L222)
 
 ## Overview
 Transfers a non-NULL datum into the current memory context, optimizing for expanded objects by reparenting them rather than flattening like datumCopy does.

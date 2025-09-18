@@ -1,7 +1,7 @@
 # plperl_ref_from_pg_array
 
 ## Location
-src/pl/plperl/plperl.c: 1480 - 1558
+[src/pl/plperl/plperl.c:1480-1558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1480-L1558)
 
 ## Overview
 Converts a PostgreSQL array datum to a Perl array reference, handling multi-dimensional arrays and preserving type information.

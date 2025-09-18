@@ -1,7 +1,7 @@
 # predicate_refuted_by
 
 ## Location
-src/backend/optimizer/util/predtest.c: 222 - 289
+[src/backend/optimizer/util/predtest.c:222-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L222-L289)
 
 ## Overview
 Tests whether a given predicate is logically refuted (proven false) by a set of clauses, supporting both strong and weak refutation semantics for constraint validation and query optimization.

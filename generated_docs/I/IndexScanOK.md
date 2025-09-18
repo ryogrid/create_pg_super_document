@@ -1,7 +1,7 @@
 # IndexScanOK
 
 ## Location
-src/backend/utils/cache/catcache.c: 1247 - 1311
+[src/backend/utils/cache/catcache.c:1247-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1247-L1311)
 
 ## Overview
 IndexScanOK determines whether it's safe to use index scans for catalog cache lookups, preventing infinite recursion during relcache initialization and ensuring authentication works during startup.

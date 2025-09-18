@@ -1,7 +1,7 @@
 # r_Checks1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1022 - 1045
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1022-1045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1022-L1045)
 
 ## Overview
 This function performs initial validation checks for Arabic text in the PostgreSQL Snowball stemmer, determining if the word meets criteria for further stemming processing.

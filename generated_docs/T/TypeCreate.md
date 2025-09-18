@@ -1,7 +1,7 @@
 # TypeCreate
 
 ## Location
-src/backend/catalog/pg_type.c: 195 - 556
+[src/backend/catalog/pg_type.c:195-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L195-L556)
 
 ## Overview
 TypeCreate is the comprehensive function that creates a fully-defined type entry in the pg_type system catalog, handling both new type creation and updating existing shell types with complete type definitions.

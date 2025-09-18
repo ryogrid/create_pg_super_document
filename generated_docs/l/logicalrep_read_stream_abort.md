@@ -1,7 +1,7 @@
 # logicalrep_read_stream_abort
 
 ## Location
-src/backend/replication/logical/proto.c: 1192 - 1216
+[src/backend/replication/logical/proto.c:1192-1216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1192-L1216)
 
 ## Overview
 Reads and parses a stream abort message from the logical replication input stream to extract transaction abort information.

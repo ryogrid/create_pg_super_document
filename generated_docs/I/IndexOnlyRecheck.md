@@ -1,7 +1,7 @@
 # IndexOnlyRecheck
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 325 - 335
+[src/backend/executor/nodeIndexonlyscan.c:325-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L325-L335)
 
 ## Overview
 A stub function that explicitly prevents EvalPlanQual rechecking operations in index-only scans by throwing an error when called.

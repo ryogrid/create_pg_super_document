@@ -1,7 +1,7 @@
 # WriteZeroPageXlogRec
 
 ## Location
-src/backend/access/transam/commit_ts.c: 996 - 1006
+[src/backend/access/transam/commit_ts.c:996-1006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L996-L1006)
 
 ## Overview
 Writes a ZEROPAGE WAL (Write-Ahead Log) record to log the initialization of a new CLOG (commit log) page with all zero values.

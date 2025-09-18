@@ -1,7 +1,7 @@
 # ecpg_init
 
 ## Location
-src/interfaces/ecpg/test/pg_regress_ecpg.c: 254 - 259
+[src/interfaces/ecpg/test/pg_regress_ecpg.c:254-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/pg_regress_ecpg.c#L254-L259)
 
 ## Overview
 Initializes ECPG (Embedded SQL in C) context by validating the SQL Communication Area (SQLCA) and database connection, setting up the foundation for subsequent ECPG operations.

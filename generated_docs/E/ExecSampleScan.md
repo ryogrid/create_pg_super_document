@@ -1,7 +1,7 @@
 # ExecSampleScan
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 79 - 92
+[src/backend/executor/nodeSamplescan.c:79-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L79-L92)
 
 ## Overview
 ExecSampleScan is the main execution function for sample scan operations that retrieves the next qualifying tuple from a relation using the specified sampling method.

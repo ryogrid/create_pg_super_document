@@ -1,7 +1,7 @@
 # JsonValueList
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 149 - 153
+[src/backend/utils/adt/jsonpath_exec.c:149-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L149-L153)
 
 ## Overview
 A list structure for holding JSONB values with an optimization for single-value lists, used throughout PostgreSQL's JSON path execution engine.

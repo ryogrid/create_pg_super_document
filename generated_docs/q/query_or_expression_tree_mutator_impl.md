@@ -1,7 +1,7 @@
 # query_or_expression_tree_mutator_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 3933 - 3963
+[src/backend/nodes/nodeFuncs.c:3933-3963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L3933-L3963)
 
 ## Overview
 A hybrid tree mutator function that intelligently chooses between query tree mutation and direct expression mutation based on the node type.

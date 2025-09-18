@@ -1,7 +1,7 @@
 # GetBackendTypeDesc
 
 ## Location
-src/backend/utils/init/miscinit.c: 264 - 328
+[src/backend/utils/init/miscinit.c:264-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L264-L328)
 
 ## Overview
 Returns a human-readable string description for a given PostgreSQL backend process type, used for logging and process identification purposes.

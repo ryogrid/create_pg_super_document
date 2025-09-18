@@ -1,7 +1,7 @@
 # RelationParseRelOptions
 
 ## Location
-src/backend/utils/cache/relcache.c: 464 - 520
+[src/backend/utils/cache/relcache.c:464-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L464-L520)
 
 ## Overview
 RelationParseRelOptions extracts and parses pg_class.reloptions into the pre-parsed rd_options field of a relation descriptor for efficient option access.

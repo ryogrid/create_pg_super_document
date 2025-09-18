@@ -1,7 +1,7 @@
 # customer3
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-array_of_struct.c: 96 - 97
+[src/interfaces/ecpg/test/expected/preproc-array_of_struct.c:96-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-array_of_struct.c#L96-L97)
 
 ## Overview
 The  symbol is a struct definition used in ECPG (Embedded SQL in C for PostgreSQL) test cases for handling customer data with variable-length character fields.

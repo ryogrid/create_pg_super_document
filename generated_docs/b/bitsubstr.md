@@ -1,7 +1,7 @@
 # bitsubstr
 
 ## Location
-src/backend/utils/adt/varbit.c: 1038 - 1046
+[src/backend/utils/adt/varbit.c:1038-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1038-L1046)
 
 ## Overview
 The bitsubstr function provides substring extraction functionality for bit strings in PostgreSQL, serving as a wrapper that delegates to the internal bitsubstring function with specific parameters.

@@ -1,7 +1,7 @@
 # complete_from_const
 
 ## Location
-src/bin/psql/tab-complete.c: 5705 - 5729
+[src/bin/psql/tab-complete.c:5705-5729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5705-L5729)
 
 ## Overview
 Returns a single fixed string for PostgreSQL's psql tab completion system, primarily used to force a specific completion or prevent readline's default filename completion.

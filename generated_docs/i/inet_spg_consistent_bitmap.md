@@ -1,7 +1,7 @@
 # inet_spg_consistent_bitmap
 
 ## Location
-src/backend/utils/adt/network_spgist.c: 374 - 712
+[src/backend/utils/adt/network_spgist.c:374-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_spgist.c#L374-L712)
 
 ## Overview
 Calculates a bitmap of node numbers that are consistent with query conditions for SP-GiST indexing of network addresses, supporting both inner node traversal and leaf node validation.

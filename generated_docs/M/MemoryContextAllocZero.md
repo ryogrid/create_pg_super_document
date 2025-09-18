@@ -1,7 +1,7 @@
 # MemoryContextAllocZero
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1214 - 1236
+[src/backend/utils/mmgr/mcxt.c:1214-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1214-L1236)
 
 ## Overview
 MemoryContextAllocZero allocates zero-initialized memory within a specified PostgreSQL memory context, combining allocation and memory clearing in a single optimized operation.

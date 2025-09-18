@@ -1,7 +1,7 @@
 # ProcessQuery
 
 ## Location
-src/backend/tcop/pquery.c: 136 - 208
+[src/backend/tcop/pquery.c:136-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L136-L208)
 
 ## Overview
 ProcessQuery executes a single plannable query within a portal context, handling the complete lifecycle from query descriptor creation through execution to cleanup.

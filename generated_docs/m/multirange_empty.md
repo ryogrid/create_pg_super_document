@@ -1,7 +1,7 @@
 # multirange_empty
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1556 - 1564
+[src/backend/utils/adt/multirangetypes.c:1556-1564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1556-L1564)
 
 ## Overview
 Tests whether a multirange is empty, returning true if the multirange contains no ranges or all ranges within it are empty.

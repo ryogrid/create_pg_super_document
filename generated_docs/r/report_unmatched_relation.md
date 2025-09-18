@@ -1,7 +1,7 @@
 # report_unmatched_relation
 
 ## Location
-src/bin/pg_upgrade/info.c: 211 - 278
+[src/bin/pg_upgrade/info.c:211-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L211-L278)
 
 ## Overview
 Reports detailed information about relations that could not be matched between old and new PostgreSQL clusters during upgrade operations, providing contextual descriptions for debugging.

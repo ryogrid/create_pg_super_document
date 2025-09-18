@@ -1,7 +1,7 @@
 # TarMethodFile
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 691 - 697
+[src/bin/pg_basebackup/walmethods.c:691-697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L691-L697)
 
 ## Overview
 TarMethodFile is a structure that represents an individual file handle for tar-based WAL writing in PostgreSQL's pg_basebackup utility, extending the base Walfile structure with tar-specific file management data.

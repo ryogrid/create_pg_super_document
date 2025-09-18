@@ -1,7 +1,7 @@
 # ExecReScanSort
 
 ## Location
-src/backend/executor/nodeSort.c: 362 - 415
+[src/backend/executor/nodeSort.c:362-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSort.c#L362-L415)
 
 ## Overview
 Resets and rescans a Sort node's execution state, either by rewinding to the beginning of previously sorted results or by invalidating the sort and forcing a complete re-sort on the next execution.

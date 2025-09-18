@@ -1,7 +1,7 @@
 # FreePageManager
 
 ## Location
-src/include/utils/freepage.h: 48 - 66
+[src/include/utils/freepage.h:48-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/freepage.h#L48-L66)
 
 ## Overview
 FreePageManager is a structure that manages free memory pages in PostgreSQL, providing infrastructure for memory allocators that need to work with relative pointers and page-organized memory management.

@@ -1,7 +1,7 @@
 # forbidden_in_wal_sender
 
 ## Location
-src/backend/tcop/postgres.c: 5026 - 5047
+[src/backend/tcop/postgres.c:5026-5047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L5026-L5047)
 
 ## Overview
 A security validation function that enforces protocol restrictions in WAL sender processes by throwing errors when unsupported message types are received.

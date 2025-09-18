@@ -1,7 +1,7 @@
 # estimate_ln_dweight
 
 ## Location
-src/backend/utils/adt/numeric.c: 10687 - 10768
+[src/backend/utils/adt/numeric.c:10687-10768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L10687-L10768)
 
 ## Overview
 Estimates the dweight (decimal weight) of the most significant decimal digit of the natural logarithm of a number, effectively approximating log10(abs(ln(var))) to determine appropriate rscale when computing natural logarithms.

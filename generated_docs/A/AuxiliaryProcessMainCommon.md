@@ -1,7 +1,7 @@
 # AuxiliaryProcessMainCommon
 
 ## Location
-src/backend/postmaster/auxprocess.c: 44 - 100
+[src/backend/postmaster/auxprocess.c:44-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/auxprocess.c#L44-L100)
 
 ## Overview
 Common initialization code for auxiliary processes such as the background writer, WAL writer, WAL receiver, and startup process, providing essential setup without full InitPostgres initialization.

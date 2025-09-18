@@ -1,7 +1,7 @@
 # pltcl_DeleteFileHandler
 
 ## Location
-src/pl/tcl/pltcl.c: 379 - 383
+[src/pl/tcl/pltcl.c:379-383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L379-L383)
 
 ## Overview
 A stub implementation of Tcl's file handler deletion function that intentionally does nothing to prevent multithreading issues in PostgreSQL's PL/Tcl environment.

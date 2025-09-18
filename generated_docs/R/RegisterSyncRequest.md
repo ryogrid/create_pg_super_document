@@ -1,7 +1,7 @@
 # RegisterSyncRequest
 
 ## Location
-src/backend/storage/sync/sync.c: 580 - 619
+[src/backend/storage/sync/sync.c:580-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L580-L619)
 
 ## Overview
 RegisterSyncRequest is a function that handles file synchronization requests either locally (for standalone backends) or by forwarding them to the checkpointer process, providing a unified interface for managing file sync operations across different PostgreSQL process contexts.

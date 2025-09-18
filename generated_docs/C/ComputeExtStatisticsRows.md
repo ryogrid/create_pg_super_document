@@ -1,7 +1,7 @@
 # ComputeExtStatisticsRows
 
 ## Location
-src/backend/statistics/extended_stats.c: 265 - 346
+[src/backend/statistics/extended_stats.c:265-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L265-L346)
 
 ## Overview
 ComputeExtStatisticsRows calculates the number of sample rows needed for computing extended statistics on a relation, considering only statistics objects that can actually be built with the available column analysis.

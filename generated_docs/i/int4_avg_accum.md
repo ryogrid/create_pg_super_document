@@ -1,7 +1,7 @@
 # int4_avg_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6701 - 6728
+[src/backend/utils/adt/numeric.c:6701-6728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6701-L6728)
 
 ## Overview
 PostgreSQL aggregate transition function that accumulates int4 (integer) values for computing the average, maintaining both a sum and count in an internal transition state.

@@ -1,7 +1,7 @@
 # appendElement
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 785 - 813
+[src/backend/utils/adt/jsonb_util.c:785-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L785-L813)
 
 ## Overview
 Appends an element to a JSONB array during construction, managing memory allocation and enforcing limits on the number of array elements.

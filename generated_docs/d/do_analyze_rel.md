@@ -1,7 +1,7 @@
 # do_analyze_rel
 
 ## Location
-src/backend/commands/analyze.c: 280 - 827
+[src/backend/commands/analyze.c:280-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L280-L827)
 
 ## Overview
 The core function that performs the actual statistics analysis for a relation, handling both regular and inherited (recursive) analysis modes.

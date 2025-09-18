@@ -1,7 +1,7 @@
 # libpqrcv_connect
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 143 - 315
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:143-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L143-L315)
 
 ## Overview
 Establishes a connection to a PostgreSQL primary server for WAL streaming replication, supporting both logical and physical replication modes.

@@ -1,7 +1,7 @@
 # RowSecurityPolicy
 
 ## Location
-src/include/rewrite/rowsecurity.h: 20 - 29
+[src/include/rewrite/rowsecurity.h:20-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/rewrite/rowsecurity.h#L20-L29)
 
 ## Overview
 RowSecurityPolicy represents a single row-level security policy in PostgreSQL, containing all the metadata and expressions needed to enforce access control at the row level for database tables.

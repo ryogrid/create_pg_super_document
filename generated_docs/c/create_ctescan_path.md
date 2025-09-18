@@ -1,7 +1,7 @@
 # create_ctescan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2124 - 2149
+[src/backend/optimizer/util/pathnode.c:2124-2149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2124-L2149)
 
 ## Overview
 Creates a path node for scanning a non-self-reference Common Table Expression (CTE), which is used during query planning to represent the cost and execution strategy for accessing CTE data.

@@ -1,7 +1,7 @@
 # print_function_rettype
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3214 - 3251
+[src/backend/utils/adt/ruleutils.c:3214-3251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3214-L3251)
 
 ## Overview
 A static helper function that appends a formatted representation of a function's return type to a StringInfo buffer, handling both regular functions and table functions.

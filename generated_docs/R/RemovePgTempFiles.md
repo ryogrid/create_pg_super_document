@@ -1,7 +1,7 @@
 # RemovePgTempFiles
 
 ## Location
-src/backend/storage/file/fd.c: 3271 - 3329
+[src/backend/storage/file/fd.c:3271-3329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3271-L3329)
 
 ## Overview
 Removes temporary files and temporary relation files left over from a previous postmaster session during server startup, providing cleanup of orphaned temporary files.

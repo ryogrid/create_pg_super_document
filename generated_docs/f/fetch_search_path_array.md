@@ -1,7 +1,7 @@
 # fetch_search_path_array
 
 ## Location
-src/backend/catalog/namespace.c: 4859 - 4893
+[src/backend/catalog/namespace.c:4859-4893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4859-L4893)
 
 ## Overview
 Fetches the active search path into a caller-allocated array of OIDs, excluding the temporary namespace and returning the total count of path entries.

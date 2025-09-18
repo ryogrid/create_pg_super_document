@@ -1,7 +1,7 @@
 # assign_synchronous_commit
 
 ## Location
-src/backend/replication/syncrep.c: 1121 - 1138
+[src/backend/replication/syncrep.c:1121-1138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L1121-L1138)
 
 ## Overview
 A GUC assign hook function that translates the synchronous_commit configuration parameter value into the appropriate internal synchronous replication wait mode.

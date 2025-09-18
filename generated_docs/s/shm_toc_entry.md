@@ -1,7 +1,7 @@
 # shm_toc_entry
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 20 - 24
+[src/backend/storage/ipc/shm_toc.c:20-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L20-L24)
 
 ## Overview
 The shm_toc_entry structure represents a single entry in a shared memory table of contents (TOC), storing a key-value mapping where the key is an arbitrary 64-bit identifier and the value is an offset to data within the shared memory segment.

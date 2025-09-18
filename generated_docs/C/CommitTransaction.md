@@ -1,7 +1,7 @@
 # CommitTransaction
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 537 - 551
+[src/bin/pg_dump/pg_backup_db.c:537-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L537-L551)
 
 ## Overview
 CommitTransaction is the core function responsible for committing a PostgreSQL transaction, handling all necessary cleanup and finalization steps to ensure data consistency and proper resource management.

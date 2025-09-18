@@ -1,7 +1,7 @@
 # gistUserPicksplit
 
 ## Location
-src/backend/access/gist/gistsplit.c: 415 - 584
+[src/backend/access/gist/gistsplit.c:415-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L415-L584)
 
 ## Overview
 Invokes the user-defined picksplit method for a specific index column and handles the result, including optimization through don't-care tuple analysis and secondary split support.

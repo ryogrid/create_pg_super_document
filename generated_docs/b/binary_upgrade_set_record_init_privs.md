@@ -1,7 +1,7 @@
 # binary_upgrade_set_record_init_privs
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 250 - 260
+[src/backend/utils/adt/pg_upgrade_support.c:250-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L250-L260)
 
 ## Overview
 Controls whether initial privileges should be recorded for objects created during a binary upgrade process.

@@ -1,7 +1,7 @@
 # begin_partition
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1081 - 1240
+[src/backend/executor/nodeWindowAgg.c:1081-1240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1081-L1240)
 
 ## Overview
 This static function initializes and sets up the buffering infrastructure for processing rows of the next window partition, including creating tuplestores and read pointers for various window functions.

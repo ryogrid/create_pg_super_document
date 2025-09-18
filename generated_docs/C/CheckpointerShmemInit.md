@@ -1,7 +1,7 @@
 # CheckpointerShmemInit
 
 ## Location
-src/backend/postmaster/checkpointer.c: 904 - 946
+[src/backend/postmaster/checkpointer.c:904-946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L904-L946)
 
 ## Overview
 Allocates and initializes the shared memory structures used by the checkpointer process for inter-process communication and coordination.

@@ -1,7 +1,7 @@
 # agg_retrieve_hash_table_in_memory
 
 ## Location
-src/backend/executor/nodeAgg.c: 2771 - 2893
+[src/backend/executor/nodeAgg.c:2771-2893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2771-L2893)
 
 ## Overview
 Retrieves groups from the in-memory hash tables during hash aggregation without considering any spilled tuples, iterating through all grouping sets.

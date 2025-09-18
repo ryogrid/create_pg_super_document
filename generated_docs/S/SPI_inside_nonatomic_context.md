@@ -1,7 +1,7 @@
 # SPI_inside_nonatomic_context
 
 ## Location
-src/backend/executor/spi.c: 581 - 595
+[src/backend/executor/spi.c:581-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L581-L595)
 
 ## Overview
 SPI_inside_nonatomic_context determines whether the current execution is inside a procedure (nonatomic SPI context) rather than a function context.

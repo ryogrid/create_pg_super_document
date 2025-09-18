@@ -1,7 +1,7 @@
 # pq_getmsgfloat4
 
 ## Location
-src/backend/libpq/pqformat.c: 469 - 487
+[src/backend/libpq/pqformat.c:469-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L469-L487)
 
 ## Overview
 Extracts a 32-bit floating-point number from a message buffer using IEEE 754 binary format conversion.

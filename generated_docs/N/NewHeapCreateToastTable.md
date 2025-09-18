@@ -1,7 +1,7 @@
 # NewHeapCreateToastTable
 
 ## Location
-src/backend/catalog/toasting.c: 64 - 70
+[src/backend/catalog/toasting.c:64-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/toasting.c#L64-L70)
 
 ## Overview
 NewHeapCreateToastTable is a function that creates a TOAST table for a newly created heap relation, typically used during table rebuilding operations like CLUSTER.

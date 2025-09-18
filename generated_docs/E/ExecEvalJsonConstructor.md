@@ -1,7 +1,7 @@
 # ExecEvalJsonConstructor
 
 ## Location
-src/backend/executor/execExprInterp.c: 4101 - 4178
+[src/backend/executor/execExprInterp.c:4101-4178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4101-L4178)
 
 ## Overview
 Evaluates JSON constructor expressions that build JSON arrays, objects, scalars, or parse JSON text into appropriate JSON/JSONB format.

@@ -1,7 +1,7 @@
 # uint32in_subr
 
 ## Location
-src/backend/utils/adt/numutils.c: 900 - 986
+[src/backend/utils/adt/numutils.c:900-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L900-L986)
 
 ## Overview
 Converts a string to an unsigned 32-bit integer using standard library functions with comprehensive error handling and optional partial parsing support.

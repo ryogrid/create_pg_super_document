@@ -1,7 +1,7 @@
 # pg_detoast_datum_slice
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1857 - 1863
+[src/backend/utils/fmgr/fmgr.c:1857-1863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1857-L1863)
 
 ## Overview
 This function extracts a specified slice (substring) from a varlena datum, handling detoasting if necessary to efficiently retrieve only the requested portion of the data.

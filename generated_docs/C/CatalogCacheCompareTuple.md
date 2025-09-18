@@ -1,7 +1,7 @@
 # CatalogCacheCompareTuple
 
 ## Location
-src/backend/utils/cache/catcache.c: 441 - 459
+[src/backend/utils/cache/catcache.c:441-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L441-L459)
 
 ## Overview
 A static inline function that efficiently compares cached tuple key values against search key values using fast equality functions for catalog cache lookups.

@@ -1,7 +1,7 @@
 # pg_aclmask
 
 ## Location
-src/backend/catalog/aclchk.c: 3036 - 3100
+[src/backend/catalog/aclchk.c:3036-3100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3036-L3100)
 
 ## Overview
 Routes ACL (Access Control List) mask operations to appropriate object-specific functions based on the object type, serving as a central dispatcher for permission checking across different PostgreSQL object types.

@@ -1,7 +1,7 @@
 # XLogPrefetcher
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 124 - 159
+[src/backend/access/transam/xlogprefetcher.c:124-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L124-L159)
 
 ## Overview
 XLogPrefetcher is a mechanism that wraps an XLogReader to prefetch blocks that will soon be referenced during WAL replay, helping to avoid IO stalls and improve recovery performance.

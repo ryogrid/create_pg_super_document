@@ -1,7 +1,7 @@
 # ATExecAddIndex
 
 ## Location
-src/backend/commands/tablecmds.c: 9179 - 9241
+[src/backend/commands/tablecmds.c:9179-9241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L9179-L9241)
 
 ## Overview
 ATExecAddIndex implements the execution of index creation during ALTER TABLE operations, specifically handling constraints that are converted to index creation commands by the parser.

@@ -1,7 +1,7 @@
 # cluster_conn_opts
 
 ## Location
-src/bin/pg_upgrade/server.c: 92 - 121
+[src/bin/pg_upgrade/server.c:92-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L92-L121)
 
 ## Overview
 Generates standardized command-line connection options for external PostgreSQL utilities like psql and pg_dump.

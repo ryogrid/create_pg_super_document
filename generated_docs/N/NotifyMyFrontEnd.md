@@ -1,7 +1,7 @@
 # NotifyMyFrontEnd
 
 ## Location
-src/backend/commands/async.c: 2233 - 2256
+[src/backend/commands/async.c:2233-2256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2233-L2256)
 
 ## Overview
 Sends a NOTIFY message to the frontend client, either as a protocol message for remote connections or as a log entry for local output.

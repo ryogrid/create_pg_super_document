@@ -1,7 +1,7 @@
 # pqPutMsgBytes
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 494 - 516
+[src/interfaces/libpq/fe-misc.c:494-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L494-L516)
 
 ## Overview
 Adds raw bytes to a partially-constructed message in the PostgreSQL libpq client library's output buffer.

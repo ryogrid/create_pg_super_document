@@ -1,7 +1,7 @@
 # on_proc_exit
 
 ## Location
-src/backend/storage/ipc/ipc.c: 309 - 336
+[src/backend/storage/ipc/ipc.c:309-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L309-L336)
 
 ## Overview
 The on_proc_exit function registers cleanup callback functions to be executed during PostgreSQL process termination, providing a mechanism for components to ensure proper resource cleanup.

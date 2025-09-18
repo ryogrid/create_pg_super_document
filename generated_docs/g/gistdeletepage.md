@@ -1,7 +1,7 @@
 # gistdeletepage
 
 ## Location
-src/backend/access/gist/gistvacuum.c: 588 - 674
+[src/backend/access/gist/gistvacuum.c:588-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvacuum.c#L588-L674)
 
 ## Overview
 Attempts to delete an empty leaf page from a GiST index during vacuum operations, ensuring all safety conditions are met before performing the deletion.

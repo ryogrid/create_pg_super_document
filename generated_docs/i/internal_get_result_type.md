@@ -1,7 +1,7 @@
 # internal_get_result_type
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 430 - 550
+[src/backend/utils/fmgr/funcapi.c:430-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L430-L550)
 
 ## Overview
 The core workhorse function that implements result type determination for all PostgreSQL result type functions, handling complex scenarios like OUT parameters, polymorphic types, and RECORD resolution.

@@ -1,7 +1,7 @@
 # PartitionCmd
 
 ## Location
-src/include/nodes/parsenodes.h: 953 - 959
+[src/include/nodes/parsenodes.h:953-959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L953-L959)
 
 ## Overview
 PartitionCmd represents information for ALTER TABLE/INDEX ATTACH/DETACH PARTITION commands, encapsulating the details needed to attach or detach partitions from partitioned tables.

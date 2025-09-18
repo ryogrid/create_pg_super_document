@@ -1,7 +1,7 @@
 # BIG5toCNS
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_tw_and_big5/big5.c: 292 - 344
+[src/backend/utils/mb/conversion_procs/euc_tw_and_big5/big5.c:292-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_tw_and_big5/big5.c#L292-L344)
 
 ## Overview
 BIG5toCNS is a public function that converts Big5 encoded characters to their corresponding CNS 11643-1992 character codes, determining the appropriate CNS plane for each converted character.

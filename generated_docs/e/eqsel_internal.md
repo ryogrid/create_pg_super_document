@@ -1,7 +1,7 @@
 # eqsel_internal
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 237 - 295
+[src/backend/utils/adt/selfuncs.c:237-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L237-L295)
 
 ## Overview
 The eqsel_internal function is the core implementation for selectivity estimation of both equality (=) and inequality (<>) operators, providing the common logic shared between eqsel() and neqsel() functions.

@@ -1,7 +1,7 @@
 # generate_recursion_path
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 384 - 503
+[src/backend/optimizer/prep/prepunion.c:384-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L384-L503)
 
 ## Overview
 Generates optimized execution paths for recursive UNION operations, specifically handling Common Table Expressions (CTEs) with recursive semantics in PostgreSQL.

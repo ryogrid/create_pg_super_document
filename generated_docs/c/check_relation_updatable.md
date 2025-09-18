@@ -1,7 +1,7 @@
 # check_relation_updatable
 
 ## Location
-src/backend/replication/logical/worker.c: 2485 - 2525
+[src/backend/replication/logical/worker.c:2485-2525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2485-L2525)
 
 ## Overview
 Validates that a logical replication target relation is updatable by checking for proper replica identity or primary key configuration and provides detailed error messages when requirements are not met.

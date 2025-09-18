@@ -1,7 +1,7 @@
 # generate_implied_equalities_for_column
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2955 - 3086
+[src/backend/optimizer/path/equivclass.c:2955-3086](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2955-L3086)
 
 ## Overview
 Creates equivalence class-derived join clauses that are usable with a specific table column, primarily for index optimization and foreign data wrapper usage.

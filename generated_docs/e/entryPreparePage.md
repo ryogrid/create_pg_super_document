@@ -1,7 +1,7 @@
 # entryPreparePage
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 490 - 526
+[src/backend/access/gin/ginentrypage.c:490-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L490-L526)
 
 ## Overview
 Prepares a GIN index page for tuple insertion by performing necessary cleanup operations including deleting existing tuples and updating child block numbers when needed.

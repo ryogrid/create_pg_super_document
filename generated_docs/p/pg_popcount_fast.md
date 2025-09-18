@@ -1,7 +1,7 @@
 # pg_popcount_fast
 
 ## Location
-src/port/pg_bitutils.c: 249 - 294
+[src/port/pg_bitutils.c:249-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L249-L294)
 
 ## Overview
 An optimized population count function that efficiently counts the number of set bits in a buffer using hardware-accelerated instructions and alignment-aware processing.

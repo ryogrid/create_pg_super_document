@@ -1,7 +1,7 @@
 # SPI_cursor_close
 
 ## Location
-src/backend/executor/spi.c: 1862 - 1874
+[src/backend/executor/spi.c:1862-1874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1862-L1874)
 
 ## Overview
 Close and deallocate a cursor in PostgreSQL's Server Programming Interface (SPI), releasing all associated resources.

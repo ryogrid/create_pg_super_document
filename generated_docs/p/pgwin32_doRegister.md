@@ -1,7 +1,7 @@
 # pgwin32_doRegister
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1501 - 1534
+[src/bin/pg_ctl/pg_ctl.c:1501-1534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1501-L1534)
 
 ## Overview
 Registers PostgreSQL as a Windows service in the Windows Service Control Manager (SCM), enabling it to run as a system service that can be started automatically at boot time.

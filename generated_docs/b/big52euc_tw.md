@@ -1,7 +1,7 @@
 # big52euc_tw
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c: 227 - 307
+[src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c:227-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c#L227-L307)
 
 ## Overview
 A core conversion function that transforms text from Big5 encoding to EUC-TW (Extended Unix Code for Taiwan) encoding, handling multi-byte character sequences and generating appropriate CNS 11643 plane sequences.

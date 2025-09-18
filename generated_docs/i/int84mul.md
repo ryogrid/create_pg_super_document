@@ -1,7 +1,7 @@
 # int84mul
 
 ## Location
-src/backend/utils/adt/int8.c: 918 - 931
+[src/backend/utils/adt/int8.c:918-931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L918-L931)
 
 ## Overview
 The int84mul function performs multiplication of a 64-bit integer with a 32-bit integer, returning the result as a 64-bit integer with overflow detection.

@@ -1,7 +1,7 @@
 # set_append_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1741 - 1821
+[src/backend/optimizer/plan/setrefs.c:1741-1821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1741-L1821)
 
 ## Overview
 Processes reference adjustments for Append plan nodes with optimization to eliminate unnecessary single-child Append nodes during the plan finalization phase.

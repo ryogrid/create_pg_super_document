@@ -1,7 +1,7 @@
 # tas
 
 ## Location
-src/include/storage/s_lock.h: 485 - 509
+[src/include/storage/s_lock.h:485-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/s_lock.h#L485-L509)
 
 ## Overview
 The  function implements Test-And-Set atomic operation for 32-bit i386 architecture, providing the low-level mechanism for spinlock synchronization in PostgreSQL.

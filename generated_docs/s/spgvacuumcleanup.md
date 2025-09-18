@@ -1,7 +1,7 @@
 # spgvacuumcleanup
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 947 - 985
+[src/backend/access/spgist/spgvacuum.c:947-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L947-L985)
 
 ## Overview
 The  function performs post-VACUUM cleanup operations for SP-GiST indexes and returns statistical information for VACUUM displays.

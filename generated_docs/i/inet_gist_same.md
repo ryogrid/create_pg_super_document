@@ -1,7 +1,7 @@
 # inet_gist_same
 
 ## Location
-src/backend/utils/adt/network_gist.c: 797 - 810
+[src/backend/utils/adt/network_gist.c:797-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L797-L810)
 
 ## Overview
 The GiST equality function for inet data type that determines whether two GistInetKey values represent identical index keys.

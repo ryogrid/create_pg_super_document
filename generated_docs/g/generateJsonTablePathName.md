@@ -1,7 +1,7 @@
 # generateJsonTablePathName
 
 ## Location
-src/backend/parser/parse_jsontable.c: 231 - 250
+[src/backend/parser/parse_jsontable.c:231-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L231-L250)
 
 ## Overview
 Generates unique system-generated path names for unnamed JSON_TABLE path specifications using a sequential naming scheme.

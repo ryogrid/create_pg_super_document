@@ -1,7 +1,7 @@
 # pg_atomic_fetch_or_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 393 - 403
+[src/include/port/atomics/generic.h:393-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L393-L403)
 
 ## Overview
 Performs an atomic fetch-and-OR operation on a 64-bit unsigned integer, returning the original value before the OR operation was applied.

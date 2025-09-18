@@ -1,7 +1,7 @@
 # WalSndWait
 
 ## Location
-src/backend/replication/walsender.c: 3729 - 3786
+[src/backend/replication/walsender.c:3729-3786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3729-L3786)
 
 ## Overview
 WalSndWait implements the waiting mechanism for WAL sender processes, combining socket event monitoring with efficient condition variable-based wakeup coordination.

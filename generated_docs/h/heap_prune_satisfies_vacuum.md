@@ -1,7 +1,7 @@
 # heap_prune_satisfies_vacuum
 
 ## Location
-src/backend/access/heap/pruneheap.c: 917 - 959
+[src/backend/access/heap/pruneheap.c:917-959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L917-L959)
 
 ## Overview
 heap_prune_satisfies_vacuum performs specialized visibility checks for heap pruning operations, determining whether tuples are DEAD, RECENTLY_DEAD, or still visible during pruning and vacuum operations.

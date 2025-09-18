@@ -1,7 +1,7 @@
 # ExecBuildAggTrans
 
 ## Location
-src/backend/executor/execExpr.c: 3501 - 3839
+[src/backend/executor/execExpr.c:3501-3839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L3501-L3839)
 
 ## Overview
 Builds transition/combine function invocations for all aggregate transition and combination functions in a grouping sets phase, supporting both sort-based and hash-based aggregation strategies.

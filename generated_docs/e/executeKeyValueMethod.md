@@ -1,7 +1,7 @@
 # executeKeyValueMethod
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2820 - 2929
+[src/backend/utils/adt/jsonpath_exec.c:2820-2929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2820-L2929)
 
 ## Overview
 Implements the JSON path .keyvalue() method that transforms object properties into a sequence of structured key-value pair objects.

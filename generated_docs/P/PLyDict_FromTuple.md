@@ -1,7 +1,7 @@
 # PLyDict_FromTuple
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 815 - 878
+[src/pl/plpython/plpy_typeio.c:815-878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L815-L878)
 
 ## Overview
 Converts a PostgreSQL HeapTuple into a Python dictionary by extracting each attribute and converting it to an appropriate Python object.

@@ -1,7 +1,7 @@
 # timestamp_hash
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2309 - 2314
+[src/backend/utils/adt/timestamp.c:2309-2314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2309-L2314)
 
 ## Overview
 The timestamp_hash function computes a hash value for timestamp data types by delegating to the hashint8 function.

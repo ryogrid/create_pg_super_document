@@ -1,7 +1,7 @@
 # typenameTypeId
 
 ## Location
-src/backend/parser/parse_type.c: 291 - 309
+[src/backend/parser/parse_type.c:291-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L291-L309)
 
 ## Overview
 typenameTypeId provides a safe, validated interface for obtaining a PostgreSQL type OID from a TypeName, ensuring the type is fully defined and valid.

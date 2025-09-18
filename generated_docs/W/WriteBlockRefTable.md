@@ -1,7 +1,7 @@
 # WriteBlockRefTable
 
 ## Location
-src/common/blkreftable.c: 474 - 576
+[src/common/blkreftable.c:474-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L474-L576)
 
 ## Overview
 Serializes a block reference table to a file by writing its contents in a structured binary format with magic number, entries, chunk data, and CRC checksum.

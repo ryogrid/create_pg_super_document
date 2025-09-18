@@ -1,7 +1,7 @@
 # SetDatabaseEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1161 - 1170
+[src/backend/utils/mb/mbutils.c:1161-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1161-L1170)
 
 ## Overview
 Sets the global database encoding by validating the provided encoding identifier and updating the global DatabaseEncoding pointer.

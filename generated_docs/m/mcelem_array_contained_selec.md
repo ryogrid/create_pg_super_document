@@ -1,7 +1,7 @@
 # mcelem_array_contained_selec
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 696 - 852
+[src/backend/utils/adt/array_selfuncs.c:696-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L696-L852)
 
 ## Overview
 Estimates selectivity for array contained-by (<@) operator based on most common element statistics and distinct element count histogram, correcting for element occurrence dependencies.

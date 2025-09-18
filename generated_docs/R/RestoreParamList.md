@@ -1,7 +1,7 @@
 # RestoreParamList
 
 ## Location
-src/backend/nodes/params.c: 292 - 334
+[src/backend/nodes/params.c:292-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/params.c#L292-L334)
 
 ## Overview
 Recreates a ParamListInfo structure from serialized data created by SerializeParamList, producing a static, self-contained parameter list.

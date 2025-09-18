@@ -1,7 +1,7 @@
 # simple_table_tuple_delete
 
 ## Location
-src/backend/access/table/tableam.c: 291 - 335
+[src/backend/access/table/tableam.c:291-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L291-L335)
 
 ## Overview
 A simplified wrapper function for deleting tuples that provides default parameters and comprehensive error handling for non-concurrent scenarios.

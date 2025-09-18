@@ -1,7 +1,7 @@
 # variable_paramref_hook
 
 ## Location
-src/backend/parser/parse_param.c: 131 - 185
+[src/backend/parser/parse_param.c:131-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L131-L185)
 
 ## Overview
 A callback function that transforms ParamRef nodes into Param nodes during query parsing for variable parameters, dynamically expanding the parameter type array as needed.

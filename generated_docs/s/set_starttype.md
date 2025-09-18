@@ -1,7 +1,7 @@
 # set_starttype
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 2092 - 2112
+[src/bin/pg_ctl/pg_ctl.c:2092-2112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L2092-L2112)
 
 ## Overview
 A static function in pg_ctl that parses and sets the Windows service start type for PostgreSQL server registration, mapping string options to Windows service constants.

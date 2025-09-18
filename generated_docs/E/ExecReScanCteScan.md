@@ -1,7 +1,7 @@
 # ExecReScanCteScan
 
 ## Location
-src/backend/executor/nodeCtescan.c: 307 - 339
+[src/backend/executor/nodeCtescan.c:307-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCtescan.c#L307-L339)
 
 ## Overview
 Rescans a Common Table Expression (CTE) scan node by either clearing the underlying tuplestore or rewinding the read pointer, depending on whether the underlying CTE needs to be rescanned.

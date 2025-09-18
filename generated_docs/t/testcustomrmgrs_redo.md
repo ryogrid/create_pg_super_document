@@ -1,7 +1,7 @@
 # testcustomrmgrs_redo
 
 ## Location
-src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c: 82 - 90
+[src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c:82-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_custom_rmgrs/test_custom_rmgrs.c#L82-L90)
 
 ## Overview
 A no-operation redo function for the test custom resource manager that validates WAL record operation codes but performs no actual recovery operations.

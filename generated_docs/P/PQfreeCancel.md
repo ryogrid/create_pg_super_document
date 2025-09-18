@@ -1,7 +1,7 @@
 # PQfreeCancel
 
 ## Location
-src/interfaces/libpq/fe-cancel.c: 418 - 431
+[src/interfaces/libpq/fe-cancel.c:418-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-cancel.c#L418-L431)
 
 ## Overview
 Frees memory allocated for a PostgreSQL cancel structure, releasing resources associated with a cancel request object.

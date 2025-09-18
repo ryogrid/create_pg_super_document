@@ -1,7 +1,7 @@
 # OutputPluginPrepareWrite
 
 ## Location
-src/backend/replication/logical/logical.c: 711 - 723
+[src/backend/replication/logical/logical.c:711-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L711-L723)
 
 ## Overview
 Prepares a write operation using the logical decoding context's output routine, ensuring writes are only allowed in appropriate callback contexts.

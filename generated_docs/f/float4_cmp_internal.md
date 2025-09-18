@@ -1,7 +1,7 @@
 # float4_cmp_internal
 
 ## Location
-src/backend/utils/adt/float.c: 809 - 818
+[src/backend/utils/adt/float.c:809-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L809-L818)
 
 ## Overview
 Internal comparison function that performs three-way comparison between two single-precision floating-point numbers (float4), returning an integer indicating their relative ordering.

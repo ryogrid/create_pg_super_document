@@ -1,7 +1,7 @@
 # output
 
 ## Location
-src/bin/pg_test_timing/pg_test_timing.c: 182 - 208
+[src/bin/pg_test_timing/pg_test_timing.c:182-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_timing/pg_test_timing.c#L182-L208)
 
 ## Overview
 The output function displays a formatted histogram of timing durations collected during the timing test, providing a statistical breakdown of clock resolution measurements.

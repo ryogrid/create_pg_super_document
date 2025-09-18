@@ -1,7 +1,7 @@
 # ConstraintSetParentConstraint
 
 ## Location
-src/backend/catalog/pg_constraint.c: 824 - 896
+[src/backend/catalog/pg_constraint.c:824-896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L824-L896)
 
 ## Overview
 Establishes or removes the inheritance relationship between a partition's constraint and its parent table's constraint, managing dependency tracking for constraint inheritance.

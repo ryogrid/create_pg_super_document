@@ -1,7 +1,7 @@
 # PreventInTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3584 - 3655
+[src/backend/access/transam/xact.c:3584-3655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3584-L3655)
 
 ## Overview
 PreventInTransactionBlock ensures that specific SQL statements that cannot run safely within transaction blocks are rejected, preventing potential data corruption or inconsistency from non-rollback-able operations.

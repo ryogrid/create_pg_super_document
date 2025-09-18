@@ -1,7 +1,7 @@
 # timetz2tm
 
 ## Location
-src/backend/utils/adt/date.c: 2403 - 2424
+[src/backend/utils/adt/date.c:2403-2424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2403-L2424)
 
 ## Overview
 Converts a PostgreSQL TIMETZ (time with time zone) value to a POSIX-style time structure, decomposing it into hours, minutes, seconds, fractional seconds, and timezone offset.

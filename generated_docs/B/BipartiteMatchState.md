@@ -1,7 +1,7 @@
 # BipartiteMatchState
 
 ## Location
-src/include/lib/bipartite_match.h: 27 - 40
+[src/include/lib/bipartite_match.h:27-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/bipartite_match.h#L27-L40)
 
 ## Overview
 BipartiteMatchState is a data structure that represents the state of a bipartite graph matching algorithm. It stores input parameters, output results, and private algorithm state for finding maximum cardinality matchings in bipartite graphs.

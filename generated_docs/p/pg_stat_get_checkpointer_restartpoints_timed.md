@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_restartpoints_timed
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1195 - 1200
+[src/backend/utils/adt/pgstatfuncs.c:1195-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1195-L1200)
 
 ## Overview
 Returns the number of restartpoints that were triggered by timeout (scheduled) rather than being explicitly requested.

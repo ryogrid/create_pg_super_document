@@ -1,7 +1,7 @@
 # extract_directory
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 317 - 341
+[src/bin/pg_basebackup/bbstreamer_file.c:317-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L317-L341)
 
 ## Overview
 This function creates directories during archive extraction, handling both the directory creation process and permission setting while gracefully managing cases where directories may already exist.

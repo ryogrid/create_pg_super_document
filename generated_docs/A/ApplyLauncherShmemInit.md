@@ -1,7 +1,7 @@
 # ApplyLauncherShmemInit
 
 ## Location
-src/backend/replication/logical/launcher.c: 967 - 1001
+[src/backend/replication/logical/launcher.c:967-1001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L967-L1001)
 
 ## Overview
 Allocates and initializes the shared memory structures needed for PostgreSQL's logical replication launcher subsystem.

@@ -1,7 +1,7 @@
 # int8shr
 
 ## Location
-src/backend/utils/adt/int8.c: 1228 - 1240
+[src/backend/utils/adt/int8.c:1228-1240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1228-L1240)
 
 ## Overview
 Performs a right bit-shift operation on a 64-bit integer (int8) by a specified number of positions.

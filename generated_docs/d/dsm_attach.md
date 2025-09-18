@@ -1,7 +1,7 @@
 # dsm_attach
 
 ## Location
-src/backend/storage/ipc/dsm.c: 665 - 756
+[src/backend/storage/ipc/dsm.c:665-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L665-L756)
 
 ## Overview
 Attaches to an existing dynamic shared memory segment using its handle, incrementing the reference count and mapping the segment into the current process's address space.

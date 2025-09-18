@@ -1,7 +1,7 @@
 # l_ptr
 
 ## Location
-src/include/jit/llvmjit_emit.h: 39 - 47
+[src/include/jit/llvmjit_emit.h:39-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L39-L47)
 
 ## Overview
 A static inline utility function that creates an LLVM pointer type from a given base type for use in JIT compilation.

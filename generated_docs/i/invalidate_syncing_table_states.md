@@ -1,7 +1,7 @@
 # invalidate_syncing_table_states
 
 ## Location
-src/backend/replication/logical/tablesync.c: 281 - 294
+[src/backend/replication/logical/tablesync.c:281-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L281-L294)
 
 ## Overview
 A syscache invalidation callback function that marks the synchronization table states cache as needing reconstruction when subscription relation mappings change.

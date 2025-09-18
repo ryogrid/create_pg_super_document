@@ -1,7 +1,7 @@
 # hash_corrupted
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1740 - 1753
+[src/backend/utils/hash/dynahash.c:1740-1753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1740-L1753)
 
 ## Overview
 Handles hash table corruption detection by logging appropriate error messages and terminating execution.

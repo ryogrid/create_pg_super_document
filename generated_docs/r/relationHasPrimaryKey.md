@@ -1,7 +1,7 @@
 # relationHasPrimaryKey
 
 ## Location
-src/backend/catalog/index.c: 147 - 200
+[src/backend/catalog/index.c:147-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L147-L200)
 
 ## Overview
 Determines whether an existing relation has a primary key index by searching through all indexes associated with the relation.

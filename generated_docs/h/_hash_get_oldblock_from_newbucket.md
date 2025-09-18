@@ -1,7 +1,7 @@
 # _hash_get_oldblock_from_newbucket
 
 ## Location
-src/backend/access/hash/hashutil.c: 422 - 460
+[src/backend/access/hash/hashutil.c:422-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L422-L460)
 
 ## Overview
 Gets the block number of the original bucket from which a new bucket is being split during hash table expansion.

@@ -1,7 +1,7 @@
 # ProcSignalSlot
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 70 - 81
+[src/backend/storage/ipc/procsignal.c:70-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L70-L81)
 
 ## Overview
 ProcSignalSlot is a shared memory structure that enables inter-process communication in PostgreSQL by allowing processes to signal each other for various reasons without requiring explicit locking.

@@ -1,7 +1,7 @@
 # lo_creat
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 438 - 473
+[src/interfaces/libpq/fe-lobj.c:438-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L438-L473)
 
 ## Overview
 Creates a new large object in the database and returns its Object ID (OID).

@@ -1,7 +1,7 @@
 # pg_get_multixact_members
 
 ## Location
-src/backend/access/transam/multixact.c: 3502 - 3508
+[src/backend/access/transam/multixact.c:3502-3508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3502-L3508)
 
 ## Overview
 A PostgreSQL system function that returns detailed information about the member transactions and their lock modes for a given MultiXact ID, useful for debugging and monitoring concurrent tuple-level locks.

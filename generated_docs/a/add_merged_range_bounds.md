@@ -1,7 +1,7 @@
 # add_merged_range_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 2775 - 2851
+[src/backend/partitioning/partbounds.c:2775-2851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2775-L2851)
 
 ## Overview
 Adds the bounds of a merged partition to the lists of range bounds, handling proper ordering and deduplication of bounds.

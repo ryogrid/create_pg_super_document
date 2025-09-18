@@ -1,7 +1,7 @@
 # smgrexists
 
 ## Location
-src/backend/storage/smgr/smgr.c: 398 - 410
+[src/backend/storage/smgr/smgr.c:398-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L398-L410)
 
 ## Overview
 Checks whether the underlying file for a specific fork of a relation exists on disk.

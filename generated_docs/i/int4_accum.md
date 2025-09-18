@@ -1,7 +1,7 @@
 # int4_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5589 - 5611
+[src/backend/utils/adt/numeric.c:5589-5611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5589-L5611)
 
 ## Overview
 The int4_accum function is an accumulator function for integer (int4) values in PostgreSQL's aggregate operations. It manages the accumulation state for statistical and mathematical aggregate functions.

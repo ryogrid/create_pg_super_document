@@ -1,7 +1,7 @@
 # show_instrumentation_count
 
 ## Location
-src/backend/commands/explain.c: 3622 - 3650
+[src/backend/commands/explain.c:3622-3650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3622-L3650)
 
 ## Overview
 Displays instrumentation counter statistics for plan nodes during EXPLAIN ANALYZE, specifically showing the average number of rows filtered per execution loop.

@@ -1,7 +1,7 @@
 # enum_smaller
 
 ## Location
-src/backend/utils/adt/enum.c: 360 - 368
+[src/backend/utils/adt/enum.c:360-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L360-L368)
 
 ## Overview
 PostgreSQL function that returns the smaller of two enum values by comparing their defined ordering and returning the enum value that appears earlier in the type definition.

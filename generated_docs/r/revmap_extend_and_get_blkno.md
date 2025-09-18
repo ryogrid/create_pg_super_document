@@ -1,7 +1,7 @@
 # revmap_extend_and_get_blkno
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 500 - 521
+[src/backend/access/brin/brin_revmap.c:500-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L500-L521)
 
 ## Overview
 A static helper function that finds the physical reverse map block number for a given heap block, automatically extending the reverse map if the required page hasn't been allocated yet.

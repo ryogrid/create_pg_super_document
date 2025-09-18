@@ -1,7 +1,7 @@
 # spg_xlog_cleanup
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 984 - 993
+[src/backend/access/spgist/spgxlog.c:984-993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L984-L993)
 
 ## Overview
 Cleans up the SP-GiST temporary memory context used during WAL record replay operations.

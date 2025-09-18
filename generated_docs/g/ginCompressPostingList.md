@@ -1,7 +1,7 @@
 # ginCompressPostingList
 
 ## Location
-src/backend/access/gin/ginpostinglist.c: 197 - 283
+[src/backend/access/gin/ginpostinglist.c:197-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginpostinglist.c#L197-L283)
 
 ## Overview
 Compresses an array of ItemPointers into a space-efficient GIN posting list format using delta encoding and variable-length byte encoding.

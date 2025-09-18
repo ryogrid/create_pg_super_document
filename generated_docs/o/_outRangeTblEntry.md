@@ -1,7 +1,7 @@
 # _outRangeTblEntry
 
 ## Location
-src/backend/nodes/outfuncs.c: 496 - 575
+[src/backend/nodes/outfuncs.c:496-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L496-L575)
 
 ## Overview
 Serializes a RangeTblEntry structure to string format, handling the complex union-like structure with different fields based on the range table entry type (relation, subquery, join, function, etc.).

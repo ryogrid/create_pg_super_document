@@ -1,7 +1,7 @@
 # InitShmemAccess
 
 ## Location
-src/backend/storage/ipc/shmem.c: 100 - 114
+[src/backend/storage/ipc/shmem.c:100-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L100-L114)
 
 ## Overview
 InitShmemAccess initializes basic pointers to shared memory by setting up global variables that track the shared memory segment header, base address, and end address.

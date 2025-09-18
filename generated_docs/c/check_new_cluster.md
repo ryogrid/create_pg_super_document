@@ -1,7 +1,7 @@
 # check_new_cluster
 
 ## Location
-src/bin/pg_upgrade/check.c: 686 - 721
+[src/bin/pg_upgrade/check.c:686-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L686-L721)
 
 ## Overview
 Validates the new PostgreSQL cluster configuration and readiness for upgrade, including data transfer method verification, emptiness checks, and logical replication setup validation.

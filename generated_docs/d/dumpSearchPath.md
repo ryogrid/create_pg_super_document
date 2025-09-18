@@ -1,7 +1,7 @@
 # dumpSearchPath
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3614 - 3675
+[src/bin/pg_dump/pg_dump.c:3614-3675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3614-L3675)
 
 ## Overview
 The  function records the active search_path from the source database to ensure schemas are resolved correctly during restoration.

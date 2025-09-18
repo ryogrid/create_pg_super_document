@@ -1,7 +1,7 @@
 # get_fn_expr_argtype
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1910 - 1928
+[src/backend/utils/fmgr/fmgr.c:1910-1928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1910-L1928)
 
 ## Overview
 get_fn_expr_argtype extracts the actual type OID of a specific function argument from the function's expression parse tree, enabling polymorphic functions to determine argument types at runtime.

@@ -1,7 +1,7 @@
 # mulShift
 
 ## Location
-src/common/f2s.c: 120 - 161
+[src/common/f2s.c:120-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L120-L161)
 
 ## Overview
 Performs a high-precision multiplication followed by a right bit shift, using 128-bit intermediate arithmetic to maintain precision during floating-point conversion calculations.

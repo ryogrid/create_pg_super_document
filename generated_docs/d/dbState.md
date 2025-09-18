@@ -1,7 +1,7 @@
 # dbState
 
 ## Location
-src/bin/pg_controldata/pg_controldata.c: 50 - 72
+[src/bin/pg_controldata/pg_controldata.c:50-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_controldata/pg_controldata.c#L50-L72)
 
 ## Overview  
 The  function converts a  enumeration value into a human-readable localized string that describes the current state of the PostgreSQL database cluster.

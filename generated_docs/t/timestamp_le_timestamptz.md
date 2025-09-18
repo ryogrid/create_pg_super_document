@@ -1,7 +1,7 @@
 # timestamp_le_timestamptz
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2382 - 2390
+[src/backend/utils/adt/timestamp.c:2382-2390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2382-L2390)
 
 ## Overview
 This function implements the less-than-or-equal comparison operator (<=) between a timestamp without timezone and a timestamptz (timestamp with timezone) value.

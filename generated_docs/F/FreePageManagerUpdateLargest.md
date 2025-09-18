@@ -1,7 +1,7 @@
 # FreePageManagerUpdateLargest
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 366 - 378
+[src/backend/utils/mmgr/freepage.c:366-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L366-L378)
 
 ## Overview
 Updates the cached size of the largest contiguous run of free pages when the cache has been marked dirty.

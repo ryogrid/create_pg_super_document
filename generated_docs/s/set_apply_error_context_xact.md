@@ -1,7 +1,7 @@
 # set_apply_error_context_xact
 
 ## Location
-src/backend/replication/logical/worker.c: 5041 - 5048
+[src/backend/replication/logical/worker.c:5041-5048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L5041-L5048)
 
 ## Overview
 Sets transaction-specific information in the global error callback context structure for logical replication error reporting.

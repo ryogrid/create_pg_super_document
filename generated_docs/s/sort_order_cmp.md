@@ -1,7 +1,7 @@
 # sort_order_cmp
 
 ## Location
-src/backend/catalog/pg_enum.c: 797 - 812
+[src/backend/catalog/pg_enum.c:797-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L797-L812)
 
 ## Overview
 A static comparison function used by qsort to order pg_enum tuples by their enumsortorder field.

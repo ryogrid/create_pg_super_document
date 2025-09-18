@@ -1,7 +1,7 @@
 # smalldfa
 
 ## Location
-src/backend/regex/regexec.c: 92 - 100
+[src/backend/regex/regexec.c:92-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L92-L100)
 
 ## Overview
 The smalldfa struct is a stack-allocated, fixed-size variant of the DFA structure optimized for small regular expressions with limited states and colors, avoiding heap allocation overhead.

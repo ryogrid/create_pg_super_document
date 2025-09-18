@@ -1,7 +1,7 @@
 # getdatafield
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 169 - 210
+[src/backend/storage/large_object/inv_api.c:169-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L169-L210)
 
 ## Overview
 Extracts the data field from a pg_largeobject tuple, handling detoasting if necessary and validating the data size against expected limits.

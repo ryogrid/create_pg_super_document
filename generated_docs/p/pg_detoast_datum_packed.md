@@ -1,7 +1,7 @@
 # pg_detoast_datum_packed
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1864 - 1887
+[src/backend/utils/fmgr/fmgr.c:1864-1887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1864-L1887)
 
 ## Overview
 This function conditionally detoasts a varlena datum only if it is compressed or externally stored, leaving short-header (packed) format datums unchanged for optimal performance.

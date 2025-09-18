@@ -1,7 +1,7 @@
 # check_restrict_nonsystem_relation_kind
 
 ## Location
-src/backend/tcop/postgres.c: 3702 - 3751
+[src/backend/tcop/postgres.c:3702-3751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3702-L3751)
 
 ## Overview
 A GUC check hook function that validates the format and content of the  configuration parameter, parsing a comma-separated list of relation kinds to be restricted.

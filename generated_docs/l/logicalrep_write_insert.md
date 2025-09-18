@@ -1,7 +1,7 @@
 # logicalrep_write_insert
 
 ## Location
-src/backend/replication/logical/proto.c: 414 - 435
+[src/backend/replication/logical/proto.c:414-435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L414-L435)
 
 ## Overview
 This function writes an INSERT message to the logical replication output stream, serializing information about a newly inserted tuple for replication.

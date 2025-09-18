@@ -1,7 +1,7 @@
 # MemoryContextAllocationFailure
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1147 - 1166
+[src/backend/utils/mmgr/mcxt.c:1147-1166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1147-L1166)
 
 ## Overview
 MemoryContextAllocationFailure handles memory allocation failures in PostgreSQL memory contexts, providing consistent behavior based on allocation flags when malloc returns NULL.

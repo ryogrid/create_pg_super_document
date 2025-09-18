@@ -1,7 +1,7 @@
 # brinRevmapTerminate
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 100 - 111
+[src/backend/access/brin/brin_revmap.c:100-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L100-L111)
 
 ## Overview
 Releases all resources associated with a BRIN revmap access object and cleans up memory allocations.

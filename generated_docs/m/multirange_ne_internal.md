@@ -1,7 +1,7 @@
 # multirange_ne_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1914 - 1922
+[src/backend/utils/adt/multirangetypes.c:1914-1922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1914-L1922)
 
 ## Overview
 Implements the internal inequality comparison logic for multirange types by negating the result of the equality comparison.

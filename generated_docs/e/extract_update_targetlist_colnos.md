@@ -1,7 +1,7 @@
 # extract_update_targetlist_colnos
 
 ## Location
-src/backend/optimizer/prep/preptlist.c: 348 - 381
+[src/backend/optimizer/prep/preptlist.c:348-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/preptlist.c#L348-L381)
 
 ## Overview
 Extracts target table column numbers from an UPDATE targetlist and renumbers the targetlist entries to use sequential numbering convention.

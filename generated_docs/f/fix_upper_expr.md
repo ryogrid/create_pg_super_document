@@ -1,7 +1,7 @@
 # fix_upper_expr
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3194 - 3213
+[src/backend/optimizer/plan/setrefs.c:3194-3213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3194-L3213)
 
 ## Overview
 A high-level wrapper function that modifies expression trees so that all Var nodes reference outputs of a subplan, while also handling Aggref node replacements and performing opcode lookup operations.

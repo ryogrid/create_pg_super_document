@@ -1,7 +1,7 @@
 # poly_distance
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4027 - 4095
+[src/backend/utils/adt/geo_ops.c:4027-4095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4027-L4095)
 
 ## Overview
 PostgreSQL function that calculates the minimum distance between two polygons, returning zero if they overlap or the minimum edge-to-edge distance otherwise.

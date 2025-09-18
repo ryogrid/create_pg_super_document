@@ -1,7 +1,7 @@
 # ExecReScanGroup
 
 ## Location
-src/backend/executor/nodeGroup.c: 235 - 249
+[src/backend/executor/nodeGroup.c:235-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGroup.c#L235-L249)
 
 ## Overview
 ExecReScanGroup resets a Group plan node to its initial state for re-execution, clearing processed state and optionally rescanning its child plan node.

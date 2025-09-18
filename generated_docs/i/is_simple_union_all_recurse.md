@@ -1,7 +1,7 @@
 # is_simple_union_all_recurse
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2100 - 2142
+[src/backend/optimizer/prep/prepjointree.c:2100-2142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2100-L2142)
 
 ## Overview
 This function recursively validates that a set operation tree consists only of UNION ALL operations with compatible datatypes across all leaf queries.

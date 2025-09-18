@@ -1,7 +1,7 @@
 # get_range_subtype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3407 - 3432
+[src/backend/utils/cache/lsyscache.c:3407-3432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3407-L3432)
 
 ## Overview
 Returns the subtype OID of a given PostgreSQL range type.

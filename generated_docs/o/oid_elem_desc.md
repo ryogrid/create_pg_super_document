@@ -1,7 +1,7 @@
 # oid_elem_desc
 
 ## Location
-src/backend/access/rmgrdesc/rmgrdesc_utils.c: 58 - 61
+[src/backend/access/rmgrdesc/rmgrdesc_utils.c:58-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/rmgrdesc_utils.c#L58-L61)
 
 ## Overview
 A callback function that formats Oid (Object Identifier) values as unsigned integers for use with the array_desc utility function.

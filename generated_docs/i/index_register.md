@@ -1,7 +1,7 @@
 # index_register
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 901 - 950
+[src/backend/bootstrap/bootstrap.c:901-950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L901-L950)
 
 ## Overview
 A function that records index definitions during PostgreSQL bootstrap for deferred construction, implementing a two-phase index creation strategy.

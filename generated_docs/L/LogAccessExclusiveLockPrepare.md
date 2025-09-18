@@ -1,7 +1,7 @@
 # LogAccessExclusiveLockPrepare
 
 ## Location
-src/backend/storage/ipc/standby.c: 1440 - 1461
+[src/backend/storage/ipc/standby.c:1440-1461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1440-L1461)
 
 ## Overview
 Prepares for AccessExclusive lock logging by ensuring the current transaction has a valid transaction ID assigned.

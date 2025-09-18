@@ -1,7 +1,7 @@
 # err_gettext
 
 ## Location
-src/backend/utils/error/elog.c: 309 - 329
+[src/backend/utils/error/elog.c:309-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L309-L329)
 
 ## Overview
 Provides a safe wrapper around the gettext() function for message localization that automatically falls back to untranslated strings when error recursion is detected.

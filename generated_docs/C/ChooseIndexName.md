@@ -1,7 +1,7 @@
 # ChooseIndexName
 
 ## Location
-src/backend/commands/indexcmds.c: 2543 - 2597
+[src/backend/commands/indexcmds.c:2543-2597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2543-L2597)
 
 ## Overview
 ChooseIndexName is a static function that selects an appropriate name for a PostgreSQL index based on the table name, column names, and index type (primary key, exclusion constraint, unique constraint, or regular index).

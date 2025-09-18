@@ -1,7 +1,7 @@
 # stringTypeDatum
 
 ## Location
-src/backend/parser/parse_type.c: 654 - 667
+[src/backend/parser/parse_type.c:654-667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L654-L667)
 
 ## Overview
 Converts a string representation of a value to its internal PostgreSQL Datum representation for a given data type.

@@ -1,7 +1,7 @@
 # SetLocktagRelationOid
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 89 - 107
+[src/backend/storage/lmgr/lmgr.c:89-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L89-L107)
 
 ## Overview
 SetLocktagRelationOid sets up a locktag structure for a relation using only the relation OID, determining the appropriate database ID based on whether the relation is shared.

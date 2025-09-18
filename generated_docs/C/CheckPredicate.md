@@ -1,7 +1,7 @@
 # CheckPredicate
 
 ## Location
-src/backend/commands/indexcmds.c: 1792 - 1818
+[src/backend/commands/indexcmds.c:1792-1818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L1792-L1818)
 
 ## Overview
 Validates that a given partial-index predicate is suitable for use in an index definition, ensuring it contains only immutable functions.

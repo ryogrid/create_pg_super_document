@@ -1,7 +1,7 @@
 # SeqNext
 
 ## Location
-src/backend/executor/nodeSeqscan.c: 50 - 88
+[src/backend/executor/nodeSeqscan.c:50-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSeqscan.c#L50-L88)
 
 ## Overview
 SeqNext is a static function that serves as the core workhorse for ExecSeqScan, responsible for retrieving the next tuple from a sequential table scan.

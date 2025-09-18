@@ -1,7 +1,7 @@
 # check_recovery_prefetch
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 1083 - 1096
+[src/backend/access/transam/xlogprefetcher.c:1083-1096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L1083-L1096)
 
 ## Overview
 check_recovery_prefetch is a GUC (Grand Unified Configuration) validation hook function that validates the recovery_prefetch configuration parameter, ensuring it's only enabled on platforms that support the required prefetching functionality.

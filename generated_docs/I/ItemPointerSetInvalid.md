@@ -1,7 +1,7 @@
 # ItemPointerSetInvalid
 
 ## Location
-src/include/storage/itemptr.h: 184 - 196
+[src/include/storage/itemptr.h:184-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L184-L196)
 
 ## Overview
 Sets a disk item pointer to an invalid state by assigning invalid values to both the block number and offset number components, marking the pointer as unusable.

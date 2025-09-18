@@ -1,7 +1,7 @@
 # pg_get_wal_summarizer_state
 
 ## Location
-src/backend/backup/walsummaryfuncs.c: 177 - 208
+[src/backend/backup/walsummaryfuncs.c:177-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummaryfuncs.c#L177-L208)
 
 ## Overview
 Returns information about the current state of the WAL summarizer process as a composite tuple containing timeline ID, LSN positions, and process ID.

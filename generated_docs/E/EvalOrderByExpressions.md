@@ -1,7 +1,7 @@
 # EvalOrderByExpressions
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 360 - 385
+[src/backend/executor/nodeIndexscan.c:360-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L360-L385)
 
 ## Overview
 The EvalOrderByExpressions function calculates the ORDER BY clause expressions based on the current heap tuple, storing the results in the IndexScanState for later comparison.

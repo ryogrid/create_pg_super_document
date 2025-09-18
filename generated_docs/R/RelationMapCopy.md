@@ -1,7 +1,7 @@
 # RelationMapCopy
 
 ## Location
-src/backend/utils/cache/relmapper.c: 292 - 324
+[src/backend/utils/cache/relmapper.c:292-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L292-L324)
 
 ## Overview
 Copies a relation mapping file from a source database path to a destination database path, with WAL logging, for creating new databases.

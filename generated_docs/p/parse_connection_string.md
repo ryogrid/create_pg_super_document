@@ -1,7 +1,7 @@
 # parse_connection_string
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5799 - 5818
+[src/interfaces/libpq/fe-connect.c:5799-5818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5799-L5818)
 
 ## Overview
 Central dispatcher function that determines the format of a connection string and routes it to the appropriate parser.

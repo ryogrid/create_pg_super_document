@@ -1,7 +1,7 @@
 # bytea_sortsupport
 
 ## Location
-src/backend/utils/adt/varlena.c: 3960 - 3981
+[src/backend/utils/adt/varlena.c:3960-3981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3960-L3981)
 
 ## Overview
 The bytea_sortsupport function initializes optimized sorting support for bytea (binary string) data types, enabling efficient sorting operations in PostgreSQL.

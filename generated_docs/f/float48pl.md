@@ -1,7 +1,7 @@
 # float48pl
 
 ## Location
-src/backend/utils/adt/float.c: 3777 - 3785
+[src/backend/utils/adt/float.c:3777-3785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3777-L3785)
 
 ## Overview
 Performs addition between a float4 (single-precision) and float8 (double-precision) value, returning a float8 result.

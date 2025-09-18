@@ -1,7 +1,7 @@
 # newstate
 
 ## Location
-src/backend/regex/regc_nfa.c: 137 - 211
+[src/backend/regex/regc_nfa.c:137-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L137-L211)
 
 ## Overview
 Allocates a new state in an NFA structure with efficient memory management using state batches and free lists.

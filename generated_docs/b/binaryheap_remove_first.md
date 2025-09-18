@@ -1,7 +1,7 @@
 # binaryheap_remove_first
 
 ## Location
-src/common/binaryheap.c: 192 - 224
+[src/common/binaryheap.c:192-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L192-L224)
 
 ## Overview
 Removes the first (root, topmost) node from the binary heap and returns it after rebalancing the heap.

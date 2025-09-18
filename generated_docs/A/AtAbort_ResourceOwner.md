@@ -1,7 +1,7 @@
 # AtAbort_ResourceOwner
 
 ## Location
-src/backend/access/transam/xact.c: 1885 - 1897
+[src/backend/access/transam/xact.c:1885-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1885-L1897)
 
 ## Overview
 AtAbort_ResourceOwner resets the current resource owner to TopTransactionResourceOwner during transaction abort processing to ensure proper resource cleanup context.

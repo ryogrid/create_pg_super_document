@@ -1,7 +1,7 @@
 # spg_poly_quad_compress
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 876 - 885
+[src/backend/utils/adt/geo_spgist.c:876-885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L876-L885)
 
 ## Overview
 A compression function for SP-GiST quadtree indexes that extracts the bounding box from polygon geometries for spatial indexing.

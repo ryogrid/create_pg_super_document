@@ -1,7 +1,7 @@
 # executeNumericItemMethod
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2298 - 2338
+[src/backend/utils/adt/jsonpath_exec.c:2298-2338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2298-L2338)
 
 ## Overview
 Executes numeric item methods (.abs(), .floor(), .ceil()) on JSON path expressions using a specified PostgreSQL function.

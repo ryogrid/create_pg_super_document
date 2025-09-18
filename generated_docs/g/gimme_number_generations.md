@@ -1,7 +1,7 @@
 # gimme_number_generations
 
 ## Location
-src/backend/optimizer/geqo/geqo_main.c: 352 - 358
+[src/backend/optimizer/geqo/geqo_main.c:352-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_main.c#L352-L358)
 
 ## Overview
 Determines the number of generations for GEQO's genetic algorithm, returning either the configured value or a default equal to the pool size.

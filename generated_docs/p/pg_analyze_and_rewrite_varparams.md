@@ -1,7 +1,7 @@
 # pg_analyze_and_rewrite_varparams
 
 ## Location
-src/backend/tcop/postgres.c: 714 - 767
+[src/backend/tcop/postgres.c:714-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L714-L767)
 
 ## Overview
 Performs parse analysis and rule rewriting on a raw parse tree with variable parameter types, allowing parameter types to be deduced from context.

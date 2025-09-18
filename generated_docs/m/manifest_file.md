@@ -1,7 +1,7 @@
 # manifest_file
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 52 - 62
+[src/bin/pg_verifybackup/pg_verifybackup.c:52-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L52-L62)
 
 ## Overview
 A data structure that represents each file described by the backup manifest in PostgreSQL, containing file metadata and checksum information for verification purposes.

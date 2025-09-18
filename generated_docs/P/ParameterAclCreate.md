@@ -1,7 +1,7 @@
 # ParameterAclCreate
 
 ## Location
-src/backend/catalog/pg_parameter_acl.c: 68 - 110
+[src/backend/catalog/pg_parameter_acl.c:68-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_parameter_acl.c#L68-L110)
 
 ## Overview
 ParameterAclCreate adds a new tuple to the pg_parameter_acl system catalog, creating an ACL entry for a configuration parameter with a null (default) access control list.

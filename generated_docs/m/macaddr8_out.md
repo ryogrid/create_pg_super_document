@@ -1,7 +1,7 @@
 # macaddr8_out
 
 ## Location
-src/backend/utils/adt/mac8.c: 234 - 253
+[src/backend/utils/adt/mac8.c:234-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L234-L253)
 
 ## Overview
 A PostgreSQL output function that converts the internal macaddr8 structure to its string representation in a standardized colon-separated format.

@@ -1,7 +1,7 @@
 # restriction_is_or_clause
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 416 - 430
+[src/backend/optimizer/util/restrictinfo.c:416-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L416-L430)
 
 ## Overview
 Simple predicate function that determines whether a RestrictInfo node contains an OR clause by checking the orclause field.

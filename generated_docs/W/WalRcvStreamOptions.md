@@ -1,7 +1,7 @@
 # WalRcvStreamOptions
 
 ## Location
-src/include/replication/walreceiver.h: 191 - 193
+[src/include/replication/walreceiver.h:191-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walreceiver.h#L191-L193)
 
 ## Overview
 WalRcvStreamOptions is a configuration structure that specifies options for starting a WAL receiver stream, supporting both physical and logical replication with protocol-specific parameters.

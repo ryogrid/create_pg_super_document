@@ -1,7 +1,7 @@
 # create_toast_table
 
 ## Location
-src/backend/catalog/toasting.c: 127 - 400
+[src/backend/catalog/toasting.c:127-400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/toasting.c#L127-L400)
 
 ## Overview
 Creates a TOAST (The Oversized-Attribute Storage Technique) table and its associated index for a given relation to handle storage of large attribute values that exceed PostgreSQL's page size limits.

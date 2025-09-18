@@ -1,7 +1,7 @@
 # DetermineSleepTime
 
 ## Location
-src/backend/postmaster/postmaster.c: 1518 - 1602
+[src/backend/postmaster/postmaster.c:1518-1602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1518-L1602)
 
 ## Overview
 Calculates the optimal sleep duration in milliseconds for the PostgreSQL postmaster's ServerLoop to balance responsiveness with resource efficiency.

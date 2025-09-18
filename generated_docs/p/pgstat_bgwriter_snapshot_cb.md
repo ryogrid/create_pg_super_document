@@ -1,7 +1,7 @@
 # pgstat_bgwriter_snapshot_cb
 
 ## Location
-src/backend/utils/activity/pgstat_bgwriter.c: 94 - 109
+[src/backend/utils/activity/pgstat_bgwriter.c:94-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_bgwriter.c#L94-L109)
 
 ## Overview
 Creates a snapshot of background writer statistics by copying current statistics from shared memory and compensating for reset offsets to provide accurate cumulative values.

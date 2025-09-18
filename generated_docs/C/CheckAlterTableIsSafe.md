@@ -1,7 +1,7 @@
 # CheckAlterTableIsSafe
 
 ## Location
-src/backend/commands/tablecmds.c: 4314 - 4339
+[src/backend/commands/tablecmds.c:4314-4339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4314-L4339)
 
 ## Overview
 Verifies that it's safe to perform ALTER TABLE operations on a relation by checking for temp table ownership conflicts and ensuring the table is not actively in use by the current session.

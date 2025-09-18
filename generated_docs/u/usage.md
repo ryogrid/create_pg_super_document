@@ -1,7 +1,7 @@
 # usage
 
 ## Location
-src/bin/pgbench/pgbench.c: 870 - 950
+[src/bin/pgbench/pgbench.c:870-950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L870-L950)
 
 ## Overview
 A static function that prints comprehensive help text for the initdb command, displaying all available command-line options and their descriptions.

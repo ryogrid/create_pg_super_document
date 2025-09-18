@@ -1,7 +1,7 @@
 # expanded_record_set_fields
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1249 - 1378
+[src/backend/utils/adt/expandedrecord.c:1249-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1249-L1378)
 
 ## Overview
 Sets all fields of an expanded record in one operation, ensuring proper memory management and type consistency for PostgreSQL record data structures.

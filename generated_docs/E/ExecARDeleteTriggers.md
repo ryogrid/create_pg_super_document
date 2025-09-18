@@ -1,7 +1,7 @@
 # ExecARDeleteTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2812 - 2858
+[src/backend/commands/trigger.c:2812-2858](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2812-L2858)
 
 ## Overview
 ExecARDeleteTriggers executes AFTER ROW DELETE triggers and handles transition table capture for DELETE operations, including support for cross-partition updates.

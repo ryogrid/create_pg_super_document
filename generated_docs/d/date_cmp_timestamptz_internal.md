@@ -1,7 +1,7 @@
 # date_cmp_timestamptz_internal
 
 ## Location
-src/backend/utils/adt/date.c: 823 - 843
+[src/backend/utils/adt/date.c:823-843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L823-L843)
 
 ## Overview
 Internal helper function that performs three-way comparison between a date value and a timestamptz (timestamp with timezone) value, with proper handling of overflow conditions and special timestamp values.

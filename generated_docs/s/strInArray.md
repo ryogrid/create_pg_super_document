@@ -1,7 +1,7 @@
 # strInArray
 
 ## Location
-src/bin/pg_dump/common.c: 1147 - 1157
+[src/bin/pg_dump/common.c:1147-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L1147-L1157)
 
 ## Overview
 Searches for a string pattern within an array of strings and returns the index if found, or -1 if not found.

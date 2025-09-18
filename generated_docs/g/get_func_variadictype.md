@@ -1,7 +1,7 @@
 # get_func_variadictype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1723 - 1741
+[src/backend/utils/cache/lsyscache.c:1723-1741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1723-L1741)
 
 ## Overview
 Returns the variadic argument type OID for a given function, indicating what type the function's variadic parameters accept.

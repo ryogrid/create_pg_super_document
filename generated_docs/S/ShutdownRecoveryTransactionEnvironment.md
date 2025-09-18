@@ -1,7 +1,7 @@
 # ShutdownRecoveryTransactionEnvironment
 
 ## Location
-src/backend/storage/ipc/standby.c: 160 - 199
+[src/backend/storage/ipc/standby.c:160-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L160-L199)
 
 ## Overview
 Shuts down transaction tracking infrastructure during recovery, releasing all held locks and destroying hash tables when transitioning from hot standby to normal operation.

@@ -1,7 +1,7 @@
 # LockSharedObject
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1079 - 1102
+[src/backend/storage/lmgr/lmgr.c:1079-1102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1079-L1102)
 
 ## Overview
 LockSharedObject obtains a lock on objects that are shared across all databases in a PostgreSQL cluster, such as roles, tablespaces, and replication origins.

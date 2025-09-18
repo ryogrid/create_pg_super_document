@@ -1,7 +1,7 @@
 # RelationBuildRuleLock
 
 ## Location
-src/backend/utils/cache/relcache.c: 733 - 907
+[src/backend/utils/cache/relcache.c:733-907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L733-L907)
 
 ## Overview
 RelationBuildRuleLock constructs the rewrite rule structures for a relation by scanning pg_rewrite and parsing rule definitions into executable form.

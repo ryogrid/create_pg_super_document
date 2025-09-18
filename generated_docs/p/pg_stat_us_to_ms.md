@@ -1,7 +1,7 @@
 # pg_stat_us_to_ms
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1351 - 1356
+[src/backend/utils/adt/pgstatfuncs.c:1351-1356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1351-L1356)
 
 ## Overview
 A static inline utility function that converts microsecond timing values to millisecond values for PostgreSQL statistics reporting.

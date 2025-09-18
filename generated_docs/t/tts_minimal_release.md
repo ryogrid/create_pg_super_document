@@ -1,7 +1,7 @@
 # tts_minimal_release
 
 ## Location
-src/backend/executor/execTuples.c: 520 - 524
+[src/backend/executor/execTuples.c:520-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L520-L524)
 
 ## Overview
 A no-operation release function for MinimalTupleTableSlot that performs no cleanup since minimal tuples don't require special resource deallocation.

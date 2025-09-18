@@ -1,7 +1,7 @@
 # plsample_trigger_handler
 
 ## Location
-src/test/modules/plsample/plsample.c: 205 - 354
+[src/test/modules/plsample/plsample.c:205-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/plsample/plsample.c#L205-L354)
 
 ## Overview
 Handles the execution of trigger functions in the plsample procedural language, demonstrating comprehensive trigger introspection, SPI integration, and trigger event processing.

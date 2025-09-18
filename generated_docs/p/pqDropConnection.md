@@ -1,7 +1,7 @@
 # pqDropConnection
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 471 - 557
+[src/interfaces/libpq/fe-connect.c:471-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L471-L557)
 
 ## Overview
 Closes any physical connection to the PostgreSQL server and resets associated state inside the connection object while preserving state needed for potential reconnection.

@@ -1,7 +1,7 @@
 # cost_functionscan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1531 - 1591
+[src/backend/optimizer/path/costsize.c:1531-1591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1531-L1591)
 
 ## Overview
 Determines and returns the cost of scanning a function RTE, calculating costs for accessing results from table-valued functions in the FROM clause.

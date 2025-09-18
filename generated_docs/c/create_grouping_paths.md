@@ -1,7 +1,7 @@
 # create_grouping_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3820 - 3932
+[src/backend/optimizer/plan/planner.c:3820-3932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3820-L3932)
 
 ## Overview
 Builds a new upper relation containing paths for grouping and/or aggregation, handling both fully grouped and partially grouped execution strategies.

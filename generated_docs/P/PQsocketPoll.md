@@ -1,7 +1,7 @@
 # PQsocketPoll
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1117 - 1210
+[src/interfaces/libpq/fe-misc.c:1117-1210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1117-L1210)
 
 ## Overview
 PQsocketPoll is a cross-platform socket polling function that checks a file descriptor for read and/or write data availability, with configurable timeout support.

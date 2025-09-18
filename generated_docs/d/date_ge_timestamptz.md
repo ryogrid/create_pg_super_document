@@ -1,7 +1,7 @@
 # date_ge_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 889 - 897
+[src/backend/utils/adt/date.c:889-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L889-L897)
 
 ## Overview
 Compares a date value against a timestamptz value and returns true if the date is greater than or equal to the timestamptz.

@@ -1,7 +1,7 @@
 # GetConfigOptionResetString
 
 ## Location
-src/backend/utils/misc/guc.c: 4408 - 4454
+[src/backend/utils/misc/guc.c:4408-4454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4408-L4454)
 
 ## Overview
 Returns the RESET value associated with a specified PostgreSQL configuration option, formatted as a string representation suitable for display or logging purposes.

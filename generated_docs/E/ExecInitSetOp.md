@@ -1,7 +1,7 @@
 # ExecInitSetOp
 
 ## Location
-src/backend/executor/nodeSetOp.c: 481 - 582
+[src/backend/executor/nodeSetOp.c:481-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L481-L582)
 
 ## Overview
 ExecInitSetOp initializes the execution state for a SetOp plan node, setting up the necessary data structures, memory contexts, and execution functions for set operations.

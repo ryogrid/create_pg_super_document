@@ -1,7 +1,7 @@
 # ExecEndResult
 
 ## Location
-src/backend/executor/nodeResult.c: 240 - 248
+[src/backend/executor/nodeResult.c:240-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeResult.c#L240-L248)
 
 ## Overview
 ExecEndResult performs cleanup and resource deallocation for a Result plan node by shutting down any child nodes.

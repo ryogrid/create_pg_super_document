@@ -1,7 +1,7 @@
 # FreeDecodingContext
 
 ## Location
-src/backend/replication/logical/logical.c: 696 - 710
+[src/backend/replication/logical/logical.c:696-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L696-L710)
 
 ## Overview
 Frees a previously allocated logical decoding context, properly cleaning up all associated resources and invoking shutdown callbacks.

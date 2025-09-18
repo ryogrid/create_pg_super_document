@@ -1,7 +1,7 @@
 # index_compute_xid_horizon_for_tuples
 
 ## Location
-src/backend/access/index/genam.c: 293 - 385
+[src/backend/access/index/genam.c:293-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L293-L385)
 
 ## Overview
 Computes a snapshot conflict horizon for index tuples being deleted by consulting the table access method to determine the appropriate transaction ID for WAL records.

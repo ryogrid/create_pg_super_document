@@ -1,7 +1,7 @@
 # CheckSlotRequirements
 
 ## Location
-src/backend/replication/slot.c: 1362 - 1383
+[src/backend/replication/slot.c:1362-1383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1362-L1383)
 
 ## Overview
 Validates that the server's configuration meets the requirements for using replication slots by checking essential configuration parameters.

@@ -1,7 +1,7 @@
 # pq_endmsgread
 
 ## Location
-src/backend/libpq/pqcomm.c: 1164 - 1179
+[src/backend/libpq/pqcomm.c:1164-1179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1164-L1179)
 
 ## Overview
 Completes the message reading process by resetting the global message reading state, indicating that a complete message has been successfully read.

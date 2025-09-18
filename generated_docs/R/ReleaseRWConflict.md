@@ -1,7 +1,7 @@
 # ReleaseRWConflict
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 691 - 698
+[src/backend/storage/lmgr/predicate.c:691-698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L691-L698)
 
 ## Overview
 Releases a read-write conflict record by removing it from transaction conflict lists and returning it to the available pool for reuse.

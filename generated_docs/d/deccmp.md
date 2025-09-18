@@ -1,7 +1,7 @@
 # deccmp
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 167 - 172
+[src/interfaces/ecpg/compatlib/informix.c:167-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L167-L172)
 
 ## Overview
 Compares two decimal numbers and returns an integer indicating their relative ordering, providing Informix-compatible decimal comparison functionality.

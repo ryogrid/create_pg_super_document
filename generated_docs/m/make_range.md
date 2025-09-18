@@ -1,7 +1,7 @@
 # make_range
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1952 - 2015
+[src/backend/utils/adt/rangetypes.c:1952-2015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1952-L2015)
 
 ## Overview
 Creates and returns a properly serialized and canonicalized RangeType from the provided bounds, handling both empty and non-empty ranges.

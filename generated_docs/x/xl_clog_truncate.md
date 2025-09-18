@@ -1,7 +1,7 @@
 # xl_clog_truncate
 
 ## Location
-src/include/access/clog.h: 32 - 37
+[src/include/access/clog.h:32-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/clog.h#L32-L37)
 
 ## Overview
 A structure that represents the WAL (Write-Ahead Log) record data for CLOG truncation operations, used to record information needed for transaction status log truncation during WAL recovery.

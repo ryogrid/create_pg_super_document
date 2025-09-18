@@ -1,7 +1,7 @@
 # SH_ITERATE
 
 ## Location
-src/include/lib/simplehash.h: 1045 - 1071
+[src/include/lib/simplehash.h:1045-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L1045-L1071)
 
 ## Overview
 A macro that expands to a hash table iteration function used in PostgreSQL's simplehash system to retrieve the next element during hash table traversal.

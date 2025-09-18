@@ -1,7 +1,7 @@
 # WorkerInfoData
 
 ## Location
-src/backend/postmaster/autovacuum.c: 227 - 236
+[src/backend/postmaster/autovacuum.c:227-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L227-L236)
 
 ## Overview
 The  structure tracks the status and activity of individual autovacuum worker processes in shared memory, enabling coordination and management of concurrent autovacuum operations across the PostgreSQL cluster.

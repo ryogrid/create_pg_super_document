@@ -1,7 +1,7 @@
 # single_color_transition
 
 ## Location
-src/backend/regex/regc_nfa.c: 1525 - 1554
+[src/backend/regex/regc_nfa.c:1525-1554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1525-L1554)
 
 ## Overview
 Determines whether traversing from one state to another requires exactly one PLAIN arc transition, returning the state containing the relevant outbound arcs if true.

@@ -1,7 +1,7 @@
 # pendingPosition
 
 ## Location
-src/backend/access/gin/ginget.c: 29 - 36
+[src/backend/access/gin/ginget.c:29-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L29-L36)
 
 ## Overview
 The  structure tracks position and state information while scanning through GIN (Generalized Inverted Index) pending list entries during index retrieval operations.

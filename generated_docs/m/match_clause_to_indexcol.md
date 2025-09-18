@@ -1,7 +1,7 @@
 # match_clause_to_indexcol
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2203 - 2279
+[src/backend/optimizer/path/indxpath.c:2203-2279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2203-L2279)
 
 ## Overview
 Determines whether a restriction clause matches a column of an index, and if so, builds an IndexClause node describing the matching details for use in index optimization.

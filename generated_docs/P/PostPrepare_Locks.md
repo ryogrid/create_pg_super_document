@@ -1,7 +1,7 @@
 # PostPrepare_Locks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3400 - 3583
+[src/backend/storage/lmgr/lock.c:3400-3583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3400-L3583)
 
 ## Overview
 PostPrepare_Locks transfers ownership of transaction-level locks from the current process to a dummy PGPROC associated with a prepared transaction after successful PREPARE.

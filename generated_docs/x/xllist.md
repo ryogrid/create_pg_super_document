@@ -1,7 +1,7 @@
 # xllist
 
 ## Location
-src/backend/access/transam/twophase.c: 1002 - 1020
+[src/backend/access/transam/twophase.c:1002-1020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1002-L1020)
 
 ## Overview
 A static data structure that manages a chain of StateFileChunk blocks used for assembling two-phase commit state files in memory before writing them to WAL and disk.

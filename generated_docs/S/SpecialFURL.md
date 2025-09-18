@@ -1,7 +1,7 @@
 # SpecialFURL
 
 ## Location
-src/backend/tsearch/wparser_def.c: 588 - 595
+[src/backend/tsearch/wparser_def.c:588-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L588-L595)
 
 ## Overview
 A static function that configures the parser to recognize URL/hostname patterns by setting the wanthost flag and rewinding the parser position.

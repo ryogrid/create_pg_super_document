@@ -1,7 +1,7 @@
 # reorder_function_arguments
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4256 - 4325
+[src/backend/optimizer/util/clauses.c:4256-4325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4256-L4325)
 
 ## Overview
 Converts named-notation function arguments to positional notation and inserts default argument values to create a properly ordered argument list.

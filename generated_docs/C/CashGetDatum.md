@@ -1,7 +1,7 @@
 # CashGetDatum
 
 ## Location
-src/include/utils/cash.h: 27 - 31
+[src/include/utils/cash.h:27-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/cash.h#L27-L31)
 
 ## Overview
 CashGetDatum is an inline utility function that converts a Cash value to a Datum value, enabling Cash values to be stored in PostgreSQL's generic Datum container type.

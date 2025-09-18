@@ -1,7 +1,7 @@
 # pg_password_sendauth
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 700 - 766
+[src/interfaces/libpq/fe-auth.c:700-766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L700-L766)
 
 ## Overview
 Sends password-based authentication to the PostgreSQL server, handling both plaintext and MD5-encrypted password authentication methods.

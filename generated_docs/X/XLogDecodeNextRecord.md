@@ -1,7 +1,7 @@
 # XLogDecodeNextRecord
 
 ## Location
-src/backend/access/transam/xlogreader.c: 528 - 975
+[src/backend/access/transam/xlogreader.c:528-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L528-L975)
 
 ## Overview
 Decodes and validates the next WAL record from the input stream, handling both single-page and multi-page records with comprehensive error checking and recovery mechanisms.

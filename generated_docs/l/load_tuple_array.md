@@ -1,7 +1,7 @@
 # load_tuple_array
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 590 - 628
+[src/backend/executor/nodeGatherMerge.c:590-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L590-L628)
 
 ## Overview
 Fills a worker's tuple buffer array by reading tuples in non-blocking mode from a parallel worker process until the buffer is full or no more tuples are immediately available.

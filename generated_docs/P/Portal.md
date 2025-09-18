@@ -1,7 +1,7 @@
 # Portal
 
 ## Location
-src/include/utils/portal.h: 113 - 114
+[src/include/utils/portal.h:113-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/portal.h#L113-L114)
 
 ## Overview
 Portal is a pointer type that represents a query execution context in PostgreSQL, providing a handle to a PortalData structure for managing SQL statement execution lifecycle.

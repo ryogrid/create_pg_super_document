@@ -1,7 +1,7 @@
 # lowerstr_ctx
 
 ## Location
-src/backend/tsearch/spell.c: 175 - 186
+[src/backend/tsearch/spell.c:175-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L175-L186)
 
 ## Overview
 lowerstr_ctx applies string lowercasing using lowerstr() while ensuring the result is allocated in the ISpell dictionary's build context for proper memory management.

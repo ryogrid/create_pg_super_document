@@ -1,7 +1,7 @@
 # ecpg_prepared
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 357 - 367
+[src/interfaces/ecpg/ecpglib/prepare.c:357-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L357-L367)
 
 ## Overview
 A utility function that retrieves the SQL command text associated with a named prepared statement in the ECPG library.

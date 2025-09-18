@@ -1,7 +1,7 @@
 # pg_strtoint16
 
 ## Location
-src/backend/utils/adt/numutils.c: 121 - 126
+[src/backend/utils/adt/numutils.c:121-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L121-L126)
 
 ## Overview
 Converts a string representation of a number to a signed 16-bit integer, supporting multiple number bases and formatting options.

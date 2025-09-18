@@ -1,7 +1,7 @@
 # KAXCompressReason
 
 ## Location
-src/backend/storage/ipc/procarray.c: 266 - 321
+[src/backend/storage/ipc/procarray.c:266-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L266-L321)
 
 ## Overview
 KAXCompressReason is an enumeration that specifies the reason for compressing the KnownAssignedXids array during Hot Standby operations in PostgreSQL recovery processes.

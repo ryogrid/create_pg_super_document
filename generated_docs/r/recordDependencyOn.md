@@ -1,7 +1,7 @@
 # recordDependencyOn
 
 ## Location
-src/backend/catalog/pg_depend.c: 46 - 57
+[src/backend/catalog/pg_depend.c:46-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L46-L57)
 
 ## Overview
 Records a dependency between two database objects via their respective ObjectAddress structures, creating an entry in the pg_depend catalog table.

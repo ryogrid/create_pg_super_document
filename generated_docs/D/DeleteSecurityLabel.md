@@ -1,7 +1,7 @@
 # DeleteSecurityLabel
 
 ## Location
-src/backend/commands/seclabel.c: 523 - 569
+[src/backend/commands/seclabel.c:523-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L523-L569)
 
 ## Overview
 DeleteSecurityLabel removes all security labels for a specified database object and any sub-objects if applicable.

@@ -1,7 +1,7 @@
 # count_nonjunk_tlist_entries
 
 ## Location
-src/backend/optimizer/util/tlist.c: 186 - 217
+[src/backend/optimizer/util/tlist.c:186-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L186-L217)
 
 ## Overview
 Counts the number of non-resjunk entries in a target list, returning the count of user-visible columns.

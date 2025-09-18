@@ -1,7 +1,7 @@
 # exclude_list_item
 
 ## Location
-src/bin/pg_rewind/filemap.c: 101 - 195
+[src/bin/pg_rewind/filemap.c:101-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L101-L195)
 
 ## Overview
 The `exclude_list_item` structure defines elements for exclusion lists used in PostgreSQL's checksum validation and base backup operations to specify files or paths that should be excluded from processing.

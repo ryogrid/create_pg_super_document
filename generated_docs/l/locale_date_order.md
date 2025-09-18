@@ -1,7 +1,7 @@
 # locale_date_order
 
 ## Location
-src/bin/initdb/initdb.c: 2125 - 2183
+[src/bin/initdb/initdb.c:2125-2183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2125-L2183)
 
 ## Overview
 Determines the likely date order format (MDY, DMY, or YMD) from a given locale by testing the locale's date formatting behavior.

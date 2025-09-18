@@ -1,7 +1,7 @@
 # tts_virtual_init
 
 ## Location
-src/backend/executor/execTuples.c: 98 - 102
+[src/backend/executor/execTuples.c:98-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L98-L102)
 
 ## Overview
 Initializes a virtual tuple table slot, serving as the init callback for the TTSOpsVirtual operations structure.

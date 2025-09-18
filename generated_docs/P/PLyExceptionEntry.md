@@ -1,7 +1,7 @@
 # PLyExceptionEntry
 
 ## Location
-src/pl/plpython/plpy_spi.h: 18 - 22
+[src/pl/plpython/plpy_spi.h:18-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.h#L18-L22)
 
 ## Overview
 PLyExceptionEntry is a hash table entry structure that maps PostgreSQL SQL state codes to corresponding Python exception objects in the PL/Python language extension.

@@ -1,7 +1,7 @@
 # dispell_lexize
 
 ## Location
-src/backend/tsearch/dict_ispell.c: 111 - 148
+[src/backend/tsearch/dict_ispell.c:111-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_ispell.c#L111-L148)
 
 ## Overview
 Performs lexical analysis on input text using an Ispell dictionary to normalize words and filter out stopwords.

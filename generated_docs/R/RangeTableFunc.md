@@ -1,7 +1,7 @@
 # RangeTableFunc
 
 ## Location
-src/include/nodes/parsenodes.h: 655 - 665
+[src/include/nodes/parsenodes.h:655-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L655-L665)
 
 ## Overview
 RangeTableFunc represents the raw parsed form of "table functions" such as XMLTABLE in PostgreSQL's parse tree, containing the necessary information to transform document expressions into table-like structures with defined columns.

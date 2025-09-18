@@ -1,7 +1,7 @@
 # stop_postmaster
 
 ## Location
-src/bin/pg_upgrade/server.c: 331 - 357
+[src/bin/pg_upgrade/server.c:331-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L331-L357)
 
 ## Overview
 Stops the currently running PostgreSQL postmaster process during pg_upgrade operations, using either fast or smart shutdown modes.

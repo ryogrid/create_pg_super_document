@@ -1,7 +1,7 @@
 # brin_build_desc
 
 ## Location
-src/backend/access/brin/brin.c: 1572 - 1626
+[src/backend/access/brin/brin.c:1572-1626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1572-L1626)
 
 ## Overview
 Constructs and initializes a BrinDesc structure that contains all metadata needed to create or scan a BRIN index.

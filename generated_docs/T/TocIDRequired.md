@@ -1,7 +1,7 @@
 # TocIDRequired
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2020 - 2030
+[src/bin/pg_dump/pg_backup_archiver.c:2020-2030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2020-L2030)
 
 ## Overview
 Checks whether a TOC entry with the specified dump ID is required for the current restoration operation.

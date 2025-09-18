@@ -1,7 +1,7 @@
 # unlink_external_pid_file
 
 ## Location
-src/backend/postmaster/postmaster.c: 1423 - 1434
+[src/backend/postmaster/postmaster.c:1423-1434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1423-L1434)
 
 ## Overview
 unlink_external_pid_file is an on_proc_exit callback function that removes the external PID file created by the postmaster when the --external-pid-file option is used.

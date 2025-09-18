@@ -1,7 +1,7 @@
 # bbsink_gzip_begin_archive
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 114 - 166
+[src/backend/backup/basebackup_gzip.c:114-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L114-L166)
 
 ## Overview
 Initializes the gzip compression stream and prepares to compress the next archive in the base backup, setting up zlib deflate parameters and forwarding to the next sink with a .gz filename extension.

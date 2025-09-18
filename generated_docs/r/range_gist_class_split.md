@@ -1,7 +1,7 @@
 # range_gist_class_split
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1186 - 1228
+[src/backend/utils/adt/rangetypes_gist.c:1186-1228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1186-L1228)
 
 ## Overview
 A GiST splitting function for range types that classifies ranges into semantic categories and splits entries based on these classifications to optimize spatial locality.

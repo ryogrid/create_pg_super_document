@@ -1,7 +1,7 @@
 # check_file_clone
 
 ## Location
-src/bin/pg_upgrade/file.c: 360 - 399
+[src/bin/pg_upgrade/file.c:360-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/file.c#L360-L399)
 
 ## Overview
 Tests whether file cloning/reflinking is supported between the old and new PostgreSQL data directories, ensuring compatibility before attempting to use cloning during the upgrade process.

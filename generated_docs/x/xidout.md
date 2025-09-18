@@ -1,7 +1,7 @@
 # xidout
 
 ## Location
-src/backend/utils/adt/xid.c: 42 - 54
+[src/backend/utils/adt/xid.c:42-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L42-L54)
 
 ## Overview
 The xidout function is an output conversion function that converts PostgreSQL's internal TransactionId type into a string representation for display or storage purposes.

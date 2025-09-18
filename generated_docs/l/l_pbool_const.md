@@ -1,7 +1,7 @@
 # l_pbool_const
 
 ## Location
-src/include/jit/llvmjit_emit.h: 102 - 107
+[src/include/jit/llvmjit_emit.h:102-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L102-L107)
 
 ## Overview
 Creates an LLVM constant boolean value suitable for function parameters within PostgreSQL's JIT compilation system.

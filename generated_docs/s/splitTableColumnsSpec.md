@@ -1,7 +1,7 @@
 # splitTableColumnsSpec
 
 ## Location
-src/bin/scripts/common.c: 34 - 68
+[src/bin/scripts/common.c:34-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/common.c#L34-L68)
 
 ## Overview
 Parses a table specification string in the format TABLE[(COLUMNS)] and splits it into separate table name and column specification components.

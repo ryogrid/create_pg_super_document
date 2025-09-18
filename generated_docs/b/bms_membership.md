@@ -1,7 +1,7 @@
 # bms_membership
 
 ## Location
-src/backend/nodes/bitmapset.c: 781 - 814
+[src/backend/nodes/bitmapset.c:781-814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L781-L814)
 
 ## Overview
 Determines whether a bitmapset has zero, one, or multiple members by efficiently checking the membership state without counting all members.

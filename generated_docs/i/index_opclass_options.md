@@ -1,7 +1,7 @@
 # index_opclass_options
 
 ## Location
-src/backend/access/index/indexam.c: 996 - 1039
+[src/backend/access/index/indexam.c:996-1039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L996-L1039)
 
 ## Overview
 Parses and processes opclass-specific options for an index column, converting textual options into a binary format suitable for use by the access method.

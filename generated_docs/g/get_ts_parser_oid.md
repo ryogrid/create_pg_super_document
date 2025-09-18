@@ -1,7 +1,7 @@
 # get_ts_parser_oid
 
 ## Location
-src/backend/catalog/namespace.c: 2716 - 2773
+[src/backend/catalog/namespace.c:2716-2773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2716-L2773)
 
 ## Overview
 Finds a text search parser by its possibly qualified name and returns its OID, with optional error handling for missing parsers.

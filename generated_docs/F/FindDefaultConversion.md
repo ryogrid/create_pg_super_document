@@ -1,7 +1,7 @@
 # FindDefaultConversion
 
 ## Location
-src/backend/catalog/pg_conversion.c: 152 - 177
+[src/backend/catalog/pg_conversion.c:152-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_conversion.c#L152-L177)
 
 ## Overview
 Searches for and returns the procedure OID of a default encoding conversion for a specific encoding pair within a given namespace.

@@ -1,7 +1,7 @@
 # SearchSysCacheLocked1
 
 ## Location
-src/backend/utils/cache/syscache.c: 287 - 379
+[src/backend/utils/cache/syscache.c:287-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L287-L379)
 
 ## Overview
 SearchSysCacheLocked1 combines system cache lookup with tuple-level locking to safely handle inplace-updated system catalog tables.

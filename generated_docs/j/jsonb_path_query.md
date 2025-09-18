@@ -1,7 +1,7 @@
 # jsonb_path_query
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 574 - 579
+[src/backend/utils/adt/jsonpath_exec.c:574-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L574-L579)
 
 ## Overview
 SQL function wrapper that executes a JSONPath expression against a JSONB document and returns all matching values as a rowset.

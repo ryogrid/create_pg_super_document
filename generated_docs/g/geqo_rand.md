@@ -1,7 +1,7 @@
 # geqo_rand
 
 ## Location
-src/backend/optimizer/geqo/geqo_random.c: 28 - 35
+[src/backend/optimizer/geqo/geqo_random.c:28-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_random.c#L28-L35)
 
 ## Overview
 Generates a pseudo-random double-precision floating-point number between 0.0 and 1.0 for use in the Genetic Query Optimizer (GEQO) algorithm.

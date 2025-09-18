@@ -1,7 +1,7 @@
 # LockSchemaList
 
 ## Location
-src/backend/commands/publicationcmds.c: 1719 - 1746
+[src/backend/commands/publicationcmds.c:1719-1746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1719-L1746)
 
 ## Overview
 Locks schemas specified in a schema list with AccessShareLock to prevent concurrent schema deletion during publication operations.

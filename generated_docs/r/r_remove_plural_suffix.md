@@ -1,7 +1,7 @@
 # r_remove_plural_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1025 - 1078
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1025-1078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1025-L1078)
 
 ## Overview
 Removes Tamil plural suffixes from words and replaces them with appropriate singular forms as part of the Tamil language stemming algorithm.

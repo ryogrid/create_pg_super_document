@@ -1,7 +1,7 @@
 # relation_needs_vacanalyze
 
 ## Location
-src/backend/postmaster/autovacuum.c: 2942 - 3117
+[src/backend/postmaster/autovacuum.c:2942-3117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L2942-L3117)
 
 ## Overview
 Determines whether a relation needs to be vacuumed or analyzed based on tuple statistics, thresholds, and wraparound protection requirements.

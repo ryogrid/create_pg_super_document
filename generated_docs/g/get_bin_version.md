@@ -1,7 +1,7 @@
 # get_bin_version
 
 ## Location
-src/bin/pg_upgrade/exec.c: 33 - 84
+[src/bin/pg_upgrade/exec.c:33-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L33-L84)
 
 ## Overview
 This function fetches the major version number of PostgreSQL binaries for a given cluster by executing pg_ctl and parsing its version output.

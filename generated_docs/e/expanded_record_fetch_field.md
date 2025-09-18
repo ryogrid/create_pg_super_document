@@ -1,7 +1,7 @@
 # expanded_record_fetch_field
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1063 - 1111
+[src/backend/utils/adt/expandedrecord.c:1063-1111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1063-L1111)
 
 ## Overview
 Retrieves the value of a specific field from an expanded record by field number, handling both user-defined fields and system columns.

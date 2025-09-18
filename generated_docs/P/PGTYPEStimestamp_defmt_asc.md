@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_defmt_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 810 - 861
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:810-861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L810-L861)
 
 ## Overview
 Parses an ASCII string representation of a timestamp according to a specified format string and converts it into a PostgreSQL timestamp value.

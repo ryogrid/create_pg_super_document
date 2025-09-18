@@ -1,7 +1,7 @@
 # jsonb_array_elements
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2206 - 2211
+[src/backend/utils/adt/jsonfuncs.c:2206-2211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2206-L2211)
 
 ## Overview
 A PostgreSQL SQL function that extracts all elements from a JSONB array and returns them as a set of rows, with each row containing one JSONB element.

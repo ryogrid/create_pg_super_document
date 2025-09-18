@@ -1,7 +1,7 @@
 # path_div_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4438 - 4451
+[src/backend/utils/adt/geo_ops.c:4438-4451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4438-L4451)
 
 ## Overview
 Applies inverse rotation and scaling transformation to a path by dividing each point by a transformation point, providing the inverse operation to path multiplication.

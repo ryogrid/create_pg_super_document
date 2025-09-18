@@ -1,7 +1,7 @@
 # pg_strtoint16_safe
 
 ## Location
-src/backend/utils/adt/numutils.c: 127 - 382
+[src/backend/utils/adt/numutils.c:127-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L127-L382)
 
 ## Overview
 Safely converts a string representation of a number to a signed 16-bit integer with comprehensive error handling and support for multiple number bases.

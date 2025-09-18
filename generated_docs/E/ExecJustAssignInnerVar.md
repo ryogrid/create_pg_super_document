@@ -1,7 +1,7 @@
 # ExecJustAssignInnerVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 2214 - 2220
+[src/backend/executor/execExprInterp.c:2214-2220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2214-L2220)
 
 ## Overview
 ExecJustAssignInnerVar is a fast-path function for assigning values from inner tuple variables to result tuple slots in PostgreSQL's expression evaluation system.

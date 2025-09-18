@@ -1,7 +1,7 @@
 # int8recv
 
 ## Location
-src/backend/utils/adt/int8.c: 83 - 93
+[src/backend/utils/adt/int8.c:83-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L83-L93)
 
 ## Overview
 Converts external binary format data to PostgreSQL's internal int8 (bigint) representation.

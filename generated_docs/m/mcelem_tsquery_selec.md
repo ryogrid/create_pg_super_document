@@ -1,7 +1,7 @@
 # mcelem_tsquery_selec
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 207 - 277
+[src/backend/tsearch/ts_selfuncs.c:207-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L207-L277)
 
 ## Overview
 Computes TSQuery selectivity using most-common-elements (MCELEM) statistics by building a lookup structure and delegating to query analysis functions.

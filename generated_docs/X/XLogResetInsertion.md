@@ -1,7 +1,7 @@
 # XLogResetInsertion
 
 ## Location
-src/backend/access/transam/xloginsert.c: 222 - 241
+[src/backend/access/transam/xloginsert.c:222-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L222-L241)
 
 ## Overview
 XLogResetInsertion resets all WAL record construction buffers and state variables to their initial values, cleaning up after WAL record construction is complete or aborted.

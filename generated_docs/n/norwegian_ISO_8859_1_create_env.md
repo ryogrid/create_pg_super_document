@@ -1,7 +1,7 @@
 # norwegian_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c: 269 - 270
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c:269-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c#L269-L270)
 
 ## Overview
 Creates and initializes a Snowball environment for Norwegian language stemming using ISO 8859-1 character encoding.

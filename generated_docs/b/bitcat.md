@@ -1,7 +1,7 @@
 # bitcat
 
 ## Location
-src/backend/utils/adt/varbit.c: 968 - 976
+[src/backend/utils/adt/varbit.c:968-976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L968-L976)
 
 ## Overview
 The bitcat function provides concatenation functionality for bit strings in PostgreSQL, serving as a wrapper function for the internal bit_catenate operation.

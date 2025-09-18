@@ -1,7 +1,7 @@
 # lacon
 
 ## Location
-src/backend/regex/rege_dfa.c: 916 - 972
+[src/backend/regex/rege_dfa.c:916-972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L916-L972)
 
 ## Overview
 The  function is a lookaround-constraint checker that evaluates whether a specific lookahead or lookbehind assertion is satisfied at a given position in the input string.

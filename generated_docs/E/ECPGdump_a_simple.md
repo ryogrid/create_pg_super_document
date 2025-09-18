@@ -1,7 +1,7 @@
 # ECPGdump_a_simple
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 411 - 580
+[src/interfaces/ecpg/preproc/type.c:411-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L411-L580)
 
 ## Overview
 ECPGdump_a_simple is a static function that generates C code to dump simple data types for ECPG (Embedded C for PostgreSQL). It formats variable references with appropriate addressing, sizing, and type information for the ECPG runtime system.

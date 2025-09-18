@@ -1,7 +1,7 @@
 # show_sort_group_keys
 
 ## Location
-src/backend/commands/explain.c: 2759 - 2820
+[src/backend/commands/explain.c:2759-2820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2759-L2820)
 
 ## Overview
 A static function that provides common functionality for displaying sort and group keys in PostgreSQL's EXPLAIN output, handling the deparsing and formatting of key expressions with optional sort order information.

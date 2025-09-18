@@ -1,7 +1,7 @@
 # AddRelcacheInvalidationMessage
 
 ## Location
-src/backend/utils/cache/inval.c: 442 - 473
+[src/backend/utils/cache/inval.c:442-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L442-L473)
 
 ## Overview
 AddRelcacheInvalidationMessage is a static function that creates and adds a relation cache invalidation message to an invalidation message group, with built-in duplicate detection to prevent redundant invalidations.

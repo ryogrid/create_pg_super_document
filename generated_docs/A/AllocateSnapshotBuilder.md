@@ -1,7 +1,7 @@
 # AllocateSnapshotBuilder
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 324 - 371
+[src/backend/replication/logical/snapbuild.c:324-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L324-L371)
 
 ## Overview
 AllocateSnapshotBuilder allocates and initializes a new snapshot builder for logical replication, setting up the necessary context and initial state for building consistent snapshots during WAL decoding.

@@ -1,7 +1,7 @@
 # _bt_setup_array_cmp
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 712 - 788
+[src/backend/access/nbtree/nbtutils.c:712-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L712-L788)
 
 ## Overview
 Sets up array comparison functions by configuring ORDER procedures for binary searches during index scans and for sorting arrays, handling both same-type and cross-type comparisons.

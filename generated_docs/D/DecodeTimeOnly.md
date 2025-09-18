@@ -1,7 +1,7 @@
 # DecodeTimeOnly
 
 ## Location
-src/backend/utils/adt/datetime.c: 1864 - 2397
+[src/backend/utils/adt/datetime.c:1864-2397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L1864-L2397)
 
 ## Overview
 Interprets parsed string fields as time-only values with optional timezone support, handling various time formats including ISO time, Julian dates, timezone abbreviations, and special keywords.

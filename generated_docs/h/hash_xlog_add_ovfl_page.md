@@ -1,7 +1,7 @@
 # hash_xlog_add_ovfl_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 173 - 310
+[src/backend/access/hash/hash_xlog.c:173-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L173-L310)
 
 ## Overview
 Replays the addition of an overflow page to a hash index during WAL recovery, managing the complex process of linking pages and updating bitmap and metapage structures.

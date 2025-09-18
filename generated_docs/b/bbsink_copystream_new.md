@@ -1,7 +1,7 @@
 # bbsink_copystream_new
 
 ## Location
-src/backend/backup/basebackup_copy.c: 108 - 125
+[src/backend/backup/basebackup_copy.c:108-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L108-L125)
 
 ## Overview
 Creates a new 'copystream' basebackup sink that sends backup archives via PostgreSQL's COPY protocol to clients or other destinations.

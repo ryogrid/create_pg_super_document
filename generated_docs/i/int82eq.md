@@ -1,7 +1,7 @@
 # int82eq
 
 ## Location
-src/backend/utils/adt/int8.c: 284 - 292
+[src/backend/utils/adt/int8.c:284-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L284-L292)
 
 ## Overview
 A PostgreSQL function that compares a 64-bit integer with a 16-bit integer to determine if they are equal.

@@ -1,7 +1,7 @@
 # checkmatchall
 
 ## Location
-src/backend/regex/regc_nfa.c: 3097 - 3276
+[src/backend/regex/regc_nfa.c:3097-3276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3097-L3276)
 
 ## Overview
 The checkmatchall function analyzes an NFA (Nondeterministic Finite Automaton) to determine if it represents a simple string length test, optimizing regex matching for patterns that only care about string length.

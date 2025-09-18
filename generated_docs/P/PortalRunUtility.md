@@ -1,7 +1,7 @@
 # PortalRunUtility
 
 ## Location
-src/backend/tcop/pquery.c: 1125 - 1187
+[src/backend/tcop/pquery.c:1125-1187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1125-L1187)
 
 ## Overview
 Executes a utility statement inside a portal, handling snapshot management and delegating the actual execution to ProcessUtility.

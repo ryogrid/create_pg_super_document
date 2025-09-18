@@ -1,7 +1,7 @@
 # timestamp_gt_date
 
 ## Location
-src/backend/utils/adt/date.c: 934 - 942
+[src/backend/utils/adt/date.c:934-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L934-L942)
 
 ## Overview
 Compares a timestamp value with a date value to determine if the timestamp is greater than the date.

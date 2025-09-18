@@ -1,7 +1,7 @@
 # store_conn_addrinfo
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4745 - 4783
+[src/interfaces/libpq/fe-connect.c:4745-4783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4745-L4783)
 
 ## Overview
 Copies network address information from a system addrinfo linked list into a PGconn object's internal address array for libpq manipulation.

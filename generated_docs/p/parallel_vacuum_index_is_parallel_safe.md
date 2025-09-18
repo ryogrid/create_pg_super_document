@@ -1,7 +1,7 @@
 # parallel_vacuum_index_is_parallel_safe
 
 ## Location
-src/backend/commands/vacuumparallel.c: 949 - 986
+[src/backend/commands/vacuumparallel.c:949-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L949-L986)
 
 ## Overview
 Determines whether a given index can safely participate in parallel vacuum operations by checking the index's parallel vacuum support capabilities.

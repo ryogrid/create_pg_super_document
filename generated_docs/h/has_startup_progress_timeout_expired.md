@@ -1,7 +1,7 @@
 # has_startup_progress_timeout_expired
 
 ## Location
-src/backend/postmaster/startup.c: 359 - 378
+[src/backend/postmaster/startup.c:359-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L359-L378)
 
 ## Overview
 Checks whether the startup progress timeout has expired and returns the elapsed time since the current progress phase began.

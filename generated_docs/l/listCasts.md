@@ -1,7 +1,7 @@
 # listCasts
 
 ## Location
-src/bin/psql/describe.c: 4790 - 4907
+[src/bin/psql/describe.c:4790-4907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L4790-L4907)
 
 ## Overview
 The  function implements the  psql command for displaying type cast information in a PostgreSQL database.

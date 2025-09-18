@@ -1,7 +1,7 @@
 # pg_ascii_toupper
 
 ## Location
-src/port/pgstrcasecmp.c: 135 - 145
+[src/port/pgstrcasecmp.c:135-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pgstrcasecmp.c#L135-L145)
 
 ## Overview
 Converts a character to uppercase following strict C/POSIX locale rules, operating only on ASCII characters.

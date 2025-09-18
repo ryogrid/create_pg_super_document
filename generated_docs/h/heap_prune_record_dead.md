@@ -1,7 +1,7 @@
 # heap_prune_record_dead
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1246 - 1279
+[src/backend/access/heap/pruneheap.c:1246-1279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1246-L1279)
 
 ## Overview
 Records a line pointer that should be marked as dead during heap pruning, tracking offsets of tuples that are no longer visible to any transactions.

@@ -1,7 +1,7 @@
 # brin_bloom_options
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 747 - 776
+[src/backend/access/brin/brin_bloom.c:747-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L747-L776)
 
 ## Overview
 Configures the reloptions (relation options) for BRIN Bloom indexes, allowing users to specify parameters that control the behavior and performance characteristics of bloom filters in BRIN indexes.

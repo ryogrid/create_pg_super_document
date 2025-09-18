@@ -1,7 +1,7 @@
 # transformRangeSubselect
 
 ## Location
-src/backend/parser/parse_clause.c: 407 - 464
+[src/backend/parser/parse_clause.c:407-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L407-L464)
 
 ## Overview
 Transforms a sub-SELECT appearing in a FROM clause into a ParseNamespaceItem, handling LATERAL references and parsing the subquery with appropriate context.

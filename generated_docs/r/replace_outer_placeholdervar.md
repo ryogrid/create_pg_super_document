@@ -1,7 +1,7 @@
 # replace_outer_placeholdervar
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 197 - 223
+[src/backend/optimizer/util/paramassign.c:197-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L197-L223)
 
 ## Overview
 Generates a Param node to replace the given PlaceHolderVar which is expected to have phlevelsup > 0, and records the need for the PHV in the proper upper-level root->plan_params.

@@ -1,7 +1,7 @@
 # DependencyGeneratorData
 
 ## Location
-src/backend/statistics/dependencies.c: 56 - 63
+[src/backend/statistics/dependencies.c:56-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L56-L63)
 
 ## Overview
 Internal state structure for generating dependency combinations in PostgreSQL statistics, used to iterate through k-permutations of n elements where order does not matter for the first (k-1) elements.

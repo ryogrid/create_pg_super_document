@@ -1,7 +1,7 @@
 # contain_agg_clause_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 183 - 213
+[src/backend/optimizer/util/clauses.c:183-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L183-L213)
 
 ## Overview
 A recursive tree walker function that identifies aggregate function nodes (Aggref and GroupingFunc) within an expression tree.

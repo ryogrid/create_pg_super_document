@@ -1,7 +1,7 @@
 # show_modifytable_info
 
 ## Location
-src/backend/commands/explain.c: 4172 - 4383
+[src/backend/commands/explain.c:4172-4383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4172-L4383)
 
 ## Overview
 show_modifytable_info is a static function that displays detailed information for ModifyTable nodes in PostgreSQL's EXPLAIN output, including target tables, foreign data wrapper details, and conflict resolution information.

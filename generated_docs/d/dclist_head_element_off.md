@@ -1,7 +1,7 @@
 # dclist_head_element_off
 
 ## Location
-src/include/lib/ilist.h: 888 - 899
+[src/include/lib/ilist.h:888-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L888-L899)
 
 ## Overview
 Internal support function that calculates the address of the head element's containing structure by applying an offset to the first node in a doubly-linked counted list.

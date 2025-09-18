@@ -1,7 +1,7 @@
 # pg_cmp_u32
 
 ## Location
-src/include/common/int.h: 489 - 494
+[src/include/common/int.h:489-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L489-L494)
 
 ## Overview
 A fast inline comparison function for 32-bit unsigned integers that returns a standardized comparison result (-1, 0, or 1) without using conditional branches.

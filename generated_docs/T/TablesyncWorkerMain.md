@@ -1,7 +1,7 @@
 # TablesyncWorkerMain
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1737 - 1756
+[src/backend/replication/logical/tablesync.c:1737-1756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1737-L1756)
 
 ## Overview
 TablesyncWorkerMain is the main entry point for logical replication table synchronization workers in PostgreSQL. It sets up and runs the synchronization process for individual tables during logical replication.

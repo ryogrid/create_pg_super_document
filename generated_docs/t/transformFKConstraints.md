@@ -1,7 +1,7 @@
 # transformFKConstraints
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2726 - 2796
+[src/backend/parser/parse_utilcmd.c:2726-2796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2726-L2796)
 
 ## Overview
 Handles FOREIGN KEY constraints by generating ALTER TABLE ADD CONSTRAINT commands and managing validation settings for both table creation and column addition scenarios.

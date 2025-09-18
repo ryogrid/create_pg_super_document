@@ -1,7 +1,7 @@
 # ExecHashJoinGetSavedTuple
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1356 - 1394
+[src/backend/executor/nodeHashjoin.c:1356-1394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1356-L1394)
 
 ## Overview
 Reads the next tuple from a batch file during hash join operations, retrieving both the hash value and tuple data that were previously saved by ExecHashJoinSaveTuple.

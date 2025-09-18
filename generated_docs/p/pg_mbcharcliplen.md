@@ -1,7 +1,7 @@
 # pg_mbcharcliplen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1125 - 1149
+[src/backend/utils/mb/mbutils.c:1125-1149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1125-L1149)
 
 ## Overview
 Clips a multi-byte string to a specified character limit (not byte limit), ensuring the result remains valid by not breaking multi-byte character boundaries.

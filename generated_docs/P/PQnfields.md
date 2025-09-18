@@ -1,7 +1,7 @@
 # PQnfields
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3489 - 3496
+[src/interfaces/libpq/fe-exec.c:3489-3496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3489-L3496)
 
 ## Overview
 PQnfields returns the number of columns (fields) in a query result set stored in a PGresult object.

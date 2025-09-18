@@ -1,7 +1,7 @@
 # AtEOXact_LargeObject
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 602 - 647
+[src/backend/libpq/be-fsstubs.c:602-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L602-L647)
 
 ## Overview
 Prepares large objects for transaction commit or abort by cleaning up resources and file descriptors associated with large objects in the current transaction.

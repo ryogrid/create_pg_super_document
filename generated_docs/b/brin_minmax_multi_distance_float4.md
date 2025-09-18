@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_float4
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1883 - 1908
+[src/backend/access/brin/brin_minmax_multi.c:1883-1908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1883-L1908)
 
 ## Overview
 This function computes the distance between two float4 values for use in BRIN minmax-multi index range compaction decisions, with special handling for NaN values.

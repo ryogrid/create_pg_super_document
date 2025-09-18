@@ -1,7 +1,7 @@
 # ExecIndexScanInitializeDSM
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 1661 - 1696
+[src/backend/executor/nodeIndexscan.c:1661-1696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L1661-L1696)
 
 ## Overview
 ExecIndexScanInitializeDSM sets up a parallel index scan descriptor in shared memory, initializing the necessary data structures for coordinated parallel index scanning across multiple worker processes.

@@ -1,7 +1,7 @@
 # gtsvector_picksplit
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 621 - 802
+[src/backend/utils/adt/tsgistidx.c:621-802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L621-L802)
 
 ## Overview
 Implements the picksplit algorithm for GiST (Generalized Search Tree) indexes on tsvector data, determining how to split a full index page into two balanced pages for optimal search performance.

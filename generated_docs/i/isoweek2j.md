@@ -1,7 +1,7 @@
 # isoweek2j
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5116 - 5135
+[src/backend/utils/adt/timestamp.c:5116-5135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5116-L5135)
 
 ## Overview
 Converts an ISO 8601 year and week number to the Julian day number corresponding to the first day (Monday) of that week.

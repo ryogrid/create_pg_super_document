@@ -1,7 +1,7 @@
 # pg_u_isdigit
 
 ## Location
-src/common/unicode_category.c: 211 - 219
+[src/common/unicode_category.c:211-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L211-L219)
 
 ## Overview
 Determines whether a Unicode code point is a digit character, with support for both POSIX-compatible and Unicode standard variants.

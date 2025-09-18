@@ -1,7 +1,7 @@
 # tlist_matches_tupdesc
 
 ## Location
-src/backend/executor/execUtils.c: 585 - 646
+[src/backend/executor/execUtils.c:585-646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L585-L646)
 
 ## Overview
 Determines whether a target list exactly matches a tuple descriptor, enabling projection optimization by detecting when no tuple transformation is needed.

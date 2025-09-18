@@ -1,7 +1,7 @@
 # transformPartitionBound
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3985 - 4138
+[src/backend/parser/parse_utilcmd.c:3985-4138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3985-L4138)
 
 ## Overview
 Transforms and validates a partition bound specification according to the parent table's partitioning strategy (hash, list, or range).

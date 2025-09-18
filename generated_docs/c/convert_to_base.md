@@ -1,7 +1,7 @@
 # convert_to_base
 
 ## Location
-src/backend/utils/adt/varlena.c: 4930 - 4955
+[src/backend/utils/adt/varlena.c:4930-4955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4930-L4955)
 
 ## Overview
 Internal utility function that converts unsigned 64-bit integers to their string representation in any base from 2 to 16, serving as the core implementation for PostgreSQL's to_bin, to_oct, and to_hex functions.

@@ -1,7 +1,7 @@
 # pg_get_expr_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2664 - 2748
+[src/backend/utils/adt/ruleutils.c:2664-2748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2664-L2748)
 
 ## Overview
 Core internal function that performs the actual conversion of stored pg_node_tree expressions back into human-readable SQL text format with validation and context handling.

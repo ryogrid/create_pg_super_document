@@ -1,7 +1,7 @@
 # release_partition
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1335 - 1384
+[src/backend/executor/nodeWindowAgg.c:1335-1384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1335-L1384)
 
 ## Overview
 This static function cleans up all partition-local resources including tuplestores, memory contexts, and window function state when finishing processing of a window partition.

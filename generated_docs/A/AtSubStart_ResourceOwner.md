@@ -1,7 +1,7 @@
 # AtSubStart_ResourceOwner
 
 ## Location
-src/backend/access/transam/xact.c: 1272 - 1303
+[src/backend/access/transam/xact.c:1272-1303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1272-L1303)
 
 ## Overview
 AtSubStart_ResourceOwner initializes the resource owner for a new subtransaction, creating a hierarchical structure where the subtransaction's resource owner is a child of its parent transaction's resource owner.

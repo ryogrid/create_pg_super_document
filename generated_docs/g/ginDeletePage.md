@@ -1,7 +1,7 @@
 # ginDeletePage
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 130 - 246
+[src/backend/access/gin/ginvacuum.c:130-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L130-L246)
 
 ## Overview
 Deletes a posting tree page from a GIN index by unlinking it from the tree structure and marking it as deleted for eventual reuse.

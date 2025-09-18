@@ -1,7 +1,7 @@
 # CreateAuxProcessResourceOwner
 
 ## Location
-src/backend/utils/resowner/resowner.c: 982 - 1001
+[src/backend/utils/resowner/resowner.c:982-1001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L982-L1001)
 
 ## Overview
 Establishes a resource owner specifically for auxiliary processes and registers a cleanup callback to ensure proper resource cleanup when the auxiliary process exits.

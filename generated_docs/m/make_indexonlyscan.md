@@ -1,7 +1,7 @@
 # make_indexonlyscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5576 - 5604
+[src/backend/optimizer/plan/createplan.c:5576-5604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5576-L5604)
 
 ## Overview
 Creates and initializes an IndexOnlyScan plan node for the PostgreSQL query planner, which represents an index-only scan operation that can return results directly from index pages without accessing the heap table.

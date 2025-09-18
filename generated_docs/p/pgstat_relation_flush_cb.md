@@ -1,7 +1,7 @@
 # pgstat_relation_flush_cb
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 802 - 884
+[src/backend/utils/activity/pgstat_relation.c:802-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L802-L884)
 
 ## Overview
 Flushes pending relation statistics from local backend state to shared memory, transferring accumulated counters to both relation and database statistics entries.

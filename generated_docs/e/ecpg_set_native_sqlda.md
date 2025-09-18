@@ -1,7 +1,7 @@
 # ecpg_set_native_sqlda
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 444 - 592
+[src/interfaces/ecpg/ecpglib/sqlda.c:444-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L444-L592)
 
 ## Overview
 Sets up and populates a native SQLDA structure with data values from a specific row of a PostgreSQL result set, handling proper data type conversion and memory layout for the native format.

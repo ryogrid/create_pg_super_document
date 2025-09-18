@@ -1,7 +1,7 @@
 # PQsocket
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7185 - 7192
+[src/interfaces/libpq/fe-connect.c:7185-7192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7185-L7192)
 
 ## Overview
 Returns the file descriptor (socket) of the connection to the PostgreSQL server, enabling direct socket operations and integration with event loops.

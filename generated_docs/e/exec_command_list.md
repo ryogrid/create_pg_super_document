@@ -1,7 +1,7 @@
 # exec_command_list
 
 ## Location
-src/bin/psql/command.c: 1970 - 1997
+[src/bin/psql/command.c:1970-1997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1970-L1997)
 
 ## Overview
 Handles the \\l command in psql, which lists all databases in the PostgreSQL server with optional pattern matching and verbose output.

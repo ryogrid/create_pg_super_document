@@ -1,7 +1,7 @@
 # bbsink_zstd_begin_archive
 
 ## Location
-src/backend/backup/basebackup_zstd.c: 158 - 192
+[src/backend/backup/basebackup_zstd.c:158-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_zstd.c#L158-L192)
 
 ## Overview
 Prepares the zstd compression sink for compressing a new archive by resetting the compression context and setting up output buffers with an updated archive name.

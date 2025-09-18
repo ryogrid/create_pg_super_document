@@ -1,7 +1,7 @@
 # create_bitmap_or_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1127 - 1178
+[src/backend/optimizer/util/pathnode.c:1127-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1127-L1178)
 
 ## Overview
 Creates a path node representing a BitmapOr operation, which combines multiple bitmap index scans using logical OR to find tuples that satisfy any of the specified index conditions.

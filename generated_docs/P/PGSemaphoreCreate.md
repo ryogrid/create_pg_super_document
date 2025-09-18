@@ -1,7 +1,7 @@
 # PGSemaphoreCreate
 
 ## Location
-src/backend/port/posix_sema.c: 262 - 294
+[src/backend/port/posix_sema.c:262-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L262-L294)
 
 ## Overview
 Allocates and initializes a new PostgreSQL semaphore structure with an initial count of 1.

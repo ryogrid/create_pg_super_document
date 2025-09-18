@@ -1,7 +1,7 @@
 # cache_range_element_properties
 
 ## Location
-src/backend/utils/cache/typcache.c: 1642 - 1665
+[src/backend/utils/cache/typcache.c:1642-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1642-L1665)
 
 ## Overview
 Caches hash function properties for the element type of a range type, determining whether the element type supports regular and extended hashing.

@@ -1,7 +1,7 @@
 # DefineQueryRewrite
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 224 - 505
+[src/backend/rewrite/rewriteDefine.c:224-505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L224-L505)
 
 ## Overview
 DefineQueryRewrite is the core function that creates rewrite rules in PostgreSQL, performing comprehensive validation and enforcement of rule constraints before inserting the rule into the system catalog.

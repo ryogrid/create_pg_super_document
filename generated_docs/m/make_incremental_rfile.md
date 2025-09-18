@@ -1,7 +1,7 @@
 # make_incremental_rfile
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 455 - 509
+[src/bin/pg_combinebackup/reconstruct.c:455-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L455-L509)
 
 ## Overview
 Initializes and reads the header of an incremental backup file, creating an rfile structure with metadata about which blocks it contains.

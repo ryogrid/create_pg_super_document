@@ -1,7 +1,7 @@
 # pgarch_call_module_shutdown_cb
 
 ## Location
-src/backend/postmaster/pgarch.c: 953 - 957
+[src/backend/postmaster/pgarch.c:953-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L953-L957)
 
 ## Overview
 A callback function that invokes the shutdown callback of the loaded archive module when the PostgreSQL process is terminating.

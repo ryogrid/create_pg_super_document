@@ -1,7 +1,7 @@
 # pg_valid_client_encoding
 
 ## Location
-src/common/encnames.c: 485 - 498
+[src/common/encnames.c:485-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L485-L498)
 
 ## Overview
 Validates whether a given encoding name is a valid client-side character encoding in PostgreSQL.

@@ -1,7 +1,7 @@
 # HASHHDR
 
 ## Location
-src/backend/utils/hash/dynahash.c: 168 - 209
+[src/backend/utils/hash/dynahash.c:168-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L168-L209)
 
 ## Overview
 HASHHDR is a header structure for PostgreSQL's dynamic hash tables that contains all changeable information and configuration data for the hash table.

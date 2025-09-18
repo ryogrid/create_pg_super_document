@@ -1,7 +1,7 @@
 # ReportGUCOption
 
 ## Location
-src/backend/utils/misc/guc.c: 2636 - 2672
+[src/backend/utils/misc/guc.c:2636-2672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2636-L2672)
 
 ## Overview
 ReportGUCOption transmits a configuration parameter's current value to the frontend client if it has changed since the last report, implementing efficient duplicate detection.

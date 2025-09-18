@@ -1,7 +1,7 @@
 # check_index_predicates
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3244 - 3381
+[src/backend/optimizer/path/indxpath.c:3244-3381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3244-L3381)
 
 ## Overview
 Sets the predicate-derived IndexOptInfo fields for each index of a specified relation to determine partial index usability and compute restriction info.

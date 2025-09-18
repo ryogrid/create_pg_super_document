@@ -1,7 +1,7 @@
 # string_to_bytea_const
 
 ## Location
-src/backend/utils/adt/like_support.c: 1787 - 1797
+[src/backend/utils/adt/like_support.c:1787-1797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1787-L1797)
 
 ## Overview
 A static utility function that creates a PostgreSQL Const node of bytea type from a binary C string and its length, used in LIKE pattern matching operations.

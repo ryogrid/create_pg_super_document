@@ -1,7 +1,7 @@
 # BpChar
 
 ## Location
-src/include/c.h: 701 - 701
+[src/include/c.h:701-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L701-L701)
 
 ## Overview
 The  type implements PostgreSQL's SQL  data type, providing fixed-length, blank-padded character strings with a specified maximum length.

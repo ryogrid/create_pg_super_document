@@ -1,7 +1,7 @@
 # pg_replication_origin_advance
 
 ## Location
-src/backend/replication/logical/origin.c: 1456 - 1490
+[src/backend/replication/logical/origin.c:1456-1490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1456-L1490)
 
 ## Overview
 Advances the replication progress for a specified replication origin by name to a given remote LSN position, typically used for setting up initial replication state.

@@ -1,7 +1,7 @@
 # english_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 1061 - 1062
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:1061-1062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L1061-L1062)
 
 ## Overview
 Cleanup function that properly deallocates and closes a Snowball environment structure that was created for English stemming with ISO-8859-1 character encoding.

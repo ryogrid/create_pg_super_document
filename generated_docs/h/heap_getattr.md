@@ -1,7 +1,7 @@
 # heap_getattr
 
 ## Location
-src/include/access/htup_details.h: 797 - 811
+[src/include/access/htup_details.h:797-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/htup_details.h#L797-L811)
 
 ## Overview
 `heap_getattr` is the primary interface function for extracting attributes from heap tuples, handling both user and system attributes with proper bounds checking.

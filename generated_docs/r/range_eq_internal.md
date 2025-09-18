@@ -1,7 +1,7 @@
 # range_eq_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 573 - 604
+[src/backend/utils/adt/rangetypes.c:573-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L573-L604)
 
 ## Overview
 This internal PostgreSQL function performs equality comparison between two range types, implementing the core logic for determining if two ranges are identical.

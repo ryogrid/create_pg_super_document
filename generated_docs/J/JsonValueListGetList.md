@@ -1,7 +1,7 @@
 # JsonValueListGetList
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3545 - 3553
+[src/backend/utils/adt/jsonpath_exec.c:3545-3553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3545-L3553)
 
 ## Overview
 Converts a JsonValueList structure into a standard PostgreSQL List, handling the conversion from singleton representation to list format when necessary.

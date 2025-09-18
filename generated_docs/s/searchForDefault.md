@@ -1,7 +1,7 @@
 # searchForDefault
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1289 - 1314
+[src/backend/rewrite/rewriteHandler.c:1289-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1289-L1314)
 
 ## Overview
 Checks whether a VALUES range table entry contains any SetToDefault items in its value lists.

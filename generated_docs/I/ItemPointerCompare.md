@@ -1,7 +1,7 @@
 # ItemPointerCompare
 
 ## Location
-src/backend/storage/page/itemptr.c: 51 - 83
+[src/backend/storage/page/itemptr.c:51-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/itemptr.c#L51-L83)
 
 ## Overview
 ItemPointerCompare is a generic comparison function that provides btree-style ordering for ItemPointer structures, returning -1, 0, or 1 to indicate less-than, equal-to, or greater-than relationships.

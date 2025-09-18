@@ -1,7 +1,7 @@
 # ExecQueryTuples
 
 ## Location
-src/bin/psql/common.c: 826 - 901
+[src/bin/psql/common.c:826-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L826-L901)
 
 ## Overview
 Executes each field value in a query result as individual SQL statements, implementing the \gexec psql meta-command functionality for dynamic SQL execution.

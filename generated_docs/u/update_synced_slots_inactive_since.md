@@ -1,7 +1,7 @@
 # update_synced_slots_inactive_since
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1510 - 1561
+[src/backend/replication/logical/slotsync.c:1510-1561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1510-L1561)
 
 ## Overview
 Updates the inactive_since timestamp for all synchronized replication slots during standby server shutdown to ensure accurate slot status tracking after potential promotion.

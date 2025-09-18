@@ -1,7 +1,7 @@
 # LSEG
 
 ## Location
-src/include/utils/geo_decls.h: 109 - 121
+[src/include/utils/geo_decls.h:109-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L109-L121)
 
 ## Overview
 LSEG represents a line segment in PostgreSQL's geometric type system, specified by two endpoints as Point structures.

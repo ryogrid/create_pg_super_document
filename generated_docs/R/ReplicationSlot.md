@@ -1,7 +1,7 @@
 # ReplicationSlot
 
 ## Location
-src/include/replication/slot.h: 148 - 211
+[src/include/replication/slot.h:148-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/slot.h#L148-L211)
 
 ## Overview
 ReplicationSlot represents the shared memory state of a single replication slot, managing both in-memory runtime state and persistent data with a sophisticated locking model to ensure safe concurrent access across multiple backend processes.

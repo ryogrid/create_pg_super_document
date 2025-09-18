@@ -1,7 +1,7 @@
 # hemdistcache
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 605 - 620
+[src/backend/utils/adt/tsgistidx.c:605-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L605-L620)
 
 ## Overview
 Calculates the Hamming distance between two cached signature structures, providing optimized distance computation for GiST index operations that work with pre-processed signature data.

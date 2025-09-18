@@ -1,7 +1,7 @@
 # dist_sl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2526 - 2537
+[src/backend/utils/adt/geo_ops.c:2526-2537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2526-L2537)
 
 ## Overview
 Calculates the shortest distance from a line segment (lseg) to an infinite line in 2D coordinate space.

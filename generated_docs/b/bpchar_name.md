@@ -1,7 +1,7 @@
 # bpchar_name
 
 ## Location
-src/backend/utils/adt/varchar.c: 371 - 406
+[src/backend/utils/adt/varchar.c:371-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L371-L406)
 
 ## Overview
 Converts a bpchar (blank-padded character) value to a NameData type, handling truncation and trailing space removal for PostgreSQL system identifiers.

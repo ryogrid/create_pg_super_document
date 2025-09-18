@@ -1,7 +1,7 @@
 # r_Step_1c
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 612 - 635
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:612-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L612-L635)
 
 ## Overview
 The r_Step_1c function implements Step 1c of the English Porter stemming algorithm, handling the transformation of 'y' or 'Y' suffixes to 'i' when preceded by a non-vowel.

@@ -1,7 +1,7 @@
 # XLogTruncateRelation
 
 ## Location
-src/backend/access/transam/xlogutils.c: 671 - 717
+[src/backend/access/transam/xlogutils.c:671-717](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L671-L717)
 
 ## Overview
 Cleans up invalid page records for truncated pages during XLOG replay when a relation is being truncated.

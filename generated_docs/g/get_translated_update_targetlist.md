@@ -1,7 +1,7 @@
 # get_translated_update_targetlist
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 690 - 732
+[src/backend/optimizer/util/appendinfo.c:690-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L690-L732)
 
 ## Overview
 Retrieves the processed target list of an UPDATE query, translated as needed to match a specific child target relation in inheritance or partitioning scenarios.

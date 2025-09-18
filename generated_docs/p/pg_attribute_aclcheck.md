@@ -1,7 +1,7 @@
 # pg_attribute_aclcheck
 
 ## Location
-src/backend/catalog/aclchk.c: 3925 - 3936
+[src/backend/catalog/aclchk.c:3925-3936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3925-L3936)
 
 ## Overview
 This function provides a public interface for checking a user's access privileges to a specific table column (attribute) in PostgreSQL.

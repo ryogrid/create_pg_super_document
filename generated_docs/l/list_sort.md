@@ -1,7 +1,7 @@
 # list_sort
 
 ## Location
-src/backend/nodes/list.c: 1674 - 1690
+[src/backend/nodes/list.c:1674-1690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1674-L1690)
 
 ## Overview
 Sorts a PostgreSQL list in-place using a user-provided comparator function, based on the standard library qsort algorithm.

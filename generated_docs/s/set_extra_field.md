@@ -1,7 +1,7 @@
 # set_extra_field
 
 ## Location
-src/backend/utils/misc/guc.c: 794 - 813
+[src/backend/utils/misc/guc.c:794-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L794-L813)
 
 ## Overview
 A static utility function in PostgreSQL's GUC system that safely assigns a new 'extra' data structure to a field of a GUC configuration item, handling memory management by freeing the previous value if it's no longer referenced.

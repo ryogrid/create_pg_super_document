@@ -1,7 +1,7 @@
 # isoweekdate2date
 
 ## Location
-src/backend/utils/adt/timestamp.c: 5149 - 5166
+[src/backend/utils/adt/timestamp.c:5149-5166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L5149-L5166)
 
 ## Overview
 Converts a complete ISO 8601 week date specification (ISO year, week number, and weekday) to the corresponding Gregorian calendar date.

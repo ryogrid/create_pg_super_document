@@ -1,7 +1,7 @@
 # pg_opclass_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 4950 - 4963
+[src/backend/catalog/namespace.c:4950-4963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4950-L4963)
 
 ## Overview
 SQL-callable function that determines whether an operator class is visible in the current search path without explicit schema qualification.

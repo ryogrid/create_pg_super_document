@@ -1,7 +1,7 @@
 # _bt_binsrch
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 337 - 467
+[src/backend/access/nbtree/nbtsearch.c:337-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L337-L467)
 
 ## Overview
 This function performs binary search on a B-tree page to find the appropriate position for a given scan key, handling both internal and leaf pages with different search semantics.

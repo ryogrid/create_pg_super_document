@@ -1,7 +1,7 @@
 # OpfamilyIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 2256 - 2267
+[src/backend/catalog/namespace.c:2256-2267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2256-L2267)
 
 ## Overview
 Determines whether an operator family (identified by OID) is visible in the current search path, meaning it would be found by searching for the unqualified operator family name.

@@ -1,7 +1,7 @@
 # tsearch_readline_state
 
 ## Location
-src/include/tsearch/ts_locale.h: 33 - 34
+[src/include/tsearch/ts_locale.h:33-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_locale.h#L33-L34)
 
 ## Overview
 A working state structure for managing file reading operations in PostgreSQL's text search (tsearch) system, designed to safely read and process configuration files with proper encoding conversion and error handling.

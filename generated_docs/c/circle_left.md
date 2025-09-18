@@ -1,7 +1,7 @@
 # circle_left
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4789 - 4800
+[src/backend/utils/adt/geo_ops.c:4789-4800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4789-L4800)
 
 ## Overview
 Tests whether the first circle is positioned strictly to the left of the second circle with no overlap, ensuring complete horizontal separation.

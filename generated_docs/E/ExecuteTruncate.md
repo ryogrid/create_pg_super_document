@@ -1,7 +1,7 @@
 # ExecuteTruncate
 
 ## Location
-src/backend/commands/tablecmds.c: 1791 - 1914
+[src/backend/commands/tablecmds.c:1791-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1791-L1914)
 
 ## Overview
 ExecuteTruncate executes a TRUNCATE command for one or more relations, handling multi-relation truncation with proper permission checks, lock acquisition, and cascade/restrict behavior for foreign key constraints.

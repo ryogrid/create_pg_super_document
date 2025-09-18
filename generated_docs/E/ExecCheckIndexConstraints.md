@@ -1,7 +1,7 @@
 # ExecCheckIndexConstraints
 
 ## Location
-src/backend/executor/execIndexing.c: 527 - 688
+[src/backend/executor/execIndexing.c:527-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L527-L688)
 
 ## Overview
 Checks whether a tuple violates any unique or exclusion constraints by testing against the relevant indices, primarily used for pre-insertion conflict detection in INSERT ... ON CONFLICT operations.

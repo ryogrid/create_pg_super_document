@@ -1,7 +1,7 @@
 # byteage
 
 ## Location
-src/backend/utils/adt/varlena.c: 3918 - 3937
+[src/backend/utils/adt/varlena.c:3918-3937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3918-L3937)
 
 ## Overview
 The byteage function implements the greater-than-or-equal-to (>=) comparison operator for bytea (binary string) data types in PostgreSQL.

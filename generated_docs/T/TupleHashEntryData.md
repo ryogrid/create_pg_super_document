@@ -1,7 +1,7 @@
 # TupleHashEntryData
 
 ## Location
-src/include/nodes/execnodes.h: 802 - 808
+[src/include/nodes/execnodes.h:802-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L802-L808)
 
 ## Overview
 TupleHashEntryData represents an individual entry within a TupleHashTable, storing a tuple along with its associated metadata for hash-based operations.

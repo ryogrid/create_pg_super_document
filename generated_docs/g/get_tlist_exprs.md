@@ -1,7 +1,7 @@
 # get_tlist_exprs
 
 ## Location
-src/backend/optimizer/util/tlist.c: 163 - 185
+[src/backend/optimizer/util/tlist.c:163-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L163-L185)
 
 ## Overview
 Extracts just the expression subtrees from a target list, optionally filtering out resjunk columns.

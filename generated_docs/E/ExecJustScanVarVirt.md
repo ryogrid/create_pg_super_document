@@ -1,7 +1,7 @@
 # ExecJustScanVarVirt
 
 ## Location
-src/backend/executor/execExprInterp.c: 2319 - 2325
+[src/backend/executor/execExprInterp.c:2319-2325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2319-L2325)
 
 ## Overview
 An optimized expression evaluation function specifically designed for scanning variables from virtual tuple slots in PostgreSQL's expression interpreter.

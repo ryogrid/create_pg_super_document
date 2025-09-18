@@ -1,7 +1,7 @@
 # get_alternative_expectfile
 
 ## Location
-src/test/regress/pg_regress.c: 1336 - 1369
+[src/test/regress/pg_regress.c:1336-1369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1336-L1369)
 
 ## Overview
 Generates alternative expected output filenames by inserting a numeric suffix before the file extension for PostgreSQL regression test variant expectations.

@@ -1,7 +1,7 @@
 # TocEntrySizeCompareBinaryheap
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4504 - 4518
+[src/bin/pg_dump/pg_backup_archiver.c:4504-4518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4504-L4518)
 
 ## Overview
 A binary heap comparator function that sorts TocEntry pointers by data length, designed to create a max-heap where the largest entries have the highest priority.

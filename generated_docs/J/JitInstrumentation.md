@@ -1,7 +1,7 @@
 # JitInstrumentation
 
 ## Location
-src/include/jit/jit.h: 27 - 46
+[src/include/jit/jit.h:27-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/jit.h#L27-L46)
 
 ## Overview
 JitInstrumentation is a structure that tracks performance metrics and timing information for PostgreSQL's Just-In-Time (JIT) compilation system.

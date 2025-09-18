@@ -1,7 +1,7 @@
 # pgstat_get_io_op_index
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1297 - 1329
+[src/backend/utils/adt/pgstatfuncs.c:1297-1329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1297-L1329)
 
 ## Overview
 This static function maps I/O operation types (IOOp) to their corresponding statistics column indices for PostgreSQL's I/O statistics system.

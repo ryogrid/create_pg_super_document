@@ -1,7 +1,7 @@
 # AtProcExit_Buffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3590 - 3607
+[src/backend/storage/buffer/bufmgr.c:3590-3607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3590-L3607)
 
 ## Overview
 AtProcExit_Buffers is a cleanup function called during backend exit to ensure all shared-buffer locks are released and verify that no buffer pins remain.

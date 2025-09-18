@@ -1,7 +1,7 @@
 # StoreCatalogInheritance
 
 ## Location
-src/backend/commands/tablecmds.c: 3389 - 3432
+[src/backend/commands/tablecmds.c:3389-3432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3389-L3432)
 
 ## Overview
 StoreCatalogInheritance updates the PostgreSQL system catalogs with inheritance information for a newly created relation and its direct parent relations.

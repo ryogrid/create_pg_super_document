@@ -1,7 +1,7 @@
 # _attrDefInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 388 - 394
+[src/bin/pg_dump/pg_dump.h:388-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L388-L394)
 
 ## Overview
 The  structure stores information about DEFAULT expressions for table columns in pg_dump, representing individual column default value definitions.

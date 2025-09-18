@@ -1,7 +1,7 @@
 # lseg_interpt_line
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2675 - 2723
+[src/backend/utils/adt/geo_ops.c:2675-2723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2675-L2723)
 
 ## Overview
 A static function that determines if a line segment intersects with a line and optionally returns the intersection point.

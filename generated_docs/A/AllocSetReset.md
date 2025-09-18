@@ -1,7 +1,7 @@
 # AllocSetReset
 
 ## Location
-src/backend/utils/mmgr/aset.c: 537 - 606
+[src/backend/utils/mmgr/aset.c:537-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L537-L606)
 
 ## Overview
 Resets an AllocSet memory context by freeing all allocated memory while preserving the keeper block to avoid malloc thrashing during repeated reset cycles.

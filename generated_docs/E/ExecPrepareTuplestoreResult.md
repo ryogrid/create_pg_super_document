@@ -1,7 +1,7 @@
 # ExecPrepareTuplestoreResult
 
 ## Location
-src/backend/executor/execSRF.c: 864 - 942
+[src/backend/executor/execSRF.c:864-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execSRF.c#L864-L942)
 
 ## Overview
 ExecPrepareTuplestoreResult is a subroutine that prepares to extract rows from a tuplestore-based function result by setting up the necessary slot structures and validating tuple descriptors.

@@ -1,7 +1,7 @@
 # assign_datestyle
 
 ## Location
-src/backend/commands/variable.c: 244 - 260
+[src/backend/commands/variable.c:244-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L244-L260)
 
 ## Overview
 A GUC (Grand Unified Configuration) assignment hook function that applies validated datestyle configuration values to the global DateStyle and DateOrder variables.

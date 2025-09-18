@@ -1,7 +1,7 @@
 # valid_restrict_key
 
 ## Location
-src/bin/pg_dump/dumputils.c: 955 - 960
+[src/bin/pg_dump/dumputils.c:955-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L955-L960)
 
 ## Overview
 valid_restrict_key validates that a given restrict key contains only alphanumeric characters and is suitable for use with psql's \restrict and \unrestrict meta-commands.

@@ -1,7 +1,7 @@
 # PQcmdStatus
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3752 - 3764
+[src/interfaces/libpq/fe-exec.c:3752-3764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3752-L3764)
 
 ## Overview
 PQcmdStatus retrieves the command status string from a PostgreSQL query result, indicating the type and outcome of the executed SQL command.

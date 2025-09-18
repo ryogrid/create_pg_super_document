@@ -1,7 +1,7 @@
 # ProcessStandbyReplyMessage
 
 ## Location
-src/backend/replication/walsender.c: 2406 - 2510
+[src/backend/replication/walsender.c:2406-2510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2406-L2510)
 
 ## Overview
 Processes reply messages from standby servers that report their current WAL positions, calculates replication lag metrics, and updates replication slot progress for both physical and logical replication.

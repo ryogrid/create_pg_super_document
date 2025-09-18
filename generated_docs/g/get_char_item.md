@@ -1,7 +1,7 @@
 # get_char_item
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 194 - 225
+[src/interfaces/ecpg/ecpglib/descriptor.c:194-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L194-L225)
 
 ## Overview
 Converts and assigns a string value to character-based variables with appropriate handling for different string types and size constraints in ECPG descriptor operations.

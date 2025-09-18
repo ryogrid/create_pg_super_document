@@ -1,7 +1,7 @@
 # numeric_inc
 
 ## Location
-src/backend/utils/adt/numeric.c: 3453 - 3485
+[src/backend/utils/adt/numeric.c:3453-3485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3453-L3485)
 
 ## Overview
 PostgreSQL function that increments a numeric value by one, providing a simple and efficient way to add 1 to any Numeric type value.

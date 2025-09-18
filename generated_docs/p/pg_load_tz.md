@@ -1,7 +1,7 @@
 # pg_load_tz
 
 ## Location
-src/bin/initdb/findtimezone.c: 91 - 151
+[src/bin/initdb/findtimezone.c:91-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L91-L151)
 
 ## Overview
 Loads a timezone definition into memory for use during database initialization, supporting both timezone file-based and POSIX timezone string formats.

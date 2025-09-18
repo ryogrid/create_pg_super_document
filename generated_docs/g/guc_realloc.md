@@ -1,7 +1,7 @@
 # guc_realloc
 
 ## Location
-src/backend/utils/misc/guc.c: 654 - 678
+[src/backend/utils/misc/guc.c:654-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L654-L678)
 
 ## Overview
 GUC-related memory reallocation function that resizes previously allocated memory in the GUC memory context with configurable error reporting level.

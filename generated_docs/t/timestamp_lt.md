@@ -1,7 +1,7 @@
 # timestamp_lt
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2234 - 2242
+[src/backend/utils/adt/timestamp.c:2234-2242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2234-L2242)
 
 ## Overview
 PostgreSQL function that implements the less-than operator (<) for timestamp values, returning true if the first timestamp is earlier than the second.

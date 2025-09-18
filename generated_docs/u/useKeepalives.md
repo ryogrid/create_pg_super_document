@@ -1,7 +1,7 @@
 # useKeepalives
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2169 - 2186
+[src/interfaces/libpq/fe-connect.c:2169-2186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2169-L2186)
 
 ## Overview
 Determines whether TCP keepalive should be enabled for a connection by parsing the keepalives connection parameter and returning a standardized result code.

@@ -1,7 +1,7 @@
 # BitmapHeapNext
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 69 - 345
+[src/backend/executor/nodeBitmapHeapscan.c:69-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L69-L345)
 
 ## Overview
 Retrieves the next tuple from a BitmapHeapScan node by iterating through bitmap results and fetching tuples from the underlying table relation.

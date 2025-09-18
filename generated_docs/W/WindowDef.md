@@ -1,7 +1,7 @@
 # WindowDef
 
 ## Location
-src/include/nodes/parsenodes.h: 561 - 572
+[src/include/nodes/parsenodes.h:561-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L561-L572)
 
 ## Overview
 WindowDef is a parse tree node that represents the raw representation of WINDOW and OVER clauses in SQL, containing all the specifications needed to define a window for window functions including partitioning, ordering, and framing.

@@ -1,7 +1,7 @@
 # ExecCloseRangeTableRelations
 
 ## Location
-src/backend/executor/execMain.c: 1576 - 1596
+[src/backend/executor/execMain.c:1576-1596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1576-L1596)
 
 ## Overview
 ExecCloseRangeTableRelations closes all relations that were opened by ExecGetRangeTableRelation() during query execution, while preserving any locks held on those relations.

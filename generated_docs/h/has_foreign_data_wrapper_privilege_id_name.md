@@ -1,7 +1,7 @@
 # has_foreign_data_wrapper_privilege_id_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3304 - 3326
+[src/backend/utils/adt/acl.c:3304-3326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3304-L3326)
 
 ## Overview
 Checks if a specified role (by OID) has a particular privilege on a foreign data wrapper identified by name.

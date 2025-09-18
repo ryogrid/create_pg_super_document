@@ -1,7 +1,7 @@
 # BrinDesc
 
 ## Location
-src/include/access/brin_internal.h: 44 - 63
+[src/include/access/brin_internal.h:44-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_internal.h#L44-L63)
 
 ## Overview
 BrinDesc is a comprehensive descriptor structure that enables decoding BRIN tuples from their on-disk format to in-memory representation and vice-versa, serving as the central metadata hub for BRIN index operations.

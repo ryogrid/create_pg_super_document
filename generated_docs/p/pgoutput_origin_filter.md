@@ -1,7 +1,7 @@
 # pgoutput_origin_filter
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1711 - 1729
+[src/backend/replication/pgoutput/pgoutput.c:1711-1729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1711-L1729)
 
 ## Overview
 Determines whether to filter out changes based on their replication origin, implementing origin-based filtering for logical replication.

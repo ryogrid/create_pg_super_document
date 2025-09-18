@@ -1,7 +1,7 @@
 # pg_u_prop_uppercase
 
 ## Location
-src/common/unicode_category.c: 133 - 143
+[src/common/unicode_category.c:133-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L133-L143)
 
 ## Overview
 The pg_u_prop_uppercase function determines whether a given Unicode codepoint has the Uppercase property according to Unicode character classification standards.

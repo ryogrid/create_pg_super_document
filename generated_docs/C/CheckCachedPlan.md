@@ -1,7 +1,7 @@
 # CheckCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 822 - 905
+[src/backend/utils/cache/plancache.c:822-905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L822-L905)
 
 ## Overview
 CheckCachedPlan verifies whether a CachedPlanSource's generic plan is still valid and safe to execute, acquiring necessary locks when the plan passes validation.

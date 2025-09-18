@@ -1,7 +1,7 @@
 # regexp_matches
 
 ## Location
-src/backend/utils/adt/regexp.c: 1367 - 1415
+[src/backend/utils/adt/regexp.c:1367-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1367-L1415)
 
 ## Overview
 Returns a table of all matches of a regular expression pattern within a string, implementing PostgreSQL's regexp_matches() SQL function as a set-returning function (SRF).

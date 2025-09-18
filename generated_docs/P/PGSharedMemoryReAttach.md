@@ -1,7 +1,7 @@
 # PGSharedMemoryReAttach
 
 ## Location
-src/backend/port/sysv_shmem.c: 890 - 938
+[src/backend/port/sysv_shmem.c:890-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L890-L938)
 
 ## Overview
 Re-attaches a postmaster child process to an existing shared memory segment in the EXEC_BACKEND configuration, where child processes don't inherit shared memory through fork().

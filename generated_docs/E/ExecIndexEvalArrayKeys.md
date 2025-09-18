@@ -1,7 +1,7 @@
 # ExecIndexEvalArrayKeys
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 661 - 739
+[src/backend/executor/nodeIndexscan.c:661-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L661-L739)
 
 ## Overview
 Evaluates array key expressions, decomposes arrays into individual elements, and initializes scankeys for array-based index operations.

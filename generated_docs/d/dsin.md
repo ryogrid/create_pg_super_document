@@ -1,7 +1,7 @@
 # dsin
 
 ## Location
-src/backend/utils/adt/float.c: 1931 - 1957
+[src/backend/utils/adt/float.c:1931-1957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1931-L1957)
 
 ## Overview
 The dsin function computes the sine of a floating-point argument given in radians and returns the trigonometric sine value.

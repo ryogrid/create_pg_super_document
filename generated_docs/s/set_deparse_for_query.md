@@ -1,7 +1,7 @@
 # set_deparse_for_query
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3973 - 4037
+[src/backend/utils/adt/ruleutils.c:3973-4037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3973-L4037)
 
 ## Overview
 Sets up a complete deparse_namespace structure for deparsing a Query tree, initializing all necessary components for query reconstruction.

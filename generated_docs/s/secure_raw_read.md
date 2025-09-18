@@ -1,7 +1,7 @@
 # secure_raw_read
 
 ## Location
-src/backend/libpq/be-secure.c: 264 - 300
+[src/backend/libpq/be-secure.c:264-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L264-L300)
 
 ## Overview
 secure_raw_read performs low-level socket read operations for unencrypted connections, handling buffered data management and non-blocking socket I/O with platform-specific optimizations.

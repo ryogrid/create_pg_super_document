@@ -1,7 +1,7 @@
 # WalSndKeepaliveIfNecessary
 
 ## Location
-src/backend/replication/walsender.c: 4099 - 4136
+[src/backend/replication/walsender.c:4099-4136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L4099-L4136)
 
 ## Overview
 Conditionally sends a keepalive message to the standby server if sufficient time has elapsed since the last reply, implementing timeout-based connection health monitoring.

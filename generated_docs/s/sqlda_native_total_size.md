@@ -1,7 +1,7 @@
 # sqlda_native_total_size
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 186 - 204
+[src/interfaces/ecpg/ecpglib/sqlda.c:186-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L186-L204)
 
 ## Overview
 Calculates the total memory size required for a native SQLDA structure including space for data values from a specific row in a PostgreSQL result set.

@@ -1,7 +1,7 @@
 # gettoken_query_websearch
 
 ## Location
-src/backend/utils/adt/tsquery.c: 398 - 509
+[src/backend/utils/adt/tsquery.c:398-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L398-L509)
 
 ## Overview
 A static function that tokenizes and parses websearch-style tsquery expressions, providing a more user-friendly syntax compared to standard PostgreSQL tsquery format.

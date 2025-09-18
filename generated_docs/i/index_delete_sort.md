@@ -1,7 +1,7 @@
 # index_delete_sort
 
 ## Location
-src/backend/access/heap/heapam.c: 8440 - 8536
+[src/backend/access/heap/heapam.c:8440-8536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L8440-L8536)
 
 ## Overview
 Sorts a deltids array from delstate by TID to prepare it for further processing by heap_index_delete_tuples(), using a specialized shellsort implementation optimized for performance.

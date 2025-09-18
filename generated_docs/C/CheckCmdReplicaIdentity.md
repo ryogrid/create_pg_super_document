@@ -1,7 +1,7 @@
 # CheckCmdReplicaIdentity
 
 ## Location
-src/backend/executor/execReplication.c: 656 - 742
+[src/backend/executor/execReplication.c:656-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L656-L742)
 
 ## Overview
 CheckCmdReplicaIdentity validates whether UPDATE or DELETE commands can be safely executed based on the relations replica identity configuration and publication settings.

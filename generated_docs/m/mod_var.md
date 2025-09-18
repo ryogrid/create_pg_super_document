@@ -1,7 +1,7 @@
 # mod_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 9862 - 9890
+[src/backend/utils/adt/numeric.c:9862-9890](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L9862-L9890)
 
 ## Overview
 Calculates the modulo (remainder) of two PostgreSQL numeric variables using the mathematical relationship mod(x,y) = x - trunc(x/y)*y.

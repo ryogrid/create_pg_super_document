@@ -1,7 +1,7 @@
 # tuplesort_putbrintuple
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 788 - 825
+[src/backend/utils/sort/tuplesortvariants.c:788-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L788-L825)
 
 ## Overview
 Collects one BRIN tuple while collecting input data for sorting operations, handling the allocation and initialization of BRIN-specific sort tuples.

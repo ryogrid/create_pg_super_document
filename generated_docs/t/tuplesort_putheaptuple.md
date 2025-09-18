@@ -1,7 +1,7 @@
 # tuplesort_putheaptuple
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 709 - 751
+[src/backend/utils/sort/tuplesortvariants.c:709-751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L709-L751)
 
 ## Overview
 Accepts a HeapTuple and adds it to the tuplesort for sorting, specifically designed for heap tuple sorting operations like table clustering.

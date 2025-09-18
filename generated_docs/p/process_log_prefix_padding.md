@@ -1,7 +1,7 @@
 # process_log_prefix_padding
 
 ## Location
-src/backend/utils/error/elog.c: 2773 - 2803
+[src/backend/utils/error/elog.c:2773-2803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2773-L2803)
 
 ## Overview
 Parses padding specifications from PostgreSQL's log_line_prefix format string, extracting numeric padding values and their alignment direction for log formatting.

@@ -1,7 +1,7 @@
 # SaveSlotToPath
 
 ## Location
-src/backend/replication/slot.c: 2014 - 2168
+[src/backend/replication/slot.c:2014-2168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2014-L2168)
 
 ## Overview
 Atomically saves a replication slot's persistent data to disk with checksumming, proper synchronization, and crash safety guarantees.

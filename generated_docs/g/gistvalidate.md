@@ -1,7 +1,7 @@
 # gistvalidate
 
 ## Location
-src/backend/access/gist/gistvalidate.c: 33 - 289
+[src/backend/access/gist/gistvalidate.c:33-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvalidate.c#L33-L289)
 
 ## Overview
 Validates the completeness and correctness of a GiST (Generalized Search Tree) operator class by checking its support functions and operators against GiST access method requirements.

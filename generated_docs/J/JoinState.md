@@ -1,7 +1,7 @@
 # JoinState
 
 ## Location
-src/include/nodes/execnodes.h: 2086 - 2093
+[src/include/nodes/execnodes.h:2086-2093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2086-L2093)
 
 ## Overview
 JoinState is a superclass for state nodes of join plans in PostgreSQL's executor, providing common state information and functionality shared by all join operation types.

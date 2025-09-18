@@ -1,7 +1,7 @@
 # DropRelationsAllBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4144 - 4314
+[src/backend/storage/buffer/bufmgr.c:4144-4314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4144-L4314)
 
 ## Overview
 DropRelationsAllBuffers removes all pages of all forks from multiple relations from the buffer pool, equivalent to calling DropRelationBuffers with firstDelBlock = 0 for each fork of each relation.

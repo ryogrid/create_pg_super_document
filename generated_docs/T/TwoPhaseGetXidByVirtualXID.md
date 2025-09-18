@@ -1,7 +1,7 @@
 # TwoPhaseGetXidByVirtualXID
 
 ## Location
-src/backend/access/transam/twophase.c: 852 - 902
+[src/backend/access/transam/twophase.c:852-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L852-L902)
 
 ## Overview
 TwoPhaseGetXidByVirtualXID looks up a prepared transaction's XID by searching for a matching virtual transaction ID (VXID) among transactions prepared since the last startup.

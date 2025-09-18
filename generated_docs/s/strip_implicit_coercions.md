@@ -1,7 +1,7 @@
 # strip_implicit_coercions
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 700 - 757
+[src/backend/nodes/nodeFuncs.c:700-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L700-L757)
 
 ## Overview
 Removes implicit coercions at the top level of an expression tree without modifying or copying the input, returning a pointer to the appropriate sub-expression.

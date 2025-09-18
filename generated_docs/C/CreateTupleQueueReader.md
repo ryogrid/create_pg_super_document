@@ -1,7 +1,7 @@
 # CreateTupleQueueReader
 
 ## Location
-src/backend/executor/tqueue.c: 139 - 154
+[src/backend/executor/tqueue.c:139-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L139-L154)
 
 ## Overview
 Creates and initializes a new TupleQueueReader object used for reading tuples from a shared memory message queue in PostgreSQL's parallel execution framework.

@@ -1,7 +1,7 @@
 # pg_ls_dir_1arg
 
 ## Location
-src/backend/utils/adt/genfile.c: 558 - 569
+[src/backend/utils/adt/genfile.c:558-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L558-L569)
 
 ## Overview
 A single-argument wrapper function for pg_ls_dir that provides compatibility with PostgreSQL's built-in function argument validation system.

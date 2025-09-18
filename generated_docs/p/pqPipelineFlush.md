@@ -1,7 +1,7 @@
 # pqPipelineFlush
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4016 - 4031
+[src/interfaces/libpq/fe-exec.c:4016-4031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4016-L4031)
 
 ## Overview
 An internal function that optimizes data transmission in pipeline mode by flushing output buffers only when they reach a threshold, while behaving like standard pqFlush in non-pipeline mode.

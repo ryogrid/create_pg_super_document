@@ -1,7 +1,7 @@
 # getTSCurrentConfig
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 556 - 601
+[src/backend/utils/cache/ts_cache.c:556-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L556-L601)
 
 ## Overview
 Returns the object identifier (OID) for the current text search configuration, with caching support and optional error handling.

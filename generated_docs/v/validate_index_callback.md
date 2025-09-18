@@ -1,7 +1,7 @@
 # validate_index_callback
 
 ## Location
-src/backend/catalog/index.c: 3422 - 3441
+[src/backend/catalog/index.c:3422-3441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3422-L3441)
 
 ## Overview
 A bulkdelete callback function that collects index TIDs during the validation phase of concurrent index building, storing them in a tuplesort for later merging.

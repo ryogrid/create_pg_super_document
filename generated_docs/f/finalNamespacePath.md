@@ -1,7 +1,7 @@
 # finalNamespacePath
 
 ## Location
-src/backend/catalog/namespace.c: 4198 - 4243
+[src/backend/catalog/namespace.c:4198-4243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4198-L4243)
 
 ## Overview
 Finalizes the namespace search path by removing duplicates, invoking namespace search hooks, and prepending implicitly-searched namespaces like pg_catalog and the temporary namespace.

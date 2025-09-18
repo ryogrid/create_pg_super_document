@@ -1,7 +1,7 @@
 # WalInsertClass
 
 ## Location
-src/backend/access/transam/xlog.c: 565 - 580
+[src/backend/access/transam/xlog.c:565-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L565-L580)
 
 ## Overview
 WalInsertClass is an enumeration that classifies different types of XLog (Write-Ahead Log) record insertion operations, enabling the WAL insertion system to apply appropriate handling strategies based on the type of record being inserted.

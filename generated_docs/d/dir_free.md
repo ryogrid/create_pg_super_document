@@ -1,7 +1,7 @@
 # dir_free
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 630 - 639
+[src/bin/pg_basebackup/walmethods.c:630-639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L630-L639)
 
 ## Overview
 Frees memory allocated for the directory-based WAL writing method structure and its associated data.

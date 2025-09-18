@@ -1,7 +1,7 @@
 # radius_attribute
 
 ## Location
-src/backend/libpq/auth.c: 2791 - 2800
+[src/backend/libpq/auth.c:2791-2800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2791-L2800)
 
 ## Overview
 The  structure represents individual RADIUS attributes within RADIUS authentication packets, as defined in RFC2865 for PostgreSQL's RADIUS authentication implementation.

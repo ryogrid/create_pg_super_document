@@ -1,7 +1,7 @@
 # plpython3_validator
 
 ## Location
-src/pl/plpython/plpy_main.c: 158 - 190
+[src/pl/plpython/plpy_main.c:158-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L158-L190)
 
 ## Overview
 PostgreSQL function that validates PL/Python function definitions during CREATE FUNCTION operations, ensuring syntax correctness and proper compilation.

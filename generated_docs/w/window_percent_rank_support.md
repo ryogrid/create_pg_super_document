@@ -1,7 +1,7 @@
 # window_percent_rank_support
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 288 - 329
+[src/backend/utils/adt/windowfuncs.c:288-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L288-L329)
 
 ## Overview
 A PostgreSQL prosupport function that provides optimization hints and monotonicity information for the window_percent_rank() window function to the query planner and executor.

@@ -1,7 +1,7 @@
 # register_forget_request
 
 ## Location
-src/backend/storage/smgr/md.c: 1416 - 1429
+[src/backend/storage/smgr/md.c:1416-1429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1416-L1429)
 
 ## Overview
 Cancels any pending fsync requests for a specific relation fork segment by registering a forget request with the sync request system.

@@ -1,7 +1,7 @@
 # win32_read_locale
 
 ## Location
-src/backend/commands/collationcmds.c: 778 - 839
+[src/backend/commands/collationcmds.c:778-839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L778-L839)
 
 ## Overview
 A Windows callback function used by EnumSystemLocalesEx() to create PostgreSQL collations for each available system locale, including POSIX-style aliases.

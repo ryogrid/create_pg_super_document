@@ -1,7 +1,7 @@
 # ExecBRDeleteTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2794 - 2811
+[src/backend/commands/trigger.c:2794-2811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2794-L2811)
 
 ## Overview
 ExecBRDeleteTriggers is an ABI-compatible wrapper function that executes BEFORE ROW DELETE triggers during DELETE operations, providing backward compatibility with older PostgreSQL versions.

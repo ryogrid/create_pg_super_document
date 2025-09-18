@@ -1,7 +1,7 @@
 # pg_snapshot_out
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 436 - 467
+[src/backend/utils/adt/xid8funcs.c:436-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L436-L467)
 
 ## Overview
 Output function for the pg_snapshot data type that converts the internal pg_snapshot structure into its string representation.

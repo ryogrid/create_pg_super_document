@@ -1,7 +1,7 @@
 # RelationGetPartitionDesc
 
 ## Location
-src/backend/partitioning/partdesc.c: 71 - 133
+[src/backend/partitioning/partdesc.c:71-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L71-L133)
 
 ## Overview
 Retrieves the partition descriptor for a partitioned table relation, with options to include or omit detached partitions based on the current snapshot.

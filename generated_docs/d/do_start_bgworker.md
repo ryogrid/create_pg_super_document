@@ -1,7 +1,7 @@
 # do_start_bgworker
 
 ## Location
-src/backend/postmaster/postmaster.c: 4246 - 4304
+[src/backend/postmaster/postmaster.c:4246-4304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4246-L4304)
 
 ## Overview
 Starts a new background worker process, handling resource allocation and fork operations for registered background workers in the PostgreSQL postmaster.

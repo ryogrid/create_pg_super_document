@@ -1,7 +1,7 @@
 # porter_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c: 562 - 713
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c:562-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c#L562-L713)
 
 ## Overview
 The porter_ISO_8859_1_stem function implements the complete Porter stemming algorithm for ISO-8859-1 encoded text, executing all stemming steps sequentially to reduce English words to their stems.

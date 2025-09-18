@@ -1,7 +1,7 @@
 # RegisterPredicateLockingXid
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1949 - 1997
+[src/backend/storage/lmgr/predicate.c:1949-1997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1949-L1997)
 
 ## Overview
 Registers a transaction ID (XID) in the global SerializableXidHash for predicate lock tracking, creating the mapping between XIDs and their corresponding serializable transaction structures.

@@ -1,7 +1,7 @@
 # tuplesort_getbrintuple
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 970 - 1017
+[src/backend/utils/sort/tuplesortvariants.c:970-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L970-L1017)
 
 ## Overview
 Fetches the next BRIN tuple from a tuplesort state in either forward or backward direction, returning the tuple for BRIN index operations.

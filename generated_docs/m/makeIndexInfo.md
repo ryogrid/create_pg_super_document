@@ -1,7 +1,7 @@
 # makeIndexInfo
 
 ## Location
-src/backend/nodes/makefuncs.c: 808 - 863
+[src/backend/nodes/makefuncs.c:808-863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L808-L863)
 
 ## Overview
 Creates and initializes an IndexInfo node structure that contains comprehensive metadata about a database index for use during index operations and query processing.

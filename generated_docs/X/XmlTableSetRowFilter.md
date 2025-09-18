@@ -1,7 +1,7 @@
 # XmlTableSetRowFilter
 
 ## Location
-src/backend/utils/adt/xml.c: 4815 - 4846
+[src/backend/utils/adt/xml.c:4815-4846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4815-L4846)
 
 ## Overview
 Installs the row-filter XPath expression for XML table processing, compiling and validating the provided XPath expression to filter rows during XML table scanning.

@@ -1,7 +1,7 @@
 # bttext_pattern_cmp
 
 ## Location
-src/backend/utils/adt/varlena.c: 2883 - 2898
+[src/backend/utils/adt/varlena.c:2883-2898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2883-L2898)
 
 ## Overview
 A PostgreSQL B-tree comparison function that performs pattern-based comparison between two text values, returning an integer result suitable for B-tree indexing operations and LIKE clause support.

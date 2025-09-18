@@ -1,7 +1,7 @@
 # table_parallelscan_initialize
 
 ## Location
-src/backend/access/table/tableam.c: 146 - 165
+[src/backend/access/table/tableam.c:146-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L146-L165)
 
 ## Overview
 Initializes a parallel table scan descriptor by setting up snapshot serialization and delegating table access method specific initialization.

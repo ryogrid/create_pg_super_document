@@ -1,7 +1,7 @@
 # intset_is_member
 
 ## Location
-src/backend/lib/integerset.c: 554 - 623
+[src/backend/lib/integerset.c:554-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L554-L623)
 
 ## Overview
 A membership test function that efficiently determines whether a given 64-bit integer value exists in an IntegerSet, searching both buffered values and the compressed B-tree structure.

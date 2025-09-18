@@ -1,7 +1,7 @@
 # ExecutorStart
 
 ## Location
-src/backend/executor/execMain.c: 121 - 139
+[src/backend/executor/execMain.c:121-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L121-L139)
 
 ## Overview
 ExecutorStart is the entry point function that must be called at the beginning of any execution of any query plan, providing a hook mechanism for plugins while delegating to the standard implementation.

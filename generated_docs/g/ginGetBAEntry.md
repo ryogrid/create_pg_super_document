@@ -1,7 +1,7 @@
 # ginGetBAEntry
 
 ## Location
-src/backend/access/gin/ginbulk.c: 268 - 293
+[src/backend/access/gin/ginbulk.c:268-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L268-L293)
 
 ## Overview
 Retrieves the next entry from the BuildAccumulator's red-black tree in sorted order, returning a key and its associated list of heap tuple pointers.

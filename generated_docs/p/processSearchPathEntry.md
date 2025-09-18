@@ -1,7 +1,7 @@
 # processSearchPathEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2866 - 2875
+[src/bin/pg_dump/pg_backup_archiver.c:2866-2875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2866-L2875)
 
 ## Overview
 This function processes a search_path configuration entry from a PostgreSQL archive during restoration, storing the path setting for later use during the restoration process.

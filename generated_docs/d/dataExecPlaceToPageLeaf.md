@@ -1,7 +1,7 @@
 # dataExecPlaceToPageLeaf
 
 ## Location
-src/backend/access/gin/gindatapage.c: 716 - 737
+[src/backend/access/gin/gindatapage.c:716-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L716-L737)
 
 ## Overview
 dataExecPlaceToPageLeaf performs the actual data insertion into a GIN data leaf page after space allocation has been confirmed, executing within a critical section with WAL logging support.

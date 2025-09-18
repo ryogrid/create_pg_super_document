@@ -1,7 +1,7 @@
 # ExplainIndentText
 
 ## Location
-src/backend/commands/explain.c: 5239 - 5253
+[src/backend/commands/explain.c:5239-5253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5239-L5253)
 
 ## Overview
 Indents a text-format line in EXPLAIN output. This function adds appropriate spacing for hierarchical display of execution plan information in TEXT format.

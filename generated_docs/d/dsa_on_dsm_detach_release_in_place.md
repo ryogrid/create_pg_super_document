@@ -1,7 +1,7 @@
 # dsa_on_dsm_detach_release_in_place
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 576 - 589
+[src/backend/utils/mmgr/dsa.c:576-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L576-L589)
 
 ## Overview
 A callback function that automatically releases in-place DSA areas when their containing DSM segment is detached, providing automatic cleanup for DSA areas embedded within DSM segments.

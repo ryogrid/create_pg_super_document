@@ -1,7 +1,7 @@
 # pqSkipnchar
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 187 - 201
+[src/interfaces/libpq/fe-misc.c:187-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L187-L201)
 
 ## Overview
 pqSkipnchar advances the input buffer cursor by a specified number of bytes without reading the data into a destination buffer.

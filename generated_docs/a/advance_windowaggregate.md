@@ -1,7 +1,7 @@
 # advance_windowaggregate
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 242 - 418
+[src/backend/executor/nodeWindowAgg.c:242-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L242-L418)
 
 ## Overview
 Advances a window aggregate function by processing one input tuple, updating the aggregate's transition value according to the aggregate's transition function.

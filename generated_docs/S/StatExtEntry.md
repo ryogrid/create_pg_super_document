@@ -1,7 +1,7 @@
 # StatExtEntry
 
 ## Location
-src/backend/statistics/extended_stats.c: 64 - 73
+[src/backend/statistics/extended_stats.c:64-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L64-L73)
 
 ## Overview
 StatExtEntry is an internal structure used to represent an individual extended statistics object, corresponding to an entry in the pg_statistic_ext system catalog.

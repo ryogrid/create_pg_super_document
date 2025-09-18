@@ -1,7 +1,7 @@
 # NamedTuplestoreScanRecheck
 
 ## Location
-src/backend/executor/nodeNamedtuplestorescan.c: 52 - 66
+[src/backend/executor/nodeNamedtuplestorescan.c:52-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNamedtuplestorescan.c#L52-L66)
 
 ## Overview
 A static helper function that performs tuple rechecking for EvalPlanQual operations in named tuple store scans, always returning true as no actual checking is needed.

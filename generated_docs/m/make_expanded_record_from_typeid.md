@@ -1,7 +1,7 @@
 # make_expanded_record_from_typeid
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 69 - 204
+[src/backend/utils/adt/expandedrecord.c:69-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L69-L204)
 
 ## Overview
 Creates an expanded record object from a given composite type OID and typmod, initializing it in an "empty" state logically equivalent to a NULL composite value.

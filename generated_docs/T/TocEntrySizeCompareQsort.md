@@ -1,7 +1,7 @@
 # TocEntrySizeCompareQsort
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4482 - 4503
+[src/bin/pg_dump/pg_backup_archiver.c:4482-4503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4482-L4503)
 
 ## Overview
 A qsort-compatible comparator function that sorts TocEntry pointers by data length in descending order, with dumpId as a secondary sort key for stability.

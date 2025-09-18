@@ -1,7 +1,7 @@
 # interval_avg_accum
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4002 - 4024
+[src/backend/utils/adt/timestamp.c:4002-4024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4002-L4024)
 
 ## Overview
 Transition function for sum() and avg() interval aggregates that accumulates interval values into an aggregation state structure.

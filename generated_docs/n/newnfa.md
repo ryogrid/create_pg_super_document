@@ -1,7 +1,7 @@
 # newnfa
 
 ## Location
-src/backend/regex/regc_nfa.c: 47 - 106
+[src/backend/regex/regc_nfa.c:47-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L47-L106)
 
 ## Overview
 Creates and initializes a new NFA (Non-deterministic Finite Automaton) structure for regular expression processing, setting up the required infrastructure including states and arcs.

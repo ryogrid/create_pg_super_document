@@ -1,7 +1,7 @@
 # check_sql_fn_statements
 
 ## Location
-src/backend/executor/functions.c: 1534 - 1608
+[src/backend/executor/functions.c:1534-1608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L1534-L1608)
 
 ## Overview
 Validates SQL function statements to ensure they conform to PostgreSQL's restrictions and do not contain unsupported constructs.

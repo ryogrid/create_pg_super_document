@@ -1,7 +1,7 @@
 # test_pipelined_insert
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 1008 - 1253
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:1008-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L1008-L1253)
 
 ## Overview
 Tests PostgreSQL pipeline mode with bulk insert operations using prepared statements in non-blocking mode, demonstrating efficient handling of large-scale data insertion within a transaction pipeline.

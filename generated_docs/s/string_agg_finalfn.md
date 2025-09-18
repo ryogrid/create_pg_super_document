@@ -1,7 +1,7 @@
 # string_agg_finalfn
 
 ## Location
-src/backend/utils/adt/varlena.c: 5358 - 5383
+[src/backend/utils/adt/varlena.c:5358-5383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5358-L5383)
 
 ## Overview
 The final function for PostgreSQL's string_agg() aggregate that produces the final text result by removing the leading delimiter from the accumulated string.

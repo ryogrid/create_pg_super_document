@@ -1,7 +1,7 @@
 # PendingRelDelete
 
 ## Location
-src/backend/catalog/storage.c: 61 - 68
+[src/backend/catalog/storage.c:61-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L61-L68)
 
 ## Overview
 PendingRelDelete is a structure that represents relations scheduled for deletion or preservation in PostgreSQL's transaction management system, maintaining a linked list of relations that need to be handled at transaction commit or abort.

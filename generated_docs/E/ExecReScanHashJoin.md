@@ -1,7 +1,7 @@
 # ExecReScanHashJoin
 
 ## Location
-src/backend/executor/nodeHashjoin.c: 1395 - 1482
+[src/backend/executor/nodeHashjoin.c:1395-1482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHashjoin.c#L1395-L1482)
 
 ## Overview
 Resets and rescans a hash join node, handling both hash table reuse optimization for single-batch joins and complete reconstruction for multi-batch or parameter-changed scenarios.

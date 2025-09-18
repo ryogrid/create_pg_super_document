@@ -1,7 +1,7 @@
 # load_dh_file
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1027 - 1093
+[src/backend/libpq/be-secure-openssl.c:1027-1093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1027-L1093)
 
 ## Overview
 Loads and validates precomputed Diffie-Hellman (DH) parameters from a file to prevent downgrade attacks in SSL/TLS connections.

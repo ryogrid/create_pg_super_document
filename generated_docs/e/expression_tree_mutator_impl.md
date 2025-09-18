@@ -1,7 +1,7 @@
 # expression_tree_mutator_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 2933 - 2941
+[src/backend/nodes/nodeFuncs.c:2933-2941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L2933-L2941)
 
 ## Overview
 This function creates modified copies of expression trees, allowing nodes to be added, removed, or replaced while preserving the original tree structure through recursive copying.

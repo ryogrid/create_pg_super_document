@@ -1,7 +1,7 @@
 # pgstat_report_checksum_failure
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 166 - 174
+[src/backend/utils/activity/pgstat_database.c:166-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L166-L174)
 
 ## Overview
 Reports a single checksum failure in the current database by incrementing the database-level checksum failure counter in PostgreSQL's statistics system.

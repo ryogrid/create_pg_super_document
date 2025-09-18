@@ -1,7 +1,7 @@
 # GlobalVisUpdate
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4204 - 4220
+[src/backend/storage/ipc/procarray.c:4204-4220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4204-L4220)
 
 ## Overview
 Updates global visibility boundaries for all relation types by triggering a complete horizon recomputation.

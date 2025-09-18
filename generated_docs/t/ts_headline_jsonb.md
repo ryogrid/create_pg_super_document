@@ -1,7 +1,7 @@
 # ts_headline_jsonb
 
 ## Location
-src/backend/tsearch/wparser.c: 415 - 423
+[src/backend/tsearch/wparser.c:415-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L415-L423)
 
 ## Overview
 A PostgreSQL function that generates highlighted headlines from JSONB documents based on a text search query, using the current default text search configuration.

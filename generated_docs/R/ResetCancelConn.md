@@ -1,7 +1,7 @@
 # ResetCancelConn
 
 ## Location
-src/fe_utils/cancel.c: 107 - 152
+[src/fe_utils/cancel.c:107-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/cancel.c#L107-L152)
 
 ## Overview
 ResetCancelConn safely clears and frees the global cancel connection object, removing the ability to cancel database queries.

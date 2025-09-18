@@ -1,7 +1,7 @@
 # path_add
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4348 - 4395
+[src/backend/utils/adt/geo_ops.c:4348-4395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4348-L4395)
 
 ## Overview
 Concatenates two open paths into a single path by joining all points from both paths sequentially.

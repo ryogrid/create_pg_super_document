@@ -1,7 +1,7 @@
 # textnlike
 
 ## Location
-src/backend/utils/adt/like.c: 303 - 323
+[src/backend/utils/adt/like.c:303-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L303-L323)
 
 ## Overview
 Implements the NOT LIKE operator for PostgreSQL's text data type, returning true when a text value does not match a given pattern.

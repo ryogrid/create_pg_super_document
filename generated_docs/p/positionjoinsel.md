@@ -1,7 +1,7 @@
 # positionjoinsel
 
 ## Location
-src/backend/utils/adt/geo_selfuncs.c: 73 - 85
+[src/backend/utils/adt/geo_selfuncs.c:73-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_selfuncs.c#L73-L85)
 
 ## Overview
 A join selectivity estimation function for geometric positional operators used in join operations between tables.

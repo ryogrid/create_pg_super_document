@@ -1,7 +1,7 @@
 # pg_comp_crc32c_loongarch
 
 ## Location
-src/port/pg_crc32c_loongarch.c: 20 - 73
+[src/port/pg_crc32c_loongarch.c:20-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_crc32c_loongarch.c#L20-L73)
 
 ## Overview
 A hardware-accelerated CRC32C computation function specifically optimized for LoongArch architecture processors using dedicated CRCC instructions for maximum performance.

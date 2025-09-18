@@ -1,7 +1,7 @@
 # inline_function
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4551 - 4906
+[src/backend/optimizer/util/clauses.c:4551-4906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4551-L4906)
 
 ## Overview
 Attempts to expand a SQL function call inline by substituting the function body directly into the calling query, avoiding function call overhead and exposing optimization opportunities.

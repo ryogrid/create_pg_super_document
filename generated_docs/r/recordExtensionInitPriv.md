@@ -1,7 +1,7 @@
 # recordExtensionInitPriv
 
 ## Location
-src/backend/catalog/aclchk.c: 4656 - 4684
+[src/backend/catalog/aclchk.c:4656-4684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4656-L4684)
 
 ## Overview
 A static function that records initial ACL (Access Control List) for an extension object during extension creation or binary upgrade processes.

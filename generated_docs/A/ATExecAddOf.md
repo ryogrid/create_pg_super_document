@@ -1,7 +1,7 @@
 # ATExecAddOf
 
 ## Location
-src/backend/commands/tablecmds.c: 16486 - 16627
+[src/backend/commands/tablecmds.c:16486-16627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L16486-L16627)
 
 ## Overview
 Executes the ALTER TABLE OF command to attach a table to a composite type, making it a typed table with structure matching the specified type.

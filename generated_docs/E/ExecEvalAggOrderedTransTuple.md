@@ -1,7 +1,7 @@
 # ExecEvalAggOrderedTransTuple
 
 ## Location
-src/backend/executor/execExprInterp.c: 5223 - 5236
+[src/backend/executor/execExprInterp.c:5223-5236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5223-L5236)
 
 ## Overview
 This function invokes an ordered transition function for aggregate operations, specifically handling tuple arguments by preparing and storing them in a tuple sort state for ordered processing.

@@ -1,7 +1,7 @@
 # numeric_abbrev_abort
 
 ## Location
-src/backend/utils/adt/numeric.c: 2124 - 2196
+[src/backend/utils/adt/numeric.c:2124-2196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2124-L2196)
 
 ## Overview
 Determines whether to abort the numeric abbreviation strategy during sorting by analyzing the cardinality of abbreviated values to ensure abbreviation provides performance benefits.

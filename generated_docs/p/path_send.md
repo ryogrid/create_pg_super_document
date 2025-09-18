@@ -1,7 +1,7 @@
 # path_send
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1526 - 1552
+[src/backend/utils/adt/geo_ops.c:1526-1552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1526-L1552)
 
 ## Overview
 Binary output function that converts PostgreSQL's internal PATH data type to external binary format for transmission or storage.

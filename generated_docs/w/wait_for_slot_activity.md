@@ -1,7 +1,7 @@
 # wait_for_slot_activity
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1236 - 1270
+[src/backend/replication/logical/slotsync.c:1236-1270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1236-L1270)
 
 ## Overview
 wait_for_slot_activity implements adaptive sleep timing between slot synchronization cycles, adjusting wait time based on slot update activity to optimize synchronization efficiency.

@@ -1,7 +1,7 @@
 # ExecReScanLockRows
 
 ## Location
-src/backend/executor/nodeLockRows.c: 394 - 404
+[src/backend/executor/nodeLockRows.c:394-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLockRows.c#L394-L404)
 
 ## Overview
 ExecReScanLockRows resets the LockRows node to restart execution from the beginning by conditionally rescanning its outer subplan.

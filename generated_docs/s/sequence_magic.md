@@ -1,7 +1,7 @@
 # sequence_magic
 
 ## Location
-src/backend/commands/sequence.c: 65 - 68
+[src/backend/commands/sequence.c:65-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L65-L68)
 
 ## Overview
 A simple struct that stores a magic number used for validating sequence page headers in PostgreSQL's sequence implementation.

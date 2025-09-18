@@ -1,7 +1,7 @@
 # get_flush_position
 
 ## Location
-src/backend/replication/logical/worker.c: 3405 - 3448
+[src/backend/replication/logical/worker.c:3405-3448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3405-L3448)
 
 ## Overview
 Determines the appropriate write and flush LSN positions to report back to the walsender in logical replication by correlating local and remote LSN mappings.

@@ -1,7 +1,7 @@
 # network_recv
 
 ## Location
-src/backend/utils/adt/network.c: 192 - 249
+[src/backend/utils/adt/network.c:192-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L192-L249)
 
 ## Overview
 Converts external binary format to internal inet representation, serving as the core deserialization function for both inet and cidr data types.

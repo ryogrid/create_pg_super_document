@@ -1,7 +1,7 @@
 # has_relevant_eclass_joinclause
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 3163 - 3206
+[src/backend/optimizer/path/equivclass.c:3163-3206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L3163-L3206)
 
 ## Overview
 Detects whether there exists an EquivalenceClass that could produce a join clause involving a given relation and any other relation in the query.

@@ -1,7 +1,7 @@
 # get_tablespace
 
 ## Location
-src/backend/utils/cache/spccache.c: 107 - 181
+[src/backend/utils/cache/spccache.c:107-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/spccache.c#L107-L181)
 
 ## Overview
 Retrieves a cached TableSpaceCacheEntry structure for a specified tablespace OID, with automatic cache initialization and lazy loading from the system catalog.

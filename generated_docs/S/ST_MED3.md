@@ -1,7 +1,7 @@
 # ST_MED3
 
 ## Location
-src/include/lib/sort_template.h: 261 - 272
+[src/include/lib/sort_template.h:261-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/sort_template.h#L261-L272)
 
 ## Overview
 ST_MED3 is a macro that generates a type-specific function name for the median-of-three selection algorithm used in PostgreSQL's sort template system.

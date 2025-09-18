@@ -1,7 +1,7 @@
 # TransactionIdGetCommitLSN
 
 ## Location
-src/backend/access/transam/transam.c: 382 - 405
+[src/backend/access/transam/transam.c:382-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/transam.c#L382-L405)
 
 ## Overview
 TransactionIdGetCommitLSN returns a WAL Log Sequence Number (LSN) that guarantees the transaction's commit record has been flushed to disk when WAL is flushed up to that LSN.

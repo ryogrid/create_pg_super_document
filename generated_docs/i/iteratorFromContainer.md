@@ -1,7 +1,7 @@
 # iteratorFromContainer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1005 - 1046
+[src/backend/utils/adt/jsonb_util.c:1005-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1005-L1046)
 
 ## Overview
 Creates and initializes a JsonbIterator structure for traversing elements within a specific JsonbContainer, setting up the appropriate state and data pointers based on container type.

@@ -1,7 +1,7 @@
 # cash_mul_flt8
 
 ## Location
-src/backend/utils/adt/cash.c: 734 - 746
+[src/backend/utils/adt/cash.c:734-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L734-L746)
 
 ## Overview
 Multiplies a PostgreSQL Cash value by a double precision floating-point number (float8), returning the result as a Cash value.

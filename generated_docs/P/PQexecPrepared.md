@@ -1,7 +1,7 @@
 # PQexecPrepared
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2323 - 2343
+[src/interfaces/libpq/fe-exec.c:2323-2343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2323-L2343)
 
 ## Overview
 Executes a previously prepared statement with parameters using PostgreSQL's extended query protocol, providing efficient repeated execution of the same query.

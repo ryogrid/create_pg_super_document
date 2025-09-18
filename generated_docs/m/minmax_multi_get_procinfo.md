@@ -1,7 +1,7 @@
 # minmax_multi_get_procinfo
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2863 - 2898
+[src/backend/access/brin/brin_minmax_multi.c:2863-2898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2863-L2898)
 
 ## Overview
 Cache and return minmax-multi operator class support procedure for efficient repeated access to support functions.

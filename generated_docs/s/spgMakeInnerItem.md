@@ -1,7 +1,7 @@
 # spgMakeInnerItem
 
 ## Location
-src/backend/access/spgist/spgscan.c: 629 - 666
+[src/backend/access/spgist/spgscan.c:629-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L629-L666)
 
 ## Overview
 Creates a new SpGistSearchItem for an inner node during SP-GiST index traversal, incorporating results from the inner_consistent method to guide further tree navigation.

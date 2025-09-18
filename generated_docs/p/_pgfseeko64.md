@@ -1,7 +1,7 @@
 # _pgfseeko64
 
 ## Location
-src/port/win32fseek.c: 31 - 55
+[src/port/win32fseek.c:31-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32fseek.c#L31-L55)
 
 ## Overview
 Windows-specific wrapper for the fseek() function that provides 64-bit file offset support with proper error handling for non-seeking devices.

@@ -1,7 +1,7 @@
 # pg_mb2wchar
 
 ## Location
-src/backend/utils/mb/mbutils.c: 979 - 985
+[src/backend/utils/mb/mbutils.c:979-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L979-L985)
 
 ## Overview
 Converts a null-terminated multibyte string from the database encoding to an array of wide characters (Unicode code points).

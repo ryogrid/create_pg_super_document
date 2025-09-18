@@ -1,7 +1,7 @@
 # lookup
 
 ## Location
-src/timezone/zic.c: 303 - 389
+[src/timezone/zic.c:303-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L303-L389)
 
 ## Overview
 The  struct is a simple key-value mapping structure used in PostgreSQL's timezone compiler (zic) for translating textual keywords into their corresponding integer constants.

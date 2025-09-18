@@ -1,7 +1,7 @@
 # euc_jp2sjis
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c: 534 - 637
+[src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:534-637](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c#L534-L637)
 
 ## Overview
 Converts text from EUC-JP (Extended Unix Code for Japanese) encoding to Shift JIS (SJIS) encoding, handling various Japanese character sets including ASCII, JIS X0201 kana, JIS X0208 kanji, JIS X0212 kanji, and user-defined characters.

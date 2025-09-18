@@ -1,7 +1,7 @@
 # replace_outer_merge_support
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 317 - 366
+[src/backend/optimizer/util/paramassign.c:317-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L317-L366)
 
 ## Overview
 Generates a Param node to replace a MergeSupportFunc expression that references an outer-level MERGE query, enabling parameter passing for MERGE-specific functions across query levels.

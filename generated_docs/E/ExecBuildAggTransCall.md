@@ -1,7 +1,7 @@
 # ExecBuildAggTransCall
 
 ## Location
-src/backend/executor/execExpr.c: 3840 - 3956
+[src/backend/executor/execExpr.c:3840-3956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L3840-L3956)
 
 ## Overview
 Builds transition/combine function invocation for a single transition value in PostgreSQL's aggregate execution. This function is separated from ExecBuildAggTrans() to support multiple callsites (hash and sort in grouping set cases).

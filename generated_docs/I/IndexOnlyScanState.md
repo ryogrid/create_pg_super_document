@@ -1,7 +1,7 @@
 # IndexOnlyScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1699 - 1718
+[src/include/nodes/execnodes.h:1699-1718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1699-L1718)
 
 ## Overview
 IndexOnlyScanState is an execution state structure that manages the runtime state for index-only scan operations, allowing PostgreSQL to return tuples directly from index data without accessing the heap table when all required columns are available in the index.

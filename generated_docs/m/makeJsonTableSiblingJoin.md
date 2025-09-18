@@ -1,7 +1,7 @@
 # makeJsonTableSiblingJoin
 
 ## Location
-src/backend/parser/parse_jsontable.c: 534 - 543
+[src/backend/parser/parse_jsontable.c:534-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L534-L543)
 
 ## Overview
 Creates a JsonTableSiblingJoin plan node that performs a UNION operation between rows from two sibling JSON table plans.

@@ -1,7 +1,7 @@
 # GistBuildMode
 
 ## Location
-src/backend/access/gist/gistbuild.c: 79 - 110
+[src/backend/access/gist/gistbuild.c:79-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L79-L110)
 
 ## Overview
 An enumeration that defines the strategy used to build a GiST (Generalized Search Tree) index, controlling whether to use buffering, sorting, or regular build modes.

@@ -1,7 +1,7 @@
 # createPostingTree
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1775 - 1881
+[src/backend/access/gin/gindatapage.c:1775-1881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1775-L1881)
 
 ## Overview
 createPostingTree creates a new GIN posting tree containing the given item pointers (TIDs) and returns the block number of the root page of the newly created posting tree.

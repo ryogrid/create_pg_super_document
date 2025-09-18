@@ -1,7 +1,7 @@
 # range_upper_inf
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 531 - 543
+[src/backend/utils/adt/rangetypes.c:531-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L531-L543)
 
 ## Overview
 Checks whether the upper bound of a range type is infinite (unbounded), returning a boolean result indicating if the range extends to positive infinity on the upper end.

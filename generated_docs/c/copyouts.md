@@ -1,7 +1,7 @@
 # copyouts
 
 ## Location
-src/backend/regex/regc_nfa.c: 1167 - 1255
+[src/backend/regex/regc_nfa.c:1167-1255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1167-L1255)
 
 ## Overview
 Copies all outgoing arcs from one state to another state without removing arcs from the source state.

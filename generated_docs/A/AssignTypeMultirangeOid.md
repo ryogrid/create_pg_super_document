@@ -1,7 +1,7 @@
 # AssignTypeMultirangeOid
 
 ## Location
-src/backend/commands/typecmds.c: 2443 - 2475
+[src/backend/commands/typecmds.c:2443-2475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2443-L2475)
 
 ## Overview
 AssignTypeMultirangeOid is a function that pre-assigns an OID for the multirange type associated with a PostgreSQL range type, ensuring proper setup during range type creation.

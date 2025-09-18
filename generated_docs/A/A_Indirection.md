@@ -1,7 +1,7 @@
 # A_Indirection
 
 ## Location
-src/include/nodes/parsenodes.h: 479 - 484
+[src/include/nodes/parsenodes.h:479-484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L479-L484)
 
 ## Overview
 A_Indirection represents complex field and array element selection operations from expressions, supporting chained access to nested data structures.

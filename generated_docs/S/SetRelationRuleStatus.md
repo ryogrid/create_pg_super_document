@@ -1,7 +1,7 @@
 # SetRelationRuleStatus
 
 ## Location
-src/backend/rewrite/rewriteSupport.c: 53 - 91
+[src/backend/rewrite/rewriteSupport.c:53-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSupport.c#L53-L91)
 
 ## Overview
 Updates the relhasrules field in the pg_class system catalog to reflect whether a relation has any rewrite rules, and ensures proper cache invalidation across all backends.

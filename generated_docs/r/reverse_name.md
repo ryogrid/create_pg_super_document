@@ -1,7 +1,7 @@
 # reverse_name
 
 ## Location
-src/test/regress/regress.c: 233 - 253
+[src/test/regress/regress.c:233-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L233-L253)
 
 ## Overview
 This function reverses the character order of a given string, creating a new string with characters in reverse order while respecting PostgreSQL's name length limitations.

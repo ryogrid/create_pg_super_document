@@ -1,7 +1,7 @@
 # dclist_push_head
 
 ## Location
-src/include/lib/ilist.h: 693 - 708
+[src/include/lib/ilist.h:693-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L693-L708)
 
 ## Overview
 Inserts a node at the beginning of a doubly-linked circular list, automatically initializing the list if it was previously empty and maintaining an accurate count of elements.

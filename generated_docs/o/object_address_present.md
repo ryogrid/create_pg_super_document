@@ -1,7 +1,7 @@
 # object_address_present
 
 ## Location
-src/backend/catalog/dependency.c: 2593 - 2618
+[src/backend/catalog/dependency.c:2593-2618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2593-L2618)
 
 ## Overview
 Tests whether a specific database object is already present in an ObjectAddresses array, with support for subobject detection.

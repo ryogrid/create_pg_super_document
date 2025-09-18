@@ -1,7 +1,7 @@
 # tsvectorrecv
 
 ## Location
-src/backend/utils/adt/tsvector.c: 446 - 554
+[src/backend/utils/adt/tsvector.c:446-554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector.c#L446-L554)
 
 ## Overview
 The  function deserializes binary data received over the network into a TSVector data structure, performing validation and proper memory management during reconstruction.

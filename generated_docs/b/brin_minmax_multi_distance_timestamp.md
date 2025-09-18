@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_timestamp
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2137 - 2154
+[src/backend/access/brin/brin_minmax_multi.c:2137-2154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2137-L2154)
 
 ## Overview
 Computes the distance between two timestamp values as a floating-point number, used by BRIN (Block Range Index) minmax multi operator classes for timestamp data types.

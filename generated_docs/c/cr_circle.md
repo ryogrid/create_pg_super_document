@@ -1,7 +1,7 @@
 # cr_circle
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5170 - 5185
+[src/backend/utils/adt/geo_ops.c:5170-5185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5170-L5185)
 
 ## Overview
 Creates a CIRCLE geometric object from a center point and radius value.

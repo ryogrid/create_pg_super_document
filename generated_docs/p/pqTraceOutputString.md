@@ -1,7 +1,7 @@
 # pqTraceOutputString
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 163 - 187
+[src/interfaces/libpq/fe-trace.c:163-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L163-L187)
 
 ## Overview
 A static utility function that reads a null-terminated string from a PostgreSQL protocol message buffer and outputs it to the trace log, with optional suppression of the actual content for security purposes.

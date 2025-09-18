@@ -1,7 +1,7 @@
 # PredIterInfo
 
 ## Location
-src/backend/optimizer/util/predtest.c: 57 - 58
+[src/backend/optimizer/util/predtest.c:57-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L57-L58)
 
 ## Overview
 PredIterInfo is a typedef for a pointer to PredIterInfoData structure, used in PostgreSQL's predicate testing infrastructure to provide a generic iteration interface over different types of expression nodes during logical inference operations.

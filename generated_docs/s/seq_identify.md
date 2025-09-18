@@ -1,7 +1,7 @@
 # seq_identify
 
 ## Location
-src/backend/access/rmgrdesc/seqdesc.c: 34 - 46
+[src/backend/access/rmgrdesc/seqdesc.c:34-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/seqdesc.c#L34-L46)
 
 ## Overview
 Provides human-readable identification strings for PostgreSQL sequence-related WAL record types for debugging and logging purposes.

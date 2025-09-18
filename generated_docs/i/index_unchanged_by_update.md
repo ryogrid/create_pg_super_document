@@ -1,7 +1,7 @@
 # index_unchanged_by_update
 
 ## Location
-src/backend/executor/execIndexing.c: 963 - 1076
+[src/backend/executor/execIndexing.c:963-1076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L963-L1076)
 
 ## Overview
 Determines whether an index remains logically unchanged by an UPDATE operation, enabling optimization hints for index insertion operations by analyzing updated columns and index expressions.

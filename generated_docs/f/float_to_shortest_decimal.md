@@ -1,7 +1,7 @@
 # float_to_shortest_decimal
 
 ## Location
-src/common/f2s.c: 797 - 803
+[src/common/f2s.c:797-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L797-L803)
 
 ## Overview
 A memory-allocating convenience function that converts a single-precision floating-point number to its shortest decimal string representation and returns it as a dynamically allocated, null-terminated string.

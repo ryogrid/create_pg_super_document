@@ -1,7 +1,7 @@
 # timerange
 
 ## Location
-src/timezone/zic.c: 2045 - 2054
+[src/timezone/zic.c:2045-2054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2045-L2054)
 
 ## Overview
 The  struct represents a range of time periods and leap second information used in PostgreSQL's timezone compiler for optimizing timezone data output.

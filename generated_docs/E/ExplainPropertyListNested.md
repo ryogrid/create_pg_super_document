@@ -1,7 +1,7 @@
 # ExplainPropertyListNested
 
 ## Location
-src/backend/commands/explain.c: 4696 - 4748
+[src/backend/commands/explain.c:4696-4748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4696-L4748)
 
 ## Overview
 Formats and outputs a property that represents a nested list (a list of unlabeled items within another list) with specialized handling for JSON and YAML formats while delegating to ExplainPropertyList for TEXT and XML formats.

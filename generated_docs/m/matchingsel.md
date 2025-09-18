@@ -1,7 +1,7 @@
 # matchingsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3261 - 3278
+[src/backend/utils/adt/selfuncs.c:3261-3278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3261-L3278)
 
 ## Overview
 A generic selectivity estimation function for matching-type operators that provides reasonable default estimates for operators with match-like behavior on data types with standard statistics.

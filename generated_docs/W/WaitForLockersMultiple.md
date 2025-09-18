@@ -1,7 +1,7 @@
 # WaitForLockersMultiple
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 903 - 980
+[src/backend/storage/lmgr/lmgr.c:903-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L903-L980)
 
 ## Overview
 Waits for all transactions that hold conflicting locks on multiple lock tags to complete before proceeding.

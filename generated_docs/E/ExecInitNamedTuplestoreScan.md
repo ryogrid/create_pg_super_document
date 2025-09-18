@@ -1,7 +1,7 @@
 # ExecInitNamedTuplestoreScan
 
 ## Location
-src/backend/executor/nodeNamedtuplestorescan.c: 82 - 163
+[src/backend/executor/nodeNamedtuplestorescan.c:82-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNamedtuplestorescan.c#L82-L163)
 
 ## Overview
 Initializes a NamedTuplestoreScan plan node, setting up the scan state, tuple store access, and all necessary execution context for scanning CTE data from named tuple stores.

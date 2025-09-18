@@ -1,7 +1,7 @@
 # LockShmemSize
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3584 - 3620
+[src/backend/storage/lmgr/lock.c:3584-3620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3584-L3620)
 
 ## Overview
 LockShmemSize estimates the amount of shared memory space required for the lock management hash tables.

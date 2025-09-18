@@ -1,7 +1,7 @@
 # get_extension_script_filename
 
 ## Location
-src/backend/commands/extension.c: 444 - 475
+[src/backend/commands/extension.c:444-475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L444-L475)
 
 ## Overview
 Constructs the filename for an extension SQL script file, supporting both installation scripts and upgrade scripts between versions.

@@ -1,7 +1,7 @@
 # SlruPhysicalReadPage
 
 ## Location
-src/backend/access/transam/slru.c: 801 - 872
+[src/backend/access/transam/slru.c:801-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L801-L872)
 
 ## Overview
 Low-level function that performs the physical disk I/O operation to read a specific SLRU page from storage into a shared memory buffer slot.

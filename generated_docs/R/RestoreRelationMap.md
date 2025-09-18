@@ -1,7 +1,7 @@
 # RestoreRelationMap
 
 ## Location
-src/backend/utils/cache/relmapper.c: 741 - 764
+[src/backend/utils/cache/relmapper.c:741-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L741-L764)
 
 ## Overview
 RestoreRelationMap restores the active shared and local relation mapping state within a parallel worker process from serialized data.

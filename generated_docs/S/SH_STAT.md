@@ -1,7 +1,7 @@
 # SH_STAT
 
 ## Location
-src/include/lib/simplehash.h: 1072 - 1146
+[src/include/lib/simplehash.h:1072-1146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L1072-L1146)
 
 ## Overview
 A macro that expands to a hash table statistics reporting function used in PostgreSQL's simplehash system for debugging and profiling hash table performance.

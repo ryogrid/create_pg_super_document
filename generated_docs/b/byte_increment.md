@@ -1,7 +1,7 @@
 # byte_increment
 
 ## Location
-src/backend/utils/adt/like_support.c: 1523 - 1572
+[src/backend/utils/adt/like_support.c:1523-1572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1523-L1572)
 
 ## Overview
 Increments a single byte value for bytea data type pattern matching, used to create the next lexicographically greater string.

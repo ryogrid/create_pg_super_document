@@ -1,7 +1,7 @@
 # _bt_pgaddtup
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2630 - 2682
+[src/backend/access/nbtree/nbtinsert.c:2630-2682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2630-L2682)
 
 ## Overview
 Adds a data item to a particular page during B-tree split operations, with special handling for the first data item on internal pages that requires key truncation to minus infinity.

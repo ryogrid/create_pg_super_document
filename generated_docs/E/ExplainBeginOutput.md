@@ -1,7 +1,7 @@
 # ExplainBeginOutput
 
 ## Location
-src/backend/commands/explain.c: 5123 - 5153
+[src/backend/commands/explain.c:5123-5153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5123-L5153)
 
 ## Overview
 Emits the start-of-output boilerplate for different EXPLAIN output formats. This function initializes the output structure based on the specified format (TEXT, XML, JSON, or YAML).

@@ -1,7 +1,7 @@
 # spgAddStartItem
 
 ## Location
-src/backend/access/spgist/spgscan.c: 130 - 153
+[src/backend/access/spgist/spgscan.c:130-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L130-L153)
 
 ## Overview
 Creates and initializes the starting search item for SP-GiST scan operations, setting up the entry point for tree traversal from either the root or NULL partition.

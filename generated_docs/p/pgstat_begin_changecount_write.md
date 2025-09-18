@@ -1,7 +1,7 @@
 # pgstat_begin_changecount_write
 
 ## Location
-src/include/utils/pgstat_internal.h: 712 - 721
+[src/include/utils/pgstat_internal.h:712-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L712-L721)
 
 ## Overview
 This inline function initiates a write operation to change-counted statistics by incrementing a change counter and establishing memory barriers to ensure data consistency during concurrent access.

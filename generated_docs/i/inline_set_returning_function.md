@@ -1,7 +1,7 @@
 # inline_set_returning_function
 
 ## Location
-src/backend/optimizer/util/clauses.c: 5065 - 5357
+[src/backend/optimizer/util/clauses.c:5065-5357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L5065-L5357)
 
 ## Overview
 Attempts to inline a set-returning SQL function in the FROM clause by expanding the function body and returning a substitute Query structure, enabling optimization of set-returning function calls.

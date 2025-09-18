@@ -1,7 +1,7 @@
 # cstring_in
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 107 - 114
+[src/backend/utils/adt/pseudotypes.c:107-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L107-L114)
 
 ## Overview
 The  function is an input conversion function for the  pseudo-type in PostgreSQL, converting a C-style null-terminated string into PostgreSQL's internal cstring representation.

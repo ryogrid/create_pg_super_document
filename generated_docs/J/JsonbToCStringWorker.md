@@ -1,7 +1,7 @@
 # JsonbToCStringWorker
 
 ## Location
-src/backend/utils/adt/jsonb.c: 491 - 614
+[src/backend/utils/adt/jsonb.c:491-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L491-L614)
 
 ## Overview
 The core static function that performs the actual conversion of JSONB containers to string representation, with optional indentation support for both compact and pretty-printed output.

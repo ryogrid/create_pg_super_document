@@ -1,7 +1,7 @@
 # raw_heap_insert
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 593 - 758
+[src/backend/access/heap/rewriteheap.c:593-758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L593-L758)
 
 ## Overview
 Inserts a tuple into the new heap relation during a rewrite operation, handling TOAST processing, page management, and efficient bulk writing without WAL logging or visibility checks.

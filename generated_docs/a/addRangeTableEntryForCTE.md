@@ -1,7 +1,7 @@
 # addRangeTableEntryForCTE
 
 ## Location
-src/backend/parser/parse_relation.c: 2314 - 2465
+[src/backend/parser/parse_relation.c:2314-2465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L2314-L2465)
 
 ## Overview
 Creates a range table entry (RTE) for a Common Table Expression (CTE) reference and adds it to the parser state's range table, returning a ParseNamespaceItem for the new CTE entry.

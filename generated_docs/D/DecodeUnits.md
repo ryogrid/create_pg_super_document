@@ -1,7 +1,7 @@
 # DecodeUnits
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 536 - 580
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:536-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L536-L580)
 
 ## Overview
 A cached lookup function that decodes text strings representing time interval units using a lookup table, with performance optimization through caching.

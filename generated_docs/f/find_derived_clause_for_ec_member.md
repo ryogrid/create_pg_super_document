@@ -1,7 +1,7 @@
 # find_derived_clause_for_ec_member
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2591 - 2630
+[src/backend/optimizer/path/equivclass.c:2591-2630](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2591-L2630)
 
 ## Overview
 Searches for a previously-derived restrictive clause that mentions a specific equivalence class member and equates it to a constant value.

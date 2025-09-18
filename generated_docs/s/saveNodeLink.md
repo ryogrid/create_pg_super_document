@@ -1,7 +1,7 @@
 # saveNodeLink
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 186 - 202
+[src/backend/access/spgist/spgdoinsert.c:186-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L186-L202)
 
 ## Overview
 Updates a parent inner tuple's downlink to point to a new location and marks the parent buffer as dirty, typically used as the final step in SP-GiST tree modification operations.

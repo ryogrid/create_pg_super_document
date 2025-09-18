@@ -1,7 +1,7 @@
 # BumpAlloc
 
 ## Location
-src/backend/utils/mmgr/bump.c: 491 - 534
+[src/backend/utils/mmgr/bump.c:491-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L491-L534)
 
 ## Overview
 BumpAlloc is the primary allocation function for the bump memory context, providing fast sequential memory allocation by incrementing a pointer within blocks.

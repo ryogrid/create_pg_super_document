@@ -1,7 +1,7 @@
 # _bt_split_firstright
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 1175 - 1184
+[src/backend/access/nbtree/nbtsplitloc.c:1175-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L1175-L1184)
 
 ## Overview
 Retrieves the first IndexTuple that would be placed on the right page for a given B-tree split point candidate.

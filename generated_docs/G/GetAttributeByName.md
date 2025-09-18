@@ -1,7 +1,7 @@
 # GetAttributeByName
 
 ## Location
-src/backend/executor/execUtils.c: 995 - 1057
+[src/backend/executor/execUtils.c:995-1057](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L995-L1057)
 
 ## Overview
 GetAttributeByName extracts a specific attribute value from a HeapTuple by attribute name, providing a convenient interface for C functions that need to access tuple fields dynamically.

@@ -1,7 +1,7 @@
 # pgarch_archiveDone
 
 ## Location
-src/backend/postmaster/pgarch.c: 816 - 844
+[src/backend/postmaster/pgarch.c:816-844](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L816-L844)
 
 ## Overview
 A static function that marks a WAL file as successfully archived by renaming its status file from `.ready` to `.done`, signaling that the archival process is complete.

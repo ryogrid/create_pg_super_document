@@ -1,7 +1,7 @@
 # dsm_create
 
 ## Location
-src/backend/storage/ipc/dsm.c: 516 - 664
+[src/backend/storage/ipc/dsm.c:516-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L516-L664)
 
 ## Overview
 Creates a new dynamic shared memory segment with specified size and flags, managing the allocation either from the main shared memory region or by creating a new system-level memory segment.

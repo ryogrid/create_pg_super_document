@@ -1,7 +1,7 @@
 # initKeyArray
 
 ## Location
-src/backend/access/gin/ginfast.c: 675 - 684
+[src/backend/access/gin/ginfast.c:675-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L675-L684)
 
 ## Overview
 Initializes an empty KeyArray structure for storing GIN index keys and their associated null categories.

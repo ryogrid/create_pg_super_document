@@ -1,7 +1,7 @@
 # get_row_security_policies
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 98 - 540
+[src/backend/rewrite/rowsecurity.c:98-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L98-L540)
 
 ## Overview
 This function retrieves and applies row-level security (RLS) policies for a specific relation in a query, enforcing access control through security qualifiers and with-check options.

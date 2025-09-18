@@ -1,7 +1,7 @@
 # ATPrepSetAccessMethod
 
 ## Location
-src/backend/commands/tablecmds.c: 14895 - 14928
+[src/backend/commands/tablecmds.c:14895-14928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14895-L14928)
 
 ## Overview
 This is the preparation phase function for the ALTER TABLE SET ACCESS METHOD command that validates the access method and determines if a change is needed.

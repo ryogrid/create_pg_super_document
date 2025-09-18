@@ -1,7 +1,7 @@
 # jsonb_float4
 
 ## Location
-src/backend/utils/adt/jsonb.c: 2127 - 2144
+[src/backend/utils/adt/jsonb.c:2127-2144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L2127-L2144)
 
 ## Overview
 Converts a JSONB value to a PostgreSQL float4 (real) data type, extracting numeric scalar values from JSONB format.

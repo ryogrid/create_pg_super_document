@@ -1,7 +1,7 @@
 # makeJsonFormat
 
 ## Location
-src/backend/nodes/makefuncs.c: 894 - 909
+[src/backend/nodes/makefuncs.c:894-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L894-L909)
 
 ## Overview
 Creates a JsonFormat node that specifies formatting and encoding options for JSON data processing operations in PostgreSQL.

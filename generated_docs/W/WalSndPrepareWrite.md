@@ -1,7 +1,7 @@
 # WalSndPrepareWrite
 
 ## Location
-src/backend/replication/walsender.c: 1549 - 1575
+[src/backend/replication/walsender.c:1549-1575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1549-L1575)
 
 ## Overview
 WalSndPrepareWrite is a callback function used in logical decoding to prepare a StringInfo buffer for writing WAL data to logical replication clients.

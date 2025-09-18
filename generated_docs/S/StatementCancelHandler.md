@@ -1,7 +1,7 @@
 # StatementCancelHandler
 
 ## Location
-src/backend/tcop/postgres.c: 3029 - 3045
+[src/backend/tcop/postgres.c:3029-3045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3029-L3045)
 
 ## Overview
 StatementCancelHandler is a signal handler function that processes query-cancel signals from the postmaster to abort the current transaction at the soonest convenient time.

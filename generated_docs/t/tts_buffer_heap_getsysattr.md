@@ -1,7 +1,7 @@
 # tts_buffer_heap_getsysattr
 
 ## Location
-src/backend/executor/execTuples.c: 759 - 778
+[src/backend/executor/execTuples.c:759-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L759-L778)
 
 ## Overview
 Retrieves the value of a system attribute from a buffer-backed heap tuple table slot, with validation for materialized tuples.

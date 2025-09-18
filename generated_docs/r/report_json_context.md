@@ -1,7 +1,7 @@
 # report_json_context
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 675 - 729
+[src/backend/utils/adt/jsonfuncs.c:675-729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L675-L729)
 
 ## Overview
 This static function generates contextual error information for JSON parsing failures by creating formatted context lines that show the problematic input location.

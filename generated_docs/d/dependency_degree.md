@@ -1,7 +1,7 @@
 # dependency_degree
 
 ## Location
-src/backend/statistics/dependencies.c: 221 - 347
+[src/backend/statistics/dependencies.c:221-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L221-L347)
 
 ## Overview
 Validates functional dependency on the data by determining the degree to which a set of columns functionally determines another column, returning a confidence score between 0 and 1.

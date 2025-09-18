@@ -1,7 +1,7 @@
 # fmtId
 
 ## Location
-src/fe_utils/string_utils.c: 248 - 262
+[src/fe_utils/string_utils.c:248-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L248-L262)
 
 ## Overview
 A convenience wrapper function that formats and quotes PostgreSQL identifiers using the globally configured encoding setting.

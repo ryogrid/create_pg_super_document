@@ -1,7 +1,7 @@
 # find_funcstat_entry
 
 ## Location
-src/backend/utils/activity/pgstat_function.c: 223 - 238
+[src/backend/utils/activity/pgstat_function.c:223-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_function.c#L223-L238)
 
 ## Overview
 Searches for an existing PgStat_FunctionCounts entry for a specified function without creating a new entry if one doesn't exist.

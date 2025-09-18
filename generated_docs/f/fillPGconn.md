@@ -1,7 +1,7 @@
 # fillPGconn
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 918 - 955
+[src/interfaces/libpq/fe-connect.c:918-955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L918-L955)
 
 ## Overview
 Transfers parsed connection option values from a PQconninfoOption array into the appropriate fields of a PGconn structure during connection initialization.

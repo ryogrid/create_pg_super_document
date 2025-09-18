@@ -1,7 +1,7 @@
 # InitializeWalConsistencyChecking
 
 ## Location
-src/backend/access/transam/xlog.c: 4739 - 4764
+[src/backend/access/transam/xlog.c:4739-4764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4739-L4764)
 
 ## Overview
 A startup function that processes deferred wal_consistency_checking validation after shared_preload_libraries are loaded, ensuring custom resource managers are properly recognized.

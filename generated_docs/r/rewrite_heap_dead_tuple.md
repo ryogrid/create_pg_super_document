@@ -1,7 +1,7 @@
 # rewrite_heap_dead_tuple
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 543 - 592
+[src/backend/access/heap/rewriteheap.c:543-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L543-L592)
 
 ## Overview
 Processes a dead tuple during heap rewrite by removing any unresolved references to it and freeing associated resources since dead tuples are not copied to the new table.

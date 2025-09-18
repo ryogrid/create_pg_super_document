@@ -1,7 +1,7 @@
 # get_role_password
 
 ## Location
-src/backend/libpq/crypt.c: 36 - 87
+[src/backend/libpq/crypt.c:36-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/crypt.c#L36-L87)
 
 ## Overview
 Fetches the stored password for a user from the pg_authid system catalog for authentication purposes, with additional validation for password expiration.

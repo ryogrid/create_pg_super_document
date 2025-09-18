@@ -1,7 +1,7 @@
 # pg_lsn_ne
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 127 - 135
+[src/backend/utils/adt/pg_lsn.c:127-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L127-L135)
 
 ## Overview
 Compares two PostgreSQL Log Sequence Number (LSN) values for inequality, returning true if they represent different positions in the WAL (Write-Ahead Log).

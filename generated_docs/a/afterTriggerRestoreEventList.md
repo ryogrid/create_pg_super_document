@@ -1,7 +1,7 @@
 # afterTriggerRestoreEventList
 
 ## Location
-src/backend/commands/trigger.c: 4253 - 4292
+[src/backend/commands/trigger.c:4253-4292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4253-L4292)
 
 ## Overview
 Restores an AfterTriggerEventList to a previous state by removing events added after a given checkpoint, supporting rollback scenarios in trigger processing.

@@ -1,7 +1,7 @@
 # NamedTuplestoreScanNext
 
 ## Location
-src/backend/executor/nodeNamedtuplestorescan.c: 31 - 51
+[src/backend/executor/nodeNamedtuplestorescan.c:31-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNamedtuplestorescan.c#L31-L51)
 
 ## Overview
 A static helper function that retrieves the next tuple from a named tuple store scan, serving as the core workhorse for ExecNamedTuplestoreScan.

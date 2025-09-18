@@ -1,7 +1,7 @@
 # CommuteOpExpr
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2147 - 2185
+[src/backend/optimizer/util/clauses.c:2147-2185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2147-L2185)
 
 ## Overview
 Commutes (reverses the order of arguments) a binary operator expression by swapping its operands and replacing the operator with its commutator.

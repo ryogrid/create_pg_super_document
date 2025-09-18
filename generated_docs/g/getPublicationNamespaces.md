@@ -1,7 +1,7 @@
 # getPublicationNamespaces
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4435 - 4521
+[src/bin/pg_dump/pg_dump.c:4435-4521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4435-L4521)
 
 ## Overview
 Retrieves information about publication membership for dumpable schemas, creating objects that represent the relationship between publications and namespaces in PostgreSQL.

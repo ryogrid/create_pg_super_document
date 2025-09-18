@@ -1,7 +1,7 @@
 # get_object_attnum_owner
 
 ## Location
-src/backend/catalog/objectaddress.c: 2676 - 2683
+[src/backend/catalog/objectaddress.c:2676-2683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2676-L2683)
 
 ## Overview
 Returns the attribute number for the owner field of a given PostgreSQL object class, enabling access control and ownership operations to locate the owner identifier within catalog table structures.

@@ -1,7 +1,7 @@
 # make_copy_attnamelist
 
 ## Location
-src/backend/replication/logical/tablesync.c: 724 - 743
+[src/backend/replication/logical/tablesync.c:724-743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L724-L743)
 
 ## Overview
 Creates a list of column names for PostgreSQL's COPY command based on the attribute information from a logical replication relation mapping.

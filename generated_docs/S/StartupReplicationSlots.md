@@ -1,7 +1,7 @@
 # StartupReplicationSlots
 
 ## Location
-src/backend/replication/slot.c: 1892 - 1952
+[src/backend/replication/slot.c:1892-1952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1892-L1952)
 
 ## Overview
 Loads all replication slots from disk into memory during server startup, performing cleanup of temporary directories and computing required xmin and LSN values.

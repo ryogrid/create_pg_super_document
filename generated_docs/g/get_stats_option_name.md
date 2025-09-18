@@ -1,7 +1,7 @@
 # get_stats_option_name
 
 ## Location
-src/backend/tcop/postgres.c: 3837 - 3876
+[src/backend/tcop/postgres.c:3837-3876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3837-L3876)
 
 ## Overview
 A utility function that maps single-character command-line option arguments to their corresponding PostgreSQL statistics logging GUC parameter names.

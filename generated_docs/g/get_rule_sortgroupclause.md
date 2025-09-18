@@ -1,7 +1,7 @@
 # get_rule_sortgroupclause
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6319 - 6387
+[src/backend/utils/adt/ruleutils.c:6319-6387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6319-L6387)
 
 ## Overview
 Displays a sort/group clause by converting a target list reference into appropriate SQL text, handling various expression types with proper formatting and disambiguation.

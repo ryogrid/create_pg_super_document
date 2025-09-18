@@ -1,7 +1,7 @@
 # RenameConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 4021 - 4070
+[src/backend/commands/tablecmds.c:4021-4070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4021-L4070)
 
 ## Overview
 RenameConstraint is the top-level function that handles renaming constraints on both relations and domains, serving as the main entry point for ALTER TABLE/DOMAIN RENAME CONSTRAINT commands.

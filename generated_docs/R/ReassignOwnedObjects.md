@@ -1,7 +1,7 @@
 # ReassignOwnedObjects
 
 ## Location
-src/backend/commands/user.c: 1611 - 1651
+[src/backend/commands/user.c:1611-1651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L1611-L1651)
 
 ## Overview
 Implements the REASSIGN OWNED command by transferring ownership of all objects owned by specified roles to a new target role after validating privileges.

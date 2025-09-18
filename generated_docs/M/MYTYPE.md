@@ -1,7 +1,7 @@
 # MYTYPE
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 112 - 124
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:112-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L112-L124)
 
 ## Overview
 MYTYPE is a typedef alias for the struct mytype, used in ECPG (Embedded SQL in C) test programs to provide a cleaner interface for handling structured data types in PostgreSQL embedded SQL operations.

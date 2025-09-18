@@ -1,7 +1,7 @@
 # SnapBuildSetTwoPhaseAt
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 434 - 442
+[src/backend/replication/logical/snapbuild.c:434-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L434-L442)
 
 ## Overview
 Sets the LSN at which two-phase decoding is enabled for a snapshot builder, controlling when two-phase commit protocol operations should be decoded during logical replication.

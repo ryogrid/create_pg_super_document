@@ -1,7 +1,7 @@
 # comparetup_index_hash
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1588 - 1663
+[src/backend/utils/sort/tuplesortvariants.c:1588-1663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1588-L1663)
 
 ## Overview
 A specialized comparison function for hash index sorting that orders tuples by bucket number, hash value, and ItemPointer to optimize insertion and scan performance.

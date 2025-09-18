@@ -1,7 +1,7 @@
 # pg_be_scram_build_secret
 
 ## Location
-src/backend/libpq/auth-scram.c: 472 - 511
+[src/backend/libpq/auth-scram.c:472-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L472-L511)
 
 ## Overview
 Constructs a SCRAM-SHA-256 secret from a plain text password for storage in pg_authid.rolpassword.

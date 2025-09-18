@@ -1,7 +1,7 @@
 # create_range_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 677 - 895
+[src/backend/partitioning/partbounds.c:677-895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L677-L895)
 
 ## Overview
 Creates a PartitionBoundInfo structure for a range partitioned table by processing boundary specifications and organizing them into a unified, sorted structure.

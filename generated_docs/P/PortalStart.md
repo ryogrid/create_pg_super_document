@@ -1,7 +1,7 @@
 # PortalStart
 
 ## Location
-src/backend/tcop/pquery.c: 433 - 622
+[src/backend/tcop/pquery.c:433-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L433-L622)
 
 ## Overview
 Prepares a portal for execution by setting up the execution environment, determining strategy, and initializing the executor for various types of SQL statements.

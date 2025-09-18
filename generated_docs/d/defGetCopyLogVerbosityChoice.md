@@ -1,7 +1,7 @@
 # defGetCopyLogVerbosityChoice
 
 ## Location
-src/backend/commands/copy.c: 425 - 462
+[src/backend/commands/copy.c:425-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copy.c#L425-L462)
 
 ## Overview
 defGetCopyLogVerbosityChoice extracts and validates a CopyLogVerbosityChoice value from a DefElem parameter, supporting "default" and "verbose" logging levels for COPY operations.

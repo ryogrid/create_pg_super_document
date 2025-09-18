@@ -1,7 +1,7 @@
 # SlruFileName
 
 ## Location
-src/backend/access/transam/slru.c: 91 - 123
+[src/backend/access/transam/slru.c:91-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L91-L123)
 
 ## Overview
 SlruFileName is a static inline function that converts a segment number to the corresponding filename for SLRU (Simple LRU) segments, supporting both standard and long segment name formats.

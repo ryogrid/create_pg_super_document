@@ -1,7 +1,7 @@
 # ComputeXidHorizonsResult
 
 ## Location
-src/backend/storage/ipc/procarray.c: 179 - 244
+[src/backend/storage/ipc/procarray.c:179-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L179-L244)
 
 ## Overview
 ComputeXidHorizonsResult is a structure that contains comprehensive transaction visibility horizon information computed by ComputeXidHorizons(), providing different XID boundaries for various types of relations and operations.

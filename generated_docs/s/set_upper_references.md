@@ -1,7 +1,7 @@
 # set_upper_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2431 - 2496
+[src/backend/optimizer/plan/setrefs.c:2431-2496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2431-L2496)
 
 ## Overview
 Updates the targetlist and quals of upper-level plan nodes to reference tuples returned by their subplan, handling both regular expressions and sort/group columns with special optimization for unflattened values.

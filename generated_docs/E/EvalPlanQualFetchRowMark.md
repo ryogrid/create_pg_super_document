@@ -1,7 +1,7 @@
 # EvalPlanQualFetchRowMark
 
 ## Location
-src/backend/executor/execMain.c: 2628 - 2738
+[src/backend/executor/execMain.c:2628-2738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2628-L2738)
 
 ## Overview
 EvalPlanQualFetchRowMark fetches the current row value for a non-locked relation during EPQ operations, handling different row mark types and relation kinds including foreign tables.

@@ -1,7 +1,7 @@
 # dataLeafPageGetUncompressed
 
 ## Location
-src/backend/access/gin/gindatapage.c: 211 - 233
+[src/backend/access/gin/gindatapage.c:211-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L211-L233)
 
 ## Overview
 Returns a pointer to the uncompressed TID array on pre-9.4 format uncompressed GIN data leaf pages.

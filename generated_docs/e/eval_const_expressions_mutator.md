@@ -1,7 +1,7 @@
 # eval_const_expressions_mutator
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2440 - 3735
+[src/backend/optimizer/util/clauses.c:2440-3735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2440-L3735)
 
 ## Overview
 This static function implements the core recursive logic for constant expression evaluation and simplification, serving as the workhorse behind both eval_const_expressions and estimate_expression_value functions.

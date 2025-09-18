@@ -1,7 +1,7 @@
 # AddCatalogInvalidationMessage
 
 ## Location
-src/backend/utils/cache/inval.c: 424 - 441
+[src/backend/utils/cache/inval.c:424-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L424-L441)
 
 ## Overview
 AddCatalogInvalidationMessage is a static function that creates and adds a whole-catalog invalidation message to an invalidation message group, targeting all cached entries for a specific system catalog.

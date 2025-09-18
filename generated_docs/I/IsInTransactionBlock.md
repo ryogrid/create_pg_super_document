@@ -1,7 +1,7 @@
 # IsInTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3715 - 3752
+[src/backend/access/transam/xact.c:3715-3752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3715-L3752)
 
 ## Overview
 Determines whether the current session is executing within a transaction block where internal transaction commit-and-start cycles should be restricted.

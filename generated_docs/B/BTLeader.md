@@ -1,7 +1,7 @@
 # BTLeader
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 165 - 194
+[src/backend/access/nbtree/nbtsort.c:165-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L165-L194)
 
 ## Overview
 BTLeader is a structure that contains status and convenience pointers for the leader process in parallel B-tree index builds, providing access to shared state and coordinating worker processes.

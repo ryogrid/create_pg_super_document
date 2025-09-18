@@ -1,7 +1,7 @@
 # out_grouping
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 191 - 202
+[src/backend/snowball/libstemmer/utilities.c:191-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L191-L202)
 
 ## Overview
 The `out_grouping` function checks if characters in a Snowball stemmer environment fall outside a specified character grouping for non-UTF8 encodings.

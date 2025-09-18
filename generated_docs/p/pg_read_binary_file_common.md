@@ -1,7 +1,7 @@
 # pg_read_binary_file_common
 
 ## Location
-src/backend/utils/adt/genfile.c: 260 - 284
+[src/backend/utils/adt/genfile.c:260-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L260-L284)
 
 ## Overview
 High-level interface for reading binary files with integrated security checking and parameter validation, parallel to pg_read_file_common but for binary data.

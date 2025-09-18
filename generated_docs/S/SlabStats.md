@@ -1,7 +1,7 @@
 # SlabStats
 
 ## Location
-src/backend/utils/mmgr/slab.c: 929 - 996
+[src/backend/utils/mmgr/slab.c:929-996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L929-L996)
 
 ## Overview
 SlabStats computes and reports memory consumption statistics for a Slab memory context, providing detailed information about blocks, chunks, and memory usage.

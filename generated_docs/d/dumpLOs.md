@@ -1,7 +1,7 @@
 # dumpLOs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3904 - 3949
+[src/bin/pg_dump/pg_dump.c:3904-3949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3904-L3949)
 
 ## Overview
 Dumps the data contents of large objects (LOBs) in PostgreSQL, reading them from the database and writing them to the archive output.

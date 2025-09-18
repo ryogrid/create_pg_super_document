@@ -1,7 +1,7 @@
 # OpFamilyMember
 
 ## Location
-src/include/access/amapi.h: 84 - 95
+[src/include/access/amapi.h:84-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/amapi.h#L84-L95)
 
 ## Overview
 OpFamilyMember is a struct used to track both operators and support functions while building or adding to an operator class (opclass) or operator family (opfamily) in PostgreSQL's access method framework.

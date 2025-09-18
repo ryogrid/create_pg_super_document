@@ -1,7 +1,7 @@
 # text_format_string_conversion
 
 ## Location
-src/backend/utils/adt/varlena.c: 6041 - 6089
+[src/backend/utils/adt/varlena.c:6041-6089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6041-L6089)
 
 ## Overview
 Formats string conversions (%s, %I, or %L) in PostgreSQL's format string processing, handling string values, SQL identifiers, and SQL literals with proper escaping and formatting.

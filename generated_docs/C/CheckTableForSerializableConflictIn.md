@@ -1,7 +1,7 @@
 # CheckTableForSerializableConflictIn
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4409 - 4490
+[src/backend/storage/lmgr/predicate.c:4409-4490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4409-L4490)
 
 ## Overview
 CheckTableForSerializableConflictIn handles serializable conflict detection for DDL operations that perform mass deletion like TRUNCATE or DROP TABLE on entire tables.

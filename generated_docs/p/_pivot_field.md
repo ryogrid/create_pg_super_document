@@ -1,7 +1,7 @@
 # _pivot_field
 
 ## Location
-src/bin/psql/crosstabview.c: 22 - 46
+[src/bin/psql/crosstabview.c:22-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L22-L46)
 
 ## Overview
 The _pivot_field structure represents a value/position from a PostgreSQL result set that forms part of the horizontal or vertical header in psql's crosstabview display format.

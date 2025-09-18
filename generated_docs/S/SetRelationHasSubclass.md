@@ -1,7 +1,7 @@
 # SetRelationHasSubclass
 
 ## Location
-src/backend/commands/tablecmds.c: 3515 - 3560
+[src/backend/commands/tablecmds.c:3515-3560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3515-L3560)
 
 ## Overview
 SetRelationHasSubclass updates the relhassubclass field in pg_class system catalog to indicate whether a relation has child tables, triggering query plan invalidation for inheritance optimization.

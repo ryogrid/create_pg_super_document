@@ -1,7 +1,7 @@
 # window_lag
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 580 - 591
+[src/backend/utils/adt/windowfuncs.c:580-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L580-L591)
 
 ## Overview
 This function implements the basic LAG() window function that returns the value from the previous row in the partition.

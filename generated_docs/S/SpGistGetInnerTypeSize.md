@@ -1,7 +1,7 @@
 # SpGistGetInnerTypeSize
 
 ## Location
-src/backend/access/spgist/spgutils.c: 771 - 788
+[src/backend/access/spgist/spgutils.c:771-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L771-L788)
 
 ## Overview
 Calculates the storage space required for a non-null datum in an SP-GiST inner tuple (used for prefix or node label storage), with the result aligned to MAXALIGN boundary.

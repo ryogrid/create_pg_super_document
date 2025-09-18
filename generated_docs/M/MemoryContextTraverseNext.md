@@ -1,7 +1,7 @@
 # MemoryContextTraverseNext
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 257 - 285
+[src/backend/utils/mmgr/mcxt.c:257-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L257-L285)
 
 ## Overview
 A helper function that provides non-recursive traversal of memory context hierarchies, visiting all descendants of a given context in pre-order without risking stack overflow.

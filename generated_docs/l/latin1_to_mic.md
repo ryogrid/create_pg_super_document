@@ -1,7 +1,7 @@
 # latin1_to_mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/latin_and_mic/latin_and_mic.c: 43 - 58
+[src/backend/utils/mb/conversion_procs/latin_and_mic/latin_and_mic.c:43-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/latin_and_mic/latin_and_mic.c#L43-L58)
 
 ## Overview
 A PostgreSQL encoding conversion function that converts text from Latin-1 (ISO 8859-1) encoding to the Multi-byte Internal Code (MIC) encoding used internally by PostgreSQL's multi-byte character system.

@@ -1,7 +1,7 @@
 # has_function_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3396 - 3421
+[src/backend/utils/adt/acl.c:3396-3421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3396-L3421)
 
 ## Overview
 Checks whether a user has specific privileges on a function, using role name, function name, and privilege type as text strings.

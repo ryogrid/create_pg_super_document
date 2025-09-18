@@ -1,7 +1,7 @@
 # PopulateRecordsetState
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 244 - 255
+[src/backend/utils/adt/jsonfuncs.c:244-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L244-L255)
 
 ## Overview
 A per-call state structure used by PostgreSQL's populate_recordset function to maintain context and intermediate data during JSON recordset population operations.

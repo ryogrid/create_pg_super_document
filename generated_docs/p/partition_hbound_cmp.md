@@ -1,7 +1,7 @@
 # partition_hbound_cmp
 
 ## Location
-src/backend/partitioning/partbounds.c: 3587 - 3606
+[src/backend/partitioning/partbounds.c:3587-3606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3587-L3606)
 
 ## Overview
 Compares hash partition bounds by comparing modulus first, then remainder if modulus values are equal.

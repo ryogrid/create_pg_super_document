@@ -1,7 +1,7 @@
 # afterTriggerCopyBitmap
 
 ## Location
-src/backend/commands/trigger.c: 4086 - 4110
+[src/backend/commands/trigger.c:4086-4110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4086-L4110)
 
 ## Overview
 Copies a Bitmapset into the AfterTriggerEvents memory context to ensure proper memory management during after-trigger event processing.

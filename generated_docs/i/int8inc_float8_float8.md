@@ -1,7 +1,7 @@
 # int8inc_float8_float8
 
 ## Location
-src/backend/utils/adt/int8.c: 810 - 815
+[src/backend/utils/adt/int8.c:810-815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L810-L815)
 
 ## Overview
 A specialized wrapper function for int8inc designed for aggregate operations involving float8 data types.

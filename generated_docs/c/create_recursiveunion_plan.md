@@ -1,7 +1,7 @@
 # create_recursiveunion_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2756 - 2791
+[src/backend/optimizer/plan/createplan.c:2756-2791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2756-L2791)
 
 ## Overview
 Creates a RecursiveUnion plan node for recursive Common Table Expression (CTE) queries, building plans for both the non-recursive and recursive parts of the query.

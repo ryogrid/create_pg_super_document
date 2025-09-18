@@ -1,7 +1,7 @@
 # bitncommon
 
 ## Location
-src/backend/utils/adt/network.c: 1603 - 1640
+[src/backend/utils/adt/network.c:1603-1640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1603-L1640)
 
 ## Overview
 Calculates the number of leading bits that are common between two bit masks, up to a specified maximum number of bits.

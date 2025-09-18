@@ -1,7 +1,7 @@
 # statext_is_kind_built
 
 ## Location
-src/backend/statistics/extended_stats.c: 389 - 421
+[src/backend/statistics/extended_stats.c:389-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L389-L421)
 
 ## Overview
 statext_is_kind_built checks whether a specific type of extended statistics has been computed and stored in a given pg_statistic_ext_data tuple.

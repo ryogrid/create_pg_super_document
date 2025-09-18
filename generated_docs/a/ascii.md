@@ -1,7 +1,7 @@
 # ascii
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 925 - 1005
+[src/backend/utils/adt/oracle_compat.c:925-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L925-L1005)
 
 ## Overview
 Returns the decimal ASCII value (or Unicode code point) of the first character in a text string.

@@ -1,7 +1,7 @@
 # summarizer_wait_for_wal
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1611 - 1653
+[src/backend/postmaster/walsummarizer.c:1611-1653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1611-L1653)
 
 ## Overview
 An adaptive sleep function that dynamically adjusts wait times based on WAL page read activity to optimize WAL summarizer performance while avoiding tight-looping when no WAL data is available.

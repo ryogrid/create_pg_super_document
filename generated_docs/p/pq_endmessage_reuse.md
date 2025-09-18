@@ -1,7 +1,7 @@
 # pq_endmessage_reuse
 
 ## Location
-src/backend/libpq/pqformat.c: 314 - 325
+[src/backend/libpq/pqformat.c:314-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L314-L325)
 
 ## Overview
 Sends a completed message to the frontend while preserving the data buffer for potential reuse, providing an efficient alternative to the standard pq_endmessage function.

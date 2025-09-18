@@ -1,7 +1,7 @@
 # RelationCacheInitFileRemove
 
 ## Location
-src/backend/utils/cache/relcache.c: 6806 - 6838
+[src/backend/utils/cache/relcache.c:6806-6838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6806-L6838)
 
 ## Overview
 Removes all relation cache initialization files across all databases and tablespaces during postmaster startup to ensure cache consistency after restart.

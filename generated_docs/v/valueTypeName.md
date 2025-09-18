@@ -1,7 +1,7 @@
 # valueTypeName
 
 ## Location
-src/bin/pgbench/pgbench.c: 1982 - 2003
+[src/bin/pgbench/pgbench.c:1982-2003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1982-L2003)
 
 ## Overview
 Returns a human-readable string representation of a PgBenchValue's data type for error reporting and debugging purposes.

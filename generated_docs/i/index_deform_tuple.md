@@ -1,7 +1,7 @@
 # index_deform_tuple
 
 ## Location
-src/backend/access/common/indextuple.c: 456 - 478
+[src/backend/access/common/indextuple.c:456-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L456-L478)
 
 ## Overview
 The `index_deform_tuple` function converts an IndexTuple into separate arrays of Datum values and null indicators, providing the inverse operation of index tuple formation.

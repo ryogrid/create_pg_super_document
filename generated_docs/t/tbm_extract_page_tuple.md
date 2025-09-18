@@ -1,7 +1,7 @@
 # tbm_extract_page_tuple
 
 ## Location
-src/backend/nodes/tidbitmap.c: 911 - 940
+[src/backend/nodes/tidbitmap.c:911-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L911-L940)
 
 ## Overview
 Extracts tuple offset numbers from a bitmap page entry and stores them in a TBMIterateResult structure.

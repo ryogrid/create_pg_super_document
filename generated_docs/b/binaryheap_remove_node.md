@@ -1,7 +1,7 @@
 # binaryheap_remove_node
 
 ## Location
-src/common/binaryheap.c: 225 - 254
+[src/common/binaryheap.c:225-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L225-L254)
 
 ## Overview
 Removes the nth (zero-based) node from the heap and maintains the heap property through sifting operations.

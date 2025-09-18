@@ -1,7 +1,7 @@
 # gethms
 
 ## Location
-src/timezone/zic.c: 1365 - 1442
+[src/timezone/zic.c:1365-1442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1365-L1442)
 
 ## Overview
 Converts time specification strings in various formats (h, -h, hh:mm, -hh:mm, hh:mm:ss, -hh:mm:ss) into a number of seconds, with comprehensive validation and rounding support.

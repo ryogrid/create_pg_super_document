@@ -1,7 +1,7 @@
 # getAccessMethods
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 6240 - 6319
+[src/bin/pg_dump/pg_dump.c:6240-6319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L6240-L6319)
 
 ## Overview
 Reads all user-defined access methods from the PostgreSQL system catalogs and returns them in an AccessMethodInfo structure array for pg_dump processing.

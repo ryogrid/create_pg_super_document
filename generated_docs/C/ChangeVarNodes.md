@@ -1,7 +1,7 @@
 # ChangeVarNodes
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 675 - 737
+[src/backend/rewrite/rewriteManip.c:675-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L675-L737)
 
 ## Overview
 A public function that changes all range table references from an old index to a new index within an expression tree or query tree.

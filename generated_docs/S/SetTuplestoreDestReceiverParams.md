@@ -1,7 +1,7 @@
 # SetTuplestoreDestReceiverParams
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 266 - 283
+[src/backend/executor/tstoreReceiver.c:266-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L266-L283)
 
 ## Overview
 Configures the parameters for a tuplestore destination receiver, setting up the target tuplestore, memory context, and various processing options for tuple handling.

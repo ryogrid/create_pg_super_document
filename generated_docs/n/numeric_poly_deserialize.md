@@ -1,7 +1,7 @@
 # numeric_poly_deserialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5755 - 5807
+[src/backend/utils/adt/numeric.c:5755-5807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5755-L5807)
 
 ## Overview
 The numeric_poly_deserialize function deserializes a bytea representation back into a PolyNumAggState structure for PostgreSQL's parallel aggregation framework, reconstructing partial aggregate states from serialized data.

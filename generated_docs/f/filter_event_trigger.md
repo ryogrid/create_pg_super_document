@@ -1,7 +1,7 @@
 # filter_event_trigger
 
 ## Location
-src/backend/commands/event_trigger.c: 594 - 619
+[src/backend/commands/event_trigger.c:594-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L594-L619)
 
 ## Overview
 Determines whether a given event trigger should be fired based on session replication role and registered command tags.

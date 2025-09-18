@@ -1,7 +1,7 @@
 # jsonb_ops__add_path_item
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 278 - 322
+[src/backend/utils/adt/jsonb_gin.c:278-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L278-L322)
 
 ## Overview
 A static utility function that appends a JsonPathItem to a JsonPathGinPath structure, building a linked list representation of JSONPath expressions for the jsonb_ops GIN operator class.

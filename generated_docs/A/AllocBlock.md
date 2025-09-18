@@ -1,7 +1,7 @@
 # AllocBlock
 
 ## Location
-src/backend/utils/mmgr/aset.c: 107 - 112
+[src/backend/utils/mmgr/aset.c:107-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L107-L112)
 
 ## Overview
 AllocBlock is a typedef that represents a pointer to an AllocBlockData structure, serving as a forward reference for memory allocation blocks in PostgreSQL's allocation set memory management system.

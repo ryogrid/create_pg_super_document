@@ -1,7 +1,7 @@
 # CheckTargetForConflictsIn
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4156 - 4325
+[src/backend/storage/lmgr/predicate.c:4156-4325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4156-L4325)
 
 ## Overview
 CheckTargetForConflictsIn is a static helper function that checks a specific target for read-write dependency conflicts in PostgreSQL's serializable snapshot isolation implementation.

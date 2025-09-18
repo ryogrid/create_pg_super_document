@@ -1,7 +1,7 @@
 # get_partition_parent_worker
 
 ## Location
-src/backend/catalog/partition.c: 85 - 133
+[src/backend/catalog/partition.c:85-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L85-L133)
 
 ## Overview
 A static helper function that scans the pg_inherits relation to return the OID of the parent of a given relation.

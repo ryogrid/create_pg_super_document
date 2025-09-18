@@ -1,7 +1,7 @@
 # shm_mq_counterparty_gone
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 1179 - 1217
+[src/backend/storage/ipc/shm_mq.c:1179-1217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L1179-L1217)
 
 ## Overview
 Tests whether the counterparty (sender or receiver) of a shared message queue has definitively terminated or become unavailable.

@@ -1,7 +1,7 @@
 # path_area
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1380 - 1401
+[src/backend/utils/adt/geo_ops.c:1380-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1380-L1401)
 
 ## Overview
 Calculates the area enclosed by a closed path (polygon) using the shoelace formula, returning NULL for open paths.

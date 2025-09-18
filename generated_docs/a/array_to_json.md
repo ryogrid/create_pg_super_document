@@ -1,7 +1,7 @@
 # array_to_json
 
 ## Location
-src/backend/utils/adt/json.c: 621 - 636
+[src/backend/utils/adt/json.c:621-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L621-L636)
 
 ## Overview
 SQL function that converts a PostgreSQL array into its JSON representation as a text string.

@@ -1,7 +1,7 @@
 # TRI_YES
 
 ## Location
-src/bin/psql/settings.h: 77 - 79
+[src/bin/psql/settings.h:77-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/settings.h#L77-L79)
 
 ## Overview
 TRI_YES is an enumeration constant representing the "yes" or "true" state in PostgreSQL's three-valued logic system, used throughout PostgreSQL client utilities for configuration options that can have default, yes, or no values.

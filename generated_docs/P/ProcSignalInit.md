@@ -1,7 +1,7 @@
 # ProcSignalInit
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 158 - 210
+[src/backend/storage/ipc/procsignal.c:158-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L158-L210)
 
 ## Overview
 Registers the current process in the ProcSignal array by claiming and initializing a process signal slot, setting up the process for inter-process communication and barrier synchronization.

@@ -1,7 +1,7 @@
 # SH_INSERT_HASH_INTERNAL
 
 ## Location
-src/include/lib/simplehash.h: 609 - 776
+[src/include/lib/simplehash.h:609-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L609-L776)
 
 ## Overview
 SH_INSERT_HASH_INTERNAL is a macro that defines the name for the core internal function that implements hash table insertion with an already-computed hash value, providing the fundamental insertion logic for simple hash tables.

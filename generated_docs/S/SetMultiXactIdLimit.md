@@ -1,7 +1,7 @@
 # SetMultiXactIdLimit
 
 ## Location
-src/backend/access/transam/multixact.c: 2354 - 2502
+[src/backend/access/transam/multixact.c:2354-2502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2354-L2502)
 
 ## Overview
 Determines and sets the safe limits for MultiXact ID allocation based on the oldest datminmxid to prevent wraparound and data loss.

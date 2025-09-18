@@ -1,7 +1,7 @@
 # XLogDumpStatsRow
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 585 - 625
+[src/bin/pg_waldump/pg_waldump.c:585-625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L585-L625)
 
 ## Overview
 A utility function in pg_waldump that displays a single row of statistical information for WAL record counts and sizes, typically for a specific resource manager (rmgr) or record type.

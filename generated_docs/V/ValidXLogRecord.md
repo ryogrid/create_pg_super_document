@@ -1,7 +1,7 @@
 # ValidXLogRecord
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1203 - 1233
+[src/backend/access/transam/xlogreader.c:1203-1233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1203-L1233)
 
 ## Overview
 ValidXLogRecord performs CRC (Cyclic Redundancy Check) validation on an XLOG record to verify data integrity before trusting the record contents.

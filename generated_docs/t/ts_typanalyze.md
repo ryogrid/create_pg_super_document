@@ -1,7 +1,7 @@
 # ts_typanalyze
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 58 - 140
+[src/backend/tsearch/ts_typanalyze.c:58-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L58-L140)
 
 ## Overview
 A custom typanalyze function for tsvector columns that configures statistics collection parameters for PostgreSQL's ANALYZE command.

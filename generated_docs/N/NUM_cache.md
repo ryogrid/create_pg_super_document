@@ -1,7 +1,7 @@
 # NUM_cache
 
 ## Location
-src/backend/utils/adt/formatting.c: 5180 - 5237
+[src/backend/utils/adt/formatting.c:5180-5237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5180-L5237)
 
 ## Overview
 Main caching interface for numeric formatting that manages format string parsing, caching strategy, and memory allocation based on format string size.

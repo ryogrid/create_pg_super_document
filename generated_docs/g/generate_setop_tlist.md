@@ -1,7 +1,7 @@
 # generate_setop_tlist
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1397 - 1545
+[src/backend/optimizer/prep/prepunion.c:1397-1545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1397-L1545)
 
 ## Overview
 Generates a targetlist for a set-operation plan node (UNION/INTERSECT/EXCEPT), creating appropriate column references with proper data types and collations.

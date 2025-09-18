@@ -1,7 +1,7 @@
 # iclikesel
 
 ## Location
-src/backend/utils/adt/like_support.c: 830 - 838
+[src/backend/utils/adt/like_support.c:830-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L830-L838)
 
 ## Overview
 A PostgreSQL selectivity estimation function that calculates the selectivity of case-insensitive LIKE pattern match operations (ILIKE) for query optimization purposes.

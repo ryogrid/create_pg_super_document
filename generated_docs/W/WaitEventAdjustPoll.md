@@ -1,7 +1,7 @@
 # WaitEventAdjustPoll
 
 ## Location
-src/backend/storage/ipc/latch.c: 1176 - 1220
+[src/backend/storage/ipc/latch.c:1176-1220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1176-L1220)
 
 ## Overview
 Platform-specific function that configures poll file descriptor entries for wait events on systems using the traditional poll() mechanism.

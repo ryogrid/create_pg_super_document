@@ -1,7 +1,7 @@
 # pg_plan_queries
 
 ## Location
-src/backend/tcop/postgres.c: 976 - 1016
+[src/backend/tcop/postgres.c:976-1016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L976-L1016)
 
 ## Overview
 Generates execution plans for a list of already-rewritten queries, handling both regular optimizable statements and utility commands to produce a list of PlannedStmt nodes.

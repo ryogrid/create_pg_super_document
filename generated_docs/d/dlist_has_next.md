@@ -1,7 +1,7 @@
 # dlist_has_next
 
 ## Location
-src/include/lib/ilist.h: 503 - 512
+[src/include/lib/ilist.h:503-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L503-L512)
 
 ## Overview
 Checks whether a given node in a doubly-linked list has a following (next) node, providing a safe way to determine if iteration can continue forward in the list.

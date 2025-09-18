@@ -1,7 +1,7 @@
 # plperl_query_desc
 
 ## Location
-src/pl/plperl/plperl.c: 186 - 195
+[src/pl/plperl/plperl.c:186-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L186-L195)
 
 ## Overview
 A structure that caches information about prepared and saved SQL plans in the PL/Perl procedural language extension for PostgreSQL.

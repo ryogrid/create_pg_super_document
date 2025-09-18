@@ -1,7 +1,7 @@
 # add_paths_to_append_rel
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 1302 - 1713
+[src/backend/optimizer/path/allpaths.c:1302-1713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L1302-L1713)
 
 ## Overview
 Generates paths for append relations by collecting all parameterizations and orderings from child relations and creating appropriate Append and MergeAppend paths.

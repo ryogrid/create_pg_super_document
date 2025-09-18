@@ -1,7 +1,7 @@
 # transformParamRef
 
 ## Location
-src/backend/parser/parse_expr.c: 886 - 909
+[src/backend/parser/parse_expr.c:886-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L886-L909)
 
 ## Overview
 Transforms a parameter reference (, , etc.) from parse tree representation into an executable expression node, utilizing a pluggable hook mechanism for parameter resolution.

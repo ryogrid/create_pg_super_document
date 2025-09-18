@@ -1,7 +1,7 @@
 # WalRcvWaitForStartPosition
 
 ## Location
-src/backend/replication/walreceiver.c: 665 - 744
+[src/backend/replication/walreceiver.c:665-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L665-L744)
 
 ## Overview
 WalRcvWaitForStartPosition waits for the startup process to provide new streaming coordinates when WAL streaming needs to be restarted.

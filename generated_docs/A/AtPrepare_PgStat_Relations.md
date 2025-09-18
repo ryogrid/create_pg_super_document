@@ -1,7 +1,7 @@
 # AtPrepare_PgStat_Relations
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 676 - 713
+[src/backend/utils/activity/pgstat_relation.c:676-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L676-L713)
 
 ## Overview
 Generates 2PC (Two-Phase Commit) records for all pending transaction-dependent relation statistics during prepared transaction processing.

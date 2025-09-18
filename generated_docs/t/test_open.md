@@ -1,7 +1,7 @@
 # test_open
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 243 - 264
+[src/bin/pg_test_fsync/pg_test_fsync.c:243-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L243-L264)
 
 ## Overview
 The test_open function validates the ability to create, write to, and synchronize the target test file used by pg_test_fsync utility.

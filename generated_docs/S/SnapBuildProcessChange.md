@@ -1,7 +1,7 @@
 # SnapBuildProcessChange
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 778 - 827
+[src/backend/replication/logical/snapbuild.c:778-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L778-L827)
 
 ## Overview
 Determines whether changes made by a transaction at a specific LSN can be decoded, based on the current state of the snapshot builder.

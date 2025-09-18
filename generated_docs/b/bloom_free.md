@@ -1,7 +1,7 @@
 # bloom_free
 
 ## Location
-src/backend/lib/bloomfilter.c: 126 - 134
+[src/backend/lib/bloomfilter.c:126-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L126-L134)
 
 ## Overview
 Frees the memory allocated for a Bloom filter data structure, releasing both the filter header and its associated bitset.

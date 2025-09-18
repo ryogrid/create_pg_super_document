@@ -1,7 +1,7 @@
 # textregexeq
 
 ## Location
-src/backend/utils/adt/regexp.c: 487 - 500
+[src/backend/utils/adt/regexp.c:487-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L487-L500)
 
 ## Overview
 The textregexeq function performs regular expression matching on PostgreSQL text data types, returning true if the text matches the provided regular expression pattern.

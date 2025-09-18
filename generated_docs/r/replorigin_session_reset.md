@@ -1,7 +1,7 @@
 # replorigin_session_reset
 
 ## Location
-src/backend/replication/logical/origin.c: 1190 - 1218
+[src/backend/replication/logical/origin.c:1190-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1190-L1218)
 
 ## Overview
 Resets and clears the replication origin session state that was previously established with replorigin_session_setup(), releasing the origin slot for other processes to use.

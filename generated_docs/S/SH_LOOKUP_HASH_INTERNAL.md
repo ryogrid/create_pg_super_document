@@ -1,7 +1,7 @@
 # SH_LOOKUP_HASH_INTERNAL
 
 ## Location
-src/include/lib/simplehash.h: 800 - 833
+[src/include/lib/simplehash.h:800-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L800-L833)
 
 ## Overview
 A macro that defines the internal hash table lookup function name using the SH_MAKE_NAME naming convention for PostgreSQL's generic simple hash table implementation.

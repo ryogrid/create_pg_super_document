@@ -1,7 +1,7 @@
 # _bt_strategy
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 934 - 1051
+[src/backend/access/nbtree/nbtsplitloc.c:934-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L934-L1051)
 
 ## Overview
 Determines the optimal B-tree splitting strategy and calculates the perfect penalty score based on page characteristics, particularly for handling duplicate values and tuple size optimization.

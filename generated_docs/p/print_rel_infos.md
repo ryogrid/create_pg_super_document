@@ -1,7 +1,7 @@
 # print_rel_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 813 - 825
+[src/bin/pg_upgrade/info.c:813-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L813-L825)
 
 ## Overview
 Prints detailed information about all relations in a RelInfoArr structure for debugging purposes during pg_upgrade.

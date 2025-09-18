@@ -1,7 +1,7 @@
 # check_simple_rowfilter_expr_walker
 
 ## Location
-src/backend/commands/publicationcmds.c: 483 - 589
+[src/backend/commands/publicationcmds.c:483-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L483-L589)
 
 ## Overview
 A tree walker function that validates publication WHERE clause expressions to ensure they contain only allowed constructs for logical replication safety and consistency.

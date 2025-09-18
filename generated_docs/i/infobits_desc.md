@@ -1,7 +1,7 @@
 # infobits_desc
 
 ## Location
-src/backend/access/rmgrdesc/heapdesc.c: 25 - 53
+[src/backend/access/rmgrdesc/heapdesc.c:25-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/heapdesc.c#L25-L53)
 
 ## Overview
 A static utility function that formats heap tuple infobits flags into a human-readable string representation for WAL record descriptions in PostgreSQL debugging and logging.

@@ -1,7 +1,7 @@
 # ATController
 
 ## Location
-src/backend/commands/tablecmds.c: 4744 - 4778
+[src/backend/commands/tablecmds.c:4744-4778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4744-L4778)
 
 ## Overview
 ATController serves as the top-level controller for ALTER TABLE operations, orchestrating the three-phase execution process that ensures safe and consistent table alterations.

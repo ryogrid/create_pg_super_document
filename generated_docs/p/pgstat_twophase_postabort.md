@@ -1,7 +1,7 @@
 # pgstat_twophase_postabort
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 769 - 801
+[src/backend/utils/activity/pgstat_relation.c:769-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L769-L801)
 
 ## Overview
 Handles the post-abort processing for two-phase commit transactions by restoring saved statistics counts into the local pgstats state, treating them as aborted operations.

@@ -1,7 +1,7 @@
 # RestoreUserContext
 
 ## Location
-src/backend/utils/init/usercontext.c: 87 - 92
+[src/backend/utils/init/usercontext.c:87-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/usercontext.c#L87-L92)
 
 ## Overview
 Restores the original user ID and security context after a temporary switch, rolling back any configuration changes made during the switched context.

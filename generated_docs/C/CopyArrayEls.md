@@ -1,7 +1,7 @@
 # CopyArrayEls
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 961 - 1015
+[src/backend/utils/adt/arrayfuncs.c:961-1015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L961-L1015)
 
 ## Overview
 Copies data into an array object from a temporary array of Datums, handling null values and memory management for array construction.

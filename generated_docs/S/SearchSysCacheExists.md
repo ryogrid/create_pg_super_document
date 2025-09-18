@@ -1,7 +1,7 @@
 # SearchSysCacheExists
 
 ## Location
-src/backend/utils/cache/syscache.c: 426 - 448
+[src/backend/utils/cache/syscache.c:426-448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L426-L448)
 
 ## Overview
 SearchSysCacheExists is a convenience function that checks whether a tuple exists in the system cache without retaining any locks on the cache entry.

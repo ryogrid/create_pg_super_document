@@ -1,7 +1,7 @@
 # smgrpin
 
 ## Location
-src/backend/storage/smgr/smgr.c: 250 - 264
+[src/backend/storage/smgr/smgr.c:250-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L250-L264)
 
 ## Overview
 Prevents an SMgrRelation object from being destroyed at the end of a transaction by incrementing its reference count.

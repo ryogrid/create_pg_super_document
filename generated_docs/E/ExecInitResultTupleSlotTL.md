@@ -1,7 +1,7 @@
 # ExecInitResultTupleSlotTL
 
 ## Location
-src/backend/executor/execTuples.c: 1886 - 1897
+[src/backend/executor/execTuples.c:1886-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1886-L1897)
 
 ## Overview
 A high-level convenience function that initializes both the result tuple descriptor and result tuple slot for a plan node using the plan's target list.

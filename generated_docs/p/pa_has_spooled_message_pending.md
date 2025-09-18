@@ -1,7 +1,7 @@
 # pa_has_spooled_message_pending
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 642 - 657
+[src/backend/replication/logical/applyparallelworker.c:642-657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L642-L657)
 
 ## Overview
 Checks if there are any pending spooled messages by examining the current file set state to determine if it's empty.

@@ -1,7 +1,7 @@
 # elements_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2431 - 2461
+[src/backend/utils/adt/jsonfuncs.c:2431-2461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2431-L2461)
 
 ## Overview
 This function serves as a JSON parser callback that handles scalar values during JSON array element processing, performing validation and optionally storing normalized scalar values for later use.

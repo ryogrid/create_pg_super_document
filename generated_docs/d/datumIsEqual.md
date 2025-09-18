@@ -1,7 +1,7 @@
 # datumIsEqual
 
 ## Location
-src/backend/utils/adt/datum.c: 223 - 265
+[src/backend/utils/adt/datum.c:223-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L223-L265)
 
 ## Overview
 Compares two datums for equality using byte-wise comparison, handling both pass-by-value and pass-by-reference types with appropriate size checking.

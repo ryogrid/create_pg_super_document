@@ -1,7 +1,7 @@
 # textlike
 
 ## Location
-src/backend/utils/adt/like.c: 282 - 302
+[src/backend/utils/adt/like.c:282-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L282-L302)
 
 ## Overview
 Implements the LIKE operator for PostgreSQL's text data type, returning true when a text value matches a given pattern.

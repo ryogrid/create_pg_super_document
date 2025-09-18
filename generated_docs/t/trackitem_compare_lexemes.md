@@ -1,7 +1,7 @@
 # trackitem_compare_lexemes
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 530 - 536
+[src/backend/tsearch/ts_typanalyze.c:530-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L530-L536)
 
 ## Overview
 A static comparator function for sorting TrackItem arrays by their lexeme values using lexeme comparison logic.

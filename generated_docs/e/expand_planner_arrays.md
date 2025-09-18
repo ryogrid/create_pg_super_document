@@ -1,7 +1,7 @@
 # expand_planner_arrays
 
 ## Location
-src/backend/optimizer/util/relnode.c: 163 - 191
+[src/backend/optimizer/util/relnode.c:163-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L163-L191)
 
 ## Overview
 Dynamically expands the PlannerInfo's per-RTE arrays when additional entries are needed during query planning, particularly for inheritance and partitioning scenarios.

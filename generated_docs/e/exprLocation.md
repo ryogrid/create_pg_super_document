@@ -1,7 +1,7 @@
 # exprLocation
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1380 - 1809
+[src/backend/nodes/nodeFuncs.c:1380-1809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1380-L1809)
 
 ## Overview
 Returns the parse location of an expression tree node for error reporting purposes, finding the leftmost position in complex expressions to provide meaningful error context.

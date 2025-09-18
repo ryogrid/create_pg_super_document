@@ -1,7 +1,7 @@
 # tts_heap_getsomeattrs
 
 ## Location
-src/backend/executor/execTuples.c: 345 - 354
+[src/backend/executor/execTuples.c:345-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L345-L354)
 
 ## Overview
 tts_heap_getsomeattrs extracts and makes accessible the first N attributes from a HeapTupleTableSlot by deforming the underlying heap tuple data.

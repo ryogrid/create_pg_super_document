@@ -1,7 +1,7 @@
 # convert_function_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 3577 - 3604
+[src/backend/utils/adt/acl.c:3577-3604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3577-L3604)
 
 ## Overview
 Converts a text string representation of function privileges into the corresponding AclMode bitmask value.

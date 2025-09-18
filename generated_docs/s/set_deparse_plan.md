@@ -1,7 +1,7 @@
 # set_deparse_plan
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4965 - 5045
+[src/backend/utils/adt/ruleutils.c:4965-5045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4965-L5045)
 
 ## Overview
 Configures a deparse_namespace structure to handle expression parsing for a specific Plan node by setting up appropriate outer, inner, and index target list references based on the plan type.

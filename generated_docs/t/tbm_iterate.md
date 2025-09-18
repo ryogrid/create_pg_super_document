@@ -1,7 +1,7 @@
 # tbm_iterate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 971 - 1051
+[src/backend/nodes/tidbitmap.c:971-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L971-L1051)
 
 ## Overview
 Scans through the next page of a TIDBitmap during iteration, returning pages in numerical order with support for both exact and lossy tuple identification.

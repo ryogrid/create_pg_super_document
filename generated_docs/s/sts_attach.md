@@ -1,7 +1,7 @@
 # sts_attach
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 178 - 195
+[src/backend/utils/sort/sharedtuplestore.c:178-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L178-L195)
 
 ## Overview
 Attaches to an existing SharedTuplestore that was initialized by another backend, allowing this backend to read and write tuples to the shared structure.

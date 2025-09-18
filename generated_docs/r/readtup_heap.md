@@ -1,7 +1,7 @@
 # readtup_heap
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1521 - 1535
+[src/backend/utils/sort/tuplestore.c:1521-1535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1521-L1535)
 
 ## Overview
 Reads a minimal tuple from a logical tape and reconstructs it into a SortTuple structure for heap sort operations during external sorting.

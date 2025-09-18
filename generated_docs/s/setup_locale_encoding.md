@@ -1,7 +1,7 @@
 # setup_locale_encoding
 
 ## Location
-src/bin/initdb/initdb.c: 2663 - 2767
+[src/bin/initdb/initdb.c:2663-2767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2663-L2767)
 
 ## Overview
 Configures and validates the locale settings and character encoding for the PostgreSQL database cluster during initialization, ensuring compatibility between locale and encoding choices.

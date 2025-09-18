@@ -1,7 +1,7 @@
 # cb_options
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 70 - 81
+[src/bin/pg_combinebackup/pg_combinebackup.c:70-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L70-L81)
 
 ## Overview
 A structure that stores all command-line options and configuration parameters for the pg_combinebackup utility.

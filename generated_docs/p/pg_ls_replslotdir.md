@@ -1,7 +1,7 @@
 # pg_ls_replslotdir
 
 ## Location
-src/backend/utils/adt/genfile.c: 715 - 733
+[src/backend/utils/adt/genfile.c:715-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L715-L733)
 
 ## Overview
 Lists the files in a specific PostgreSQL replication slot directory within pg_replslot.

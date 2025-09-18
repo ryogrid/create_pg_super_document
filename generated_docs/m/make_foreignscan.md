@@ -1,7 +1,7 @@
 # make_foreignscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5823 - 5862
+[src/backend/optimizer/plan/createplan.c:5823-5862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5823-L5862)
 
 ## Overview
 Creates and initializes a ForeignScan plan node for accessing data from foreign data sources through Foreign Data Wrappers (FDWs) in PostgreSQL.

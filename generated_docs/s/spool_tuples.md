@@ -1,7 +1,7 @@
 # spool_tuples
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1241 - 1334
+[src/backend/executor/nodeWindowAgg.c:1241-1334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1241-L1334)
 
 ## Overview
 This static function reads tuples from the outer node up to a specified position and stores them into the tuplestore, handling partition boundaries and different execution modes.

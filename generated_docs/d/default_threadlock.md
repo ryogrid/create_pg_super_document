@@ -1,7 +1,7 @@
 # default_threadlock
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7745 - 7761
+[src/interfaces/libpq/fe-connect.c:7745-7761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7745-L7761)
 
 ## Overview
 Provides a default thread synchronization mechanism for libpq using pthread mutexes when no custom thread locking function is registered.

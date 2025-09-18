@@ -1,7 +1,7 @@
 # canonicalize_ec_expression
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 471 - 515
+[src/backend/optimizer/path/equivclass.c:471-515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L471-L515)
 
 ## Overview
 Ensures that expressions in EquivalenceClasses expose the correct data type and collation for proper equality comparisons and consistent behavior across equivalent expressions.

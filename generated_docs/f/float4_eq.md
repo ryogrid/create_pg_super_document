@@ -1,7 +1,7 @@
 # float4_eq
 
 ## Location
-src/include/utils/float.h: 262 - 267
+[src/include/utils/float.h:262-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L262-L267)
 
 ## Overview
 Performs NaN-aware equality comparison between two single-precision floating-point numbers (float4), treating all NaN values as equal to each other.

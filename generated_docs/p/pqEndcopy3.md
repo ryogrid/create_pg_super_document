@@ -1,7 +1,7 @@
 # pqEndcopy3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1916 - 2008
+[src/interfaces/libpq/fe-protocol3.c:1916-2008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1916-L2008)
 
 ## Overview
 Terminates a COPY operation in PostgreSQL protocol 3, handling the proper cleanup and message exchange required to end COPY IN, COPY OUT, or bidirectional COPY operations.

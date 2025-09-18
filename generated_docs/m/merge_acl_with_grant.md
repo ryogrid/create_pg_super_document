@@ -1,7 +1,7 @@
 # merge_acl_with_grant
 
 ## Location
-src/backend/catalog/aclchk.c: 182 - 240
+[src/backend/catalog/aclchk.c:182-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L182-L240)
 
 ## Overview
 Merges ACL (Access Control List) entries by either adding or removing specified privileges for given grantees, modifying an existing ACL structure.

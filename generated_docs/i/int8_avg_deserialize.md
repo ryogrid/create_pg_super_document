@@ -1,7 +1,7 @@
 # int8_avg_deserialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5944 - 5989
+[src/backend/utils/adt/numeric.c:5944-5989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5944-L5989)
 
 ## Overview
 Deserializes bytea back into PolyNumAggState structure, reconstructing the aggregate state from binary format.

@@ -1,7 +1,7 @@
 # build_function_result_tupdesc_t
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1705 - 1750
+[src/backend/utils/fmgr/funcapi.c:1705-1750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1705-L1750)
 
 ## Overview
 Creates a tuple descriptor for a function's result rowtype from a pg_proc tuple, handling functions with OUT parameters that return RECORD.

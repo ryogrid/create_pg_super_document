@@ -1,7 +1,7 @@
 # getExtensions
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5772 - 5846
+[src/bin/pg_dump/pg_dump.c:5772-5846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5772-L5846)
 
 ## Overview
 Reads all extensions from the PostgreSQL system catalogs and returns them as an array of ExtensionInfo structures for pg_dump processing.

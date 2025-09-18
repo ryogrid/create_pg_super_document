@@ -1,7 +1,7 @@
 # StringInfoData
 
 ## Location
-src/include/lib/stringinfo.h: 46 - 52
+[src/include/lib/stringinfo.h:46-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/stringinfo.h#L46-L52)
 
 ## Overview
 StringInfoData is a fundamental data structure in PostgreSQL that holds information about an extensible string buffer, providing dynamic string management capabilities with optional read-only mode.

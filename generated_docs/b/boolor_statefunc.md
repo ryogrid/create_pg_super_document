@@ -1,7 +1,7 @@
 # boolor_statefunc
 
 ## Location
-src/backend/utils/adt/bool.c: 299 - 303
+[src/backend/utils/adt/bool.c:299-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L299-L303)
 
 ## Overview
 The boolor_statefunc function implements the state transition function for the Boolean OR aggregate (bool_or), performing logical OR operations between Boolean values during aggregate computation.

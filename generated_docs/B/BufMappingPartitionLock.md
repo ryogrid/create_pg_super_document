@@ -1,7 +1,7 @@
 # BufMappingPartitionLock
 
 ## Location
-src/include/storage/buf_internals.h: 186 - 192
+[src/include/storage/buf_internals.h:186-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L186-L192)
 
 ## Overview
 BufMappingPartitionLock is an inline function that returns a pointer to the appropriate LWLock for a given hash code, enabling partitioned locking of the shared buffer mapping table.

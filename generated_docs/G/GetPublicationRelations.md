@@ -1,7 +1,7 @@
 # GetPublicationRelations
 
 ## Location
-src/backend/catalog/pg_publication.c: 716 - 758
+[src/backend/catalog/pg_publication.c:716-758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L716-L758)
 
 ## Overview
 Retrieves a list of relation OIDs for a specific FOR TABLE publication, handling partition options and returning a sorted, deduplicated list of relations.

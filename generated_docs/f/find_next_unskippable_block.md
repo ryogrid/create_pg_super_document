@@ -1,7 +1,7 @@
 # find_next_unskippable_block
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 1186 - 1284
+[src/backend/access/heap/vacuumlazy.c:1186-1284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L1186-L1284)
 
 ## Overview
 find_next_unskippable_block uses the visibility map to find the next block in a vacuum scan that cannot be skipped and must be processed.

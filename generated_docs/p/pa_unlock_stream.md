@@ -1,7 +1,7 @@
 # pa_unlock_stream
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1547 - 1572
+[src/backend/replication/logical/applyparallelworker.c:1547-1572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1547-L1572)
 
 ## Overview
 Unlocks the parallel apply stream lock for a specific transaction, allowing other parallel apply workers to process the stream.

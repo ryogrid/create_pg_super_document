@@ -1,7 +1,7 @@
 # stringToNodeWithLocations
 
 ## Location
-src/backend/nodes/read.c: 98 - 152
+[src/backend/nodes/read.c:98-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L98-L152)
 
 ## Overview
 A public API function that converts string representations of PostgreSQL Node trees back into actual Node data structures while preserving location field information.

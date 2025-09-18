@@ -1,7 +1,7 @@
 # dumpStatisticsExt
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17160 - 17236
+[src/bin/pg_dump/pg_dump.c:17160-17236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17160-L17236)
 
 ## Overview
 Writes out an extended statistics object to the dump archive, including the CREATE STATISTICS statement and optional statistics target settings.

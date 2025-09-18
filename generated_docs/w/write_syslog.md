@@ -1,7 +1,7 @@
 # write_syslog
 
 ## Location
-src/backend/utils/error/elog.c: 2360 - 2471
+[src/backend/utils/error/elog.c:2360-2471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2360-L2471)
 
 ## Overview
 The write_syslog function is responsible for writing PostgreSQL log messages to the system syslog facility, handling message splitting for long messages and providing sequence numbering to suppress duplicate messages.

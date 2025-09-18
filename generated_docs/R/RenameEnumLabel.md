@@ -1,7 +1,7 @@
 # RenameEnumLabel
 
 ## Location
-src/backend/catalog/pg_enum.c: 607 - 689
+[src/backend/catalog/pg_enum.c:607-689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L607-L689)
 
 ## Overview
 Renames a label in an enum type by updating the pg_enum catalog table while ensuring the new label name is valid and doesn't already exist.

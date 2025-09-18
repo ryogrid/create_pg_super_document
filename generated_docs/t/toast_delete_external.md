@@ -1,7 +1,7 @@
 # toast_delete_external
 
 ## Location
-src/backend/access/table/toast_helper.c: 318 - 337
+[src/backend/access/table/toast_helper.c:318-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/toast_helper.c#L318-L337)
 
 ## Overview
 Iterates through all attributes of a tuple and deletes any externally stored TOAST values from the secondary toast relation.

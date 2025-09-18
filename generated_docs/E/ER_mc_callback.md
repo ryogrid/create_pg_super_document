@@ -1,7 +1,7 @@
 # ER_mc_callback
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 902 - 926
+[src/backend/utils/adt/expandedrecord.c:902-926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L902-L926)
 
 ## Overview
 ER_mc_callback is a memory context reset callback function that manages cleanup of tuple descriptor references held by expanded records.

@@ -1,7 +1,7 @@
 # RelationIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 925 - 994
+[src/backend/catalog/namespace.c:925-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L925-L994)
 
 ## Overview
 Extended version of RelationIsVisible that determines whether a relation is visible in the current search path, with additional error handling for missing relations.

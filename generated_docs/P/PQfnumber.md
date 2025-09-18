@@ -1,7 +1,7 @@
 # PQfnumber
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3589 - 3685
+[src/interfaces/libpq/fe-exec.c:3589-3685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3589-L3685)
 
 ## Overview
 A public libpq function that finds the field (column) number for a given column name in a query result set, implementing SQL-style identifier parsing and case handling.

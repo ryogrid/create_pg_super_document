@@ -1,7 +1,7 @@
 # set_errdata_field
 
 ## Location
-src/backend/utils/error/elog.c: 1548 - 1560
+[src/backend/utils/error/elog.c:1548-1560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1548-L1560)
 
 ## Overview
 A static helper function that sets an ErrorData string field by duplicating a string into a specified memory context.

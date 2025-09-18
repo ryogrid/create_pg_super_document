@@ -1,7 +1,7 @@
 # pgstat_begin_changecount_read
 
 ## Location
-src/include/utils/pgstat_internal.h: 734 - 748
+[src/include/utils/pgstat_internal.h:734-748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L734-L748)
 
 ## Overview
 This inline function initiates a read operation from change-counted statistics by capturing the current change counter value and establishing memory barriers to ensure consistent reads during concurrent access.

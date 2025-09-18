@@ -1,7 +1,7 @@
 # plperl_fini
 
 ## Location
-src/pl/plperl/plperl.c: 509 - 552
+[src/pl/plperl/plperl.c:509-552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L509-L552)
 
 ## Overview
 A cleanup function that terminates all Perl interpreters and runs their END blocks when the PostgreSQL process exits, while disabling SPI function usage during cleanup to prevent unsafe operations.

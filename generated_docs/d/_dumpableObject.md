@@ -1,7 +1,7 @@
 # _dumpableObject
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 141 - 155
+[src/bin/pg_dump/pg_dump.h:141-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L141-L155)
 
 ## Overview
 The  structure serves as the base data structure for all database objects that can be dumped by pg_dump, providing core metadata, dependency tracking, and component control for PostgreSQL schema extraction.

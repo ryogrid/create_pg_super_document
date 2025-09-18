@@ -1,7 +1,7 @@
 # leftmostLoc
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1810 - 1830
+[src/backend/nodes/nodeFuncs.c:1810-1830](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1810-L1830)
 
 ## Overview
 A utility function that determines the leftmost (minimum) parse location between two location values, ignoring unknown locations (-1).

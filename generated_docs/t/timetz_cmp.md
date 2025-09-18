@@ -1,7 +1,7 @@
 # timetz_cmp
 
 ## Location
-src/backend/utils/adt/date.c: 2524 - 2532
+[src/backend/utils/adt/date.c:2524-2532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2524-L2532)
 
 ## Overview
 The timetz_cmp function provides a three-way comparison of two time with time zone values, returning an integer indicating their relative ordering.

@@ -1,7 +1,7 @@
 # MinXLogRecPtr
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 842 - 855
+[src/bin/pg_rewind/pg_rewind.c:842-855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L842-L855)
 
 ## Overview
 MinXLogRecPtr is a utility function that finds the minimum WAL location from two XLogRecPtr values, treating InvalidXLogRecPtr as infinity for timeline-related comparisons.

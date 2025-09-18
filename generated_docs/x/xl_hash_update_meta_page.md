@@ -1,7 +1,7 @@
 # xl_hash_update_meta_page
 
 ## Location
-src/include/access/hash_xlog.h: 201 - 204
+[src/include/access/hash_xlog.h:201-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L201-L204)
 
 ## Overview
 The xl_hash_update_meta_page struct represents the WAL record data for hash index metapage update operations, used to log changes to the hash index's metadata page.

@@ -1,7 +1,7 @@
 # pqResultStrdup
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 675 - 691
+[src/interfaces/libpq/fe-exec.c:675-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L675-L691)
 
 ## Overview
 pqResultStrdup duplicates a string using PGresult subsidiary storage, similar to strdup but with memory allocated within the result object.

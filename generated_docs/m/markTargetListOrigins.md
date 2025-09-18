@@ -1,7 +1,7 @@
 # markTargetListOrigins
 
 ## Location
-src/backend/parser/parse_target.c: 318 - 342
+[src/backend/parser/parse_target.c:318-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L318-L342)
 
 ## Overview
 Marks targetlist columns that are simple Vars with their source table OID and column number for frontend communication purposes.

@@ -1,7 +1,7 @@
 # get_typtype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2629 - 2654
+[src/backend/utils/cache/lsyscache.c:2629-2654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2629-L2654)
 
 ## Overview
 Retrieves the type category of a PostgreSQL data type by returning the typtype field from the pg_type system catalog.

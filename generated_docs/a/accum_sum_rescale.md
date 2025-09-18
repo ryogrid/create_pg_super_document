@@ -1,7 +1,7 @@
 # accum_sum_rescale
 
 ## Location
-src/backend/utils/adt/numeric.c: 12113 - 12201
+[src/backend/utils/adt/numeric.c:12113-12201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L12113-L12201)
 
 ## Overview
 Adjusts the scale and capacity of a NumericSumAccum structure to accommodate a new numeric value that may have different weight, precision, or scale requirements.

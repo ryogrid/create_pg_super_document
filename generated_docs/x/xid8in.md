@@ -1,7 +1,7 @@
 # xid8in
 
 ## Location
-src/backend/utils/adt/xid.c: 182 - 191
+[src/backend/utils/adt/xid.c:182-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L182-L191)
 
 ## Overview
 Parses a string representation of a transaction ID and converts it to a FullTransactionId (XID8) data type.

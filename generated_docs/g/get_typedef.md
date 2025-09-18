@@ -1,7 +1,7 @@
 # get_typedef
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 498 - 514
+[src/interfaces/ecpg/preproc/variable.c:498-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L498-L514)
 
 ## Overview
 Searches the global typedef list to find and return a typedef structure by name, with optional error handling for unrecognized type names.

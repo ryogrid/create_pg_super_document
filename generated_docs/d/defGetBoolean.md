@@ -1,7 +1,7 @@
 # defGetBoolean
 
 ## Location
-src/backend/commands/define.c: 107 - 161
+[src/backend/commands/define.c:107-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L107-L161)
 
 ## Overview
 Extracts a boolean value from a DefElem, supporting various representations including integers (0/1), strings ("true"/"false", "on"/"off"), and no parameter (defaults to true).

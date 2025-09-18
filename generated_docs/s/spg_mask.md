@@ -1,7 +1,7 @@
 # spg_mask
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 994 - 1009
+[src/backend/access/spgist/spgxlog.c:994-1009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L994-L1009)
 
 ## Overview
 Masks (ignores) specific fields in an SP-GiST page before performing consistency checks during WAL replay operations.

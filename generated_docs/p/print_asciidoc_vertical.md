@@ -1,7 +1,7 @@
 # print_asciidoc_vertical
 
 ## Location
-src/fe_utils/print.c: 2296 - 2391
+[src/fe_utils/print.c:2296-2391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L2296-L2391)
 
 ## Overview
 Prints table data in AsciiDoc vertical format where each record is displayed as a series of field-value pairs in a vertical layout.

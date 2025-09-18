@@ -1,7 +1,7 @@
 # addRangeTableEntryForFunction
 
 ## Location
-src/backend/parser/parse_relation.c: 1734 - 2048
+[src/backend/parser/parse_relation.c:1734-2048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L1734-L2048)
 
 ## Overview
 Creates a range table entry for one or more functions in a FROM clause, handling complex type resolution, column definition validation, and tuple descriptor construction for function return types.

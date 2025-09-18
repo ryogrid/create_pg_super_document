@@ -1,7 +1,7 @@
 # ExecInitInsertProjection
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 569 - 638
+[src/backend/executor/nodeModifyTable.c:569-638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L569-L638)
 
 ## Overview
 Performs one-time initialization of projection data for INSERT operations, setting up tuple projection and validation to transform subplan output into the target table format.

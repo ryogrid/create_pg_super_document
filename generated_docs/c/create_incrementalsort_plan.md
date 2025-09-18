@@ -1,7 +1,7 @@
 # create_incrementalsort_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2215 - 2241
+[src/backend/optimizer/plan/createplan.c:2215-2241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2215-L2241)
 
 ## Overview
 Creates an IncrementalSort plan node from an IncrementalSortPath, which optimizes sorting by leveraging existing partial ordering in the input data.

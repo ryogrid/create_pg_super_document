@@ -1,7 +1,7 @@
 # BlockRefTableFlush
 
 ## Location
-src/common/blkreftable.c: 1184 - 1195
+[src/common/blkreftable.c:1184-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L1184-L1195)
 
 ## Overview
 Flushes any buffered data from a BlockRefTableBuffer by invoking its I/O callback function and resetting the buffer usage counter.

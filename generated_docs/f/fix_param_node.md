@@ -1,7 +1,7 @@
 # fix_param_node
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2073 - 2103
+[src/backend/optimizer/plan/setrefs.c:2073-2103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2073-L2103)
 
 ## Overview
 A specialized function that processes Param nodes during plan reference fixing, handling the replacement of PARAM_MULTIEXPR parameters with their resolved equivalents.

@@ -1,7 +1,7 @@
 # conninfo_uri_parse
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6322 - 6374
+[src/interfaces/libpq/fe-connect.c:6322-6374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6322-L6374)
 
 ## Overview
 Parses a PostgreSQL URI connection string and returns a structured array of connection options with optional defaults.

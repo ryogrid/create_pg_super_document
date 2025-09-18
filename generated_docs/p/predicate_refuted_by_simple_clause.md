@@ -1,7 +1,7 @@
 # predicate_refuted_by_simple_clause
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1225 - 1385
+[src/backend/optimizer/util/predtest.c:1225-1385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1225-L1385)
 
 ## Overview
 Tests whether a simple clause predicate is refuted by another simple clause restriction, primarily supporting IS NULL/IS NOT NULL partition-defining constraints in PostgreSQL's query optimization.

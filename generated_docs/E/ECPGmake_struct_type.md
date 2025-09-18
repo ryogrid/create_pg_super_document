@@ -1,7 +1,7 @@
 # ECPGmake_struct_type
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 121 - 132
+[src/interfaces/ecpg/preproc/type.c:121-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L121-L132)
 
 ## Overview
 Creates an ECPGtype structure representing a struct or union type with its member list, type name, and size information in the ECPG preprocessor.

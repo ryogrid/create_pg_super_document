@@ -1,7 +1,7 @@
 # executeNestedBoolItem
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 1913 - 1933
+[src/backend/utils/adt/jsonpath_exec.c:1913-1933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L1913-L1933)
 
 ## Overview
 Executes nested boolean expressions (such as filters) in JSON path processing by pushing the current SQL/JSON item onto the execution stack.

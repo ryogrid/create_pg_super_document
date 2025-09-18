@@ -1,7 +1,7 @@
 # AlterRelationNamespaceInternal
 
 ## Location
-src/backend/commands/tablecmds.c: 17315 - 17391
+[src/backend/commands/tablecmds.c:17315-17391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17315-L17391)
 
 ## Overview
 A core internal function that relocates a relation (table, index, sequence, etc.) from one namespace (schema) to another by updating the pg_class catalog entry and related dependency information.

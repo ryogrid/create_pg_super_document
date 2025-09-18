@@ -1,7 +1,7 @@
 # range_adjacent_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2471 - 2506
+[src/backend/utils/adt/multirangetypes.c:2471-2506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2471-L2506)
 
 ## Overview
 Internal function that determines whether a range is adjacent to any part of a multirange by checking if the range touches either the leftmost or rightmost boundary of the multirange.

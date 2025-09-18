@@ -1,7 +1,7 @@
 # assign_application_name
 
 ## Location
-src/backend/commands/variable.c: 1096 - 1105
+[src/backend/commands/variable.c:1096-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1096-L1105)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that updates the application name in PostgreSQL's statistics collector when the  configuration parameter is changed.

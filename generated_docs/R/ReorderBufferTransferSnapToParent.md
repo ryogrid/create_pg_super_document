@@ -1,7 +1,7 @@
 # ReorderBufferTransferSnapToParent
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1161 - 1214
+[src/backend/replication/logical/reorderbuffer.c:1161-1214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1161-L1214)
 
 ## Overview
 Transfers a base snapshot from a subtransaction to its parent top-level transaction when the subtransaction has an earlier or the only base snapshot.

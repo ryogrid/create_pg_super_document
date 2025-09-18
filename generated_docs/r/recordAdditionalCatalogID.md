@@ -1,7 +1,7 @@
 # recordAdditionalCatalogID
 
 ## Location
-src/bin/pg_dump/common.c: 708 - 733
+[src/bin/pg_dump/common.c:708-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L708-L733)
 
 ## Overview
 Records an additional catalog ID for a given DumpableObject in the pg_dump utility's catalog ID hash table.

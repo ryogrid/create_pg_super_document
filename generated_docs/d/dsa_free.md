@@ -1,7 +1,7 @@
 # dsa_free
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 826 - 941
+[src/backend/utils/mmgr/dsa.c:826-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L826-L941)
 
 ## Overview
 Frees memory that was previously allocated with dsa_allocate or dsa_allocate_extended within a dynamic shared memory area.

@@ -1,7 +1,7 @@
 # _hash_finish_split
 
 ## Location
-src/backend/access/hash/hashpage.c: 1356 - 1473
+[src/backend/access/hash/hashpage.c:1356-1473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L1356-L1473)
 
 ## Overview
 Completes a previously interrupted hash table bucket split operation by building a hash table of TIDs from the new bucket and performing the actual split.

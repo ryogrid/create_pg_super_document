@@ -1,7 +1,7 @@
 # recordDependencyOnNewAcl
 
 ## Location
-src/backend/catalog/aclchk.c: 4382 - 4408
+[src/backend/catalog/aclchk.c:4382-4408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4382-L4408)
 
 ## Overview
 Records dependency relationships between a newly created database object and all roles mentioned in its ACL to track privilege dependencies in the system catalog.

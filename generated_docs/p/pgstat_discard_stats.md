@@ -1,7 +1,7 @@
 # pgstat_discard_stats
 
 ## Location
-src/backend/utils/activity/pgstat.c: 419 - 461
+[src/backend/utils/activity/pgstat.c:419-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L419-L461)
 
 ## Overview
 Removes the PostgreSQL statistics file from disk and resets all statistics contents in memory. This function is primarily used during WAL recovery after a crash to ensure statistics consistency.

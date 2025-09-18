@@ -1,7 +1,7 @@
 # CheckLDAPAuth
 
 ## Location
-src/backend/libpq/auth.c: 2438 - 2664
+[src/backend/libpq/auth.c:2438-2664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2438-L2664)
 
 ## Overview
 Performs LDAP authentication by establishing an LDAP connection, optionally searching for the user's DN, and attempting to bind with the provided credentials.

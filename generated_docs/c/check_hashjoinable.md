@@ -1,7 +1,7 @@
 # check_hashjoinable
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 3411 - 3438
+[src/backend/optimizer/plan/initsplan.c:3411-3438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L3411-L3438)
 
 ## Overview
 Determines if a restriction clause is suitable for hash join operations and sets the hashjoin operator field in the RestrictInfo structure if applicable.

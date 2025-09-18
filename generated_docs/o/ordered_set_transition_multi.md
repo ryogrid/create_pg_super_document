@@ -1,7 +1,7 @@
 # ordered_set_transition_multi
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 383 - 426
+[src/backend/utils/adt/orderedsetaggs.c:383-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L383-L426)
 
 ## Overview
 Generic transition function for ordered-set aggregates with potentially multiple aggregated input columns, handling tuple-based data collection for complex aggregates.

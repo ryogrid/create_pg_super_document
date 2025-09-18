@@ -1,7 +1,7 @@
 # transform_jsonb_string_values
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5782 - 5828
+[src/backend/utils/adt/jsonfuncs.c:5782-5828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5782-L5828)
 
 ## Overview
 Iterates over a JSONB structure and applies a transformation function to every string value, returning a new JSONB object with the transformed values.

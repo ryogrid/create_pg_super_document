@@ -1,7 +1,7 @@
 # make_greater_string
 
 ## Location
-src/backend/utils/adt/like_support.c: 1573 - 1723
+[src/backend/utils/adt/like_support.c:1573-1723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1573-L1723)
 
 ## Overview
 Generates a string that is lexicographically greater than a given prefix string for pattern matching optimization in PostgreSQL's LIKE operations.

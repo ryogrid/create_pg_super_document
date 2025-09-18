@@ -1,7 +1,7 @@
 # add_row_identity_var
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 789 - 883
+[src/backend/optimizer/util/appendinfo.c:789-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L789-L883)
 
 ## Overview
 Registers a row-identity column to be used in UPDATE/DELETE/MERGE operations, managing row identification variables for inheritance hierarchies and partitioned tables.

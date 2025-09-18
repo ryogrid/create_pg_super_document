@@ -1,7 +1,7 @@
 # GetCurrentTransactionStopTimestamp
 
 ## Location
-src/backend/access/transam/xact.c: 888 - 910
+[src/backend/access/transam/xact.c:888-910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L888-L910)
 
 ## Overview
 Returns the timestamp marking when the current transaction stopped (committed or aborted), lazily setting it if not already established.

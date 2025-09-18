@@ -1,7 +1,7 @@
 # consider_parallel_nestloop
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 2009 - 2092
+[src/backend/optimizer/path/joinpath.c:2009-2092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L2009-L2092)
 
 ## Overview
 Attempts to build partial paths for a join relation by combining partial paths from the outer relation with complete paths from the inner relation using nested loop join algorithm in a parallel context.

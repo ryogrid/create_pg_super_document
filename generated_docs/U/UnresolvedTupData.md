@@ -1,7 +1,7 @@
 # UnresolvedTupData
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 175 - 176
+[src/backend/access/heap/rewriteheap.c:175-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L175-L176)
 
 ## Overview
 UnresolvedTupData is a structure used during heap rewriting operations to track tuples that have unresolved ctid (current tuple identifier) references, helping maintain update chains when tuples are being moved to a new heap.

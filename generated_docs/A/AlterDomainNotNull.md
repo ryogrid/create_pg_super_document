@@ -1,7 +1,7 @@
 # AlterDomainNotNull
 
 ## Location
-src/backend/commands/typecmds.c: 2705 - 2790
+[src/backend/commands/typecmds.c:2705-2790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2705-L2790)
 
 ## Overview
 Implements the ALTER DOMAIN SET/DROP NOT NULL statements, managing the NOT NULL constraint on domain types by adding or removing the constraint and updating the domain's metadata.

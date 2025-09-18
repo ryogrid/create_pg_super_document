@@ -1,7 +1,7 @@
 # expression_planner_with_deps
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6685 - 6737
+[src/backend/optimizer/plan/planner.c:6685-6737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6685-L6737)
 
 ## Overview
 Performs planner transformations on standalone expressions while tracking and returning dependency information for caching purposes.

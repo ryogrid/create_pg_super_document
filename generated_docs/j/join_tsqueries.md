@@ -1,7 +1,7 @@
 # join_tsqueries
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 33 - 53
+[src/backend/utils/adt/tsquery_op.c:33-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L33-L53)
 
 ## Overview
 A static helper function that combines two TSQuery objects with a specified logical operator (AND, OR, or phrase) to create a new query tree node.

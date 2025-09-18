@@ -1,7 +1,7 @@
 # recomputeNamespacePath
 
 ## Location
-src/backend/catalog/namespace.c: 4299 - 4361
+[src/backend/catalog/namespace.c:4299-4361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4299-L4361)
 
 ## Overview
 Recomputes namespace search path derived variables when the path is invalid or the current user has changed, updating both base and active search path state.

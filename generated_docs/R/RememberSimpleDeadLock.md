@@ -1,7 +1,7 @@
 # RememberSimpleDeadLock
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 1144 - 1159
+[src/backend/storage/lmgr/deadlock.c:1144-1159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L1144-L1159)
 
 ## Overview
 Sets up deadlock information for DeadLockReport when ProcSleep detects a trivial two-way deadlock between two processes.

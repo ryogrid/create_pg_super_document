@@ -1,7 +1,7 @@
 # push_ancestor_plan
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5123 - 5143
+[src/backend/utils/adt/ruleutils.c:5123-5143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5123-L5143)
 
 ## Overview
 A static function that temporarily transfers deparsing attention to an ancestor plan node when expanding parameter references.

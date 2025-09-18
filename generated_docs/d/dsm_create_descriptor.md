@@ -1,7 +1,7 @@
 # dsm_create_descriptor
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1201 - 1236
+[src/backend/storage/ipc/dsm.c:1201-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1201-L1236)
 
 ## Overview
 Creates and initializes a new DSM segment descriptor structure, setting up the basic infrastructure needed to manage a dynamic shared memory segment.

@@ -1,7 +1,7 @@
 # binaryheap_add
 
 ## Location
-src/common/binaryheap.c: 154 - 176
+[src/common/binaryheap.c:154-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L154-L176)
 
 ## Overview
 A function that inserts a new element into a binary heap while maintaining the heap property in O(log n) time complexity.

@@ -1,7 +1,7 @@
 # build_merged_partition_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 2518 - 2580
+[src/backend/partitioning/partbounds.c:2518-2580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2518-L2580)
 
 ## Overview
 Creates a PartitionBoundInfo struct from merged partition bounds, constructing the final boundary information structure needed for partition-wise operations.

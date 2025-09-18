@@ -1,7 +1,7 @@
 # TargetPrivilegesCheck
 
 ## Location
-src/backend/replication/logical/worker.c: 2341 - 2372
+[src/backend/replication/logical/worker.c:2341-2372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2341-L2372)
 
 ## Overview
 Verifies that the subscription owner has sufficient privileges to perform replication operations on target relations and ensures row-level security is not enabled on the target.

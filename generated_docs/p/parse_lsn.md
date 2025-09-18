@@ -1,7 +1,7 @@
 # parse_lsn
 
 ## Location
-src/bin/pg_combinebackup/backup_label.c: 241 - 268
+[src/bin/pg_combinebackup/backup_label.c:241-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/backup_label.c#L241-L268)
 
 ## Overview
 A static utility function that parses a PostgreSQL Log Sequence Number (LSN) from a text string and converts it into its binary XLogRecPtr representation.

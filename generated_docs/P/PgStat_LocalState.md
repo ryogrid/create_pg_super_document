@@ -1,7 +1,7 @@
 # PgStat_LocalState
 
 ## Location
-src/include/utils/pgstat_internal.h: 491 - 499
+[src/include/utils/pgstat_internal.h:491-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L491-L499)
 
 ## Overview
 PgStat_LocalState represents the backend-local state for PostgreSQL's statistics system, providing each backend process with access to shared memory statistics and maintaining a local statistics snapshot.

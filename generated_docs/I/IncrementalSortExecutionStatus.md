@@ -1,7 +1,7 @@
 # IncrementalSortExecutionStatus
 
 ## Location
-src/include/nodes/execnodes.h: 2387 - 2388
+[src/include/nodes/execnodes.h:2387-2388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2387-L2388)
 
 ## Overview
 An enumeration that tracks the current execution phase of an incremental sort operation, managing state transitions between loading and reading phases for both full and prefix sorting.

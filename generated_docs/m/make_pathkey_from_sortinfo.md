@@ -1,7 +1,7 @@
 # make_pathkey_from_sortinfo
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 197 - 254
+[src/backend/optimizer/path/pathkeys.c:197-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L197-L254)
 
 ## Overview
 Creates a canonical PathKey from an expression and detailed sorting information, handling complex operator family relationships and equivalence class creation.

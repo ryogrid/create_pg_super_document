@@ -1,7 +1,7 @@
 # jsonb_get_element
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1529 - 1676
+[src/backend/utils/adt/jsonfuncs.c:1529-1676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1529-L1676)
 
 ## Overview
 A core function that extracts elements from JSONB data structures using a path array, supporting both object key lookup and array indexing with optional text conversion.

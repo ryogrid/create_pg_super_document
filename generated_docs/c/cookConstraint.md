@@ -1,7 +1,7 @@
 # cookConstraint
 
 ## Location
-src/backend/catalog/heap.c: 2883 - 2920
+[src/backend/catalog/heap.c:2883-2920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2883-L2920)
 
 ## Overview
 Transforms raw CHECK constraint expressions into cooked format ready for storage, ensuring the expression yields a boolean result and references only the target table.

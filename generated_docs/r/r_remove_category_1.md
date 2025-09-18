@@ -1,7 +1,7 @@
 # r_remove_category_1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_nepali.c: 284 - 318
+[src/backend/snowball/libstemmer/stem_UTF_8_nepali.c:284-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_nepali.c#L284-L318)
 
 ## Overview
 Removes category 1 suffixes from Nepali words as part of the Snowball stemming algorithm for UTF-8 encoded text.

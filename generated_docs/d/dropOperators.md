@@ -1,7 +1,7 @@
 # dropOperators
 
 ## Location
-src/backend/commands/opclasscmds.c: 1725 - 1764
+[src/backend/commands/opclasscmds.c:1725-1764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1725-L1764)
 
 ## Overview
 Removes operator entries from an operator family by deleting their corresponding pg_amop catalog entries using restrictive deletion behavior.

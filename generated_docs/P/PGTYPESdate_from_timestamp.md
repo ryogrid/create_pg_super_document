@@ -1,7 +1,7 @@
 # PGTYPESdate_from_timestamp
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 31 - 46
+[src/interfaces/ecpg/pgtypeslib/datetime.c:31-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L31-L46)
 
 ## Overview
 Converts a PostgreSQL timestamp value to a date value by extracting the date portion and discarding the time information.

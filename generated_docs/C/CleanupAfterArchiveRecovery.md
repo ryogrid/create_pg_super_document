@@ -1,7 +1,7 @@
 # CleanupAfterArchiveRecovery
 
 ## Location
-src/backend/access/transam/xlog.c: 5244 - 5339
+[src/backend/access/transam/xlog.c:5244-5339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L5244-L5339)
 
 ## Overview
 Performs comprehensive cleanup operations at the conclusion of archive recovery, including command execution, timeline cleanup, and partial segment handling.

@@ -1,7 +1,7 @@
 # xl_overwrite_contrecord
 
 ## Location
-src/include/access/xlog_internal.h: 293 - 297
+[src/include/access/xlog_internal.h:293-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L293-L297)
 
 ## Overview
 A data structure that logs when a continuation record has been overwritten, typically during WAL recovery when handling incomplete records at the end of WAL segments.

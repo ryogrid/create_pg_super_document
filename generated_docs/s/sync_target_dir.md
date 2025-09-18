@@ -1,7 +1,7 @@
 # sync_target_dir
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 294 - 313
+[src/bin/pg_rewind/file_ops.c:294-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L294-L313)
 
 ## Overview
 Synchronizes the target PostgreSQL data directory to disk to ensure all modifications are safely persisted during pg_rewind operations.

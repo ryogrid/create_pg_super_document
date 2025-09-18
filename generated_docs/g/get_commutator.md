@@ -1,7 +1,7 @@
 # get_commutator
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1509 - 1532
+[src/backend/utils/cache/lsyscache.c:1509-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1509-L1532)
 
 ## Overview
 Returns the corresponding commutator operator for a given operator OID, or InvalidOid if the operator has no commutator or doesn't exist.

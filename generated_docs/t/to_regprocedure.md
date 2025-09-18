@@ -1,7 +1,7 @@
 # to_regprocedure
 
 ## Location
-src/backend/utils/adt/regproc.c: 278 - 298
+[src/backend/utils/adt/regproc.c:278-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L278-L298)
 
 ## Overview
 Converts a procedure name with arguments from text to regprocedure OID, returning NULL instead of throwing an error if the procedure is not found.

@@ -1,7 +1,7 @@
 # int42eq
 
 ## Location
-src/backend/utils/adt/int.c: 558 - 566
+[src/backend/utils/adt/int.c:558-566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L558-L566)
 
 ## Overview
 Compares a 32-bit integer with a 16-bit integer for equality, returning a boolean result.

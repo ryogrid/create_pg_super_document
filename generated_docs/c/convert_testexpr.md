@@ -1,7 +1,7 @@
 # convert_testexpr
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 642 - 653
+[src/backend/optimizer/plan/subselect.c:642-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L642-L653)
 
 ## Overview
 Converts a testexpr from the parser into executable form by replacing PARAM_SUBLINK Params with actual Params or Vars representing sub-select results.

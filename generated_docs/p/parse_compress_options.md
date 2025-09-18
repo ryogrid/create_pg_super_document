@@ -1,7 +1,7 @@
 # parse_compress_options
 
 ## Location
-src/common/compression.c: 426 - 476
+[src/common/compression.c:426-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/compression.c#L426-L476)
 
 ## Overview
 Parses command-line compression options (typically from -Z/--compress) into separate algorithm and detail components for further processing.

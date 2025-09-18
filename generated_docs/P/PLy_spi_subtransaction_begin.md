@@ -1,7 +1,7 @@
 # PLy_spi_subtransaction_begin
 
 ## Location
-src/pl/plpython/plpy_spi.c: 569 - 576
+[src/pl/plpython/plpy_spi.c:569-576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L569-L576)
 
 ## Overview
 PLy_spi_subtransaction_begin initiates a new internal subtransaction within PL/Python, providing a mechanism for atomic operations and error recovery within SPI function calls.

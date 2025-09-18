@@ -1,7 +1,7 @@
 # ecpg_filter_stderr
 
 ## Location
-src/interfaces/ecpg/test/pg_regress_ecpg.c: 93 - 147
+[src/interfaces/ecpg/test/pg_regress_ecpg.c:93-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/pg_regress_ecpg.c#L93-L147)
 
 ## Overview
 Removes specific connection failure error message details from test result files to ensure consistent output across different environments by filtering out variable host/port information.

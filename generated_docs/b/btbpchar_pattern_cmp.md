@@ -1,7 +1,7 @@
 # btbpchar_pattern_cmp
 
 ## Location
-src/backend/utils/adt/varchar.c: 1205 - 1220
+[src/backend/utils/adt/varchar.c:1205-1220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L1205-L1220)
 
 ## Overview
 Implements the comparison support function for B-tree indexes on BPCHAR (blank-padded character) values using pattern-based comparison, essential for creating indexes that support LIKE clause operations.

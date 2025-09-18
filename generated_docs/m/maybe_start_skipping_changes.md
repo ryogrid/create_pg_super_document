@@ -1,7 +1,7 @@
 # maybe_start_skipping_changes
 
 ## Location
-src/backend/replication/logical/worker.c: 4831 - 4857
+[src/backend/replication/logical/worker.c:4831-4857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4831-L4857)
 
 ## Overview
 maybe_start_skipping_changes is a static function that conditionally initiates transaction skipping in logical replication when the transaction's finish LSN matches the subscription's configured skip LSN.

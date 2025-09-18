@@ -1,7 +1,7 @@
 # table_beginscan_sampling
 
 ## Location
-src/include/access/tableam.h: 973 - 995
+[src/include/access/tableam.h:973-995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L973-L995)
 
 ## Overview
 table_beginscan_sampling is a specialized table scanning function designed for TABLESAMPLE operations, providing maximum control over scan behavior including page-mode visibility checking options.

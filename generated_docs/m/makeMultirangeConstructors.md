@@ -1,7 +1,7 @@
 # makeMultirangeConstructors
 
 ## Location
-src/backend/commands/typecmds.c: 1811 - 1952
+[src/backend/commands/typecmds.c:1811-1952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L1811-L1952)
 
 ## Overview
 makeMultirangeConstructors creates three constructor functions for a newly defined multirange type, providing different ways to construct multirange values and enabling type casting functionality.

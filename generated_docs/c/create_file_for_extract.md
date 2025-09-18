@@ -1,7 +1,7 @@
 # create_file_for_extract
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 355 - 377
+[src/bin/pg_basebackup/bbstreamer_file.c:355-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L355-L377)
 
 ## Overview
 This function creates regular files during archive extraction, opening them for writing and setting appropriate permissions while returning a file handle for subsequent content writing.

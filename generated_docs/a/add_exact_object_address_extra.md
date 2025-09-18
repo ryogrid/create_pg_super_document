@@ -1,7 +1,7 @@
 # add_exact_object_address_extra
 
 ## Location
-src/backend/catalog/dependency.c: 2558 - 2592
+[src/backend/catalog/dependency.c:2558-2592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2558-L2592)
 
 ## Overview
 A static utility function that adds an ObjectAddress entry along with associated extra metadata to an ObjectAddresses array, managing parallel arrays for both main object data and supplementary information.

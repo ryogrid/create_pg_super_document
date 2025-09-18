@@ -1,7 +1,7 @@
 # flatten_rtes_walker
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 492 - 537
+[src/backend/optimizer/plan/setrefs.c:492-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L492-L537)
 
 ## Overview
 A tree walker callback function that recursively traverses query parse trees to extract and flatten RangeTblEntries into the global rangetable.

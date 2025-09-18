@@ -1,7 +1,7 @@
 # array_to_datum_internal
 
 ## Location
-src/pl/plperl/plperl.c: 1170 - 1256
+[src/pl/plperl/plperl.c:1170-1256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1170-L1256)
 
 ## Overview
 Recursively processes multidimensional Perl arrays to convert them into PostgreSQL Datum format, handling dimension validation and element conversion.

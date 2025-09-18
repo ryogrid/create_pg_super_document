@@ -1,7 +1,7 @@
 # get_insert_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6647 - 6862
+[src/backend/utils/adt/ruleutils.c:6647-6862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6647-L6862)
 
 ## Overview
 Converts an internal INSERT Query structure into its textual SQL representation for rule deparsing, handling all INSERT variants including VALUES, SELECT, and ON CONFLICT clauses.

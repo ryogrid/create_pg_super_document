@@ -1,7 +1,7 @@
 # bbstreamer_plain_writer_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 149 - 182
+[src/bin/pg_basebackup/bbstreamer_file.c:149-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L149-L182)
 
 ## Overview
 This function deallocates memory associated with a plain file writer bbstreamer after ensuring the file is properly closed and no downstream streamers are attached.

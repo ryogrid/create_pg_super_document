@@ -1,7 +1,7 @@
 # CreateTemplateTupleDesc
 
 ## Location
-src/backend/access/common/tupdesc.c: 67 - 111
+[src/backend/access/common/tupdesc.c:67-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L67-L111)
 
 ## Overview
 Creates an empty tuple descriptor structure with a specified number of attributes, serving as a template for building complete tuple descriptors.

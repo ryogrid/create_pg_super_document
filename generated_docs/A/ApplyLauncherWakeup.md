@@ -1,7 +1,7 @@
 # ApplyLauncherWakeup
 
 ## Location
-src/backend/replication/logical/launcher.c: 1125 - 1134
+[src/backend/replication/logical/launcher.c:1125-1134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1125-L1134)
 
 ## Overview
 Sends a SIGUSR1 signal to the logical replication launcher process to wake it up from its waiting state.

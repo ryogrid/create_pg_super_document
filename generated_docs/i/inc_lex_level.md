@@ -1,7 +1,7 @@
 # inc_lex_level
 
 ## Location
-src/common/jsonapi.c: 398 - 418
+[src/common/jsonapi.c:398-418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L398-L418)
 
 ## Overview
 A static inline function that increments the lexical nesting level in a JSON lexer context and dynamically expands parser stack storage when needed for incremental parsing.

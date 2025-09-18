@@ -1,7 +1,7 @@
 # array_set_slice
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 2806 - 3145
+[src/backend/utils/adt/arrayfuncs.c:2806-3145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L2806-L3145)
 
 ## Overview
 Implements slice assignment operations on PostgreSQL arrays, allowing assignment of values to a range of array positions specified by upper and lower bounds.

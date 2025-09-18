@@ -1,7 +1,7 @@
 # RunObjectPostCreateHook
 
 ## Location
-src/backend/catalog/objectaccess.c: 32 - 53
+[src/backend/catalog/objectaccess.c:32-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L32-L53)
 
 ## Overview
 Executes registered object access hooks for post-creation events, allowing extensions to perform actions after a PostgreSQL database object has been created.

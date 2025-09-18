@@ -1,7 +1,7 @@
 # RecordIOData
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 227 - 235
+[src/backend/utils/adt/jsonfuncs.c:227-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L227-L235)
 
 ## Overview
 RecordIOData is a structure that caches record metadata needed for populating records during JSON processing and general record I/O operations in PostgreSQL.

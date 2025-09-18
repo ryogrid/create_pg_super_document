@@ -1,7 +1,7 @@
 # interval_out
 
 ## Location
-src/backend/utils/adt/timestamp.c: 982 - 1005
+[src/backend/utils/adt/timestamp.c:982-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L982-L1005)
 
 ## Overview
 Converts PostgreSQL's internal Interval data type to its external string representation, handling both finite intervals and special infinite values.

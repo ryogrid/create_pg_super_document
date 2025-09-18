@@ -1,7 +1,7 @@
 # pg_get_statisticsobjdef_string
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1607 - 1616
+[src/backend/utils/adt/ruleutils.c:1607-1616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1607-L1616)
 
 ## Overview
 Returns the definition string for a statistics object in a format suitable for ALTER TABLE operations, including a tablespace clause.

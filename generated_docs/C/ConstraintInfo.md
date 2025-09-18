@@ -1,7 +1,7 @@
 # ConstraintInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 494 - 495
+[src/bin/pg_dump/pg_dump.h:494-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L494-L495)
 
 ## Overview
 ConstraintInfo is a structure used by pg_dump to store metadata about database constraints (CHECK, FOREIGN KEY, UNIQUE, PRIMARY KEY, etc.) during the dump and restore process.

@@ -1,7 +1,7 @@
 # ModifyWaitEvent
 
 ## Location
-src/backend/storage/ipc/latch.c: 1049 - 1123
+[src/backend/storage/ipc/latch.c:1049-1123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1049-L1123)
 
 ## Overview
 Modifies an existing wait event in a WaitEventSet by changing the event mask and optionally the associated latch, with optimizations to avoid unnecessary system calls.

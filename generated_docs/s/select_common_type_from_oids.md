@@ -1,7 +1,7 @@
 # select_common_type_from_oids
 
 ## Location
-src/backend/parser/parse_coerce.c: 1480 - 1573
+[src/backend/parser/parse_coerce.c:1480-1573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1480-L1573)
 
 ## Overview
 Determines the common supertype from an array of type OIDs using the same logic as select_common_type, but working directly with type identifiers rather than expression nodes.

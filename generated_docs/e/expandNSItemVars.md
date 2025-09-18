@@ -1,7 +1,7 @@
 # expandNSItemVars
 
 ## Location
-src/backend/parser/parse_relation.c: 3123 - 3186
+[src/backend/parser/parse_relation.c:3123-3186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3123-L3186)
 
 ## Overview
 Produces a list of Var nodes and optionally column names for the non-dropped, expandable columns of a ParseNamespaceItem, with proper nullability marking and location information.

@@ -1,7 +1,7 @@
 # get_hba_options
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 52 - 164
+[src/backend/utils/adt/hbafuncs.c:52-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L52-L164)
 
 ## Overview
 Creates a text array listing the authentication options specified in an HBA (Host-Based Authentication) line, returning NULL if no options are specified.

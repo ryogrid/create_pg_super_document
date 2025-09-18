@@ -1,7 +1,7 @@
 # ReindexIsProcessingHeap
 
 ## Location
-src/backend/catalog/index.c: 4058 - 4067
+[src/backend/catalog/index.c:4058-4067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4058-L4067)
 
 ## Overview
 The  function checks whether a specific heap relation is currently undergoing reindexing operations by comparing against a global tracking variable.

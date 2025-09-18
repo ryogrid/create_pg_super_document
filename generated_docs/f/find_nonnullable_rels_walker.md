@@ -1,7 +1,7 @@
 # find_nonnullable_rels_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1462 - 1706
+[src/backend/optimizer/util/clauses.c:1462-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1462-L1706)
 
 ## Overview
 The `find_nonnullable_rels_walker` function recursively traverses expression trees to identify which base relations are forced to be nonnullable by the given expression, supporting PostgreSQL's outer join optimization logic.

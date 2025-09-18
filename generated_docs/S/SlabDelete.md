@@ -1,7 +1,7 @@
 # SlabDelete
 
 ## Location
-src/backend/utils/mmgr/slab.c: 485 - 497
+[src/backend/utils/mmgr/slab.c:485-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L485-L497)
 
 ## Overview
 SlabDelete is a memory context deletion function that completely destroys a slab memory context by freeing all allocated memory and the context header itself.

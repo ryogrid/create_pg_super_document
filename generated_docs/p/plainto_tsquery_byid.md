@@ -1,7 +1,7 @@
 # plainto_tsquery_byid
 
 ## Location
-src/backend/tsearch/to_tsany.c: 617 - 641
+[src/backend/tsearch/to_tsany.c:617-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L617-L641)
 
 ## Overview
 Converts plain text to a TSQuery using a specific text search configuration by OID, treating the entire input as a phrase where all words must match using AND operator.

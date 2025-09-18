@@ -1,7 +1,7 @@
 # r_verb_sfx
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_irish.c: 404 - 431
+[src/backend/snowball/libstemmer/stem_UTF_8_irish.c:404-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_irish.c#L404-L431)
 
 ## Overview
 The r_verb_sfx function removes Irish verb suffixes during the stemming process, with different removal strategies based on RV and R1 regions and includes character-based pre-filtering for efficiency.

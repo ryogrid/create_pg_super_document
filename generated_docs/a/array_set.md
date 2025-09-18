@@ -1,7 +1,7 @@
 # array_set
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3163 - 3200
+[src/backend/utils/adt/arrayfuncs.c:3163-3200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3163-L3200)
 
 ## Overview
 A backwards compatibility wrapper function for array_set_element that provides element assignment for detoasted/flattened varlena arrays using the legacy ArrayType pointer interface.

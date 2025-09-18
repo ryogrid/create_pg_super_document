@@ -1,7 +1,7 @@
 # RelationClose
 
 ## Location
-src/backend/utils/cache/relcache.c: 2194 - 2202
+[src/backend/utils/cache/relcache.c:2194-2202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2194-L2202)
 
 ## Overview
 Closes an open relation by decrementing its reference count and performing necessary cleanup operations.

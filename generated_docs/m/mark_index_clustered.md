@@ -1,7 +1,7 @@
 # mark_index_clustered
 
 ## Location
-src/backend/commands/cluster.c: 560 - 632
+[src/backend/commands/cluster.c:560-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L560-L632)
 
 ## Overview
 Updates the pg_index system catalog to mark a specified index as the clustered index for a table, clearing the clustered flag from all other indexes on the same table.

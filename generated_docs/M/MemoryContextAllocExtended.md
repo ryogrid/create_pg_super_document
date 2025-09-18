@@ -1,7 +1,7 @@
 # MemoryContextAllocExtended
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1237 - 1270
+[src/backend/utils/mmgr/mcxt.c:1237-1270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1237-L1270)
 
 ## Overview
 MemoryContextAllocExtended is the core memory allocation function in PostgreSQL's memory management system that allocates space within a specified memory context using configurable flags for allocation behavior.

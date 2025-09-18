@@ -1,7 +1,7 @@
 # SPI_execute_extended
 
 ## Location
-src/backend/executor/spi.c: 637 - 671
+[src/backend/executor/spi.c:637-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L637-L671)
 
 ## Overview
 SPI_execute_extended is an enhanced version of the SPI_execute function that provides extensible execution options for parsing, planning, and executing SQL query strings from within server-side functions.

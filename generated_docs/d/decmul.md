@@ -1,7 +1,7 @@
 # decmul
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 337 - 358
+[src/interfaces/ecpg/compatlib/informix.c:337-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L337-L358)
 
 ## Overview
 Performs multiplication operation on two decimal numbers using ECPG Informix compatibility library.

@@ -1,7 +1,7 @@
 # histcontrol_substitute_hook
 
 ## Location
-src/bin/psql/startup.c: 1069 - 1076
+[src/bin/psql/startup.c:1069-1076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1069-L1076)
 
 ## Overview
 A substitute hook function for the HISTCONTROL psql variable that provides a default value when the variable is unset or NULL.

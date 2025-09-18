@@ -1,7 +1,7 @@
 # bbsink_gzip_archive_contents
 
 ## Location
-src/backend/backup/basebackup_gzip.c: 167 - 224
+[src/backend/backup/basebackup_gzip.c:167-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_gzip.c#L167-L224)
 
 ## Overview
 Compresses input data and forwards compressed output to the next sink, handling the continuous compression of archive contents with proper buffer management.

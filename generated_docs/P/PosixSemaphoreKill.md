@@ -1,7 +1,7 @@
 # PosixSemaphoreKill
 
 ## Location
-src/backend/port/posix_sema.c: 147 - 164
+[src/backend/port/posix_sema.c:147-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L147-L164)
 
 ## Overview
 PosixSemaphoreKill is a static internal function that properly destroys a POSIX semaphore, handling both named and unnamed semaphore variants depending on the compilation configuration.

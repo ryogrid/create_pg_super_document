@@ -1,7 +1,7 @@
 # pop_ancestor_plan
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5144 - 5159
+[src/backend/utils/adt/ruleutils.c:5144-5159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5144-L5159)
 
 ## Overview
 A static function that restores the previous deparse context after temporarily focusing on an ancestor plan node.

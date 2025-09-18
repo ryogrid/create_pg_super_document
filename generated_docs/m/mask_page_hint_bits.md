@@ -1,7 +1,7 @@
 # mask_page_hint_bits
 
 ## Location
-src/backend/access/common/bufmask.c: 46 - 70
+[src/backend/access/common/bufmask.c:46-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/bufmask.c#L46-L70)
 
 ## Overview
 Masks hint bits in page headers that can be set without emitting WAL records, enabling consistent page comparisons during WAL consistency checks.

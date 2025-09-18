@@ -1,7 +1,7 @@
 # PageSetLSN
 
 ## Location
-src/include/storage/bufpage.h: 389 - 394
+[src/include/storage/bufpage.h:389-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L389-L394)
 
 ## Overview
 Sets the Log Sequence Number (LSN) in a page header, updating the WAL position marker to track the last modification made to the page for recovery and consistency purposes.

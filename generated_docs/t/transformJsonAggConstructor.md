@@ -1,7 +1,7 @@
 # transformJsonAggConstructor
 
 ## Location
-src/backend/parser/parse_expr.c: 3822 - 3907
+[src/backend/parser/parse_expr.c:3822-3907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3822-L3907)
 
 ## Overview
 Common transformation function for both JSON_OBJECTAGG and JSON_ARRAYAGG constructors, handling the creation of aggregate expressions and window functions for JSON aggregation operations.

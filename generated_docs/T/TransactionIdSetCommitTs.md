@@ -1,7 +1,7 @@
 # TransactionIdSetCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 249 - 273
+[src/backend/access/transam/commit_ts.c:249-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L249-L273)
 
 ## Overview
 Sets the commit timestamp entry for a single transaction by directly writing to the appropriate location in the SLRU page buffer.

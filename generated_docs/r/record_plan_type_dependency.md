@@ -1,7 +1,7 @@
 # record_plan_type_dependency
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3512 - 3552
+[src/backend/optimizer/plan/setrefs.c:3512-3552](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3512-L3552)
 
 ## Overview
 Records a dependency of the current query plan on a specific data type to enable proper plan invalidation when the type is modified.

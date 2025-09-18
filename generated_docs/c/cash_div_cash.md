@@ -1,7 +1,7 @@
 # cash_div_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 714 - 733
+[src/backend/utils/adt/cash.c:714-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L714-L733)
 
 ## Overview
 Performs division of two PostgreSQL Cash values, returning the result as a double precision floating-point number (float8).

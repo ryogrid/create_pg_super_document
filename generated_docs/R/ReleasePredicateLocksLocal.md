@@ -1,7 +1,7 @@
 # ReleasePredicateLocksLocal
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3669 - 3686
+[src/backend/storage/lmgr/predicate.c:3669-3686](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3669-L3686)
 
 ## Overview
 Cleans up backend-local predicate lock data structures and resets transaction state variables for the current backend process.

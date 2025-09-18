@@ -1,7 +1,7 @@
 # match_db_entries
 
 ## Location
-src/backend/utils/activity/pgstat.c: 702 - 713
+[src/backend/utils/activity/pgstat.c:702-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L702-L713)
 
 ## Overview
 A static helper function that determines if a statistics hash entry belongs to the current database, used exclusively by pgstat_reset_counters() for database-specific statistics filtering.

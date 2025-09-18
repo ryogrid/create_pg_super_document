@@ -1,7 +1,7 @@
 # CTEMaterialize
 
 ## Location
-src/include/nodes/parsenodes.h: 1641 - 1642
+[src/include/nodes/parsenodes.h:1641-1642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L1641-L1642)
 
 ## Overview
 CTEMaterialize is an enumeration that controls the materialization behavior of Common Table Expressions (CTEs) in PostgreSQL, allowing users to specify whether a CTE should be materialized, not materialized, or use the default behavior.

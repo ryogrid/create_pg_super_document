@@ -1,7 +1,7 @@
 # turkish_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 2067 - 2092
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2067-2092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L2067-L2092)
 
 ## Overview
 Main stemming function for Turkish text processing that applies the complete Turkish stemming algorithm to reduce words to their root forms.

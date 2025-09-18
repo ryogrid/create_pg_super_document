@@ -1,7 +1,7 @@
 # dutch_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_dutch.c: 581 - 609
+[src/backend/snowball/libstemmer/stem_UTF_8_dutch.c:581-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_dutch.c#L581-L609)
 
 ## Overview
 dutch_UTF_8_stem is the main entry point function for the Dutch Snowball stemming algorithm in UTF-8 encoding, orchestrating the complete stemming process through multiple phases of morphological analysis.

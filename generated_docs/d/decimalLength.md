@@ -1,7 +1,7 @@
 # decimalLength
 
 ## Location
-src/common/f2s.c: 174 - 214
+[src/common/f2s.c:174-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L174-L214)
 
 ## Overview
 Efficiently calculates the number of decimal digits in a 32-bit unsigned integer value, optimized for floating-point to string conversion.

@@ -1,7 +1,7 @@
 # add_stringlist_item
 
 ## Location
-src/bin/initdb/initdb.c: 442 - 469
+[src/bin/initdb/initdb.c:442-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L442-L469)
 
 ## Overview
 Adds a new string item to the end of a linked list of strings, managing memory allocation and list traversal automatically.

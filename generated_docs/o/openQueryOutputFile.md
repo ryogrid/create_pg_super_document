@@ -1,7 +1,7 @@
 # openQueryOutputFile
 
 ## Location
-src/bin/psql/common.c: 56 - 89
+[src/bin/psql/common.c:56-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L56-L89)
 
 ## Overview
 Opens a query output file for psql, supporting standard output, regular files, and pipe commands with appropriate file handle management.

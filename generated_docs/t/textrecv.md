@@ -1,7 +1,7 @@
 # textrecv
 
 ## Location
-src/backend/utils/adt/varlena.c: 601 - 618
+[src/backend/utils/adt/varlena.c:601-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L601-L618)
 
 ## Overview
 The  function converts external binary format data to PostgreSQL's internal text representation, serving as the binary receive function for the text data type.

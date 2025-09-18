@@ -1,7 +1,7 @@
 # AlterTableGetRelOptionsLockLevel
 
 ## Location
-src/backend/access/common/reloptions.c: 2117 - 2146
+[src/backend/access/common/reloptions.c:2117-2146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L2117-L2146)
 
 ## Overview
 Determines the minimum required lock mode for ALTER TABLE operations based on the relation options being modified.

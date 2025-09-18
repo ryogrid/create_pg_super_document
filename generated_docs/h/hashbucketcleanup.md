@@ -1,7 +1,7 @@
 # hashbucketcleanup
 
 ## Location
-src/backend/access/hash/hash.c: 687 - 927
+[src/backend/access/hash/hash.c:687-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L687-L927)
 
 ## Overview
 Performs deletion of index entries from a specific hash bucket, handling both regular tuple deletion via callback and cleanup of tuples moved by bucket split operations.

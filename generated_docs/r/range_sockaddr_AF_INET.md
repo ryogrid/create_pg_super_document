@@ -1,7 +1,7 @@
 # range_sockaddr_AF_INET
 
 ## Location
-src/backend/libpq/ifaddr.c: 66 - 77
+[src/backend/libpq/ifaddr.c:66-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/ifaddr.c#L66-L77)
 
 ## Overview
 Performs IPv4-specific subnet range checking to determine if an IPv4 address falls within a specified subnet.

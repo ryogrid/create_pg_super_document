@@ -1,7 +1,7 @@
 # nextval
 
 ## Location
-src/backend/commands/sequence.c: 593 - 614
+[src/backend/commands/sequence.c:593-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L593-L614)
 
 ## Overview
 Provides the PostgreSQL SQL function interface for obtaining the next value from a sequence, accepting a sequence name as a text argument.

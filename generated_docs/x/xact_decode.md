@@ -1,7 +1,7 @@
 # xact_decode
 
 ## Location
-src/backend/replication/logical/decode.c: 201 - 357
+[src/backend/replication/logical/decode.c:201-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L201-L357)
 
 ## Overview
 Handles transaction-related WAL records (RM_XACT_ID) during logical decoding, processing commits, aborts, preparations, and invalidations to maintain transactional consistency in logical replication streams.

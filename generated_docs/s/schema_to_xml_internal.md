@@ -1,7 +1,7 @@
 # schema_to_xml_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 3181 - 3223
+[src/backend/utils/adt/xml.c:3181-3223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3181-L3223)
 
 ## Overview
 Internal function that converts a PostgreSQL schema (namespace) to XML format, including all visible tables within the schema and optionally an XML schema definition.

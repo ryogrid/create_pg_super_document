@@ -1,7 +1,7 @@
 # ExecParallelRetrieveJitInstrumentation
 
 ## Location
-src/backend/executor/execParallel.c: 1091 - 1130
+[src/backend/executor/execParallel.c:1091-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1091-L1130)
 
 ## Overview
 Aggregates Just-In-Time (JIT) compilation instrumentation data from all parallel workers and stores both combined statistics and per-worker details.

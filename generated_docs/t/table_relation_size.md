@@ -1,7 +1,7 @@
 # table_relation_size
 
 ## Location
-src/include/access/tableam.h: 1869 - 1877
+[src/include/access/tableam.h:1869-1877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1869-L1877)
 
 ## Overview
 Returns the size of a table relation in bytes, either for a specific fork or the overall relation size.

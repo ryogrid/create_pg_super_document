@@ -1,7 +1,7 @@
 # MinimalTupleData
 
 ## Location
-src/include/access/htup_details.h: 629 - 651
+[src/include/access/htup_details.h:629-651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/htup_details.h#L629-L651)
 
 ## Overview
 MinimalTupleData is a streamlined tuple header structure used for temporary tuples and internal operations in PostgreSQL, providing essential tuple metadata with reduced storage overhead.

@@ -1,7 +1,7 @@
 # PQsslInUse
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 103 - 114
+[src/interfaces/libpq/fe-secure.c:103-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L103-L114)
 
 ## Overview
 Determines whether an SSL connection is currently in use for a PostgreSQL connection.

@@ -1,7 +1,7 @@
 # array_insert_slice
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5158 - 5280
+[src/backend/utils/adt/arrayfuncs.c:5158-5280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5158-L5280)
 
 ## Overview
 Inserts a slice from a source array into a destination array by replacing elements within a specified slice volume and copying elements outside that volume from the original array.

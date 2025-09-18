@@ -1,7 +1,7 @@
 # RecoveryTargetAction
 
 ## Location
-src/include/access/xlog_internal.h: 327 - 348
+[src/include/access/xlog_internal.h:327-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L327-L348)
 
 ## Overview
 RecoveryTargetAction is an enumeration type that defines the possible actions to take when PostgreSQL reaches a specified recovery target during WAL (Write-Ahead Log) replay and point-in-time recovery operations.

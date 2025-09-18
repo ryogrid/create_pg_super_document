@@ -1,7 +1,7 @@
 # heap_getnextslot_tidrange
 
 ## Location
-src/backend/access/heap/heapam.c: 1448 - 1554
+[src/backend/access/heap/heapam.c:1448-1554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L1448-L1554)
 
 ## Overview
 This function retrieves the next tuple from a heap scan within a specified TID (tuple identifier) range, filtering out tuples that fall outside the defined minimum and maximum TID bounds.

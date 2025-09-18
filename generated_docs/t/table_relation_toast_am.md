@@ -1,7 +1,7 @@
 # table_relation_toast_am
 
 ## Location
-src/include/access/tableam.h: 1888 - 1916
+[src/include/access/tableam.h:1888-1916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1888-L1916)
 
 ## Overview
 Returns the OID of the access method (AM) that should be used to implement the TOAST table for a given relation.

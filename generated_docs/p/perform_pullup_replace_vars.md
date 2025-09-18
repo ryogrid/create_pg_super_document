@@ -1,7 +1,7 @@
 # perform_pullup_replace_vars
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2266 - 2367
+[src/backend/optimizer/prep/prepjointree.c:2266-2367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2266-L2367)
 
 ## Overview
 Performs variable replacement throughout the query tree after subquery pullup, replacing references to the subquery's outputs with copies of adjusted subtlist items.

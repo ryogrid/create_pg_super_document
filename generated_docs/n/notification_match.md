@@ -1,7 +1,7 @@
 # notification_match
 
 ## Location
-src/backend/commands/async.c: 2371 - 2386
+[src/backend/commands/async.c:2371-2386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2371-L2386)
 
 ## Overview
 A comparison function used by PostgreSQL's notification hash table to determine if two Notification structures are equivalent based on their channel names and payload data.

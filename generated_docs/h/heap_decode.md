@@ -1,7 +1,7 @@
 # heap_decode
 
 ## Location
-src/backend/replication/logical/decode.c: 468 - 562
+[src/backend/replication/logical/decode.c:468-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L468-L562)
 
 ## Overview
 The `heap_decode` function handles resource manager HEAP_ID records for logical decoding, processing various heap operation types from WAL records to decode changes for logical replication.

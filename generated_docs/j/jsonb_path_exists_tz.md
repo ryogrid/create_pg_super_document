@@ -1,7 +1,7 @@
 # jsonb_path_exists_tz
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 433 - 443
+[src/backend/utils/adt/jsonpath_exec.c:433-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L433-L443)
 
 ## Overview
 Public PostgreSQL function that checks whether a JSONPath expression returns at least one item for a given JSONB value, with timezone awareness enabled.

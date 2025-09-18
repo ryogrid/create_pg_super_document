@@ -1,7 +1,7 @@
 # make_partition_op_expr
 
 ## Location
-src/backend/partitioning/partbounds.c: 3868 - 3982
+[src/backend/partitioning/partbounds.c:3868-3982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3868-L3982)
 
 ## Overview
 Creates an expression node for a partition key column operation with specified left and right operands, handling different partitioning strategies.

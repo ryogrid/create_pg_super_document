@@ -1,7 +1,7 @@
 # _bt_deadblocks
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2938 - 3010
+[src/backend/access/nbtree/nbtinsert.c:2938-3010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2938-L3010)
 
 ## Overview
 Builds a sorted, unique array of table block numbers from LP_DEAD-marked index tuples and the incoming newitem, optimizing simple deletion by identifying all relevant table blocks for batch processing.

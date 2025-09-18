@@ -1,7 +1,7 @@
 # PendingUnlinkEntry
 
 ## Location
-src/backend/storage/sync/sync.c: 68 - 77
+[src/backend/storage/sync/sync.c:68-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L68-L77)
 
 ## Overview
 PendingUnlinkEntry is a structure that tracks file deletion requests that need to be postponed until after the next checkpoint in PostgreSQL's synchronization system.

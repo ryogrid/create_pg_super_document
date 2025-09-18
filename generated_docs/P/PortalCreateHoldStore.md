@@ -1,7 +1,7 @@
 # PortalCreateHoldStore
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 331 - 370
+[src/backend/utils/mmgr/portalmem.c:331-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L331-L370)
 
 ## Overview
 Creates the tuple store infrastructure for a portal that needs to hold cursor results across transactions, establishing both the memory context and tuple storage mechanism for cursor data persistence.

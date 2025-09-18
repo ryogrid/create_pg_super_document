@@ -1,7 +1,7 @@
 # do_connect
 
 ## Location
-src/bin/psql/command.c: 3386 - 3849
+[src/bin/psql/command.c:3386-3849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3386-L3849)
 
 ## Overview
 Handles the \connect command in psql, establishing a new database connection with given parameters while optionally reusing parameters from the previous connection.

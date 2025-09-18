@@ -1,7 +1,7 @@
 # anytimestamp_typmod_check
 
 ## Location
-src/backend/utils/adt/timestamp.c: 123 - 144
+[src/backend/utils/adt/timestamp.c:123-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L123-L144)
 
 ## Overview
 A validation function that checks and normalizes precision values for TIMESTAMP and TIMESTAMP WITH TIME ZONE data types, ensuring they fall within acceptable bounds.

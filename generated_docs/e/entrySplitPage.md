@@ -1,7 +1,7 @@
 # entrySplitPage
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 602 - 701
+[src/backend/access/gin/ginentrypage.c:602-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L602-L701)
 
 ## Overview
 Performs a page split operation for GIN entry pages when insufficient space exists for new tuple insertion, creating two balanced temporary pages.

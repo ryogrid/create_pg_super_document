@@ -1,7 +1,7 @@
 # RelationGetIdentityKeyBitmap
 
 ## Location
-src/backend/utils/cache/relcache.c: 5522 - 5595
+[src/backend/utils/cache/relcache.c:5522-5595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5522-L5595)
 
 ## Overview
 Retrieves a bitmap of attribute numbers for columns that are part of the configured replica identity index, specifically designed for logical replication operations.

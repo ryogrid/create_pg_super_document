@@ -1,7 +1,7 @@
 # setup
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 334 - 404
+[src/bin/pg_upgrade/pg_upgrade.c:334-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L334-L404)
 
 ## Overview
 Performs essential initialization tasks for pg_upgrade including environment validation, binary directory setup, and postmaster process management to ensure a clean upgrade environment.

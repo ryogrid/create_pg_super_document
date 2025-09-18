@@ -1,7 +1,7 @@
 # pg_logging_config
 
 ## Location
-src/common/logging.c: 163 - 172
+[src/common/logging.c:163-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L163-L172)
 
 ## Overview
 A simple function that updates the global logging configuration flags to control the behavior and formatting of log output.

@@ -1,7 +1,7 @@
 # text_format_parse_digits
 
 ## Location
-src/backend/utils/adt/varlena.c: 5915 - 5963
+[src/backend/utils/adt/varlena.c:5915-5963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5915-L5963)
 
 ## Overview
 The  function parses a sequence of consecutive decimal digits from a string pointer and converts them to an integer value with overflow checking.

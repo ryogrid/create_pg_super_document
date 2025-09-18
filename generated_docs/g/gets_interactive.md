@@ -1,7 +1,7 @@
 # gets_interactive
 
 ## Location
-src/bin/psql/input.c: 67 - 112
+[src/bin/psql/input.c:67-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L67-L112)
 
 ## Overview
 Gets a line of interactive input from the user, utilizing readline functionality when available for enhanced editing capabilities.

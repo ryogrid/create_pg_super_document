@@ -1,7 +1,7 @@
 # armenian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_armenian.c: 515 - 555
+[src/backend/snowball/libstemmer/stem_UTF_8_armenian.c:515-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_armenian.c#L515-L555)
 
 ## Overview
 The main external function that performs complete Armenian text stemming using the Snowball algorithm, processing words through multiple morphological reduction phases.

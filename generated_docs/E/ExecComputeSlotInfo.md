@@ -1,7 +1,7 @@
 # ExecComputeSlotInfo
 
 ## Location
-src/backend/executor/execExpr.c: 2896 - 2993
+[src/backend/executor/execExpr.c:2896-2993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L2896-L2993)
 
 ## Overview
 Computes optimization information for tuple slot deformation operations by determining slot characteristics and whether deformation steps are actually needed.

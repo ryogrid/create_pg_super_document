@@ -1,7 +1,7 @@
 # transformMergeStmt
 
 ## Location
-src/backend/parser/parse_merge.c: 107 - 414
+[src/backend/parser/parse_merge.c:107-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_merge.c#L107-L414)
 
 ## Overview
 The main function that transforms a parsed MERGE statement AST into a Query tree structure, handling all aspects of MERGE statement analysis including permissions, namespace management, and action transformation.

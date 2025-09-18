@@ -1,7 +1,7 @@
 # PLy_quote_ident
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 360 - 376
+[src/pl/plpython/plpy_plpymodule.c:360-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L360-L376)
 
 ## Overview
 PLy_quote_ident is a Python C extension function that provides SQL identifier quoting functionality to PL/Python stored procedures, allowing Python code to safely quote identifiers (table names, column names, etc.) for use in dynamically constructed SQL statements.

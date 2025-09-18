@@ -1,7 +1,7 @@
 # DisplayMapping
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 5183 - 5210
+[src/backend/replication/logical/reorderbuffer.c:5183-5210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L5183-L5210)
 
 ## Overview
 A debugging utility function that logs detailed information about tuple command ID mappings stored in a hash table for logical replication analysis.

@@ -1,7 +1,7 @@
 # AtEOXact_Files
 
 ## Location
-src/backend/storage/file/fd.c: 3162 - 3175
+[src/backend/storage/file/fd.c:3162-3175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/file/fd.c#L3162-L3175)
 
 ## Overview
 Handles cleanup of file descriptors and temporary files at the end of a transaction, closing open temporary files and resetting temporary tablespace configuration.

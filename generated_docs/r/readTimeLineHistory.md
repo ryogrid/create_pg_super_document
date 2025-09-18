@@ -1,7 +1,7 @@
 # readTimeLineHistory
 
 ## Location
-src/backend/access/transam/timeline.c: 76 - 221
+[src/backend/access/transam/timeline.c:76-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L76-L221)
 
 ## Overview
 Reads and parses a timeline history file to construct a list of timeline entries representing the branching history of a specific timeline.

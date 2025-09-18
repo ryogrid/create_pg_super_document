@@ -1,7 +1,7 @@
 # set_tablespace_directory_suffix
 
 ## Location
-src/bin/pg_upgrade/tablespace.c: 103 - 111
+[src/bin/pg_upgrade/tablespace.c:103-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/tablespace.c#L103-L111)
 
 ## Overview
 Sets the version-specific directory suffix for tablespace paths in a PostgreSQL cluster during pg_upgrade operations.

@@ -1,7 +1,7 @@
 # wal_segment_close
 
 ## Location
-src/backend/access/transam/xlogutils.c: 842 - 860
+[src/backend/access/transam/xlogutils.c:842-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L842-L860)
 
 ## Overview
 Closes an open WAL segment file and resets the file descriptor in the XLogReaderState as part of the standard XLogReaderRoutine callback mechanism.

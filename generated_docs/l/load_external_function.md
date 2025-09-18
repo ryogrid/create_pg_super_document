@@ -1,7 +1,7 @@
 # load_external_function
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 105 - 143
+[src/backend/utils/fmgr/dfmgr.c:105-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L105-L143)
 
 ## Overview
 This function loads a specified dynamic-link library file and looks for a named function within it, providing the core mechanism for PostgreSQL's dynamic function loading capabilities.

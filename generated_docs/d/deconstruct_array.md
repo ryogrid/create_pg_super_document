@@ -1,7 +1,7 @@
 # deconstruct_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3619 - 3684
+[src/backend/utils/adt/arrayfuncs.c:3619-3684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3619-L3684)
 
 ## Overview
 Extracts individual elements and null markers from a PostgreSQL array structure into separate Datum and boolean arrays for easier processing by C code.

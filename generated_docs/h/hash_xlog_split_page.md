@@ -1,7 +1,7 @@
 # hash_xlog_split_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 428 - 441
+[src/backend/access/hash/hash_xlog.c:428-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L428-L441)
 
 ## Overview
 Replays a hash index split operation during WAL (Write-Ahead Log) recovery, restoring the split page from a full-page image.

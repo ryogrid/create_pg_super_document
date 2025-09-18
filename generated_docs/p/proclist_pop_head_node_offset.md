@@ -1,7 +1,7 @@
 # proclist_pop_head_node_offset
 
 ## Location
-src/include/storage/proclist.h: 173 - 186
+[src/include/storage/proclist.h:173-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proclist.h#L173-L186)
 
 ## Overview
 A static inline function that removes and returns the first process from a process list at a specified node offset.

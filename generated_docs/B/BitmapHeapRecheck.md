@@ -1,7 +1,7 @@
 # BitmapHeapRecheck
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 562 - 580
+[src/backend/executor/nodeBitmapHeapscan.c:562-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L562-L580)
 
 ## Overview
 BitmapHeapRecheck is an access method routine used to recheck a tuple during EvalPlanQual processing in bitmap heap scans, ensuring the tuple still meets the original qualification conditions after potential concurrent updates.

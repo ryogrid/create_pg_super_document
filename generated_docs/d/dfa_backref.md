@@ -1,7 +1,7 @@
 # dfa_backref
 
 ## Location
-src/backend/regex/rege_dfa.c: 506 - 584
+[src/backend/regex/rege_dfa.c:506-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L506-L584)
 
 ## Overview
 Finds the best match length for a known backreference string without running the full NFA, providing optimized backref matching.

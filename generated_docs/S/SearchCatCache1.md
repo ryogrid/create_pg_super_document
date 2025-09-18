@@ -1,7 +1,7 @@
 # SearchCatCache1
 
 ## Location
-src/backend/utils/cache/catcache.c: 1329 - 1336
+[src/backend/utils/cache/catcache.c:1329-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1329-L1336)
 
 ## Overview
 SearchCatCache1 is an optimized version of SearchCatCache specifically designed for catalog cache searches that require exactly one search key, providing better performance through compiler optimizations.

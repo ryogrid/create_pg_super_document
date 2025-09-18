@@ -1,7 +1,7 @@
 # ExplainQuery
 
 ## Location
-src/backend/commands/explain.c: 183 - 371
+[src/backend/commands/explain.c:183-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L183-L371)
 
 ## Overview
 ExplainQuery executes an EXPLAIN command by parsing options, rewriting queries, and generating execution plan output in various formats.

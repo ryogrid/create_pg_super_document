@@ -1,7 +1,7 @@
 # CommandEndInvalidationMessages
 
 ## Location
-src/backend/utils/cache/inval.c: 1173 - 1206
+[src/backend/utils/cache/inval.c:1173-1206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1173-L1206)
 
 ## Overview
 Processes queued invalidation messages at the end of one command within a transaction, performing local cache invalidation and preparing messages for potential commit.

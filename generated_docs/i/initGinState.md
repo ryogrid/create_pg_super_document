@@ -1,7 +1,7 @@
 # initGinState
 
 ## Location
-src/backend/access/gin/ginutil.c: 97 - 225
+[src/backend/access/gin/ginutil.c:97-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L97-L225)
 
 ## Overview
 Initializes a GinState structure with index-specific information, including tuple descriptors, operator class functions, and collation settings for each indexed column.

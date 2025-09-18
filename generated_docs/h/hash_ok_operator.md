@@ -1,7 +1,7 @@
 # hash_ok_operator
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 832 - 879
+[src/backend/optimizer/plan/subselect.c:832-879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L832-L879)
 
 ## Overview
 Validates whether an operator expression is both hashable and strict, making it suitable for hash-based operations in query execution.

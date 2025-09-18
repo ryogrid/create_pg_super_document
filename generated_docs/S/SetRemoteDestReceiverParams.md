@@ -1,7 +1,7 @@
 # SetRemoteDestReceiverParams
 
 ## Location
-src/backend/access/common/printtup.c: 100 - 110
+[src/backend/access/common/printtup.c:100-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L100-L110)
 
 ## Overview
 The SetRemoteDestReceiverParams function configures a remote destination receiver by associating it with a specific portal for query execution and result transmission.

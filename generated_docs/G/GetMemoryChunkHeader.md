@@ -1,7 +1,7 @@
 # GetMemoryChunkHeader
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 220 - 256
+[src/backend/utils/mmgr/mcxt.c:220-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L220-L256)
 
 ## Overview
 Retrieves the complete uint64 header that directly precedes a memory chunk pointer, providing access to the full header information including method ID and other metadata.

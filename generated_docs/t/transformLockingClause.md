@@ -1,7 +1,7 @@
 # transformLockingClause
 
 ## Location
-src/backend/parser/analyze.c: 3302 - 3528
+[src/backend/parser/analyze.c:3302-3528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L3302-L3528)
 
 ## Overview
 Transforms and validates FOR UPDATE/SHARE clauses during query analysis by converting relation names to relids and applying locking semantics to appropriate relations.

@@ -1,7 +1,7 @@
 # heap_execute_freeze_tuple
 
 ## Location
-src/backend/access/heap/heapam.c: 7283 - 7305
+[src/backend/access/heap/heapam.c:7283-7305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7283-L7305)
 
 ## Overview
 A static inline function that executes a prepared freeze plan by applying the specified changes to a tuple's transaction ID fields and infomask bits, completing the tuple freezing process.

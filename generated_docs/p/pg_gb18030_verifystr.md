@@ -1,7 +1,7 @@
 # pg_gb18030_verifystr
 
 ## Location
-src/common/wchar.c: 1672 - 1700
+[src/common/wchar.c:1672-1700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1672-L1700)
 
 ## Overview
 Validates a string of characters in GB18030 encoding format, checking each character in the string for proper formatting and compliance with the Chinese character encoding standard.

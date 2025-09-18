@@ -1,7 +1,7 @@
 # gistMemorizeAllDownlinks
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1544 - 1564
+[src/backend/access/gist/gistbuild.c:1544-1564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1544-L1564)
 
 ## Overview
 Scans all child page references (downlinks) on a GiST internal page and records their parent relationship in the parent map.

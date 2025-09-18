@@ -1,7 +1,7 @@
 # assign_query_collations
 
 ## Location
-src/backend/parser/parse_collate.c: 101 - 125
+[src/backend/parser/parse_collate.c:101-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_collate.c#L101-L125)
 
 ## Overview
 Marks all expressions in a given Query with collation information after completion of parse analysis.

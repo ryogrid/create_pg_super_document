@@ -1,7 +1,7 @@
 # check_domain_for_new_tuple
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1576 - 1633
+[src/backend/utils/adt/expandedrecord.c:1576-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1576-L1633)
 
 ## Overview
 Validates domain constraints for a complete tuple replacement operation by creating a temporary record with the new tuple and running domain checks against it.

@@ -1,7 +1,7 @@
 # varstr_abbrev_convert
 
 ## Location
-src/backend/utils/adt/varlena.c: 2239 - 2436
+[src/backend/utils/adt/varlena.c:2239-2436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2239-L2436)
 
 ## Overview
 A sophisticated abbreviation key conversion function that transforms string data into compact Datum representations for optimized sorting performance in PostgreSQL's sort support framework.

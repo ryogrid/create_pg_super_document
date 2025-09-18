@@ -1,7 +1,7 @@
 # JsonTablePlanState
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 179 - 218
+[src/backend/utils/adt/jsonpath_exec.c:179-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L179-L218)
 
 ## Overview
 JsonTablePlanState represents the execution state for evaluating row patterns derived from jsonpath expressions in PostgreSQL's JSON_TABLE functionality, managing the complete lifecycle of JSON data processing.

@@ -1,7 +1,7 @@
 # gist_poly_distance
 
 ## Location
-src/backend/access/gist/gistproc.c: 1543 - 1574
+[src/backend/access/gist/gistproc.c:1543-1574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1543-L1574)
 
 ## Overview
 A GiST distance function for polygon data types that calculates the distance from a query point to a polygon index entry during nearest-neighbor searches.

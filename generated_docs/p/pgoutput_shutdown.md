@@ -1,7 +1,7 @@
 # pgoutput_shutdown
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1730 - 1745
+[src/backend/replication/pgoutput/pgoutput.c:1730-1745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1730-L1745)
 
 ## Overview
 Performs cleanup operations when shutting down the pgoutput logical replication output plugin.

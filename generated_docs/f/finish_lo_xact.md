@@ -1,7 +1,7 @@
 # finish_lo_xact
 
 ## Location
-src/bin/psql/large_obj.c: 98 - 120
+[src/bin/psql/large_obj.c:98-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/large_obj.c#L98-L120)
 
 ## Overview
 Handles the successful completion of large object operations by committing transactions that were started by the operation, ensuring proper transaction cleanup in psql.

@@ -1,7 +1,7 @@
 # circle_overlap
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4764 - 4776
+[src/backend/utils/adt/geo_ops.c:4764-4776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4764-L4776)
 
 ## Overview
 Determines whether two circles overlap by comparing the distance between their centers against the sum of their radii.

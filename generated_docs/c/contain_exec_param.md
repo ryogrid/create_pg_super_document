@@ -1,7 +1,7 @@
 # contain_exec_param
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1137 - 1142
+[src/backend/optimizer/util/clauses.c:1137-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1137-L1142)
 
 ## Overview
 A function that searches for PARAM_EXEC parameters with specific parameter IDs within a clause expression tree.

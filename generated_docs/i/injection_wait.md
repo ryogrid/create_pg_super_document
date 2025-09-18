@@ -1,7 +1,7 @@
 # injection_wait
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 201 - 267
+[src/test/modules/injection_points/injection_points.c:201-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L201-L267)
 
 ## Overview
 A callback function that implements a blocking wait mechanism for injection points, allowing test scenarios to synchronize and coordinate execution flow between different processes or threads.

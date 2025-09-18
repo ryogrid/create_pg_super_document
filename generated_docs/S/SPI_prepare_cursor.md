@@ -1,7 +1,7 @@
 # SPI_prepare_cursor
 
 ## Location
-src/backend/executor/spi.c: 866 - 901
+[src/backend/executor/spi.c:866-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L866-L901)
 
 ## Overview
 SPI_prepare_cursor parses and plans a SQL query with parameter placeholders and cursor options, returning a reusable plan that can be executed as either a regular query or a cursor.

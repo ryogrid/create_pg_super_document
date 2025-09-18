@@ -1,7 +1,7 @@
 # process_owned_by
 
 ## Location
-src/backend/commands/sequence.c: 1593 - 1706
+[src/backend/commands/sequence.c:1593-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1593-L1706)
 
 ## Overview
 Processes an OWNED BY option for CREATE/ALTER SEQUENCE statements, establishing or removing dependency relationships between sequences and table columns while enforcing ownership and schema constraints.

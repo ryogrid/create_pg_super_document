@@ -1,7 +1,7 @@
 # btree_redo
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 1014 - 1072
+[src/backend/access/nbtree/nbtxlog.c:1014-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L1014-L1072)
 
 ## Overview
 Main entry point for B-tree WAL record replay, dispatching different B-tree operation types to their respective recovery handlers.

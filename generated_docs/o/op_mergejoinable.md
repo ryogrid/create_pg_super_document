@@ -1,7 +1,7 @@
 # op_mergejoinable
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1386 - 1436
+[src/backend/utils/cache/lsyscache.c:1386-1436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1386-L1436)
 
 ## Overview
 Determines whether an operator is potentially mergejoinable, which affects the planner's ability to use merge join algorithms for query execution.

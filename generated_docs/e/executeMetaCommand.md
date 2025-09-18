@@ -1,7 +1,7 @@
 # executeMetaCommand
 
 ## Location
-src/bin/pgbench/pgbench.c: 4300 - 4518
+[src/bin/pgbench/pgbench.c:4300-4518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4300-L4518)
 
 ## Overview
 Executes pgbench meta-commands (backslash commands) that provide scripting capabilities including variable assignment, conditional logic, shell execution, and pipeline control.

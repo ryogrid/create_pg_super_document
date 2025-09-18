@@ -1,7 +1,7 @@
 # SetDatabaseHasLoginEventTriggers
 
 ## Location
-src/backend/commands/event_trigger.c: 386 - 422
+[src/backend/commands/event_trigger.c:386-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L386-L422)
 
 ## Overview
 Sets the pg_database.dathasloginevt flag for the current database to indicate that the database has login event triggers defined.

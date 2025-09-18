@@ -1,7 +1,7 @@
 # datapagemap_iterator_t
 
 ## Location
-src/bin/pg_rewind/datapagemap.h: 22 - 29
+[src/bin/pg_rewind/datapagemap.h:22-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.h#L22-L29)
 
 ## Overview
 A typedef for the datapagemap_iterator struct, providing an iterator interface for traversing through data pages marked in a datapagemap bitmap.

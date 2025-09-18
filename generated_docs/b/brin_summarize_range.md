@@ -1,7 +1,7 @@
 # brin_summarize_range
 
 ## Location
-src/backend/access/brin/brin.c: 1371 - 1481
+[src/backend/access/brin/brin.c:1371-1481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1371-L1481)
 
 ## Overview
 A SQL-callable function that summarizes a specific page range in a BRIN index, or all unsummarized ranges if the special value BRIN_ALL_BLOCKRANGES is provided.

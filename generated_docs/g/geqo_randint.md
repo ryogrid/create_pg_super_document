@@ -1,7 +1,7 @@
 # geqo_randint
 
 ## Location
-src/backend/optimizer/geqo/geqo_random.c: 36 - 45
+[src/backend/optimizer/geqo/geqo_random.c:36-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_random.c#L36-L45)
 
 ## Overview
 Generates a pseudo-random integer within a specified range for use in the Genetic Query Optimizer (GEQO) algorithm's discrete selection operations.

@@ -1,7 +1,7 @@
 # entryIsEnoughSpace
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 459 - 489
+[src/backend/access/gin/ginentrypage.c:459-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L459-L489)
 
 ## Overview
 Determines whether there is sufficient free space on a GIN index page to accommodate an entry insertion operation, accounting for potential deletions and required alignments.

@@ -1,7 +1,7 @@
 # getAttrName
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 16937 - 16965
+[src/bin/pg_dump/pg_dump.c:16937-16965](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L16937-L16965)
 
 ## Overview
 Retrieves the correct name for a table attribute by attribute number, handling both user-defined columns and PostgreSQL system attributes.

@@ -1,7 +1,7 @@
 # pg_get_indexdef_worker
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1250 - 1567
+[src/backend/utils/adt/ruleutils.c:1250-1567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1250-L1567)
 
 ## Overview
 The internal workhorse function that decompiles PostgreSQL index definitions into readable SQL statements, supporting both regular indexes and exclusion constraints with comprehensive customization options.

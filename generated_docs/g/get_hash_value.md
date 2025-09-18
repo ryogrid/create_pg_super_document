@@ -1,7 +1,7 @@
 # get_hash_value
 
 ## Location
-src/backend/utils/hash/dynahash.c: 912 - 918
+[src/backend/utils/hash/dynahash.c:912-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L912-L918)
 
 ## Overview
 Calculates and returns the hash value for a given key using the hash table's configured hash function.

@@ -1,7 +1,7 @@
 # ExecReScanTableFuncScan
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 237 - 267
+[src/backend/executor/nodeTableFuncscan.c:237-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L237-L267)
 
 ## Overview
 This function rescans a table function scan node by clearing cached results and resetting the scan state when parameters change.

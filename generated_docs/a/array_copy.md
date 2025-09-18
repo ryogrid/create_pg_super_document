@@ -1,7 +1,7 @@
 # array_copy
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4924 - 4953
+[src/backend/utils/adt/arrayfuncs.c:4924-4953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4924-L4953)
 
 ## Overview
 Copies a specified number of array elements from a source memory location to a destination memory location.

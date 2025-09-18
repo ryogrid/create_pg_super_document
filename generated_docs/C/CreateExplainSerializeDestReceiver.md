@@ -1,7 +1,7 @@
 # CreateExplainSerializeDestReceiver
 
 ## Location
-src/backend/commands/explain.c: 5556 - 5580
+[src/backend/commands/explain.c:5556-5580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5556-L5580)
 
 ## Overview
 Creates and initializes a specialized DestReceiver for EXPLAIN (SERIALIZE) functionality, setting up all necessary function pointers and associating it with the given ExplainState.

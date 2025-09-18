@@ -1,7 +1,7 @@
 # pqsigaction
 
 ## Location
-src/backend/port/win32/signal.c: 210 - 226
+[src/backend/port/win32/signal.c:210-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L210-L226)
 
 ## Overview
 pqsigaction is the Windows-specific implementation of the POSIX sigaction function for installing and examining signal handlers.

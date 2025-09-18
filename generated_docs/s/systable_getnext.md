@@ -1,7 +1,7 @@
 # systable_getnext
 
 ## Location
-src/backend/access/index/genam.c: 505 - 563
+[src/backend/access/index/genam.c:505-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L505-L563)
 
 ## Overview
 systable_getnext is a core function that retrieves the next tuple in a PostgreSQL system catalog scan, supporting both heap-based and index-based scanning strategies.

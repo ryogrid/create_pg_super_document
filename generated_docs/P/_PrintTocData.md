@@ -1,7 +1,7 @@
 # _PrintTocData
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 416 - 568
+[src/bin/pg_dump/pg_backup_custom.c:416-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L416-L568)
 
 ## Overview
 This function prints data for a given table of contents (TOC) entry during PostgreSQL archive restoration, handling both seekable and non-seekable input streams efficiently.

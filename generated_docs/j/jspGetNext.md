@@ -1,7 +1,7 @@
 # jspGetNext
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1092 - 1158
+[src/backend/utils/adt/jsonpath.c:1092-1158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1092-L1158)
 
 ## Overview
 Retrieves the next item in a JSON path expression sequence and initializes a JsonPathItem structure with its data.

@@ -1,7 +1,7 @@
 # pg_ts_config_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 5062 - 5075
+[src/backend/catalog/namespace.c:5062-5075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L5062-L5075)
 
 ## Overview
 A PostgreSQL system function that determines whether a text search configuration is visible in the current search path, returning NULL if the configuration does not exist.

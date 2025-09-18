@@ -1,7 +1,7 @@
 # RelationPreserveStorage
 
 ## Location
-src/backend/catalog/storage.c: 251 - 287
+[src/backend/catalog/storage.c:251-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L251-L287)
 
 ## Overview
 RelationPreserveStorage removes a relation from the pending deletion list, preserving its storage files when they would otherwise be scheduled for deletion.

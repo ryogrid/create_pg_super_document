@@ -1,7 +1,7 @@
 # box_construct
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 518 - 550
+[src/backend/utils/adt/geo_ops.c:518-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L518-L550)
 
 ## Overview
 A static inline utility function that constructs a BOX structure from two Point structures, ensuring proper ordering of coordinates.

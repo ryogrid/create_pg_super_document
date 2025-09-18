@@ -1,7 +1,7 @@
 # citerdissect
 
 ## Location
-src/backend/regex/regexec.c: 1117 - 1320
+[src/backend/regex/regexec.c:1117-1320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L1117-L1320)
 
 ## Overview
 Implements iteration node dissection in regular expression matching by finding valid divisions of the target string into repeated sub-matches and verifying each sub-match recursively.

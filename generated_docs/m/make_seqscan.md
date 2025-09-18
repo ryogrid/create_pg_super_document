@@ -1,7 +1,7 @@
 # make_seqscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5509 - 5525
+[src/backend/optimizer/plan/createplan.c:5509-5525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5509-L5525)
 
 ## Overview
 A plan node building function that creates and initializes a SeqScan plan node for sequential table scanning operations.

@@ -1,7 +1,7 @@
 # bms_subset_compare
 
 ## Location
-src/backend/nodes/bitmapset.c: 445 - 509
+[src/backend/nodes/bitmapset.c:445-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L445-L509)
 
 ## Overview
 Efficiently compares two bitmap sets to determine their subset/superset/equality relationship in a single operation, avoiding the need for multiple separate subset tests.

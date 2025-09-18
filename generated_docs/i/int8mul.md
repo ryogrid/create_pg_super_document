@@ -1,7 +1,7 @@
 # int8mul
 
 ## Location
-src/backend/utils/adt/int8.c: 490 - 503
+[src/backend/utils/adt/int8.c:490-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L490-L503)
 
 ## Overview
 The int8mul function implements multiplication operation for two 64-bit signed integers (bigint) in PostgreSQL, with overflow detection and error handling.

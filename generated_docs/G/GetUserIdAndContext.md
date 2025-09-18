@@ -1,7 +1,7 @@
 # GetUserIdAndContext
 
 ## Location
-src/backend/utils/init/miscinit.c: 707 - 713
+[src/backend/utils/init/miscinit.c:707-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L707-L713)
 
 ## Overview
 An obsolete compatibility function that retrieves the current user ID and local user ID change status, maintained for backward compatibility with external code such as PL/Java.

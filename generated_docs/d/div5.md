@@ -1,7 +1,7 @@
 # div5
 
 ## Location
-src/common/d2s_intrinsics.h: 151 - 156
+[src/common/d2s_intrinsics.h:151-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s_intrinsics.h#L151-L156)
 
 ## Overview
 Performs efficient division by 5 using multiplication and bit shifting instead of traditional division operations, optimized for 32-bit platforms where compilers typically generate library function calls for 64-bit divisions.

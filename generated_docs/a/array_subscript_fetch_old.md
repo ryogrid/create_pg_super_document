@@ -1,7 +1,7 @@
 # array_subscript_fetch_old
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 399 - 438
+[src/backend/utils/adt/arraysubs.c:399-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L399-L438)
 
 ## Overview
 Fetches the old array element value during assignment expression evaluation, specifically handling cases where the new-value subexpression contains SubscriptingRef or FieldStore operations.

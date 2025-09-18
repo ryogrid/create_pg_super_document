@@ -1,7 +1,7 @@
 # GroupState
 
 ## Location
-src/include/nodes/execnodes.h: 2416 - 2421
+[src/include/nodes/execnodes.h:2416-2421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2416-L2421)
 
 ## Overview
 GroupState is the execution state structure for GROUP BY operations that eliminates consecutive duplicate rows from a pre-sorted input stream.

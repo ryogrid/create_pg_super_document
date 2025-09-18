@@ -1,7 +1,7 @@
 # repairFunctionBoundaryMultiLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1035 - 1055
+[src/bin/pg_dump/pg_dump_sort.c:1035-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1035-L1055)
 
 ## Overview
 Repairs circular dependencies involving functions in pg_dump by removing pre-data phase constraints and postponing function definitions to the post-data phase when function splitting is not feasible.

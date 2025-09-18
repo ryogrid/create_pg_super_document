@@ -1,7 +1,7 @@
 # GetJsonBehaviorConst
 
 ## Location
-src/backend/parser/parse_expr.c: 4835 - 4893
+[src/backend/parser/parse_expr.c:4835-4893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4835-L4893)
 
 ## Overview
 Returns a Const node holding the appropriate constant value for a given non-ERROR JsonBehaviorType during JSON function parsing.

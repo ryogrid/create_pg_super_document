@@ -1,7 +1,7 @@
 # ginVacuumPostingTreeLeaf
 
 ## Location
-src/backend/access/gin/gindatapage.c: 738 - 871
+[src/backend/access/gin/gindatapage.c:738-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L738-L871)
 
 ## Overview
 ginVacuumPostingTreeLeaf performs vacuum operations on a GIN posting tree leaf page, removing dead tuple references and recompressing the page structure while maintaining transactional safety through WAL logging.

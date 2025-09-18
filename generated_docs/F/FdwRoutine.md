@@ -1,7 +1,7 @@
 # FdwRoutine
 
 ## Location
-src/include/foreign/fdwapi.h: 204 - 281
+[src/include/foreign/fdwapi.h:204-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/foreign/fdwapi.h#L204-L281)
 
 ## Overview
 FdwRoutine is a structure that defines the callback function interface for Foreign Data Wrappers (FDWs) in PostgreSQL, providing all the function pointers needed by the planner and executor to interact with foreign tables.

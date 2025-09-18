@@ -1,7 +1,7 @@
 # pgstat_report_subscription_error
 
 ## Location
-src/backend/utils/activity/pgstat_subscription.c: 27 - 45
+[src/backend/utils/activity/pgstat_subscription.c:27-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_subscription.c#L27-L45)
 
 ## Overview
 Reports subscription-related errors to PostgreSQL's statistics collection system, tracking apply and sync error counts for logical replication subscriptions.

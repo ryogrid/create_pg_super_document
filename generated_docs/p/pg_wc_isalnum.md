@@ -1,7 +1,7 @@
 # pg_wc_isalnum
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 362 - 395
+[src/backend/regex/regc_pg_locale.c:362-395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L362-L395)
 
 ## Overview
 A static function that determines whether a wide character is alphanumeric (alphabetic or digit), using the appropriate locale-aware method based on the current regex strategy.

@@ -1,7 +1,7 @@
 # oidin
 
 ## Location
-src/backend/utils/adt/oid.c: 37 - 46
+[src/backend/utils/adt/oid.c:37-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L37-L46)
 
 ## Overview
 The oidin function converts a string representation of an object identifier (OID) into its internal binary format, serving as the input function for the OID data type in PostgreSQL.

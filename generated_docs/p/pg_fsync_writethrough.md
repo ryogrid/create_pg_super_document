@@ -1,7 +1,7 @@
 # pg_fsync_writethrough
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 615 - 629
+[src/bin/pg_test_fsync/pg_test_fsync.c:615-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L615-L629)
 
 ## Overview
 A PostgreSQL storage layer function that performs write-through filesystem synchronization using platform-specific full fsync operations when available.

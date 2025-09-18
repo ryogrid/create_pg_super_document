@@ -1,7 +1,7 @@
 # set_dummy_tlist_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2621 - 2687
+[src/backend/optimizer/plan/setrefs.c:2621-2687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2621-L2687)
 
 ## Overview
 Replaces the targetlist of an upper-level plan node with a simple list of OUTER_VAR references to its child plan node.

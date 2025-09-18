@@ -1,7 +1,7 @@
 # RemoveTriggerById
 
 ## Location
-src/backend/commands/trigger.c: 1287 - 1365
+[src/backend/commands/trigger.c:1287-1365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1287-L1365)
 
 ## Overview
 RemoveTriggerById performs the core trigger deletion operation by removing the trigger tuple from pg_trigger and invalidating the relation cache to ensure consistency.

@@ -1,7 +1,7 @@
 # dumpStdStrings
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 3590 - 3613
+[src/bin/pg_dump/pg_dump.c:3590-3613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L3590-L3613)
 
 ## Overview
 The  function saves the database's standard_conforming_strings setting to the archive to ensure proper string literal handling during restoration.

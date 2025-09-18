@@ -1,7 +1,7 @@
 # r_exception1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_english.c: 878 - 945
+[src/backend/snowball/libstemmer/stem_UTF_8_english.c:878-945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_english.c#L878-L945)
 
 ## Overview
 Handles the first set of exceptional English words that require special transformation rather than standard stemming rules, converting irregular forms to their proper base forms.

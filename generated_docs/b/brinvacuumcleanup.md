@@ -1,7 +1,7 @@
 # brinvacuumcleanup
 
 ## Location
-src/backend/access/brin/brin.c: 1308 - 1337
+[src/backend/access/brin/brin.c:1308-1337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1308-L1337)
 
 ## Overview
 Performs vacuum cleanup operations on BRIN indexes by scanning for and summarizing any currently unsummarized block ranges.

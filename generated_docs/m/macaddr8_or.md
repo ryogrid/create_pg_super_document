@@ -1,7 +1,7 @@
 # macaddr8_or
 
 ## Location
-src/backend/utils/adt/mac8.c: 454 - 476
+[src/backend/utils/adt/mac8.c:454-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L454-L476)
 
 ## Overview
 Performs bitwise OR operation between two MAC-8 (EUI-64) addresses, combining corresponding bits using logical OR across all 8 bytes.

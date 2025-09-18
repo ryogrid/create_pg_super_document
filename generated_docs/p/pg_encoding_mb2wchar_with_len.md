@@ -1,7 +1,7 @@
 # pg_encoding_mb2wchar_with_len
 
 ## Location
-src/backend/utils/mb/mbutils.c: 993 - 1000
+[src/backend/utils/mb/mbutils.c:993-1000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L993-L1000)
 
 ## Overview
 Converts a multibyte string to a wide character array with a specified length limit, using any specified encoding rather than the current database encoding.

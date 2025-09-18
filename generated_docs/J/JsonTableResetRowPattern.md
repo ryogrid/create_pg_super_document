@@ -1,7 +1,7 @@
 # JsonTableResetRowPattern
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4253 - 4292
+[src/backend/utils/adt/jsonpath_exec.c:4253-4292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4253-L4292)
 
 ## Overview
 Evaluates a JsonTablePlan's jsonpath expression against a given context item to generate a new row pattern and resets the plan state for iteration.

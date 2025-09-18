@@ -1,7 +1,7 @@
 # timestamp_support
 
 ## Location
-src/backend/utils/adt/timestamp.c: 325 - 344
+[src/backend/utils/adt/timestamp.c:325-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L325-L344)
 
 ## Overview
 Provides planner support for timestamp scale coercion functions, enabling query optimization for timestamp precision conversions.

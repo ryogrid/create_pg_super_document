@@ -1,7 +1,7 @@
 # jsonb_9_4_check_applicable
 
 ## Location
-src/bin/pg_upgrade/version.c: 21 - 36
+[src/bin/pg_upgrade/version.c:21-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/version.c#L21-L36)
 
 ## Overview
 A version hook function that determines whether a JSONB data type compatibility check should be executed during PostgreSQL cluster upgrades.

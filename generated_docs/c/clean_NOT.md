@@ -1,7 +1,7 @@
 # clean_NOT
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 190 - 237
+[src/backend/utils/adt/tsquery_cleanup.c:190-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L190-L237)
 
 ## Overview
 Cleans and optimizes a TSQuery expression tree by removing redundant NOT operators, which always return TRUE and can make the query inefficient.

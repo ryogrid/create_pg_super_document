@@ -1,7 +1,7 @@
 # network_family
 
 ## Location
-src/backend/utils/adt/network.c: 1266 - 1284
+[src/backend/utils/adt/network.c:1266-1284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1266-L1284)
 
 ## Overview
 Returns the address family version (4 for IPv4, 6 for IPv6) of a network address data type.

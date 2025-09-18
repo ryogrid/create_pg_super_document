@@ -1,7 +1,7 @@
 # bloom_create
 
 ## Location
-src/backend/lib/bloomfilter.c: 87 - 125
+[src/backend/lib/bloomfilter.c:87-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L87-L125)
 
 ## Overview
 Creates a Bloom filter data structure with configurable memory usage and false positive rate, optimized for probabilistic set membership testing in PostgreSQL.

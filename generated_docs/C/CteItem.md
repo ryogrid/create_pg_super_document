@@ -1,7 +1,7 @@
 # CteItem
 
 ## Location
-src/backend/parser/parse_cte.c: 63 - 68
+[src/backend/parser/parse_cte.c:63-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L63-L68)
 
 ## Overview
 CteItem is a utility structure used internally by PostgreSQL parser for organizing and analyzing Common Table Expression (CTE) dependencies during WITH RECURSIVE clause processing.

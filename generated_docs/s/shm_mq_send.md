@@ -1,7 +1,7 @@
 # shm_mq_send
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 329 - 360
+[src/backend/storage/ipc/shm_mq.c:329-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L329-L360)
 
 ## Overview
 Writes a single contiguous message into a shared memory message queue.

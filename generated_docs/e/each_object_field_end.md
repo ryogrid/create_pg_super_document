@@ -1,7 +1,7 @@
 # each_object_field_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2118 - 2165
+[src/backend/utils/adt/jsonfuncs.c:2118-2165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2118-L2165)
 
 ## Overview
 A callback function used during JSON parsing that handles the end of each object field, extracting field names and values to populate a tuple store for PostgreSQL's JSON object expansion functions.

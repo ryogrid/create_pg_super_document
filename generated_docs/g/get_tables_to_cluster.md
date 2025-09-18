@@ -1,7 +1,7 @@
 # get_tables_to_cluster
 
 ## Location
-src/backend/commands/cluster.c: 1636 - 1689
+[src/backend/commands/cluster.c:1636-1689](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L1636-L1689)
 
 ## Overview
 Returns a list of tables that the current user has privileges on and have the indisclustered flag set, identifying tables that are ready for clustering operations.

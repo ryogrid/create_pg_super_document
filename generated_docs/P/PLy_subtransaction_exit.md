@@ -1,7 +1,7 @@
 # PLy_subtransaction_exit
 
 ## Location
-src/pl/plpython/plpy_subxactobject.c: 137 - 186
+[src/pl/plpython/plpy_subxactobject.c:137-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_subxactobject.c#L137-L186)
 
 ## Overview
 Exits an explicit subtransaction in PL/Python, implementing the `__exit__()` method for context manager protocol or direct `exit()` method calls.

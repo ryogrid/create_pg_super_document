@@ -1,7 +1,7 @@
 # CopyConvertBuf
 
 ## Location
-src/backend/commands/copyfromparse.c: 400 - 532
+[src/backend/commands/copyfromparse.c:400-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L400-L532)
 
 ## Overview
 CopyConvertBuf performs character encoding conversion on data from the raw input buffer to the input buffer during COPY FROM operations, handling both cases where conversion is needed and where only validation is required.

@@ -1,7 +1,7 @@
 # spgConfigOut
 
 ## Location
-src/include/access/spgist.h: 41 - 48
+[src/include/access/spgist.h:41-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L41-L48)
 
 ## Overview
 A struct that serves as output parameter for the SP-GiST opclass config method, containing configuration information determined by the opclass for index operations.

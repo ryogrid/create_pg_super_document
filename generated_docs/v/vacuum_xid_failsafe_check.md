@@ -1,7 +1,7 @@
 # vacuum_xid_failsafe_check
 
 ## Location
-src/backend/commands/vacuum.c: 1251 - 1312
+[src/backend/commands/vacuum.c:1251-1312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1251-L1312)
 
 ## Overview
 Determines if a table's relfrozenxid and relminmxid are dangerously far in the past, triggering VACUUM's wraparound failsafe mechanism when necessary.

@@ -1,7 +1,7 @@
 # find_forced_null_vars
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1916 - 1976
+[src/backend/optimizer/util/clauses.c:1916-1976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1916-L1976)
 
 ## Overview
 Determines which variables must be NULL for a given clause to return TRUE, serving as the complement to find_nonnullable_vars.

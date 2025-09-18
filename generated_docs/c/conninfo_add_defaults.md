@@ -1,7 +1,7 @@
 # conninfo_add_defaults
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6187 - 6321
+[src/interfaces/libpq/fe-connect.c:6187-6321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6187-L6321)
 
 ## Overview
 Populates unspecified connection options with default values obtained from service files, environment variables, and compiled-in defaults.

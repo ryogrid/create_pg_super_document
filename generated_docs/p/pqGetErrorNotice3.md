@@ -1,7 +1,7 @@
 # pqGetErrorNotice3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 882 - 1013
+[src/interfaces/libpq/fe-protocol3.c:882-1013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L882-L1013)
 
 ## Overview
 Processes Error or Notice response messages from the PostgreSQL server in protocol version 3, handling both error conditions and informational notices.

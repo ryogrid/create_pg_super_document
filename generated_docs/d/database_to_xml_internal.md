@@ -1,7 +1,7 @@
 # database_to_xml_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 3356 - 3398
+[src/backend/utils/adt/xml.c:3356-3398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L3356-L3398)
 
 ## Overview
 Internal function that generates XML representation of an entire PostgreSQL database by converting all visible schemas and their tables to XML format, with optional XML Schema integration.

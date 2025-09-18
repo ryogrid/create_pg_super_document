@@ -1,7 +1,7 @@
 # PartitionElem
 
 ## Location
-src/include/nodes/parsenodes.h: 860 - 868
+[src/include/nodes/parsenodes.h:860-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L860-L868)
 
 ## Overview
 PartitionElem represents a single partition key element in the parse tree, specifying either a column name or expression to be used for table partitioning along with its associated options.

@@ -1,7 +1,7 @@
 # MakeConfigurationMapping
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1288 - 1490
+[src/backend/commands/tsearchcmds.c:1288-1490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1288-L1490)
 
 ## Overview
 A static function that implements the core logic for ALTER TEXT SEARCH CONFIGURATION ADD/ALTER MAPPING commands, managing token-to-dictionary mappings in PostgreSQL's text search system.

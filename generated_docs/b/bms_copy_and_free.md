@@ -1,7 +1,7 @@
 # bms_copy_and_free
 
 ## Location
-src/backend/nodes/bitmapset.c: 109 - 121
+[src/backend/nodes/bitmapset.c:109-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L109-L121)
 
 ## Overview
 A utility function that creates a copy of a Bitmapset and frees the original, used specifically in REALLOCATE_BITMAPSETS builds for memory management optimization.

@@ -1,7 +1,7 @@
 # pgstat_copy_changecounted_stats
 
 ## Location
-src/include/utils/pgstat_internal.h: 773 - 788
+[src/include/utils/pgstat_internal.h:773-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L773-L788)
 
 ## Overview
 This inline helper function safely copies statistics data from shared memory using the change-count protocol, automatically retrying the copy operation until a consistent read is achieved.

@@ -1,7 +1,7 @@
 # pg_read_file_common
 
 ## Location
-src/backend/utils/adt/genfile.c: 240 - 259
+[src/backend/utils/adt/genfile.c:240-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L240-L259)
 
 ## Overview
 High-level interface for reading text files with integrated security checking, parameter validation, and flexible reading modes.

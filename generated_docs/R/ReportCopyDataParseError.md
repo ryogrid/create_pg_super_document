@@ -1,7 +1,7 @@
 # ReportCopyDataParseError
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1584 - 1598
+[src/bin/pg_basebackup/pg_basebackup.c:1584-1598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1584-L1598)
 
 ## Overview
 ReportCopyDataParseError is a static error reporting function in pg_basebackup that provides diagnostic information about malformed COPY data messages and terminates the program.

@@ -1,7 +1,7 @@
 # ExecBSTruncateTriggers
 
 ## Location
-src/backend/commands/trigger.c: 3307 - 3353
+[src/backend/commands/trigger.c:3307-3353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3307-L3353)
 
 ## Overview
 Executes BEFORE STATEMENT TRUNCATE triggers that run before a TRUNCATE operation begins, allowing validation or side effects but prohibiting data return.

@@ -1,7 +1,7 @@
 # pg_ls_dir_files
 
 ## Location
-src/backend/utils/adt/genfile.c: 570 - 632
+[src/backend/utils/adt/genfile.c:570-632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L570-L632)
 
 ## Overview
 A generic internal function that lists regular files in a directory with detailed file information including size and modification time, used as the base implementation for various PostgreSQL directory listing functions.

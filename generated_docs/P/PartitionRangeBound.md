@@ -1,7 +1,7 @@
 # PartitionRangeBound
 
 ## Location
-src/backend/partitioning/partbounds.c: 64 - 70
+[src/backend/partitioning/partbounds.c:64-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L64-L70)
 
 ## Overview
 PartitionRangeBound represents one bound (either lower or upper) of a range partition, used in PostgreSQL's range partitioning implementation.

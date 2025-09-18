@@ -1,7 +1,7 @@
 # bbsink_forward_archive_contents
 
 ## Location
-src/backend/backup/basebackup_sink.c: 54 - 65
+[src/backend/backup/basebackup_sink.c:54-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L54-L65)
 
 ## Overview
 Forwards the archive_contents callback to the next bbsink in a chain, specifically designed for implementations that share buffers with their successor bbsink.

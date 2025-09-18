@@ -1,7 +1,7 @@
 # transformGroupingFunc
 
 ## Location
-src/backend/parser/parse_agg.c: 260 - 298
+[src/backend/parser/parse_agg.c:260-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L260-L298)
 
 ## Overview
 Transforms a GROUPING() expression during SQL parsing, treating it similarly to aggregate functions with respect to nesting level processing and validation.

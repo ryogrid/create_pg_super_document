@@ -1,7 +1,7 @@
 # ScanQueryForLocks
 
 ## Location
-src/backend/utils/cache/plancache.c: 1853 - 1919
+[src/backend/utils/cache/plancache.c:1853-1919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1853-L1919)
 
 ## Overview
 Recursively scans a single Query structure to acquire or release locks on all relations referenced within the query, including subqueries and common table expressions.

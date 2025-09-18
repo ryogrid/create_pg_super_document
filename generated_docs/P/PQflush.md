@@ -1,7 +1,7 @@
 # PQflush
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4000 - 4015
+[src/interfaces/libpq/fe-exec.c:4000-4015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4000-L4015)
 
 ## Overview
 Forces any pending data in the connection's output buffer to be sent to the PostgreSQL server, primarily useful for applications using non-blocking I/O operations.

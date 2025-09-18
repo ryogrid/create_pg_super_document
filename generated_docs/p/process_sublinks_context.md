@@ -1,7 +1,7 @@
 # process_sublinks_context
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 48 - 52
+[src/backend/optimizer/plan/subselect.c:48-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L48-L52)
 
 ## Overview
 A context structure used during the expansion of SubLinks to SubPlans in query expressions, maintaining planner state and tracking whether expressions are at the top-level qualifier level.

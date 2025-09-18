@@ -1,7 +1,7 @@
 # generateClonedIndexStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 1514 - 1864
+[src/backend/parser/parse_utilcmd.c:1514-1864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L1514-L1864)
 
 ## Overview
 Generates an IndexStmt node by cloning the structure and properties of an existing index, adjusting attribute numbers according to a provided mapping for use in table creation scenarios.

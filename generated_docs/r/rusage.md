@@ -1,7 +1,7 @@
 # rusage
 
 ## Location
-src/include/port/win32/sys/resource.h: 12 - 20
+[src/include/port/win32/sys/resource.h:12-20](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/win32/sys/resource.h#L12-L20)
 
 ## Overview
 A portable structure that represents resource usage information for a process, specifically tracking CPU time consumption in both user and system modes.

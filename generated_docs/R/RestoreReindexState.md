@@ -1,7 +1,7 @@
 # RestoreReindexState
 
 ## Location
-src/backend/catalog/index.c: 4210 - 4229
+[src/backend/catalog/index.c:4210-4229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4210-L4229)
 
 ## Overview
 Restores reindex state from serialized data in parallel worker processes to synchronize their reindex context with the leader process.

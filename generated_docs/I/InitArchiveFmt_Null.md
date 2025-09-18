@@ -1,7 +1,7 @@
 # InitArchiveFmt_Null
 
 ## Location
-src/bin/pg_dump/pg_backup_null.c: 48 - 80
+[src/bin/pg_dump/pg_backup_null.c:48-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_null.c#L48-L80)
 
 ## Overview
 Initializes the "null" archive format handler in pg_dump, which provides a write-only format that discards all data (used for testing and benchmarking purposes).

@@ -1,7 +1,7 @@
 # IsTransactionExitStmt
 
 ## Location
-src/backend/tcop/postgres.c: 2830 - 2846
+[src/backend/tcop/postgres.c:2830-2846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2830-L2846)
 
 ## Overview
 Determines whether a given parse tree represents a transaction exit statement that is allowed to execute during an aborted transaction state.

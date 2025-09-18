@@ -1,7 +1,7 @@
 # get_namespace_name_or_temp
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3390 - 3406
+[src/backend/utils/cache/lsyscache.c:3390-3406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3390-L3406)
 
 ## Overview
 Returns the name of a PostgreSQL namespace, but returns "pg_temp" if it is the current backend's temporary namespace.

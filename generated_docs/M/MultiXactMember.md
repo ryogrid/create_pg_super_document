@@ -1,7 +1,7 @@
 # MultiXactMember
 
 ## Location
-src/include/access/multixact.h: 56 - 60
+[src/include/access/multixact.h:56-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/multixact.h#L56-L60)
 
 ## Overview
 MultiXactMember is a structure that represents a single transaction member within a PostgreSQL multi-transaction, containing both the transaction ID and its locking status.

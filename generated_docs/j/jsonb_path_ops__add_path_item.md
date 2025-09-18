@@ -1,7 +1,7 @@
 # jsonb_path_ops__add_path_item
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 323 - 352
+[src/backend/utils/adt/jsonb_gin.c:323-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L323-L352)
 
 ## Overview
 Combines an existing path hash with the next key hash for the jsonb_path_ops GIN index operator class, used to track JSON path navigation for path-aware indexing.

@@ -1,7 +1,7 @@
 # german_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c: 458 - 486
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c:458-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_german.c#L458-L486)
 
 ## Overview
 The german_ISO_8859_1_stem function is the main entry point for stemming German words encoded in ISO 8859-1 character set, implementing the complete German stemming algorithm through a coordinated sequence of preprocessing, region marking, suffix removal, and postprocessing steps.

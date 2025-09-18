@@ -1,7 +1,7 @@
 # local_fetch_file
 
 ## Location
-src/bin/pg_rewind/local_source.c: 66 - 76
+[src/bin/pg_rewind/local_source.c:66-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L66-L76)
 
 ## Overview
 A static function that implements the fetch_file operation for local sources by reading the entire contents of a file into memory.

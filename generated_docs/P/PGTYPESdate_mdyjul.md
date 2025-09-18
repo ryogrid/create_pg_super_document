@@ -1,7 +1,7 @@
 # PGTYPESdate_mdyjul
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 128 - 137
+[src/interfaces/ecpg/pgtypeslib/datetime.c:128-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L128-L137)
 
 ## Overview
 Converts month/day/year format to a Julian date value by calculating the difference from a reference date.

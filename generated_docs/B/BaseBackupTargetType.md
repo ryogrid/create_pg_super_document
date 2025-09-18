@@ -1,7 +1,7 @@
 # BaseBackupTargetType
 
 ## Location
-src/backend/backup/basebackup_target.c: 21 - 26
+[src/backend/backup/basebackup_target.c:21-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L21-L26)
 
 ## Overview
 BaseBackupTargetType is a structure that defines a type of backup target for PostgreSQL base backups, encapsulating the name and associated function pointers for validation and sink creation operations.

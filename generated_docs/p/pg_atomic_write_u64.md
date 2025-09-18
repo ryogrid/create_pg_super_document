@@ -1,7 +1,7 @@
 # pg_atomic_write_u64
 
 ## Location
-src/include/port/atomics.h: 480 - 488
+[src/include/port/atomics.h:480-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L480-L488)
 
 ## Overview
 Performs an atomic write of a 64-bit unsigned integer value to a memory location, ensuring the operation is indivisible and thread-safe.

@@ -1,7 +1,7 @@
 # SampleHeapTupleVisible
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2543 - 2652
+[src/backend/access/heap/heapam_handler.c:2543-2652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2543-L2652)
 
 ## Overview
 SampleHeapTupleVisible determines whether a tuple is visible during table sampling operations, optimizing visibility checks based on the scan mode.

@@ -1,7 +1,7 @@
 # dumpstate
 
 ## Location
-src/backend/regex/regc_nfa.c: 3695 - 3720
+[src/backend/regex/regc_nfa.c:3695-3720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3695-L3720)
 
 ## Overview
 A debugging function that outputs detailed information about a single NFA state in human-readable format, including its arcs and chain integrity checks.

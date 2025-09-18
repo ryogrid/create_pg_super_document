@@ -1,7 +1,7 @@
 # pgstat_clip_activity
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1164 - 1197
+[src/backend/utils/activity/backend_status.c:1164-1197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1164-L1197)
 
 ## Overview
 Converts a potentially unsafely truncated activity string into a correctly truncated one, ensuring proper multi-byte character handling and NUL termination.

@@ -1,7 +1,7 @@
 # partition_method_t
 
 ## Location
-src/bin/pgbench/pgbench.c: 231 - 242
+[src/bin/pgbench/pgbench.c:231-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L231-L242)
 
 ## Overview
 The partition_method_t enum defines the partitioning strategies available for the pgbench_accounts table in the PostgreSQL benchmarking tool pgbench.

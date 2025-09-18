@@ -1,7 +1,7 @@
 # tidlt
 
 ## Location
-src/backend/utils/adt/tid.c: 194 - 202
+[src/backend/utils/adt/tid.c:194-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L194-L202)
 
 ## Overview
 tidlt is a PostgreSQL function that performs less-than comparison between two tuple identifiers (ItemPointer), returning true if the first is less than the second.

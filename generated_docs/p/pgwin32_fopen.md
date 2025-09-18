@@ -1,7 +1,7 @@
 # pgwin32_fopen
 
 ## Location
-src/port/open.c: 195 - 222
+[src/port/open.c:195-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/open.c#L195-L222)
 
 ## Overview
 Provides a POSIX-compatible fopen() function replacement for Windows, converting fopen() mode strings to appropriate file flags.

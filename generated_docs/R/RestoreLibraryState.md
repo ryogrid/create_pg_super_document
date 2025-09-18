@@ -1,7 +1,7 @@
 # RestoreLibraryState
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 676 - 683
+[src/backend/utils/fmgr/dfmgr.c:676-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L676-L683)
 
 ## Overview
 Loads all dynamic libraries from a serialized state buffer to restore the same library environment in a parallel worker process.

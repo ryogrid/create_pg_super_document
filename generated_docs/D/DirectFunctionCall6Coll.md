@@ -1,7 +1,7 @@
 # DirectFunctionCall6Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 915 - 946
+[src/backend/utils/fmgr/fmgr.c:915-946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L915-L946)
 
 ## Overview
 DirectFunctionCall6Coll is a utility function that provides a simplified interface for calling PostgreSQL functions with 6 arguments while specifying a collation, without requiring explicit setup of function call information structures.

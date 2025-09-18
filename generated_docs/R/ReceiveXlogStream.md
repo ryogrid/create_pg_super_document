@@ -1,7 +1,7 @@
 # ReceiveXlogStream
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 453 - 698
+[src/bin/pg_basebackup/receivelog.c:453-698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L453-L698)
 
 ## Overview
 Main function for receiving and processing a PostgreSQL WAL (Write-Ahead Log) stream from a server, handling timeline transitions and continuous streaming until a stop condition is met.

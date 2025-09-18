@@ -1,7 +1,7 @@
 # PQescapeString
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4199 - 4213
+[src/interfaces/libpq/fe-exec.c:4199-4213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4199-L4213)
 
 ## Overview
 PQescapeString is a public libpq function that escapes arbitrary strings for use in SQL queries using static default encoding and string settings when no database connection is available.

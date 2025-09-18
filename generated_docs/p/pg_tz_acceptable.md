@@ -1,7 +1,7 @@
 # pg_tz_acceptable
 
 ## Location
-src/timezone/localtime.c: 1890 - 1906
+[src/timezone/localtime.c:1890-1906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/localtime.c#L1890-L1906)
 
 ## Overview
 This function validates whether a timezone is acceptable for PostgreSQL use by detecting and rejecting leap-second-aware timekeeping.

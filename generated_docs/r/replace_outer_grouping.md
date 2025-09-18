@@ -1,7 +1,7 @@
 # replace_outer_grouping
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 270 - 316
+[src/backend/optimizer/util/paramassign.c:270-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L270-L316)
 
 ## Overview
 Generates a Param node to replace a GroupingFunc expression that references an outer query level, facilitating parameter passing between query levels in nested subqueries.

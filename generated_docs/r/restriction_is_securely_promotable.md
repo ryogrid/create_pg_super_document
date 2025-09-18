@@ -1,7 +1,7 @@
 # restriction_is_securely_promotable
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 431 - 452
+[src/backend/optimizer/util/restrictinfo.c:431-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L431-L452)
 
 ## Overview
 Determines whether a restriction clause can be safely evaluated "early" before other restriction clauses attached to a specific relation, based on security considerations.

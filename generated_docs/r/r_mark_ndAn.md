@@ -1,7 +1,7 @@
 # r_mark_ndAn
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 751 - 759
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:751-759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L751-L759)
 
 ## Overview
 A static function in the Turkish snowball stemmer that checks for the ablative case suffix "ndAn" while ensuring vowel harmony compliance.

@@ -1,7 +1,7 @@
 # sjis2mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c: 160 - 298
+[src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:160-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c#L160-L298)
 
 ## Overview
 Core conversion function that transforms Japanese Shift JIS (SJIS) encoded text to PostgreSQL's Mule Internal Code (MIC) encoding, handling various Japanese character sets including JIS X0208, X0212, and user-defined characters.

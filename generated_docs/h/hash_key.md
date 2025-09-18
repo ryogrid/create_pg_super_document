@@ -1,7 +1,7 @@
 # hash_key
 
 ## Location
-src/backend/lib/dshash.c: 1063 - 1073
+[src/backend/lib/dshash.c:1063-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L1063-L1073)
 
 ## Overview
 Computes the hash value for a given key using the hash table's configured hash function.

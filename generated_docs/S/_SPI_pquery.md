@@ -1,7 +1,7 @@
 # _SPI_pquery
 
 ## Location
-src/backend/executor/spi.c: 2874 - 2960
+[src/backend/executor/spi.c:2874-2960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2874-L2960)
 
 ## Overview
  is an internal SPI (Server Programming Interface) function that executes a prepared query and returns the appropriate result code based on the operation type.

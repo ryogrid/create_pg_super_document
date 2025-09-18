@@ -1,7 +1,7 @@
 # TidScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1845 - 1853
+[src/include/nodes/execnodes.h:1845-1853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1845-L1853)
 
 ## Overview
 TidScanState is an execution state structure that manages TID (Tuple Identifier) scan operations, enabling direct access to specific tuples in a table using their physical storage locations without index traversal.

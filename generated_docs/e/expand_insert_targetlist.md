@@ -1,7 +1,7 @@
 # expand_insert_targetlist
 
 ## Location
-src/backend/optimizer/prep/preptlist.c: 382 - 525
+[src/backend/optimizer/prep/preptlist.c:382-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/preptlist.c#L382-L525)
 
 ## Overview
 Expands an INSERT targetlist to include entries for missing table attributes and ensures non-junk attributes appear in proper field order to match the target relation's structure.

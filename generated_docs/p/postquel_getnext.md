@@ -1,7 +1,7 @@
 # postquel_getnext
 
 ## Location
-src/backend/executor/functions.c: 876 - 910
+[src/backend/executor/functions.c:876-910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L876-L910)
 
 ## Overview
 Executes one execution state node either to completion or until the first result row is produced, returning completion status.

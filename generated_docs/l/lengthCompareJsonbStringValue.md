@@ -1,7 +1,7 @@
 # lengthCompareJsonbStringValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1886 - 1904
+[src/backend/utils/adt/jsonb_util.c:1886-1904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1886-L1904)
 
 ## Overview
 A specialized qsort() comparator function that compares two JsonbValue string objects by length first, then by binary equality, to establish a well-defined sort order for JSONB object keys.

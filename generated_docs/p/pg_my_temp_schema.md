@@ -1,7 +1,7 @@
 # pg_my_temp_schema
 
 ## Location
-src/backend/catalog/namespace.c: 5076 - 5081
+[src/backend/catalog/namespace.c:5076-5081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L5076-L5081)
 
 ## Overview
 A PostgreSQL system function that returns the OID of the current session's temporary schema namespace.

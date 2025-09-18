@@ -1,7 +1,7 @@
 # NameListToString
 
 ## Location
-src/backend/catalog/namespace.c: 3594 - 3627
+[src/backend/catalog/namespace.c:3594-3627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3594-L3627)
 
 ## Overview
 Utility function that converts a qualified-name list into a string representation for human-readable output, primarily used in error message formation.

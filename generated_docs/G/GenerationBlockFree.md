@@ -1,7 +1,7 @@
 # GenerationBlockFree
 
 ## Location
-src/backend/utils/mmgr/generation.c: 664 - 688
+[src/backend/utils/mmgr/generation.c:664-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L664-L688)
 
 ## Overview
 GenerationBlockFree is a static inline function that removes a memory block from a Generation context and releases the memory consumed by it, ensuring proper cleanup of non-keeper blocks.

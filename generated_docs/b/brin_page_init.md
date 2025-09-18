@@ -1,7 +1,7 @@
 # brin_page_init
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 475 - 485
+[src/backend/access/brin/brin_pageops.c:475-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L475-L485)
 
 ## Overview
 Initializes a BRIN page with the specified page type, setting up the basic page structure and special space required for BRIN operations.

@@ -1,7 +1,7 @@
 # PQcommMethods
 
 ## Location
-src/include/libpq/libpq.h: 41 - 44
+[src/include/libpq/libpq.h:41-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq.h#L41-L44)
 
 ## Overview
 PQcommMethods is a function pointer structure that provides an abstraction layer for PostgreSQL's backend communication methods, allowing the system to switch between different communication backends such as socket-based and message queue-based communication.

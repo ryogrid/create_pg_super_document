@@ -1,7 +1,7 @@
 # drop_database_if_exists
 
 ## Location
-src/test/regress/pg_regress.c: 1944 - 1954
+[src/test/regress/pg_regress.c:1944-1954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1944-L1954)
 
 ## Overview
 Safely drops a PostgreSQL database if it exists, suppressing warnings about non-existent databases.

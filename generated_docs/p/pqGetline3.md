@@ -1,7 +1,7 @@
 # pqGetline3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1810 - 1860
+[src/interfaces/libpq/fe-protocol3.c:1810-1860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1810-L1860)
 
 ## Overview
 Gets a newline-terminated string from the PostgreSQL backend during text-format COPY OUT operations, implementing the protocol 3.0 version with blocking behavior.

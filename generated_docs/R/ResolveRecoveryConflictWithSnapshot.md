@@ -1,7 +1,7 @@
 # ResolveRecoveryConflictWithSnapshot
 
 ## Location
-src/backend/storage/ipc/standby.c: 467 - 510
+[src/backend/storage/ipc/standby.c:467-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L467-L510)
 
 ## Overview
 This function generates recovery conflicts to eliminate snapshots that might see transaction IDs at or below a specified conflict horizon as still running, ensuring proper snapshot isolation during standby recovery.

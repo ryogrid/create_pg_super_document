@@ -1,7 +1,7 @@
 # generate_union_paths
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 696 - 1017
+[src/backend/optimizer/prep/prepunion.c:696-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L696-L1017)
 
 ## Overview
 Generates and evaluates multiple execution paths for UNION and UNION ALL operations, creating an optimized RelOptInfo with various path strategies including sorted, hashed, and parallel approaches.

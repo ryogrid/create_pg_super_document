@@ -1,7 +1,7 @@
 # r_exception2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_english.c: 869 - 877
+[src/backend/snowball/libstemmer/stem_UTF_8_english.c:869-877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_english.c#L869-L877)
 
 ## Overview  
 Handles exceptional words that should not be processed by the standard stemming rules, specifically identifying and preserving certain complete words ending in "d" or "g".

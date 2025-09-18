@@ -1,7 +1,7 @@
 # WalSndCheckTimeOut
 
 ## Location
-src/backend/replication/walsender.c: 2759 - 2785
+[src/backend/replication/walsender.c:2759-2785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2759-L2785)
 
 ## Overview
 Monitors client responsiveness and terminates the WAL sender process if no replies are received within the configured timeout period.

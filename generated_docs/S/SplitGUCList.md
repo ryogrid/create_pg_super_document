@@ -1,7 +1,7 @@
 # SplitGUCList
 
 ## Location
-src/bin/pg_dump/dumputils.c: 761 - 860
+[src/bin/pg_dump/dumputils.c:761-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L761-L860)
 
 ## Overview
 SplitGUCList is a utility function that parses a string containing identifiers or file names, specifically designed for splitting the value of a GUC_LIST_QUOTE GUC (Grand Unified Configuration) variable.

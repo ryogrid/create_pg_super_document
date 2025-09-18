@@ -1,7 +1,7 @@
 # GetWalSummarizerState
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 447 - 504
+[src/backend/postmaster/walsummarizer.c:447-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L447-L504)
 
 ## Overview
 Retrieves the current state information of the WAL summarizer from shared memory, including progress and process details.

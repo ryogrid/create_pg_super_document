@@ -1,7 +1,7 @@
 # tuplesort_begin_batch
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 757 - 842
+[src/backend/utils/sort/tuplesort.c:757-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L757-L842)
 
 ## Overview
 A static initialization function that sets up or resets the batch-specific state for tuple sorting operations, including memory management, tuple storage arrays, and sort status initialization.

@@ -1,7 +1,7 @@
 # create_group_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2242 - 2280
+[src/backend/optimizer/plan/createplan.c:2242-2280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2242-L2280)
 
 ## Overview
 Creates a Group plan node for performing grouping operations, extracting grouping columns and operators from the GroupPath and building the necessary execution structure.

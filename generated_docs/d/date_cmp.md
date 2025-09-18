@@ -1,7 +1,7 @@
 # date_cmp
 
 ## Location
-src/backend/utils/adt/date.c: 437 - 449
+[src/backend/utils/adt/date.c:437-449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L437-L449)
 
 ## Overview
 Implements the comparison function for PostgreSQL DATE values, returning -1, 0, or 1 to indicate whether the first date is less than, equal to, or greater than the second date.

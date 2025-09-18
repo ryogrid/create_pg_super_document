@@ -1,7 +1,7 @@
 # PLy_result_colnames
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 109 - 134
+[src/pl/plpython/plpy_resultobject.c:109-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L109-L134)
 
 ## Overview
 Returns a Python list containing the column names of the result set represented by a PLyResultObject.

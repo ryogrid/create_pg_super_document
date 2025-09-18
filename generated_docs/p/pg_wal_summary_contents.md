@@ -1,7 +1,7 @@
 # pg_wal_summary_contents
 
 ## Location
-src/backend/backup/walsummaryfuncs.c: 69 - 176
+[src/backend/backup/walsummaryfuncs.c:69-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummaryfuncs.c#L69-L176)
 
 ## Overview
 A PostgreSQL system function that reads and returns the detailed contents of a specific WAL summary file, including information about modified blocks for each relation fork.

@@ -1,7 +1,7 @@
 # pgstat_wal_snapshot_cb
 
 ## Location
-src/backend/utils/activity/pgstat_wal.c: 178 - 186
+[src/backend/utils/activity/pgstat_wal.c:178-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_wal.c#L178-L186)
 
 ## Overview
 This function creates a snapshot of current WAL (Write-Ahead Log) statistics by copying data from shared memory to the local statistics snapshot area.

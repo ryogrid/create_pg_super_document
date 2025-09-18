@@ -1,7 +1,7 @@
 # pg_add_u16_overflow
 
 ## Location
-src/include/common/int.h: 270 - 287
+[src/include/common/int.h:270-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L270-L287)
 
 ## Overview
 Performs addition of two 16-bit unsigned integers with overflow detection, returning true if overflow occurs and false otherwise.

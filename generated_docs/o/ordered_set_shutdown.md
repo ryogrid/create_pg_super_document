@@ -1,7 +1,7 @@
 # ordered_set_shutdown
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 339 - 357
+[src/backend/utils/adt/orderedsetaggs.c:339-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L339-L357)
 
 ## Overview
 Cleans up resources when evaluation of an ordered-set aggregate is complete, ensuring proper cleanup of tuplesort objects and tuple slots.

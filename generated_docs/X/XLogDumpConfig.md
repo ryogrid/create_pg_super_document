@@ -1,7 +1,7 @@
 # XLogDumpConfig
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 55 - 81
+[src/bin/pg_waldump/pg_waldump.c:55-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L55-L81)
 
 ## Overview
 XLogDumpConfig is a comprehensive configuration structure that controls all aspects of WAL (Write-Ahead Log) dump operations in pg_waldump, including display options, filtering criteria, and save operations.

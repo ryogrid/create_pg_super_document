@@ -1,7 +1,7 @@
 # SlabCheck
 
 ## Location
-src/backend/utils/mmgr/slab.c: 997 - 1154
+[src/backend/utils/mmgr/slab.c:997-1154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L997-L1154)
 
 ## Overview
 SlabCheck performs comprehensive integrity validation of a Slab memory context by walking through all blocks and chunks to detect memory corruption and inconsistencies.

@@ -1,7 +1,7 @@
 # internal_bpchar_pattern_compare
 
 ## Location
-src/backend/utils/adt/varchar.c: 1119 - 1140
+[src/backend/utils/adt/varchar.c:1119-1140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L1119-L1140)
 
 ## Overview
 Performs character-by-character comparison of BPCHAR values for pattern matching operations, supporting LIKE clause indexes without collation considerations.

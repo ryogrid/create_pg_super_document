@@ -1,7 +1,7 @@
 # numeric_var_pop
 
 ## Location
-src/backend/utils/adt/numeric.c: 6340 - 6356
+[src/backend/utils/adt/numeric.c:6340-6356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6340-L6356)
 
 ## Overview
 Computes the population variance of numeric values from an aggregate state, providing the final result for the VAR_POP() aggregate function.

@@ -1,7 +1,7 @@
 # BogusFree
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 286 - 292
+[src/backend/utils/mmgr/mcxt.c:286-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L286-L292)
 
 ## Overview
 An error handling function that reports invalid pointer usage when pfree or similar functions are called with bogus pointers, providing diagnostic information for debugging.

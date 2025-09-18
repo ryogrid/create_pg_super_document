@@ -1,7 +1,7 @@
 # xsave_available
 
 ## Location
-src/port/pg_popcount_avx512_choose.c: 40 - 60
+[src/port/pg_popcount_avx512_choose.c:40-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_popcount_avx512_choose.c#L40-L60)
 
 ## Overview
 A static inline function that checks if the CPU supports XSAVE instructions by querying the CPUID instruction to determine if the operating system has enabled the OSXSAVE feature bit.

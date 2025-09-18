@@ -1,7 +1,7 @@
 # ExplainOneUtility
 
 ## Location
-src/backend/commands/explain.c: 527 - 616
+[src/backend/commands/explain.c:527-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L527-L616)
 
 ## Overview
 ExplainOneUtility prints out execution plans for utility statements that have special handling in the EXPLAIN system, such as CREATE TABLE AS, DECLARE CURSOR, EXECUTE, and NOTIFY statements.

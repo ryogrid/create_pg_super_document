@@ -1,7 +1,7 @@
 # column_privilege_check
 
 ## Location
-src/backend/utils/adt/acl.c: 2538 - 2577
+[src/backend/utils/adt/acl.c:2538-2577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2538-L2577)
 
 ## Overview
 A static helper function that checks column privileges without throwing errors for dropped columns or missing tables, returning integer codes to indicate privilege status.

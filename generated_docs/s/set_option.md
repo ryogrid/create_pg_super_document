@@ -1,7 +1,7 @@
 # set_option
 
 ## Location
-src/tools/pg_bsd_indent/args.c: 261 - 334
+[src/tools/pg_bsd_indent/args.c:261-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/args.c#L261-L334)
 
 ## Overview
 The set_option function parses and processes individual command-line options or profile settings for the PostgreSQL BSD indent tool, handling different parameter types and special cases.

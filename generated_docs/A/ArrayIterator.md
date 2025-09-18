@@ -1,7 +1,7 @@
 # ArrayIterator
 
 ## Location
-src/include/utils/array.h: 258 - 260
+[src/include/utils/array.h:258-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/array.h#L258-L260)
 
 ## Overview
 ArrayIterator is an opaque pointer type used for efficient iteration through PostgreSQL arrays, supporting both element-by-element and slice-based iteration patterns.

@@ -1,7 +1,7 @@
 # AddSnapshotInvalidationMessage
 
 ## Location
-src/backend/utils/cache/inval.c: 474 - 500
+[src/backend/utils/cache/inval.c:474-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L474-L500)
 
 ## Overview
 Adds a snapshot invalidation message to the specified invalidation message group, used to invalidate cached snapshot information for a specific relation.

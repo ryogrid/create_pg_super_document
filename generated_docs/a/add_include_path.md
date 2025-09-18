@@ -1,7 +1,7 @@
 # add_include_path
 
 ## Location
-src/interfaces/ecpg/preproc/ecpg.c: 67 - 88
+[src/interfaces/ecpg/preproc/ecpg.c:67-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/ecpg.c#L67-L88)
 
 ## Overview
 Adds a new directory path to the global linked list of include paths used by the ECPG preprocessor for finding header files.

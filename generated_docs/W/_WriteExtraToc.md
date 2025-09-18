@@ -1,7 +1,7 @@
 # _WriteExtraToc
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 222 - 237
+[src/bin/pg_dump/pg_backup_custom.c:222-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L222-L237)
 
 ## Overview
 _WriteExtraToc is a callback function that saves format-specific TOC entry data to the archive, specifically writing data position offset information for the custom archive format.

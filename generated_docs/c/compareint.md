@@ -1,7 +1,7 @@
 # compareint
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 135 - 143
+[src/backend/utils/adt/tsgistidx.c:135-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L135-L143)
 
 ## Overview
 A static utility function that compares two 32-bit integers for use with sorting algorithms, typically qsort.

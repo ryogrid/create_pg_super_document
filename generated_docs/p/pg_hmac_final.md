@@ -1,7 +1,7 @@
 # pg_hmac_final
 
 ## Location
-src/common/hmac_openssl.c: 254 - 325
+[src/common/hmac_openssl.c:254-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L254-L325)
 
 ## Overview
 Finalizes a HMAC computation and produces the final HMAC value.

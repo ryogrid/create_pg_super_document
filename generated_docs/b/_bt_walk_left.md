@@ -1,7 +1,7 @@
 # _bt_walk_left
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2378 - 2491
+[src/backend/access/nbtree/nbtsearch.c:2378-2491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2378-L2491)
 
 ## Overview
 Steps left one page in a B-tree index structure, handling various edge cases such as deleted pages and concurrent modifications during page traversal.

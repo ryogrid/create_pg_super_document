@@ -1,7 +1,7 @@
 # RangeVarCallbackForRenameAttribute
 
 ## Location
-src/backend/commands/tablecmds.c: 3857 - 3876
+[src/backend/commands/tablecmds.c:3857-3876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3857-L3876)
 
 ## Overview
 RangeVarCallbackForRenameAttribute is a callback function that performs early permission and integrity validation before acquiring locks during attribute rename operations.

@@ -1,7 +1,7 @@
 # toast_compress_header
 
 ## Location
-src/include/access/toast_internals.h: 23 - 28
+[src/include/access/toast_internals.h:23-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/toast_internals.h#L23-L28)
 
 ## Overview
 A structure that contains the header information at the start of compressed TOAST data, storing metadata about the compression method and original size of the data.

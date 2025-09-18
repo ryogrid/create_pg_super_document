@@ -1,7 +1,7 @@
 # findDefaultOnlyColumns
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1315 - 1402
+[src/backend/rewrite/rewriteHandler.c:1315-1402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1315-L1402)
 
 ## Overview
 Searches a VALUES range table entry to identify columns that contain only SetToDefault items across all rows, returning a bitmapset of such column attribute numbers.

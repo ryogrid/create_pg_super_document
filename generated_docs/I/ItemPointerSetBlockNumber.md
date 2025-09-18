@@ -1,7 +1,7 @@
 # ItemPointerSetBlockNumber
 
 ## Location
-src/include/storage/itemptr.h: 147 - 157
+[src/include/storage/itemptr.h:147-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L147-L157)
 
 ## Overview
 Sets only the block number portion of a disk item pointer, leaving the offset number unchanged, providing targeted modification of the block location component.

@@ -1,7 +1,7 @@
 # pgstat_initialize
 
 ## Location
-src/backend/utils/activity/pgstat.c: 537 - 578
+[src/backend/utils/activity/pgstat.c:537-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L537-L578)
 
 ## Overview
 Initializes the PostgreSQL statistics system for a backend process by attaching to shared memory and setting up cleanup hooks. This function establishes the foundation for statistics collection in each backend.

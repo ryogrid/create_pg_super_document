@@ -1,7 +1,7 @@
 # coerceToBool
 
 ## Location
-src/bin/pgbench/pgbench.c: 2004 - 2023
+[src/bin/pgbench/pgbench.c:2004-2023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2004-L2023)
 
 ## Overview
 Attempts to convert a PgBenchValue to a boolean value, providing error handling for incompatible types.

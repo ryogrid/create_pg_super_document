@@ -1,7 +1,7 @@
 # ginReadTuple
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 162 - 200
+[src/backend/access/gin/ginentrypage.c:162-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L162-L200)
 
 ## Overview
 Reads item pointers from a leaf entry tuple in PostgreSQL GIN index, handling both compressed and uncompressed posting lists.

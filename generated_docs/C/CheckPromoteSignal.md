@@ -1,7 +1,7 @@
 # CheckPromoteSignal
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4464 - 4478
+[src/backend/access/transam/xlogrecovery.c:4464-4478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4464-L4478)
 
 ## Overview
 Validates the presence of a promotion signal file to determine if a standby promotion request has been issued.

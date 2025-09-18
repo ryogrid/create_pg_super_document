@@ -1,7 +1,7 @@
 # deleteDependencyRecordsForClass
 
 ## Location
-src/backend/catalog/pg_depend.c: 352 - 398
+[src/backend/catalog/pg_depend.c:352-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L352-L398)
 
 ## Overview
 Deletes all dependency records for a specific object that depend on objects of a given class and dependency type, returning the number of records deleted.

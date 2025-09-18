@@ -1,7 +1,7 @@
 # EstimatePendingSyncsSpace
 
 ## Location
-src/backend/catalog/storage.c: 571 - 583
+[src/backend/catalog/storage.c:571-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L571-L583)
 
 ## Overview
 EstimatePendingSyncsSpace estimates the amount of shared memory space needed to pass pending sync information to parallel worker processes.

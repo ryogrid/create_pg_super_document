@@ -1,7 +1,7 @@
 # datapagemap_t
 
 ## Location
-src/bin/pg_rewind/datapagemap.h: 21 - 21
+[src/bin/pg_rewind/datapagemap.h:21-21](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.h#L21-L21)
 
 ## Overview
 A typedef alias for the datapagemap struct, providing a convenient type name for use throughout the pg_rewind codebase.

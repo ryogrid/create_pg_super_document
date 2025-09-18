@@ -1,7 +1,7 @@
 # build_implied_join_equality
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 3100 - 3168
+[src/backend/optimizer/plan/initsplan.c:3100-3168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L3100-L3168)
 
 ## Overview
 Constructs a RestrictInfo representing a derived equality clause for join operations without integrating it into the joininfo tree structure.

@@ -1,7 +1,7 @@
 # _bt_getroot
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 344 - 579
+[src/backend/access/nbtree/nbtpage.c:344-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L344-L579)
 
 ## Overview
 _bt_getroot retrieves the root page of a B-tree index, handling root page location changes and creating a new root page if necessary during write operations.

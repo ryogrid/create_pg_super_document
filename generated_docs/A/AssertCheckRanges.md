@@ -1,7 +1,7 @@
 # AssertCheckRanges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 296 - 425
+[src/backend/access/brin/brin_minmax_multi.c:296-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L296-L425)
 
 ## Overview
 AssertCheckRanges is a comprehensive debugging function that validates the internal consistency and invariants of a Ranges structure used in BRIN minmax-multi indexes.

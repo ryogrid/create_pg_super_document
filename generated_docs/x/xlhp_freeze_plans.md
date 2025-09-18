@@ -1,7 +1,7 @@
 # xlhp_freeze_plans
 
 ## Location
-src/include/access/heapam_xlog.h: 364 - 368
+[src/include/access/heapam_xlog.h:364-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L364-L368)
 
 ## Overview
 A container structure that holds an array of freeze plans for a heap page during VACUUM freeze operations, optimizing WAL space by grouping tuples with similar freezing characteristics.

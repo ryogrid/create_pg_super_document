@@ -1,7 +1,7 @@
 # multirange_element_has_hashing
 
 ## Location
-src/backend/utils/cache/typcache.c: 1666 - 1673
+[src/backend/utils/cache/typcache.c:1666-1673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1666-L1673)
 
 ## Overview
 Checks whether the element type of a multirange type supports regular hashing (basic hash functions).

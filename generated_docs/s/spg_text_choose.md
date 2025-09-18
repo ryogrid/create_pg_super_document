@@ -1,7 +1,7 @@
 # spg_text_choose
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 184 - 323
+[src/backend/access/spgist/spgtextproc.c:184-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L184-L323)
 
 ## Overview
 The spg_text_choose function is the core SP-GiST choose method for text data types that determines how to navigate or modify the index tree structure when inserting or searching for text values.

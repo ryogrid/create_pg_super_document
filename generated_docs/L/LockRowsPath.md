@@ -1,7 +1,7 @@
 # LockRowsPath
 
 ## Location
-src/include/nodes/pathnodes.h: 2360 - 2366
+[src/include/nodes/pathnodes.h:2360-2366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L2360-L2366)
 
 ## Overview
 LockRowsPath represents a query execution path node for acquiring row locks in SELECT FOR UPDATE/SHARE operations, encapsulating the locking semantics and cost calculations for row-level locking in PostgreSQL.

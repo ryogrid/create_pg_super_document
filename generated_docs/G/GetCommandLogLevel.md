@@ -1,7 +1,7 @@
 # GetCommandLogLevel
 
 ## Location
-src/backend/tcop/utility.c: 3247 - 3768
+[src/backend/tcop/utility.c:3247-3768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L3247-L3768)
 
 ## Overview
 GetCommandLogLevel is a utility function that determines the minimum log_statement level required for a PostgreSQL command to be logged, supporting raw parse trees, analyzed Queries, and PlannedStmts.

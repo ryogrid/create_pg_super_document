@@ -1,7 +1,7 @@
 # convert_tablespace_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 4379 - 4405
+[src/backend/utils/adt/acl.c:4379-4405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4379-L4405)
 
 ## Overview
 Converts a text string representation of tablespace privileges into the corresponding AclMode bitmask value for privilege checking operations.

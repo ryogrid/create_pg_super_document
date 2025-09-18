@@ -1,7 +1,7 @@
 # box_overright
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 624 - 634
+[src/backend/utils/adt/geo_ops.c:624-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L624-L634)
 
 ## Overview
 The box_overright function determines if the left edge of box1 is at or to the right of the left edge of box2, implementing a "greater than or equal" comparison for spatial positioning.

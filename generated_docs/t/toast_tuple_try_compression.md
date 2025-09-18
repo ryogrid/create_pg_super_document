@@ -1,7 +1,7 @@
 # toast_tuple_try_compression
 
 ## Location
-src/backend/access/table/toast_helper.c: 227 - 255
+[src/backend/access/table/toast_helper.c:227-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/toast_helper.c#L227-L255)
 
 ## Overview
 Attempts to compress a specific attribute in a tuple and updates the TOAST context with the result, marking incompressible attributes to avoid future compression attempts.

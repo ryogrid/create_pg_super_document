@@ -1,7 +1,7 @@
 # i2tof
 
 ## Location
-src/backend/utils/adt/float.c: 1343 - 1360
+[src/backend/utils/adt/float.c:1343-1360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1343-L1360)
 
 ## Overview
 Converts a 16-bit integer (int2) to a single-precision floating-point number (float4).

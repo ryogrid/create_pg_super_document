@@ -1,7 +1,7 @@
 # RestorePendingSyncs
 
 ## Location
-src/backend/catalog/storage.c: 635 - 656
+[src/backend/catalog/storage.c:635-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L635-L656)
 
 ## Overview
 RestorePendingSyncs restores pending synchronization operations within a parallel worker by deserializing RelFileLocator entries from memory.

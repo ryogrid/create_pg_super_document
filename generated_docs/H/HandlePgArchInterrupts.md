@@ -1,7 +1,7 @@
 # HandlePgArchInterrupts
 
 ## Location
-src/backend/postmaster/pgarch.c: 859 - 910
+[src/backend/postmaster/pgarch.c:859-910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L859-L910)
 
 ## Overview
 A static interrupt handler function that processes various system signals and administrative requests for the PostgreSQL WAL archiver process during its main execution loops.

@@ -1,7 +1,7 @@
 # ExecSimpleRelationInsert
 
 ## Location
-src/backend/executor/execReplication.c: 490 - 553
+[src/backend/executor/execReplication.c:490-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L490-L553)
 
 ## Overview
 ExecSimpleRelationInsert performs a complete tuple insertion into a relation, including constraint checking, trigger execution, index maintenance, and stored generated column computation.

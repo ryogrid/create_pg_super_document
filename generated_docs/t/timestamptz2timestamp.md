@@ -1,7 +1,7 @@
 # timestamptz2timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6373 - 6401
+[src/backend/utils/adt/timestamp.c:6373-6401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6373-L6401)
 
 ## Overview
 This static function converts a timestamp with time zone (TimestampTz) to a local timestamp without time zone by decomposing the timestamptz value and reconstructing it as a plain timestamp.

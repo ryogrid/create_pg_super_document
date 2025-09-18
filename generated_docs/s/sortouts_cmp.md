@@ -1,7 +1,7 @@
 # sortouts_cmp
 
 ## Location
-src/backend/regex/regc_nfa.c: 729 - 757
+[src/backend/regex/regc_nfa.c:729-757](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L729-L757)
 
 ## Overview
 A static comparison function used for sorting arc pointers by destination state, color, and type in PostgreSQL's regex NFA implementation.

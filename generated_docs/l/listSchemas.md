@@ -1,7 +1,7 @@
 # listSchemas
 
 ## Location
-src/bin/psql/describe.c: 5026 - 5146
+[src/bin/psql/describe.c:5026-5146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5026-L5146)
 
 ## Overview
 The  function implements the  psql command for displaying schema (namespace) information in a PostgreSQL database.

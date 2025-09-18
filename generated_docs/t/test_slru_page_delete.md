@@ -1,7 +1,7 @@
 # test_slru_page_delete
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 161 - 175
+[src/test/modules/test_slru/test_slru.c:161-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L161-L175)
 
 ## Overview
 A PostgreSQL test function that deletes an entire SLRU segment containing the specified page.

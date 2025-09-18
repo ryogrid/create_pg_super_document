@@ -1,7 +1,7 @@
 # dclist_has_prev
 
 ## Location
-src/include/lib/ilist.h: 854 - 866
+[src/include/lib/ilist.h:854-866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L854-L866)
 
 ## Overview
 Checks whether a given node in a doubly-linked counted list has a preceding node, providing a safe way to determine if traversal can continue backwards.

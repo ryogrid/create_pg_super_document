@@ -1,7 +1,7 @@
 # pg_signal_thread
 
 ## Location
-src/backend/port/win32/signal.c: 274 - 376
+[src/backend/port/win32/signal.c:274-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L274-L376)
 
 ## Overview
 The main signal handling thread function for PostgreSQL on Windows that listens for signal messages through a named pipe and queues them for the main thread.

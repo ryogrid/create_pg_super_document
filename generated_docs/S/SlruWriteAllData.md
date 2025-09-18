@@ -1,7 +1,7 @@
 # SlruWriteAllData
 
 ## Location
-src/backend/access/transam/slru.c: 126 - 131
+[src/backend/access/transam/slru.c:126-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L126-L131)
 
 ## Overview
 SlruWriteAllData is a structure used to track open file descriptors and their corresponding segment numbers during bulk write operations in PostgreSQL's Simple Log-based Recovery Unit (SLRU) system.

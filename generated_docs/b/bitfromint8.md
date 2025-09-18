@@ -1,7 +1,7 @@
 # bitfromint8
 
 ## Location
-src/backend/utils/adt/varbit.c: 1611 - 1665
+[src/backend/utils/adt/varbit.c:1611-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1611-L1665)
 
 ## Overview
 Converts a 64-bit integer to a variable-length bit string representation, preserving the natural bit ordering.

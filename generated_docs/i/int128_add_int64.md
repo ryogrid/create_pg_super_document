@@ -1,7 +1,7 @@
 # int128_add_int64
 
 ## Location
-src/include/common/int128.h: 50 - 61
+[src/include/common/int128.h:50-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int128.h#L50-L61)
 
 ## Overview
 Adds a signed 64-bit integer value to a 128-bit integer variable in-place.

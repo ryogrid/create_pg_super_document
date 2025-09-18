@@ -1,7 +1,7 @@
 # am_tablesync_worker
 
 ## Location
-src/include/replication/worker_internal.h: 334 - 339
+[src/include/replication/worker_internal.h:334-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/worker_internal.h#L334-L339)
 
 ## Overview
 A convenience function that determines if the current logical replication worker is operating as a table synchronization worker.

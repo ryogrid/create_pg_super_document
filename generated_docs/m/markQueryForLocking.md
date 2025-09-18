@@ -1,7 +1,7 @@
 # markQueryForLocking
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1881 - 1944
+[src/backend/rewrite/rewriteHandler.c:1881-1944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1881-L1944)
 
 ## Overview
 Recursively applies FOR UPDATE/SHARE locking clauses to all relations referenced in a query's join tree, propagating locking requirements through subqueries.

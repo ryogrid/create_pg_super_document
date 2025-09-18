@@ -1,7 +1,7 @@
 # ReadOffset
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2048 - 2111
+[src/bin/pg_dump/pg_backup_archiver.c:2048-2111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2048-L2111)
 
 ## Overview
 ReadOffset deserializes a PostgreSQL file offset (pgoff_t) from an archive stream, handling both legacy and current archive format versions.

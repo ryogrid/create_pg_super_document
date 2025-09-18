@@ -1,7 +1,7 @@
 # double_to_shortest_decimal_buf
 
 ## Location
-src/common/d2s.c: 1053 - 1069
+[src/common/d2s.c:1053-1069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/d2s.c#L1053-L1069)
 
 ## Overview
 Converts a double-precision floating-point number to its shortest decimal representation as a null-terminated string, providing a convenient wrapper around the core conversion function.

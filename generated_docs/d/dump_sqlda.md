@@ -1,7 +1,7 @@
 # dump_sqlda
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-sqlda.c: 121 - 158
+[src/interfaces/ecpg/test/expected/compat_informix-sqlda.c:121-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-sqlda.c#L121-L158)
 
 ## Overview
 A static utility function that prints detailed information about an SQLDA (SQL Descriptor Area) structure to stdout, displaying the names, types, and values of all descriptor entries.

@@ -1,7 +1,7 @@
 # mod_m
 
 ## Location
-src/backend/lib/bloomfilter.c: 288 - 294
+[src/backend/lib/bloomfilter.c:288-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L288-L294)
 
 ## Overview
 The `mod_m` function performs fast modulo calculation for power-of-two values using bitwise AND operations, optimized for bloom filter hash value distribution.

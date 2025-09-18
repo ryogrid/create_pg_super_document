@@ -1,7 +1,7 @@
 # get_cheapest_fractional_path_for_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 664 - 696
+[src/backend/optimizer/path/pathkeys.c:664-696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L664-L696)
 
 ## Overview
 Finds the cheapest path for retrieving a specified fraction of all tuples that satisfies given pathkeys and parameterization requirements.

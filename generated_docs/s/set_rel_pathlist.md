@@ -1,7 +1,7 @@
 # set_rel_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 469 - 571
+[src/backend/optimizer/path/allpaths.c:469-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L469-L571)
 
 ## Overview
 Sets up access paths for a base relation by determining the appropriate pathlist generation strategy based on the relation type and characteristics.

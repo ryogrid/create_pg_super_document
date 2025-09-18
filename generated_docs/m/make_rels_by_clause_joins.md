@@ -1,7 +1,7 @@
 # make_rels_by_clause_joins
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 280 - 313
+[src/backend/optimizer/path/joinrels.c:280-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L280-L313)
 
 ## Overview
 Builds join relations between a given relation and other relations that participate in join clauses or join-order restrictions with it, used in PostgreSQL's join search algorithm.

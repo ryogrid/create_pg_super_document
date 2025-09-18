@@ -1,7 +1,7 @@
 # AsyncExistsPendingNotify
 
 ## Location
-src/backend/commands/async.c: 2257 - 2297
+[src/backend/commands/async.c:2257-2297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2257-L2297)
 
 ## Overview
 Checks whether a given notification already exists in the current transaction's pending notifications list, preventing duplicate notifications.

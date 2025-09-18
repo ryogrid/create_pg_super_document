@@ -1,7 +1,7 @@
 # InitializeTableSpaceCache
 
 ## Location
-src/backend/utils/cache/spccache.c: 78 - 106
+[src/backend/utils/cache/spccache.c:78-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/spccache.c#L78-L106)
 
 ## Overview
 Initializes the tablespace cache system by creating the hash table, setting up memory context, and registering invalidation callbacks.

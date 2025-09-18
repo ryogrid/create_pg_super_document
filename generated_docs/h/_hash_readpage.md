@@ -1,7 +1,7 @@
 # _hash_readpage
 
 ## Location
-src/backend/access/hash/hashsearch.c: 446 - 601
+[src/backend/access/hash/hashsearch.c:446-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L446-L601)
 
 ## Overview
 Loads qualifying index tuples from the current hash index page into the scan position, handling page navigation when no matches are found.

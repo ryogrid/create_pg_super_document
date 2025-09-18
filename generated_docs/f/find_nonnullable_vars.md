@@ -1,7 +1,7 @@
 # find_nonnullable_vars
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1707 - 1712
+[src/backend/optimizer/util/clauses.c:1707-1712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1707-L1712)
 
 ## Overview
 Determines which Vars are forced nonnullable by a given clause, returning the set of variables that cannot be NULL for the clause to return TRUE.

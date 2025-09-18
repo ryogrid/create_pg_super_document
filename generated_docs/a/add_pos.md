@@ -1,7 +1,7 @@
 # add_pos
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 364 - 399
+[src/backend/utils/adt/tsvector_op.c:364-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L364-L399)
 
 ## Overview
 A static function that adds positions from a source TSVector word entry to a destination TSVector word entry, offsetting the positions by a maximum position value.

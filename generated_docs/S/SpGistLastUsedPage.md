@@ -1,7 +1,7 @@
 # SpGistLastUsedPage
 
 ## Location
-src/include/access/spgist_private.h: 99 - 103
+[src/include/access/spgist_private.h:99-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist_private.h#L99-L103)
 
 ## Overview
 SpGistLastUsedPage is a structure that caches information about the last-used page for efficient space management in SP-GiST indexes.

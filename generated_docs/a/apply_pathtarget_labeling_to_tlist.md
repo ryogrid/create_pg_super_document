@@ -1,7 +1,7 @@
 # apply_pathtarget_labeling_to_tlist
 
 ## Location
-src/backend/optimizer/util/tlist.c: 774 - 880
+[src/backend/optimizer/util/tlist.c:774-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L774-L880)
 
 ## Overview
 Applies any sortgrouprefs from a PathTarget to matching entries in a target list, enabling proper labeling for ORDER BY and GROUP BY operations.

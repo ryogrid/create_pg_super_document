@@ -1,7 +1,7 @@
 # compare_expanded_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 858 - 895
+[src/backend/access/brin/brin_minmax_multi.c:858-895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L858-L895)
 
 ## Overview
 Compares two ExpandedRange structures for sorting purposes, first by minimum value, then by maximum value.

@@ -1,7 +1,7 @@
 # coerce_to_specific_type_typmod
 
 ## Location
-src/backend/parser/parse_coerce.c: 1208 - 1256
+[src/backend/parser/parse_coerce.c:1208-1256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1208-L1256)
 
 ## Overview
 This function coerces an expression to a specific data type with a specific typmod, while ensuring the input is not a set.

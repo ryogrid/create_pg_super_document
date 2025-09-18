@@ -1,7 +1,7 @@
 # AtEOSubXact_HashTables
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1898 - 1919
+[src/backend/utils/hash/dynahash.c:1898-1919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1898-L1919)
 
 ## Overview
 Cleans up any open hash table sequential scans at the end of a subtransaction, ensuring proper resource management and preventing memory leaks.

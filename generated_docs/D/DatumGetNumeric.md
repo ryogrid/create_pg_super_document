@@ -1,7 +1,7 @@
 # DatumGetNumeric
 
 ## Location
-src/include/utils/numeric.h: 61 - 66
+[src/include/utils/numeric.h:61-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/numeric.h#L61-L66)
 
 ## Overview
 DatumGetNumeric is an inline function that converts a Datum value to a Numeric pointer, properly handling TOAST decompression for numeric data types.

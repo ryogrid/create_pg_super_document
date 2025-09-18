@@ -1,7 +1,7 @@
 # datand
 
 ## Location
-src/backend/utils/adt/float.c: 2175 - 2206
+[src/backend/utils/adt/float.c:2175-2206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2175-L2206)
 
 ## Overview
 The  function computes the inverse tangent (arctangent) of a floating-point value and returns the result in degrees rather than radians.

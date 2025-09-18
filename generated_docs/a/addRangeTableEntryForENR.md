@@ -1,7 +1,7 @@
 # addRangeTableEntryForENR
 
 ## Location
-src/backend/parser/parse_relation.c: 2466 - 2574
+[src/backend/parser/parse_relation.c:2466-2574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L2466-L2574)
 
 ## Overview
 Creates a range table entry (RTE) for an Ephemeral Named Relation (ENR) reference and adds it to the parser state's range table, returning a ParseNamespaceItem for the new ENR entry.

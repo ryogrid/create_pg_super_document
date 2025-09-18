@@ -1,7 +1,7 @@
 # create_foreign_join_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2281 - 2332
+[src/backend/optimizer/util/pathnode.c:2281-2332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2281-L2332)
 
 ## Overview
 Creates a path node corresponding to a scan of a foreign join, allowing foreign data wrappers (FDWs) to represent join operations that will be executed on the foreign server.

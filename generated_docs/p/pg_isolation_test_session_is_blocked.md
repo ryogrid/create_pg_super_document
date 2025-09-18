@@ -1,7 +1,7 @@
 # pg_isolation_test_session_is_blocked
 
 ## Location
-src/backend/utils/adt/waitfuncs.c: 39 - 113
+[src/backend/utils/adt/waitfuncs.c:39-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/waitfuncs.c#L39-L113)
 
 ## Overview
 A support function for the PostgreSQL isolation tester that determines if a specified process ID (PID) is blocked by any of the PIDs in a given list of interesting processes.

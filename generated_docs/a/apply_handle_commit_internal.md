@@ -1,7 +1,7 @@
 # apply_handle_commit_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 2243 - 2302
+[src/backend/replication/logical/worker.c:2243-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2243-L2302)
 
 ## Overview
 apply_handle_commit_internal is a helper function that performs the core commit processing logic shared by both regular commits and streaming transaction commits in PostgreSQL logical replication.

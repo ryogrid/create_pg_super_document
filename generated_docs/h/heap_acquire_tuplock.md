@@ -1,7 +1,7 @@
 # heap_acquire_tuplock
 
 ## Location
-src/backend/access/heap/heapam.c: 5231 - 5279
+[src/backend/access/heap/heapam.c:5231-5279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L5231-L5279)
 
 ## Overview
 heap_acquire_tuplock acquires a heavyweight lock on a specific tuple in preparation for acquiring its normal Xmax-based tuple lock, providing different wait policies for lock acquisition scenarios.

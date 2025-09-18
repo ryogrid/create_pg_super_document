@@ -1,7 +1,7 @@
 # set_desc_attr
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 584 - 604
+[src/interfaces/ecpg/ecpglib/descriptor.c:584-604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L584-L604)
 
 ## Overview
 set_desc_attr is a static helper function that sets attributes of a descriptor item based on the variable type and data to be inserted.

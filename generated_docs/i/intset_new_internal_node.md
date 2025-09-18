@@ -1,7 +1,7 @@
 # intset_new_internal_node
 
 ## Location
-src/backend/lib/integerset.c: 316 - 330
+[src/backend/lib/integerset.c:316-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L316-L330)
 
 ## Overview
 Allocates and initializes a new internal node for the IntegerSet B-tree structure.

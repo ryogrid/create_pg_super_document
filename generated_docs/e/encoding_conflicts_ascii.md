@@ -1,7 +1,7 @@
 # encoding_conflicts_ascii
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 156 - 179
+[src/test/modules/test_escape/test_escape.c:156-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L156-L179)
 
 ## Overview
 A utility function that determines whether a given character encoding has multi-byte characters that contain bytes resembling valid ASCII characters.

@@ -1,7 +1,7 @@
 # expanded_record_fetch_tupdesc
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 824 - 883
+[src/backend/utils/adt/expandedrecord.c:824-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L824-L883)
 
 ## Overview
 expanded_record_fetch_tupdesc retrieves and caches the tuple descriptor for an expanded record's data type, handling reference counting and memory management.

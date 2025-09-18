@@ -1,7 +1,7 @@
 # pgwin32_select
 
 ## Location
-src/backend/port/win32/socket.c: 517 - 706
+[src/backend/port/win32/socket.c:517-706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L517-L706)
 
 ## Overview
 Windows-specific implementation of the select() system call that provides PostgreSQL-compatible socket multiplexing with signal handling support on Windows platforms.

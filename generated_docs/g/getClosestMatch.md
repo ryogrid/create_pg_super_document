@@ -1,7 +1,7 @@
 # getClosestMatch
 
 ## Location
-src/backend/utils/adt/varlena.c: 6243 - 6255
+[src/backend/utils/adt/varlena.c:6243-6255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6243-L6255)
 
 ## Overview
 Returns the closest matching string found during a fuzzy string matching session managed by a `ClosestMatchState` structure.

@@ -1,7 +1,7 @@
 # spi_printtup
 
 ## Location
-src/backend/executor/spi.c: 2171 - 2220
+[src/backend/executor/spi.c:2171-2220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2171-L2220)
 
 ## Overview
 spi_printtup is a callback function that stores tuple results retrieved by the Executor into the SPITupleTable of the current SPI procedure.

@@ -1,7 +1,7 @@
 # _bt_spooldestroy
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 515 - 524
+[src/backend/access/nbtree/nbtsort.c:515-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L515-L524)
 
 ## Overview
 Cleanly destroys a BTSpool structure and releases all associated resources including the underlying tuplesort state.

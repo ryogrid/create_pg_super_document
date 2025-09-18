@@ -1,7 +1,7 @@
 # typeidType
 
 ## Location
-src/backend/parser/parse_type.c: 578 - 589
+[src/backend/parser/parse_type.c:578-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L578-L589)
 
 ## Overview
 typeidType is a utility function that retrieves a Type structure (system catalog tuple) for a given type OID from the PostgreSQL system cache.

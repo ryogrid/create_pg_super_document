@@ -1,7 +1,7 @@
 # print_pool
 
 ## Location
-src/backend/optimizer/geqo/geqo_misc.c: 57 - 90
+[src/backend/optimizer/geqo/geqo_misc.c:57-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_misc.c#L57-L90)
 
 ## Overview
 The print_pool function outputs formatted information about chromosomes in a genetic algorithm population pool to a specified file stream for debugging purposes.

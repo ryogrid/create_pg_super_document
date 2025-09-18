@@ -1,7 +1,7 @@
 # pqSetKeepalivesWin32
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2294 - 2322
+[src/interfaces/libpq/fe-connect.c:2294-2322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2294-L2322)
 
 ## Overview
 Enables keepalives and configures keepalive values on Windows systems using the Windows-specific WSAIoctl interface.

@@ -1,7 +1,7 @@
 # XLogLongPageHeaderData
 
 ## Location
-src/include/access/xlog_internal.h: 61 - 67
+[src/include/access/xlog_internal.h:61-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L61-L67)
 
 ## Overview
 A data structure representing the extended header used for XLOG pages when the XLP_LONG_HEADER flag is set, typically in the first page of an XLOG file to accurately identify the file.

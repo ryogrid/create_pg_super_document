@@ -1,7 +1,7 @@
 # DatumGetPointer
 
 ## Location
-src/include/postgres.h: 312 - 321
+[src/include/postgres.h:312-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L312-L321)
 
 ## Overview
 Converts a Datum value to a Pointer type, providing type-safe extraction of pointer values from PostgreSQL's generic Datum representation.

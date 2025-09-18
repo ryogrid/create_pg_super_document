@@ -1,7 +1,7 @@
 # int42le
 
 ## Location
-src/backend/utils/adt/int.c: 585 - 593
+[src/backend/utils/adt/int.c:585-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L585-L593)
 
 ## Overview
 Compares a 32-bit integer with a 16-bit integer to determine if the first is less than or equal to the second, returning a boolean result.

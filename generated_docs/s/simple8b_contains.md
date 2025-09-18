@@ -1,7 +1,7 @@
 # simple8b_contains
 
 ## Location
-src/backend/lib/integerset.c: 1004 - 1042
+[src/backend/lib/integerset.c:1004-1042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L1004-L1042)
 
 ## Overview
 A static function that checks if a given key value is present in a Simple-8b compressed codeword without fully decoding all values, providing an efficient membership test for integer sets.

@@ -1,7 +1,7 @@
 # rankSort
 
 ## Location
-src/bin/psql/crosstabview.c: 588 - 635
+[src/bin/psql/crosstabview.c:588-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L588-L635)
 
 ## Overview
 Sorts pivot field columns based on their sort_value ranks and updates the rank field of each pivot_field to reflect the new sorted order.

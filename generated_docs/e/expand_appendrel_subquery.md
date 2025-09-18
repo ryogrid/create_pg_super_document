@@ -1,7 +1,7 @@
 # expand_appendrel_subquery
 
 ## Location
-src/backend/optimizer/util/inherit.c: 799 - 841
+[src/backend/optimizer/util/inherit.c:799-841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L799-L841)
 
 ## Overview
 Creates RelOptInfo structures for child relations of an appendrel baserel that represents a flattened UNION ALL subquery.

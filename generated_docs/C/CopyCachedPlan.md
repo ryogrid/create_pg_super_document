@@ -1,7 +1,7 @@
 # CopyCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 1536 - 1626
+[src/backend/utils/cache/plancache.c:1536-1626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1536-L1626)
 
 ## Overview
 Creates a complete deep copy of a CachedPlanSource, producing an unsaved, complete cached plan with all data structures duplicated in new memory contexts.

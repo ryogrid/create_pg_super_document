@@ -1,7 +1,7 @@
 # get_object_address_rv
 
 ## Location
-src/backend/catalog/objectaddress.c: 1220 - 1241
+[src/backend/catalog/objectaddress.c:1220-1241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1220-L1241)
 
 ## Overview
 Returns an ObjectAddress based on a RangeVar and an object name, prepending the relation name to create a qualified object reference.

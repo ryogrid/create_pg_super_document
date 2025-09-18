@@ -1,7 +1,7 @@
 # ProcessUtilitySlow
 
 ## Location
-src/backend/tcop/utility.c: 1089 - 1956
+[src/backend/tcop/utility.c:1089-1956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L1089-L1956)
 
 ## Overview
 ProcessUtilitySlow is the specialized utility command execution engine that handles DDL statements requiring event trigger support, implementing PostgreSQL's event trigger infrastructure for monitoring and customizing database schema changes.

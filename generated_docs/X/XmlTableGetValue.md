@@ -1,7 +1,7 @@
 # XmlTableGetValue
 
 ## Location
-src/backend/utils/adt/xml.c: 4927 - 5078
+[src/backend/utils/adt/xml.c:4927-5078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4927-L5078)
 
 ## Overview
 Returns the value for a specified column number for the current row in XML table processing, extracting and converting the value using the column's XPath expression to the target PostgreSQL data type.

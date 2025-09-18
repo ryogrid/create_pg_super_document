@@ -1,7 +1,7 @@
 # pg_control_recovery
 
 ## Location
-src/backend/utils/misc/pg_controldata.c: 163 - 203
+[src/backend/utils/misc/pg_controldata.c:163-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_controldata.c#L163-L203)
 
 ## Overview
 A PostgreSQL SQL function that retrieves recovery-related information from the control file, providing key details about backup and recovery state.

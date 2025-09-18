@@ -1,7 +1,7 @@
 # create_one_window_path
 
 ## Location
-src/backend/optimizer/plan/planner.c: 4660 - 4829
+[src/backend/optimizer/plan/planner.c:4660-4829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L4660-L4829)
 
 ## Overview
 Constructs a complete window function execution path by stacking WindowAgg nodes for each window clause, handling sorting requirements and run conditions between window operations.

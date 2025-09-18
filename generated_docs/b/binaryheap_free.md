@@ -1,7 +1,7 @@
 # binaryheap_free
 
 ## Location
-src/common/binaryheap.c: 75 - 89
+[src/common/binaryheap.c:75-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L75-L89)
 
 ## Overview
 Deallocates memory used by a binary heap structure that was previously allocated with binaryheap_allocate.

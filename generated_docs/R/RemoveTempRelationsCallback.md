@@ -1,7 +1,7 @@
 # RemoveTempRelationsCallback
 
 ## Location
-src/backend/catalog/namespace.c: 4624 - 4643
+[src/backend/catalog/namespace.c:4624-4643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4624-L4643)
 
 ## Overview
 RemoveTempRelationsCallback is a PostgreSQL exit callback function that ensures temporary relations are properly cleaned up when a backend process terminates.

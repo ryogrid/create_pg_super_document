@@ -1,7 +1,7 @@
 # f_smgr
 
 ## Location
-src/backend/storage/smgr/smgr.c: 74 - 105
+[src/backend/storage/smgr/smgr.c:74-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L74-L105)
 
 ## Overview
 The f_smgr struct defines the API between smgr.c and individual storage manager modules, providing function pointers for all storage management operations in PostgreSQL.

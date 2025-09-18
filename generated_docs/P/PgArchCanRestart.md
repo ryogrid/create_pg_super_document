@@ -1,7 +1,7 @@
 # PgArchCanRestart
 
 ## Location
-src/backend/postmaster/pgarch.c: 197 - 216
+[src/backend/postmaster/pgarch.c:197-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L197-L216)
 
 ## Overview
 PgArchCanRestart determines whether the PostgreSQL archiver process is allowed to restart based on a minimum time interval since the last startup attempt.

@@ -1,7 +1,7 @@
 # fmgr_info_C_lang
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 349 - 417
+[src/backend/utils/fmgr/fmgr.c:349-417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L349-L417)
 
 ## Overview
 This static function handles special processing for initializing FmgrInfo structures for C-language functions, including caching and loading external shared libraries.

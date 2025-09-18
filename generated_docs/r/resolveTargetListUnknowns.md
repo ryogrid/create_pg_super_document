@@ -1,7 +1,7 @@
 # resolveTargetListUnknowns
 
 ## Location
-src/backend/parser/parse_target.c: 288 - 317
+[src/backend/parser/parse_target.c:288-317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L288-L317)
 
 ## Overview
 Converts any unknown-type targetlist entries to TEXT type as a final fallback after all other type resolution methods have been exhausted.

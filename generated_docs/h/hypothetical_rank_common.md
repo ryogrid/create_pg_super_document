@@ -1,7 +1,7 @@
 # hypothetical_rank_common
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1171 - 1243
+[src/backend/utils/adt/orderedsetaggs.c:1171-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1171-L1243)
 
 ## Overview
 Core implementation function for hypothetical-set ranking aggregates that computes the rank of a hypothetical row within an ordered dataset.

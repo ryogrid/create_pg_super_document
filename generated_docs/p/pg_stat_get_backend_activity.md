@@ -1,7 +1,7 @@
 # pg_stat_get_backend_activity
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 741 - 765
+[src/backend/utils/adt/pgstatfuncs.c:741-765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L741-L765)
 
 ## Overview
 Returns the current activity (SQL command string) being executed by a specific PostgreSQL backend process, with appropriate permission checking and formatting.

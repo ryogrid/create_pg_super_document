@@ -1,7 +1,7 @@
 # plperl_call_perl_event_trigger_func
 
 ## Location
-src/pl/plperl/plperl.c: 2341 - 2401
+[src/pl/plperl/plperl.c:2341-2401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2341-L2401)
 
 ## Overview
 This function executes Perl event trigger functions in PostgreSQL, providing access to DDL command information through the $_TD global variable.

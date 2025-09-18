@@ -1,7 +1,7 @@
 # exprIsNullConstant
 
 ## Location
-src/backend/parser/parse_expr.c: 910 - 922
+[src/backend/parser/parse_expr.c:910-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L910-L922)
 
 ## Overview
 Tests whether a given expression node represents a plain NULL constant during SQL parsing and expression analysis.

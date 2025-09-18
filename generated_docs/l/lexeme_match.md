@@ -1,7 +1,7 @@
 # lexeme_match
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 490 - 499
+[src/backend/tsearch/ts_typanalyze.c:490-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L490-L499)
 
 ## Overview
 A matching function for lexemes used in hash table lookups that delegates to lexeme_compare for actual comparison logic.

@@ -1,7 +1,7 @@
 # setup_signals
 
 ## Location
-src/bin/initdb/initdb.c: 2846 - 2874
+[src/bin/initdb/initdb.c:2846-2874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2846-L2874)
 
 ## Overview
 Configures signal handlers for the initdb process to ensure proper cleanup and graceful termination during PostgreSQL database cluster initialization.

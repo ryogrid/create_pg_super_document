@@ -1,7 +1,7 @@
 # ReplicationSlotRelease
 
 ## Location
-src/backend/replication/slot.c: 652 - 744
+[src/backend/replication/slot.c:652-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L652-L744)
 
 ## Overview
 Releases the replication slot that the current backend considers to own, allowing this or another backend to re-acquire the slot later while preserving the slot's required resources.

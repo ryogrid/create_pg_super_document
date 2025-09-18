@@ -1,7 +1,7 @@
 # r_Prefix_Step2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1082 - 1099
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1082-1099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1082-L1099)
 
 ## Overview
 This function handles the second phase of Arabic prefix removal in the PostgreSQL Snowball stemmer, targeting specific prefix patterns with additional validation checks.

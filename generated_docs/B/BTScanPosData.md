@@ -1,7 +1,7 @@
 # BTScanPosData
 
 ## Location
-src/include/access/nbtree.h: 951 - 995
+[src/include/access/nbtree.h:951-995](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L951-L995)
 
 ## Overview
 BTScanPosData represents the complete state information needed for a B-tree index scan position, including buffer management, scan direction, item arrays, and page tracking data.

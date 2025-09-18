@@ -1,7 +1,7 @@
 # UpdateWorkerStats
 
 ## Location
-src/backend/replication/logical/worker.c: 3475 - 3490
+[src/backend/replication/logical/worker.c:3475-3490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3475-L3490)
 
 ## Overview
 UpdateWorkerStats is a static function that updates the statistics and timestamps of a logical replication worker to track the latest activity and message processing.

@@ -1,7 +1,7 @@
 # i2tod
 
 ## Location
-src/backend/utils/adt/float.c: 1269 - 1280
+[src/backend/utils/adt/float.c:1269-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1269-L1280)
 
 ## Overview
 The i2tod function converts an int2 (smallint, 16-bit signed integer) to a float8 (double precision floating-point) number, providing a safe widening conversion with no precision loss.

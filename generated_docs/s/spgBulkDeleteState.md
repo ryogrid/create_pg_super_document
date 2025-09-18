@@ -1,7 +1,7 @@
 # spgBulkDeleteState
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 40 - 53
+[src/backend/access/spgist/spgvacuum.c:40-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L40-L53)
 
 ## Overview
 A structure that maintains local state and parameters for SPGiST vacuum operations, including bulk delete and cleanup processes.

@@ -1,7 +1,7 @@
 # RT_NODE_256
 
 ## Location
-src/include/lib/radixtree.h: 568 - 577
+[src/include/lib/radixtree.h:568-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L568-L577)
 
 ## Overview
 RT_NODE_256 is a macro that generates a type name for a 256-slot adaptive radix tree node structure, representing the largest node type in PostgreSQL's templated radix tree implementation.

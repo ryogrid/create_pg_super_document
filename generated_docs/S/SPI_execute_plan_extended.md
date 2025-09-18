@@ -1,7 +1,7 @@
 # SPI_execute_plan_extended
 
 ## Location
-src/backend/executor/spi.c: 711 - 732
+[src/backend/executor/spi.c:711-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L711-L732)
 
 ## Overview
 SPI_execute_plan_extended executes a previously prepared SQL plan with extensible execution options, providing enhanced control over plan execution parameters compared to the basic SPI_execute_plan function.

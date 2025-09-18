@@ -1,7 +1,7 @@
 # s_unlock_sema
 
 ## Location
-src/backend/storage/lmgr/spin.c: 152 - 161
+[src/backend/storage/lmgr/spin.c:152-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L152-L161)
 
 ## Overview
 A semaphore-based implementation of spinlock unlock operation, providing a fallback mechanism when hardware-level test-and-set operations are not available or efficient.

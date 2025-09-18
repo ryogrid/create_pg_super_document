@@ -1,7 +1,7 @@
 # process_alarm
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 642 - 648
+[src/bin/pg_test_fsync/pg_test_fsync.c:642-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L642-L648)
 
 ## Overview
 A signal handler function in pg_test_fsync that sets a global flag when an alarm signal is received, enabling timed testing operations.

@@ -1,7 +1,7 @@
 # pg_atomic_test_set_flag_impl
 
 ## Location
-src/backend/port/atomics.c: 76 - 88
+[src/backend/port/atomics.c:76-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L76-L88)
 
 ## Overview
 Atomically tests the current value of a flag and sets it to true, returning whether the flag was previously unset (available).

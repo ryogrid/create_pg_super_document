@@ -1,7 +1,7 @@
 # asc_tolower_z
 
 ## Location
-src/backend/utils/adt/formatting.c: 2253 - 2258
+[src/backend/utils/adt/formatting.c:2253-2258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2253-L2258)
 
 ## Overview
 A convenience wrapper function that converts a null-terminated string to lowercase using ASCII-only character transformation.

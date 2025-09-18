@@ -1,7 +1,7 @@
 # SimpleStringList
 
 ## Location
-src/include/fe_utils/simple_list.h: 40 - 44
+[src/include/fe_utils/simple_list.h:40-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/simple_list.h#L40-L44)
 
 ## Overview
 SimpleStringList is a singly-linked list container that manages collections of strings with tracking capabilities, providing efficient head and tail access for PostgreSQL frontend utility operations.

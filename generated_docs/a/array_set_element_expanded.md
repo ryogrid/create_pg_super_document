@@ -1,7 +1,7 @@
 # array_set_element_expanded
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 2501 - 2805
+[src/backend/utils/adt/arrayfuncs.c:2501-2805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L2501-L2805)
 
 ## Overview
 Implements element assignment for expanded arrays, providing optimized performance by modifying arrays in-place without full reconstruction when possible.

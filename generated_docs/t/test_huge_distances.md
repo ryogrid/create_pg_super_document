@@ -1,7 +1,7 @@
 # test_huge_distances
 
 ## Location
-src/test/modules/test_integerset/test_integerset.c: 519 - 623
+[src/test/modules/test_integerset/test_integerset.c:519-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_integerset/test_integerset.c#L519-L623)
 
 ## Overview
 Tests IntegerSet functionality with values that have distances greater than 2^60 between them, specifically testing the Simple-8b encoding limitations.

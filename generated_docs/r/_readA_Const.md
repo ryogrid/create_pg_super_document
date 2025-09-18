@@ -1,7 +1,7 @@
 # _readA_Const
 
 ## Location
-src/backend/nodes/readfuncs.c: 304 - 346
+[src/backend/nodes/readfuncs.c:304-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L304-L346)
 
 ## Overview
 A static function that deserializes an A_Const node from its string representation during PostgreSQL node reading operations.

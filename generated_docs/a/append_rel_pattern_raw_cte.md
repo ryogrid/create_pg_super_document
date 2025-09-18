@@ -1,7 +1,7 @@
 # append_rel_pattern_raw_cte
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1775 - 1843
+[src/bin/pg_amcheck/pg_amcheck.c:1775-1843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1775-L1843)
 
 ## Overview
 Constructs a Common Table Expression (CTE) containing complete pattern information for relation matching in pg_amcheck SQL queries.

@@ -1,7 +1,7 @@
 # OperatorUpd
 
 ## Location
-src/backend/catalog/pg_operator.c: 684 - 852
+[src/backend/catalog/pg_operator.c:684-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_operator.c#L684-L852)
 
 ## Overview
 Updates the commutator and negator back-reference fields in related operators to maintain bidirectional consistency when creating or dropping operators with mutual relationships.

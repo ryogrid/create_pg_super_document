@@ -1,7 +1,7 @@
 # lc_collate_is_c
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1340 - 1406
+[src/backend/utils/adt/pg_locale.c:1340-1406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1340-L1406)
 
 ## Overview
 lc_collate_is_c is a function that determines whether a given collation's LC_COLLATE property is equivalent to the C or POSIX locale, used for performance optimization in string operations.

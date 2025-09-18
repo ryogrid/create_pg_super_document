@@ -1,7 +1,7 @@
 # json_unique_object_start
 
 ## Location
-src/backend/utils/adt/json.c: 1606 - 1623
+[src/backend/utils/adt/json.c:1606-1623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1606-L1623)
 
 ## Overview
 Semantic action function for JSON parsing that initializes object tracking when enforcing key uniqueness constraints.

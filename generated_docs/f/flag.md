@@ -1,7 +1,7 @@
 # flag
 
 ## Location
-src/test/locale/test-ctype.c: 33 - 42
+[src/test/locale/test-ctype.c:33-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/locale/test-ctype.c#L33-L42)
 
 ## Overview
 A simple utility function that converts a boolean value to a string representation for display purposes in locale testing.

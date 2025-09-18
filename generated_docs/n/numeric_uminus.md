@@ -1,7 +1,7 @@
 # numeric_uminus
 
 ## Location
-src/backend/utils/adt/numeric.c: 1418 - 1459
+[src/backend/utils/adt/numeric.c:1418-1459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1418-L1459)
 
 ## Overview
 The  function implements the unary minus operation for NUMERIC data types, negating the sign of the input value.

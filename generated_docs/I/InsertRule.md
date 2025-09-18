@@ -1,7 +1,7 @@
 # InsertRule
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 52 - 189
+[src/backend/rewrite/rewriteDefine.c:52-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L52-L189)
 
 ## Overview
 InsertRule is a static function that inserts a rewrite rule definition into the PostgreSQL system catalog pg_rewrite, handling both new rule creation and rule replacement scenarios.

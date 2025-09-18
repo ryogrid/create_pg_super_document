@@ -1,7 +1,7 @@
 # pqTraceOutput_Describe
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 291 - 299
+[src/interfaces/libpq/fe-trace.c:291-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L291-L299)
 
 ## Overview
 Outputs a formatted trace of a PostgreSQL Describe message to a file stream, parsing and displaying the object type and name to be described.

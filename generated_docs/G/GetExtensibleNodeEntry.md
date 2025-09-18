@@ -1,7 +1,7 @@
 # GetExtensibleNodeEntry
 
 ## Location
-src/backend/nodes/extensible.c: 100 - 124
+[src/backend/nodes/extensible.c:100-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/extensible.c#L100-L124)
 
 ## Overview
 An internal routine that retrieves an ExtensibleNodeEntry by its identifier from the specified hash table, with optional error handling.

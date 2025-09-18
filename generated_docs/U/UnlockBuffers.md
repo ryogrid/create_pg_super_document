@@ -1,7 +1,7 @@
 # UnlockBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5104 - 5131
+[src/backend/storage/buffer/bufmgr.c:5104-5131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5104-L5131)
 
 ## Overview
 UnlockBuffers releases buffer content locks for shared buffers, primarily used for cleanup after errors and during process exit.

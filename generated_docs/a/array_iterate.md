@@ -1,7 +1,7 @@
 # array_iterate
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4664 - 4746
+[src/backend/utils/adt/arrayfuncs.c:4664-4746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4664-L4746)
 
 ## Overview
 This function advances an ArrayIterator to the next element or slice, returning the corresponding data and indicating whether more elements remain.

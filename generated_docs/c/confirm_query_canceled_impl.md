@@ -1,7 +1,7 @@
 # confirm_query_canceled_impl
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 98 - 122
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:98-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L98-L122)
 
 ## Overview
 A test utility function that verifies a database query was properly canceled by checking the result status and error code.

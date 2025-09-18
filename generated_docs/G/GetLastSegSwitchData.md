@@ -1,7 +1,7 @@
 # GetLastSegSwitchData
 
 ## Location
-src/backend/access/transam/xlog.c: 6564 - 6580
+[src/backend/access/transam/xlog.c:6564-6580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6564-L6580)
 
 ## Overview
 GetLastSegSwitchData retrieves the timestamp and LSN (Log Sequence Number) of the last WAL segment switch, providing essential timing information for WAL management operations.

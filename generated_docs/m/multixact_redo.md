@@ -1,7 +1,7 @@
 # multixact_redo
 
 ## Location
-src/backend/access/transam/multixact.c: 3386 - 3501
+[src/backend/access/transam/multixact.c:3386-3501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3386-L3501)
 
 ## Overview
 multixact_redo is the resource manager's redo function that replays multixact-related xlog records during recovery, handling various multixact operations including page zeroing, multixact creation, and truncation.

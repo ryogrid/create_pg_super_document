@@ -1,7 +1,7 @@
 # pg_GSS_read
 
 ## Location
-src/interfaces/libpq/fe-secure-gssapi.c: 266 - 434
+[src/interfaces/libpq/fe-secure-gssapi.c:266-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-gssapi.c#L266-L434)
 
 ## Overview
 Reads encrypted data from a GSSAPI-secured PostgreSQL connection, handling packet reception, decryption, and data buffering for the caller.

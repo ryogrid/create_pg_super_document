@@ -1,7 +1,7 @@
 # ATExecEnableDisableTrigger
 
 ## Location
-src/backend/commands/tablecmds.c: 15604 - 15621
+[src/backend/commands/tablecmds.c:15604-15621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15604-L15621)
 
 ## Overview
 Executes ALTER TABLE ENABLE/DISABLE TRIGGER commands by delegating to the trigger subsystem and invoking post-alter hooks.

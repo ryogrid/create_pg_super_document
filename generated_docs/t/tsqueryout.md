@@ -1,7 +1,7 @@
 # tsqueryout
 
 ## Location
-src/backend/utils/adt/tsquery.c: 1146 - 1188
+[src/backend/utils/adt/tsquery.c:1146-1188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L1146-L1188)
 
 ## Overview
 The  function is a PostgreSQL I/O function that converts a TSQuery data type into its human-readable text string representation.

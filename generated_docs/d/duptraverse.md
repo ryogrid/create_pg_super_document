@@ -1,7 +1,7 @@
 # duptraverse
 
 ## Location
-src/backend/regex/regc_nfa.c: 1379 - 1418
+[src/backend/regex/regc_nfa.c:1379-1418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1379-L1418)
 
 ## Overview
 The recursive heart of the dupnfa function that performs the actual traversal and duplication of NFA states and their outgoing arcs.

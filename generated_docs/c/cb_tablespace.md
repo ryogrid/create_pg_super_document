@@ -1,7 +1,7 @@
 # cb_tablespace
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 90 - 97
+[src/bin/pg_combinebackup/pg_combinebackup.c:90-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L90-L97)
 
 ## Overview
 A structure that represents tablespace information during pg_combinebackup operations, including both normal and in-place tablespaces.

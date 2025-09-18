@@ -1,7 +1,7 @@
 # this_type
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 120 - 129
+[src/interfaces/ecpg/preproc/type.h:120-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L120-L129)
 
 ## Overview
 The  structure is a comprehensive type descriptor used in the ECPG (Embedded SQL in C) preprocessor to represent detailed information about data types, including storage class, type enumeration, string representation, dimensions, indexing, and size information.

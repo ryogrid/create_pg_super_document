@@ -1,7 +1,7 @@
 # datapagemap
 
 ## Location
-src/bin/pg_rewind/datapagemap.h: 15 - 20
+[src/bin/pg_rewind/datapagemap.h:15-20](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.h#L15-L20)
 
 ## Overview
 A structure used by pg_rewind to represent a bitmap of data pages that need to be synchronized between PostgreSQL clusters.

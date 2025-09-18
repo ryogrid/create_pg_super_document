@@ -1,7 +1,7 @@
 # contained2D
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 268 - 277
+[src/backend/utils/adt/geo_spgist.c:268-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L268-L277)
 
 ## Overview
 The `contained2D` function determines whether any range from a range box can be contained by (i.e., fit within) a given query range in 2D space.

@@ -1,7 +1,7 @@
 # mdprefetch
 
 ## Location
-src/backend/storage/smgr/md.c: 714 - 761
+[src/backend/storage/smgr/md.c:714-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L714-L761)
 
 ## Overview
 mdprefetch initiates asynchronous read operations for a range of blocks in a relation, providing read-ahead functionality to improve I/O performance.

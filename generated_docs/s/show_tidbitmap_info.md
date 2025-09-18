@@ -1,7 +1,7 @@
 # show_tidbitmap_info
 
 ## Location
-src/backend/commands/explain.c: 3592 - 3621
+[src/backend/commands/explain.c:3592-3621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3592-L3621)
 
 ## Overview
 Displays statistics about exact and lossy heap blocks processed during EXPLAIN ANALYZE of a BitmapHeapScan node.

@@ -1,7 +1,7 @@
 # closerel
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 453 - 489
+[src/backend/bootstrap/bootstrap.c:453-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L453-L489)
 
 ## Overview
 closerel closes the currently opened relation in PostgreSQL's bootstrap mode, providing validation and cleanup of the global relation descriptor state.

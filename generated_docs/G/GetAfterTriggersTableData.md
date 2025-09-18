@@ -1,7 +1,7 @@
 # GetAfterTriggersTableData
 
 ## Location
-src/backend/commands/trigger.c: 4883 - 4919
+[src/backend/commands/trigger.c:4883-4919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4883-L4919)
 
 ## Overview
 Finds or creates an AfterTriggersTableData structure for a specified trigger event (relation + operation type combination), ensuring that closed structures are ignored to prevent additional tuple insertion.

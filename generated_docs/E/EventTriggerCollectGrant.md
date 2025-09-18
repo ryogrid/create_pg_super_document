@@ -1,7 +1,7 @@
 # EventTriggerCollectGrant
 
 ## Location
-src/backend/commands/event_trigger.c: 1751 - 1794
+[src/backend/commands/event_trigger.c:1751-1794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1751-L1794)
 
 ## Overview
 Saves data about a GRANT/REVOKE command being executed for event trigger processing, creating a deep copy of the InternalGrant structure to ensure proper lifetime management.

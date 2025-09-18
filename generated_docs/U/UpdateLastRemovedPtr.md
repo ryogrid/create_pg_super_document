@@ -1,7 +1,7 @@
 # UpdateLastRemovedPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 3789 - 3808
+[src/backend/access/transam/xlog.c:3789-3808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3789-L3808)
 
 ## Overview
 UpdateLastRemovedPtr updates the shared memory tracking of the last removed WAL segment number when a WAL file has been removed from the system.

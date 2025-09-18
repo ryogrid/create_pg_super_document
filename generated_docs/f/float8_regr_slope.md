@@ -1,7 +1,7 @@
 # float8_regr_slope
 
 ## Location
-src/backend/utils/adt/float.c: 3706 - 3732
+[src/backend/utils/adt/float.c:3706-3732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3706-L3732)
 
 ## Overview
 Computes the slope of the linear regression line from statistical aggregate data stored in a transition array.

@@ -1,7 +1,7 @@
 # TrimCLOG
 
 ## Location
-src/backend/access/transam/clog.c: 892 - 936
+[src/backend/access/transam/clog.c:892-936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L892-L936)
 
 ## Overview
 TrimCLOG zeroes out unused portions of the current CLOG page to ensure clean state after startup/recovery, preventing potential issues from inconsistent transaction status data.

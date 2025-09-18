@@ -1,7 +1,7 @@
 # CheckSubscriptionRelkind
 
 ## Location
-src/backend/executor/execReplication.c: 743 - 752
+[src/backend/executor/execReplication.c:743-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L743-L752)
 
 ## Overview
 A validation function that checks whether a relation kind is supported as a logical replication target, ensuring only regular tables and partitioned tables can be used for subscription operations.

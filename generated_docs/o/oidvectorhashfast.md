@@ -1,7 +1,7 @@
 # oidvectorhashfast
 
 ## Location
-src/backend/utils/cache/catcache.c: 267 - 273
+[src/backend/utils/cache/catcache.c:267-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L267-L273)
 
 ## Overview
 A static hash function that computes a hash value for an oidvector datum, used internally by the catalog cache system for efficient indexing and lookup of oidvector values.

@@ -1,7 +1,7 @@
 # show_data_directory_mode
 
 ## Location
-src/backend/commands/variable.c: 1156 - 1167
+[src/backend/commands/variable.c:1156-1167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1156-L1167)
 
 ## Overview
 A GUC (Grand Unified Configuration) show hook function that formats and displays the `data_directory_mode` configuration parameter value in octal notation for user readability.

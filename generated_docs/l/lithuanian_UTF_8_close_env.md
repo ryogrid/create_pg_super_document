@@ -1,7 +1,7 @@
 # lithuanian_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c: 836 - 837
+[src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:836-837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c#L836-L837)
 
 ## Overview
 The lithuanian_UTF_8_close_env function properly deallocates and cleans up a Snowball environment structure that was previously created for Lithuanian stemming operations.

@@ -1,7 +1,7 @@
 # slist_push_head
 
 ## Location
-src/include/lib/ilist.h: 1006 - 1017
+[src/include/lib/ilist.h:1006-1017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L1006-L1017)
 
 ## Overview
 Inserts a node at the beginning of a singly linked list in PostgreSQL's intrusive list implementation.

@@ -1,7 +1,7 @@
 # SelectConfigFiles
 
 ## Location
-src/backend/utils/misc/guc.c: 1786 - 1993
+[src/backend/utils/misc/guc.c:1786-1993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1786-L1993)
 
 ## Overview
 SelectConfigFiles is a critical initialization function that selects and validates the configuration files and data directory to be used, and performs the initial read of postgresql.conf.

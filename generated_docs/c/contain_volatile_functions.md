@@ -1,7 +1,7 @@
 # contain_volatile_functions
 
 ## Location
-src/backend/optimizer/util/clauses.c: 538 - 543
+[src/backend/optimizer/util/clauses.c:538-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L538-L543)
 
 ## Overview
 A recursive function that searches for volatile functions within expression trees, used by the PostgreSQL optimizer to prevent unsafe optimizations like converting volatile expressions into index scan qualifiers.

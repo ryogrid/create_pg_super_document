@@ -1,7 +1,7 @@
 # text_left
 
 ## Location
-src/backend/utils/adt/varlena.c: 5538 - 5561
+[src/backend/utils/adt/varlena.c:5538-5561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5538-L5561)
 
 ## Overview
 PostgreSQL built-in function that returns the first n characters of a string, with special handling for negative values to return all but the last |n| characters.

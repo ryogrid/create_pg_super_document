@@ -1,7 +1,7 @@
 # WalSndSignals
 
 ## Location
-src/backend/replication/walsender.c: 3632 - 3650
+[src/backend/replication/walsender.c:3632-3650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3632-L3650)
 
 ## Overview
 WalSndSignals sets up signal handlers for WAL sender processes, configuring how the process responds to various system signals for configuration reloads, cancellation, shutdown, and communication.

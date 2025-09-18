@@ -1,7 +1,7 @@
 # ExecCrossPartitionUpdateForeignKey
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2200 - 2291
+[src/backend/executor/nodeModifyTable.c:2200-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2200-L2291)
 
 ## Overview
 ExecCrossPartitionUpdateForeignKey ensures foreign key constraint integrity during cross-partition updates by firing appropriate triggers and validating foreign key relationships.

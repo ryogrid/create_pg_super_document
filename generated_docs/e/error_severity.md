@@ -1,7 +1,7 @@
 # error_severity
 
 ## Location
-src/backend/utils/error/elog.c: 3667 - 3718
+[src/backend/utils/error/elog.c:3667-3718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L3667-L3718)
 
 ## Overview
 A utility function that converts PostgreSQL error level constants into their corresponding string representations for use in error reporting and logging.

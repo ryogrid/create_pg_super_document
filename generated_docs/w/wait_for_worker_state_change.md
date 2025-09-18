@@ -1,7 +1,7 @@
 # wait_for_worker_state_change
 
 ## Location
-src/backend/replication/logical/tablesync.c: 232 - 280
+[src/backend/replication/logical/tablesync.c:232-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L232-L280)
 
 ## Overview
 Waits until the apply worker changes the state of the current synchronization worker to the expected state, facilitating coordination between workers in logical replication.

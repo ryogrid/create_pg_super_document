@@ -1,7 +1,7 @@
 # pq_sendfloat8
 
 ## Location
-src/backend/libpq/pqformat.c: 276 - 295
+[src/backend/libpq/pqformat.c:276-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L276-L295)
 
 ## Overview
 Appends a float8 (double-precision floating-point) value to a StringInfo buffer in PostgreSQL's external binary representation format.

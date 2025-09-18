@@ -1,7 +1,7 @@
 # smgrGetPendingDeletes
 
 ## Location
-src/backend/catalog/storage.c: 877 - 917
+[src/backend/catalog/storage.c:877-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L877-L917)
 
 ## Overview
 smgrGetPendingDeletes returns a list of non-temporary relations scheduled for deletion at the current transaction nesting level.

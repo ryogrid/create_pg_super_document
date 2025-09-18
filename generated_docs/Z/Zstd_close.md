@@ -1,7 +1,7 @@
 # Zstd_close
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 435 - 495
+[src/bin/pg_dump/compress_zstd.c:435-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L435-L495)
 
 ## Overview
 Closes a Zstd-compressed file handle, finalizing compression/decompression and cleaning up resources.

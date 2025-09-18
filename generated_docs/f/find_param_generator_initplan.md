@@ -1,7 +1,7 @@
 # find_param_generator_initplan
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8373 - 8393
+[src/backend/utils/adt/ruleutils.c:8373-8393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8373-L8393)
 
 ## Overview
 A helper function that searches through a single Plan node's initplans to find a subplan that generates a specific PARAM_EXEC parameter.

@@ -1,7 +1,7 @@
 # transformCreateTableAsStmt
 
 ## Location
-src/backend/parser/analyze.c: 3013 - 3087
+[src/backend/parser/analyze.c:3013-3087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L3013-L3087)
 
 ## Overview
 Transforms CREATE TABLE AS, SELECT INTO, or CREATE MATERIALIZED VIEW statements into CMD_UTILITY Query nodes with additional validation for materialized views.

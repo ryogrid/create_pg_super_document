@@ -1,7 +1,7 @@
 # PQsendClosePortal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2569 - 2588
+[src/interfaces/libpq/fe-exec.c:2569-2588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2569-L2588)
 
 ## Overview
 PQsendClosePortal submits a Close Portal command to the PostgreSQL server asynchronously without waiting for completion, allowing for non-blocking closure of portals.

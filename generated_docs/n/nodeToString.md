@@ -1,7 +1,7 @@
 # nodeToString
 
 ## Location
-src/backend/nodes/outfuncs.c: 791 - 796
+[src/backend/nodes/outfuncs.c:791-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L791-L796)
 
 ## Overview
 A public interface function that converts a PostgreSQL node structure to its ASCII string representation without location field information.

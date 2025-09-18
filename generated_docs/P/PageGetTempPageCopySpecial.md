@@ -1,7 +1,7 @@
 # PageGetTempPageCopySpecial
 
 ## Location
-src/backend/storage/page/bufpage.c: 402 - 423
+[src/backend/storage/page/bufpage.c:402-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L402-L423)
 
 ## Overview
 Creates a temporary page in local memory with the same special space size and contents as the given source page.

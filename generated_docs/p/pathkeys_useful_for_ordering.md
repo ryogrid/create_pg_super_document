@@ -1,7 +1,7 @@
 # pathkeys_useful_for_ordering
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 2137 - 2166
+[src/backend/optimizer/path/pathkeys.c:2137-2166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L2137-L2166)
 
 ## Overview
 Counts the number of pathkeys that are useful for meeting the query's requested output ordering, considering the possibility of incremental sort optimization.

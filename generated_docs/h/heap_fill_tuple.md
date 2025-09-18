@@ -1,7 +1,7 @@
 # heap_fill_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 400 - 454
+[src/backend/access/common/heaptuple.c:400-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L400-L454)
 
 ## Overview
 heap_fill_tuple loads the data portion of a PostgreSQL heap tuple from arrays of values and null indicators, filling the null bitmap and setting appropriate infomask bits that reflect the tuple's data contents.

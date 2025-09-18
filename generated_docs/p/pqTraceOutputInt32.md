@@ -1,7 +1,7 @@
 # pqTraceOutputInt32
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 144 - 162
+[src/interfaces/libpq/fe-trace.c:144-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L144-L162)
 
 ## Overview
 A static utility function that reads a 4-byte integer from a PostgreSQL protocol message buffer and outputs it to the trace log, with optional suppression of the actual value for security purposes.

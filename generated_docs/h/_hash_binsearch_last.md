@@ -1,7 +1,7 @@
 # _hash_binsearch_last
 
 ## Location
-src/backend/access/hash/hashutil.c: 388 - 421
+[src/backend/access/hash/hashutil.c:388-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L388-L421)
 
 ## Overview
 Returns the offset number of the last occurrence of a specified hash value in a hash index page, designed for backwards scanning operations.

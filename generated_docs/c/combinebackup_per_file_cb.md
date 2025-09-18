@@ -1,7 +1,7 @@
 # combinebackup_per_file_cb
 
 ## Location
-src/bin/pg_combinebackup/load_manifest.c: 268 - 292
+[src/bin/pg_combinebackup/load_manifest.c:268-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/load_manifest.c#L268-L292)
 
 ## Overview
 A callback function that processes individual file entries from backup manifests, storing file metadata (path, size, checksum information) in a hash table for pg_combinebackup operations.

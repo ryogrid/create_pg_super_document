@@ -1,7 +1,7 @@
 # dectolong
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 480 - 507
+[src/interfaces/ecpg/compatlib/informix.c:480-507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L480-L507)
 
 ## Overview
 Converts a decimal type to a long integer, providing Informix compatibility functionality in PostgreSQL's ECPG interface.

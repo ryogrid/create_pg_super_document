@@ -1,7 +1,7 @@
 # pg_stat_get_db_checksum_last_failure
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1130 - 1150
+[src/backend/utils/adt/pgstatfuncs.c:1130-1150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1130-L1150)
 
 ## Overview
 Returns the timestamp of the last checksum failure that occurred in a specific database.

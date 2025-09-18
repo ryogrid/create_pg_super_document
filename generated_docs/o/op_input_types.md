@@ -1,7 +1,7 @@
 # op_input_types
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1358 - 1385
+[src/backend/utils/cache/lsyscache.c:1358-1385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1358-L1385)
 
 ## Overview
 Retrieves the left and right input data types for a given operator from the system catalog.

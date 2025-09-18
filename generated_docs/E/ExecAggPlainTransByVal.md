@@ -1,7 +1,7 @@
 # ExecAggPlainTransByVal
 
 ## Location
-src/backend/executor/execExprInterp.c: 5237 - 5268
+[src/backend/executor/execExprInterp.c:5237-5268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5237-L5268)
 
 ## Overview  
 This function implements the transition function invocation for aggregate operations on pass-by-value data types, handling the core logic of updating aggregate state values.

@@ -1,7 +1,7 @@
 # check_timezone
 
 ## Location
-src/backend/commands/variable.c: 261 - 380
+[src/backend/commands/variable.c:261-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L261-L380)
 
 ## Overview
 A GUC (Grand Unified Configuration) validation hook function that parses and validates timezone configuration strings, supporting multiple formats including timezone names, numeric offsets, and SQL INTERVAL syntax.

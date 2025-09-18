@@ -1,7 +1,7 @@
 # transform_json_string_values
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5829 - 5861
+[src/backend/utils/adt/jsonfuncs.c:5829-5861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5829-L5861)
 
 ## Overview
 This function iterates over a JSON document and applies a specified transformation action to every string value or element, returning a new text with the transformed values.

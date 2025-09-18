@@ -1,7 +1,7 @@
 # pairingheap_GISTSearchItem_cmp
 
 ## Location
-src/backend/access/gist/gistscan.c: 30 - 73
+[src/backend/access/gist/gistscan.c:30-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistscan.c#L30-L73)
 
 ## Overview
 A pairing heap comparison function used by GiST (Generalized Search Tree) index scans to order search items in a priority queue based on distance values and item types.

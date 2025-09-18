@@ -1,7 +1,7 @@
 # CopyReadLineText
 
 ## Location
-src/backend/commands/copyfromparse.c: 1175 - 1508
+[src/backend/commands/copyfromparse.c:1175-1508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L1175-L1508)
 
 ## Overview
 CopyReadLineText is the core line-reading engine that handles byte-by-byte parsing of input data for COPY FROM operations, managing CSV quoting, escape sequences, end-of-line detection, and end-of-copy markers.

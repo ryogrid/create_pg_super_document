@@ -1,7 +1,7 @@
 # brin_redo
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 309 - 341
+[src/backend/access/brin/brin_xlog.c:309-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L309-L341)
 
 ## Overview
 Main dispatcher function for BRIN (Block Range Index) WAL record replay operations during PostgreSQL crash recovery.

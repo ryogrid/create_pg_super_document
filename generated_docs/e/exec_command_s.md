@@ -1,7 +1,7 @@
 # exec_command_s
 
 ## Location
-src/bin/psql/command.c: 2394 - 2420
+[src/bin/psql/command.c:2394-2420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2394-L2420)
 
 ## Overview
 Implements the psql \s backslash command that saves command history to a file or displays it on screen.

@@ -1,7 +1,7 @@
 # ScanECPGKeywordLookup
 
 ## Location
-src/interfaces/ecpg/preproc/ecpg_keywords.c: 39 - 54
+[src/interfaces/ecpg/preproc/ecpg_keywords.c:39-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/ecpg_keywords.c#L39-L54)
 
 ## Overview
 ScanECPGKeywordLookup is a keyword lookup function for PostgreSQL's embedded SQL (ECPG) preprocessor that determines if a given text string is a reserved keyword and returns its corresponding token value.

@@ -1,7 +1,7 @@
 # inet_gist_penalty
 
 ## Location
-src/backend/utils/adt/network_gist.c: 620 - 662
+[src/backend/utils/adt/network_gist.c:620-662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L620-L662)
 
 ## Overview
 The GiST penalty function for inet data type that calculates the cost of adding a new inet value to an existing index page during page splits.

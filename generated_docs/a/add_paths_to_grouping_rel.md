@@ -1,7 +1,7 @@
 # add_paths_to_grouping_rel
 
 ## Location
-src/backend/optimizer/plan/planner.c: 7044 - 7278
+[src/backend/optimizer/plan/planner.c:7044-7278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L7044-L7278)
 
 ## Overview
 Creates non-partial paths for grouping operations by generating various aggregation and grouping paths from input relations, supporting both sort-based and hash-based strategies for GROUP BY, aggregation, and GROUPING SETS operations.

@@ -1,7 +1,7 @@
 # pgstat_bgwriter_reset_all_cb
 
 ## Location
-src/backend/utils/activity/pgstat_bgwriter.c: 79 - 93
+[src/backend/utils/activity/pgstat_bgwriter.c:79-93](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_bgwriter.c#L79-L93)
 
 ## Overview
 This function serves as a callback to reset all background writer statistics to their initial state when a statistics reset is requested.

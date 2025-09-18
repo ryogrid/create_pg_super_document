@@ -1,7 +1,7 @@
 # tarGets
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 418 - 461
+[src/bin/pg_dump/pg_backup_tar.c:418-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L418-L461)
 
 ## Overview
 Reads a line of text from a tar archive member, similar to the standard library fgets() function, but operates on TAR_MEMBER structures.

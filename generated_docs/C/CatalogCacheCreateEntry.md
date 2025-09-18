@@ -1,7 +1,7 @@
 # CatalogCacheCreateEntry
 
 ## Location
-src/backend/utils/cache/catcache.c: 2113 - 2260
+[src/backend/utils/cache/catcache.c:2113-2260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2113-L2260)
 
 ## Overview
 Creates a new catalog cache entry (CatCTup) from a HeapTuple or cache keys, handling both positive and negative cache entries with proper memory management.

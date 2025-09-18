@@ -1,7 +1,7 @@
 # convert_database_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 3162 - 3195
+[src/backend/utils/adt/acl.c:3162-3195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3162-L3195)
 
 ## Overview
 Converts a text string representation of database privileges to the corresponding internal AclMode bitmask.

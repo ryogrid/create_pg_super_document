@@ -1,7 +1,7 @@
 # setFmtEncoding
 
 ## Location
-src/fe_utils/string_utils.c: 69 - 77
+[src/fe_utils/string_utils.c:69-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L69-L77)
 
 ## Overview
 Sets the character encoding that fmtId() and fmtQualifiedId() functions will use for proper identifier escaping and quoting operations.

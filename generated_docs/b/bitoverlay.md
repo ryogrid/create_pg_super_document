@@ -1,7 +1,7 @@
 # bitoverlay
 
 ## Location
-src/backend/utils/adt/varbit.c: 1153 - 1163
+[src/backend/utils/adt/varbit.c:1153-1163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1153-L1163)
 
 ## Overview
 Implements the SQL OVERLAY() function for bit strings, replacing a specified substring of the first bit string with a second bit string.

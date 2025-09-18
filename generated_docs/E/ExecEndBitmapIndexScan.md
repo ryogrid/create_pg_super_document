@@ -1,7 +1,7 @@
 # ExecEndBitmapIndexScan
 
 ## Location
-src/backend/executor/nodeBitmapIndexscan.c: 175 - 201
+[src/backend/executor/nodeBitmapIndexscan.c:175-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapIndexscan.c#L175-L201)
 
 ## Overview
 ExecEndBitmapIndexScan performs cleanup operations for a bitmap index scan node, properly closing the index scan and releasing the index relation.

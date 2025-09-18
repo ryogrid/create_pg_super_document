@@ -1,7 +1,7 @@
 # BuildCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 906 - 1045
+[src/backend/utils/cache/plancache.c:906-1045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L906-L1045)
 
 ## Overview
 BuildCachedPlan constructs a new CachedPlan from a CachedPlanSource, handling both generic parameter-independent plans and custom parameter-specific plans with appropriate memory management and dependency tracking.

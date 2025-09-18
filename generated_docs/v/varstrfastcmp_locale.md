@@ -1,7 +1,7 @@
 # varstrfastcmp_locale
 
 ## Location
-src/backend/utils/adt/varlena.c: 2139 - 2238
+[src/backend/utils/adt/varlena.c:2139-2238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2139-L2238)
 
 ## Overview
 The core locale-aware string comparison function used by PostgreSQL's sort support framework, implementing optimized string comparison with caching and locale-specific collation rules.

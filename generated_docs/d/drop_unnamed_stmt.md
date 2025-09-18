@@ -1,7 +1,7 @@
 # drop_unnamed_stmt
 
 ## Location
-src/backend/tcop/postgres.c: 2877 - 2901
+[src/backend/tcop/postgres.c:2877-2901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2877-L2901)
 
 ## Overview
 Releases any existing unnamed prepared statement by dropping its cached plan source.

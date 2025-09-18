@@ -1,7 +1,7 @@
 # BTreeTupleGetMaxHeapTID
 
 ## Location
-src/include/access/nbtree.h: 664 - 684
+[src/include/access/nbtree.h:664-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L664-L684)
 
 ## Overview
 BTreeTupleGetMaxHeapTID retrieves the maximum heap TID attribute from a non-pivot B-tree index tuple, returning the highest TID value in posting list tuples or the only TID in regular tuples.

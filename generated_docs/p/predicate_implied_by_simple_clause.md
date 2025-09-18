@@ -1,7 +1,7 @@
 # predicate_implied_by_simple_clause
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1098 - 1224
+[src/backend/optimizer/util/predtest.c:1098-1224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1098-L1224)
 
 ## Overview
 Tests whether a simple clause predicate is implied by another simple clause restriction, used in PostgreSQL's predicate testing system for query optimization.

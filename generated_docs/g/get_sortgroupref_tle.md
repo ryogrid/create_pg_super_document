@@ -1,7 +1,7 @@
 # get_sortgroupref_tle
 
 ## Location
-src/backend/optimizer/util/tlist.c: 345 - 366
+[src/backend/optimizer/util/tlist.c:345-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L345-L366)
 
 ## Overview
 Finds and returns the target list entry that matches a given SortGroupRef index.

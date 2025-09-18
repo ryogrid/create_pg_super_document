@@ -1,7 +1,7 @@
 # renameatt
 
 ## Location
-src/backend/commands/tablecmds.c: 3877 - 3914
+[src/backend/commands/tablecmds.c:3877-3914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3877-L3914)
 
 ## Overview
 renameatt is the top-level function that handles the renaming of an attribute (column) in a PostgreSQL relation, serving as the main entry point for ALTER TABLE RENAME COLUMN commands.

@@ -1,7 +1,7 @@
 # _hash_pageinit
 
 ## Location
-src/backend/access/hash/hashpage.c: 596 - 613
+[src/backend/access/hash/hashpage.c:596-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L596-L613)
 
 ## Overview
 Initializes a new hash index page by setting up the basic page structure with hash-specific opaque data space.

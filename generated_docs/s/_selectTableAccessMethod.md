@@ -1,7 +1,7 @@
 # _selectTableAccessMethod
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3566 - 3615
+[src/bin/pg_dump/pg_backup_archiver.c:3566-3615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3566-L3615)
 
 ## Overview
 Sets the default_table_access_method parameter in the target database to specify the storage engine for tables during PostgreSQL database restore operations.

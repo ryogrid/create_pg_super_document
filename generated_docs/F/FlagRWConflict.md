@@ -1,7 +1,7 @@
 # FlagRWConflict
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4491 - 4525
+[src/backend/storage/lmgr/predicate.c:4491-4525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4491-L4525)
 
 ## Overview
 FlagRWConflict creates a read-write dependency between two serializable transactions and checks if this dependency causes a serialization failure.

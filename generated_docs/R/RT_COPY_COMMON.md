@@ -1,7 +1,7 @@
 # RT_COPY_COMMON
 
 ## Location
-src/include/lib/radixtree.h: 920 - 926
+[src/include/lib/radixtree.h:920-926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L920-L926)
 
 ## Overview
 RT_COPY_COMMON is a macro that resolves to a function for copying common header fields from one radix tree node to another during node operations.

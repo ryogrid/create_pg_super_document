@@ -1,7 +1,7 @@
 # compute_bucket
 
 ## Location
-src/backend/utils/adt/numeric.c: 1933 - 2020
+[src/backend/utils/adt/numeric.c:1933-2020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1933-L2020)
 
 ## Overview
 Calculates the bucket number for histogram bucket operations by determining which bucket a numeric operand falls into within a specified range, following SQL2003 specification.

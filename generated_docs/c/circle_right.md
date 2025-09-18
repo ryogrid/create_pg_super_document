@@ -1,7 +1,7 @@
 # circle_right
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4801 - 4813
+[src/backend/utils/adt/geo_ops.c:4801-4813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4801-L4813)
 
 ## Overview
 Tests whether the first circle is positioned strictly to the right of the second circle with no overlap, ensuring complete horizontal separation.

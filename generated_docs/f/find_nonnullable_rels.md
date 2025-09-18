@@ -1,7 +1,7 @@
 # find_nonnullable_rels
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1456 - 1461
+[src/backend/optimizer/util/clauses.c:1456-1461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1456-L1461)
 
 ## Overview
 The `find_nonnullable_rels` function determines which base relations are forced to be nonnullable by a given clause, identifying relations that cannot be all-NULL rows when the clause evaluates to TRUE.

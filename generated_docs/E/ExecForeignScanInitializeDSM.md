@@ -1,7 +1,7 @@
 # ExecForeignScanInitializeDSM
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 375 - 396
+[src/backend/executor/nodeForeignscan.c:375-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L375-L396)
 
 ## Overview
 ExecForeignScanInitializeDSM initializes the dynamic shared memory coordination information for parallel foreign scan operations.

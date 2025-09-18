@@ -1,7 +1,7 @@
 # setKeepalivesIdle
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2187 - 2220
+[src/interfaces/libpq/fe-connect.c:2187-2220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2187-L2220)
 
 ## Overview
 Configures the TCP keepalive idle timer by parsing the connection parameter and setting the appropriate socket option on platforms that support it.

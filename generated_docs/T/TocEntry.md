@@ -1,7 +1,7 @@
 # TocEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.h: 100 - 102
+[src/bin/pg_dump/pg_backup_archiver.h:100-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.h#L100-L102)
 
 ## Overview
 TocEntry is a typedef for the table of contents entry structure that represents individual database objects and their metadata within PostgreSQL dump archives.

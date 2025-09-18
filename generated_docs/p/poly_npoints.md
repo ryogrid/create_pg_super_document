@@ -1,7 +1,7 @@
 # poly_npoints
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4494 - 4502
+[src/backend/utils/adt/geo_ops.c:4494-4502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4494-L4502)
 
 ## Overview
 Returns the number of points (vertices) in a polygon geometric type.

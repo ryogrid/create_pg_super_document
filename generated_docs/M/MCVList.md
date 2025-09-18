@@ -1,7 +1,7 @@
 # MCVList
 
 ## Location
-src/include/statistics/statistics.h: 87 - 95
+[src/include/statistics/statistics.h:87-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/statistics/statistics.h#L87-L95)
 
 ## Overview
 MCVList is a container structure that holds a collection of multivariate most-common values (MCV) items, representing the most frequent combinations of values across multiple correlated columns.

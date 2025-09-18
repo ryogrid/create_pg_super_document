@@ -1,7 +1,7 @@
 # _hash_checkqual
 
 ## Location
-src/backend/access/hash/hashutil.c: 31 - 81
+[src/backend/access/hash/hashutil.c:31-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L31-L81)
 
 ## Overview
 Function that determines whether an index tuple satisfies the scan conditions during a hash index search.

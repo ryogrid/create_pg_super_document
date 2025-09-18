@@ -1,7 +1,7 @@
 # prepare_heap_command
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 841 - 880
+[src/bin/pg_amcheck/pg_amcheck.c:841-880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L841-L880)
 
 ## Overview
 This function constructs a SQL command for running amcheck verification on a heap relation using PostgreSQL's verify_heapam() function.

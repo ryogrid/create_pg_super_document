@@ -1,7 +1,7 @@
 # add_other_rels_to_query
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 195 - 233
+[src/backend/optimizer/plan/initsplan.c:195-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L195-L233)
 
 ## Overview
 Creates "otherrel" RelOptInfos for the children of appendrel baserels, completing the relation structure setup for query planning.

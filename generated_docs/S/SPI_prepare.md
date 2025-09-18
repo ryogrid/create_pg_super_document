@@ -1,7 +1,7 @@
 # SPI_prepare
 
 ## Location
-src/backend/executor/spi.c: 860 - 865
+[src/backend/executor/spi.c:860-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L860-L865)
 
 ## Overview
 SPI_prepare parses and plans a SQL query with parameter placeholders, returning a reusable plan that can be executed multiple times with different parameter values.

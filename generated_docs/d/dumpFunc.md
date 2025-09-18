@@ -1,7 +1,7 @@
 # dumpFunc
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12312 - 12727
+[src/bin/pg_dump/pg_dump.c:12312-12727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12312-L12727)
 
 ## Overview
 Generates SQL DDL statements to recreate a PostgreSQL function, including all its attributes, parameters, and metadata during a database dump operation.

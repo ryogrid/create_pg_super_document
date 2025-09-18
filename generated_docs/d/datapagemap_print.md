@@ -1,7 +1,7 @@
 # datapagemap_print
 
 ## Location
-src/bin/pg_rewind/datapagemap.c: 117 - 127
+[src/bin/pg_rewind/datapagemap.c:117-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.c#L117-L127)
 
 ## Overview
 A debugging utility function that prints all block numbers marked in a datapagemap bitmap to the debug log.

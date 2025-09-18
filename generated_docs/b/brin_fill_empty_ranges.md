@@ -1,7 +1,7 @@
 # brin_fill_empty_ranges
 
 ## Location
-src/backend/access/brin/brin.c: 2980 - 3004
+[src/backend/access/brin/brin.c:2980-3004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2980-L3004)
 
 ## Overview
 Adds BRIN index tuples representing empty page ranges between specified boundaries during index construction or maintenance.

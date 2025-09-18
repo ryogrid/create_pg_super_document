@@ -1,7 +1,7 @@
 # r_adjectival
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_russian.c: 431 - 466
+[src/backend/snowball/libstemmer/stem_UTF_8_russian.c:431-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_russian.c#L431-L466)
 
 ## Overview
 A composite function in PostgreSQL's Russian Snowball stemmer that handles comprehensive adjectival suffix removal, including both basic adjective endings and additional participial or compound adjectival forms.

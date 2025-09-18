@@ -1,7 +1,7 @@
 # aclmask
 
 ## Location
-src/backend/utils/adt/acl.c: 1388 - 1476
+[src/backend/utils/adt/acl.c:1388-1476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1388-L1476)
 
 ## Overview
 Computes the bitmask of all privileges held by a given role ID according to an Access Control List (ACL), providing flexible querying modes for privilege checking.

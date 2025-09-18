@@ -1,7 +1,7 @@
 # complete_from_files
 
 ## Location
-src/bin/psql/tab-complete.c: 5798 - 5897
+[src/bin/psql/tab-complete.c:5798-5897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5798-L5897)
 
 ## Overview
 Provides filename completion functionality for psql tab completion, handling proper quoting and unquoting of filenames based on the command context and user input.

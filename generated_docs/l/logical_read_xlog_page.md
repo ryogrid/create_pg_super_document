@@ -1,7 +1,7 @@
 # logical_read_xlog_page
 
 ## Location
-src/backend/replication/walsender.c: 1055 - 1126
+[src/backend/replication/walsender.c:1055-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1055-L1126)
 
 ## Overview
 A WAL page reading callback function optimized for logical decoding contexts in walsender processes, providing efficient WAL data access by leveraging the walsender's latch mechanism instead of busy-waiting.

@@ -1,7 +1,7 @@
 # encode_history
 
 ## Location
-src/bin/psql/input.c: 299 - 318
+[src/bin/psql/input.c:299-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L299-L318)
 
 ## Overview
 Converts newline characters to a special marker (NL_IN_HISTORY) in all readline history entries to enable safe storage in history files.

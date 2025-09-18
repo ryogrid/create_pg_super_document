@@ -1,7 +1,7 @@
 # EventTriggerBeginCompleteQuery
 
 ## Location
-src/backend/commands/event_trigger.c: 1184 - 1227
+[src/backend/commands/event_trigger.c:1184-1227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1184-L1227)
 
 ## Overview
 EventTriggerBeginCompleteQuery initializes event trigger state for tracking objects and commands during the execution of a complete query, establishing the foundation for event trigger processing.

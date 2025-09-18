@@ -1,7 +1,7 @@
 # pgstat_database_flush_cb
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 375 - 385
+[src/backend/utils/activity/pgstat_database.c:375-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L375-L385)
 
 ## Overview
 A callback function that flushes pending database statistics from local pending storage to shared memory, accumulating various database-level performance metrics.

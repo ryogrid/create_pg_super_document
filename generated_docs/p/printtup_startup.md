@@ -1,7 +1,7 @@
 # printtup_startup
 
 ## Location
-src/backend/access/common/printtup.c: 111 - 165
+[src/backend/access/common/printtup.c:111-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L111-L165)
 
 ## Overview
 The printtup_startup function initializes the infrastructure needed for sending query results to clients, setting up memory contexts, I/O buffers, and optionally sending row description messages.

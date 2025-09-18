@@ -1,7 +1,7 @@
 # ginRedoDeleteListPages
 
 ## Location
-src/backend/access/gin/ginxlog.c: 675 - 725
+[src/backend/access/gin/ginxlog.c:675-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L675-L725)
 
 ## Overview
 This function handles the redo operation for GIN list page deletions during WAL recovery, updating the metapage and re-initializing the deleted pages as empty, deleted pages.

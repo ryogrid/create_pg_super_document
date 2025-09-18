@@ -1,7 +1,7 @@
 # generate_subscripts
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5905 - 5968
+[src/backend/utils/adt/arrayfuncs.c:5905-5968](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5905-L5968)
 
 ## Overview
 generate_subscripts is a set-returning function that generates all valid subscripts for a specified dimension of an array, optionally in reverse order.

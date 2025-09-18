@@ -1,7 +1,7 @@
 # concat_text
 
 ## Location
-src/tutorial/funcs.c: 90 - 109
+[src/tutorial/funcs.c:90-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/funcs.c#L90-L109)
 
 ## Overview
 A PostgreSQL C function that concatenates two text values into a single text result, demonstrating advanced variable-length data manipulation and memory management in PostgreSQL.

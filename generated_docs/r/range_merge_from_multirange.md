@@ -1,7 +1,7 @@
 # range_merge_from_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2675 - 2712
+[src/backend/utils/adt/multirangetypes.c:2675-2712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2675-L2712)
 
 ## Overview
 A PostgreSQL function that converts a multirange into a single range by finding the smallest range that encompasses all individual ranges within the multirange.

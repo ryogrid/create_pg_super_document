@@ -1,7 +1,7 @@
 # get_expr_result_type
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 299 - 409
+[src/backend/utils/fmgr/funcapi.c:299-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L299-L409)
 
 ## Overview
 Determines the datatype that a PostgreSQL expression is supposed to return by analyzing the expression node tree, handling various expression types including function calls, operators, row expressions, and constants.

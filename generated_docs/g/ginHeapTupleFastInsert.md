@@ -1,7 +1,7 @@
 # ginHeapTupleFastInsert
 
 ## Location
-src/backend/access/gin/ginfast.c: 219 - 482
+[src/backend/access/gin/ginfast.c:219-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L219-L482)
 
 ## Overview
 The main function responsible for inserting index tuples from a collector into GIN's pending list, handling both direct insertion into existing pages and creation of new sublists when needed.

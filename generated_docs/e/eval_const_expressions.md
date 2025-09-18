@@ -1,7 +1,7 @@
 # eval_const_expressions
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2254 - 2268
+[src/backend/optimizer/util/clauses.c:2254-2268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2254-L2268)
 
 ## Overview
 This function reduces recognizably constant subexpressions in an expression tree and applies boolean optimizations like "x OR true" => "true", serving as the main entry point for constant expression evaluation in PostgreSQL's query optimizer.

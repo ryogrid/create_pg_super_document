@@ -1,7 +1,7 @@
 # keepwal_add_entry
 
 ## Location
-src/bin/pg_rewind/filemap.c: 250 - 265
+[src/bin/pg_rewind/filemap.c:250-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L250-L265)
 
 ## Overview
 Adds a WAL file path to the keep-list hash table to prevent its removal during pg_rewind operations.

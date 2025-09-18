@@ -1,7 +1,7 @@
 # hash_select_dirsize
 
 ## Location
-src/backend/utils/hash/dynahash.c: 831 - 854
+[src/backend/utils/hash/dynahash.c:831-854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L831-L854)
 
 ## Overview
 Selects an appropriate directory size for a shared memory hashtable with a given maximum number of entries.

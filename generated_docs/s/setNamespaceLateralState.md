@@ -1,7 +1,7 @@
 # setNamespaceLateralState
 
 ## Location
-src/backend/parser/parse_clause.c: 1832 - 1853
+[src/backend/parser/parse_clause.c:1832-1853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1832-L1853)
 
 ## Overview
 A convenience subroutine that updates LATERAL flags in a namespace list to control lateral reference behavior during SQL parsing operations.

@@ -1,7 +1,7 @@
 # function_selectivity
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2027 - 2088
+[src/backend/optimizer/util/plancat.c:2027-2088](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2027-L2088)
 
 ## Overview
 Returns the selectivity estimate for a specified boolean function clause by executing registered procedures stored in pg_proc through the function manager.

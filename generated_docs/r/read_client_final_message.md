@@ -1,7 +1,7 @@
 # read_client_final_message
 
 ## Location
-src/backend/libpq/auth-scram.c: 1253 - 1398
+[src/backend/libpq/auth-scram.c:1253-1398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L1253-L1398)
 
 ## Overview
 Reads and parses the final message received from the client in a SCRAM authentication exchange, validating channel binding and extracting the client proof for authentication verification.

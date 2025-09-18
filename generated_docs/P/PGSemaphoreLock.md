@@ -1,7 +1,7 @@
 # PGSemaphoreLock
 
 ## Location
-src/backend/port/posix_sema.c: 320 - 339
+[src/backend/port/posix_sema.c:320-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L320-L339)
 
 ## Overview
 Locks a PostgreSQL semaphore by decrementing its count, blocking the calling process if the count would become negative.

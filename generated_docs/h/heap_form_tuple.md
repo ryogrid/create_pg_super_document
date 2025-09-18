@@ -1,7 +1,7 @@
 # heap_form_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1116 - 1208
+[src/backend/access/common/heaptuple.c:1116-1208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1116-L1208)
 
 ## Overview
 Constructs a new HeapTuple from arrays of Datum values and null indicators, allocating the tuple in the current memory context.

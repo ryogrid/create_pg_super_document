@@ -1,7 +1,7 @@
 # numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 1244 - 1321
+[src/backend/utils/adt/numeric.c:1244-1321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1244-L1321)
 
 ## Overview
 The  function is a special PostgreSQL type coercion function that applies precision and scale constraints to numeric values before they are stored in tuple attributes.

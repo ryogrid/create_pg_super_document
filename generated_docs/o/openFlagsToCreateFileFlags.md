@@ -1,7 +1,7 @@
 # openFlagsToCreateFileFlags
 
 ## Location
-src/port/open.c: 29 - 64
+[src/port/open.c:29-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/open.c#L29-L64)
 
 ## Overview
 Converts POSIX open() flags to Windows CreateFile() disposition flags to determine how a file should be created or opened.

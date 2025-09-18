@@ -1,7 +1,7 @@
 # tbm_attach_shared_iterate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1461 - 1493
+[src/backend/nodes/tidbitmap.c:1461-1493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1461-L1493)
 
 ## Overview
 Allocates a backend-private iterator and attaches it to shared iterator state, enabling multiple processes to iterate jointly over a shared TID bitmap.

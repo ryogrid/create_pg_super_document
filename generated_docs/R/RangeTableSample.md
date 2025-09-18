@@ -1,7 +1,7 @@
 # RangeTableSample
 
 ## Location
-src/include/nodes/parsenodes.h: 695 - 703
+[src/include/nodes/parsenodes.h:695-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L695-L703)
 
 ## Overview
 RangeTableSample represents a TABLESAMPLE clause in PostgreSQL's raw parse tree, encapsulating the sampling method, parameters, and repeatability settings for statistical sampling of table data.

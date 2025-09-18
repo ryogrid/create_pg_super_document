@@ -1,7 +1,7 @@
 # build_join_rel_hash
 
 ## Location
-src/backend/optimizer/util/relnode.c: 486 - 526
+[src/backend/optimizer/util/relnode.c:486-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L486-L526)
 
 ## Overview
 Constructs the auxiliary hash table for join relations to enable fast lookup of existing join relations by their relation identifier sets.

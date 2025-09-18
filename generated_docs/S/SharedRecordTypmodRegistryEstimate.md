@@ -1,7 +1,7 @@
 # SharedRecordTypmodRegistryEstimate
 
 ## Location
-src/backend/utils/cache/typcache.c: 2086 - 2107
+[src/backend/utils/cache/typcache.c:2086-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2086-L2107)
 
 ## Overview
 Returns the memory size required to hold a SharedRecordTypmodRegistry structure in shared memory, providing a clean interface without exposing internal structure details in headers.

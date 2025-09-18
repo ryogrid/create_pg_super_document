@@ -1,7 +1,7 @@
 # pg_add_s64_overflow
 
 ## Location
-src/include/common/int.h: 161 - 187
+[src/include/common/int.h:161-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L161-L187)
 
 ## Overview
 Performs addition of two 64-bit signed integers with overflow detection, returning true if overflow occurs and false otherwise.

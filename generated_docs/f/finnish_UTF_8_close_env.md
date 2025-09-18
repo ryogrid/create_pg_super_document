@@ -1,7 +1,7 @@
 # finnish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 721 - 722
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:721-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L721-L722)
 
 ## Overview
 The finnish_UTF_8_close_env function properly deallocates and cleans up a Snowball environment structure that was created for Finnish UTF-8 text stemming operations.

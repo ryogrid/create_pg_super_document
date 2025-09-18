@@ -1,7 +1,7 @@
 # Snapshot
 
 ## Location
-src/include/utils/snapshot.h: 121 - 122
+[src/include/utils/snapshot.h:121-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/snapshot.h#L121-L122)
 
 ## Overview
 Snapshot is a typedef that represents a pointer to a SnapshotData structure, providing the primary interface for working with transaction snapshots in PostgreSQL.

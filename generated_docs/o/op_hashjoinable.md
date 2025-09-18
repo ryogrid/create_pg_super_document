@@ -1,7 +1,7 @@
 # op_hashjoinable
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1437 - 1476
+[src/backend/utils/cache/lsyscache.c:1437-1476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1437-L1476)
 
 ## Overview
 Determines whether an operator can be used in hash join operations by checking if it has appropriate hash functionality.

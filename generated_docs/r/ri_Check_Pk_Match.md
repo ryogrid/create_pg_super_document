@@ -1,7 +1,7 @@
 # ri_Check_Pk_Match
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 461 - 550
+[src/backend/utils/adt/ri_triggers.c:461-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L461-L550)
 
 ## Overview
 Internal static function that checks if another primary key row exists with the same key values as a modified or deleted tuple, used to determine if foreign key constraint violations would occur.

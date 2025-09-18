@@ -1,7 +1,7 @@
 # printatt
 
 ## Location
-src/backend/access/common/printtup.c: 423 - 443
+[src/backend/access/common/printtup.c:423-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L423-L443)
 
 ## Overview
 The printatt function outputs debug information about a PostgreSQL attribute to standard output, displaying its properties and value.

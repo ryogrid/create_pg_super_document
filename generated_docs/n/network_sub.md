@@ -1,7 +1,7 @@
 # network_sub
 
 ## Location
-src/backend/utils/adt/network.c: 903 - 917
+[src/backend/utils/adt/network.c:903-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L903-L917)
 
 ## Overview
 Implements the subnet containment operator (<< operator) to test whether one network is a strict subnet of another.

@@ -1,7 +1,7 @@
 # OprProofCacheKey
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2074 - 2078
+[src/backend/optimizer/util/predtest.c:2074-2078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2074-L2078)
 
 ## Overview
 OprProofCacheKey is a structure that serves as the hash table key for caching B-tree operator proof lookup results in PostgreSQL's predicate testing system, improving performance by avoiding repeated expensive operator relationship queries.

@@ -1,7 +1,7 @@
 # locate_agg_of_level
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 150 - 169
+[src/backend/rewrite/rewriteManip.c:150-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L150-L169)
 
 ## Overview
 Finds the parse location of any aggregate function at the specified query level, primarily used for error reporting and diagnostic purposes.

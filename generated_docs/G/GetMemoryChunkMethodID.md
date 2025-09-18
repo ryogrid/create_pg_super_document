@@ -1,7 +1,7 @@
 # GetMemoryChunkMethodID
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 191 - 219
+[src/backend/utils/mmgr/mcxt.c:191-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L191-L219)
 
 ## Overview
 Extracts the MemoryContextMethodID from the header that directly precedes a memory chunk pointer, used to identify which memory context method was used to allocate the chunk.

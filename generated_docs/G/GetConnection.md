@@ -1,7 +1,7 @@
 # GetConnection
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 63 - 281
+[src/bin/pg_basebackup/streamutil.c:63-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L63-L281)
 
 ## Overview
 Establishes a connection to PostgreSQL server using provided connection parameters, with support for replication connections and automatic password handling.

@@ -1,7 +1,7 @@
 # timetz_hash
 
 ## Location
-src/backend/utils/adt/date.c: 2533 - 2548
+[src/backend/utils/adt/date.c:2533-2548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2533-L2548)
 
 ## Overview
 The timetz_hash function computes a hash value for a TimeTzADT (time with time zone) value, used for hash table operations and hash-based indexing.

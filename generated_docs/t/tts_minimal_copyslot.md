@@ -1,7 +1,7 @@
 # tts_minimal_copyslot
 
 ## Location
-src/backend/executor/execTuples.c: 634 - 646
+[src/backend/executor/execTuples.c:634-646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L634-L646)
 
 ## Overview
 Copies the contents of a source TupleTableSlot into a destination minimal tuple table slot, creating a new minimal tuple in the destination slot's memory context.

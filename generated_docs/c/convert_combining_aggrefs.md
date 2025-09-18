@@ -1,7 +1,7 @@
 # convert_combining_aggrefs
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2552 - 2620
+[src/backend/optimizer/plan/setrefs.c:2552-2620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2552-L2620)
 
 ## Overview
 Recursively scans an expression tree and converts Aggrefs to the proper intermediate form for combining aggregates in partial aggregation scenarios.

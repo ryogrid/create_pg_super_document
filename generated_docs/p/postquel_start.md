@@ -1,7 +1,7 @@
 # postquel_start
 
 ## Location
-src/backend/executor/functions.c: 814 - 875
+[src/backend/executor/functions.c:814-875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L814-L875)
 
 ## Overview
 Starts execution of a single execution state node by creating query descriptors and initializing the executor for a SQL function statement.

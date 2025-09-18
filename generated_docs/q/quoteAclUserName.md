@@ -1,7 +1,7 @@
 # quoteAclUserName
 
 ## Location
-src/bin/pg_dump/dumputils.c: 582 - 615
+[src/bin/pg_dump/dumputils.c:582-615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L582-L615)
 
 ## Overview
 The quoteAclUserName function safely quotes PostgreSQL role/user names for inclusion in ACL strings, following the same quoting rules as the backend's putid() function.

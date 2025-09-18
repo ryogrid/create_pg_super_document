@@ -1,7 +1,7 @@
 # IndexOnlyNext
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 61 - 267
+[src/backend/executor/nodeIndexonlyscan.c:61-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L61-L267)
 
 ## Overview
 Retrieves the next tuple from an index-only scan operation, attempting to avoid heap access when possible by utilizing the visibility map to determine tuple visibility.

@@ -1,7 +1,7 @@
 # RelationMapInitializePhase3
 
 ## Location
-src/backend/utils/cache/relmapper.c: 692 - 712
+[src/backend/utils/cache/relmapper.c:692-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L692-L712)
 
 ## Overview
 RelationMapInitializePhase3 completes the relation mapper initialization by loading the database-specific local relation map file after MyDatabaseId and DatabasePath have been established.

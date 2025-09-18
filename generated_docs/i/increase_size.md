@@ -1,7 +1,7 @@
 # increase_size
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 355 - 373
+[src/backend/snowball/libstemmer/utilities.c:355-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L355-L373)
 
 ## Overview
 Increases the size of a dynamically allocated symbol buffer to accommodate at least n symbols, providing memory management for string manipulation operations in PostgreSQL's Snowball stemmer.

@@ -1,7 +1,7 @@
 # pgstat_prep_database_pending
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 333 - 353
+[src/backend/utils/activity/pgstat_database.c:333-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L333-L353)
 
 ## Overview
 pgstat_prep_database_pending is a function that finds or creates a local pending statistics entry for a specified database OID.

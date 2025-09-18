@@ -1,7 +1,7 @@
 # core_yy_extra_type
 
 ## Location
-src/include/parser/scanner.h: 66 - 116
+[src/include/parser/scanner.h:66-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/scanner.h#L66-L116)
 
 ## Overview
 The core scanner's private state structure that contains all necessary data for lexical analysis in PostgreSQL's SQL parser, designed to be embedded as the first component of larger scanner state structures.

@@ -1,7 +1,7 @@
 # jspIsMutable
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1273 - 1293
+[src/backend/utils/adt/jsonpath.c:1273-1293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1273-L1293)
 
 ## Overview
 Determines whether a JSON path expression contains mutable functions or operations that could produce different results on successive evaluations with the same inputs.

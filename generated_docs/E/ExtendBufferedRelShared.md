@@ -1,7 +1,7 @@
 # ExtendBufferedRelShared
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 2179 - 2458
+[src/backend/storage/buffer/bufmgr.c:2179-2458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L2179-L2458)
 
 ## Overview
 ExtendBufferedRelShared extends shared persistent relations by acquiring victim buffers, coordinating with extension locks, and managing buffer table insertions for concurrent access.

@@ -1,7 +1,7 @@
 # ExecScanHashBucket
 
 ## Location
-src/backend/executor/nodeHash.c: 1971 - 2031
+[src/backend/executor/nodeHash.c:1971-2031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1971-L2031)
 
 ## Overview
 Scans a hash bucket for tuples that match the current outer tuple in a hash join operation, handling both regular buckets and skew buckets.

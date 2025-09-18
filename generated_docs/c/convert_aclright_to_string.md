@@ -1,7 +1,7 @@
 # convert_aclright_to_string
 
 ## Location
-src/backend/utils/adt/acl.c: 1735 - 1790
+[src/backend/utils/adt/acl.c:1735-1790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1735-L1790)
 
 ## Overview
 Converts an individual ACL privilege bit value to its corresponding human-readable string representation.

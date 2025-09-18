@@ -1,7 +1,7 @@
 # int8eq
 
 ## Location
-src/backend/utils/adt/int8.c: 113 - 121
+[src/backend/utils/adt/int8.c:113-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L113-L121)
 
 ## Overview
 Performs equality comparison between two int8 (bigint) values and returns a boolean result.

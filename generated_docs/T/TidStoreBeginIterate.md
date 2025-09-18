@@ -1,7 +1,7 @@
 # TidStoreBeginIterate
 
 ## Location
-src/backend/access/common/tidstore.c: 482 - 510
+[src/backend/access/common/tidstore.c:482-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L482-L510)
 
 ## Overview
 Prepares to iterate through a TidStore by creating and initializing a TidStoreIter structure that manages the iteration state.

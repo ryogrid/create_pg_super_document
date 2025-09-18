@@ -1,7 +1,7 @@
 # pg_config
 
 ## Location
-src/backend/utils/misc/pg_config.c: 24 - 50
+[src/backend/utils/misc/pg_config.c:24-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_config.c#L24-L50)
 
 ## Overview
 The pg_config function is a PostgreSQL system function that exposes the same configuration information as the external pg_config utility, but as a Set Returning Function (SRF) within the database.

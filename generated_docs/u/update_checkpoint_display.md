@@ -1,7 +1,7 @@
 # update_checkpoint_display
 
 ## Location
-src/backend/access/transam/xlog.c: 6801 - 6862
+[src/backend/access/transam/xlog.c:6801-6862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6801-L6862)
 
 ## Overview
 Updates the process status display for a process running a checkpoint or restartpoint operation to provide visibility into critical system operations.

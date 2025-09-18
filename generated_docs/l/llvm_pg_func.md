@@ -1,7 +1,7 @@
 # llvm_pg_func
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 497 - 524
+[src/backend/jit/llvm/llvmjit.c:497-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L497-L524)
 
 ## Overview
 Returns a function declaration for a function referenced in llvmjit_types.c, adding it to the specified LLVM module if necessary.

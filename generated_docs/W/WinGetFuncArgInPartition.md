@@ -1,7 +1,7 @@
 # WinGetFuncArgInPartition
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3310 - 3397
+[src/backend/executor/nodeWindowAgg.c:3310-3397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3310-L3397)
 
 ## Overview
 Evaluates a window function's argument expression on a specified row within the partition using flexible positioning semantics similar to lseek(2) system call.

@@ -1,7 +1,7 @@
 # thesaurusRead
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 168 - 302
+[src/backend/tsearch/dict_thesaurus.c:168-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L168-L302)
 
 ## Overview
 Parses a thesaurus configuration file and populates the DictThesaurus structure with lexeme patterns and their replacement words.

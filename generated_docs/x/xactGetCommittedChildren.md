@@ -1,7 +1,7 @@
 # xactGetCommittedChildren
 
 ## Location
-src/backend/access/transam/xact.c: 5728 - 5751
+[src/backend/access/transam/xact.c:5728-5751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L5728-L5751)
 
 ## Overview
 A function that retrieves the list of committed child transaction IDs for the current transaction in PostgreSQL's transaction management system.

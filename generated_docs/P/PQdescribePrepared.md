@@ -1,7 +1,7 @@
 # PQdescribePrepared
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2455 - 2473
+[src/interfaces/libpq/fe-exec.c:2455-2473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2455-L2473)
 
 ## Overview
 Obtains information about a previously prepared statement by sending a Describe message to the PostgreSQL server and waiting for the response.

@@ -1,7 +1,7 @@
 # timestamp_in
 
 ## Location
-src/backend/utils/adt/timestamp.c: 164 - 231
+[src/backend/utils/adt/timestamp.c:164-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L164-L231)
 
 ## Overview
 A PostgreSQL input function that converts string representations of timestamps into internal timestamp format (without timezone), handling various input formats and special values.

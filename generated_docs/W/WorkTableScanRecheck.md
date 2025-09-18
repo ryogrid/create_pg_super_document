@@ -1,7 +1,7 @@
 # WorkTableScanRecheck
 
 ## Location
-src/backend/executor/nodeWorktablescan.c: 66 - 80
+[src/backend/executor/nodeWorktablescan.c:66-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWorktablescan.c#L66-L80)
 
 ## Overview
 WorkTableScanRecheck is an access method routine used during EvalPlanQual processing to recheck tuples for worktable scans, though it currently requires no actual checking.

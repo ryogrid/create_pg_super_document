@@ -1,7 +1,7 @@
 # canAcceptConnections
 
 ## Location
-src/backend/postmaster/postmaster.c: 1897 - 1956
+[src/backend/postmaster/postmaster.c:1897-1956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1897-L1956)
 
 ## Overview
 Determines whether the PostgreSQL server can accept new connections of a specified type based on current system state, operational mode, and resource limitations.

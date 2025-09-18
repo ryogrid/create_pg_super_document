@@ -1,7 +1,7 @@
 # parseCommandLine
 
 ## Location
-src/bin/pg_upgrade/option.c: 39 - 281
+[src/bin/pg_upgrade/option.c:39-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/option.c#L39-L281)
 
 ## Overview
 Parses command line arguments for the pg_upgrade utility and populates configuration structures with user-specified options.

@@ -1,7 +1,7 @@
 # gtsvectorin
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 89 - 98
+[src/backend/utils/adt/tsgistidx.c:89-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L89-L98)
 
 ## Overview
 This function is a stub input function for the gtsvector data type that explicitly prevents input operations and raises an error.

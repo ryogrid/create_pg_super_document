@@ -1,7 +1,7 @@
 # WalSummarizerShmemInit
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 180 - 210
+[src/backend/postmaster/walsummarizer.c:180-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L180-L210)
 
 ## Overview
 Initializes or attaches to the shared memory segment used by the WAL summarizer module.

@@ -1,7 +1,7 @@
 # CLOGPagePrecedes
 
 ## Location
-src/backend/access/transam/clog.c: 1055 - 1073
+[src/backend/access/transam/clog.c:1055-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L1055-L1073)
 
 ## Overview
 CLOGPagePrecedes determines whether one CLOG page number is "older" than another for truncation purposes, handling PostgreSQL's wraparound transaction ID arithmetic correctly.

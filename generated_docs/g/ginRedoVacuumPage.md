@@ -1,7 +1,7 @@
 # ginRedoVacuumPage
 
 ## Location
-src/backend/access/gin/ginxlog.c: 440 - 451
+[src/backend/access/gin/ginxlog.c:440-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L440-L451)
 
 ## Overview
 Replays GIN entry tree page vacuum operations during WAL recovery by restoring the page from a full-page image.

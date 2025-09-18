@@ -1,7 +1,7 @@
 # cash_send
 
 ## Location
-src/backend/utils/adt/cash.c: 601 - 615
+[src/backend/utils/adt/cash.c:601-615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L601-L615)
 
 ## Overview
 Converts a PostgreSQL cash value to binary format for transmission over network connections or storage in binary format.

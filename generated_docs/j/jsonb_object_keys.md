@@ -1,7 +1,7 @@
 # jsonb_object_keys
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 566 - 638
+[src/backend/utils/adt/jsonfuncs.c:566-638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L566-L638)
 
 ## Overview
 This SQL function extracts and returns the set of top-level keys from a JSONB object as a set-returning function (SRF) operating in value-per-call mode.

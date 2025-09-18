@@ -1,7 +1,7 @@
 # gtsquery_consistent
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 53 - 88
+[src/backend/utils/adt/tsquery_gist.c:53-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L53-L88)
 
 ## Overview
 gtsquery_consistent is a GiST consistency checking function that determines whether a TSQuery index entry is consistent with a given query using containment strategies.

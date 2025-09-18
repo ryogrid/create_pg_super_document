@@ -1,7 +1,7 @@
 # get_non_null_list_datum_count
 
 ## Location
-src/backend/partitioning/partbounds.c: 436 - 461
+[src/backend/partitioning/partbounds.c:436-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L436-L461)
 
 ## Overview
 Counts the total number of non-null Datum values across all list partition specifications, used for memory allocation sizing in list partition bounds creation.

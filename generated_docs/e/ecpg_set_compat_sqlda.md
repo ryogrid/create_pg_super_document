@@ -1,7 +1,7 @@
 # ecpg_set_compat_sqlda
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 255 - 411
+[src/interfaces/ecpg/ecpglib/sqlda.c:255-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L255-L411)
 
 ## Overview
 Sets up and populates a compatibility-mode SQLDA structure with data values from a specific row of a PostgreSQL result set, including proper data type conversion and memory layout.

@@ -1,7 +1,7 @@
 # sqlvar_compat
 
 ## Location
-src/interfaces/ecpg/include/sqlda-compat.h: 8 - 36
+[src/interfaces/ecpg/include/sqlda-compat.h:8-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/sqlda-compat.h#L8-L36)
 
 ## Overview
 The  structure represents a compatibility layer for SQL variable descriptors in the ECPG (Embedded SQL in C for PostgreSQL) interface, providing detailed metadata about SQL variables including type information, data pointers, and extended attributes.

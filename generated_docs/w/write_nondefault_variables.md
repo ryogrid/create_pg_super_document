@@ -1,7 +1,7 @@
 # write_nondefault_variables
 
 ## Location
-src/backend/utils/misc/guc.c: 5662 - 5716
+[src/backend/utils/misc/guc.c:5662-5716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5662-L5716)
 
 ## Overview
 write_nondefault_variables serializes all non-default GUC configuration variables to a binary file for sharing with exec'd backend processes.

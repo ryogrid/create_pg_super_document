@@ -1,7 +1,7 @@
 # printTableAddCell
 
 ## Location
-src/fe_utils/print.c: 3260 - 3309
+[src/fe_utils/print.c:3260-3309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3260-L3309)
 
 ## Overview
 Adds a cell to a table content structure used for formatting tabular output in PostgreSQL client utilities.

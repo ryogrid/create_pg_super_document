@@ -1,7 +1,7 @@
 # next_field_expand
 
 ## Location
-src/backend/libpq/hba.c: 379 - 437
+[src/backend/libpq/hba.c:379-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L379-L437)
 
 ## Overview
 Tokenizes one field from an HBA configuration line, handling file inclusion and comma-separated lists, and expands any referenced files into additional tokens.

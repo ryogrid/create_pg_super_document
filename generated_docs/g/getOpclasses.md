@@ -1,7 +1,7 @@
 # getOpclasses
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 6320 - 6388
+[src/bin/pg_dump/pg_dump.c:6320-6388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L6320-L6388)
 
 ## Overview
 Reads all operator classes from the PostgreSQL system catalogs and returns them in an OpclassInfo structure array for pg_dump processing.

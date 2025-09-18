@@ -1,7 +1,7 @@
 # IndexBulkDeleteResult
 
 ## Location
-src/include/access/genam.h: 75 - 84
+[src/include/access/genam.h:75-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/genam.h#L75-L84)
 
 ## Overview
 IndexBulkDeleteResult is a structure that holds statistics returned by ambulkdelete and amvacuumcleanup functions, providing comprehensive information about the vacuum operation's impact on the index.

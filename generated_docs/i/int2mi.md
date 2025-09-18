@@ -1,7 +1,7 @@
 # int2mi
 
 ## Location
-src/backend/utils/adt/int.c: 920 - 933
+[src/backend/utils/adt/int.c:920-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L920-L933)
 
 ## Overview
 A PostgreSQL system function that implements subtraction for 16-bit signed integers (int2/smallint) with overflow detection and error handling.

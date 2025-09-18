@@ -1,7 +1,7 @@
 # pg_tablespace_location
 
 ## Location
-src/backend/utils/adt/misc.c: 301 - 369
+[src/backend/utils/adt/misc.c:301-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L301-L369)
 
 ## Overview
 Returns the filesystem path where a tablespace is located by resolving symbolic links in the pg_tblspc directory.

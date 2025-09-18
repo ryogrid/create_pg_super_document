@@ -1,7 +1,7 @@
 # bbstreamer_extractor
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 29 - 37
+[src/bin/pg_basebackup/bbstreamer_file.c:29-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L29-L37)
 
 ## Overview
 A specialized bbstreamer structure designed to extract and write files from backup archives, providing archive extraction functionality during PostgreSQL base backup restore operations.

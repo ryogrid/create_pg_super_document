@@ -1,7 +1,7 @@
 # mda_get_offset_values
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 183 - 207
+[src/backend/utils/adt/arrayutils.c:183-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L183-L207)
 
 ## Overview
 Computes offset distances needed to step through a multidimensional sub-array within the parent array based on dimension products and sub-array spans.

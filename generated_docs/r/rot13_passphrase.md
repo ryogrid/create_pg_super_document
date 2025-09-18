@@ -1,7 +1,7 @@
 # rot13_passphrase
 
 ## Location
-src/test/modules/ssl_passphrase_callback/ssl_passphrase_func.c: 67 - 83
+[src/test/modules/ssl_passphrase_callback/ssl_passphrase_func.c:67-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/ssl_passphrase_callback/ssl_passphrase_func.c#L67-L83)
 
 ## Overview
 Transforms a password using ROT13 cipher as part of PostgreSQL's LDAP authentication testing module.

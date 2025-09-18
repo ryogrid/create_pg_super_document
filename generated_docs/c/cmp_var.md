@@ -1,7 +1,7 @@
 # cmp_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 8389 - 8403
+[src/backend/utils/adt/numeric.c:8389-8403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8389-L8403)
 
 ## Overview
 Compares two NumericVar values and returns an integer indicating their relative ordering.

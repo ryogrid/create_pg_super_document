@@ -1,7 +1,7 @@
 # _bt_metaversion
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 739 - 796
+[src/backend/access/nbtree/nbtpage.c:739-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L739-L796)
 
 ## Overview
 _bt_metaversion extracts version and capability information from the B-tree metadata page to determine index behavior characteristics and supported features.

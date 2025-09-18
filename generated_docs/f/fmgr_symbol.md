@@ -1,7 +1,7 @@
 # fmgr_symbol
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 281 - 348
+[src/backend/utils/fmgr/fmgr.c:281-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L281-L348)
 
 ## Overview
 This function returns the module and C function name that provides the implementation of a given PostgreSQL function ID, supporting both core binary functions and extension shared objects.

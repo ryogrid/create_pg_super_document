@@ -1,7 +1,7 @@
 # checkInsertTargets
 
 ## Location
-src/backend/parser/parse_target.c: 1015 - 1119
+[src/backend/parser/parse_target.c:1015-1119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1015-L1119)
 
 ## Overview
 Generates a list of INSERT column targets when not supplied or validates supplied column names against the target table, returning both column names and their attribute numbers.

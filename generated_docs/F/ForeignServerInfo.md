@@ -1,7 +1,7 @@
 # ForeignServerInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 584 - 585
+[src/bin/pg_dump/pg_dump.h:584-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L584-L585)
 
 ## Overview
 ForeignServerInfo is a structure used by pg_dump to represent PostgreSQL foreign servers, storing metadata necessary for dumping and restoring foreign server definitions.

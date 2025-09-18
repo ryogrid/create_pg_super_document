@@ -1,7 +1,7 @@
 # dshash_memhash
 
 ## Location
-src/backend/lib/dshash.c: 581 - 589
+[src/backend/lib/dshash.c:581-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L581-L589)
 
 ## Overview
 A utility function that provides a standardized interface for memory hashing in the dshash (dynamic shared hash) system by forwarding calls to the tag_hash function.

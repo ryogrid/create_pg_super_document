@@ -1,7 +1,7 @@
 # LWLockMode
 
 ## Location
-src/include/storage/lwlock.h: 119 - 176
+[src/include/storage/lwlock.h:119-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lwlock.h#L119-L176)
 
 ## Overview
 LWLockMode is an enumeration that defines the different access modes available for PostgreSQL lightweight locks.

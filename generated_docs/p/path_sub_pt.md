@@ -1,7 +1,7 @@
 # path_sub_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4409 - 4424
+[src/backend/utils/adt/geo_ops.c:4409-4424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4409-L4424)
 
 ## Overview
 Translates a path by subtracting a point offset from all points in the path, effectively moving the entire path by the negative displacement.

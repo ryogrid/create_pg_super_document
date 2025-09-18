@@ -1,7 +1,7 @@
 # pgstat_create_subscription
 
 ## Location
-src/backend/utils/activity/pgstat_subscription.c: 46 - 63
+[src/backend/utils/activity/pgstat_subscription.c:46-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_subscription.c#L46-L63)
 
 ## Overview
 Initializes statistics collection for a newly created logical replication subscription, setting up transactional tracking and creating a clean stats entry.

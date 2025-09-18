@@ -1,7 +1,7 @@
 # BitmapAdjustPrefetchTarget
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 423 - 461
+[src/backend/executor/nodeBitmapHeapscan.c:423-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L423-L461)
 
 ## Overview
 Dynamically adjusts the prefetch target distance using an adaptive algorithm that starts small and gradually increases to optimize I/O performance.

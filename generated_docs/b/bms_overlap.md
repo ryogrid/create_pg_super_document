@@ -1,7 +1,7 @@
 # bms_overlap
 
 ## Location
-src/backend/nodes/bitmapset.c: 582 - 607
+[src/backend/nodes/bitmapset.c:582-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L582-L607)
 
 ## Overview
 Tests whether two bitmap sets have any common members by checking if their intersection is non-empty.

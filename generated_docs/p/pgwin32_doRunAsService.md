@@ -1,7 +1,7 @@
 # pgwin32_doRunAsService
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1706 - 1731
+[src/bin/pg_ctl/pg_ctl.c:1706-1731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1706-L1731)
 
 ## Overview
 Initializes the PostgreSQL server as a Windows service by registering the service main function with the Windows Service Control Manager.

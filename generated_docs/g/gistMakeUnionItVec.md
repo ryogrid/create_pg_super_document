@@ -1,7 +1,7 @@
 # gistMakeUnionItVec
 
 ## Location
-src/backend/access/gist/gistutil.c: 154 - 217
+[src/backend/access/gist/gistutil.c:154-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L154-L217)
 
 ## Overview
 Creates union datums for each index column by combining corresponding column values from a vector of IndexTuples using the GiST union functions.

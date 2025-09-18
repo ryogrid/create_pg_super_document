@@ -1,7 +1,7 @@
 # get_opfamily_oid
 
 ## Location
-src/backend/commands/opclasscmds.c: 139 - 161
+[src/backend/commands/opclasscmds.c:139-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L139-L161)
 
 ## Overview
 get_opfamily_oid is a utility function that finds an operator family OID by its possibly qualified name, serving as a convenient wrapper around OpFamilyCacheLookup.

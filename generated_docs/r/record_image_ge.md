@@ -1,7 +1,7 @@
 # record_image_ge
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1777 - 1782
+[src/backend/utils/adt/rowtypes.c:1777-1782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1777-L1782)
 
 ## Overview
 A PostgreSQL function that performs a "greater than or equal to" comparison between two record (composite) types using byte-oriented comparison rather than semantic equality.

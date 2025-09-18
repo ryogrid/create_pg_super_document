@@ -1,7 +1,7 @@
 # InitBufferPoolAccess
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3565 - 3589
+[src/backend/storage/buffer/bufmgr.c:3565-3589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3565-L3589)
 
 ## Overview
 InitBufferPoolAccess initializes a backend's access to the shared buffer pool by setting up private reference counting structures and registering cleanup handlers.

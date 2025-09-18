@@ -1,7 +1,7 @@
 # tts_buffer_heap_release
 
 ## Location
-src/backend/executor/execTuples.c: 714 - 718
+[src/backend/executor/execTuples.c:714-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L714-L718)
 
 ## Overview
 A static cleanup function that handles the release of resources for buffer-backed heap tuple table slots, currently implemented as a no-op function.

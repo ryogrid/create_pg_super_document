@@ -1,7 +1,7 @@
 # xmlconcat
 
 ## Location
-src/backend/utils/adt/xml.c: 553 - 618
+[src/backend/utils/adt/xml.c:553-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L553-L618)
 
 ## Overview
 Concatenates multiple XML values into a single XML document, handling XML declaration merging and validation.

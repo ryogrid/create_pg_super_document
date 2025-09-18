@@ -1,7 +1,7 @@
 # ResetReindexState
 
 ## Location
-src/backend/catalog/index.c: 4152 - 4180
+[src/backend/catalog/index.c:4152-4180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4152-L4180)
 
 ## Overview
 Clears all global reindexing state during transaction or subtransaction abort, resetting the reindex processing flags and pending index lists when the transaction nesting level matches or exceeds the reindex operation level.

@@ -1,7 +1,7 @@
 # GenerateRecoveryConfig
 
 ## Location
-src/fe_utils/recovery_gen.c: 27 - 123
+[src/fe_utils/recovery_gen.c:27-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/recovery_gen.c#L27-L123)
 
 ## Overview
 GenerateRecoveryConfig creates recovery configuration content for PostgreSQL standby servers by building primary_conninfo and related settings from an existing database connection.

@@ -1,7 +1,7 @@
 # transformTableEntry
 
 ## Location
-src/backend/parser/parse_clause.c: 397 - 406
+[src/backend/parser/parse_clause.c:397-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L397-L406)
 
 ## Overview
 Transforms a RangeVar (simple relation reference) into a ParseNamespaceItem by delegating to addRangeTableEntry with appropriate parameters.

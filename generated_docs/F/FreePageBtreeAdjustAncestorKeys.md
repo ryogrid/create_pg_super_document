@@ -1,7 +1,7 @@
 # FreePageBtreeAdjustAncestorKeys
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 501 - 579
+[src/backend/utils/mmgr/freepage.c:501-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L501-L579)
 
 ## Overview
 Propagates key changes upward through the B-tree hierarchy when the first key of a page has been modified, maintaining B-tree invariants.

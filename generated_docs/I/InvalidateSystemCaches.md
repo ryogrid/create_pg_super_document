@@ -1,7 +1,7 @@
 # InvalidateSystemCaches
 
 ## Location
-src/backend/utils/cache/inval.c: 793 - 806
+[src/backend/utils/cache/inval.c:793-806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L793-L806)
 
 ## Overview
 Invalidates all system catalog caches, relation descriptors, and storage manager cache entries when shared invalidation queue overflow is detected.

@@ -1,7 +1,7 @@
 # PopulateArrayContext
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 258 - 269
+[src/backend/utils/adt/jsonfuncs.c:258-269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L258-L269)
 
 ## Overview
 A shared context structure used by PostgreSQL's populate_array_json() and populate_array_dim_jsonb() functions to maintain state and metadata during JSON-to-array conversion operations.

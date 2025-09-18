@@ -1,7 +1,7 @@
 # diendscan
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 269 - 278
+[src/test/modules/dummy_index_am/dummy_index_am.c:269-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L269-L278)
 
 ## Overview
 Terminates an index scan for the dummy index access method, providing a minimal implementation of the scan cleanup functionality required by PostgreSQL's index access method interface.

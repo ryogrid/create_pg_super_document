@@ -1,7 +1,7 @@
 # CopyConversionError
 
 ## Location
-src/backend/commands/copyfromparse.c: 533 - 589
+[src/backend/commands/copyfromparse.c:533-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L533-L589)
 
 ## Overview
 CopyConversionError reports encoding or conversion errors encountered during COPY FROM operations, providing appropriate error messages based on whether transcoding was required.

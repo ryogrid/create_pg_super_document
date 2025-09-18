@@ -1,7 +1,7 @@
 # disassembledLeaf
 
 ## Location
-src/backend/access/gin/gindatapage.c: 68 - 102
+[src/backend/access/gin/gindatapage.c:68-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L68-L102)
 
 ## Overview
 A structure type used in PostgreSQL's GIN (Generalized Inverted Index) implementation to represent a disassembled leaf page during page modification operations, providing an in-memory representation that facilitates reorganization and recompression.

@@ -1,7 +1,7 @@
 # make_timestamp_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 572 - 653
+[src/backend/utils/adt/timestamp.c:572-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L572-L653)
 
 ## Overview
 Internal workhorse function that constructs a Timestamp value from individual date and time components, performing comprehensive validation and overflow checks.

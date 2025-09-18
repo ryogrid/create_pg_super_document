@@ -1,7 +1,7 @@
 # ReplicationSlotInitialize
 
 ## Location
-src/backend/replication/slot.c: 224 - 232
+[src/backend/replication/slot.c:224-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L224-L232)
 
 ## Overview
 Registers a cleanup callback function to ensure proper cleanup of replication slots when a backend process exits.

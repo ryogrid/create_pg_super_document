@@ -1,7 +1,7 @@
 # restorePsetInfo
 
 ## Location
-src/bin/psql/command.c: 5122 - 5147
+[src/bin/psql/command.c:5122-5147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5122-L5147)
 
 ## Overview
 Restores a printQueryOpt structure from a previously saved copy, freeing the old data and transferring ownership of dynamically allocated strings from the saved copy.

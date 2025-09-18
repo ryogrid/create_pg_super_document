@@ -1,7 +1,7 @@
 # convert_EXISTS_sublink_to_join
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1371 - 1539
+[src/backend/optimizer/plan/subselect.c:1371-1539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1371-L1539)
 
 ## Overview
 Attempts to convert an EXISTS SubLink into a semi-join or anti-join, enabling the query planner to use more efficient join algorithms instead of nested loop execution for EXISTS subqueries.

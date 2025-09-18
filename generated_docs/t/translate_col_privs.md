@@ -1,7 +1,7 @@
 # translate_col_privs
 
 ## Location
-src/backend/optimizer/util/inherit.c: 710 - 759
+[src/backend/optimizer/util/inherit.c:710-759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L710-L759)
 
 ## Overview
 Translates a bitmapset representing per-column privileges from a parent relation's attribute numbering to the child relation's attribute numbering in inheritance hierarchies.

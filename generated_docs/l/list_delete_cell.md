@@ -1,7 +1,7 @@
 # list_delete_cell
 
 ## Location
-src/backend/nodes/list.c: 841 - 852
+[src/backend/nodes/list.c:841-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L841-L852)
 
 ## Overview
 Deletes a specific cell from a PostgreSQL list by reference, freeing the entire list if it becomes empty.

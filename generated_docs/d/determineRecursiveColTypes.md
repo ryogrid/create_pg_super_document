@@ -1,7 +1,7 @@
 # determineRecursiveColTypes
 
 ## Location
-src/backend/parser/analyze.c: 2334 - 2387
+[src/backend/parser/analyze.c:2334-2387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2334-L2387)
 
 ## Overview
 Sets up column types for the parent CTE by processing the outputs of the non-recursive term of a recursive union. This function determines the column names and types that will be used for the entire recursive CTE.

@@ -1,7 +1,7 @@
 # minmax_qp_callback
 
 ## Location
-src/backend/optimizer/plan/planagg.c: 478 - 496
+[src/backend/optimizer/plan/planagg.c:478-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planagg.c#L478-L496)
 
 ## Overview
 A callback function used by query_planner() to configure pathkeys for MIN/MAX aggregate optimization subqueries.

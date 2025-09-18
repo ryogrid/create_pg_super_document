@@ -1,7 +1,7 @@
 # logicalrep_sync_worker_count
 
 ## Location
-src/backend/replication/logical/launcher.c: 861 - 884
+[src/backend/replication/logical/launcher.c:861-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L861-L884)
 
 ## Overview
 Counts the number of registered (not necessarily running) table synchronization workers for a specific subscription in PostgreSQL's logical replication system.

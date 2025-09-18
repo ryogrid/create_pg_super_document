@@ -1,7 +1,7 @@
 # LogStreamerMain
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 545 - 615
+[src/bin/pg_basebackup/pg_basebackup.c:545-615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L545-L615)
 
 ## Overview
 The main function for the background WAL streaming process during a PostgreSQL base backup, responsible for setting up and executing WAL streaming operations.

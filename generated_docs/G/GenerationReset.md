@@ -1,7 +1,7 @@
 # GenerationReset
 
 ## Location
-src/backend/utils/mmgr/generation.c: 283 - 327
+[src/backend/utils/mmgr/generation.c:283-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L283-L327)
 
 ## Overview
 Frees all memory allocated in the given Generation memory context while preserving the initial "keeper" block to avoid malloc thrashing during repeated reset operations.

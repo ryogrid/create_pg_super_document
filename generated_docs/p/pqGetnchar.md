@@ -1,7 +1,7 @@
 # pqGetnchar
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 165 - 186
+[src/interfaces/libpq/fe-misc.c:165-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L165-L186)
 
 ## Overview
 pqGetnchar reads a fixed number of bytes from a PostgreSQL connection's input buffer without null termination.

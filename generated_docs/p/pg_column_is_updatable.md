@@ -1,7 +1,7 @@
 # pg_column_is_updatable
 
 ## Location
-src/backend/utils/adt/misc.c: 665 - 680
+[src/backend/utils/adt/misc.c:665-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L665-L680)
 
 ## Overview
 A PostgreSQL system function that determines whether a specific column in a table is updatable, encapsulating the logic for the SQL standard information_schema.columns.is_updatable functionality.

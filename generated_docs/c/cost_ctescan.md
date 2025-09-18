@@ -1,7 +1,7 @@
 # cost_ctescan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1698 - 1738
+[src/backend/optimizer/path/costsize.c:1698-1738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1698-L1738)
 
 ## Overview
 Determines and returns the cost of scanning a CTE (Common Table Expression) RTE, handling both self-referencing and regular CTEs with tuplestore-based access.

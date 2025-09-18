@@ -1,7 +1,7 @@
 # guc_strdup
 
 ## Location
-src/backend/utils/misc/guc.c: 679 - 690
+[src/backend/utils/misc/guc.c:679-690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L679-L690)
 
 ## Overview
 GUC-related string duplication function that creates a copy of a string in the GUC memory context with configurable error reporting level.

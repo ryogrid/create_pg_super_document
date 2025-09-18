@@ -1,7 +1,7 @@
 # in_grouping_b
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 179 - 190
+[src/backend/snowball/libstemmer/utilities.c:179-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L179-L190)
 
 ## Overview
 The `in_grouping_b` function checks if characters in a Snowball stemmer environment fall within a specified character grouping, operating in backward direction for non-UTF8 encodings.

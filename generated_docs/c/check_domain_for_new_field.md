@@ -1,7 +1,7 @@
 # check_domain_for_new_field
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1494 - 1575
+[src/backend/utils/adt/expandedrecord.c:1494-1575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1494-L1575)
 
 ## Overview
 Validates domain constraints for a single field assignment operation by creating a temporary record with the proposed new value and running domain checks against it.

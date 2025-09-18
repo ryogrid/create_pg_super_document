@@ -1,7 +1,7 @@
 # ExecParallelCreateReaders
 
 ## Location
-src/backend/executor/execParallel.c: 878 - 903
+[src/backend/executor/execParallel.c:878-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L878-L903)
 
 ## Overview
 ExecParallelCreateReaders creates TupleQueueReader objects for each launched parallel worker process, enabling the main backend to read result tuples from the shared memory queues established during parallel plan initialization.

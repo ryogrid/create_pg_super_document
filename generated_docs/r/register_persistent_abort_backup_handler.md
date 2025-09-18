@@ -1,7 +1,7 @@
 # register_persistent_abort_backup_handler
 
 ## Location
-src/backend/access/transam/xlog.c: 9437 - 9450
+[src/backend/access/transam/xlog.c:9437-9450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9437-L9450)
 
 ## Overview
 Registers a session exit handler that will warn about unterminated backups when a backend process exits, ensuring backup cleanup even if pg_backup_stop is not properly called.

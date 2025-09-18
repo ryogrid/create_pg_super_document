@@ -1,7 +1,7 @@
 # add_nullingrels_if_needed
 
 ## Location
-src/backend/optimizer/util/var.c: 910 - 961
+[src/backend/optimizer/util/var.c:910-961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L910-L961)
 
 ## Overview
 Adds varnullingrels information from an original Var to a flattened join alias expression, ensuring NULL-producing join semantics are preserved.

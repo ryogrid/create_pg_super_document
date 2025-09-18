@@ -1,7 +1,7 @@
 # check_multixact_offset_buffers
 
 ## Location
-src/backend/access/transam/multixact.c: 2006 - 2014
+[src/backend/access/transam/multixact.c:2006-2014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2006-L2014)
 
 ## Overview
 This function serves as a GUC (Grand Unified Configuration) validation hook for the multixact_offset_buffers configuration parameter.

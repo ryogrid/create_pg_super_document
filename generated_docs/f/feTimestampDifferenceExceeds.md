@@ -1,7 +1,7 @@
 # feTimestampDifferenceExceeds
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 910 - 922
+[src/bin/pg_basebackup/streamutil.c:910-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L910-L922)
 
 ## Overview
 A frontend version of PostgreSQL's TimestampDifferenceExceeds() function that checks whether the time difference between two timestamps exceeds a specified number of milliseconds.

@@ -1,7 +1,7 @@
 # ExecEvalJsonCoercion
 
 ## Location
-src/backend/executor/execExprInterp.c: 4556 - 4607
+[src/backend/executor/execExprInterp.c:4556-4607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4556-L4607)
 
 ## Overview
 Coerces JSONB values produced by JSON expressions or behavior expressions to target data types, with special handling for boolean to integer conversion and domain constraint validation.

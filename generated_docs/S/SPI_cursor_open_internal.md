@@ -1,7 +1,7 @@
 # SPI_cursor_open_internal
 
 ## Location
-src/backend/executor/spi.c: 1577 - 1793
+[src/backend/executor/spi.c:1577-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1577-L1793)
 
 ## Overview
 SPI_cursor_open_internal is the common internal function that implements cursor opening functionality for all SPI cursor open variants. It creates and starts a Portal for executing SELECT queries as cursors within the Server Programming Interface (SPI).

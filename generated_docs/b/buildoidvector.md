@@ -1,7 +1,7 @@
 # buildoidvector
 
 ## Location
-src/backend/utils/adt/oid.c: 87 - 113
+[src/backend/utils/adt/oid.c:87-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L87-L113)
 
 ## Overview
 The buildoidvector function constructs an oidvector data structure from a raw array of OID values, creating PostgreSQL's specialized array type for storing sequences of object identifiers.

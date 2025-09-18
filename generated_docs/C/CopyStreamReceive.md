@@ -1,7 +1,7 @@
 # CopyStreamReceive
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 932 - 985
+[src/bin/pg_basebackup/receivelog.c:932-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L932-L985)
 
 ## Overview
 CopyStreamReceive receives CopyData messages from a PostgreSQL XLOG stream with timeout support, managing the message buffer and handling various connection states.

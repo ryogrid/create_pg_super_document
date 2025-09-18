@@ -1,7 +1,7 @@
 # open_direct
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 265 - 289
+[src/bin/pg_test_fsync/pg_test_fsync.c:265-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L265-L289)
 
 ## Overview
 The open_direct function provides a cross-platform wrapper for opening files with direct I/O capabilities, bypassing operating system buffer cache when available.

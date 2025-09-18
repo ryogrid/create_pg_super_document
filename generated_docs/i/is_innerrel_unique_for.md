@@ -1,7 +1,7 @@
 # is_innerrel_unique_for
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 1292 - 1340
+[src/backend/optimizer/plan/analyzejoins.c:1292-1340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L1292-L1340)
 
 ## Overview
 The core implementation function that performs the actual uniqueness proof for an inner relation against an outer relation by filtering and analyzing join restriction clauses.

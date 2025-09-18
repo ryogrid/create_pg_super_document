@@ -1,7 +1,7 @@
 # intset_node
 
 ## Location
-src/backend/lib/integerset.c: 139 - 145
+[src/backend/lib/integerset.c:139-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L139-L145)
 
 ## Overview
 A base structure that defines the common header fields for both internal and leaf nodes in PostgreSQL's IntegerSet B-tree implementation, providing fundamental node metadata for tree traversal and manipulation.

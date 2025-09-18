@@ -1,7 +1,7 @@
 # GroupByOrdering
 
 ## Location
-src/include/nodes/pathnodes.h: 1485 - 1491
+[src/include/nodes/pathnodes.h:1485-1491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L1485-L1491)
 
 ## Overview
 GroupByOrdering represents an ordered arrangement of GROUP BY clauses along with their corresponding pathkeys, used by PostgreSQL's query planner to optimize grouping operations.

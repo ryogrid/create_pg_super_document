@@ -1,7 +1,7 @@
 # escape_identifier
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 275 - 298
+[src/test/modules/test_escape/test_escape.c:275-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L275-L298)
 
 ## Overview
 A static helper function in PostgreSQL's test_escape module that wraps the PQescapeIdentifier function to escape SQL identifiers with proper error handling and buffer management.

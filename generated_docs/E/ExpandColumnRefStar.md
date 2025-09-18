@@ -1,7 +1,7 @@
 # ExpandColumnRefStar
 
 ## Location
-src/backend/parser/parse_target.c: 1120 - 1160
+[src/backend/parser/parse_target.c:1120-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1120-L1160)
 
 ## Overview
 Transforms "foo.*" expressions into a list of individual column expressions or target list entries, handling both bare "*" and qualified "relation.*" syntax.

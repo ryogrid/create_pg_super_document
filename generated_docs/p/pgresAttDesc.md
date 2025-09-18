@@ -1,7 +1,7 @@
 # pgresAttDesc
 
 ## Location
-src/interfaces/libpq/libpq-fe.h: 289 - 297
+[src/interfaces/libpq/libpq-fe.h:289-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-fe.h#L289-L297)
 
 ## Overview
 The  struct represents metadata about a single column (attribute) in a PostgreSQL query result. It provides detailed information about column characteristics including name, data type, source table, and formatting options.

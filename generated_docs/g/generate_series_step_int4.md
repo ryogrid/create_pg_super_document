@@ -1,7 +1,7 @@
 # generate_series_step_int4
 
 ## Location
-src/backend/utils/adt/int.c: 1509 - 1584
+[src/backend/utils/adt/int.c:1509-1584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1509-L1584)
 
 ## Overview
 Implements the core logic for generating a series of 32-bit integers with configurable start, finish, and step values as a set-returning function.

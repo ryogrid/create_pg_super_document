@@ -1,7 +1,7 @@
 # appendPsqlMetaConnect
 
 ## Location
-src/fe_utils/string_utils.c: 743 - 818
+[src/fe_utils/string_utils.c:743-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L743-L818)
 
 ## Overview
 Appends a psql meta-command that connects to the given database using the current connection's user, host, and port parameters.

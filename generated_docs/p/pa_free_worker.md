@@ -1,7 +1,7 @@
 # pa_free_worker
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 556 - 594
+[src/backend/replication/logical/applyparallelworker.c:556-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L556-L594)
 
 ## Overview
 Makes a parallel apply worker available for reuse by removing it from the transaction hash table and either stopping it or marking it as available based on pool size and serialization state.

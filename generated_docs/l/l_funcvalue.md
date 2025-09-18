@@ -1,7 +1,7 @@
 # l_funcvalue
 
 ## Location
-src/include/jit/llvmjit_emit.h: 330 - 336
+[src/include/jit/llvmjit_emit.h:330-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L330-L336)
 
 ## Overview
 Returns the datum value (as an LLVM value) of a specific argument in a PostgreSQL function call, used in LLVM JIT compilation.

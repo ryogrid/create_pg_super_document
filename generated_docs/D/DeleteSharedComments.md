@@ -1,7 +1,7 @@
 # DeleteSharedComments
 
 ## Location
-src/backend/commands/comment.c: 374 - 409
+[src/backend/commands/comment.c:374-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/comment.c#L374-L409)
 
 ## Overview
 Removes comments for cluster-wide shared objects from the pg_shdescription catalog table.

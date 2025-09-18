@@ -1,7 +1,7 @@
 # record_ne
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1283 - 1288
+[src/backend/utils/adt/rowtypes.c:1283-1288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1283-L1288)
 
 ## Overview
 Compares two records (row types) for inequality, returning true if the records are not equal.

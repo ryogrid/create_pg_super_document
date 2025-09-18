@@ -1,7 +1,7 @@
 # parallel_vacuum_main
 
 ## Location
-src/backend/commands/vacuumparallel.c: 987 - 1104
+[src/backend/commands/vacuumparallel.c:987-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L987-L1104)
 
 ## Overview
 Main entry point for parallel vacuum worker processes, responsible for setting up the worker environment and processing indexes assigned to this worker.

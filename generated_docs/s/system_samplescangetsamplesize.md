@@ -1,7 +1,7 @@
 # system_samplescangetsamplesize
 
 ## Location
-src/backend/access/tablesample/system.c: 88 - 129
+[src/backend/access/tablesample/system.c:88-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/tablesample/system.c#L88-L129)
 
 ## Overview
 Estimates the sample size (number of pages and tuples) that will be examined during a SYSTEM table sampling operation based on the provided sampling percentage parameter.

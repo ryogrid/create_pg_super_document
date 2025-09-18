@@ -1,7 +1,7 @@
 # numeric_stddev_samp
 
 ## Location
-src/backend/utils/adt/numeric.c: 6323 - 6339
+[src/backend/utils/adt/numeric.c:6323-6339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6323-L6339)
 
 ## Overview
 Computes the sample standard deviation of accumulated numeric values during aggregate operations.

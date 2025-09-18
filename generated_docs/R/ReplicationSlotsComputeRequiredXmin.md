@@ -1,7 +1,7 @@
 # ReplicationSlotsComputeRequiredXmin
 
 ## Location
-src/backend/replication/slot.c: 1049 - 1104
+[src/backend/replication/slot.c:1049-1104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1049-L1104)
 
 ## Overview
 Computes the oldest transaction IDs (xmin) across all replication slots and updates the global ProcArray to control VACUUM behavior.

@@ -1,7 +1,7 @@
 # set_param_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2497 - 2551
+[src/backend/optimizer/plan/setrefs.c:2497-2551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2497-L2551)
 
 ## Overview
 Initializes the initParam list in Gather or GatherMerge nodes to contain references to all parameters that need to be evaluated before execution of the node.

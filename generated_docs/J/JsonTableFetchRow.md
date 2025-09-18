@@ -1,7 +1,7 @@
 # JsonTableFetchRow
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 4438 - 4453
+[src/backend/utils/adt/jsonpath_exec.c:4438-4453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L4438-L4453)
 
 ## Overview
 JsonTableFetchRow serves as the main interface for advancing to the next row in JSON table processing, preparing the row context for subsequent column value extraction operations.

@@ -1,7 +1,7 @@
 # ExecParallelHashTableSetCurrentBatch
 
 ## Location
-src/backend/executor/nodeHash.c: 3479 - 3499
+[src/backend/executor/nodeHash.c:3479-3499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3479-L3499)
 
 ## Overview
 Sets up a parallel hash table to work on a specific batch by configuring the table's internal state to point to the batch's bucket array and resetting chunk-related fields.

@@ -1,7 +1,7 @@
 # ResourceOwnerForgetBufferIO
 
 ## Location
-src/include/storage/buf_internals.h: 408 - 468
+[src/include/storage/buf_internals.h:408-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L408-L468)
 
 ## Overview
 Removes a buffer I/O resource from resource owner tracking to indicate that the current process is no longer performing I/O operations on the specified buffer.

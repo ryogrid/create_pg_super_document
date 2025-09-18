@@ -1,7 +1,7 @@
 # ec_member_matches_ctid
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 470 - 486
+[src/backend/optimizer/path/tidpath.c:470-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L470-L486)
 
 ## Overview
 A callback function that tests whether an EquivalenceClass member matches a relation's CTID variable, used during implied equality generation for TID scans.

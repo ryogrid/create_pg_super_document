@@ -1,7 +1,7 @@
 # XLogPageRead
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 3298 - 3541
+[src/backend/access/transam/xlogrecovery.c:3298-3541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L3298-L3541)
 
 ## Overview
 XLogPageRead is a critical function that reads WAL pages from various sources (local pg_wal, archive, or streaming) during PostgreSQL recovery, managing source switching, error handling, and nonblocking operations.

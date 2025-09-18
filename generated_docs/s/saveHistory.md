@@ -1,7 +1,7 @@
 # saveHistory
 
 ## Location
-src/bin/psql/input.c: 413 - 493
+[src/bin/psql/input.c:413-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L413-L493)
 
 ## Overview
 Saves the current readline history to a specified file with optional line limit truncation, handling newline encoding and concurrent session safety.

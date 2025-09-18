@@ -1,7 +1,7 @@
 # QTNCopy
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 396 - 433
+[src/backend/utils/adt/tsquery_util.c:396-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L396-L433)
 
 ## Overview
 Creates a deep copy of a QTNode tree structure with all modifiable copies of words and value nodes.

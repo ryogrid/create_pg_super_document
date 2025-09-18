@@ -1,7 +1,7 @@
 # minimal_tuple_from_heap_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1576 - 1593
+[src/backend/access/common/heaptuple.c:1576-1593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1576-L1593)
 
 ## Overview
 Creates a MinimalTuple by copying data from a HeapTuple, removing the HeapTuple-specific overhead to produce a more compact representation.

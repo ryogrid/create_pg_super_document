@@ -1,7 +1,7 @@
 # ExecStoreMinimalTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1533 - 1555
+[src/backend/executor/execTuples.c:1533-1555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1533-L1555)
 
 ## Overview
 Stores a MinimalTuple into a TTSOpsMinimalTuple type slot, providing an optimized path for storing minimal tuples when the target slot type is guaranteed to be compatible.

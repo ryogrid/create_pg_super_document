@@ -1,7 +1,7 @@
 # nameconcatoid
 
 ## Location
-src/backend/utils/adt/name.c: 333 - 355
+[src/backend/utils/adt/name.c:333-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L333-L355)
 
 ## Overview
 The nameconcatoid function concatenates a name with an OID to create a unique identifier, primarily used in information_schema views.

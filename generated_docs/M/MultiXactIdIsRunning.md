@@ -1,7 +1,7 @@
 # MultiXactIdIsRunning
 
 ## Location
-src/backend/access/transam/multixact.c: 598 - 671
+[src/backend/access/transam/multixact.c:598-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L598-L671)
 
 ## Overview
 MultiXactIdIsRunning determines whether a MultiXactId contains at least one member transaction that is still running.

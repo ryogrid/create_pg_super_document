@@ -1,7 +1,7 @@
 # get_relation_constraints
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1267 - 1386
+[src/backend/optimizer/util/plancat.c:1267-1386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1267-L1386)
 
 ## Overview
 Retrieves and processes all applicable constraint expressions for a given relation, including check constraints, NOT NULL constraints, and partition constraints.

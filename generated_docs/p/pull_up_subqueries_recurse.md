@@ -1,7 +1,7 @@
 # pull_up_subqueries_recurse
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 978 - 1122
+[src/backend/optimizer/prep/prepjointree.c:978-1122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L978-L1122)
 
 ## Overview
 The recursive workhorse function that traverses the jointree and performs actual subquery pull-up transformations based on subquery type and context.

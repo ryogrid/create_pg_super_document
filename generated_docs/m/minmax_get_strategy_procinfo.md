@@ -1,7 +1,7 @@
 # minmax_get_strategy_procinfo
 
 ## Location
-src/backend/access/brin/brin_minmax.c: 261 - 314
+[src/backend/access/brin/brin_minmax.c:261-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax.c#L261-L314)
 
 ## Overview
 Caches and returns function manager information for comparison operators used in BRIN minmax operations, providing efficient access to strategy procedures.

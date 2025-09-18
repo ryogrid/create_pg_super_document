@@ -1,7 +1,7 @@
 # index_bulk_delete
 
 ## Location
-src/backend/access/index/indexam.c: 748 - 768
+[src/backend/access/index/indexam.c:748-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L748-L768)
 
 ## Overview
 Performs mass deletion of index entries by using a callback routine to determine which main-heap tuples should be deleted from the index.

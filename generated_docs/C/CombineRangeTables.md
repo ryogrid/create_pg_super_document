@@ -1,7 +1,7 @@
 # CombineRangeTables
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 351 - 388
+[src/backend/rewrite/rewriteManip.c:351-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L351-L388)
 
 ## Overview
 A utility function that merges range table entries (RTEs) and their associated permission information from a source into a destination, updating permission indexes accordingly.

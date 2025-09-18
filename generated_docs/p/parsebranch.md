@@ -1,7 +1,7 @@
 # parsebranch
 
 ## Location
-src/backend/regex/regcomp.c: 785 - 837
+[src/backend/regex/regcomp.c:785-837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L785-L837)
 
 ## Overview
 Parses a single branch of a regular expression by managing concatenation of atoms and handling the structural organization of sequential regex components.

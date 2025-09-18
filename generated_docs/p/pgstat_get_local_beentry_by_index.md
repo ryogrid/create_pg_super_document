@@ -1,7 +1,7 @@
 # pgstat_get_local_beentry_by_index
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1128 - 1147
+[src/backend/utils/activity/backend_status.c:1128-1147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1128-L1147)
 
 ## Overview
 Retrieves a LocalPgBackendStatus entry by its 1-based index position in the localBackendStatusTable, providing access to backend status information with locally computed additions.

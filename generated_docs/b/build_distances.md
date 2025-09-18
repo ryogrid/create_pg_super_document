@@ -1,7 +1,7 @@
 # build_distances
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1329 - 1385
+[src/backend/access/brin/brin_minmax_multi.c:1329-1385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1329-L1385)
 
 ## Overview
 Computes the distances (gaps) between consecutive expanded ranges in a BRIN minmax-multi index structure to identify which ranges can be efficiently merged.

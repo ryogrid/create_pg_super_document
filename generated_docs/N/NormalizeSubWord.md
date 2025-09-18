@@ -1,7 +1,7 @@
 # NormalizeSubWord
 
 ## Location
-src/backend/tsearch/spell.c: 2176 - 2284
+[src/backend/tsearch/spell.c:2176-2284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2176-L2284)
 
 ## Overview
 Generates all possible normalized forms of a word by systematically applying prefix and suffix transformations from the affix trees.

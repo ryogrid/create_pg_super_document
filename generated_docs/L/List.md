@@ -1,7 +1,7 @@
 # List
 
 ## Location
-src/include/nodes/pg_list.h: 53 - 62
+[src/include/nodes/pg_list.h:53-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L53-L62)
 
 ## Overview
 A fundamental data structure in PostgreSQL that represents a dynamically resizable array of ListCell elements, supporting various data types including general pointers, integers, OIDs, and XIDs.

@@ -1,7 +1,7 @@
 # varlena
 
 ## Location
-src/include/c.h: 686 - 691
+[src/include/c.h:686-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L686-L691)
 
 ## Overview
 The  structure is the fundamental header for all variable-length datatypes in PostgreSQL, providing a unified interface for storing and managing variable-length data including strings, bytea, and other complex types.

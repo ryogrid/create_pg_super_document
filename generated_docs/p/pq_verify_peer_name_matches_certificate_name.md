@@ -1,7 +1,7 @@
 # pq_verify_peer_name_matches_certificate_name
 
 ## Location
-src/interfaces/libpq/fe-secure-common.c: 87 - 156
+[src/interfaces/libpq/fe-secure-common.c:87-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-common.c#L87-L156)
 
 ## Overview
 Verifies whether a name extracted from a server's SSL/TLS certificate matches the peer's hostname, supporting both exact matches and wildcard certificates.

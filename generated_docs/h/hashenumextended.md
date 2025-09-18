@@ -1,7 +1,7 @@
 # hashenumextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 134 - 139
+[src/backend/access/hash/hashfunc.c:134-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L134-L139)
 
 ## Overview
 An extended PostgreSQL hash function for enumeration type values that supports a seed value for additional hash customization.

@@ -1,7 +1,7 @@
 # ExecDelete
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1449 - 1762
+[src/backend/executor/nodeModifyTable.c:1449-1762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1449-L1762)
 
 ## Overview
 Executes the deletion of a tuple from a table, handling various scenarios including foreign tables, triggers, concurrent modifications, and RETURNING clauses.

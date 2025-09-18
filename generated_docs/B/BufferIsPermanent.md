@@ -1,7 +1,7 @@
 # BufferIsPermanent
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3944 - 3973
+[src/backend/storage/buffer/bufmgr.c:3944-3973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3944-L3973)
 
 ## Overview
 BufferIsPermanent determines whether a buffer will potentially still be around after a crash, checking if the buffer corresponds to permanent (non-temporary) data.

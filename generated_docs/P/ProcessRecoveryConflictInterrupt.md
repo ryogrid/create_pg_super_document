@@ -1,7 +1,7 @@
 # ProcessRecoveryConflictInterrupt
 
 ## Location
-src/backend/tcop/postgres.c: 3074 - 3231
+[src/backend/tcop/postgres.c:3074-3231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3074-L3231)
 
 ## Overview
 ProcessRecoveryConflictInterrupt handles the resolution of individual recovery conflicts in PostgreSQL's hot standby system by taking appropriate action based on the specific conflict type and current transaction state.

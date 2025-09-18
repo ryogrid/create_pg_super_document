@@ -1,7 +1,7 @@
 # create_tablefuncscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2072 - 2097
+[src/backend/optimizer/util/pathnode.c:2072-2097](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2072-L2097)
 
 ## Overview
 Creates a Path node corresponding to a sequential scan of a table function, which represents accessing results from table functions like XMLTABLE, JSON_TABLE, or other structured data transformation functions in PostgreSQL's query planner.

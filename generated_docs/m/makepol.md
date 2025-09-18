@@ -1,7 +1,7 @@
 # makepol
 
 ## Location
-src/backend/utils/adt/tsquery.c: 672 - 725
+[src/backend/utils/adt/tsquery.c:672-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L672-L725)
 
 ## Overview
 The main function that converts tsquery expressions from infix notation to polish (prefix) notation using a recursive descent parser with operator precedence handling.

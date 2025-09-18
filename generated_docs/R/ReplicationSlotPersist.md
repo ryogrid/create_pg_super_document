@@ -1,7 +1,7 @@
 # ReplicationSlotPersist
 
 ## Location
-src/backend/replication/slot.c: 1027 - 1048
+[src/backend/replication/slot.c:1027-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1027-L1048)
 
 ## Overview
 Converts an ephemeral or temporary replication slot to a persistent slot, ensuring it survives server crashes.

@@ -1,7 +1,7 @@
 # ExecBitmapOr
 
 ## Location
-src/backend/executor/nodeBitmapOr.c: 43 - 55
+[src/backend/executor/nodeBitmapOr.c:43-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapOr.c#L43-L55)
 
 ## Overview
 ExecBitmapOr is a stub function that serves as pro forma compliance for the standard execution node interface but is not intended to be called directly.

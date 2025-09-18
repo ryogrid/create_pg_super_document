@@ -1,7 +1,7 @@
 # ResOwnerPrintCatCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 2423 - 2439
+[src/backend/utils/cache/catcache.c:2423-2439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2423-L2439)
 
 ## Overview
 ResOwnerPrintCatCache is a static callback function that generates diagnostic strings for catalog cache entries during resource owner debugging and error reporting.

@@ -1,7 +1,7 @@
 # create_foreignscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2235 - 2280
+[src/backend/optimizer/util/pathnode.c:2235-2280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2235-L2280)
 
 ## Overview
 Creates a path node for scanning a foreign base table through PostgreSQL's Foreign Data Wrapper (FDW) interface, allowing access to external data sources.

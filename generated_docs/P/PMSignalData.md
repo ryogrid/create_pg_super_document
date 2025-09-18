@@ -1,7 +1,7 @@
 # PMSignalData
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 71 - 100
+[src/backend/storage/ipc/pmsignal.c:71-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L71-L100)
 
 ## Overview
 PMSignalData is a shared memory structure that facilitates inter-process communication between the PostgreSQL postmaster and its child processes, storing signal flags and quit reasons for process coordination.

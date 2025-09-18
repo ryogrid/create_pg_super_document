@@ -1,7 +1,7 @@
 # incompatible_module_error
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 306 - 413
+[src/backend/utils/fmgr/dfmgr.c:306-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L306-L413)
 
 ## Overview
 This function generates detailed error messages when a dynamically loaded PostgreSQL module has incompatible magic block data, providing specific diagnostic information about version and configuration mismatches.

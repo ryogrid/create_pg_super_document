@@ -1,7 +1,7 @@
 # PageGetPageSize
 
 ## Location
-src/include/storage/bufpage.h: 274 - 283
+[src/include/storage/bufpage.h:274-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L274-L283)
 
 ## Overview
 Retrieves the page size from a formatted page header, extracting the size information from the pd_pagesize_version field.

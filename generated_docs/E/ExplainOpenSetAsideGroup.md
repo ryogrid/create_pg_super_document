@@ -1,7 +1,7 @@
 # ExplainOpenSetAsideGroup
 
 ## Location
-src/backend/commands/explain.c: 4977 - 5015
+[src/backend/commands/explain.c:4977-5015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4977-L5015)
 
 ## Overview
 ExplainOpenSetAsideGroup prepares the formatting state for a group without emitting actual output, allowing subsequent output to be captured in a separate buffer and later appended to the main output.

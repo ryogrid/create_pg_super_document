@@ -1,7 +1,7 @@
 # r_mark_ylA
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 760 - 771
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:760-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L760-L771)
 
 ## Overview
 A static function in the Turkish snowball stemmer that checks for the instrumental case suffix "ylA" while ensuring vowel harmony compliance and handling optional consonant insertion.

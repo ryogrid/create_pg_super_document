@@ -1,7 +1,7 @@
 # DetermineTimeZoneAbbrevOffset
 
 ## Location
-src/backend/utils/adt/datetime.c: 1746 - 1783
+[src/backend/utils/adt/datetime.c:1746-1783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L1746-L1783)
 
 ## Overview
 Determines the GMT offset and DST flag to be attributed to a dynamic time zone abbreviation whose meaning has changed over time, forcing use of abbreviation-specific offset even when the zone was in different time status.

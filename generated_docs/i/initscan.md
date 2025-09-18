@@ -1,7 +1,7 @@
 # initscan
 
 ## Location
-src/backend/access/heap/heapam.c: 338 - 465
+[src/backend/access/heap/heapam.c:338-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L338-L465)
 
 ## Overview
 A core initialization function that sets up the scan state and determines scanning strategy for both heap_beginscan and heap_rescan operations.

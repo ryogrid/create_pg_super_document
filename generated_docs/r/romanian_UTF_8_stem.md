@@ -1,7 +1,7 @@
 # romanian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_romanian.c: 912 - 967
+[src/backend/snowball/libstemmer/stem_UTF_8_romanian.c:912-967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_romanian.c#L912-L967)
 
 ## Overview
 The romanian_UTF_8_stem function is the main entry point for Romanian text stemming using UTF-8 encoding, implementing the complete Snowball stemming algorithm for Romanian language morphology.

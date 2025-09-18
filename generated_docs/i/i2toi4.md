@@ -1,7 +1,7 @@
 # i2toi4
 
 ## Location
-src/backend/utils/adt/int.c: 340 - 347
+[src/backend/utils/adt/int.c:340-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L340-L347)
 
 ## Overview
 Converts a 16-bit integer (int2/smallint) to a 32-bit integer (int4/integer) in PostgreSQL.

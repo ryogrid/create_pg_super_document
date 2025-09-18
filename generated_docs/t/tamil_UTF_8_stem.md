@@ -1,7 +1,7 @@
 # tamil_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1807 - 1874
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1807-1874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1807-L1874)
 
 ## Overview
 The main entry point function for Tamil language stemming in PostgreSQL's Snowball stemmer implementation, coordinating the complete morphological analysis pipeline for Tamil text.

@@ -1,7 +1,7 @@
 # serializeAnalyzeDestroy
 
 ## Location
-src/backend/commands/explain.c: 5547 - 5555
+[src/backend/commands/explain.c:5547-5555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5547-L5555)
 
 ## Overview
 Finalizes the destruction of a SerializeDestReceiver by freeing the receiver structure itself after all cleanup has been completed.

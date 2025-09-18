@@ -1,7 +1,7 @@
 # gimme_pool_size
 
 ## Location
-src/backend/optimizer/geqo/geqo_main.c: 320 - 351
+[src/backend/optimizer/geqo/geqo_main.c:320-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_main.c#L320-L351)
 
 ## Overview
 Determines the genetic algorithm population size for GEQO, returning either the configured value or a calculated default based on query complexity and effort settings.

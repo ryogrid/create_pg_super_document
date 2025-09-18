@@ -1,7 +1,7 @@
 # ExprSetupInfo
 
 ## Location
-src/backend/executor/execExpr.c: 56 - 64
+[src/backend/executor/execExpr.c:56-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L56-L64)
 
 ## Overview
 ExprSetupInfo is a structure used during expression compilation to collect metadata about what tuple slot attributes and MULTIEXPR SubPlan nodes are needed before expression evaluation.

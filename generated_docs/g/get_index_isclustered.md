@@ -1,7 +1,7 @@
 # get_index_isclustered
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3601 - 3624
+[src/backend/utils/cache/lsyscache.c:3601-3624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3601-L3624)
 
 ## Overview
 Returns whether a given index is marked as clustered in the PostgreSQL system catalog pg_index.

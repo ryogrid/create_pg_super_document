@@ -1,7 +1,7 @@
 # bbstreamer_lz4_compressor_new
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_lz4.c: 70 - 115
+[src/bin/pg_basebackup/bbstreamer_lz4.c:70-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_lz4.c#L70-L115)
 
 ## Overview
 Creates a new base backup streamer that performs LZ4 compression of tar blocks for PostgreSQL backup operations.

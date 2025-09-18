@@ -1,7 +1,7 @@
 # RI_FKey_setdefault_upd
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1015 - 1030
+[src/backend/utils/adt/ri_triggers.c:1015-1030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1015-L1030)
 
 ## Overview
 This function implements a PostgreSQL referential integrity trigger that sets foreign key column values to their default values when the referenced primary key record is updated.

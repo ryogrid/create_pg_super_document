@@ -1,7 +1,7 @@
 # pull_varnos
 
 ## Location
-src/backend/optimizer/util/var.c: 108 - 133
+[src/backend/optimizer/util/var.c:108-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L108-L133)
 
 ## Overview
 Extracts all distinct variable range table numbers (varnos) present in a parse tree, considering only level-zero rtable entries and outer-join nulling relations.

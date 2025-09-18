@@ -1,7 +1,7 @@
 # getNextGISTSearchItem
 
 ## Location
-src/backend/access/gist/gistget.c: 538 - 559
+[src/backend/access/gist/gistget.c:538-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L538-L559)
 
 ## Overview
 getNextGISTSearchItem extracts the next item in order from the GiST search queue, which is implemented as a priority heap for ordered scans.

@@ -1,7 +1,7 @@
 # assign_aggregate_collations
 
 ## Location
-src/backend/parser/parse_collate.c: 881 - 918
+[src/backend/parser/parse_collate.c:881-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_collate.c#L881-L918)
 
 ## Overview
 Handles collation assignment for normal aggregate functions, treating ORDER BY expressions separately from regular aggregate arguments to avoid inappropriate collation conflicts.

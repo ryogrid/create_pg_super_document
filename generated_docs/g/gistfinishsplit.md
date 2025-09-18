@@ -1,7 +1,7 @@
 # gistfinishsplit
 
 ## Location
-src/backend/access/gist/gist.c: 1349 - 1444
+[src/backend/access/gist/gist.c:1349-1444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1349-L1444)
 
 ## Overview
 Completes an incomplete GiST page split by recursively inserting and updating downlinks in parent pages for all child pages involved in the split operation.

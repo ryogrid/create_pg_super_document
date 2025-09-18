@@ -1,7 +1,7 @@
 # ReorderBufferReplay
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2716 - 2776
+[src/backend/replication/logical/reorderbuffer.c:2716-2776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2716-L2776)
 
 ## Overview
 Main entry point for replaying a completed transaction and its non-aborted subtransactions in logical replication, handling both streamed and non-streamed transaction scenarios.

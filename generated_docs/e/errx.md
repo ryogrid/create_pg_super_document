@@ -1,7 +1,7 @@
 # errx
 
 ## Location
-src/tools/pg_bsd_indent/err.c: 58 - 67
+[src/tools/pg_bsd_indent/err.c:58-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/err.c#L58-L67)
 
 ## Overview
 The `errx` function is a BSD-style error reporting function that prints a user-specified error message and terminates the program without appending system error information.

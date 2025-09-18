@@ -1,7 +1,7 @@
 # has_database_privilege_name_id
 
 ## Location
-src/backend/utils/adt/acl.c: 3040 - 3069
+[src/backend/utils/adt/acl.c:3040-3069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3040-L3069)
 
 ## Overview
 Checks if a specified user has a given privilege on a database identified by OID, where the user is specified by name and the privilege by string.

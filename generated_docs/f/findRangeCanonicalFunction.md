@@ -1,7 +1,7 @@
 # findRangeCanonicalFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2321 - 2361
+[src/backend/commands/typecmds.c:2321-2361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2321-L2361)
 
 ## Overview
 This function validates and retrieves the OID of a user-specified canonical function for a PostgreSQL range type, ensuring it meets signature, immutability, and permission requirements.

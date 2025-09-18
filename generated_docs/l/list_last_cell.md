@@ -1,7 +1,7 @@
 # list_last_cell
 
 ## Location
-src/include/nodes/pg_list.h: 288 - 298
+[src/include/nodes/pg_list.h:288-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L288-L298)
 
 ## Overview
 Returns a pointer to the last cell in a non-empty List, providing direct access to the final element for efficient list operations.

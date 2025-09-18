@@ -1,7 +1,7 @@
 # index_getprocinfo
 
 ## Location
-src/backend/access/index/indexam.c: 860 - 927
+[src/backend/access/index/indexam.c:860-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L860-L927)
 
 ## Overview
 Retrieves cached function manager information for index access method support procedures, allowing index AMs to maintain fmgr lookup info for support procedures in the relation cache.

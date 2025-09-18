@@ -1,7 +1,7 @@
 # run_testspec
 
 ## Location
-src/test/isolation/isolationtester.c: 394 - 405
+[src/test/isolation/isolationtester.c:394-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/isolation/isolationtester.c#L394-L405)
 
 ## Overview
 Executes the permutations specified in the test specification, choosing between explicitly defined permutations or automatically generated ones.

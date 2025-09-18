@@ -1,7 +1,7 @@
 # rtypmsize
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 1003 - 1010
+[src/interfaces/ecpg/compatlib/informix.c:1003-1010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L1003-L1010)
 
 ## Overview
 rtypmsize is a stub function in PostgreSQL's ECPG Informix compatibility library that returns the memory size requirement for a given type.

@@ -1,7 +1,7 @@
 # InitQueryHashTable
 
 ## Location
-src/backend/commands/prepare.c: 369 - 388
+[src/backend/commands/prepare.c:369-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L369-L388)
 
 ## Overview
 Initializes the global hash table for storing prepared statements, setting up the data structure used to manage named prepared statements by their statement names.

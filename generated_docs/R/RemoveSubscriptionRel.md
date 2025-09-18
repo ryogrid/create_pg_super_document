@@ -1,7 +1,7 @@
 # RemoveSubscriptionRel
 
 ## Location
-src/backend/catalog/pg_subscription.c: 416 - 490
+[src/backend/catalog/pg_subscription.c:416-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L416-L490)
 
 ## Overview
 Removes subscription relation mapping entries from the pg_subscription_rel system catalog, supporting flexible deletion by subscription, relation, or both with validation for in-progress synchronization.

@@ -1,7 +1,7 @@
 # perform_pruning_combine_step
 
 ## Location
-src/backend/partitioning/partprune.c: 3564 - 3672
+[src/backend/partitioning/partprune.c:3564-3672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3564-L3672)
 
 ## Overview
 Combines the results of multiple partition pruning steps using union or intersection operations to determine the final set of partition indexes that need to be scanned.

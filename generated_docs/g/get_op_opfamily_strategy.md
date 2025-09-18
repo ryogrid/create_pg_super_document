@@ -1,7 +1,7 @@
 # get_op_opfamily_strategy
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 83 - 107
+[src/backend/utils/cache/lsyscache.c:83-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L83-L107)
 
 ## Overview
 Retrieves the strategy number of an operator within a specified operator family, or returns 0 if the operator is not a member of that family.

@@ -1,7 +1,7 @@
 # fillcache
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 576 - 586
+[src/backend/utils/adt/tsgistidx.c:576-586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L576-L586)
 
 ## Overview
 Populates a cache structure with signature information from a tsvector key, handling array keys, ALLTRUE signatures, and regular bit vector signatures.

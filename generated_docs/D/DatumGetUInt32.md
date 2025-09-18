@@ -1,7 +1,7 @@
 # DatumGetUInt32
 
 ## Location
-src/include/postgres.h: 222 - 231
+[src/include/postgres.h:222-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L222-L231)
 
 ## Overview
 Extracts a 32-bit unsigned integer value from PostgreSQL's internal Datum representation, providing type-safe conversion from Datum to uint32.

@@ -1,7 +1,7 @@
 # range_deserialize
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1856 - 1922
+[src/backend/utils/adt/rangetypes.c:1856-1922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1856-L1922)
 
 ## Overview
 Deconstructs a serialized range value into its component bounds, flags, and empty status for processing by range functions.

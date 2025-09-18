@@ -1,7 +1,7 @@
 # llvm_recreate_llvm_context
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 186 - 235
+[src/backend/jit/llvm/llvmjit.c:186-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L186-L235)
 
 ## Overview
 A memory management function that periodically recreates the LLVM context to prevent memory accumulation from type leaks during inlining operations.

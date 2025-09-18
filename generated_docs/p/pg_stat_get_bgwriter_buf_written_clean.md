@@ -1,7 +1,7 @@
 # pg_stat_get_bgwriter_buf_written_clean
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1219 - 1224
+[src/backend/utils/adt/pgstatfuncs.c:1219-1224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1219-L1224)
 
 ## Overview
 Returns the number of buffers written by the background writer during its cleaning scan activities since server startup.

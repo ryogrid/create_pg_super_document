@@ -1,7 +1,7 @@
 # varstr_sortsupport
 
 ## Location
-src/backend/utils/adt/varlena.c: 1873 - 2011
+[src/backend/utils/adt/varlena.c:1873-2011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1873-L2011)
 
 ## Overview
 A generic sort support interface for character types that provides optimized sorting functionality with locale support and abbreviation capabilities for various string data types.

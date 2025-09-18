@@ -1,7 +1,7 @@
 # InjectionPointRun
 
 ## Location
-src/backend/utils/misc/injection_point.c: 526 - 537
+[src/backend/utils/misc/injection_point.c:526-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L526-L537)
 
 ## Overview
 Executes an injection point by name if it exists, providing the primary interface for triggering dynamic code injection during PostgreSQL execution.

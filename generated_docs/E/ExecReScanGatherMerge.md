@@ -1,7 +1,7 @@
 # ExecReScanGatherMerge
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 334 - 387
+[src/backend/executor/nodeGatherMerge.c:334-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L334-L387)
 
 ## Overview
 Prepares a GatherMerge node to re-scan its result by gracefully shutting down existing workers, cleaning up state, and setting up parameters for a fresh scan.

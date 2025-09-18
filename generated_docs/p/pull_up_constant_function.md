@@ -1,7 +1,7 @@
 # pull_up_constant_function
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1954 - 2071
+[src/backend/optimizer/prep/prepjointree.c:1954-2071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1954-L2071)
 
 ## Overview
 This function pulls up an RTE_FUNCTION expression that was simplified to a constant, hoisting the constant value up into the parent query and replacing the RTE_FUNCTION with RTE_RESULT.

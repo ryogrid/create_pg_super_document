@@ -1,7 +1,7 @@
 # _bt_swap_posting
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 1022 - 1077
+[src/backend/access/nbtree/nbtdedup.c:1022-1077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L1022-L1077)
 
 ## Overview
 Prepares for a posting list split by swapping heap TID in newitem with heap TID from original posting list at a specified offset, returning a new posting list tuple.

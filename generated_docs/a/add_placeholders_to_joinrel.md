@@ -1,7 +1,7 @@
 # add_placeholders_to_joinrel
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 373 - 463
+[src/backend/optimizer/util/placeholder.c:373-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L373-L463)
 
 ## Overview
 Adds newly-computable PlaceHolderVars to a join relation's target list and updates lateral reference dependencies when placeholders become computable at the join level.

@@ -1,7 +1,7 @@
 # RelationGetReplicaIndex
 
 ## Location
-src/backend/utils/cache/relcache.c: 5018 - 5042
+[src/backend/utils/cache/relcache.c:5018-5042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5018-L5042)
 
 ## Overview
 RelationGetReplicaIndex retrieves the OID of a relation's replica identity index, which is used for logical replication to identify rows in UPDATE and DELETE operations.

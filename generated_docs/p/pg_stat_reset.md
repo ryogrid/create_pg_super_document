@@ -1,7 +1,7 @@
 # pg_stat_reset
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1688 - 1701
+[src/backend/utils/adt/pgstatfuncs.c:1688-1701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1688-L1701)
 
 ## Overview
 A PostgreSQL function that resets all statistics counters for the current database, providing a way to start fresh statistics collection from a known baseline.

@@ -1,7 +1,7 @@
 # EvalPlanQualSlot
 
 ## Location
-src/backend/executor/execMain.c: 2600 - 2627
+[src/backend/executor/execMain.c:2600-2627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2600-L2627)
 
 ## Overview
 EvalPlanQualSlot returns or creates a TupleTableSlot for EPQ (Eval Plan Qual) test tuples associated with a specific relation and range table index.

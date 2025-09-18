@@ -1,7 +1,7 @@
 # exit_nicely
 
 ## Location
-src/bin/pg_dump/pg_backup_utils.c: 90 - 104
+[src/bin/pg_dump/pg_backup_utils.c:90-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_utils.c#L90-L104)
 
 ## Overview
 Executes registered cleanup callbacks in reverse order and then terminates the program, providing graceful shutdown for pg_dump utilities.

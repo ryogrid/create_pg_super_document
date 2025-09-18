@@ -1,7 +1,7 @@
 # DestroyPartitionDirectory
 
 ## Location
-src/backend/partitioning/partdesc.c: 484 - 500
+[src/backend/partitioning/partdesc.c:484-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L484-L500)
 
 ## Overview
 Destroys a partition directory by releasing all relation reference counts held by its cached entries.

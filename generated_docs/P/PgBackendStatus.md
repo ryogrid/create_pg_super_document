@@ -1,7 +1,7 @@
 # PgBackendStatus
 
 ## Location
-src/include/utils/backend_status.h: 97 - 173
+[src/include/utils/backend_status.h:97-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/backend_status.h#L97-L173)
 
 ## Overview
 PgBackendStatus is the core shared-memory structure that maintains comprehensive runtime information about each PostgreSQL backend process, including connection details, current activity, and progress reporting data.

@@ -1,7 +1,7 @@
 # JoinTreeItem
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 59 - 80
+[src/backend/optimizer/plan/initsplan.c:59-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L59-L80)
 
 ## Overview
 JoinTreeItem is an internal data structure used during PostgreSQL's query planning process to track information about nodes in the join tree during the deconstruction and qualification distribution phases.

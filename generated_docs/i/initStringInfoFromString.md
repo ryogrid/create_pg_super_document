@@ -1,7 +1,7 @@
 # initStringInfoFromString
 
 ## Location
-src/include/lib/stringinfo.h: 148 - 203
+[src/include/lib/stringinfo.h:148-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/stringinfo.h#L148-L203)
 
 ## Overview
 initStringInfoFromString initializes a StringInfoData struct from an existing palloc'd string buffer, allowing subsequent modification and extension operations while reusing the existing allocated memory.

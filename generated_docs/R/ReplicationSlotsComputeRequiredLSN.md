@@ -1,7 +1,7 @@
 # ReplicationSlotsComputeRequiredLSN
 
 ## Location
-src/backend/replication/slot.c: 1105 - 1153
+[src/backend/replication/slot.c:1105-1153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1105-L1153)
 
 ## Overview
 Computes the oldest restart LSN across all active replication slots and informs the WAL module of the minimum LSN that must be retained for replication purposes.

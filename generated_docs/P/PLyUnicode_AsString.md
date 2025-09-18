@@ -1,7 +1,7 @@
 # PLyUnicode_AsString
 
 ## Location
-src/pl/plpython/plpy_util.c: 83 - 96
+[src/pl/plpython/plpy_util.c:83-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_util.c#L83-L96)
 
 ## Overview
 Converts a Python unicode object to a C string in PostgreSQL server encoding, returning a palloc'ed string suitable for PostgreSQL memory management.

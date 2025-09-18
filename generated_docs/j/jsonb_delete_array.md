@@ -1,7 +1,7 @@
 # jsonb_delete_array
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4693 - 4779
+[src/backend/utils/adt/jsonfuncs.c:4693-4779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4693-L4779)
 
 ## Overview
 Removes multiple specified keys or array elements from a JSONB value based on an array of text values, returning a new JSONB object without the deleted items.

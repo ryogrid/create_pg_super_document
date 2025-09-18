@@ -1,7 +1,7 @@
 # brinGetStats
 
 ## Location
-src/backend/access/brin/brin.c: 1639 - 1659
+[src/backend/access/brin/brin.c:1639-1659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1639-L1659)
 
 ## Overview
 Fetches statistical data from a BRIN index's metadata page and populates the provided BrinStatsData structure.

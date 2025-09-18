@@ -1,7 +1,7 @@
 # ConnectionUp
 
 ## Location
-src/bin/psql/common.c: 324 - 341
+[src/bin/psql/common.c:324-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L324-L341)
 
 ## Overview
 ConnectionUp is a static utility function that checks whether the backend PostgreSQL connection is still active and available.

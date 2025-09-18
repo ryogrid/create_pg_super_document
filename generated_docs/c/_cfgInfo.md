@@ -1,7 +1,7 @@
 # _cfgInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 558 - 562
+[src/bin/pg_dump/pg_dump.h:558-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L558-L562)
 
 ## Overview
 The  structure represents text search configuration information in the PostgreSQL dump utility, storing metadata about text search configurations for database export operations.

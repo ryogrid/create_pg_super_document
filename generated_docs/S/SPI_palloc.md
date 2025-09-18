@@ -1,7 +1,7 @@
 # SPI_palloc
 
 ## Location
-src/backend/executor/spi.c: 1338 - 1346
+[src/backend/executor/spi.c:1338-1346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1338-L1346)
 
 ## Overview
 Allocates memory in the SPI upper execution context, providing a memory allocation interface for SPI-connected procedures.

@@ -1,7 +1,7 @@
 # SearchCatCacheMiss
 
 ## Location
-src/backend/utils/cache/catcache.c: 1475 - 1623
+[src/backend/utils/cache/catcache.c:1475-1623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1475-L1623)
 
 ## Overview
 Handles catalog cache misses by searching the actual catalog tables and creating new cache entries for found tuples or negative entries for non-existent tuples.

@@ -1,7 +1,7 @@
 # numeric_float8_no_overflow
 
 ## Location
-src/backend/utils/adt/numeric.c: 4677 - 4702
+[src/backend/utils/adt/numeric.c:4677-4702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4677-L4702)
 
 ## Overview
 Internal helper function that converts a Numeric value to float8 with overflow protection, returning HUGE_VAL instead of throwing errors for out-of-range values.

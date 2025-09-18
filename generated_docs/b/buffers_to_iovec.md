@@ -1,7 +1,7 @@
 # buffers_to_iovec
 
 ## Location
-src/backend/storage/smgr/md.c: 762 - 809
+[src/backend/storage/smgr/md.c:762-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L762-L809)
 
 ## Overview
 buffers_to_iovec converts an array of buffer pointers into an optimized array of iovec structures, merging contiguous buffers to improve I/O efficiency.

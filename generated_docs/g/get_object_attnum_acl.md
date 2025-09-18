@@ -1,7 +1,7 @@
 # get_object_attnum_acl
 
 ## Location
-src/backend/catalog/objectaddress.c: 2684 - 2698
+[src/backend/catalog/objectaddress.c:2684-2698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2684-L2698)
 
 ## Overview
 Returns the attribute number for the access control list (ACL) field of a given PostgreSQL object class, enabling privilege management operations to locate the ACL data within catalog table structures.

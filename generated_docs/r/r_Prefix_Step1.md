@@ -1,7 +1,7 @@
 # r_Prefix_Step1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1046 - 1081
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1046-1081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1046-L1081)
 
 ## Overview
 This function removes common Arabic prefixes from words in the PostgreSQL Snowball stemmer as the first step of prefix stripping operations.

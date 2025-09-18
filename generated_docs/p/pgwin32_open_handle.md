@@ -1,7 +1,7 @@
 # pgwin32_open_handle
 
 ## Location
-src/port/open.c: 65 - 157
+[src/port/open.c:65-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/open.c#L65-L157)
 
 ## Overview
 Creates a Windows file handle with PostgreSQL-specific error handling and retry logic, providing the core file opening functionality for the Windows port.

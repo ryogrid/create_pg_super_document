@@ -1,7 +1,7 @@
 # mulPow5InvDivPow2
 
 ## Location
-src/common/f2s.c: 162 - 167
+[src/common/f2s.c:162-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L162-L167)
 
 ## Overview
 Multiplies a 32-bit value by the inverse of 5^q and divides by 2^j, using precomputed lookup table values for efficient floating-point conversion.

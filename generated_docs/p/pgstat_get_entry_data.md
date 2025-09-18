@@ -1,7 +1,7 @@
 # pgstat_get_entry_data
 
 ## Location
-src/include/utils/pgstat_internal.h: 818 - 827
+[src/include/utils/pgstat_internal.h:818-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L818-L827)
 
 ## Overview
 A static inline function that returns a pointer to the data portion of a shared memory statistics entry, calculating the appropriate offset based on the statistics kind.

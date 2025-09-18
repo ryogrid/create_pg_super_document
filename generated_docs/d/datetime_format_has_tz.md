@@ -1,7 +1,7 @@
 # datetime_format_has_tz
 
 ## Location
-src/backend/utils/adt/formatting.c: 4618 - 4680
+[src/backend/utils/adt/formatting.c:4618-4680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4618-L4680)
 
 ## Overview
 Analyzes a datetime format string to determine whether it contains timezone specifier components.

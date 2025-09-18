@@ -1,7 +1,7 @@
 # get_language_name
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 8691 - 8713
+[src/bin/pg_dump/pg_dump.c:8691-8713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L8691-L8713)
 
 ## Overview
 Retrieves the name of a procedural language from the system cache given its OID, with optional error handling for missing languages.

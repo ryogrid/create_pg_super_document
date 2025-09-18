@@ -1,7 +1,7 @@
 # ExecAsyncForeignScanRequest
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 456 - 471
+[src/backend/executor/nodeForeignscan.c:456-471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L456-L471)
 
 ## Overview
 Initiates an asynchronous request to fetch a tuple from a foreign data wrapper that supports asynchronous operations, allowing for non-blocking data retrieval from external data sources.

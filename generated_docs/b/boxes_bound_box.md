@@ -1,7 +1,7 @@
 # boxes_bound_box
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4321 - 4347
+[src/backend/utils/adt/geo_ops.c:4321-4347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4321-L4347)
 
 ## Overview
 Computes the smallest bounding box that completely contains both input boxes by finding the extremal coordinates across both boxes.

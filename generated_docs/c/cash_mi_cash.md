@@ -1,7 +1,7 @@
 # cash_mi_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 104 - 116
+[src/backend/utils/adt/cash.c:104-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L104-L116)
 
 ## Overview
 A private inline function that performs safe subtraction of two Cash values with overflow detection and error reporting.

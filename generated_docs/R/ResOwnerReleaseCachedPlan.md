@@ -1,7 +1,7 @@
 # ResOwnerReleaseCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 2242 - 2245
+[src/backend/utils/cache/plancache.c:2242-2245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L2242-L2245)
 
 ## Overview
 A ResourceOwner callback function that releases a cached plan when the resource owner is cleaned up, ensuring proper cleanup of plan cache references to prevent memory leaks.

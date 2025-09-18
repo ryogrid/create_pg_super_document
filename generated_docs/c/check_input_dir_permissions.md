@@ -1,7 +1,7 @@
 # check_input_dir_permissions
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 671 - 684
+[src/bin/pg_combinebackup/pg_combinebackup.c:671-684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L671-L684)
 
 ## Overview
 Sets default permissions for new files and directories based on the permissions of a given input directory to ensure consistent permission schemes in the output.

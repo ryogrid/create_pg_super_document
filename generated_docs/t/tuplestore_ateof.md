@@ -1,7 +1,7 @@
 # tuplestore_ateof
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 557 - 577
+[src/backend/utils/sort/tuplestore.c:557-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L557-L577)
 
 ## Overview
 Returns whether the currently active read pointer in the tuplestore has reached the end-of-file position.

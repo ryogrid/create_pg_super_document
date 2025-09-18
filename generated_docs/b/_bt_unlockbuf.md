@@ -1,7 +1,7 @@
 # _bt_unlockbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1070 - 1092
+[src/backend/access/nbtree/nbtpage.c:1070-1092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1070-L1092)
 
 ## Overview
 _bt_unlockbuf unlocks a pinned B-tree buffer while maintaining proper memory access patterns and validation checks for debugging.

@@ -1,7 +1,7 @@
 # pqGets
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 136 - 141
+[src/interfaces/libpq/fe-misc.c:136-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L136-L141)
 
 ## Overview
 Reads a null-terminated string from the connection's input buffer, replacing any existing content in the provided buffer.

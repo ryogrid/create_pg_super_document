@@ -1,7 +1,7 @@
 # CopyAndAddInvertedQual
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2311 - 2380
+[src/backend/rewrite/rewriteHandler.c:2311-2380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2311-L2380)
 
 ## Overview
 Modifies a query by adding an inverted qualification ('AND rule_qual IS NOT TRUE') to generate suitable else clauses for conditional INSTEAD rules.

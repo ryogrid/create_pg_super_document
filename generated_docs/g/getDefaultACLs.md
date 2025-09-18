@@ -1,7 +1,7 @@
 # getDefaultACLs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 9846 - 9945
+[src/bin/pg_dump/pg_dump.c:9846-9945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L9846-L9945)
 
 ## Overview
 Reads all default ACL information from the system catalogs and returns them in a structured format for pg_dump processing.

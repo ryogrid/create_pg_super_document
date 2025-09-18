@@ -1,7 +1,7 @@
 # brinoptions
 
 ## Location
-src/backend/access/brin/brin.c: 1338 - 1355
+[src/backend/access/brin/brin.c:1338-1355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1338-L1355)
 
 ## Overview
 Processes and validates relation options (reloptions) specific to BRIN indexes, handling the pages_per_range and autosummarize parameters.

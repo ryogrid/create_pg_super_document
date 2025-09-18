@@ -1,7 +1,7 @@
 # array_nelems_size
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4902 - 4923
+[src/backend/utils/adt/arrayfuncs.c:4902-4923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4902-L4923)
 
 ## Overview
 Computes the total byte size of a specified number of array elements starting at a given memory location.

@@ -1,7 +1,7 @@
 # VXIDGetDatum
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 74 - 92
+[src/backend/utils/adt/lockfuncs.c:74-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L74-L92)
 
 ## Overview
 VXIDGetDatum constructs a text representation of a Virtual Transaction ID (VXID) for use in PostgreSQL's lock status reporting system.

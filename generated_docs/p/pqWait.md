@@ -1,7 +1,7 @@
 # pqWait
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1004 - 1019
+[src/interfaces/libpq/fe-misc.c:1004-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1004-L1019)
 
 ## Overview
 pqWait is a PostgreSQL libpq function that waits until the connection socket becomes ready for reading or writing operations.

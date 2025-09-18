@@ -1,7 +1,7 @@
 # filter_by_origin_cb_wrapper
 
 ## Location
-src/backend/replication/logical/logical.c: 1218 - 1248
+[src/backend/replication/logical/logical.c:1218-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L1218-L1248)
 
 ## Overview
 A wrapper function that provides error handling and context management when calling logical replication output plugin filter by origin callbacks for origin-based filtering.

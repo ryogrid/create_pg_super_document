@@ -1,7 +1,7 @@
 # pgtls_open_client
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 118 - 139
+[src/interfaces/libpq/fe-secure-openssl.c:118-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L118-L139)
 
 ## Overview
 Establishes or continues an SSL/TLS client connection handshake with a PostgreSQL server, handling both initial SSL object creation and ongoing handshake progression.

@@ -1,7 +1,7 @@
 # makeTargetEntry
 
 ## Location
-src/backend/nodes/makefuncs.c: 287 - 319
+[src/backend/nodes/makefuncs.c:287-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L287-L319)
 
 ## Overview
 Creates a TargetEntry node in PostgreSQL's query tree structure, representing a single output column or expression in the target list of a query.

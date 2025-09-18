@@ -1,7 +1,7 @@
 # WinRowsArePeers
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3253 - 3309
+[src/backend/executor/nodeWindowAgg.c:3253-3309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3253-L3309)
 
 ## Overview
 Compares two rows at specified absolute positions within a window partition to determine if they are equal according to the ORDER BY clause of the window function.

@@ -1,7 +1,7 @@
 # IndexRecheck
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 386 - 404
+[src/backend/executor/nodeIndexscan.c:386-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L386-L404)
 
 ## Overview
 The IndexRecheck function is an access method routine that rechecks a tuple's qualification against index conditions during EvalPlanQual operations.

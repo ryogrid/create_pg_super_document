@@ -1,7 +1,7 @@
 # moresubs
 
 ## Location
-src/backend/regex/regcomp.c: 555 - 591
+[src/backend/regex/regcomp.c:555-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L555-L591)
 
 ## Overview
 Enlarges the subRE vector (sub-regular expression array) by reallocating memory to accommodate additional sub-regular expressions during regex compilation.

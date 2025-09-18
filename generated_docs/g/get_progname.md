@@ -1,7 +1,7 @@
 # get_progname
 
 ## Location
-src/port/path.c: 651 - 688
+[src/port/path.c:651-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L651-L688)
 
 ## Overview
 Extracts the actual name of the program as called, stripped of .exe suffix if any, and handles platform-specific path separators and drive letters.

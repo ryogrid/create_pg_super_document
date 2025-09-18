@@ -1,7 +1,7 @@
 # get_short_term_cxt
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1379 - 1401
+[src/backend/utils/adt/expandedrecord.c:1379-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1379-L1401)
 
 ## Overview
 Creates or resets a short-lived memory context for temporary operations within expanded record processing, primarily used for domain checks and detoasting operations.

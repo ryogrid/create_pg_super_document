@@ -1,7 +1,7 @@
 # HotStandbyActive
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4503 - 4527
+[src/backend/access/transam/xlogrecovery.c:4503-4527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4503-L4527)
 
 ## Overview
 Determines whether Hot Standby mode is currently active, providing a thread-safe way to check if standby queries can be executed.

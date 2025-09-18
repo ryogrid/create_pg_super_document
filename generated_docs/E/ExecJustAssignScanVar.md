@@ -1,7 +1,7 @@
 # ExecJustAssignScanVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 2228 - 2234
+[src/backend/executor/execExprInterp.c:2228-2234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2228-L2234)
 
 ## Overview
 ExecJustAssignScanVar is a fast-path function for assigning values from scan tuple variables to result tuple slots in PostgreSQL's expression evaluation system.

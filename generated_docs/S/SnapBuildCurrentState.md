@@ -1,7 +1,7 @@
 # SnapBuildCurrentState
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 416 - 424
+[src/backend/replication/logical/snapbuild.c:416-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L416-L424)
 
 ## Overview
 SnapBuildCurrentState returns the current state of the snapshot building process, providing a simple accessor to query the builder's progression through the snapshot construction phases.

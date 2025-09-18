@@ -1,7 +1,7 @@
 # pgstat_shutdown_hook
 
 ## Location
-src/backend/utils/activity/pgstat.c: 503 - 536
+[src/backend/utils/activity/pgstat.c:503-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L503-L536)
 
 ## Overview
 Handles individual backend shutdown by flushing remaining statistics and cleaning up statistics-related resources. This function ensures that operations triggered during backend exit are properly counted.

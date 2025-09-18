@@ -1,7 +1,7 @@
 # json_unique_object_field_start
 
 ## Location
-src/backend/utils/adt/json.c: 1639 - 1663
+[src/backend/utils/adt/json.c:1639-1663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1639-L1663)
 
 ## Overview
 A callback function used during JSON parsing to handle the start of object fields while checking for unique field names within JSON objects.

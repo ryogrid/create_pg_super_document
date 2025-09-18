@@ -1,7 +1,7 @@
 # ReqCheckpointHandler
 
 ## Location
-src/backend/postmaster/checkpointer.c: 862 - 881
+[src/backend/postmaster/checkpointer.c:862-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L862-L881)
 
 ## Overview
 A signal handler function that responds to SIGINT signals by triggering the checkpointer process to wake up and perform a normal checkpoint.

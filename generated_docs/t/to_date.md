@@ -1,7 +1,7 @@
 # to_date
 
 ## Location
-src/backend/utils/adt/formatting.c: 4407 - 4454
+[src/backend/utils/adt/formatting.c:4407-4454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4407-L4454)
 
 ## Overview
 Converts a text string representing a date into PostgreSQL's internal DateADT format using a specified format string.

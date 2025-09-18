@@ -1,7 +1,7 @@
 # PinBufferForBlock
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1105 - 1197
+[src/backend/storage/buffer/bufmgr.c:1105-1197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1105-L1197)
 
 ## Overview
 PinBufferForBlock is a core internal function in PostgreSQL's buffer management system that pins a buffer for a given block, handling both shared and local (temporary) buffers with appropriate I/O context setup and statistics tracking.

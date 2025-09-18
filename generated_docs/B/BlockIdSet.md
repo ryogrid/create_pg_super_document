@@ -1,7 +1,7 @@
 # BlockIdSet
 
 ## Location
-src/include/storage/block.h: 81 - 91
+[src/include/storage/block.h:81-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/block.h#L81-L91)
 
 ## Overview
 BlockIdSet is an inline function that sets a block identifier to a specified block number value by splitting a 32-bit block number into two 16-bit components.

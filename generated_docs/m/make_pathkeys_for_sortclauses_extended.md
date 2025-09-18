@@ -1,7 +1,7 @@
 # make_pathkeys_for_sortclauses_extended
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1371 - 1442
+[src/backend/optimizer/path/pathkeys.c:1371-1442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1371-L1442)
 
 ## Overview
 The extended version of pathkey generation that converts SortGroupClauses to pathkeys with additional options for redundancy removal, sortability checking, and equivalence class reference setting.

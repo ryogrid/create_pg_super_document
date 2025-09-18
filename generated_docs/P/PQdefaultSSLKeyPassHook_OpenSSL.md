@@ -1,7 +1,7 @@
 # PQdefaultSSLKeyPassHook_OpenSSL
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 488 - 497
+[src/interfaces/libpq/fe-secure.c:488-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L488-L497)
 
 ## Overview  
 The default SSL private key password handler that retrieves passwords from the connection's sslpassword field for PostgreSQL client SSL connections.

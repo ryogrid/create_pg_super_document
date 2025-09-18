@@ -1,7 +1,7 @@
 # BackgroundWorkerInitializeConnection
 
 ## Location
-src/backend/postmaster/postmaster.c: 4157 - 4190
+[src/backend/postmaster/postmaster.c:4157-4190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4157-L4190)
 
 ## Overview
 Establishes a database connection for a background worker process, allowing it to access and operate on a specific database.

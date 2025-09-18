@@ -1,7 +1,7 @@
 # index_get_partition
 
 ## Location
-src/backend/catalog/partition.c: 176 - 221
+[src/backend/catalog/partition.c:176-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L176-L221)
 
 ## Overview
 Returns the OID of an index on a given partition that is a child of a specified parent index, or InvalidOid if no such index exists.

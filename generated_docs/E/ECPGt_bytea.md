@@ -1,7 +1,7 @@
 # ECPGt_bytea
 
 ## Location
-src/interfaces/ecpg/include/ecpgtype.h: 67 - 70
+[src/interfaces/ecpg/include/ecpgtype.h:67-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/ecpgtype.h#L67-L70)
 
 ## Overview
 ECPGt_bytea is an enumeration constant that represents the PostgreSQL bytea data type within the ECPG (Embedded SQL in C for PostgreSQL) type system.

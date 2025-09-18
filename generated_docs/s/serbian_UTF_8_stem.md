@@ -1,7 +1,7 @@
 # serbian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_serbian.c: 6497 - 6539
+[src/backend/snowball/libstemmer/stem_UTF_8_serbian.c:6497-6539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_serbian.c#L6497-L6539)
 
 ## Overview
 The serbian_UTF_8_stem function is the main entry point for stemming Serbian text encoded in UTF-8, implementing the complete Serbian stemming algorithm through a coordinated sequence of preprocessing and morphological analysis steps.

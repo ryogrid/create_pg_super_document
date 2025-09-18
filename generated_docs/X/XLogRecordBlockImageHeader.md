@@ -1,7 +1,7 @@
 # XLogRecordBlockImageHeader
 
 ## Location
-src/include/access/xlogrecord.h: 141 - 151
+[src/include/access/xlogrecord.h:141-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogrecord.h#L141-L151)
 
 ## Overview
 XLogRecordBlockImageHeader contains additional header information for full-page images included in WAL records, supporting both hole removal optimization and optional compression of page images.

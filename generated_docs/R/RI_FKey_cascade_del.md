@@ -1,7 +1,7 @@
 # RI_FKey_cascade_del
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 743 - 848
+[src/backend/utils/adt/ri_triggers.c:743-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L743-L848)
 
 ## Overview
 A trigger function that implements CASCADE behavior for DELETE operations, automatically deleting all rows in foreign key tables that reference the deleted primary key row.

@@ -1,7 +1,7 @@
 # make_sort
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6069 - 6098
+[src/backend/optimizer/plan/createplan.c:6069-6098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6069-L6098)
 
 ## Overview
 The make_sort function is a basic utility routine that creates a Sort plan node in PostgreSQL's query planner, setting up the necessary sorting specifications and linking it to its child plan.

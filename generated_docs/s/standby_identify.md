@@ -1,7 +1,7 @@
 # standby_identify
 
 ## Location
-src/backend/access/rmgrdesc/standbydesc.c: 79 - 104
+[src/backend/access/rmgrdesc/standbydesc.c:79-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/standbydesc.c#L79-L104)
 
 ## Overview
 A function that maps standby WAL record type identifiers to human-readable string names for logging and debugging purposes.

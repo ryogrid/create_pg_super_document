@@ -1,7 +1,7 @@
 # create_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 338 - 388
+[src/backend/optimizer/plan/createplan.c:338-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L338-L388)
 
 ## Overview
 Creates the access plan for a query by recursively processing the desired tree of path nodes, starting at the best path and generating corresponding plan nodes.

@@ -1,7 +1,7 @@
 # InjectionPointSharedState
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 71 - 84
+[src/test/modules/injection_points/injection_points.c:71-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L71-L84)
 
 ## Overview
 A shared memory structure that maintains global state for injection point synchronization and wait operations across PostgreSQL processes.

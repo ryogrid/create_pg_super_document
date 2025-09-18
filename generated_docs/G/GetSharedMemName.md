@@ -1,7 +1,7 @@
 # GetSharedMemName
 
 ## Location
-src/backend/port/win32_shmem.c: 65 - 112
+[src/backend/port/win32_shmem.c:65-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32_shmem.c#L65-L112)
 
 ## Overview
 Generates a unique shared memory segment name based on the PostgreSQL data directory path, specifically designed for Windows systems to ensure proper isolation between different PostgreSQL instances.

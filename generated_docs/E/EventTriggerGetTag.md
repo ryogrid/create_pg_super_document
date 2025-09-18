@@ -1,7 +1,7 @@
 # EventTriggerGetTag
 
 ## Location
-src/backend/commands/event_trigger.c: 620 - 633
+[src/backend/commands/event_trigger.c:620-633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L620-L633)
 
 ## Overview
 Determines the appropriate CommandTag for a given parse tree and event trigger event type.

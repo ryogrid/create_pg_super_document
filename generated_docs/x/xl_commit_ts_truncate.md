@@ -1,7 +1,7 @@
 # xl_commit_ts_truncate
 
 ## Location
-src/include/access/commit_ts.h: 60 - 64
+[src/include/access/commit_ts.h:60-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/commit_ts.h#L60-L64)
 
 ## Overview
 The `xl_commit_ts_truncate` structure represents the WAL record format for logging commit timestamp data truncation operations during maintenance activities.

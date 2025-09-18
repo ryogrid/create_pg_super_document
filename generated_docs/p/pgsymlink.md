@@ -1,7 +1,7 @@
 # pgsymlink
 
 ## Location
-src/port/dirmod.c: 219 - 308
+[src/port/dirmod.c:219-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirmod.c#L219-L308)
 
 ## Overview
 A Windows-specific function that creates symbolic links by implementing junction points using Win32 reparse points, providing cross-platform symbolic link functionality.

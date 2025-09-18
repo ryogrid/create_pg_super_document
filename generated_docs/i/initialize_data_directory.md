@@ -1,7 +1,7 @@
 # initialize_data_directory
 
 ## Location
-src/bin/initdb/initdb.c: 3029 - 3142
+[src/bin/initdb/initdb.c:3029-3142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L3029-L3142)
 
 ## Overview
 The  function is the core function in PostgreSQL's initdb utility that performs the complete initialization of a new PostgreSQL data directory, creating all necessary subdirectories, configuration files, and system catalogs.

@@ -1,7 +1,7 @@
 # ExecNamedTuplestoreScan
 
 ## Location
-src/backend/executor/nodeNamedtuplestorescan.c: 67 - 81
+[src/backend/executor/nodeNamedtuplestorescan.c:67-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNamedtuplestorescan.c#L67-L81)
 
 ## Overview
 The main execution function for named tuple store scans that sequentially scans CTE (Common Table Expression) data and returns qualifying tuples using the standard ExecScan framework.

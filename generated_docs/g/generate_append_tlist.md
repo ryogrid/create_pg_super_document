@@ -1,7 +1,7 @@
 # generate_append_tlist
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1546 - 1673
+[src/backend/optimizer/prep/prepunion.c:1546-1673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1546-L1673)
 
 ## Overview
 Generates a targetlist for a set-operation Append node, creating simple Var nodes with appropriate datatypes, typmods, and collations for combining multiple input relations.

@@ -1,7 +1,7 @@
 # newline
 
 ## Location
-src/backend/regex/regc_lex.c: 1010 - 1021
+[src/backend/regex/regc_lex.c:1010-1021](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L1010-L1021)
 
 ## Overview
 The `newline` function is a simple utility that returns the character representation of a newline, serving as an abstraction layer for the CHR macro usage.

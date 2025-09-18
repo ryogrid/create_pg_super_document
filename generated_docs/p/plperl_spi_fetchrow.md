@@ -1,7 +1,7 @@
 # plperl_spi_fetchrow
 
 ## Location
-src/pl/plperl/plperl.c: 3476 - 3550
+[src/pl/plperl/plperl.c:3476-3550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3476-L3550)
 
 ## Overview
 Fetches the next row from a previously opened SPI cursor, returning the result as a Perl hash reference or undef if no more rows are available.

@@ -1,7 +1,7 @@
 # slist_init
 
 ## Location
-src/include/lib/ilist.h: 986 - 994
+[src/include/lib/ilist.h:986-994](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L986-L994)
 
 ## Overview
 Initializes a singly-linked list by setting the head node to an empty state, discarding any previous contents without cleanup.

@@ -1,7 +1,7 @@
 # bbstreamer_zstd_decompressor_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_zstd.c: 296 - 337
+[src/bin/pg_basebackup/bbstreamer_zstd.c:296-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_zstd.c#L296-L337)
 
 ## Overview
 Decompresses input data using ZSTD compression algorithm and forwards the decompressed data to the next streamer in the pipeline when the output buffer becomes full.

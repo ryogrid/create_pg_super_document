@@ -1,7 +1,7 @@
 # WaitForWorkers
 
 ## Location
-src/bin/pg_dump/parallel.c: 1451 - 1515
+[src/bin/pg_dump/parallel.c:1451-1515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1451-L1515)
 
 ## Overview
 Coordinates worker process completion in pg_dump's parallel processing system by implementing flexible waiting strategies for different synchronization requirements.

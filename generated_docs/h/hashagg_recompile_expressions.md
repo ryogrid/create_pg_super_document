@@ -1,7 +1,7 @@
 # hashagg_recompile_expressions
 
 ## Location
-src/backend/executor/nodeAgg.c: 1741 - 1797
+[src/backend/executor/nodeAgg.c:1741-1797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1741-L1797)
 
 ## Overview
 Dynamically recompiles and caches aggregate transition expressions for hash aggregation operations based on current execution context, optimizing performance for different phases of hash aggregation processing.

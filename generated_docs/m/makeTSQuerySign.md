@@ -1,7 +1,7 @@
 # makeTSQuerySign
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 250 - 266
+[src/backend/utils/adt/tsquery_op.c:250-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L250-L266)
 
 ## Overview
 Generates a bit signature for a TSQuery by extracting and hashing all value operands, used for fast filtering in GiST indexing.

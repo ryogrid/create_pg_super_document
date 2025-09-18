@@ -1,7 +1,7 @@
 # gin_compare_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 203 - 228
+[src/backend/utils/adt/jsonb_gin.c:203-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L203-L228)
 
 ## Overview
 A GIN opclass support function that compares two text values extracted from JSONB data for ordering within the GIN index, using C collation for consistent sorting.

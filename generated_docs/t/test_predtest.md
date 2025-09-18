@@ -1,7 +1,7 @@
 # test_predtest
 
 ## Location
-src/test/modules/test_predtest/test_predtest.c: 32 - 246
+[src/test/modules/test_predtest/test_predtest.c:32-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_predtest/test_predtest.c#L32-L246)
 
 ## Overview
 A PostgreSQL testing function that validates the correctness of predicate testing logic by comparing theoretical proof results with empirical query execution results.

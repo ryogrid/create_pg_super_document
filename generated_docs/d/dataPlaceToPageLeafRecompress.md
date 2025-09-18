@@ -1,7 +1,7 @@
 # dataPlaceToPageLeafRecompress
 
 ## Location
-src/backend/access/gin/gindatapage.c: 978 - 1033
+[src/backend/access/gin/gindatapage.c:978-1033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L978-L1033)
 
 ## Overview
 dataPlaceToPageLeafRecompress reconstructs a GIN data leaf page from a disassembled representation, applying all segment modifications and handling format conversions from pre-9.4 uncompressed format.

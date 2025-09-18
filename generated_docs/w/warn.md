@@ -1,7 +1,7 @@
 # warn
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_oracle-char_array.c: 51 - 59
+[src/interfaces/ecpg/test/expected/compat_oracle-char_array.c:51-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_oracle-char_array.c#L51-L59)
 
 ## Overview
 A static utility function that prints a warning message to stderr indicating that at least one column was truncated during data processing.

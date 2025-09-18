@@ -1,7 +1,7 @@
 # AtStart_GUC
 
 ## Location
-src/backend/utils/misc/guc.c: 2217 - 2236
+[src/backend/utils/misc/guc.c:2217-2236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2217-L2236)
 
 ## Overview
 AtStart_GUC initializes the GUC (Grand Unified Configuration) nesting level at the beginning of a main transaction and validates the system state.

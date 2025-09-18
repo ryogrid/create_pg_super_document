@@ -1,7 +1,7 @@
 # spg_text_config
 
 ## Location
-src/backend/access/spgist/spgtextproc.c: 96 - 112
+[src/backend/access/spgist/spgtextproc.c:96-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgtextproc.c#L96-L112)
 
 ## Overview
 The spg_text_config function is a SP-GiST (Space-Partitioned Generalized Search Tree) configuration function for text data types that sets up the operational parameters for text indexing in PostgreSQL's SP-GiST access method.

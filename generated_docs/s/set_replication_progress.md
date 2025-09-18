@@ -1,7 +1,7 @@
 # set_replication_progress
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1749 - 1839
+[src/bin/pg_basebackup/pg_createsubscriber.c:1749-1839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1749-L1839)
 
 ## Overview
 set_replication_progress is a function that configures the initial replication progress for a logical subscription by setting the replication origin to start streaming from a specific LSN position.

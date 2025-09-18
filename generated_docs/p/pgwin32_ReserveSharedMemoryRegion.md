@@ -1,7 +1,7 @@
 # pgwin32_ReserveSharedMemoryRegion
 
 ## Location
-src/backend/port/win32_shmem.c: 573 - 629
+[src/backend/port/win32_shmem.c:573-629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32_shmem.c#L573-L629)
 
 ## Overview
 A Windows-specific function that reserves shared memory regions in a child process before it starts to prevent address space conflicts with DLL loading and thread scheduling.

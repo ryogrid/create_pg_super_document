@@ -1,7 +1,7 @@
 # wal_segment_open
 
 ## Location
-src/backend/access/transam/xlogutils.c: 817 - 841
+[src/backend/access/transam/xlogutils.c:817-841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L817-L841)
 
 ## Overview
 Opens a WAL segment file for reading as part of the XLogReaderRoutine callback mechanism for local pg_wal file access.

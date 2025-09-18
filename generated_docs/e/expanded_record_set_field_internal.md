@@ -1,7 +1,7 @@
 # expanded_record_set_field_internal
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 1112 - 1248
+[src/backend/utils/adt/expandedrecord.c:1112-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L1112-L1248)
 
 ## Overview
 Sets the value of a specific field in an expanded record, with support for domain constraint checking, external value handling, and memory management optimizations.

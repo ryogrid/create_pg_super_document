@@ -1,7 +1,7 @@
 # MultiXactOffsetPrecedes
 
 ## Location
-src/backend/access/transam/multixact.c: 3335 - 3346
+[src/backend/access/transam/multixact.c:3335-3346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3335-L3346)
 
 ## Overview
 MultiXactOffsetPrecedes determines which of two MultiXact offset values is earlier, using wrap-around arithmetic for the offset space.

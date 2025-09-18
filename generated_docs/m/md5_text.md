@@ -1,7 +1,7 @@
 # md5_text
 
 ## Location
-src/backend/utils/adt/cryptohashfuncs.c: 34 - 58
+[src/backend/utils/adt/cryptohashfuncs.c:34-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cryptohashfuncs.c#L34-L58)
 
 ## Overview
 Creates an MD5 hash of a text value and returns it as a hexadecimal string representation.

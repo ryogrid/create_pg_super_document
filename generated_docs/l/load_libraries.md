@@ -1,7 +1,7 @@
 # load_libraries
 
 ## Location
-src/backend/utils/init/miscinit.c: 1846 - 1897
+[src/backend/utils/init/miscinit.c:1846-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1846-L1897)
 
 ## Overview
 load_libraries is a static function that loads shared libraries from a comma-separated list, with optional restriction to the plugins directory for security purposes.

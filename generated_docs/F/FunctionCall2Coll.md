@@ -1,7 +1,7 @@
 # FunctionCall2Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1149 - 1170
+[src/backend/utils/fmgr/fmgr.c:1149-1170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1149-L1170)
 
 ## Overview
 FunctionCall2Coll is a utility function that invokes a previously-looked-up PostgreSQL function with two parameters and an explicit collation setting.

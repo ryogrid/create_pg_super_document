@@ -1,7 +1,7 @@
 # EventTriggerSupportsObjectType
 
 ## Location
-src/backend/commands/event_trigger.c: 1134 - 1157
+[src/backend/commands/event_trigger.c:1134-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1134-L1157)
 
 ## Overview
 EventTriggerSupportsObjectType determines whether event triggers are supported for a specific database object type, filtering out global objects and self-referential cases.

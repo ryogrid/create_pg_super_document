@@ -1,7 +1,7 @@
 # bbsink_forward_manifest_contents
 
 ## Location
-src/backend/backup/basebackup_sink.c: 89 - 100
+[src/backend/backup/basebackup_sink.c:89-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L89-L100)
 
 ## Overview
 A forwarding function that passes manifest content processing to the next backup sink in a chain, used in PostgreSQL's base backup system to forward manifest data through a chain of backup sinks.

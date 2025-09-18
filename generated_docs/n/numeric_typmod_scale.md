@@ -1,7 +1,7 @@
 # numeric_typmod_scale
 
 ## Location
-src/backend/utils/adt/numeric.c: 940 - 950
+[src/backend/utils/adt/numeric.c:940-950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L940-L950)
 
 ## Overview
 A static inline function that extracts the scale value from a numeric typmod, handling sign extension for negative scale values.

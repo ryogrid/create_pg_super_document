@@ -1,7 +1,7 @@
 # point_add
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4119 - 4133
+[src/backend/utils/adt/geo_ops.c:4119-4133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4119-L4133)
 
 ## Overview
 A PostgreSQL function that provides the SQL-callable interface for adding two geometric points together.

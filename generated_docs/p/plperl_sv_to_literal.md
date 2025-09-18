@@ -1,7 +1,7 @@
 # plperl_sv_to_literal
 
 ## Location
-src/pl/plperl/plperl.c: 1444 - 1479
+[src/pl/plperl/plperl.c:1444-1479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1444-L1479)
 
 ## Overview
 Converts a Perl scalar value (SV) to its string literal representation by using the PostgreSQL type output function.

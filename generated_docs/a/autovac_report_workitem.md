@@ -1,7 +1,7 @@
 # autovac_report_workitem
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3193 - 3232
+[src/backend/postmaster/autovacuum.c:3193-3232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3193-L3232)
 
 ## Overview
 Reports autovacuum work item processing activity to PostgreSQL's statistics system for visibility in pg_stat_activity.

@@ -1,7 +1,7 @@
 # GistEntryVector
 
 ## Location
-src/include/access/gist.h: 237 - 238
+[src/include/access/gist.h:237-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist.h#L237-L238)
 
 ## Overview
 A data structure that represents a vector (array) of GISTENTRY structs, commonly used as an argument to user-defined GiST methods such as union and picksplit functions.

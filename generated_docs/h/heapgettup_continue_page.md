@@ -1,7 +1,7 @@
 # heapgettup_continue_page
 
 ## Location
-src/backend/access/heap/heapam.c: 752 - 797
+[src/backend/access/heap/heapam.c:752-797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L752-L797)
 
 ## Overview
 A helper function for heapgettup() that determines the next page to scan and calculates the remaining tuples and starting offset for scanning within that page.

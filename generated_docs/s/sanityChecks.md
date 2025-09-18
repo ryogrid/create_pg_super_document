@@ -1,7 +1,7 @@
 # sanityChecks
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 733 - 790
+[src/bin/pg_rewind/pg_rewind.c:733-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L733-L790)
 
 ## Overview
 The  function validates that the source and target PostgreSQL clusters are compatible and in appropriate states before proceeding with a rewind operation.

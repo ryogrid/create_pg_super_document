@@ -1,7 +1,7 @@
 # heap_xlog_delete
 
 ## Location
-src/backend/access/heap/heapam.c: 9519 - 9591
+[src/backend/access/heap/heapam.c:9519-9591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9519-L9591)
 
 ## Overview
 Replays XLOG_HEAP_DELETE WAL records during PostgreSQL recovery to restore tuple deletion operations and maintain proper visibility map state.

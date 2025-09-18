@@ -1,7 +1,7 @@
 # PGEventConnDestroy
 
 ## Location
-src/interfaces/libpq/libpq-events.h: 50 - 55
+[src/interfaces/libpq/libpq-events.h:50-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.h#L50-L55)
 
 ## Overview
 PGEventConnDestroy is a structure that contains event information passed to event callback functions when a PGEVT_CONNDESTROY event is fired before a connection is destroyed.

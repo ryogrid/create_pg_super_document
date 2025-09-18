@@ -1,7 +1,7 @@
 # MemoryContextInit
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 339 - 382
+[src/backend/utils/mmgr/mcxt.c:339-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L339-L382)
 
 ## Overview
 MemoryContextInit initializes PostgreSQL's memory context subsystem, setting up the fundamental TopMemoryContext and ErrorContext that serve as the foundation for all memory management operations.

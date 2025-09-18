@@ -1,7 +1,7 @@
 # pg_reg_colorisbegin
 
 ## Location
-src/backend/regex/regexport.c: 191 - 207
+[src/backend/regex/regexport.c:191-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L191-L207)
 
 ## Overview
 Checks whether a given color represents a beginning-of-line or beginning-of-string pseudo-character in a compiled regular expression.

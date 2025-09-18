@@ -1,7 +1,7 @@
 # pqPutInt
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 253 - 286
+[src/interfaces/libpq/fe-misc.c:253-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L253-L286)
 
 ## Overview
 Writes a 2 or 4 byte integer to the output buffer, converting from host byte order to network byte order.

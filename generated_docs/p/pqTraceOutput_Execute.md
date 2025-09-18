@@ -1,7 +1,7 @@
 # pqTraceOutput_Execute
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 332 - 339
+[src/interfaces/libpq/fe-trace.c:332-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L332-L339)
 
 ## Overview
 A static function that handles tracing of Execute messages in PostgreSQL's libpq protocol tracing.

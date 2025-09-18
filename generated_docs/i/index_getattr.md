@@ -1,7 +1,7 @@
 # index_getattr
 
 ## Location
-src/include/access/itup.h: 118 - 165
+[src/include/access/itup.h:118-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/itup.h#L118-L165)
 
 ## Overview
 Extracts the value of a specific attribute from an IndexTuple, with optimized fast paths for cached offsets and null value checks before falling back to the uncached extraction function.

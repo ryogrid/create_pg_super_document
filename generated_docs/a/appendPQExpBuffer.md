@@ -1,7 +1,7 @@
 # appendPQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 265 - 293
+[src/interfaces/libpq/pqexpbuffer.c:265-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L265-L293)
 
 ## Overview
 Formats text data using printf-style formatting and appends it to the existing contents of a PQExpBuffer, expanding the buffer as needed.

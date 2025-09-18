@@ -1,7 +1,7 @@
 # logicalrep_partmap_init
 
 ## Location
-src/backend/replication/logical/relation.c: 567 - 601
+[src/backend/replication/logical/relation.c:567-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L567-L601)
 
 ## Overview
 Initializes the logical replication partition map cache system, setting up the hash table and memory context for tracking partition mappings.

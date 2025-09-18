@@ -1,7 +1,7 @@
 # pqTraceOutput_RowDescription
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 455 - 474
+[src/interfaces/libpq/fe-trace.c:455-474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L455-L474)
 
 ## Overview
 Outputs a formatted trace message for RowDescription protocol messages in PostgreSQL client tracing.

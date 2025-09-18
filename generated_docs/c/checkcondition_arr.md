@@ -1,7 +1,7 @@
 # checkcondition_arr
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 285 - 316
+[src/backend/utils/adt/tsgistidx.c:285-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L285-L316)
 
 ## Overview
 A callback function used in TSVector GiST indexing that performs binary search to check if a query operand matches against an array of hash values in leaf-page data.

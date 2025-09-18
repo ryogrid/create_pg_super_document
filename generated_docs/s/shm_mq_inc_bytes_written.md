@@ -1,7 +1,7 @@
 # shm_mq_inc_bytes_written
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 1303 - 1322
+[src/backend/storage/ipc/shm_mq.c:1303-1322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L1303-L1322)
 
 ## Overview
 Atomically increments the count of bytes written to a shared message queue with proper memory ordering to ensure data visibility to the receiver.

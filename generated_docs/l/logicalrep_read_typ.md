@@ -1,7 +1,7 @@
 # logicalrep_read_typ
 
 ## Location
-src/backend/replication/logical/proto.c: 756 - 768
+[src/backend/replication/logical/proto.c:756-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L756-L768)
 
 ## Overview
 Reads and deserializes PostgreSQL type information from a logical replication input stream into a LogicalRepTyp structure.

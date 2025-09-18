@@ -1,7 +1,7 @@
 # ecpg_auto_prepare
 
 ## Location
-src/interfaces/ecpg/ecpglib/prepare.c: 553 - 602
+[src/interfaces/ecpg/ecpglib/prepare.c:553-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/prepare.c#L553-L602)
 
 ## Overview
 Handles cache and preparation of SQL statements in auto-prepare mode for ECPG, providing automatic statement caching and preparation to optimize repeated SQL execution.

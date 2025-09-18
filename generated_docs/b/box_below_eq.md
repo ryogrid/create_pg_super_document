@@ -1,7 +1,7 @@
 # box_below_eq
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 722 - 730
+[src/backend/utils/adt/geo_ops.c:722-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L722-L730)
 
 ## Overview
 Determines if the first box is entirely below or at the same level as the second box.

@@ -1,7 +1,7 @@
 # can_partial_agg
 
 ## Location
-src/backend/optimizer/plan/planner.c: 7663 - 7704
+[src/backend/optimizer/plan/planner.c:7663-7704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L7663-L7704)
 
 ## Overview
 Determines whether partial grouping and/or aggregation operations can be safely performed in a parallel execution context by validating query structure and aggregate function compatibility.

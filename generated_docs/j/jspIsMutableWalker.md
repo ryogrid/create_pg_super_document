@@ -1,7 +1,7 @@
 # jspIsMutableWalker
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 1294 - 1522
+[src/backend/utils/adt/jsonpath.c:1294-1522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L1294-L1522)
 
 ## Overview
 A recursive tree walker that traverses JSON path expression nodes to detect mutable operations and track data type status for mutability analysis.

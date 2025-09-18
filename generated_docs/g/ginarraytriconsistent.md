@@ -1,7 +1,7 @@
 # ginarraytriconsistent
 
 ## Location
-src/backend/access/gin/ginarrayproc.c: 226 - 305
+[src/backend/access/gin/ginarrayproc.c:226-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginarrayproc.c#L226-L305)
 
 ## Overview
 This is a PostgreSQL GIN triconsistent support function that provides three-valued logic (true/false/maybe) for determining whether indexed array data satisfies query conditions.

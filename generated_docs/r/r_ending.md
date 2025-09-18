@@ -1,7 +1,7 @@
 # r_ending
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_armenian.c: 502 - 514
+[src/backend/snowball/libstemmer/stem_UTF_8_armenian.c:502-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_armenian.c#L502-L514)
 
 ## Overview
 A static function that identifies and removes Armenian ending suffixes from words during the Armenian text stemming process.

@@ -1,7 +1,7 @@
 # infer_arbiter_indexes
 
 ## Location
-src/backend/optimizer/util/plancat.c: 705 - 977
+[src/backend/optimizer/util/plancat.c:705-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L705-L977)
 
 ## Overview
 Determines the unique indexes used to arbitrate speculative insertion for ON CONFLICT clauses by matching user-supplied inference specifications against available unique indexes.

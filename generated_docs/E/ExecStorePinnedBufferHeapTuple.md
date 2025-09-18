@@ -1,7 +1,7 @@
 # ExecStorePinnedBufferHeapTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1505 - 1532
+[src/backend/executor/execTuples.c:1505-1532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1505-L1532)
 
 ## Overview
 Stores an on-disk physical tuple from a buffer into a TTSOpsBufferHeapTuple slot, transferring buffer pin ownership from caller to slot.

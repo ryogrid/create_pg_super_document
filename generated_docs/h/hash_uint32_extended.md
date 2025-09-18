@@ -1,7 +1,7 @@
 # hash_uint32_extended
 
 ## Location
-src/include/common/hashfn.h: 49 - 58
+[src/include/common/hashfn.h:49-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L49-L58)
 
 ## Overview
 The `hash_uint32_extended` function combines the performance optimization of specialized 32-bit integer hashing with seeded hashing capabilities, producing 64-bit hash values for enhanced distribution and collision resistance.

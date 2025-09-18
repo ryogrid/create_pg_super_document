@@ -1,7 +1,7 @@
 # ind_fetch_func
 
 ## Location
-src/backend/commands/analyze.c: 1768 - 1797
+[src/backend/commands/analyze.c:1768-1797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1768-L1797)
 
 ## Overview
 A static function that serves as a data fetch callback for analyzing index expressions, retrieving Datum values from pre-computed arrays without constructing full index tuples.

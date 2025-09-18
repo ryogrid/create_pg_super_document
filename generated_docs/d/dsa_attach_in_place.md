@@ -1,7 +1,7 @@
 # dsa_attach_in_place
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 545 - 575
+[src/backend/utils/mmgr/dsa.c:545-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L545-L575)
 
 ## Overview
 Attaches to a DSA (Dynamic Shared Area) that was created with dsa_create_in_place, allowing processes to connect to memory areas created in specific memory locations.

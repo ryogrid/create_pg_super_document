@@ -1,7 +1,7 @@
 # ResOwnerReleaseBufferPin
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 6033 - 6047
+[src/backend/storage/buffer/bufmgr.c:6033-6047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L6033-L6047)
 
 ## Overview
 A ResourceOwner callback function that releases buffer pins during resource cleanup by unpinning buffers without updating ResourceOwner tracking.

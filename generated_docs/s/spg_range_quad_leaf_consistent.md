@@ -1,7 +1,7 @@
 # spg_range_quad_leaf_consistent
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 917 - 998
+[src/backend/utils/adt/rangetypes_spgist.c:917-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L917-L998)
 
 ## Overview
 SP-GiST leaf node consistent function that performs final range comparisons between indexed range values and query conditions.

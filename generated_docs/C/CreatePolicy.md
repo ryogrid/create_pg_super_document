@@ -1,7 +1,7 @@
 # CreatePolicy
 
 ## Location
-src/backend/commands/policy.c: 569 - 767
+[src/backend/commands/policy.c:569-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L569-L767)
 
 ## Overview
 Handles the execution of the CREATE POLICY command by creating a new row-level security policy in the pg_policy system catalog with specified access control rules and role assignments.

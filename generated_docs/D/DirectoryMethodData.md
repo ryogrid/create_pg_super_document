@@ -1,7 +1,7 @@
 # DirectoryMethodData
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 73 - 77
+[src/bin/pg_basebackup/walmethods.c:73-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L73-L77)
 
 ## Overview
 DirectoryMethodData is a structure that represents the directory-based WAL writing method implementation in PostgreSQL's pg_basebackup utility, extending the base WalWriteMethod to store directory-specific data.

@@ -1,7 +1,7 @@
 # ResourceOwnerForgetJIT
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 152 - 163
+[src/backend/jit/llvm/llvmjit.c:152-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L152-L163)
 
 ## Overview
 A convenience wrapper function that unregisters an LLVM JIT context from PostgreSQL's resource owner system, typically called when manually releasing the context.

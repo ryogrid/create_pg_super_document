@@ -1,7 +1,7 @@
 # GetNSItemByRangeTablePosn
 
 ## Location
-src/backend/parser/parse_relation.c: 510 - 536
+[src/backend/parser/parse_relation.c:510-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L510-L536)
 
 ## Overview
 Finds and returns the ParseNamespaceItem corresponding to a given range table index and nesting depth.

@@ -1,7 +1,7 @@
 # get_atttype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 913 - 942
+[src/backend/utils/cache/lsyscache.c:913-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L913-L942)
 
 ## Overview
 Retrieves the data type OID of an attribute from the PostgreSQL system catalog for a given relation and attribute number.

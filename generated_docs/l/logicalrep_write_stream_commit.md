@@ -1,7 +1,7 @@
 # logicalrep_write_stream_commit
 
 ## Location
-src/backend/replication/logical/proto.c: 1112 - 1136
+[src/backend/replication/logical/proto.c:1112-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L1112-L1136)
 
 ## Overview
 Writes a stream commit message to the logical replication output stream to signal the successful commit of a streaming transaction.

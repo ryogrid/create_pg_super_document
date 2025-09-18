@@ -1,7 +1,7 @@
 # GetCurrentTransactionIdIfAny
 
 ## Location
-src/backend/access/transam/xact.c: 468 - 479
+[src/backend/access/transam/xact.c:468-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L468-L479)
 
 ## Overview
 Returns the transaction ID (XID) of the current sub-transaction if one is assigned, or InvalidTransactionId if not inside a transaction or the current transaction hasn't been assigned an XID yet.

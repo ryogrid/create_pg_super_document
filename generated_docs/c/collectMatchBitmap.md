@@ -1,7 +1,7 @@
 # collectMatchBitmap
 
 ## Location
-src/backend/access/gin/ginget.c: 121 - 318
+[src/backend/access/gin/ginget.c:121-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L121-L318)
 
 ## Overview
 This is a central function in GIN index scanning that collects tuple identifiers (TIDs) into a match bitmap for all heap tuples that satisfy the search criteria, supporting multiple scan modes including partial matching, ALL mode, and EVERYTHING mode.

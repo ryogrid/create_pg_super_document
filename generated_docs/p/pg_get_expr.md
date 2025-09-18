@@ -1,7 +1,7 @@
 # pg_get_expr
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2629 - 2645
+[src/backend/utils/adt/ruleutils.c:2629-2645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2629-L2645)
 
 ## Overview
 This function decompiles stored expression trees back into human-readable SQL expressions, supporting expressions that reference a single relation or are relation-independent.

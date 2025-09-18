@@ -1,7 +1,7 @@
 # bracket
 
 ## Location
-src/backend/regex/regcomp.c: 1673 - 1728
+[src/backend/regex/regcomp.c:1673-1728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1673-L1728)
 
 ## Overview
 Handles non-complemented bracket expressions in regular expression compilation, processing character classes and ranges within bracket notation.

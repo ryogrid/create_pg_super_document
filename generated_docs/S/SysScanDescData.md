@@ -1,7 +1,7 @@
 # SysScanDescData
 
 ## Location
-src/include/access/relscan.h: 181 - 189
+[src/include/access/relscan.h:181-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L181-L189)
 
 ## Overview
 SysScanDescData is a structure that encapsulates the state information for scanning system catalog tables, supporting both heap scans and index scans with automatic fallback mechanisms when system indexes are unavailable.

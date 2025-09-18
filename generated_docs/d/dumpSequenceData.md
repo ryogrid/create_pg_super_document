@@ -1,7 +1,7 @@
 # dumpSequenceData
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17843 - 17892
+[src/bin/pg_dump/pg_dump.c:17843-17892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17843-L17892)
 
 ## Overview
 Writes the current data (value state) of one user-defined sequence using SQL setval() function calls.

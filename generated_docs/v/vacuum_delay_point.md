@@ -1,7 +1,7 @@
 # vacuum_delay_point
 
 ## Location
-src/backend/commands/vacuum.c: 2383 - 2481
+[src/backend/commands/vacuum.c:2383-2481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2383-L2481)
 
 ## Overview
 Implements cost-based vacuum delays and interrupt checking to throttle vacuum operations and ensure responsiveness during long-running vacuum processes.

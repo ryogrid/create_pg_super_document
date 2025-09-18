@@ -1,7 +1,7 @@
 # logicalrep_read_prepare_common
 
 ## Location
-src/backend/replication/logical/proto.c: 210 - 238
+[src/backend/replication/logical/proto.c:210-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L210-L238)
 
 ## Overview
 A static helper function that provides core functionality for reading PREPARE messages in logical replication, shared between regular and streaming prepare operations.

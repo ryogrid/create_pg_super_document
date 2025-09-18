@@ -1,7 +1,7 @@
 # attribute_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 2078 - 2094
+[src/backend/access/common/reloptions.c:2078-2094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L2078-L2094)
 
 ## Overview
 Parses and validates relation options specifically for table attributes (columns), handling statistics-related options that influence query planning.

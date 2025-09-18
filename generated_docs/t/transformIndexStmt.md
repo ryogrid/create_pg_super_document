@@ -1,7 +1,7 @@
 # transformIndexStmt
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2797 - 2891
+[src/backend/parser/parse_utilcmd.c:2797-2891](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2797-L2891)
 
 ## Overview
 Performs parse analysis for CREATE INDEX statements and ALTER TABLE statements that involve index creation, transforming index expressions and predicate clauses into their final parsed form.

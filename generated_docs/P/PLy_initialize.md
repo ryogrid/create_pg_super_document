@@ -1,7 +1,7 @@
 # PLy_initialize
 
 ## Location
-src/pl/plpython/plpy_main.c: 95 - 137
+[src/pl/plpython/plpy_main.c:95-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L95-L137)
 
 ## Overview
 Performs one-time setup of the PL/Python procedural language extension, including Python interpreter initialization and conflict detection with other Python versions.

@@ -1,7 +1,7 @@
 # PageIndexTupleOverwrite
 
 ## Location
-src/backend/storage/page/bufpage.c: 1405 - 1509
+[src/backend/storage/page/bufpage.c:1405-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L1405-L1509)
 
 ## Overview
 Replaces a specified tuple on an index page in-place, efficiently managing space by shifting other tuples' data while preserving line pointer positions and flags.

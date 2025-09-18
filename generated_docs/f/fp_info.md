@@ -1,7 +1,7 @@
 # fp_info
 
 ## Location
-src/backend/tcop/fastpath.c: 49 - 67
+[src/backend/tcop/fastpath.c:49-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/fastpath.c#L49-L67)
 
 ## Overview
 The  struct stores cached function metadata for PostgreSQL's fastpath function call interface, containing essential information needed to execute functions via the fastpath protocol.

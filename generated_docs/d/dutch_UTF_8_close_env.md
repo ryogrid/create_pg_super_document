@@ -1,7 +1,7 @@
 # dutch_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_dutch.c: 612 - 613
+[src/backend/snowball/libstemmer/stem_UTF_8_dutch.c:612-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_dutch.c#L612-L613)
 
 ## Overview
 Properly deallocates and closes a Snowball stemming environment that was created for Dutch language text processing with UTF-8 encoding.

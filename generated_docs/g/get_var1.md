@@ -1,7 +1,7 @@
 # get_var1
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 173 - 208
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:173-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L173-L208)
 
 ## Overview
 A static function used in ECPG test code that initializes and allocates memory for database variable structures used in cursor operations.

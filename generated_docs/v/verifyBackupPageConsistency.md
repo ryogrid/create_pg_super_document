@@ -1,7 +1,7 @@
 # verifyBackupPageConsistency
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2461 - 2572
+[src/backend/access/transam/xlogrecovery.c:2461-2572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2461-L2572)
 
 ## Overview
 Validates the consistency between the current buffer page and backup page stored in WAL records after replay operations have completed.

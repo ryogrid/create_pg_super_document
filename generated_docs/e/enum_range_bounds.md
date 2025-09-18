@@ -1,7 +1,7 @@
 # enum_range_bounds
 
 ## Location
-src/backend/utils/adt/enum.c: 496 - 526
+[src/backend/utils/adt/enum.c:496-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L496-L526)
 
 ## Overview
 A PostgreSQL built-in function that returns an array of enum values between specified lower and upper bounds (inclusive).

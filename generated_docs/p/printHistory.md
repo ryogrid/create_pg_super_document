@@ -1,7 +1,7 @@
 # printHistory
 
 ## Location
-src/bin/psql/input.c: 494 - 539
+[src/bin/psql/input.c:494-539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L494-L539)
 
 ## Overview
 Displays the readline command history either to the console (with optional pager support) or saves it to a specified file without encoding transformations.

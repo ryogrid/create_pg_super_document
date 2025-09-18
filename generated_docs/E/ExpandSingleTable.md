@@ -1,7 +1,7 @@
 # ExpandSingleTable
 
 ## Location
-src/backend/parser/parse_target.c: 1372 - 1422
+[src/backend/parser/parse_target.c:1372-1422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1372-L1422)
 
 ## Overview
 Transforms a qualified star expression (foo.*) into a list of column expressions or target list entries when foo refers to a simple table reference.

@@ -1,7 +1,7 @@
 # fasthash64
 
 ## Location
-src/include/common/hashfn_unstable.h: 360 - 381
+[src/include/common/hashfn_unstable.h:360-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L360-L381)
 
 ## Overview
 Implements the original fasthash64 function using PostgreSQL's incremental hashing interface, returning a 64-bit hash value for arbitrary data with customizable seed and length-dependent internal seed modification.

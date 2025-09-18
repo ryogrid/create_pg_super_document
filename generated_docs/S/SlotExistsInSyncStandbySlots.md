@@ -1,7 +1,7 @@
 # SlotExistsInSyncStandbySlots
 
 ## Location
-src/backend/replication/slot.c: 2559 - 2591
+[src/backend/replication/slot.c:2559-2591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2559-L2591)
 
 ## Overview
 Checks if a given slot name is specified in the synchronized_standby_slots GUC parameter configuration.

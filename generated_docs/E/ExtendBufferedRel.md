@@ -1,7 +1,7 @@
 # ExtendBufferedRel
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 845 - 876
+[src/backend/storage/buffer/bufmgr.c:845-876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L845-L876)
 
 ## Overview
 A convenience wrapper function that extends a buffered relation by exactly one block, providing a simplified interface to the more general ExtendBufferedRelBy function.

@@ -1,7 +1,7 @@
 # injection_points_set_local
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 364 - 385
+[src/test/modules/injection_points/injection_points.c:364-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L364-L385)
 
 ## Overview
 This function enables local injection point tracking for the current process and sets up cleanup mechanisms for process-specific injection points.

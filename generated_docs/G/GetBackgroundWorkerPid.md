@@ -1,7 +1,7 @@
 # GetBackgroundWorkerPid
 
 ## Location
-src/backend/postmaster/bgworker.c: 1082 - 1136
+[src/backend/postmaster/bgworker.c:1082-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L1082-L1136)
 
 ## Overview
 Retrieves the process ID (PID) of a dynamically-registered background worker and returns its current status.

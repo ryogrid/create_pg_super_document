@@ -1,7 +1,7 @@
 # hash_bytes_extended
 
 ## Location
-src/common/hashfn.c: 372 - 609
+[src/common/hashfn.c:372-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L372-L609)
 
 ## Overview
 The `hash_bytes_extended` function is an enhanced version of `hash_bytes` that produces 64-bit hash values and supports optional seeding for cryptographic applications and enhanced security.

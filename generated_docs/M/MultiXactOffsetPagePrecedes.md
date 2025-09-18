@@ -1,7 +1,7 @@
 # MultiXactOffsetPagePrecedes
 
 ## Location
-src/backend/access/transam/multixact.c: 3269 - 3288
+[src/backend/access/transam/multixact.c:3269-3288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3269-L3288)
 
 ## Overview
 MultiXactOffsetPagePrecedes determines whether one MultiXact offset page number is "older" than another for truncation purposes, using MultiXact ID precedence logic.

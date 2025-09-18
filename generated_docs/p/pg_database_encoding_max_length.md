@@ -1,7 +1,7 @@
 # pg_database_encoding_max_length
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1546 - 1555
+[src/backend/utils/mb/mbutils.c:1546-1555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1546-L1555)
 
 ## Overview
 Returns the maximum length in bytes that any single character can occupy in the current database's character encoding.

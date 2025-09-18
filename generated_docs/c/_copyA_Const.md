@@ -1,7 +1,7 @@
 # _copyA_Const
 
 ## Location
-src/backend/nodes/copyfuncs.c: 108 - 146
+[src/backend/nodes/copyfuncs.c:108-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/copyfuncs.c#L108-L146)
 
 ## Overview
 Creates a deep copy of an A_Const node, handling different constant value types (integer, float, boolean, string, bit string) with type-specific copying logic.

@@ -1,7 +1,7 @@
 # multirange_agg_transfn
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1412 - 1464
+[src/backend/utils/adt/multirangetypes.c:1412-1464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1412-L1464)
 
 ## Overview
 The transition function for the multirange_agg aggregate that decomposes input multiranges into individual ranges and collects them for later processing by the finalize function.

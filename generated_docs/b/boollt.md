@@ -1,7 +1,7 @@
 # boollt
 
 ## Location
-src/backend/utils/adt/bool.c: 241 - 249
+[src/backend/utils/adt/bool.c:241-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L241-L249)
 
 ## Overview
 Implements the less-than operator for PostgreSQL boolean data type, providing ordering comparison where false is considered less than true.

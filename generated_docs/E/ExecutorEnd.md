@@ -1,7 +1,7 @@
 # ExecutorEnd
 
 ## Location
-src/backend/executor/execMain.c: 460 - 468
+[src/backend/executor/execMain.c:460-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L460-L468)
 
 ## Overview
 A hook-enabled wrapper function that must be called at the end of execution of any query plan, providing plugin extensibility for executor cleanup operations.

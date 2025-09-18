@@ -1,7 +1,7 @@
 # perform_relmap_update
 
 ## Location
-src/backend/utils/cache/relmapper.c: 1039 - 1095
+[src/backend/utils/cache/relmapper.c:1039-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L1039-L1095)
 
 ## Overview
 perform_relmap_update applies pending relation mapping changes to the persistent storage by merging updates with current mappings and writing the results to disk.

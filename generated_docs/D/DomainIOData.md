@@ -1,7 +1,7 @@
 # DomainIOData
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 189 - 195
+[src/backend/utils/adt/jsonfuncs.c:189-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L189-L195)
 
 ## Overview
 DomainIOData is a structure used to cache state information across multiple calls when handling PostgreSQL domain types, including constraint validation and base type I/O operations.

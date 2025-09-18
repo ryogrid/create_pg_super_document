@@ -1,7 +1,7 @@
 # _bt_doinsert
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 102 - 316
+[src/backend/access/nbtree/nbtinsert.c:102-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L102-L316)
 
 ## Overview
 Handles insertion of a single index tuple into a B-tree, including uniqueness checking and conflict resolution.

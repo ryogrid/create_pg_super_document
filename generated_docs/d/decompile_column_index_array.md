@@ -1,7 +1,7 @@
 # decompile_column_index_array
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2577 - 2628
+[src/backend/utils/adt/ruleutils.c:2577-2628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2577-L2628)
 
 ## Overview
 This utility function converts an array of column indices into a comma-separated list of quoted column names for a specified relation.

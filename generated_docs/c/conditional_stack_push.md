@@ -1,7 +1,7 @@
 # conditional_stack_push
 
 ## Location
-src/fe_utils/conditional.c: 53 - 68
+[src/fe_utils/conditional.c:53-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L53-L68)
 
 ## Overview
 Pushes a new conditional state onto the conditional stack, representing entry into a new nested conditional block.

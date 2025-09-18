@@ -1,7 +1,7 @@
 # unicode_category_string
 
 ## Location
-src/common/unicode_category.c: 332 - 405
+[src/common/unicode_category.c:332-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L332-L405)
 
 ## Overview
 Converts a Unicode general category enumeration value into its corresponding human-readable string representation.

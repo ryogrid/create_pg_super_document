@@ -1,7 +1,7 @@
 # make_hashjoin
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5974 - 6004
+[src/backend/optimizer/plan/createplan.c:5974-6004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5974-L6004)
 
 ## Overview
 Creates a HashJoin plan node that represents a hash join operation in PostgreSQL's query execution plan tree.

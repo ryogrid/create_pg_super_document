@@ -1,7 +1,7 @@
 # datum_image_eq
 
 ## Location
-src/backend/utils/adt/datum.c: 266 - 337
+[src/backend/utils/adt/datum.c:266-337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L266-L337)
 
 ## Overview
 Compares two datums for identical byte-level contents, with special handling for TOAST decompression to ensure accurate comparison of variable-length data.

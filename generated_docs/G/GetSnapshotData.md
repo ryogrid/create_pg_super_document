@@ -1,7 +1,7 @@
 # GetSnapshotData
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2177 - 2535
+[src/backend/storage/ipc/procarray.c:2177-2535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2177-L2535)
 
 ## Overview
 The core function that constructs a snapshot containing information about currently running transactions, providing the foundation for MVCC (Multi-Version Concurrency Control) visibility decisions.

@@ -1,7 +1,7 @@
 # PgStatShared_ReplSlot
 
 ## Location
-src/include/utils/pgstat_internal.h: 410 - 414
+[src/include/utils/pgstat_internal.h:410-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L410-L414)
 
 ## Overview
 PgStatShared_ReplSlot represents shared memory statistics data for PostgreSQL replication slots, tracking various metrics related to transaction spilling, streaming, and overall replication slot activity.

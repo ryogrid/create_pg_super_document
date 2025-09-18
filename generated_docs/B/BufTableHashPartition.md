@@ -1,7 +1,7 @@
 # BufTableHashPartition
 
 ## Location
-src/include/storage/buf_internals.h: 180 - 185
+[src/include/storage/buf_internals.h:180-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L180-L185)
 
 ## Overview
 BufTableHashPartition is an inline function that maps a hash code to a specific partition number in PostgreSQL's partitioned shared buffer mapping table to reduce lock contention.

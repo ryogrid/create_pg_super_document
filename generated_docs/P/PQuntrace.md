@@ -1,7 +1,7 @@
 # PQuntrace
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 49 - 63
+[src/interfaces/libpq/fe-trace.c:49-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L49-L63)
 
 ## Overview
 Disables protocol tracing for a PostgreSQL connection and ensures any pending trace output is flushed to the output stream.

@@ -1,7 +1,7 @@
 # findWindowClause
 
 ## Location
-src/backend/parser/parse_clause.c: 3659 - 3685
+[src/backend/parser/parse_clause.c:3659-3685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3659-L3685)
 
 ## Overview
 Locates a named WindowClause in a list of window clauses by name, returning the clause or NULL if not found.

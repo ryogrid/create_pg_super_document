@@ -1,7 +1,7 @@
 # finishInput
 
 ## Location
-src/bin/psql/input.c: 540 - 550
+[src/bin/psql/input.c:540-550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L540-L550)
 
 ## Overview
 Cleanup function that saves command history to persistent storage and frees allocated memory when psql terminates.

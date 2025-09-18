@@ -1,7 +1,7 @@
 # exportFile
 
 ## Location
-src/test/examples/testlo64.c: 172 - 214
+[src/test/examples/testlo64.c:172-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlo64.c#L172-L214)
 
 ## Overview
 A static function that exports a PostgreSQL large object to a file on the Unix filesystem by copying its contents.

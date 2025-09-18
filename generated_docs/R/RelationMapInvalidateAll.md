@@ -1,7 +1,7 @@
 # RelationMapInvalidateAll
 
 ## Location
-src/backend/utils/cache/relmapper.c: 490 - 503
+[src/backend/utils/cache/relmapper.c:490-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L490-L503)
 
 ## Overview
 A public function that reloads all currently-valid relation mapping files, used for recovery from shared invalidation (SI) message buffer overflow situations.

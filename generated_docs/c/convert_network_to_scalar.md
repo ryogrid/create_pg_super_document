@@ -1,7 +1,7 @@
 # convert_network_to_scalar
 
 ## Location
-src/backend/utils/adt/network.c: 1502 - 1568
+[src/backend/utils/adt/network.c:1502-1568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1502-L1568)
 
 ## Overview
 Converts network datatype values (inet, cidr, macaddr, macaddr8) to approximate scalar values for selectivity estimation in query planning.

@@ -1,7 +1,7 @@
 # local_finish_fetch
 
 ## Location
-src/bin/pg_rewind/local_source.c: 176 - 183
+[src/bin/pg_rewind/local_source.c:176-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L176-L183)
 
 ## Overview
 A no-operation implementation of the finish_fetch interface for local source operations in pg_rewind, as all fetching is done immediately by local_queue_fetch_range().

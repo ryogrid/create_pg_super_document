@@ -1,7 +1,7 @@
 # trunc_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 11873 - 11934
+[src/backend/utils/adt/numeric.c:11873-11934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11873-L11934)
 
 ## Overview
 Truncates a NumericVar value towards zero at a specified number of decimal digits after the decimal point, providing precise control over numeric precision without rounding.

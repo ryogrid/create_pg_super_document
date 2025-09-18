@@ -1,7 +1,7 @@
 # is_dummy_rel
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1333 - 1381
+[src/backend/optimizer/path/joinrels.c:1333-1381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1333-L1381)
 
 ## Overview
 Determines whether a relation has been proven to be empty during query planning by examining its path structure for the characteristic childless Append pattern.

@@ -1,7 +1,7 @@
 # page_verify_redirects
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1737 - 1784
+[src/backend/access/heap/pruneheap.c:1737-1784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1737-L1784)
 
 ## Overview
 A debugging function that verifies the integrity of LP_REDIRECT line pointer items on a heap page, ensuring that all redirect items point to valid heap-only tuples.

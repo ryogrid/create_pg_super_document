@@ -1,7 +1,7 @@
 # summarizer_read_local_xlog_page
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1497 - 1610
+[src/backend/postmaster/walsummarizer.c:1497-1610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1497-L1610)
 
 ## Overview
 A specialized function that reads WAL (Write-Ahead Log) pages from a specific timeline with built-in waiting capability and timeline transition handling for the WAL summarizer process.

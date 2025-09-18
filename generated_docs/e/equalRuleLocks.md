@@ -1,7 +1,7 @@
 # equalRuleLocks
 
 ## Location
-src/backend/utils/cache/relcache.c: 908 - 952
+[src/backend/utils/cache/relcache.c:908-952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L908-L952)
 
 ## Overview
 Determines whether two RuleLock structures are equivalent by comparing their rules and associated metadata.

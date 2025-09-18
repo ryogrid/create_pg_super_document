@@ -1,7 +1,7 @@
 # getAffixFlagSet
 
 ## Location
-src/backend/tsearch/spell.c: 1161 - 1198
+[src/backend/tsearch/spell.c:1161-1198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1161-L1198)
 
 ## Overview
 Resolves affix flag references by returning either an aliased flag set from the AffixData array or the original string, depending on the dictionary's alias configuration.

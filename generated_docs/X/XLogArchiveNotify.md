@@ -1,7 +1,7 @@
 # XLogArchiveNotify
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 444 - 491
+[src/backend/access/transam/xlogarchive.c:444-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L444-L491)
 
 ## Overview
 Creates an archive notification file (.ready) to signal the archiver process that a WAL file is ready for archival to long-term storage.

@@ -1,7 +1,7 @@
 # time_part
 
 ## Location
-src/backend/utils/adt/date.c: 2243 - 2248
+[src/backend/utils/adt/date.c:2243-2248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2243-L2248)
 
 ## Overview
 The  function is a PostgreSQL wrapper that extracts specified time components from a TimeADT value, returning results as floating-point numbers.

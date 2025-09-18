@@ -1,7 +1,7 @@
 # texttoxml
 
 ## Location
-src/backend/utils/adt/xml.c: 637 - 645
+[src/backend/utils/adt/xml.c:637-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L637-L645)
 
 ## Overview
 Converts a text value containing XML content into PostgreSQL's XML data type by parsing the input text.

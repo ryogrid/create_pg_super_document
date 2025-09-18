@@ -1,7 +1,7 @@
 # porter_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_porter.c: 722 - 723
+[src/backend/snowball/libstemmer/stem_UTF_8_porter.c:722-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_porter.c#L722-L723)
 
 ## Overview
 The porter_UTF_8_close_env function releases and deallocates a Porter UTF-8 stemming environment structure that was previously created by porter_UTF_8_create_env.

@@ -1,7 +1,7 @@
 # construct_empty_expanded_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3585 - 3618
+[src/backend/utils/adt/arrayfuncs.c:3585-3618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3585-L3618)
 
 ## Overview
 Creates an empty expanded array object that provides an optimized in-memory representation for efficient array operations and modifications.

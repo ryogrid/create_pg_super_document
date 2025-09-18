@@ -1,7 +1,7 @@
 # StandbyTransactionIdIsPrepared
 
 ## Location
-src/backend/access/transam/twophase.c: 1459 - 1486
+[src/backend/access/transam/twophase.c:1459-1486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1459-L1486)
 
 ## Overview
 StandbyTransactionIdIsPrepared verifies whether a specific transaction ID corresponds to a prepared transaction during database recovery operations.

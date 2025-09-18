@@ -1,7 +1,7 @@
 # add_placeholders_to_base_rels
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 329 - 372
+[src/backend/optimizer/util/placeholder.c:329-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L329-L372)
 
 ## Overview
 Adds required PlaceHolderVars to base relations' target lists when placeholders can be computed at a base relation and are needed above it.

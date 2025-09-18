@@ -1,7 +1,7 @@
 # ecpg_filter_source
 
 ## Location
-src/interfaces/ecpg/test/pg_regress_ecpg.c: 34 - 92
+[src/interfaces/ecpg/test/pg_regress_ecpg.c:34-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/pg_regress_ecpg.c#L34-L92)
 
 ## Overview
 Filters source files by normalizing #line directives, removing path components to make output consistent across different build environments and platforms.

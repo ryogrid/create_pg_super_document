@@ -1,7 +1,7 @@
 # has_subclass
 
 ## Location
-src/backend/catalog/pg_inherits.c: 355 - 376
+[src/backend/catalog/pg_inherits.c:355-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L355-L376)
 
 ## Overview
 Checks whether a relation has any child relations by examining the relhassubclass flag in pg_class.

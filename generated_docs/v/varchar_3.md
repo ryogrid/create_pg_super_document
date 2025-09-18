@@ -1,7 +1,7 @@
 # varchar_3
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-array_of_struct.c: 98 - 104
+[src/interfaces/ecpg/test/expected/preproc-array_of_struct.c:98-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-array_of_struct.c#L98-L104)
 
 ## Overview
 The  symbol is a nested struct definition that implements a variable-length character string type within the customer3 structure for ECPG testing.

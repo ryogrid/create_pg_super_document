@@ -1,7 +1,7 @@
 # relation_has_policies
 
 ## Location
-src/backend/commands/policy.c: 1256 - 1279
+[src/backend/commands/policy.c:1256-1279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L1256-L1279)
 
 ## Overview
 Determines whether a given relation has any row-level security policies defined, providing a quick check for policy existence without retrieving the actual policy details.

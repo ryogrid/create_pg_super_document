@@ -1,7 +1,7 @@
 # has_any_column_privilege_id
 
 ## Location
-src/backend/utils/adt/acl.c: 2427 - 2459
+[src/backend/utils/adt/acl.c:2427-2459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2427-L2459)
 
 ## Overview
 Checks if the current user has any given privilege on any column of a specified table (by OID), with NULL handling for non-existent objects.

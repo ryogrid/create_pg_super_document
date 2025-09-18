@@ -1,7 +1,7 @@
 # find_placeholders_in_expr
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 257 - 299
+[src/backend/optimizer/util/placeholder.c:257-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L257-L299)
 
 ## Overview
 Discovers all PlaceHolderVars within a given expression tree and ensures that PlaceHolderInfo entries are created for each one found.

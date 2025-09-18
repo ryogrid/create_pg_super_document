@@ -1,7 +1,7 @@
 # am_parallel_apply_worker
 
 ## Location
-src/include/replication/worker_internal.h: 347 - 353
+[src/include/replication/worker_internal.h:347-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/worker_internal.h#L347-L353)
 
 ## Overview
 A convenience function that determines if the current logical replication worker is operating as a parallel apply worker.

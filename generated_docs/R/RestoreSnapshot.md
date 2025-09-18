@@ -1,7 +1,7 @@
 # RestoreSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1775 - 1839
+[src/backend/utils/time/snapmgr.c:1775-1839](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1775-L1839)
 
 ## Overview
 Deserializes a binary snapshot representation back into a PostgreSQL snapshot structure for use by parallel workers or other processes.

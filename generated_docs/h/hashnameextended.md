@@ -1,7 +1,7 @@
 # hashnameextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 258 - 266
+[src/backend/access/hash/hashfunc.c:258-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L258-L266)
 
 ## Overview
 Computes a 64-bit extended hash value for a PostgreSQL Name data type using a provided seed parameter.

@@ -1,7 +1,7 @@
 # heap_copy_minimal_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1535 - 1553
+[src/backend/access/common/heaptuple.c:1535-1553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1535-L1553)
 
 ## Overview
 Creates a copy of an existing MinimalTuple by allocating new memory and performing a byte-for-byte copy of the tuple data.

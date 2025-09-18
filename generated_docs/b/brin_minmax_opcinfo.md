@@ -1,7 +1,7 @@
 # brin_minmax_opcinfo
 
 ## Location
-src/backend/access/brin/brin_minmax.c: 34 - 63
+[src/backend/access/brin/brin_minmax.c:34-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax.c#L34-L63)
 
 ## Overview
 Initializes and returns operator class information for BRIN minmax indexes, setting up the data structure required for storing minimum and maximum values for indexed ranges.

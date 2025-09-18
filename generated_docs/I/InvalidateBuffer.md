@@ -1,7 +1,7 @@
 # InvalidateBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1772 - 1869
+[src/backend/storage/buffer/bufmgr.c:1772-1869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1772-L1869)
 
 ## Overview
 InvalidateBuffer marks a shared buffer as invalid and returns it to the freelist, handling complex synchronization to ensure safe buffer reclamation during relation drops.

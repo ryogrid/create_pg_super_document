@@ -1,7 +1,7 @@
 # CloseArchive
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 252 - 265
+[src/bin/pg_dump/pg_backup_archiver.c:252-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L252-L265)
 
 ## Overview
 Properly closes a PostgreSQL dump archive, performing necessary cleanup operations and closing any associated file handles.

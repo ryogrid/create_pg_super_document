@@ -1,7 +1,7 @@
 # func_select_candidate
 
 ## Location
-src/backend/parser/parse_func.c: 1008 - 1394
+[src/backend/parser/parse_func.c:1008-1394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1008-L1394)
 
 ## Overview
 Resolves function overloading conflicts by selecting the best candidate from multiple compatible functions using PostgreSQL's type resolution heuristics.

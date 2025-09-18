@@ -1,7 +1,7 @@
 # ApplyLauncherRegister
 
 ## Location
-src/backend/replication/logical/launcher.c: 931 - 966
+[src/backend/replication/logical/launcher.c:931-966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L931-L966)
 
 ## Overview
 Registers a background worker process that runs the logical replication launcher in PostgreSQL.

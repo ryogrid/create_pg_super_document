@@ -1,7 +1,7 @@
 # dumpUndefinedType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 11249 - 11312
+[src/bin/pg_dump/pg_dump.c:11249-11312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L11249-L11312)
 
 ## Overview
 Generates SQL commands to recreate an undefined shell type (where typisdefined is false) during PostgreSQL database dump operations.

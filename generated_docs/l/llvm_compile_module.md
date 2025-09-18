@@ -1,7 +1,7 @@
 # llvm_compile_module
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 733 - 863
+[src/backend/jit/llvm/llvmjit.c:733-863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L733-L863)
 
 ## Overview
 Compiles the currently pending LLVM module by performing inlining, optimization, and code emission, creating a handle for runtime function lookups.

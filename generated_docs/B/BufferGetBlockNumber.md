@@ -1,7 +1,7 @@
 # BufferGetBlockNumber
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3713 - 3733
+[src/backend/storage/buffer/bufmgr.c:3713-3733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3713-L3733)
 
 ## Overview
 BufferGetBlockNumber returns the block number associated with a specified buffer, providing essential metadata for buffer management operations.

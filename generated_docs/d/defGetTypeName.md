@@ -1,7 +1,7 @@
 # defGetTypeName
 
 ## Location
-src/backend/commands/define.c: 284 - 311
+[src/backend/commands/define.c:284-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L284-L311)
 
 ## Overview
 Extracts a TypeName structure from a DefElem, specifically designed for DDL commands that require type specifications.

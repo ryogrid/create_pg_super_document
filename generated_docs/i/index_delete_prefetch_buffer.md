@@ -1,7 +1,7 @@
 # index_delete_prefetch_buffer
 
 ## Location
-src/backend/access/heap/heapam.c: 7990 - 8034
+[src/backend/access/heap/heapam.c:7990-8034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7990-L8034)
 
 ## Overview
 A helper function for heap_index_delete_tuples that issues buffer prefetch requests to improve performance during bulk index tuple deletion operations.

@@ -1,7 +1,7 @@
 # set_ps_display_with_len
 
 ## Location
-src/backend/utils/misc/ps_status.c: 451 - 485
+[src/backend/utils/misc/ps_status.c:451-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/ps_status.c#L451-L485)
 
 ## Overview
 Updates the process status display to show a combination of a fixed prefix and a specified activity string, with the activity length pre-calculated for performance optimization.

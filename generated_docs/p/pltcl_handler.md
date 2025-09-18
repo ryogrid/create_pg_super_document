@@ -1,7 +1,7 @@
 # pltcl_handler
 
 ## Location
-src/pl/tcl/pltcl.c: 723 - 796
+[src/pl/tcl/pltcl.c:723-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L723-L796)
 
 ## Overview
 Core handler function for PL/Tcl that routes function calls, triggers, and event triggers to appropriate subhandlers for both trusted and untrusted Tcl interpreters.

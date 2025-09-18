@@ -1,7 +1,7 @@
 # bpcharfastcmp_c
 
 ## Location
-src/backend/utils/adt/varlena.c: 2049 - 2081
+[src/backend/utils/adt/varlena.c:2049-2081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2049-L2081)
 
 ## Overview
 A specialized fast comparison function for BpChar (blank-padded character) data types optimized for C locale sorting with proper trailing space handling.

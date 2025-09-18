@@ -1,7 +1,7 @@
 # UnlockTuple
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 595 - 615
+[src/backend/storage/lmgr/lmgr.c:595-615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L595-L615)
 
 ## Overview
 UnlockTuple releases a lock on a specific tuple (row) within a PostgreSQL relation, allowing other transactions to access the tuple according to the lock mode that was previously held.

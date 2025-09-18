@@ -1,7 +1,7 @@
 # _mdfd_getseg
 
 ## Location
-src/backend/storage/smgr/md.c: 1596 - 1726
+[src/backend/storage/smgr/md.c:1596-1726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1596-L1726)
 
 ## Overview
 Finds and returns the segment file descriptor for a relation fork containing a specified block, with flexible behavior for handling missing segments.

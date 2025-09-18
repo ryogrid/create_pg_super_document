@@ -1,7 +1,7 @@
 # assign_recovery_prefetch
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 1097 - 1103
+[src/backend/access/transam/xlogprefetcher.c:1097-1103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L1097-L1103)
 
 ## Overview
 assign_recovery_prefetch is a GUC assignment hook function that applies changes to the recovery_prefetch configuration parameter and triggers reconfiguration of the prefetching system when running in the startup process.

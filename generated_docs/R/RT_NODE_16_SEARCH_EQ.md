@@ -1,7 +1,7 @@
 # RT_NODE_16_SEARCH_EQ
 
 ## Location
-src/include/lib/radixtree.h: 983 - 1041
+[src/include/lib/radixtree.h:983-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L983-L1041)
 
 ## Overview
 RT_NODE_16_SEARCH_EQ is a macro that resolves to a function for searching a node16 structure to find a child pointer corresponding to a specific key chunk.

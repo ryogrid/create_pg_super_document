@@ -1,7 +1,7 @@
 # dsa_dump
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 1088 - 1195
+[src/backend/utils/mmgr/dsa.c:1088-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L1088-L1195)
 
 ## Overview
 Prints detailed debugging information about the internal state of a dynamic shared memory area to stderr for diagnostic purposes.

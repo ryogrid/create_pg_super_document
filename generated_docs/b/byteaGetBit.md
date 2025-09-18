@@ -1,7 +1,7 @@
 # byteaGetBit
 
 ## Location
-src/backend/utils/adt/varlena.c: 3238 - 3275
+[src/backend/utils/adt/varlena.c:3238-3275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3238-L3275)
 
 ## Overview
 Extracts a specific bit from a bytea (binary string) data type and returns it as an integer value (0 or 1).

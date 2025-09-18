@@ -1,7 +1,7 @@
 # extract_query_dependencies_walker
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3589 - 3653
+[src/backend/optimizer/plan/setrefs.c:3589-3653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3589-L3653)
 
 ## Overview
 Tree walker function that recursively traverses query nodes to collect relation OIDs, invalidation items, and row security information for dependency tracking.

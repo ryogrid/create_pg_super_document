@@ -1,7 +1,7 @@
 # ExtendMultiXactOffset
 
 ## Location
-src/backend/access/transam/multixact.c: 2545 - 2576
+[src/backend/access/transam/multixact.c:2545-2576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2545-L2576)
 
 ## Overview
 Ensures that the MultiXactOffset SLRU has sufficient space allocated for a newly-allocated MultiXactId by extending the offset control structure when needed.

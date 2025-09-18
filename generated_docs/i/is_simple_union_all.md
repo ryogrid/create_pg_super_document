@@ -1,7 +1,7 @@
 # is_simple_union_all
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2072 - 2099
+[src/backend/optimizer/prep/prepjointree.c:2072-2099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2072-L2099)
 
 ## Overview
 This function checks if a subquery is a simple UNION ALL operation that meets specific criteria for optimization eligibility.

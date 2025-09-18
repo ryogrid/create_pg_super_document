@@ -1,7 +1,7 @@
 # match_pathkeys_to_index
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 3020 - 3129
+[src/backend/optimizer/path/indxpath.c:3020-3129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L3020-L3129)
 
 ## Overview
 Matches pathkey ordering requirements to index columns to generate ORDER BY expressions that can be satisfied using index scans instead of explicit sorting.

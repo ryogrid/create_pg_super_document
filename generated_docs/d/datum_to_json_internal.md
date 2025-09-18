@@ -1,7 +1,7 @@
 # datum_to_json_internal
 
 ## Location
-src/backend/utils/adt/json.c: 177 - 300
+[src/backend/utils/adt/json.c:177-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L177-L300)
 
 ## Overview
 Converts PostgreSQL datums to their JSON text representation, handling type-specific formatting and escaping based on the data type category.

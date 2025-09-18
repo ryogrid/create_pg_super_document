@@ -1,7 +1,7 @@
 # checkcondition_bit
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 317 - 333
+[src/backend/utils/adt/tsgistidx.c:317-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L317-L333)
 
 ## Overview
 A callback function used in TSVector GiST indexing that checks if a query operand matches against bit signature data in non-leaf index pages using bloom filter logic.

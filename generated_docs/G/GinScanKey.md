@@ -1,7 +1,7 @@
 # GinScanKey
 
 ## Location
-src/include/access/gin_private.h: 264 - 265
+[src/include/access/gin_private.h:264-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L264-L265)
 
 ## Overview
 GinScanKey is a pointer typedef that references GinScanKeyData structures, representing individual GIN index qualifier expressions during index scans.

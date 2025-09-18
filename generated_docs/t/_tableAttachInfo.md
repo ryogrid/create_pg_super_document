@@ -1,7 +1,7 @@
 # _tableAttachInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 381 - 385
+[src/bin/pg_dump/pg_dump.h:381-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L381-L385)
 
 ## Overview
 The  structure represents metadata for partition attach operations in pg_dump, specifically used to track the relationship between a partition and its parent partitioned table.

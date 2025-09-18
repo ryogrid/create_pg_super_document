@@ -1,7 +1,7 @@
 # LargeObjectCreate
 
 ## Location
-src/backend/catalog/pg_largeobject.c: 37 - 82
+[src/backend/catalog/pg_largeobject.c:37-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_largeobject.c#L37-L82)
 
 ## Overview
 Creates a new large object in PostgreSQL by inserting metadata into the pg_largeobject_metadata catalog table, initially with size 0.

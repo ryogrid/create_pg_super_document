@@ -1,7 +1,7 @@
 # printVerboseErrorMessages
 
 ## Location
-src/bin/pgbench/pgbench.c: 3564 - 3601
+[src/bin/pgbench/pgbench.c:3564-3601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3564-L3601)
 
 ## Overview
 Prints detailed verbose error messages for failed transactions in pgbench, providing diagnostic information about retry attempts and performance metrics.

@@ -1,7 +1,7 @@
 # macaddr_fast_cmp
 
 ## Location
-src/backend/utils/adt/mac.c: 400 - 414
+[src/backend/utils/adt/mac.c:400-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L400-L414)
 
 ## Overview
 Provides fast comparison of MAC addresses for PostgreSQL's SortSupport infrastructure by extracting Datum values and delegating to the internal comparison function.

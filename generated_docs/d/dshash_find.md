@@ -1,7 +1,7 @@
 # dshash_find
 
 ## Location
-src/backend/lib/dshash.c: 390 - 432
+[src/backend/lib/dshash.c:390-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L390-L432)
 
 ## Overview
 The  function looks up an entry in a dynamic shared hash table given a key, returning either a pointer to the found entry or NULL if not found.

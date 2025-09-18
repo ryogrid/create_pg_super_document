@@ -1,7 +1,7 @@
 # makeJsonLexContext
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 538 - 565
+[src/backend/utils/adt/jsonfuncs.c:538-565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L538-L565)
 
 ## Overview
 This function creates a JsonLexContext for parsing JSON data from a PostgreSQL text datum, serving as a convenient wrapper around makeJsonLexContextCstringLen.

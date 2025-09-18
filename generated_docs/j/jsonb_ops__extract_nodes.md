@@ -1,7 +1,7 @@
 # jsonb_ops__extract_nodes
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 408 - 477
+[src/backend/utils/adt/jsonb_gin.c:408-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L408-L477)
 
 ## Overview
 Extracts and constructs a list of GIN index nodes from a JSON path for the jsonb_ops operator class, handling both path entries and scalar values with appropriate indexing logic.

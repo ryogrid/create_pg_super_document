@@ -1,7 +1,7 @@
 # pg_strcoll_libc
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1939 - 1967
+[src/backend/utils/adt/pg_locale.c:1939-1967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1939-L1967)
 
 ## Overview
 Performs locale-aware string collation using the system's libc implementation, handling platform-specific variations and encoding requirements.

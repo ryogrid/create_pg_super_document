@@ -1,7 +1,7 @@
 # HandleCatchupInterrupt
 
 ## Location
-src/backend/storage/ipc/sinval.c: 155 - 174
+[src/backend/storage/ipc/sinval.c:155-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/sinval.c#L155-L174)
 
 ## Overview
 HandleCatchupInterrupt is a signal handler function that responds to PROCSIG_CATCHUP_INTERRUPT signals by setting a flag for deferred processing of shared invalidation catchup events.

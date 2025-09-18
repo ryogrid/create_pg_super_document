@@ -1,7 +1,7 @@
 # pushStop
 
 ## Location
-src/backend/utils/adt/tsquery.c: 616 - 626
+[src/backend/utils/adt/tsquery.c:616-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L616-L626)
 
 ## Overview
 Creates and pushes a stopword placeholder onto the parser state's polish notation stack to represent words that should be ignored during text search operations.

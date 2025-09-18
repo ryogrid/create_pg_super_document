@@ -1,7 +1,7 @@
 # parse_manifest_file
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 390 - 506
+[src/bin/pg_verifybackup/pg_verifybackup.c:390-506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L390-L506)
 
 ## Overview
 Parses a PostgreSQL backup manifest file and returns a data structure containing the parsed manifest information including file metadata and validation callbacks.

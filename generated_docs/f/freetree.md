@@ -1,7 +1,7 @@
 # freetree
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 115 - 135
+[src/backend/utils/adt/tsquery_cleanup.c:115-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L115-L135)
 
 ## Overview
 The `freetree` function recursively deallocates memory for an entire binary tree of NODE structures used in PostgreSQL's text search query processing.

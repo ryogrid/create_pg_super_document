@@ -1,7 +1,7 @@
 # _bt_compare_array_elements
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1099 - 1130
+[src/backend/access/nbtree/nbtutils.c:1099-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1099-L1130)
 
 ## Overview
 A qsort_arg-compatible comparison function for sorting array elements using PostgreSQL's operator family comparison procedures.

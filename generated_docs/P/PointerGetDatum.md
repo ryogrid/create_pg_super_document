@@ -1,7 +1,7 @@
 # PointerGetDatum
 
 ## Location
-src/include/postgres.h: 322 - 334
+[src/include/postgres.h:322-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L322-L334)
 
 ## Overview
 Converts a pointer value to a Datum type, providing the inverse operation of DatumGetPointer for storing pointer values in PostgreSQL's generic Datum representation.

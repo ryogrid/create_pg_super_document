@@ -1,7 +1,7 @@
 # pt_in_widget
 
 ## Location
-src/test/regress/regress.c: 217 - 232
+[src/test/regress/regress.c:217-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L217-L232)
 
 ## Overview
 This function tests whether a given point lies within the boundaries of a WIDGET object, which appears to be a circular region defined by a center point and radius.

@@ -1,7 +1,7 @@
 # remove_unused_subquery_outputs
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 4055 - 4166
+[src/backend/optimizer/path/allpaths.c:4055-4166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L4055-L4166)
 
 ## Overview
 Optimizes subquery performance by removing targetlist items that are not needed by the upper query, potentially allowing for further optimizations like join removal within the subquery.

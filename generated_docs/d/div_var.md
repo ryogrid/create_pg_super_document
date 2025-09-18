@@ -1,7 +1,7 @@
 # div_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 8893 - 9200
+[src/backend/utils/adt/numeric.c:8893-9200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8893-L9200)
 
 ## Overview
 Performs division of two NumericVar values using long division algorithm with optimizations for short divisors and precise control over result precision and rounding.

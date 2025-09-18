@@ -1,7 +1,7 @@
 # get_database_oid
 
 ## Location
-src/backend/commands/dbcommands.c: 3127 - 3173
+[src/backend/commands/dbcommands.c:3127-3173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3127-L3173)
 
 ## Overview
 Looks up a database's OID given its name, with optional error handling for missing databases.

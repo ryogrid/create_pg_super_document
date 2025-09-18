@@ -1,7 +1,7 @@
 # GetTimerFrequency
 
 ## Location
-src/include/portability/instr_time.h: 148 - 155
+[src/include/portability/instr_time.h:148-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/portability/instr_time.h#L148-L155)
 
 ## Overview
 A Windows-specific function that retrieves the frequency of the high-resolution performance counter, which is essential for converting performance counter ticks to time units in PostgreSQL timing measurements.

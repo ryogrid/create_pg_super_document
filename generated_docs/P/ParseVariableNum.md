@@ -1,7 +1,7 @@
 # ParseVariableNum
 
 ## Location
-src/bin/psql/variables.c: 156 - 185
+[src/bin/psql/variables.c:156-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/variables.c#L156-L185)
 
 ## Overview
 Parses a string value as an integer and stores the result, with comprehensive validation to ensure the value fits within integer bounds.

@@ -1,7 +1,7 @@
 # ExecAlterExtensionContentsRecurse
 
 ## Location
-src/backend/commands/extension.c: 3378 - 3516
+[src/backend/commands/extension.c:3378-3516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L3378-L3516)
 
 ## Overview
 Performs the core logic of adding or removing objects from extensions, including handling dependent objects recursively without permission checks.

@@ -1,7 +1,7 @@
 # create_subqueryscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3702 - 3760
+[src/backend/optimizer/plan/createplan.c:3702-3760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3702-L3760)
 
 ## Overview
 Creates a subquery scan plan for accessing the results of a subquery as if it were a base relation, handling recursive plan creation for the nested query.

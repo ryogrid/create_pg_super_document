@@ -1,7 +1,7 @@
 # pg_query_performance_counter
 
 ## Location
-src/include/portability/instr_time.h: 136 - 147
+[src/include/portability/instr_time.h:136-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/portability/instr_time.h#L136-L147)
 
 ## Overview
 A Windows-specific helper function that retrieves high-resolution performance counter values using the Windows QueryPerformanceCounter() API for precise timing measurements in PostgreSQL.

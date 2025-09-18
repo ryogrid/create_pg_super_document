@@ -1,7 +1,7 @@
 # divalidate
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 236 - 245
+[src/test/modules/dummy_index_am/dummy_index_am.c:236-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L236-L245)
 
 ## Overview
 A validation function for the dummy index access method that accepts any operator class as valid, since the dummy AM doesn't perform actual index operations.

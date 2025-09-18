@@ -1,7 +1,7 @@
 # show_sortorder_options
 
 ## Location
-src/backend/commands/explain.c: 2821 - 2878
+[src/backend/commands/explain.c:2821-2878](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2821-L2878)
 
 ## Overview
 A static function that appends non-default sorting characteristics (collation, direction, null ordering) to a string buffer for display in PostgreSQL's EXPLAIN output.

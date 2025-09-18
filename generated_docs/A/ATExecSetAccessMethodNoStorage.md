@@ -1,7 +1,7 @@
 # ATExecSetAccessMethodNoStorage
 
 ## Location
-src/backend/commands/tablecmds.c: 14929 - 15018
+[src/backend/commands/tablecmds.c:14929-15018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14929-L15018)
 
 ## Overview
 Executes ALTER TABLE SET ACCESS METHOD for relations with no storage by updating only the catalog metadata without requiring table rewriting.

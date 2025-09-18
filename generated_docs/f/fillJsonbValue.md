@@ -1,7 +1,7 @@
 # fillJsonbValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 502 - 562
+[src/backend/utils/adt/jsonb_util.c:502-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L502-L562)
 
 ## Overview
 A low-level helper function that extracts and converts JSONB element data from internal storage format into a JsonbValue structure.

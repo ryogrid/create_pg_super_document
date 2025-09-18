@@ -1,7 +1,7 @@
 # spgbuild
 
 ## Location
-src/backend/access/spgist/spginsert.c: 73 - 153
+[src/backend/access/spgist/spginsert.c:73-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spginsert.c#L73-L153)
 
 ## Overview
 The main function responsible for building a complete SP-GiST index from scratch by initializing the index structure and inserting all heap tuples.

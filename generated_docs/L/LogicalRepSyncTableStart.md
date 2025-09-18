@@ -1,7 +1,7 @@
 # LogicalRepSyncTableStart
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1309 - 1597
+[src/backend/replication/logical/tablesync.c:1309-1597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1309-L1597)
 
 ## Overview
 LogicalRepSyncTableStart orchestrates the initial table synchronization phase for logical replication, establishing replication slots, performing data copying, and setting up origin tracking to ensure consistent table state replication.

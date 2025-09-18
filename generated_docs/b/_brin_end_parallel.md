@@ -1,7 +1,7 @@
 # _brin_end_parallel
 
 ## Location
-src/backend/access/brin/brin.c: 2538 - 2568
+[src/backend/access/brin/brin.c:2538-2568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2538-L2568)
 
 ## Overview
 Shuts down parallel BRIN index building by terminating worker processes, collecting performance statistics, and cleaning up parallel execution resources.

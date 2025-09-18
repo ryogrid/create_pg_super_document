@@ -1,7 +1,7 @@
 # AlterTableNamespace
 
 ## Location
-src/backend/commands/tablecmds.c: 17207 - 17277
+[src/backend/commands/tablecmds.c:17207-17277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17207-L17277)
 
 ## Overview
 AlterTableNamespace implements the ALTER TABLE SET SCHEMA command by moving a table and its dependent objects from one namespace (schema) to another while performing necessary validation and permission checks.

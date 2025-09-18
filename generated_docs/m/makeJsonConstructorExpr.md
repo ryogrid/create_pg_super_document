@@ -1,7 +1,7 @@
 # makeJsonConstructorExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 3654 - 3713
+[src/backend/parser/parse_expr.c:3654-3713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3654-L3713)
 
 ## Overview
 Creates a JsonConstructorExpr node for representing JSON constructor functions in PostgreSQL's expression tree, including automatic coercion setup for return type conversion.

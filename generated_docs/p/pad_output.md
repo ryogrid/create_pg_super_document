@@ -1,7 +1,7 @@
 # pad_output
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 468 - 516
+[src/tools/pg_bsd_indent/io.c:468-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L468-L516)
 
 ## Overview
 Writes tabs and spaces to move the current column position up to a desired target position in the output stream.

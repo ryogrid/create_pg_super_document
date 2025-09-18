@@ -1,7 +1,7 @@
 # SS_finalize_plan
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2254 - 2291
+[src/backend/optimizer/plan/subselect.c:2254-2291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2254-L2291)
 
 ## Overview
 Performs final parameter processing for a completed Plan tree by recursively computing the extParam and allParam sets for every Plan node.

@@ -1,7 +1,7 @@
 # line_parallel
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1146 - 1154
+[src/backend/utils/adt/geo_ops.c:1146-1154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1146-L1154)
 
 ## Overview
 Determines whether two LINE objects are parallel in PostgreSQL's geometric data type system.

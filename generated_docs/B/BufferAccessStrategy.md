@@ -1,7 +1,7 @@
 # BufferAccessStrategy
 
 ## Location
-src/include/storage/buf.h: 44 - 46
+[src/include/storage/buf.h:44-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf.h#L44-L46)
 
 ## Overview
 BufferAccessStrategy is a pointer type that represents a strategy object for managing buffer access patterns in PostgreSQL, designed to optimize buffer pool usage for different types of operations like bulk reads, writes, and vacuum operations.

@@ -1,7 +1,7 @@
 # type_is_rowtype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2655 - 2677
+[src/backend/utils/cache/lsyscache.c:2655-2677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2655-L2677)
 
 ## Overview
 Determines whether a PostgreSQL type represents a row/composite type, including RECORD types, named composite types, and domains over composite types.

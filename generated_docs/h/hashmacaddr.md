@@ -1,7 +1,7 @@
 # hashmacaddr
 
 ## Location
-src/backend/utils/adt/mac.c: 267 - 274
+[src/backend/utils/adt/mac.c:267-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L267-L274)
 
 ## Overview
 The  function computes a hash value for a MAC address, providing support for hash indexes and hash-based operations on the  data type.

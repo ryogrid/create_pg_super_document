@@ -1,7 +1,7 @@
 # remove_nulling_relids_mutator
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1254 - 1345
+[src/backend/rewrite/rewriteManip.c:1254-1345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1254-L1345)
 
 ## Overview
 remove_nulling_relids_mutator is the worker function that performs the actual removal of specified relation IDs from the nulling relation sets of Vars and PlaceHolderVars during expression tree traversal, with protection for excepted relations.

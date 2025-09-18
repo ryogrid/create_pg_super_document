@@ -1,7 +1,7 @@
 # convert_requires_to_datum
 
 ## Location
-src/backend/commands/extension.c: 2313 - 2338
+[src/backend/commands/extension.c:2313-2338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L2313-L2338)
 
 ## Overview
 This static helper function converts a PostgreSQL List of extension names (as C strings) into a PostgreSQL name[] array Datum for use in result sets.

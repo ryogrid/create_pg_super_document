@@ -1,7 +1,7 @@
 # add_nulling_relids_mutator
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1165 - 1237
+[src/backend/rewrite/rewriteManip.c:1165-1237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1165-L1237)
 
 ## Overview
 add_nulling_relids_mutator is the worker function that performs the actual modification of Vars and PlaceHolderVars by adding specified relation IDs to their nulling relation sets during expression tree traversal.

@@ -1,7 +1,7 @@
 # PLy_pop_execution_context
 
 ## Location
-src/pl/plpython/plpy_main.c: 407 - 419
+[src/pl/plpython/plpy_main.c:407-419](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L407-L419)
 
 ## Overview
 Removes and cleans up the current execution context from the PL/Python execution context stack, freeing associated memory resources.

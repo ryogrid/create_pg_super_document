@@ -1,7 +1,7 @@
 # IsXLogFileName
 
 ## Location
-src/include/access/xlog_internal.h: 180 - 191
+[src/include/access/xlog_internal.h:180-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L180-L191)
 
 ## Overview
 IsXLogFileName validates whether a given filename follows the standard PostgreSQL WAL segment file naming convention.

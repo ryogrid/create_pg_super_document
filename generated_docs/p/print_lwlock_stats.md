@@ -1,7 +1,7 @@
 # print_lwlock_stats
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 347 - 370
+[src/backend/storage/lmgr/lwlock.c:347-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L347-L370)
 
 ## Overview
 Outputs collected lightweight lock statistics to stderr, providing detailed usage information for each tracked lock.

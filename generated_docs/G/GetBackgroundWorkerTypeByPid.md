@@ -1,7 +1,7 @@
 # GetBackgroundWorkerTypeByPid
 
 ## Location
-src/backend/postmaster/bgworker.c: 1296 - 1322
+[src/backend/postmaster/bgworker.c:1296-1322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L1296-L1322)
 
 ## Overview
 Retrieves the background worker type string for a given process ID, providing a way to identify what type of background worker is associated with a specific PID.

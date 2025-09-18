@@ -1,7 +1,7 @@
 # sendMessageToWorker
 
 ## Location
-src/bin/pg_dump/parallel.c: 1644 - 1661
+[src/bin/pg_dump/parallel.c:1644-1661](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1644-L1661)
 
 ## Overview
 Sends a command message from the leader process to a specified worker process through the parallel dump communication infrastructure.

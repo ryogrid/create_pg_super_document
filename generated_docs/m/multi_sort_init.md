@@ -1,7 +1,7 @@
 # multi_sort_init
 
 ## Location
-src/backend/statistics/extended_stats.c: 832 - 850
+[src/backend/statistics/extended_stats.c:832-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L832-L850)
 
 ## Overview
 Initializes a multi-dimensional sort support structure used for sorting tuples across multiple columns in PostgreSQL's extended statistics computations.

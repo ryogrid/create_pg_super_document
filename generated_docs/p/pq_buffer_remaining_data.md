@@ -1,7 +1,7 @@
 # pq_buffer_remaining_data
 
 ## Location
-src/backend/libpq/pqcomm.c: 1126 - 1139
+[src/backend/libpq/pqcomm.c:1126-1139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1126-L1139)
 
 ## Overview
 Returns the number of bytes remaining in the PostgreSQL communication receive buffer without attempting to read more data from the network.

@@ -1,7 +1,7 @@
 # qsort_partition_list_value_cmp
 
 ## Location
-src/backend/partitioning/partbounds.c: 3793 - 3809
+[src/backend/partitioning/partbounds.c:3793-3809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3793-L3809)
 
 ## Overview
 A comparison function used by qsort to compare two list partition bound datums using the partition key's comparison function.

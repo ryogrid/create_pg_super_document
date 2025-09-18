@@ -1,7 +1,7 @@
 # ExecAlterDefaultPrivilegesStmt
 
 ## Location
-src/backend/catalog/aclchk.c: 976 - 1160
+[src/backend/catalog/aclchk.c:976-1160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L976-L1160)
 
 ## Overview
 Executes ALTER DEFAULT PRIVILEGES statements, which set default access control privileges for objects that will be created in the future by specified roles within specified schemas.

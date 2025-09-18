@@ -1,7 +1,7 @@
 # gistMemorizeParent
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1528 - 1543
+[src/backend/access/gist/gistbuild.c:1528-1543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1528-L1543)
 
 ## Overview
 Records a parent-child relationship between two blocks in the GiST index parent map during index construction.

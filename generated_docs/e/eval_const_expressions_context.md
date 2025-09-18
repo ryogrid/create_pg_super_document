@@ -1,7 +1,7 @@
 # eval_const_expressions_context
 
 ## Location
-src/backend/optimizer/util/clauses.c: 66 - 72
+[src/backend/optimizer/util/clauses.c:66-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L66-L72)
 
 ## Overview
 A context structure used during constant expression evaluation and simplification in the PostgreSQL query optimizer to track state and parameters needed for the recursive expression mutation process.

@@ -1,7 +1,7 @@
 # SPI_fname
 
 ## Location
-src/backend/executor/spi.c: 1198 - 1219
+[src/backend/executor/spi.c:1198-1219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1198-L1219)
 
 ## Overview
 Returns the name of an attribute given its attribute number in a tuple descriptor, supporting both regular and system attributes.

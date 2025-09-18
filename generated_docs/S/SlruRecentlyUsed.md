@@ -1,7 +1,7 @@
 # SlruRecentlyUsed
 
 ## Location
-src/backend/access/transam/slru.c: 1120 - 1165
+[src/backend/access/transam/slru.c:1120-1165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1120-L1165)
 
 ## Overview
 Marks a buffer slot as "most recently used" in the SLRU cache by updating its LRU counter, optimizing the cache replacement algorithm.

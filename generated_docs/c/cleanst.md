@@ -1,7 +1,7 @@
 # cleanst
 
 ## Location
-src/backend/regex/regcomp.c: 2312 - 2330
+[src/backend/regex/regcomp.c:2312-2330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2312-L2330)
 
 ## Overview
 The cleanup function that frees all subRE nodes not marked as INUSE and finalizes the regex compilation memory management transition.

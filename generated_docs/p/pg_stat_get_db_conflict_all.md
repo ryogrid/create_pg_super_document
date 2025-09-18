@@ -1,7 +1,7 @@
 # pg_stat_get_db_conflict_all
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1092 - 1111
+[src/backend/utils/adt/pgstatfuncs.c:1092-1111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1092-L1111)
 
 ## Overview
 Returns the total number of all types of conflicts that have occurred in a specific database, primarily relevant for Hot Standby scenarios.

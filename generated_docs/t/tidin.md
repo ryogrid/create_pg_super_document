@@ -1,7 +1,7 @@
 # tidin
 
 ## Location
-src/backend/utils/adt/tid.c: 52 - 118
+[src/backend/utils/adt/tid.c:52-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L52-L118)
 
 ## Overview
 The `tidin` function is the input conversion function for PostgreSQL's TID (tuple identifier) data type, converting a string representation of a TID into its internal ItemPointer format.

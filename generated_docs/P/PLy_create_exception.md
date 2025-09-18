@@ -1,7 +1,7 @@
 # PLy_create_exception
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 211 - 239
+[src/pl/plpython/plpy_plpymodule.c:211-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L211-L239)
 
 ## Overview
 PLy_create_exception is a utility function that creates Python exception objects and adds them to a specified module, handling proper reference counting for PL/Python exception management.

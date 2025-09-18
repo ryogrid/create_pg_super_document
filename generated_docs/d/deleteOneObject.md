@@ -1,7 +1,7 @@
 # deleteOneObject
 
 ## Location
-src/backend/catalog/dependency.c: 1246 - 1351
+[src/backend/catalog/dependency.c:1246-1351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L1246-L1351)
 
 ## Overview
 deleteOneObject is a static function that performs the complete deletion of a single database object, including the object itself, its dependency records, and associated metadata like comments and security labels.

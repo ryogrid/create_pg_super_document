@@ -1,7 +1,7 @@
 # pg_ls_archive_statusdir
 
 ## Location
-src/backend/utils/adt/genfile.c: 687 - 695
+[src/backend/utils/adt/genfile.c:687-695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L687-L695)
 
 ## Overview
 A SQL-callable function that lists files in the WAL archive status directory.

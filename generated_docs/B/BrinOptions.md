@@ -1,7 +1,7 @@
 # BrinOptions
 
 ## Location
-src/include/access/brin.h: 21 - 26
+[src/include/access/brin.h:21-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin.h#L21-L26)
 
 ## Overview
 BrinOptions is a PostgreSQL data structure that stores the reloptions (relation options) configuration for BRIN (Block Range Index) indexes, controlling index behavior such as pages per range and auto-summarization.

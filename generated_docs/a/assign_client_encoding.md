@@ -1,7 +1,7 @@
 # assign_client_encoding
 
 ## Location
-src/backend/commands/variable.c: 756 - 798
+[src/backend/commands/variable.c:756-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L756-L798)
 
 ## Overview
 A GUC assign hook function that actually applies a client encoding change after it has been validated by the check hook, with special handling for parallel worker processes.

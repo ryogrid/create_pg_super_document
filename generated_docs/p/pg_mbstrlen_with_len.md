@@ -1,7 +1,7 @@
 # pg_mbstrlen_with_len
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1057 - 1082
+[src/backend/utils/mb/mbutils.c:1057-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1057-L1082)
 
 ## Overview
 Returns the character length of a multibyte string with a byte limit boundary, handling strings that may not be null-terminated.

@@ -1,7 +1,7 @@
 # fmgr_internal_validator
 
 ## Location
-src/backend/catalog/pg_proc.c: 725 - 767
+[src/backend/catalog/pg_proc.c:725-767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L725-L767)
 
 ## Overview
 Validates that an internal function name refers to a known built-in function in PostgreSQL's function manager.

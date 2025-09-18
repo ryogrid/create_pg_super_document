@@ -1,7 +1,7 @@
 # get_qual_from_partbound
 
 ## Location
-src/backend/partitioning/partbounds.c: 249 - 298
+[src/backend/partitioning/partbounds.c:249-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L249-L298)
 
 ## Overview
 Converts a parser node for partition bound specification into a list of executable expressions that represent the partition constraint for a given partition.

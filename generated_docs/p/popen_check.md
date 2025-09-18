@@ -1,7 +1,7 @@
 # popen_check
 
 ## Location
-src/bin/initdb/initdb.c: 742 - 758
+[src/bin/initdb/initdb.c:742-758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L742-L758)
 
 ## Overview  
 Opens a subprocess command with enhanced error handling and logging for PostgreSQL utilities.

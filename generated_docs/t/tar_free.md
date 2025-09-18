@@ -1,7 +1,7 @@
 # tar_free
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 1336 - 1354
+[src/bin/pg_basebackup/walmethods.c:1336-1354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L1336-L1354)
 
 ## Overview
 The tar_free function is responsible for cleaning up and freeing memory allocated for a tar-based WAL (Write-Ahead Log) method implementation in PostgreSQL's pg_basebackup utility.

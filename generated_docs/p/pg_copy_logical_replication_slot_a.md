@@ -1,7 +1,7 @@
 # pg_copy_logical_replication_slot_a
 
 ## Location
-src/backend/replication/slotfuncs.c: 858 - 863
+[src/backend/replication/slotfuncs.c:858-863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L858-L863)
 
 ## Overview
 SQL wrapper function that provides the basic 2-parameter interface for copying logical replication slots (source name and destination name only).

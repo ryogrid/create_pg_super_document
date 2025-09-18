@@ -1,7 +1,7 @@
 # gather_merge_readnext
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 629 - 706
+[src/backend/executor/nodeGatherMerge.c:629-706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L629-L706)
 
 ## Overview
 Retrieves the next tuple for a specified reader (leader or worker) in a Gather Merge operation and stores it in the appropriate tuple slot, handling both local leader execution and remote worker tuple buffering.

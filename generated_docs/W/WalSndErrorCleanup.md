@@ -1,7 +1,7 @@
 # WalSndErrorCleanup
 
 ## Location
-src/backend/replication/walsender.c: 331 - 365
+[src/backend/replication/walsender.c:331-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L331-L365)
 
 ## Overview
 WalSndErrorCleanup performs cleanup operations required after an error occurs in a WAL sender process, providing similar functionality to transaction abort in regular backends but tailored for WAL sender processes that don't use traditional transactions.

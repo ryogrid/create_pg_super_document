@@ -1,7 +1,7 @@
 # RI_FKey_noaction_upd
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 588 - 607
+[src/backend/utils/adt/ri_triggers.c:588-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L588-L607)
 
 ## Overview
 A trigger function that implements the NO ACTION referential integrity constraint behavior for UPDATE operations on the referenced table, rolling back the transaction if a foreign key constraint would be violated.

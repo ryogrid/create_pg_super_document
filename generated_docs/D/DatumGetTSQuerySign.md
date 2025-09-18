@@ -1,7 +1,7 @@
 # DatumGetTSQuerySign
 
 ## Location
-src/include/tsearch/ts_utils.h: 260 - 264
+[src/include/tsearch/ts_utils.h:260-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_utils.h#L260-L264)
 
 ## Overview
 A static inline function that converts a PostgreSQL Datum value back into a TSQuerySign for use in text search operations.

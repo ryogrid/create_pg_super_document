@@ -1,7 +1,7 @@
 # xl_btree_mark_page_halfdead
 
 ## Location
-src/include/access/nbtxlog.h: 283 - 292
+[src/include/access/nbtxlog.h:283-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L283-L292)
 
 ## Overview
 WAL record structure for the first stage of B-tree page deletion, marking an empty leaf page as half-dead and removing its downlink from the parent while preserving the subtree structure.

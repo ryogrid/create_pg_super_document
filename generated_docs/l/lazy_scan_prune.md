@@ -1,7 +1,7 @@
 # lazy_scan_prune
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 1410 - 1653
+[src/backend/access/heap/vacuumlazy.c:1410-1653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L1410-L1653)
 
 ## Overview
 Performs heap page pruning and freezing during VACUUM operations, handling HOT chain pruning, tuple freezing, dead tuple collection, and visibility map updates.

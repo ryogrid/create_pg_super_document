@@ -1,7 +1,7 @@
 # transformAssignedExpr
 
 ## Location
-src/backend/parser/parse_target.c: 452 - 618
+[src/backend/parser/parse_target.c:452-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L452-L618)
 
 ## Overview
 Prepares an expression for assignment to a column in INSERT and UPDATE statements, handling type coercion and processing any subfield names or subscripts attached to the target column.

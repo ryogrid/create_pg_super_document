@@ -1,7 +1,7 @@
 # process_shmem_requests
 
 ## Location
-src/backend/utils/init/miscinit.c: 1926 - 1934
+[src/backend/utils/init/miscinit.c:1926-1934](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1926-L1934)
 
 ## Overview
 process_shmem_requests processes shared memory allocation requests from preloaded libraries by invoking the shmem_request_hook if it has been set.

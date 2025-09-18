@@ -1,7 +1,7 @@
 # TableScanDescData
 
 ## Location
-src/include/access/relscan.h: 31 - 51
+[src/include/access/relscan.h:31-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L31-L51)
 
 ## Overview
 TableScanDescData is the generic base descriptor structure for table scans that needs to be embedded in the scans of individual access methods (AMs).

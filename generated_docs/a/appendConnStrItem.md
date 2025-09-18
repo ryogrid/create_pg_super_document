@@ -1,7 +1,7 @@
 # appendConnStrItem
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 249 - 270
+[src/bin/pg_basebackup/pg_createsubscriber.c:249-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L249-L270)
 
 ## Overview
 Helper function that appends a keyword-value pair to a PostgreSQL connection string buffer with proper formatting and quoting.

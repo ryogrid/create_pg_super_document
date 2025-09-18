@@ -1,7 +1,7 @@
 # ExecHashTableDetachBatch
 
 ## Location
-src/backend/executor/nodeHash.c: 3289 - 3380
+[src/backend/executor/nodeHash.c:3289-3380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3289-L3380)
 
 ## Overview
 Detaches the current process from a shared hash join batch and performs cleanup when the last process detaches.

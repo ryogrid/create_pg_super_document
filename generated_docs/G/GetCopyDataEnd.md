@@ -1,7 +1,7 @@
 # GetCopyDataEnd
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1569 - 1583
+[src/bin/pg_basebackup/pg_basebackup.c:1569-1583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1569-L1583)
 
 ## Overview
 GetCopyDataEnd is a static utility function in pg_basebackup that validates whether a COPY data message was completely parsed by checking if the cursor position matches the message length.

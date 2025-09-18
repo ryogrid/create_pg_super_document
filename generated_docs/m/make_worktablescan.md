@@ -1,7 +1,7 @@
 # make_worktablescan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5804 - 5822
+[src/backend/optimizer/plan/createplan.c:5804-5822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5804-L5822)
 
 ## Overview
 Creates and initializes a WorkTableScan plan node for scanning working tables used in recursive Common Table Expressions (CTEs) in PostgreSQL.

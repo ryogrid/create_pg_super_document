@@ -1,7 +1,7 @@
 # try_partial_mergejoin_path
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1026 - 1095
+[src/backend/optimizer/path/joinpath.c:1026-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1026-L1095)
 
 ## Overview
 Evaluates and potentially adds a partial merge join path for parallel query execution to the joinrel's partial pathlist with simplified parameterization constraints.

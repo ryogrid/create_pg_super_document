@@ -1,7 +1,7 @@
 # pgtls_write
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 262 - 361
+[src/interfaces/libpq/fe-secure-openssl.c:262-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L262-L361)
 
 ## Overview
 Performs secure SSL/TLS data writing to a PostgreSQL connection with comprehensive error handling and OpenSSL error queue management.

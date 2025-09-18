@@ -1,7 +1,7 @@
 # ReorderBufferProcessTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2127 - 2514
+[src/backend/replication/logical/reorderbuffer.c:2127-2514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2127-L2514)
 
 ## Overview
 Core helper function that processes and replays all changes in a transaction (and its subtransactions) in LSN order, supporting both regular replay and streaming modes for logical replication.

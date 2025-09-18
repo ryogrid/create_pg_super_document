@@ -1,7 +1,7 @@
 # pg_regerror
 
 ## Location
-src/backend/regex/regerror.c: 60 - 120
+[src/backend/regex/regerror.c:60-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regerror.c#L60-L120)
 
 ## Overview
 The pg_regerror function provides a standardized interface for converting regex error codes into human-readable error messages and handling bidirectional conversion between error codes and their symbolic names.

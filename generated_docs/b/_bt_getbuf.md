@@ -1,7 +1,7 @@
 # _bt_getbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 845 - 868
+[src/backend/access/nbtree/nbtpage.c:845-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L845-L868)
 
 ## Overview
 _bt_getbuf is a core B-tree buffer management function that retrieves an existing block from a B-tree relation and ensures it is properly locked and pinned for safe access.

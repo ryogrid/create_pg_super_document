@@ -1,7 +1,7 @@
 # convert_sequence_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 2301 - 2333
+[src/backend/utils/adt/acl.c:2301-2333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2301-L2333)
 
 ## Overview
 Converts a text string representation of sequence privileges to an AclMode bitmask value.

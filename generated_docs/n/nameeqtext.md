@@ -1,7 +1,7 @@
 # nameeqtext
 
 ## Location
-src/backend/utils/adt/varlena.c: 2600 - 2624
+[src/backend/utils/adt/varlena.c:2600-2624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2600-L2624)
 
 ## Overview
 A cross-type equality comparison function that compares a name (fixed-length string) with a text (variable-length string) value for equality.

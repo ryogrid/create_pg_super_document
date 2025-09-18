@@ -1,7 +1,7 @@
 # ProcessProcSignalBarrier
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 464 - 600
+[src/backend/storage/ipc/procsignal.c:464-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L464-L600)
 
 ## Overview
 Performs global barrier related interrupt processing by checking for pending barriers, executing barrier-specific handling functions, and updating the local barrier generation counter.

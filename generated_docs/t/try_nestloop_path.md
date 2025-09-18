@@ -1,7 +1,7 @@
 # try_nestloop_path
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 721 - 842
+[src/backend/optimizer/path/joinpath.c:721-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L721-L842)
 
 ## Overview
 Evaluates and potentially adds a nestloop join path to the joinrel's pathlist, performing comprehensive validation checks and cost estimation before path creation.

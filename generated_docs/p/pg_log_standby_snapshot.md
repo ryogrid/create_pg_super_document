@@ -1,7 +1,7 @@
 # pg_log_standby_snapshot
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 201 - 231
+[src/backend/access/transam/xlogfuncs.c:201-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L201-L231)
 
 ## Overview
 Forces logging of a standby snapshot to the WAL, enabling consistent point-in-time recovery for standby servers.

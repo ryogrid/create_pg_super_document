@@ -1,7 +1,7 @@
 # do_to_timestamp
 
 ## Location
-src/backend/utils/adt/formatting.c: 4681 - 5037
+[src/backend/utils/adt/formatting.c:4681-5037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4681-L5037)
 
 ## Overview
 The core datetime parsing function that converts formatted text strings into PostgreSQL's internal time representation structures, serving as the shared implementation for to_timestamp, to_date, and parse_datetime functions.

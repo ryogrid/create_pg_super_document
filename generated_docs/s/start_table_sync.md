@@ -1,7 +1,7 @@
 # start_table_sync
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1669 - 1710
+[src/backend/replication/logical/tablesync.c:1669-1710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1669-L1710)
 
 ## Overview
 start_table_sync provides a robust error-handling wrapper around table synchronization operations, implementing subscription disabling on failure and proper memory management for slot names.

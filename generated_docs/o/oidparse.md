@@ -1,7 +1,7 @@
 # oidparse
 
 ## Location
-src/backend/utils/adt/oid.c: 235 - 257
+[src/backend/utils/adt/oid.c:235-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L235-L257)
 
 ## Overview
 Utility function that extracts an OID value from PostgreSQL's parser node structures (Integer or Float constants).

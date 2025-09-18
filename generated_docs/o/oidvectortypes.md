@@ -1,7 +1,7 @@
 # oidvectortypes
 
 ## Location
-src/backend/utils/adt/format_type.c: 447 - 484
+[src/backend/utils/adt/format_type.c:447-484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L447-L484)
 
 ## Overview
 A PostgreSQL function that converts a vector (array) of type OIDs into a comma-separated string list of human-readable type names.

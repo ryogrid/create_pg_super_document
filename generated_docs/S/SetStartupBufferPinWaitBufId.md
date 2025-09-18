@@ -1,7 +1,7 @@
 # SetStartupBufferPinWaitBufId
 
 ## Location
-src/backend/storage/lmgr/proc.c: 664 - 675
+[src/backend/storage/lmgr/proc.c:664-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L664-L675)
 
 ## Overview
 Sets the buffer ID that the Startup process is waiting on for buffer pin operations, enabling recovery conflict processing for buffer pins.

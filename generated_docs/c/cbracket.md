@@ -1,7 +1,7 @@
 # cbracket
 
 ## Location
-src/backend/regex/regcomp.c: 1729 - 1762
+[src/backend/regex/regcomp.c:1729-1762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L1729-L1762)
 
 ## Overview
 Handles complemented bracket expressions in regular expression compilation by delegating to bracket() and then complementing the result.

@@ -1,7 +1,7 @@
 # int2_mul_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 903 - 915
+[src/backend/utils/adt/cash.c:903-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L903-L915)
 
 ## Overview
 A PostgreSQL function that multiplies a 16-bit signed integer by a Cash value, providing commutative multiplication support for monetary calculations with small integer values.

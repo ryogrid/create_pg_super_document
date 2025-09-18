@@ -1,7 +1,7 @@
 # initcap_wbnext
 
 ## Location
-src/backend/utils/adt/formatting.c: 1939 - 1972
+[src/backend/utils/adt/formatting.c:1939-1972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1939-L1972)
 
 ## Overview
 A simple word boundary iterator function that identifies word boundaries by detecting transitions between alphanumeric and non-alphanumeric characters for use in initial capitalization operations.

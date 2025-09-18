@@ -1,7 +1,7 @@
 # set_sentinel
 
 ## Location
-src/include/utils/memdebug.h: 51 - 60
+[src/include/utils/memdebug.h:51-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memdebug.h#L51-L60)
 
 ## Overview
 A memory debugging function that places a sentinel byte at a specific offset from a base memory address to detect buffer overruns and memory corruption.

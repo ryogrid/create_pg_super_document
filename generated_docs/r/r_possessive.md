@@ -1,7 +1,7 @@
 # r_possessive
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 332 - 397
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:332-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L332-L397)
 
 ## Overview
 The r_possessive function removes Finnish possessive suffixes from words during the stemming process, handling the complex morphological transformations required for Finnish possessive markers.

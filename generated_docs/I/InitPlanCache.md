@@ -1,7 +1,7 @@
 # InitPlanCache
 
 ## Location
-src/backend/utils/cache/plancache.c: 155 - 191
+[src/backend/utils/cache/plancache.c:155-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L155-L191)
 
 ## Overview
 Initializes the plan cache module during PostgreSQL backend startup by registering invalidation callbacks for various system catalogs.

@@ -1,7 +1,7 @@
 # listOperatorClasses
 
 ## Location
-src/bin/psql/describe.c: 6677 - 6777
+[src/bin/psql/describe.c:6677-6777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6677-L6777)
 
 ## Overview
 The  function implements the  psql command to display a formatted list of operator classes, with optional filtering by index access method and input data type.

@@ -1,7 +1,7 @@
 # free_parsestate
 
 ## Location
-src/backend/parser/parse_node.c: 72 - 105
+[src/backend/parser/parse_node.c:72-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_node.c#L72-L105)
 
 ## Overview
 Releases a ParseState structure and its associated resources, with validation to ensure parsing limits are not exceeded.

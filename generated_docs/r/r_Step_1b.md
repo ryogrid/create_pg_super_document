@@ -1,7 +1,7 @@
 # r_Step_1b
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 537 - 611
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:537-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L537-L611)
 
 ## Overview
 The r_Step_1b function implements Step 1b of the English Porter stemming algorithm, handling the removal and transformation of specific verb and adverb suffixes (ed, eed, ing, edly, eedly, ingly).

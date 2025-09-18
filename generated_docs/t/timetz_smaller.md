@@ -1,7 +1,7 @@
 # timetz_smaller
 
 ## Location
-src/backend/utils/adt/date.c: 2579 - 2595
+[src/backend/utils/adt/date.c:2579-2595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2579-L2595)
 
 ## Overview
 Returns the smaller of two time-with-timezone values, comparing them based on their equivalent UTC times.

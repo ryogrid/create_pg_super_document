@@ -1,7 +1,7 @@
 # gistInitParentMap
 
 ## Location
-src/backend/access/gist/gistbuild.c: 1514 - 1527
+[src/backend/access/gist/gistbuild.c:1514-1527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L1514-L1527)
 
 ## Overview
 Initializes a hash table that maps block numbers to parent information during GiST index construction.

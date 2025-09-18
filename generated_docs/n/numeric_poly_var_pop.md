@@ -1,7 +1,7 @@
 # numeric_poly_var_pop
 
 ## Location
-src/backend/utils/adt/numeric.c: 6462 - 6482
+[src/backend/utils/adt/numeric.c:6462-6482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6462-L6482)
 
 ## Overview
 Computes the population variance of numeric values using an optimized polynomial aggregation state when 128-bit integer support is available.

@@ -1,7 +1,7 @@
 # array_gt
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3943 - 3948
+[src/backend/utils/adt/arrayfuncs.c:3943-3948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3943-L3948)
 
 ## Overview
 array_gt is a PostgreSQL function that determines whether one array is greater than another array based on lexicographic comparison.

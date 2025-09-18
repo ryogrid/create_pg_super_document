@@ -1,7 +1,7 @@
 # spgUpdateNodeLink
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 52 - 79
+[src/backend/access/spgist/spgdoinsert.c:52-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L52-L79)
 
 ## Overview
 Updates the item pointer (downlink) in a specific node entry within an SP-GiST inner tuple, typically used after move or split operations to maintain tree structure integrity.

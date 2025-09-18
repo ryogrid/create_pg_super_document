@@ -1,7 +1,7 @@
 # toast_fetch_datum
 
 ## Location
-src/backend/access/common/detoast.c: 343 - 395
+[src/backend/access/common/detoast.c:343-395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L343-L395)
 
 ## Overview
 Reconstructs an in-memory Datum from chunks stored in a TOAST relation, handling the complete retrieval of externally stored data that was too large to store directly in the main table.

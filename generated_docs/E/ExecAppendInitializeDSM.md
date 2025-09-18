@@ -1,7 +1,7 @@
 # ExecAppendInitializeDSM
 
 ## Location
-src/backend/executor/nodeAppend.c: 503 - 523
+[src/backend/executor/nodeAppend.c:503-523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L503-L523)
 
 ## Overview
 Initializes shared memory state for parallel execution of Append nodes, setting up the distributed shared memory (DSM) structures needed for worker processes to coordinate.

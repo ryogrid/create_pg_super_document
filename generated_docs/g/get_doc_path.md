@@ -1,7 +1,7 @@
 # get_doc_path
 
 ## Location
-src/port/path.c: 973 - 981
+[src/port/path.c:973-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L973-L981)
 
 ## Overview
 Constructs the full path to PostgreSQL's documentation directory by calculating a relative path from the executable location.

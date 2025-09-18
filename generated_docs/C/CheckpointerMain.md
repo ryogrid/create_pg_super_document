@@ -1,7 +1,7 @@
 # CheckpointerMain
 
 ## Location
-src/backend/postmaster/checkpointer.c: 176 - 560
+[src/backend/postmaster/checkpointer.c:176-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L176-L560)
 
 ## Overview
 Main entry point for the checkpointer process that performs database checkpoints and manages WAL archiving in PostgreSQL.

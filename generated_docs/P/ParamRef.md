@@ -1,7 +1,7 @@
 # ParamRef
 
 ## Location
-src/include/nodes/parsenodes.h: 301 - 306
+[src/include/nodes/parsenodes.h:301-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L301-L306)
 
 ## Overview
 ParamRef is a parse tree node that represents parameter references ($n) in SQL statements, enabling parameterized queries and prepared statements.

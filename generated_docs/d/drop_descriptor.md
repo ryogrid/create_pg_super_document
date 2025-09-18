@@ -1,7 +1,7 @@
 # drop_descriptor
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 99 - 130
+[src/interfaces/ecpg/preproc/descriptor.c:99-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L99-L130)
 
 ## Overview
 Removes a specific SQL descriptor from the global descriptors linked list, matching both name and connection criteria, with error reporting for non-existent descriptors.

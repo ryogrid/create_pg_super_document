@@ -1,7 +1,7 @@
 # recurse_dir
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 374 - 468
+[src/bin/pg_rewind/file_ops.c:374-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L374-L468)
 
 ## Overview
 Recursively traverses directory structures, calling a callback function for each file, directory, and symlink encountered while handling special PostgreSQL directory cases.

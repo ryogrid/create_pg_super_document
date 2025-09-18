@@ -1,7 +1,7 @@
 # durable_rename
 
 ## Location
-src/common/file_utils.c: 461 - 524
+[src/common/file_utils.c:461-524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L461-L524)
 
 ## Overview
 A crash-safe wrapper around the rename(2) system call that ensures the rename operation persists across system crashes by performing necessary fsync operations.

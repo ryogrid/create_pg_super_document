@@ -1,7 +1,7 @@
 # PROC_HDR
 
 ## Location
-src/include/storage/proc.h: 370 - 412
+[src/include/storage/proc.h:370-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/proc.h#L370-L412)
 
 ## Overview
 PROC_HDR is the central shared memory header structure that manages the global process array and maintains dense arrays of frequently-accessed PGPROC fields for optimal performance in PostgreSQL's multi-process architecture.

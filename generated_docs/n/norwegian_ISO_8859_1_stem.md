@@ -1,7 +1,7 @@
 # norwegian_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c: 238 - 268
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c:238-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c#L238-L268)
 
 ## Overview
 The norwegian_ISO_8859_1_stem function is the main entry point for Norwegian word stemming using the Snowball algorithm with ISO-8859-1 character encoding.

@@ -1,7 +1,7 @@
 # find_oper_cache_entry
 
 ## Location
-src/backend/parser/parse_oper.c: 981 - 1019
+[src/backend/parser/parse_oper.c:981-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L981-L1019)
 
 ## Overview
 Searches for an existing cache entry matching the given operator lookup key and returns the cached operator OID if found.

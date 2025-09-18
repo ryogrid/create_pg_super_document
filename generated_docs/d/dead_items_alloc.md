@@ -1,7 +1,7 @@
 # dead_items_alloc
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2823 - 2887
+[src/backend/access/heap/vacuumlazy.c:2823-2887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2823-L2887)
 
 ## Overview
 Allocates memory for dead item tracking during vacuum operations, supporting both serial and parallel execution modes.

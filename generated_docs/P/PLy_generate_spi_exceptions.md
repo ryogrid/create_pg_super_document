@@ -1,7 +1,7 @@
 # PLy_generate_spi_exceptions
 
 ## Location
-src/pl/plpython/plpy_plpymodule.c: 240 - 280
+[src/pl/plpython/plpy_plpymodule.c:240-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_plpymodule.c#L240-L280)
 
 ## Overview
 PLy_generate_spi_exceptions creates Python exception classes for all PostgreSQL SPI error codes, establishing a complete mapping between database error conditions and Python exceptions.

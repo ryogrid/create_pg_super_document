@@ -1,7 +1,7 @@
 # DatumGetXmlP
 
 ## Location
-src/include/utils/xml.h: 51 - 56
+[src/include/utils/xml.h:51-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/xml.h#L51-L56)
 
 ## Overview
 DatumGetXmlP is an inline function that converts a PostgreSQL Datum value to an xmltype pointer, handling TOAST decompression if necessary.

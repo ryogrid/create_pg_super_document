@@ -1,7 +1,7 @@
 # SubRelInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 708 - 798
+[src/bin/pg_dump/pg_dump.h:708-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L708-L798)
 
 ## Overview
 SubRelInfo is a structure used by pg_dump to represent the relationship between PostgreSQL logical replication subscriptions and specific tables, storing metadata necessary for dumping and restoring subscription table membership.

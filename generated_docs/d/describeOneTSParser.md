@@ -1,7 +1,7 @@
 # describeOneTSParser
 
 ## Location
-src/bin/psql/describe.c: 5274 - 5393
+[src/bin/psql/describe.c:5274-5393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5274-L5393)
 
 ## Overview
 Displays detailed information about a specific text search parser, including its constituent functions and supported token types.

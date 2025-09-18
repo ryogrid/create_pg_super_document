@@ -1,7 +1,7 @@
 # Gzip_open
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 359 - 388
+[src/bin/pg_dump/compress_gzip.c:359-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L359-L388)
 
 ## Overview
 Opens a gzip-compressed file for reading or writing operations through PostgreSQL's compression abstraction interface.

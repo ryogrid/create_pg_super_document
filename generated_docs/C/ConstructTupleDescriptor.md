@@ -1,7 +1,7 @@
 # ConstructTupleDescriptor
 
 ## Location
-src/backend/catalog/index.c: 280 - 491
+[src/backend/catalog/index.c:280-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L280-L491)
 
 ## Overview
 Builds a complete tuple descriptor for a new index by processing column information, data types, and access method requirements to create the structural metadata needed for index storage.

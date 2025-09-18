@@ -1,7 +1,7 @@
 # relopt_gen
 
 ## Location
-src/include/access/reloptions.h: 64 - 73
+[src/include/access/reloptions.h:64-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L64-L73)
 
 ## Overview
 relopt_gen is the base structure that holds shared data common to all relation option types in PostgreSQL's reloption system, serving as the foundation for type-specific option structures.

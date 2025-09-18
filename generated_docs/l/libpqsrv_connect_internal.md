@@ -1,7 +1,7 @@
 # libpqsrv_connect_internal
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 160 - 255
+[src/include/libpq/libpq-be-fe-helpers.h:160-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L160-L255)
 
 ## Overview
 Internal helper function that completes the asynchronous PostgreSQL connection establishment process with proper interrupt handling and resource management.

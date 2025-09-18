@@ -1,7 +1,7 @@
 # plperl_call_perl_trigger_func
 
 ## Location
-src/pl/plperl/plperl.c: 2273 - 2340
+[src/pl/plperl/plperl.c:2273-2340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2273-L2340)
 
 ## Overview
 This function executes Perl trigger functions in PostgreSQL, setting up the trigger data context and passing trigger arguments to the Perl subroutine.

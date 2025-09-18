@@ -1,7 +1,7 @@
 # array_subscript_transform
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 55 - 179
+[src/backend/utils/adt/arraysubs.c:55-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L55-L179)
 
 ## Overview
 Completes parse analysis of a SubscriptingRef expression for an array by transforming subscript expressions, coercing them to integers, and determining the result type of the SubscriptingRef node.

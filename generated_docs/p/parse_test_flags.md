@@ -1,7 +1,7 @@
 # parse_test_flags
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 250 - 434
+[src/test/modules/test_regex/test_regex.c:250-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L250-L434)
 
 ## Overview
 parse_test_flags is a static function that parses a text string containing regex compilation and execution flags, converting them into a structured test_re_flags object with appropriate PostgreSQL regex engine flags.

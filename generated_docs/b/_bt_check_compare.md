@@ -1,7 +1,7 @@
 # _bt_check_compare
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 3682 - 3887
+[src/backend/access/nbtree/nbtutils.c:3682-3887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L3682-L3887)
 
 ## Overview
 Tests whether an index tuple satisfies the current scan condition, determining if the tuple matches scan keys and setting continuation flags for scan optimization.

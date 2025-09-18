@@ -1,7 +1,7 @@
 # StandbyRecoverPreparedTransactions
 
 ## Location
-src/backend/access/transam/twophase.c: 2033 - 2073
+[src/backend/access/transam/twophase.c:2033-2073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2033-L2073)
 
 ## Overview
 StandbyRecoverPreparedTransactions sets up prepared transactions in standby recovery mode to allow standby queries to correctly treat them as active transactions.

@@ -1,7 +1,7 @@
 # preprocess_limit
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2473 - 2657
+[src/backend/optimizer/plan/planner.c:2473-2657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2473-L2657)
 
 ## Overview
 Pre-estimates LIMIT and OFFSET clause values and calculates an adjusted tuple fraction to guide query planning optimization decisions.

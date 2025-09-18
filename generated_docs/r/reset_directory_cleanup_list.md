@@ -1,7 +1,7 @@
 # reset_directory_cleanup_list
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 1226 - 1244
+[src/bin/pg_combinebackup/pg_combinebackup.c:1226-1244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L1226-L1244)
 
 ## Overview
 Empties the linked list of directories scheduled for cleanup at exit, freeing associated memory and preventing automatic directory removal upon successful program completion.

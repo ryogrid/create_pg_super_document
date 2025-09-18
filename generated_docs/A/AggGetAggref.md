@@ -1,7 +1,7 @@
 # AggGetAggref
 
 ## Location
-src/backend/executor/nodeAgg.c: 4555 - 4588
+[src/backend/executor/nodeAgg.c:4555-4588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4555-L4588)
 
 ## Overview
 AggGetAggref allows aggregate support functions to retrieve the Aggref node for the aggregate call they are executing.

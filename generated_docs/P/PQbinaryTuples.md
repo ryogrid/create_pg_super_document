@@ -1,7 +1,7 @@
 # PQbinaryTuples
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3497 - 3509
+[src/interfaces/libpq/fe-exec.c:3497-3509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3497-L3509)
 
 ## Overview
 PQbinaryTuples determines whether a PGresult contains data in binary format rather than text format.

@@ -1,7 +1,7 @@
 # bbsink_progress_end_archive
 
 ## Location
-src/backend/backup/basebackup_progress.c: 114 - 149
+[src/backend/backup/basebackup_progress.c:114-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_progress.c#L114-L149)
 
 ## Overview
 A progress reporting function that updates backup progress when an archive (tablespace) streaming operation is completed during base backup.

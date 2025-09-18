@@ -1,7 +1,7 @@
 # tstoken_list_member
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1204 - 1228
+[src/backend/commands/tsearchcmds.c:1204-1228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1204-L1228)
 
 ## Overview
 A static utility function that checks whether a given token type name exists as a member of a TSTokenTypeItem list.

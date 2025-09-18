@@ -1,7 +1,7 @@
 # xpath_internal
 
 ## Location
-src/backend/utils/adt/xml.c: 4324 - 4520
+[src/backend/utils/adt/xml.c:4324-4520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L4324-L4520)
 
 ## Overview
 Core implementation function for PostgreSQL's xpath() and xmlexists() operations that evaluates XPath expressions against XML documents using libxml2.

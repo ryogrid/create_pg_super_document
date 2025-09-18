@@ -1,7 +1,7 @@
 # check_lateral_ref_ok
 
 ## Location
-src/backend/parser/parse_relation.c: 483 - 509
+[src/backend/parser/parse_relation.c:483-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L483-L509)
 
 ## Overview
 Validates that a namespace item is not currently disallowed as a LATERAL reference and raises an appropriate error if it is.

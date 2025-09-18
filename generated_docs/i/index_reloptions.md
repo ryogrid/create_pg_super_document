@@ -1,7 +1,7 @@
 # index_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 2063 - 2077
+[src/backend/access/common/reloptions.c:2063-2077](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L2063-L2077)
 
 ## Overview
 Parses and validates relation options for database indexes by delegating to the appropriate access method's option parser function.

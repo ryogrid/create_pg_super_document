@@ -1,7 +1,7 @@
 # EndRestoreLOs
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1449 - 1471
+[src/bin/pg_dump/pg_backup_archiver.c:1449-1471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1449-L1471)
 
 ## Overview
 Finalizes the restoration process for a group of Large Objects by committing the transaction if needed and logging the completion status.

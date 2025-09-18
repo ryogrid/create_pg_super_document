@@ -1,7 +1,7 @@
 # destroy_ssl_system
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 855 - 897
+[src/interfaces/libpq/fe-secure-openssl.c:855-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L855-L897)
 
 ## Overview
 Cleans up SSL/TLS system resources when the last libpq connection is closed, ensuring callback functions are unregistered to prevent issues when the libpq library is unloaded.

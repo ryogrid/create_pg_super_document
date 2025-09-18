@@ -1,7 +1,7 @@
 # pa_wait_for_xact_finish
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1274 - 1306
+[src/backend/replication/logical/applyparallelworker.c:1274-1306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1274-L1306)
 
 ## Overview
 Waits for a parallel apply workers transaction to completely finish, implementing deadlock detection and proper synchronization between leader and parallel workers.

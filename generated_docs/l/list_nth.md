@@ -1,7 +1,7 @@
 # list_nth
 
 ## Location
-src/include/nodes/pg_list.h: 299 - 309
+[src/include/nodes/pg_list.h:299-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L299-L309)
 
 ## Overview
 Returns the pointer value contained in the n-th element of a List, providing indexed access to list elements starting from position 0.

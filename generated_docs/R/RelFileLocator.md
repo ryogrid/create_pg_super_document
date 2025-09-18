@@ -1,7 +1,7 @@
 # RelFileLocator
 
 ## Location
-src/include/storage/relfilelocator.h: 58 - 63
+[src/include/storage/relfilelocator.h:58-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/relfilelocator.h#L58-L63)
 
 ## Overview
 RelFileLocator is a struct that provides all the information needed to physically access a relation's storage files, containing tablespace, database, and relation identifiers.

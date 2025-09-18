@@ -1,7 +1,7 @@
 # spgFormInnerTuple
 
 ## Location
-src/backend/access/spgist/spgutils.c: 994 - 1076
+[src/backend/access/spgist/spgutils.c:994-1076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L994-L1076)
 
 ## Overview
 Constructs an SP-GiST inner tuple containing the given prefix and node array, used for building internal nodes in SP-GiST index structures.

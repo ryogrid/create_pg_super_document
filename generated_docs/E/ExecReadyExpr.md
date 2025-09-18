@@ -1,7 +1,7 @@
 # ExecReadyExpr
 
 ## Location
-src/backend/executor/execExpr.c: 877 - 893
+[src/backend/executor/execExpr.c:877-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L877-L893)
 
 ## Overview
 ExecReadyExpr prepares a compiled expression for execution by attempting JIT compilation first, then falling back to interpreted execution if JIT is unavailable.

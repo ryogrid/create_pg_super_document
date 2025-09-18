@@ -1,7 +1,7 @@
 # bbsink_throttle
 
 ## Location
-src/backend/backup/basebackup_throttle.c: 23 - 39
+[src/backend/backup/basebackup_throttle.c:23-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_throttle.c#L23-L39)
 
 ## Overview
 A struct that implements a throttling basebackup sink, controlling the transfer rate of backup data by sleeping when the data transfer exceeds the configured maximum rate.

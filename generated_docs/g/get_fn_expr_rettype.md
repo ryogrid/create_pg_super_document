@@ -1,7 +1,7 @@
 # get_fn_expr_rettype
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1888 - 1909
+[src/backend/utils/fmgr/fmgr.c:1888-1909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1888-L1909)
 
 ## Overview
 get_fn_expr_rettype extracts the actual return type OID from a function's expression parse tree, primarily used by polymorphic functions to determine their runtime return type.

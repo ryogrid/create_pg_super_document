@@ -1,7 +1,7 @@
 # ExecEvalNextValueExpr
 
 ## Location
-src/backend/executor/execExprInterp.c: 2717 - 2742
+[src/backend/executor/execExprInterp.c:2717-2742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2717-L2742)
 
 ## Overview
 ExecEvalNextValueExpr evaluates a NextValueExpr by retrieving the next value from a sequence and converting it to the appropriate data type.

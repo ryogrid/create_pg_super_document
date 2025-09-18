@@ -1,7 +1,7 @@
 # create_data_directory
 
 ## Location
-src/bin/initdb/initdb.c: 2875 - 2932
+[src/bin/initdb/initdb.c:2875-2932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2875-L2932)
 
 ## Overview
 Creates or validates the PostgreSQL data directory (PGDATA) during database cluster initialization, handling various directory states and ensuring proper permissions.

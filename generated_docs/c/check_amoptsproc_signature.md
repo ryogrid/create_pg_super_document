@@ -1,7 +1,7 @@
 # check_amoptsproc_signature
 
 ## Location
-src/backend/access/index/amvalidate.c: 192 - 205
+[src/backend/access/index/amvalidate.c:192-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amvalidate.c#L192-L205)
 
 ## Overview
 Validates the signature of an operator class options support function, which must have the specific signature 'void(internal)'.

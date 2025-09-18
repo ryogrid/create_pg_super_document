@@ -1,7 +1,7 @@
 # PQpipelineStatus
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7201 - 7209
+[src/interfaces/libpq/fe-connect.c:7201-7209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7201-L7209)
 
 ## Overview
 Returns the current pipeline mode status of a PostgreSQL connection, indicating whether pipeline mode is off, on, or aborted.

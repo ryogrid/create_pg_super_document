@@ -1,7 +1,7 @@
 # compactify_tuples
 
 ## Location
-src/backend/storage/page/bufpage.c: 474 - 698
+[src/backend/storage/page/bufpage.c:474-698](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L474-L698)
 
 ## Overview
 Removes gaps in a page by moving tuples to eliminate fragmentation and reordering them into reverse line pointer order for optimal performance.

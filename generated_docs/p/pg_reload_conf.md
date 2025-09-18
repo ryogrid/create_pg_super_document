@@ -1,7 +1,7 @@
 # pg_reload_conf
 
 ## Location
-src/backend/storage/ipc/signalfuncs.c: 260 - 279
+[src/backend/storage/ipc/signalfuncs.c:260-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/signalfuncs.c#L260-L279)
 
 ## Overview
 SQL-callable function that triggers PostgreSQL configuration reload by sending a SIGHUP signal to the postmaster process.

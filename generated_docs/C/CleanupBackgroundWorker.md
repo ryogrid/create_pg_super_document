@@ -1,7 +1,7 @@
 # CleanupBackgroundWorker
 
 ## Location
-src/backend/postmaster/postmaster.c: 2696 - 2790
+[src/backend/postmaster/postmaster.c:2696-2790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2696-L2790)
 
 ## Overview
 Handles the cleanup and resource deallocation when a background worker process exits or crashes, determining whether the process should be restarted or terminated.

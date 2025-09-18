@@ -1,7 +1,7 @@
 # describeDumpableObject
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1474 - 1728
+[src/bin/pg_dump/pg_dump_sort.c:1474-1728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1474-L1728)
 
 ## Overview
 The describeDumpableObject function generates human-readable string descriptions of PostgreSQL database objects for error reporting and debugging purposes during the dump process.

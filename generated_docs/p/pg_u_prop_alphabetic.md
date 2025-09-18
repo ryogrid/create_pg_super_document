@@ -1,7 +1,7 @@
 # pg_u_prop_alphabetic
 
 ## Location
-src/common/unicode_category.c: 111 - 121
+[src/common/unicode_category.c:111-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L111-L121)
 
 ## Overview
 The pg_u_prop_alphabetic function determines whether a given Unicode codepoint has the Alphabetic property according to Unicode character classification standards.

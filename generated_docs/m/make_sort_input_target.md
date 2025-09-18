@@ -1,7 +1,7 @@
 # make_sort_input_target
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6328 - 6498
+[src/backend/optimizer/plan/planner.c:6328-6498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6328-L6498)
 
 ## Overview
 Generates the appropriate PathTarget for initial input to Sort step, determining which expressions should be evaluated before or after sorting for optimal performance.

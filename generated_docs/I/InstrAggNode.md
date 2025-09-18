@@ -1,7 +1,7 @@
 # InstrAggNode
 
 ## Location
-src/backend/executor/instrument.c: 169 - 199
+[src/backend/executor/instrument.c:169-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L169-L199)
 
 ## Overview
 Aggregates instrumentation information from one Instrumentation structure into another, combining execution statistics for performance monitoring and analysis.

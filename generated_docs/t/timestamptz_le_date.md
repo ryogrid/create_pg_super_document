@@ -1,7 +1,7 @@
 # timestamptz_le_date
 
 ## Location
-src/backend/utils/adt/date.c: 1006 - 1014
+[src/backend/utils/adt/date.c:1006-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1006-L1014)
 
 ## Overview
 A PostgreSQL function that compares a timestamp with timezone to a date value to determine if the timestamp is less than or equal to the date.

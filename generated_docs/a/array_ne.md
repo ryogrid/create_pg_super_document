@@ -1,7 +1,7 @@
 # array_ne
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3931 - 3936
+[src/backend/utils/adt/arrayfuncs.c:3931-3936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3931-L3936)
 
 ## Overview
 Implements array inequality comparison by negating the result of the array equality function, providing the "not equal" operator for PostgreSQL arrays.

@@ -1,7 +1,7 @@
 # remove_rel_from_joinlist
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 676 - 729
+[src/backend/optimizer/plan/analyzejoins.c:676-729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L676-L729)
 
 ## Overview
 Recursively removes all occurrences of a target relation ID from a joinlist structure, rebuilding the list while maintaining its hierarchical organization.

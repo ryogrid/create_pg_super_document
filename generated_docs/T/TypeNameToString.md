@@ -1,7 +1,7 @@
 # TypeNameToString
 
 ## Location
-src/backend/parser/parse_type.c: 478 - 491
+[src/backend/parser/parse_type.c:478-491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L478-L491)
 
 ## Overview
 A public function that converts a TypeName structure into a human-readable string representation, primarily used for error reporting and debugging when type lookup operations fail.

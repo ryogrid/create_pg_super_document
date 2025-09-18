@@ -1,7 +1,7 @@
 # find_window_functions
 
 ## Location
-src/backend/optimizer/util/clauses.c: 227 - 238
+[src/backend/optimizer/util/clauses.c:227-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L227-L238)
 
 ## Overview
 Locates all WindowFunc nodes in an expression tree and organizes them by their window reference ID (winref) numbers.

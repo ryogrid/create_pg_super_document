@@ -1,7 +1,7 @@
 # spgDeformLeafTuple
 
 ## Location
-src/backend/access/spgist/spgutils.c: 1107 - 1151
+[src/backend/access/spgist/spgutils.c:1107-1151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L1107-L1151)
 
 ## Overview
 Converts an SP-GiST leaf tuple into separate Datum/isnull arrays, extracting the individual column values from the tuple's packed storage format.

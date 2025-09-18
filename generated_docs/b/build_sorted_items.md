@@ -1,7 +1,7 @@
 # build_sorted_items
 
 ## Location
-src/backend/statistics/extended_stats.c: 986 - 1117
+[src/backend/statistics/extended_stats.c:986-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L986-L1117)
 
 ## Overview
 Builds a sorted array of SortItem structures from sample rows for extended statistics computation, handling memory allocation and data transformation efficiently.

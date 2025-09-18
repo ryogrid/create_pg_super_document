@@ -1,7 +1,7 @@
 # GetFileBackupMethod
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 667 - 870
+[src/backend/backup/basebackup_incremental.c:667-870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L667-L870)
 
 ## Overview
 Determines whether a file should be backed up fully or incrementally by analyzing block-level changes recorded in WAL summaries since the prior backup.

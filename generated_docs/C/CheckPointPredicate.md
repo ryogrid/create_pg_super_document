@@ -1,7 +1,7 @@
 # CheckPointPredicate
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1041 - 1144
+[src/backend/storage/lmgr/predicate.c:1041-1144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1041-L1144)
 
 ## Overview
 CheckPointPredicate performs checkpoint operations for the predicate locking system, primarily focused on truncating the Serial SLRU to reclaim disk space for pages that are no longer needed.

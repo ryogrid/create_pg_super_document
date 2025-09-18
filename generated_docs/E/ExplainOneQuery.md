@@ -1,7 +1,7 @@
 # ExplainOneQuery
 
 ## Location
-src/backend/commands/explain.c: 428 - 454
+[src/backend/commands/explain.c:428-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L428-L454)
 
 ## Overview
 ExplainOneQuery prints the execution plan for a single Query, serving as a dispatch function that handles both utility statements and plannable queries.

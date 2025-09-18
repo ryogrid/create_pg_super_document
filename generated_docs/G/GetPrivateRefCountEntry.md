@@ -1,7 +1,7 @@
 # GetPrivateRefCountEntry
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 341 - 414
+[src/backend/storage/buffer/bufmgr.c:341-414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L341-L414)
 
 ## Overview
 GetPrivateRefCountEntry retrieves the PrivateRefCount entry for a specified buffer, optionally optimizing future access by moving hash table entries to the array.

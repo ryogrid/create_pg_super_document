@@ -1,7 +1,7 @@
 # specialcolors
 
 ## Location
-src/backend/regex/regc_nfa.c: 1555 - 1593
+[src/backend/regex/regc_nfa.c:1555-1593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1555-L1593)
 
 ## Overview
 Initializes special colors for BOS (Beginning of String), BOL (Beginning of Line), EOS (End of String), and EOL (End of Line) anchors in an NFA (Non-deterministic Finite Automaton) for regular expression processing.

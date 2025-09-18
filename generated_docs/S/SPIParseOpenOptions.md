@@ -1,7 +1,7 @@
 # SPIParseOpenOptions
 
 ## Location
-src/include/executor/spi.h: 58 - 63
+[src/include/executor/spi.h:58-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/executor/spi.h#L58-L63)
 
 ## Overview
 SPIParseOpenOptions is a structure that provides optional configuration parameters for the SPI_cursor_parse_open function, controlling cursor parsing, parameter binding, and access permissions.

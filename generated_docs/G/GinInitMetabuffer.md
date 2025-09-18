@@ -1,7 +1,7 @@
 # GinInitMetabuffer
 
 ## Location
-src/backend/access/gin/ginutil.c: 356 - 387
+[src/backend/access/gin/ginutil.c:356-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L356-L387)
 
 ## Overview
 Initializes a GIN metapage buffer with default metadata values, setting up the essential control information for a GIN index.

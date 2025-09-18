@@ -1,7 +1,7 @@
 # SetClientEncoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 208 - 280
+[src/backend/utils/mb/mbutils.c:208-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L208-L280)
 
 ## Overview
 Sets the active client encoding and establishes conversion function pointers, relying on a previous call to PrepareClientEncoding to ensure the necessary conversion functions are available.

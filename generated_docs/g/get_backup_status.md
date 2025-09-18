@@ -1,7 +1,7 @@
 # get_backup_status
 
 ## Location
-src/backend/access/transam/xlog.c: 9117 - 9135
+[src/backend/access/transam/xlog.c:9117-9135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9117-L9135)
 
 ## Overview
 Returns the current session-level backup state to indicate whether a backup is currently running in the session.

@@ -1,7 +1,7 @@
 # WinGetFuncArgInFrame
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3398 - 3592
+[src/backend/executor/nodeWindowAgg.c:3398-3592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3398-L3592)
 
 ## Overview
 Evaluates a window function's argument expression on a specified row within the window frame, with sophisticated handling of frame exclusion options and positioning relative to frame boundaries.

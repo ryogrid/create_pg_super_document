@@ -1,7 +1,7 @@
 # get_eclass_for_sort_expr
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 586 - 758
+[src/backend/optimizer/path/equivclass.c:586-758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L586-L758)
 
 ## Overview
 Finds an existing EquivalenceClass containing a given sort expression, or optionally creates a new single-member EquivalenceClass for expressions not yet represented.

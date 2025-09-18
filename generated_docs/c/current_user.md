@@ -1,7 +1,7 @@
 # current_user
 
 ## Location
-src/backend/utils/adt/name.c: 263 - 268
+[src/backend/utils/adt/name.c:263-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L263-L268)
 
 ## Overview
 The current_user function is a SQL function that returns the name of the current user who is executing the statement.

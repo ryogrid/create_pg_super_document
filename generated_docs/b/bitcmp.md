@@ -1,7 +1,7 @@
 # bitcmp
 
 ## Location
-src/backend/utils/adt/varbit.c: 949 - 967
+[src/backend/utils/adt/varbit.c:949-967](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L949-L967)
 
 ## Overview
 Implements a three-way comparison function for PostgreSQL bit string data types, returning an integer indicating the lexicographical ordering relationship between two bit strings.

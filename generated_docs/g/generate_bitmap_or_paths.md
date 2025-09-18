@@ -1,7 +1,7 @@
 # generate_bitmap_or_paths
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1180 - 1286
+[src/backend/optimizer/path/indxpath.c:1180-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1180-L1286)
 
 ## Overview
  searches through restriction clauses to find OR clauses and generates BitmapOrPath nodes for each one that can be handled via bitmap index scans.

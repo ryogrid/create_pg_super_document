@@ -1,7 +1,7 @@
 # PGTYPESdate_dayofweek
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 138 - 147
+[src/interfaces/ecpg/pgtypeslib/datetime.c:138-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L138-L147)
 
 ## Overview
 Calculates the day of the week for a given Julian date, returning an integer from 0 (Sunday) to 6 (Saturday).

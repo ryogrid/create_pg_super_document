@@ -1,7 +1,7 @@
 # ExecEvalFieldStoreDeForm
 
 ## Location
-src/backend/executor/execExprInterp.c: 3298 - 3347
+[src/backend/executor/execExprInterp.c:3298-3347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3298-L3347)
 
 ## Overview
 Deforms a source tuple into individual field values and null flags as the first step of a FieldStore expression, preparing for subsequent field updates and tuple reconstruction.

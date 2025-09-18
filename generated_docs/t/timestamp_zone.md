@@ -1,7 +1,7 @@
 # timestamp_zone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6164 - 6228
+[src/backend/utils/adt/timestamp.c:6164-6228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6164-L6228)
 
 ## Overview
 Converts a timestamp to timestamptz by encoding it with a specified time zone, effectively setting the timestamp to represent the specified timezone rather than shifting to it.

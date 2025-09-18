@@ -1,7 +1,7 @@
 # open_result_files
 
 ## Location
-src/test/regress/pg_regress.c: 1911 - 1943
+[src/test/regress/pg_regress.c:1911-1943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1911-L1943)
 
 ## Overview
 Initializes the output directory structure and creates summary output files for PostgreSQL regression testing.

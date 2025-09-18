@@ -1,7 +1,7 @@
 # SetCommitTsLimit
 
 ## Location
-src/backend/access/transam/commit_ts.c: 916 - 942
+[src/backend/access/transam/commit_ts.c:916-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L916-L942)
 
 ## Overview
 Sets the valid transaction ID range within which commit timestamps can be consulted, ensuring proper bounds checking for commit timestamp queries.

@@ -1,7 +1,7 @@
 # regprocedureout
 
 ## Location
-src/backend/utils/adt/regproc.c: 435 - 451
+[src/backend/utils/adt/regproc.c:435-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L435-L451)
 
 ## Overview
 Converts a procedure OID to its string representation in the format "procedure_name(argument_types)" for the regprocedure data type output function.

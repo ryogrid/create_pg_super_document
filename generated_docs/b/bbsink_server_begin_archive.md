@@ -1,7 +1,7 @@
 # bbsink_server_begin_archive
 
 ## Location
-src/backend/backup/basebackup_server.c: 134 - 159
+[src/backend/backup/basebackup_server.c:134-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L134-L159)
 
 ## Overview
 Opens a new output file on the server filesystem for storing a backup archive with the specified name.

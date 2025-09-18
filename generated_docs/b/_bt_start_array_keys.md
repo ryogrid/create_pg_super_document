@@ -1,7 +1,7 @@
 # _bt_start_array_keys
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 1343 - 1380
+[src/backend/access/nbtree/nbtutils.c:1343-1380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L1343-L1380)
 
 ## Overview
 Initializes array keys at the start of a B-tree index scan by setting up current element counters and filling in the first scan key argument value for each array scan key.

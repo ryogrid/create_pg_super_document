@@ -1,7 +1,7 @@
 # select_next_encryption_method
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4396 - 4399
+[src/interfaces/libpq/fe-connect.c:4396-4399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4396-L4399)
 
 ## Overview
 Selects the next encryption method to attempt during PostgreSQL connection establishment, cycling through available encryption options in a predefined priority order.

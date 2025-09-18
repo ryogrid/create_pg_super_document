@@ -1,7 +1,7 @@
 # pg_get_serial_sequence
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2787 - 2880
+[src/backend/utils/adt/ruleutils.c:2787-2880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2787-L2880)
 
 ## Overview
 Retrieves the fully qualified name of the sequence associated with a serial or identity column, formatted for use with sequence manipulation functions.

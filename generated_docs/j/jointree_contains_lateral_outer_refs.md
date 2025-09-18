@@ -1,7 +1,7 @@
 # jointree_contains_lateral_outer_refs
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2191 - 2265
+[src/backend/optimizer/prep/prepjointree.c:2191-2265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2191-L2265)
 
 ## Overview
 This function checks for disallowed lateral references in a jointree's quals, enforcing scoping rules for LATERAL references in SQL queries.

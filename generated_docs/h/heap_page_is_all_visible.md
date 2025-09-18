@@ -1,7 +1,7 @@
 # heap_page_is_all_visible
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2955 - 3070
+[src/backend/access/heap/vacuumlazy.c:2955-3070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2955-L3070)
 
 ## Overview
 `heap_page_is_all_visible` determines whether every tuple in a heap page is visible to all current and future transactions, also identifying the visibility cutoff transaction ID and freeze status.

@@ -1,7 +1,7 @@
 # oidrecv
 
 ## Location
-src/backend/utils/adt/oid.c: 60 - 70
+[src/backend/utils/adt/oid.c:60-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L60-L70)
 
 ## Overview
 The oidrecv function converts external binary format data to an internal OID value, serving as the binary input function for the OID data type in PostgreSQL's wire protocol.

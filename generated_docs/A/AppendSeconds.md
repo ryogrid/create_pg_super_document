@@ -1,7 +1,7 @@
 # AppendSeconds
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 733 - 758
+[src/interfaces/ecpg/pgtypeslib/interval.c:733-758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L733-L758)
 
 ## Overview
 AppendSeconds is a static utility function that formats seconds and fractional seconds into a string buffer, providing precise control over fractional digit precision and zero-padding.

@@ -1,7 +1,7 @@
 # PQgetvalue
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3876 - 3886
+[src/interfaces/libpq/fe-exec.c:3876-3886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3876-L3886)
 
 ## Overview
 PQgetvalue retrieves the value of a specific field (column) from a specific row in a PostgreSQL query result set.

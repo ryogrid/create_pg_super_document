@@ -1,7 +1,7 @@
 # gistPlaceItupToPage
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 288 - 310
+[src/backend/access/gist/gistbuildbuffers.c:288-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L288-L310)
 
 ## Overview
 Adds an index tuple to a buffer page by copying it to the next available location in the page's data area.

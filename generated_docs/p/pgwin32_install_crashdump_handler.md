@@ -1,7 +1,7 @@
 # pgwin32_install_crashdump_handler
 
 ## Location
-src/backend/port/win32/crashdump.c: 178 - 181
+[src/backend/port/win32/crashdump.c:178-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/crashdump.c#L178-L181)
 
 ## Overview
 A Windows-specific initialization function that installs PostgreSQL's crash dump handler to capture debugging information when unhandled exceptions occur.

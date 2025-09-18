@@ -1,7 +1,7 @@
 # lo_read
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 245 - 294
+[src/interfaces/libpq/fe-lobj.c:245-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L245-L294)
 
 ## Overview
 Reads data from an open large object into a buffer, performing validation checks on the file descriptor and access permissions.

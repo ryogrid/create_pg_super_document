@@ -1,7 +1,7 @@
 # compare_tm
 
 ## Location
-src/bin/initdb/findtimezone.c: 207 - 233
+[src/bin/initdb/findtimezone.c:207-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L207-L233)
 
 ## Overview
 Compares a system tm structure with a PostgreSQL-specific pg_tm structure to determine if they represent the same time values.

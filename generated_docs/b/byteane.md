@@ -1,7 +1,7 @@
 # byteane
 
 ## Location
-src/backend/utils/adt/varlena.c: 3826 - 3857
+[src/backend/utils/adt/varlena.c:3826-3857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3826-L3857)
 
 ## Overview
 A PostgreSQL function that performs inequality comparison between two bytea (binary string) values, returning true if they are different.

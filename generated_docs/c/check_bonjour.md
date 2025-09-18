@@ -1,7 +1,7 @@
 # check_bonjour
 
 ## Location
-src/backend/commands/variable.c: 1195 - 1207
+[src/backend/commands/variable.c:1195-1207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1195-L1207)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates attempts to enable Bonjour service discovery, rejecting the setting if PostgreSQL was not compiled with Bonjour support.

@@ -1,7 +1,7 @@
 # circle_eq
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4903 - 4911
+[src/backend/utils/adt/geo_ops.c:4903-4911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4903-L4911)
 
 ## Overview
 Tests whether two circles have equal areas within PostgreSQL's floating-point accuracy constraints.

@@ -1,7 +1,7 @@
 # BTSortArrayContext
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 35 - 40
+[src/backend/access/nbtree/nbtutils.c:35-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L35-L40)
 
 ## Overview
 BTSortArrayContext is a context structure used during B-tree array element sorting operations to carry sorting parameters and configuration information to comparison functions.

@@ -1,7 +1,7 @@
 # XLogReaderInvalReadState
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1123 - 1136
+[src/backend/access/transam/xlogreader.c:1123-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1123-L1136)
 
 ## Overview
 Invalidates the XLogReaderState's cached read state to force re-reading from the underlying WAL source on the next access.

@@ -1,7 +1,7 @@
 # process_postgres_switches
 
 ## Location
-src/backend/tcop/postgres.c: 3877 - 4128
+[src/backend/tcop/postgres.c:3877-4128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3877-L4128)
 
 ## Overview
 A comprehensive command-line argument parser for PostgreSQL backend processes that handles both secure and insecure configuration options coming from various sources.

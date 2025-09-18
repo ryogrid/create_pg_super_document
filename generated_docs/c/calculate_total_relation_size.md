@@ -1,7 +1,7 @@
 # calculate_total_relation_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 528 - 546
+[src/backend/utils/adt/dbsize.c:528-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L528-L546)
 
 ## Overview
 Computes the complete on-disk size of a relation including all components: heap data, index data, TOAST data, FSM, and VM.

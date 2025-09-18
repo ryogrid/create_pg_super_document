@@ -1,7 +1,7 @@
 # dependencies_clauselist_selectivity
 
 ## Location
-src/backend/statistics/dependencies.c: 1370 - 1829
+[src/backend/statistics/dependencies.c:1370-1829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L1370-L1829)
 
 ## Overview
 Main entry point for estimating the selectivity of a clause list using functional dependency statistics, implementing a comprehensive algorithm that finds applicable dependencies and combines selectivities while avoiding double-counting.

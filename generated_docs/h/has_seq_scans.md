@@ -1,7 +1,7 @@
 # has_seq_scans
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1858 - 1871
+[src/backend/utils/hash/dynahash.c:1858-1871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1858-L1871)
 
 ## Overview
 Checks whether a given hash table has any active sequential scan operations currently in progress.

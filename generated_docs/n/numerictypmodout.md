@@ -1,7 +1,7 @@
 # numerictypmodout
 
 ## Location
-src/backend/utils/adt/numeric.c: 1367 - 1390
+[src/backend/utils/adt/numeric.c:1367-1390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1367-L1390)
 
 ## Overview
 The  function converts internal NUMERIC type modifier values back into human-readable string format for display purposes.

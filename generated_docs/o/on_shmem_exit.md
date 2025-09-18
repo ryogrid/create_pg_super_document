@@ -1,7 +1,7 @@
 # on_shmem_exit
 
 ## Location
-src/backend/storage/ipc/ipc.c: 365 - 393
+[src/backend/storage/ipc/ipc.c:365-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipc.c#L365-L393)
 
 ## Overview
 Registers callbacks to perform low-level shutdown operations (such as releasing PGPROC resources) that run after before_shmem_exit callbacks but before on_proc_exit callbacks.

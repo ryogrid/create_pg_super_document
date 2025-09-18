@@ -1,7 +1,7 @@
 # sampler_random_fract
 
 ## Location
-src/backend/utils/misc/sampling.c: 241 - 265
+[src/backend/utils/misc/sampling.c:241-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L241-L265)
 
 ## Overview
 Generates a uniformly distributed random floating-point value in the range (0, 1), ensuring the result is never exactly 0.0.

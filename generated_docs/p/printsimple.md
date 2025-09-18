@@ -1,7 +1,7 @@
 # printsimple
 
 ## Location
-src/backend/access/common/printsimple.c: 59 - 143
+[src/backend/access/common/printsimple.c:59-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printsimple.c#L59-L143)
 
 ## Overview
 Sends a DataRow message containing tuple data to the client using a simplified output format that supports only specific hardcoded data types.

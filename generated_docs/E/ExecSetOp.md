@@ -1,7 +1,7 @@
 # ExecSetOp
 
 ## Location
-src/backend/executor/nodeSetOp.c: 190 - 226
+[src/backend/executor/nodeSetOp.c:190-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L190-L226)
 
 ## Overview
 ExecSetOp is the main executor function for set operations (UNION, INTERSECT, EXCEPT), responsible for retrieving and returning the next tuple from a SetOp node according to the configured strategy.

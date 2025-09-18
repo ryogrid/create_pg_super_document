@@ -1,7 +1,7 @@
 # index_parallelscan_estimate
 
 ## Location
-src/backend/access/index/indexam.c: 453 - 489
+[src/backend/access/index/indexam.c:453-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L453-L489)
 
 ## Overview
 The index_parallelscan_estimate function calculates the amount of shared memory required for a parallel index scan operation, including space for the scan descriptor, snapshot data, and access method-specific data.

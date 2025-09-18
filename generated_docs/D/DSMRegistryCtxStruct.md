@@ -1,7 +1,7 @@
 # DSMRegistryCtxStruct
 
 ## Location
-src/backend/storage/ipc/dsm_registry.c: 35 - 39
+[src/backend/storage/ipc/dsm_registry.c:35-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_registry.c#L35-L39)
 
 ## Overview
 DSMRegistryCtxStruct represents the shared memory context for the dynamic shared memory registry, containing handles to both the dynamic shared area and the hash table used for storing named DSM segment entries.

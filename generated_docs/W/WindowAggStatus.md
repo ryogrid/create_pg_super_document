@@ -1,7 +1,7 @@
 # WindowAggStatus
 
 ## Location
-src/include/nodes/execnodes.h: 2557 - 2558
+[src/include/nodes/execnodes.h:2557-2558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2557-L2558)
 
 ## Overview
 An enumeration that tracks the execution status of window aggregation operations, controlling how window functions are processed and whether results are computed or passed through.

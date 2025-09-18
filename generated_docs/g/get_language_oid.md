@@ -1,7 +1,7 @@
 # get_language_oid
 
 ## Location
-src/backend/commands/proclang.c: 226 - 237
+[src/backend/commands/proclang.c:226-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/proclang.c#L226-L237)
 
 ## Overview
 Retrieves the OID (Object Identifier) for a procedural language by its name, with optional error handling for missing languages.

@@ -1,7 +1,7 @@
 # intset_leaf_node
 
 ## Location
-src/backend/lib/integerset.c: 169 - 186
+[src/backend/lib/integerset.c:169-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L169-L186)
 
 ## Overview
 A leaf node structure in PostgreSQL's IntegerSet B-tree that stores compressed integer sequences using Simple-8b encoding and maintains sibling linkage for efficient range scanning.

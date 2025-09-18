@@ -1,7 +1,7 @@
 # numeric_poly_var_samp
 
 ## Location
-src/backend/utils/adt/numeric.c: 6420 - 6440
+[src/backend/utils/adt/numeric.c:6420-6440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6420-L6440)
 
 ## Overview
 Computes the sample variance using polymorphic aggregation with 128-bit integer optimization, providing the final result for the VAR_SAMP() aggregate function.

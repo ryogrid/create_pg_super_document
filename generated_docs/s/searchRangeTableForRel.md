@@ -1,7 +1,7 @@
 # searchRangeTableForRel
 
 ## Location
-src/backend/parser/parse_relation.c: 356 - 433
+[src/backend/parser/parse_relation.c:356-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L356-L433)
 
 ## Overview
 Searches all RangeTblEntry items in the ParseState's range table to find one that could possibly match the given RangeVar, used primarily for error message generation.

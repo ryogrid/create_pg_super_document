@@ -1,7 +1,7 @@
 # TableCommandResultHandler
 
 ## Location
-src/fe_utils/parallel_slot.c: 540 - 564
+[src/fe_utils/parallel_slot.c:540-564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/parallel_slot.c#L540-L564)
 
 ## Overview
 A specialized result handler for parallel slot operations that processes command results against tables, handling missing table errors gracefully while failing on other errors.

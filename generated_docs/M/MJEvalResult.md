@@ -1,7 +1,7 @@
 # MJEvalResult
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 148 - 150
+[src/backend/executor/nodeMergejoin.c:148-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L148-L150)
 
 ## Overview
 MJEvalResult is an enumeration type that represents the evaluation result of tuple values during merge join operations, indicating whether a tuple is matchable, non-matchable, or signals end of join processing.

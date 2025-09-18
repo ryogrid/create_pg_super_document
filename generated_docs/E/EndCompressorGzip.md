@@ -1,7 +1,7 @@
 # EndCompressorGzip
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 144 - 151
+[src/bin/pg_dump/compress_gzip.c:144-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L144-L151)
 
 ## Overview
 Public interface function that safely finalizes gzip compression by checking if compression was initialized before calling the cleanup routine.

@@ -1,7 +1,7 @@
 # ExplainIndexScanDetails
 
 ## Location
-src/backend/commands/explain.c: 3976 - 4011
+[src/backend/commands/explain.c:3976-4011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3976-L4011)
 
 ## Overview
 Adds detailed information about IndexScan and IndexOnlyScan operations to EXPLAIN output, including scan direction and index name.

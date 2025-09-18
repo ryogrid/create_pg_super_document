@@ -1,7 +1,7 @@
 # register_seq_scan
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1825 - 1836
+[src/backend/utils/hash/dynahash.c:1825-1836](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1825-L1836)
 
 ## Overview
 Registers a hash table as having an active sequential scan operation to track resource usage and transaction-level cleanup.

@@ -1,7 +1,7 @@
 # MYNULLTYPE
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 125 - 131
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:125-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L125-L131)
 
 ## Overview
 MYNULLTYPE is a typedef alias for struct mynulltype, used in ECPG (Embedded SQL in C) test programs to handle null-indicator structures for database operations involving nullable fields.

@@ -1,7 +1,7 @@
 # listUserMappings
 
 ## Location
-src/bin/psql/describe.c: 5875 - 5929
+[src/bin/psql/describe.c:5875-5929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5875-L5929)
 
 ## Overview
 Lists user mappings for foreign servers in the PostgreSQL database, showing which users are mapped to which foreign servers, with optional FDW options.

@@ -1,7 +1,7 @@
 # element_compare
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 1165 - 1180
+[src/backend/utils/adt/array_selfuncs.c:1165-1180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L1165-L1180)
 
 ## Overview
 Comparison function for PostgreSQL array elements that uses the element type's default btree opclass and collation for ordering operations.

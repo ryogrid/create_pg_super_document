@@ -1,7 +1,7 @@
 # jsonb_contained
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 130 - 148
+[src/backend/utils/adt/jsonb_op.c:130-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L130-L148)
 
 ## Overview
 Tests whether a JSONB value is contained within another JSONB value as a subset, implementing the commutator of the contains operation.

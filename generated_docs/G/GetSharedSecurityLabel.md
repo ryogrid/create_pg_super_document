@@ -1,7 +1,7 @@
 # GetSharedSecurityLabel
 
 ## Location
-src/backend/commands/seclabel.c: 224 - 271
+[src/backend/commands/seclabel.c:224-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L224-L271)
 
 ## Overview
 Retrieves the security label for a shared database object from the pg_shseclabel system catalog for a specified provider.

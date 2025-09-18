@@ -1,7 +1,7 @@
 # RegisterTwoPhaseRecord
 
 ## Location
-src/backend/access/transam/twophase.c: 1264 - 1286
+[src/backend/access/transam/twophase.c:1264-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1264-L1286)
 
 ## Overview
 RegisterTwoPhaseRecord is a function that registers a two-phase commit record to be written to the state file during transaction preparation. It provides a standardized interface for various PostgreSQL subsystems to store their state information as part of the two-phase commit protocol.

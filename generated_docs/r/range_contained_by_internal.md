@@ -1,7 +1,7 @@
 # range_contained_by_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2618 - 2626
+[src/backend/utils/adt/rangetypes.c:2618-2626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2618-L2626)
 
 ## Overview
 Tests whether one range is contained by another range by delegating to range_contains_internal with swapped arguments, implementing the symmetric contained-by operation.

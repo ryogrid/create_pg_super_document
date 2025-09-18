@@ -1,7 +1,7 @@
 # hba_authname
 
 ## Location
-src/backend/libpq/hba.c: 3061 - 3064
+[src/backend/libpq/hba.c:3061-3064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L3061-L3064)
 
 ## Overview
 Returns the human-readable string name corresponding to a UserAuth enumeration value, used for logging and display purposes in PostgreSQL authentication.

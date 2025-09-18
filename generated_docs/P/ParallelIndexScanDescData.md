@@ -1,7 +1,7 @@
 # ParallelIndexScanDescData
 
 ## Location
-src/include/access/relscan.h: 170 - 176
+[src/include/access/relscan.h:170-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L170-L176)
 
 ## Overview
 ParallelIndexScanDescData is a structure that contains shared memory information for parallel index scans, enabling multiple worker processes to coordinate access to the same index during parallel query execution.

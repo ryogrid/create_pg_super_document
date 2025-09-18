@@ -1,7 +1,7 @@
 # ProcessRecords
 
 ## Location
-src/backend/access/transam/twophase.c: 1680 - 1707
+[src/backend/access/transam/twophase.c:1680-1707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L1680-L1707)
 
 ## Overview
 ProcessRecords iterates through two-phase commit state data in memory and invokes appropriate callbacks for each stored 2PC record.

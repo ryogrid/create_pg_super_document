@@ -1,7 +1,7 @@
 # _hash_initbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 157 - 197
+[src/backend/access/hash/hashpage.c:157-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L157-L197)
 
 ## Overview
 Initializes a hash page buffer with bucket-specific metadata, setting up the page opaque area with bucket number, flags, and other hash-specific information.

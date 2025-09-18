@@ -1,7 +1,7 @@
 # pushval_asis
 
 ## Location
-src/backend/utils/adt/tsquery.c: 942 - 951
+[src/backend/utils/adt/tsquery.c:942-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L942-L951)
 
 ## Overview
 The  function is a simple callback wrapper that pushes query operands directly to the TSQuery parser state without any transformation or processing.

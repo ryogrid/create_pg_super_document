@@ -1,7 +1,7 @@
 # pqFlush
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 979 - 1003
+[src/interfaces/libpq/fe-misc.c:979-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L979-L1003)
 
 ## Overview
 Forces transmission of all data waiting in the output buffer to the PostgreSQL server, providing explicit control over when buffered data is sent.

@@ -1,7 +1,7 @@
 # pg_atomic_fetch_and_u32
 
 ## Location
-src/include/port/atomics.h: 391 - 404
+[src/include/port/atomics.h:391-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L391-L404)
 
 ## Overview
 Atomically performs a bitwise AND operation between a 32-bit unsigned atomic variable and a given value, returning the original value before the operation.

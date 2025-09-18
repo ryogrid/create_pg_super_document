@@ -1,7 +1,7 @@
 # Alias
 
 ## Location
-src/include/nodes/primnodes.h: 47 - 52
+[src/include/nodes/primnodes.h:47-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L47-L52)
 
 ## Overview
 The Alias struct specifies an alias for a range variable and optionally provides renaming of columns within the table.

@@ -1,7 +1,7 @@
 # RunObjectPostAlterHookStr
 
 ## Location
-src/backend/catalog/objectaccess.c: 218 - 240
+[src/backend/catalog/objectaccess.c:218-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L218-L240)
 
 ## Overview
 RunObjectPostAlterHookStr is a function that triggers object access hook callbacks for post-alter events using string-based object names, allowing extensions to be notified after database objects have been altered.

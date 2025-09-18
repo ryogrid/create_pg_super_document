@@ -1,7 +1,7 @@
 # lexeme_hash
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 478 - 489
+[src/backend/tsearch/ts_typanalyze.c:478-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L478-L489)
 
 ## Overview
 A hash function for lexeme strings that handles non-null-terminated strings by using both the string data and its explicit length.

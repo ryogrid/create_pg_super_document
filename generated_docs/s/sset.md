@@ -1,7 +1,7 @@
 # sset
 
 ## Location
-src/backend/regex/regexec.c: 45 - 48
+[src/backend/regex/regexec.c:45-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L45-L48)
 
 ## Overview
 The sset struct represents a state set in PostgreSQL's regular expression engine, used to store collections of states as a bitvector in the DFA implementation.

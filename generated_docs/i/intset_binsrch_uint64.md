@@ -1,7 +1,7 @@
 # intset_binsrch_uint64
 
 ## Location
-src/backend/lib/integerset.c: 714 - 746
+[src/backend/lib/integerset.c:714-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L714-L746)
 
 ## Overview
 A binary search function for sorted arrays of 64-bit unsigned integers, providing efficient lookup and insertion point determination within IntegerSet operations.

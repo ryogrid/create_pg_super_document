@@ -1,7 +1,7 @@
 # create_subqueryscan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2016 - 2045
+[src/backend/optimizer/util/pathnode.c:2016-2045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2016-L2045)
 
 ## Overview
 Creates a SubqueryScanPath node corresponding to a scan of a subquery, which represents accessing the results of a nested query as if it were a regular table in PostgreSQL's query planner.

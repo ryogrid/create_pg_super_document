@@ -1,7 +1,7 @@
 # tts_buffer_is_current_xact_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 779 - 801
+[src/backend/executor/execTuples.c:779-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L779-L801)
 
 ## Overview
 Determines whether a tuple in a buffer-backed heap slot was created by the current transaction by examining its xmin transaction ID.

@@ -1,7 +1,7 @@
 # create_projection_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2685 - 2792
+[src/backend/optimizer/util/pathnode.c:2685-2792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2685-L2792)
 
 ## Overview
 Creates a pathnode that represents performing a projection operation, potentially optimizing away unnecessary Result nodes when the underlying path can handle projection directly.

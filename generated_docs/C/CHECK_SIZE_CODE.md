@@ -1,7 +1,7 @@
 # CHECK_SIZE_CODE
 
 ## Location
-src/tools/pg_bsd_indent/indent_globs.h: 60 - 70
+[src/tools/pg_bsd_indent/indent_globs.h:60-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/indent_globs.h#L60-L70)
 
 ## Overview
 A macro that ensures sufficient buffer space for code formatting operations in the pg_bsd_indent tool, automatically reallocating memory when needed.

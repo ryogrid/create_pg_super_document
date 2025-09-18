@@ -1,7 +1,7 @@
 # check_multixact_member_buffers
 
 ## Location
-src/backend/access/transam/multixact.c: 2015 - 2025
+[src/backend/access/transam/multixact.c:2015-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2015-L2025)
 
 ## Overview
 This function serves as a GUC (Grand Unified Configuration) validation hook for the multixact_member_buffers configuration parameter.

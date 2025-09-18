@@ -1,7 +1,7 @@
 # AppendPlainCommandOption
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 812 - 832
+[src/bin/pg_basebackup/streamutil.c:812-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L812-L832)
 
 ## Overview
 Appends a "plain" option (option without a value) to a PostgreSQL replication command string, handling both old and new syntax formats with appropriate separators.

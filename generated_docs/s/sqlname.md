@@ -1,7 +1,7 @@
 # sqlname
 
 ## Location
-src/interfaces/ecpg/include/sqlda-native.h: 18 - 23
+[src/interfaces/ecpg/include/sqlda-native.h:18-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/include/sqlda-native.h#L18-L23)
 
 ## Overview
 The  struct represents a named identifier in PostgreSQL's ECPG (Embedded SQL in C for PostgreSQL) interface, providing a fixed-length storage structure for database object names.

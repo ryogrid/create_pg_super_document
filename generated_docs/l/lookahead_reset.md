@@ -1,7 +1,7 @@
 # lookahead_reset
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 320 - 345
+[src/tools/pg_bsd_indent/io.c:320-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L320-L345)
 
 ## Overview
 Resets the lookahead mechanism to begin scanning from just beyond the current input buffer position.

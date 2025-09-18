@@ -1,7 +1,7 @@
 # checkDataDir
 
 ## Location
-src/backend/utils/init/miscinit.c: 342 - 434
+[src/backend/utils/init/miscinit.c:342-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L342-L434)
 
 ## Overview
 Validates the PostgreSQL data directory for security, ownership, permissions, and proper configuration before allowing the server to start.

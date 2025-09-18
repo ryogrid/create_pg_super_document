@@ -1,7 +1,7 @@
 # pull_var_clause
 
 ## Location
-src/backend/optimizer/util/var.c: 607 - 626
+[src/backend/optimizer/util/var.c:607-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L607-L626)
 
 ## Overview
 Recursively extracts all Var nodes (and optionally other node types) from an expression clause, with configurable handling of aggregates, window functions, and placeholders.

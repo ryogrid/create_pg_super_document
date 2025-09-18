@@ -1,7 +1,7 @@
 # mdcreate
 
 ## Location
-src/backend/storage/smgr/md.c: 190 - 306
+[src/backend/storage/smgr/md.c:190-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L190-L306)
 
 ## Overview
 mdcreate creates a new physical file for a relation fork on magnetic disk, handling tablespace setup, file creation, and initialization of the storage manager structures.

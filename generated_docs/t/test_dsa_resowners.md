@@ -1,7 +1,7 @@
 # test_dsa_resowners
 
 ## Location
-src/test/modules/test_dsa/test_dsa.c: 64 - 113
+[src/test/modules/test_dsa/test_dsa.c:64-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_dsa/test_dsa.c#L64-L113)
 
 ## Overview
 A PostgreSQL test function that validates Dynamic Shared Area (DSA) integration with the resource ownership system, testing automatic cleanup of DSA allocations when resource owners are released.

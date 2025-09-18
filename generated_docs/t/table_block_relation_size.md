@@ -1,7 +1,7 @@
 # table_block_relation_size
 
 ## Location
-src/backend/access/table/tableam.c: 617 - 653
+[src/backend/access/table/tableam.c:617-653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L617-L653)
 
 ## Overview
 A helper function that calculates the total size in bytes of a relation by counting blocks and multiplying by the block size, supporting both individual forks and all forks combined.

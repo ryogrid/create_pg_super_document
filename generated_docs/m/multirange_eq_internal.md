@@ -1,7 +1,7 @@
 # multirange_eq_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1864 - 1900
+[src/backend/utils/adt/multirangetypes.c:1864-1900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1864-L1900)
 
 ## Overview
 An internal function that tests whether two multiranges are equal by comparing their range counts and individual range bounds.

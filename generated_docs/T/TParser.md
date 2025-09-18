@@ -1,7 +1,7 @@
 # TParser
 
 ## Location
-src/backend/tsearch/wparser_def.c: 241 - 264
+[src/backend/tsearch/wparser_def.c:241-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L241-L264)
 
 ## Overview
 TParser is the main structure that encapsulates the complete state and context of PostgreSQL's text search parser, managing input text processing, character encoding handling, and token generation.

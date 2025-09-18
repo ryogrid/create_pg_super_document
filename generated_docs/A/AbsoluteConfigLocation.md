@@ -1,7 +1,7 @@
 # AbsoluteConfigLocation
 
 ## Location
-src/backend/utils/misc/conffiles.c: 36 - 69
+[src/backend/utils/misc/conffiles.c:36-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/conffiles.c#L36-L69)
 
 ## Overview
 Converts a configuration file or directory location that may be relative into an absolute path, using either the calling file's directory or DataDir as the base path.

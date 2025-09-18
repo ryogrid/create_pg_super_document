@@ -1,7 +1,7 @@
 # PageGetContents
 
 ## Location
-src/include/storage/bufpage.h: 255 - 273
+[src/include/storage/bufpage.h:255-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L255-L273)
 
 ## Overview
 PageGetContents is an inline function that returns a pointer to the content area of a page, specifically designed for pages that do not contain line pointers and store data directly after the page header.

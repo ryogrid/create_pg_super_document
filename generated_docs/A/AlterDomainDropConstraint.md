@@ -1,7 +1,7 @@
 # AlterDomainDropConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 2791 - 2896
+[src/backend/commands/typecmds.c:2791-2896](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2791-L2896)
 
 ## Overview
 Implements the ALTER DOMAIN DROP CONSTRAINT statement, removing a named constraint from a domain type and updating the domain's metadata accordingly.

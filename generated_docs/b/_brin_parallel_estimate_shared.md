@@ -1,7 +1,7 @@
 # _brin_parallel_estimate_shared
 
 ## Location
-src/backend/access/brin/brin.c: 2757 - 2767
+[src/backend/access/brin/brin.c:2757-2767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2757-L2767)
 
 ## Overview
 This function estimates the shared memory size required for parallel BRIN index building, calculating the total memory needed to store both the BRIN parallel build state and the parallel table scan state.

@@ -1,7 +1,7 @@
 # prepare_sort_from_pathkeys
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6165 - 6346
+[src/backend/optimizer/plan/createplan.c:6165-6346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6165-L6346)
 
 ## Overview
 The prepare_sort_from_pathkeys function prepares the sorting metadata and potentially modifies the input plan to support sorting operations, converting pathkey specifications into executor-ready sort arrays.

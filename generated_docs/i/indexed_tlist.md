@@ -1,7 +1,7 @@
 # indexed_tlist
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 55 - 61
+[src/backend/optimizer/plan/setrefs.c:55-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L55-L61)
 
 ## Overview
 A structure that provides indexed access to target list entries, optimizing lookups of variables and expressions by caching commonly accessed information about target list elements.

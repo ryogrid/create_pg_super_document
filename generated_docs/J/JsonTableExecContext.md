@@ -1,7 +1,7 @@
 # JsonTableExecContext
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 223 - 235
+[src/backend/utils/adt/jsonpath_exec.c:223-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L223-L235)
 
 ## Overview
 JsonTableExecContext is the top-level execution context structure that coordinates PostgreSQL's JSON_TABLE operation execution, managing both root plan state and per-column plan states.

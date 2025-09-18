@@ -1,7 +1,7 @@
 # reset_apply_error_context_info
 
 ## Location
-src/backend/replication/logical/worker.c: 5049 - 5064
+[src/backend/replication/logical/worker.c:5049-5064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L5049-L5064)
 
 ## Overview
 Resets all fields in the global error callback context structure to their initial/invalid states, clearing any previously set error context information for logical replication.

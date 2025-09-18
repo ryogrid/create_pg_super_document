@@ -1,7 +1,7 @@
 # TranslateSocketError
 
 ## Location
-src/backend/port/win32/socket.c: 56 - 156
+[src/backend/port/win32/socket.c:56-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L56-L156)
 
 ## Overview
 TranslateSocketError is a static function that converts Windows socket error codes (WSAxxx) to their equivalent POSIX errno values, providing cross-platform compatibility for PostgreSQL network operations on Windows.

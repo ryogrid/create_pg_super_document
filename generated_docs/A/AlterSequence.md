@@ -1,7 +1,7 @@
 # AlterSequence
 
 ## Location
-src/backend/commands/sequence.c: 437 - 540
+[src/backend/commands/sequence.c:437-540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L437-L540)
 
 ## Overview
 AlterSequence modifies the definition of an existing sequence relation, handling parameter changes and optionally rewriting the sequence data when required.

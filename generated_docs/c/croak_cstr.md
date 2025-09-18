@@ -1,7 +1,7 @@
 # croak_cstr
 
 ## Location
-src/pl/plperl/plperl.h: 175 - 206
+[src/pl/plperl/plperl.h:175-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.h#L175-L206)
 
 ## Overview
 Triggers a Perl croak (fatal error) with a specified message given in the database encoding, safely handling non-ASCII characters.

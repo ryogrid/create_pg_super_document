@@ -1,7 +1,7 @@
 # plpython_return_error_callback
 
 ## Location
-src/pl/plpython/plpy_exec.c: 695 - 704
+[src/pl/plpython/plpy_exec.c:695-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L695-L704)
 
 ## Overview
 Error context callback function that provides additional context information when errors occur during PLpython function return value creation.

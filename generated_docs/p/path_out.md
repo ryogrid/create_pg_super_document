@@ -1,7 +1,7 @@
 # path_out
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1474 - 1487
+[src/backend/utils/adt/geo_ops.c:1474-1487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1474-L1487)
 
 ## Overview
 Converts PostgreSQL's internal PATH data structure into its string representation for output.

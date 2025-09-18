@@ -1,7 +1,7 @@
 # tryExecuteStatement
 
 ## Location
-src/bin/pgbench/pgbench.c: 1516 - 1530
+[src/bin/pgbench/pgbench.c:1516-1530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1516-L1530)
 
 ## Overview
 Executes a SQL statement using PQexec() and logs errors without exiting, allowing pgbench to continue execution even when non-critical SQL operations fail.

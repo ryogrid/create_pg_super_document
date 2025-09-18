@@ -1,7 +1,7 @@
 # directory_exists
 
 ## Location
-src/test/regress/pg_regress.c: 1313 - 1325
+[src/test/regress/pg_regress.c:1313-1325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1313-L1325)
 
 ## Overview
 A utility function that checks whether a specified path exists and is a directory.

@@ -1,7 +1,7 @@
 # PGTYPESdate_from_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/datetime.c: 47 - 100
+[src/interfaces/ecpg/pgtypeslib/datetime.c:47-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/datetime.c#L47-L100)
 
 ## Overview
 Parses a string representation of a date and converts it to a PostgreSQL date value, supporting various date formats and providing error handling for invalid input.

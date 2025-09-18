@@ -1,7 +1,7 @@
 # PGEventConnReset
 
 ## Location
-src/interfaces/libpq/libpq-events.h: 45 - 49
+[src/interfaces/libpq/libpq-events.h:45-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.h#L45-L49)
 
 ## Overview
 PGEventConnReset is a structure that contains event information passed to event callback functions when a PGEVT_CONNRESET event is fired after a successful connection reset operation.

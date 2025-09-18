@@ -1,7 +1,7 @@
 # ResOwnerReleaseCatCacheList
 
 ## Location
-src/backend/utils/cache/catcache.c: 2440 - 2445
+[src/backend/utils/cache/catcache.c:2440-2445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L2440-L2445)
 
 ## Overview
 ResOwnerReleaseCatCacheList is a static callback function used by PostgreSQL's resource owner system to automatically release catalog cache list references during resource cleanup operations.

@@ -1,7 +1,7 @@
 # TSDictionaryIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2931 - 3006
+[src/backend/catalog/namespace.c:2931-3006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2931-L3006)
 
 ## Overview
 TSDictionaryIsVisibleExt determines whether a text search dictionary is visible in the current search path, with optional error handling for missing dictionaries.

@@ -1,7 +1,7 @@
 # tm2interval
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 972 - 986
+[src/interfaces/ecpg/pgtypeslib/interval.c:972-986](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L972-L986)
 
 ## Overview
 tm2interval is a static utility function that converts a tm structure and fractional seconds into an interval data type, performing overflow checking to ensure valid interval values.

@@ -1,7 +1,7 @@
 # create_ctescan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3891 - 3985
+[src/backend/optimizer/plan/createplan.c:3891-3985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3891-L3985)
 
 ## Overview
 Creates a CteScan plan node for scanning a Common Table Expression (CTE) base relation with the specified target list and scan clauses.

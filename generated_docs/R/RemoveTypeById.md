@@ -1,7 +1,7 @@
 # RemoveTypeById
 
 ## Location
-src/backend/commands/typecmds.c: 657 - 696
+[src/backend/commands/typecmds.c:657-696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L657-L696)
 
 ## Overview
 RemoveTypeById is the core function that handles the physical deletion of a type from the PostgreSQL system catalogs, including cleanup of specialized type data for enums and ranges.

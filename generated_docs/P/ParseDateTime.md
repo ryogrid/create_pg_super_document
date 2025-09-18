@@ -1,7 +1,7 @@
 # ParseDateTime
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1598 - 1779
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1598-1779](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1598-L1779)
 
 ## Overview
 ParseDateTime breaks input date/time strings into tokens based on context, identifying field types and extracting individual components for further processing.

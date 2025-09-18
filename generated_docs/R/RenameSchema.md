@@ -1,7 +1,7 @@
 # RenameSchema
 
 ## Location
-src/backend/commands/schemacmds.c: 249 - 306
+[src/backend/commands/schemacmds.c:249-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/schemacmds.c#L249-L306)
 
 ## Overview
 RenameSchema implements the ALTER SCHEMA RENAME operation, changing a schema's name while performing comprehensive validation and security checks.

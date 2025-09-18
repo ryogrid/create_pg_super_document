@@ -1,7 +1,7 @@
 # spgWalk
 
 ## Location
-src/backend/access/spgist/spgscan.c: 817 - 930
+[src/backend/access/spgist/spgscan.c:817-930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L817-L930)
 
 ## Overview
 Core function that walks the SP-GiST tree and reports all tuples passing scan qualifiers to a result storage subroutine.

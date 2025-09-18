@@ -1,7 +1,7 @@
 # inet_aton
 
 ## Location
-src/port/inet_aton.c: 56 - 149
+[src/port/inet_aton.c:56-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/inet_aton.c#L56-L149)
 
 ## Overview
 A portable implementation of inet_aton that converts a string representation of an IPv4 address to a binary address structure, designed to replace inet_addr with better error handling.

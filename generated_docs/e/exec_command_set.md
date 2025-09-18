@@ -1,7 +1,7 @@
 # exec_command_set
 
 ## Location
-src/bin/psql/command.c: 2421 - 2473
+[src/bin/psql/command.c:2421-2473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2421-L2473)
 
 ## Overview
 Implements the psql \set backslash command that manages psql variables by setting values or listing all variables.

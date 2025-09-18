@@ -1,7 +1,7 @@
 # GinScanEntry
 
 ## Location
-src/include/access/gin_private.h: 266 - 267
+[src/include/access/gin_private.h:266-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L266-L267)
 
 ## Overview
 GinScanEntry is a pointer typedef that references GinScanEntryData structures, representing individual search conditions extracted from GIN index scan queries.

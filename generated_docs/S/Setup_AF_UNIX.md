@@ -1,7 +1,7 @@
 # Setup_AF_UNIX
 
 ## Location
-src/backend/libpq/pqcomm.c: 719 - 792
+[src/backend/libpq/pqcomm.c:719-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L719-L792)
 
 ## Overview
 Configures Unix domain socket permissions including group ownership and file permissions before the server starts listening for connections.

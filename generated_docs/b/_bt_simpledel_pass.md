@@ -1,7 +1,7 @@
 # _bt_simpledel_pass
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2812 - 2937
+[src/backend/access/nbtree/nbtinsert.c:2812-2937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2812-L2937)
 
 ## Overview
 Performs simple index tuple deletion by removing LP_DEAD-marked tuples and additional safe-to-delete tuples that share table blocks with dead tuples, optimizing deletion efficiency through locality-based batching.

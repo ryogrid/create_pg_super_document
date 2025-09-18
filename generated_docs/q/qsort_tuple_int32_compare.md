@@ -1,7 +1,7 @@
 # qsort_tuple_int32_compare
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 545 - 574
+[src/backend/utils/sort/tuplesort.c:545-574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L545-L574)
 
 ## Overview
 A specialized inline comparison function for sorting tuples when the first sort key uses 32-bit integer comparison, designed to optimize sorting performance for int32 data types.

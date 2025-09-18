@@ -1,7 +1,7 @@
 # r_Suffix_Noun_Step2c2
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1279 - 1290
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1279-1290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1279-L1290)
 
 ## Overview
 Performs Step 2c2 of Arabic noun suffix removal as part of the Arabic stemming algorithm in PostgreSQL Snowball stemmer.

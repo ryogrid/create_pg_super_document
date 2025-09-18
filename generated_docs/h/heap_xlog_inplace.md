@@ -1,7 +1,7 @@
 # heap_xlog_inplace
 
 ## Location
-src/backend/access/heap/heapam.c: 10297 - 10337
+[src/backend/access/heap/heapam.c:10297-10337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10297-L10337)
 
 ## Overview
 Handles the replay of in-place tuple updates during WAL recovery by directly replacing tuple data without changing the tuple's location or creating new tuple versions.

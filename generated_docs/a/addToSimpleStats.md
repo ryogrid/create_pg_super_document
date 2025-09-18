@@ -1,7 +1,7 @@
 # addToSimpleStats
 
 ## Location
-src/bin/pgbench/pgbench.c: 1403 - 1417
+[src/bin/pgbench/pgbench.c:1403-1417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1403-L1417)
 
 ## Overview
 Accumulates a single numerical value into a SimpleStats structure, updating all statistical fields (count, min, max, sum, sum of squares).

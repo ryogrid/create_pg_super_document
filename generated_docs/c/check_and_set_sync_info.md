@@ -1,7 +1,7 @@
 # check_and_set_sync_info
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1271 - 1314
+[src/backend/replication/logical/slotsync.c:1271-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1271-L1314)
 
 ## Overview
 check_and_set_sync_info validates synchronization preconditions and atomically sets the sync-in-progress state to prevent concurrent operations and handle promotion scenarios.

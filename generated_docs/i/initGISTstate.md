@@ -1,7 +1,7 @@
 # initGISTstate
 
 ## Location
-src/backend/access/gist/gist.c: 1532 - 1659
+[src/backend/access/gist/gist.c:1532-1659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1532-L1659)
 
 ## Overview
 Initializes and populates a GISTSTATE structure with cached access method information and support function details for efficient GiST index operations.

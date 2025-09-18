@@ -1,7 +1,7 @@
 # range_after_multirange_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2446 - 2470
+[src/backend/utils/adt/multirangetypes.c:2446-2470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2446-L2470)
 
 ## Overview
 Internal function that determines whether a single range is strictly after (right of) a multirange by comparing the range's lower bound with the multirange's rightmost upper bound.

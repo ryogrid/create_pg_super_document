@@ -1,7 +1,7 @@
 # oper_select_candidate
 
 ## Location
-src/backend/parser/parse_oper.c: 312 - 369
+[src/backend/parser/parse_oper.c:312-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L312-L369)
 
 ## Overview
 A static function that resolves conflicts when multiple operator candidates match the input argument types by selecting the best candidate using PostgreSQL's type resolution heuristics.

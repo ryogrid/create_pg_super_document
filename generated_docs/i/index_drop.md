@@ -1,7 +1,7 @@
 # index_drop
 
 ## Location
-src/backend/catalog/index.c: 2114 - 2403
+[src/backend/catalog/index.c:2114-2403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2114-L2403)
 
 ## Overview
 Performs the complete removal of an index from the database, supporting both regular and concurrent drop operations with appropriate locking and transaction management.

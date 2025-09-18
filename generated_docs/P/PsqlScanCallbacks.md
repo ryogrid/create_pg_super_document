@@ -1,7 +1,7 @@
 # PsqlScanCallbacks
 
 ## Location
-src/include/fe_utils/psqlscan.h: 61 - 67
+[src/include/fe_utils/psqlscan.h:61-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/psqlscan.h#L61-L67)
 
 ## Overview
 PsqlScanCallbacks is a structure that defines callback functions used by PostgreSQL's SQL lexer for variable substitution during parsing operations.

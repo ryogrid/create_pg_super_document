@@ -1,7 +1,7 @@
 # HeapTupleHeaderAdvanceConflictHorizon
 
 ## Location
-src/backend/access/heap/heapam.c: 7950 - 7989
+[src/backend/access/heap/heapam.c:7950-7989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7950-L7989)
 
 ## Overview
 Maintains a snapshot conflict horizon by advancing its value using committed transaction IDs from tuple headers, used during HOT pruning or index deletion operations to prevent recovery conflicts.

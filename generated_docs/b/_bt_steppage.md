@@ -1,7 +1,7 @@
 # _bt_steppage
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2041 - 2180
+[src/backend/access/nbtree/nbtsearch.c:2041-2180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2041-L2180)
 
 ## Overview
 Steps to the next page containing valid data during B-tree index scanning, handling page transitions and maintaining scan state consistency.

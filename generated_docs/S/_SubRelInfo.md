@@ -1,7 +1,7 @@
 # _SubRelInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 701 - 707
+[src/bin/pg_dump/pg_dump.h:701-707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L701-L707)
 
 ## Overview
 The `_SubRelInfo` struct represents a subscription relation, used by pg_dump to store information about individual tables that are part of a logical replication subscription.

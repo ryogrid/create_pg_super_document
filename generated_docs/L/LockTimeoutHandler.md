@@ -1,7 +1,7 @@
 # LockTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1400 - 1409
+[src/backend/utils/init/postinit.c:1400-1409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1400-L1409)
 
 ## Overview
 LockTimeoutHandler is a signal handler function that responds to lock timeout events by sending a query cancellation interrupt to terminate lock waits that exceed the configured timeout period.

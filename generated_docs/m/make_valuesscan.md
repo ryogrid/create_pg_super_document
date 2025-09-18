@@ -1,7 +1,7 @@
 # make_valuesscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5744 - 5762
+[src/backend/optimizer/plan/createplan.c:5744-5762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5744-L5762)
 
 ## Overview
 Creates and initializes a ValuesScan plan node, which represents a scan operation on a VALUES clause that provides literal row data directly in the SQL query.

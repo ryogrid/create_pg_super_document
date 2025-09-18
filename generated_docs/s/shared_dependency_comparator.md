@@ -1,7 +1,7 @@
 # shared_dependency_comparator
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 610 - 675
+[src/backend/catalog/pg_shdepend.c:610-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L610-L675)
 
 ## Overview
 A qsort comparator function used to sort ShDependObjectInfo items during shared dependency reporting, providing a deterministic ordering based on object properties and dependency types.

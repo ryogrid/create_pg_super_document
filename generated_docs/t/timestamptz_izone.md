@@ -1,7 +1,7 @@
 # timestamptz_izone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6466 - 6505
+[src/backend/utils/adt/timestamp.c:6466-6505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6466-L6505)
 
 ## Overview
 This function converts a timestamp with time zone to a timestamp without time zone by applying a specified time interval as a timezone offset, effectively treating the interval as a fixed timezone displacement.

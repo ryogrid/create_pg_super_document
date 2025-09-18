@@ -1,7 +1,7 @@
 # table_beginscan_tid
 
 ## Location
-src/include/access/tableam.h: 996 - 1008
+[src/include/access/tableam.h:996-1008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L996-L1008)
 
 ## Overview
 table_beginscan_tid is a specialized table scanning function designed for TID (Tuple Identifier) scans, which directly access specific tuples by their physical location identifiers.

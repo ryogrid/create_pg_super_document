@@ -1,7 +1,7 @@
 # PQsendDescribePrepared
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2491 - 2503
+[src/interfaces/libpq/fe-exec.c:2491-2503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2491-L2503)
 
 ## Overview
 Submits a Describe Statement command for a prepared statement to the server without waiting for completion, enabling asynchronous operation.

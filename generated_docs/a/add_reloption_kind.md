@@ -1,7 +1,7 @@
 # add_reloption_kind
 
 ## Location
-src/backend/access/common/reloptions.c: 683 - 699
+[src/backend/access/common/reloptions.c:683-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L683-L699)
 
 ## Overview
 The add_reloption_kind function creates a new relopt_kind value for use in custom relation options by user-defined access methods (AMs).

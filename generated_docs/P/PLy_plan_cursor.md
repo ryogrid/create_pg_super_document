@@ -1,7 +1,7 @@
 # PLy_plan_cursor
 
 ## Location
-src/pl/plpython/plpy_planobject.c: 91 - 102
+[src/pl/plpython/plpy_planobject.c:91-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.c#L91-L102)
 
 ## Overview
 A Python method implementation that creates a cursor from a prepared SQL plan, allowing for efficient retrieval of large result sets.

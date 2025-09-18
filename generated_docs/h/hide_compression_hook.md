@@ -1,7 +1,7 @@
 # hide_compression_hook
 
 ## Location
-src/bin/psql/startup.c: 1185 - 1191
+[src/bin/psql/startup.c:1185-1191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1185-L1191)
 
 ## Overview
 A validation hook function for the hide_compression parameter in psql that controls whether TOAST compression information is displayed.

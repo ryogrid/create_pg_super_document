@@ -1,7 +1,7 @@
 # get_extension_schema
 
 ## Location
-src/backend/commands/extension.c: 229 - 265
+[src/backend/commands/extension.c:229-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L229-L265)
 
 ## Overview
 Retrieves the schema (namespace) OID where a PostgreSQL extension is installed, given the extension's OID.

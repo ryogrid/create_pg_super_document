@@ -1,7 +1,7 @@
 # EventTriggerCollectSimpleCommand
 
 ## Location
-src/backend/commands/event_trigger.c: 1588 - 1625
+[src/backend/commands/event_trigger.c:1588-1625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1588-L1625)
 
 ## Overview
 Saves data about a simple DDL command that was just executed, collecting it for later processing by event triggers.

@@ -1,7 +1,7 @@
 # pg_stat_reset_replication_slot
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1789 - 1805
+[src/backend/utils/adt/pgstatfuncs.c:1789-1805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1789-L1805)
 
 ## Overview
 A PostgreSQL system function that resets replication slot statistics, allowing selective reset of a specific replication slot or all replication slots when no target is specified.

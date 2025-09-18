@@ -1,7 +1,7 @@
 # AtSubCommit_Notify
 
 ## Location
-src/backend/commands/async.c: 1691 - 1760
+[src/backend/commands/async.c:1691-1760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1691-L1760)
 
 ## Overview
 Handles PostgreSQL LISTEN/NOTIFY operations during subtransaction commit by reassigning pending actions and notifications from the current subtransaction to its parent transaction.

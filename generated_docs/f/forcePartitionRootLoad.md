@@ -1,7 +1,7 @@
 # forcePartitionRootLoad
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 2628 - 2655
+[src/bin/pg_dump/pg_dump.c:2628-2655](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L2628-L2655)
 
 ## Overview
 Determines whether data loading must be forced through the partition root for a given partition table due to unsafe partitioning schemes in the hierarchy.

@@ -1,7 +1,7 @@
 # verifybackup_version_cb
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 522 - 534
+[src/bin/pg_verifybackup/pg_verifybackup.c:522-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L522-L534)
 
 ## Overview
 Callback function used during manifest parsing to extract and store the backup manifest version number for later validation.

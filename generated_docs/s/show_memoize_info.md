@@ -1,7 +1,7 @@
 # show_memoize_info
 
 ## Location
-src/backend/commands/explain.c: 3327 - 3470
+[src/backend/commands/explain.c:3327-3470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3327-L3470)
 
 ## Overview
 Displays comprehensive memoization cache statistics for EXPLAIN ANALYZE output, including cache keys, hit/miss ratios, memory usage, and performance metrics from both leader and worker processes in parallel execution.

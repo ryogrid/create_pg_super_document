@@ -1,7 +1,7 @@
 # Int32GetDatum
 
 ## Location
-src/include/postgres.h: 212 - 221
+[src/include/postgres.h:212-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L212-L221)
 
 ## Overview
 Converts a 32-bit signed integer value into PostgreSQL's internal Datum representation for use throughout the database system.

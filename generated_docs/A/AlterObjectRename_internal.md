@@ -1,7 +1,7 @@
 # AlterObjectRename_internal
 
 ## Location
-src/backend/commands/alter.c: 165 - 356
+[src/backend/commands/alter.c:165-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L165-L356)
 
 ## Overview
 A generic internal function that renames database objects by updating their name column in the appropriate catalog relation, handling permission checks and duplicate name detection.

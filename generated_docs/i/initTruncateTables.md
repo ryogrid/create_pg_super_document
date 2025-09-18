@@ -1,7 +1,7 @@
 # initTruncateTables
 
 ## Location
-src/bin/pgbench/pgbench.c: 4918 - 4927
+[src/bin/pgbench/pgbench.c:4918-4927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4918-L4927)
 
 ## Overview
 Truncates all existing data from pgbench tables to prepare them for fresh data generation during benchmark initialization.

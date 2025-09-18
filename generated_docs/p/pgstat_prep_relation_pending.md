@@ -1,7 +1,7 @@
 # pgstat_prep_relation_pending
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 898 - 916
+[src/backend/utils/activity/pgstat_relation.c:898-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L898-L916)
 
 ## Overview
 Creates or retrieves a pending statistics entry for a relation, initializing it with basic identification information for statistics collection.

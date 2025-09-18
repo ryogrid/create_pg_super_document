@@ -1,7 +1,7 @@
 # ReorderBufferXidHasBaseSnapshot
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3620 - 3649
+[src/backend/replication/logical/reorderbuffer.c:3620-3649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3620-L3649)
 
 ## Overview
 Checks whether a transaction or subtransaction has already been assigned a base snapshot for logical replication processing.

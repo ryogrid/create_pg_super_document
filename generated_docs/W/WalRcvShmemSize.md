@@ -1,7 +1,7 @@
 # WalRcvShmemSize
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 43 - 53
+[src/backend/replication/walreceiverfuncs.c:43-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L43-L53)
 
 ## Overview
 Calculates and returns the amount of shared memory space required for WAL receiver data structures.

@@ -1,7 +1,7 @@
 # pgwin32_bind
 
 ## Location
-src/backend/port/win32/socket.c: 315 - 325
+[src/backend/port/win32/socket.c:315-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L315-L325)
 
 ## Overview
 PostgreSQL's Windows-specific wrapper function for the standard socket bind() system call that provides proper error handling and signal integration for Windows platforms.

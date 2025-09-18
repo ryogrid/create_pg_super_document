@@ -1,7 +1,7 @@
 # ItemPointerGetOffsetNumber
 
 ## Location
-src/include/storage/itemptr.h: 124 - 134
+[src/include/storage/itemptr.h:124-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L124-L134)
 
 ## Overview
 Safely extracts the offset number from an ItemPointerData structure with validity checking enabled.

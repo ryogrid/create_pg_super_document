@@ -1,7 +1,7 @@
 # clear_socket_set
 
 ## Location
-src/bin/pgbench/pgbench.c: 7908 - 7914
+[src/bin/pgbench/pgbench.c:7908-7914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7908-L7914)
 
 ## Overview
 A function in pgbench that resets a socket set to an empty state, allowing it to be reused for a new round of socket monitoring in the benchmark execution loop.

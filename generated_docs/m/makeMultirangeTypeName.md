@@ -1,7 +1,7 @@
 # makeMultirangeTypeName
 
 ## Location
-src/backend/catalog/pg_type.c: 950 - 982
+[src/backend/catalog/pg_type.c:950-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L950-L982)
 
 ## Overview
 makeMultirangeTypeName generates a unique multirange type name from a given range type name, following PostgreSQL's naming conventions for automatically created multirange types.

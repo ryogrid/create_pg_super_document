@@ -1,7 +1,7 @@
 # network_gt
 
 ## Location
-src/backend/utils/adt/network.c: 832 - 840
+[src/backend/utils/adt/network.c:832-840](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L832-L840)
 
 ## Overview
 Implements the greater-than (>) comparison operator for network addresses (inet/cidr types) in PostgreSQL.

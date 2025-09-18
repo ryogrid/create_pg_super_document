@@ -1,7 +1,7 @@
 # setalarm
 
 ## Location
-src/bin/pgbench/pgbench.c: 7768 - 7822
+[src/bin/pgbench/pgbench.c:7768-7822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7768-L7822)
 
 ## Overview
 A cross-platform function in pgbench that sets up a timer to limit the duration of benchmark execution, with separate implementations for Unix/Linux systems and Windows.

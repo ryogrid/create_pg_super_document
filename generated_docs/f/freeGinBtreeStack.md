@@ -1,7 +1,7 @@
 # freeGinBtreeStack
 
 ## Location
-src/backend/access/gin/ginbtree.c: 198 - 217
+[src/backend/access/gin/ginbtree.c:198-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L198-L217)
 
 ## Overview
 freeGinBtreeStack deallocates a GinBtreeStack structure and all its parent nodes, properly releasing associated buffers to prevent memory and buffer leaks.

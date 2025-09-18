@@ -1,7 +1,7 @@
 # contain_agg_clause
 
 ## Location
-src/backend/optimizer/util/clauses.c: 177 - 182
+[src/backend/optimizer/util/clauses.c:177-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L177-L182)
 
 ## Overview
 Recursively searches for aggregate function nodes (Aggref/GroupingFunc) within a clause and returns true if any aggregates are found.

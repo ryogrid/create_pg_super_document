@@ -1,7 +1,7 @@
 # lookup_proof_cache
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2101 - 2304
+[src/backend/optimizer/util/predtest.c:2101-2304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2101-L2304)
 
 ## Overview
 Retrieves and populates cache entries for operator proof relationships, analyzing btree operator families to determine logical implications and test operators for constant comparisons.

@@ -1,7 +1,7 @@
 # ExecUpdatePrepareSlot
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1967 - 2001
+[src/backend/executor/nodeModifyTable.c:1967-2001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1967-L2001)
 
 ## Overview
 A subroutine for ExecUpdateAct that applies final modifications to a tuple slot before performing the update, including setting table OID and computing stored generated columns.

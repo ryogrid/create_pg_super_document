@@ -1,7 +1,7 @@
 # spgproperty
 
 ## Location
-src/backend/access/spgist/spgutils.c: 1290 - 1360
+[src/backend/access/spgist/spgutils.c:1290-1360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L1290-L1360)
 
 ## Overview
 Check boolean properties of SP-GiST indexes, specifically handling the AMPROP_DISTANCE_ORDERABLE property which is not supported by the core property code.

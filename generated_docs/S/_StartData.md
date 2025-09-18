@@ -1,7 +1,7 @@
 # _StartData
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 285 - 311
+[src/bin/pg_dump/pg_backup_custom.c:285-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L285-L311)
 
 ## Overview
 Initializes the format-specific data structures and writes control information when beginning to save table data in the custom archive format during a pg_dump operation.

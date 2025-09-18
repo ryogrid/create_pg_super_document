@@ -1,7 +1,7 @@
 # dir_get_file_size
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 565 - 583
+[src/bin/pg_basebackup/walmethods.c:565-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L565-L583)
 
 ## Overview
 Returns the size of a file within a directory-based WAL writing method implementation.

@@ -1,7 +1,7 @@
 # ExecEvalMergeSupportFunc
 
 ## Location
-src/backend/executor/execExprInterp.c: 4716 - 4752
+[src/backend/executor/execExprInterp.c:4716-4752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4716-L4752)
 
 ## Overview
 ExecEvalMergeSupportFunc provides runtime information about the current MERGE action being executed, returning the action type as a text value for use in RETURNING clauses.

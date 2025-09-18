@@ -1,7 +1,7 @@
 # ObjectIdGetDatum
 
 ## Location
-src/include/postgres.h: 252 - 261
+[src/include/postgres.h:252-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L252-L261)
 
 ## Overview
 ObjectIdGetDatum is a static inline function that converts an object identifier (Oid) value to its Datum representation, serving as a type conversion utility in PostgreSQL's internal data representation system.

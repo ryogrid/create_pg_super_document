@@ -1,7 +1,7 @@
 # fix_append_rel_relids
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 4037 - 4080
+[src/backend/optimizer/prep/prepjointree.c:4037-4080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L4037-L4080)
 
 ## Overview
 Updates RT-index fields in AppendRelInfo nodes and their translated variables when a subquery is pulled up and relation IDs need to be remapped.

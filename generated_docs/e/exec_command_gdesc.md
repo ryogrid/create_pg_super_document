@@ -1,7 +1,7 @@
 # exec_command_gdesc
 
 ## Location
-src/bin/psql/command.c: 1563 - 1579
+[src/bin/psql/command.c:1563-1579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1563-L1579)
 
 ## Overview
 Implements the \gdesc command in psql, which enables describe mode to show column information for the next query result instead of the actual data.

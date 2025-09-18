@@ -1,7 +1,7 @@
 # dclist_init
 
 ## Location
-src/include/lib/ilist.h: 671 - 681
+[src/include/lib/ilist.h:671-681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L671-L681)
 
 ## Overview
 Initializes a doubly-linked count list (dclist) by setting up the underlying doubly-linked list and resetting the element count to zero.

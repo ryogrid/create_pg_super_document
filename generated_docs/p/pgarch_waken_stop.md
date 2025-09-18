@@ -1,7 +1,7 @@
 # pgarch_waken_stop
 
 ## Location
-src/backend/postmaster/pgarch.c: 297 - 309
+[src/backend/postmaster/pgarch.c:297-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L297-L309)
 
 ## Overview
 A SIGUSR2 signal handler for the PostgreSQL archiver process that initiates graceful shutdown by setting a termination flag and waking the main loop.

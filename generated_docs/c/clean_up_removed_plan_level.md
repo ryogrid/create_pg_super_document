@@ -1,7 +1,7 @@
 # clean_up_removed_plan_level
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1534 - 1577
+[src/backend/optimizer/plan/setrefs.c:1534-1577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1534-L1577)
 
 ## Overview
 Utility function that performs necessary cleanup operations when eliminating a parent plan node and promoting its child plan node to take its place in the plan tree.

@@ -1,7 +1,7 @@
 # StandbyLockTimeoutHandler
 
 ## Location
-src/backend/storage/ipc/standby.c: 953 - 984
+[src/backend/storage/ipc/standby.c:953-984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L953-L984)
 
 ## Overview
 StandbyLockTimeoutHandler is a signal handler function that sets a flag when the standby lock timeout period is exceeded during hot standby lock conflict resolution.

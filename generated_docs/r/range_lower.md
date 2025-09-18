@@ -1,7 +1,7 @@
 # range_lower
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 446 - 466
+[src/backend/utils/adt/rangetypes.c:446-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L446-L466)
 
 ## Overview
 Extracts the lower bound value from a range type, returning NULL if the range is empty or has an infinite lower bound.

@@ -1,7 +1,7 @@
 # sort_policies_by_name
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 665 - 673
+[src/backend/rewrite/rowsecurity.c:665-673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L665-L673)
 
 ## Overview
 This static utility function sorts a list of row-level security policies by their names to ensure deterministic ordering of restrictive policy evaluation.

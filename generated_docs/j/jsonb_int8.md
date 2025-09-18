@@ -1,7 +1,7 @@
 # jsonb_int8
 
 ## Location
-src/backend/utils/adt/jsonb.c: 2109 - 2126
+[src/backend/utils/adt/jsonb.c:2109-2126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L2109-L2126)
 
 ## Overview
 Converts a JSONB numeric value to a PostgreSQL bigint (int8) type, using numeric-to-bigint conversion with range checking.

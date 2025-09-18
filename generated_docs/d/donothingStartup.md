@@ -1,7 +1,7 @@
 # donothingStartup
 
 ## Location
-src/backend/tcop/dest.c: 56 - 60
+[src/backend/tcop/dest.c:56-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L56-L60)
 
 ## Overview
 donothingStartup is a dummy DestReceiver startup function that performs no initialization operations, serving as a no-operation placeholder for destination receiver startup.

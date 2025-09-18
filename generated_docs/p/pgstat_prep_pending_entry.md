@@ -1,7 +1,7 @@
 # pgstat_prep_pending_entry
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1107 - 1144
+[src/backend/utils/activity/pgstat.c:1107-1144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1107-L1144)
 
 ## Overview
 Prepares and returns a statistics entry reference for accumulating pending statistics data, creating the necessary infrastructure and memory allocations if not already present.

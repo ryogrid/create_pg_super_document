@@ -1,7 +1,7 @@
 # hashbulkdelete
 
 ## Location
-src/backend/access/hash/hash.c: 462 - 647
+[src/backend/access/hash/hash.c:462-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L462-L647)
 
 ## Overview
 Performs bulk deletion of all index entries pointing to a set of heap tuples in a hash index, specified via a callback routine that determines which heap tuples are being deleted.

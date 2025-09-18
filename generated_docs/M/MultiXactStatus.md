@@ -1,7 +1,7 @@
 # MultiXactStatus
 
 ## Location
-src/include/access/multixact.h: 47 - 48
+[src/include/access/multixact.h:47-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/multixact.h#L47-L48)
 
 ## Overview
 MultiXactStatus is an enum that defines the possible lock modes for multi-transaction operations in PostgreSQL, representing different types of tuple locks and update operations.

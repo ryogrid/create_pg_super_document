@@ -1,7 +1,7 @@
 # pgstat_io_reset_all_cb
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 255 - 276
+[src/backend/utils/activity/pgstat_io.c:255-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L255-L276)
 
 ## Overview
 Resets all I/O statistics across all backend types and updates the reset timestamp.

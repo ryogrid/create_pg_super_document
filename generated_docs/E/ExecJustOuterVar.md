@@ -1,7 +1,7 @@
 # ExecJustOuterVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 2174 - 2180
+[src/backend/executor/execExprInterp.c:2174-2180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2174-L2180)
 
 ## Overview
 ExecJustOuterVar is a fast-path function for evaluating simple expressions that reference a variable from the outer tuple in join operations.

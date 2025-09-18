@@ -1,7 +1,7 @@
 # numeric_sign
 
 ## Location
-src/backend/utils/adt/numeric.c: 1508 - 1540
+[src/backend/utils/adt/numeric.c:1508-1540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1508-L1540)
 
 ## Overview
 The numeric_sign function implements PostgreSQL's SIGN() SQL function for NUMERIC data types, returning -1, 0, or 1 based on whether the input is negative, zero, or positive respectively.

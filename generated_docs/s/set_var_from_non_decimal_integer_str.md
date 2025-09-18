@@ -1,7 +1,7 @@
 # set_var_from_non_decimal_integer_str
 
 ## Location
-src/backend/utils/adt/numeric.c: 7258 - 7435
+[src/backend/utils/adt/numeric.c:7258-7435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7258-L7435)
 
 ## Overview
 A static function that parses non-decimal integer strings (binary, octal, or hexadecimal) and converts them into a NumericVar structure.

@@ -1,7 +1,7 @@
 # pg_ls_dir
 
 ## Location
-src/backend/utils/adt/genfile.c: 498 - 557
+[src/backend/utils/adt/genfile.c:498-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L498-L557)
 
 ## Overview
 Lists the contents of a directory and returns only the filenames as a set-returning function, with optional parameters to handle missing directories and include dot directories.

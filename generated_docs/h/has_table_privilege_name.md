@@ -1,7 +1,7 @@
 # has_table_privilege_name
 
 ## Location
-src/backend/utils/adt/acl.c: 1921 - 1944
+[src/backend/utils/adt/acl.c:1921-1944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1921-L1944)
 
 ## Overview
 Checks whether the current user has a given privilege on a table, taking only the table name and privilege type as parameters.

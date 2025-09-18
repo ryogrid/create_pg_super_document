@@ -1,7 +1,7 @@
 # plperl_event_trigger_handler
 
 ## Location
-src/pl/plperl/plperl.c: 2634 - 2670
+[src/pl/plperl/plperl.c:2634-2670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2634-L2670)
 
 ## Overview
 Handles execution of PL/Perl event trigger functions by setting up the execution environment, compiling the function if needed, and managing the call to the Perl interpreter.

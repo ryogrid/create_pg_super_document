@@ -1,7 +1,7 @@
 # pg_stat_get_archiver
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1830 - 1895
+[src/backend/utils/adt/pgstatfuncs.c:1830-1895](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1830-L1895)
 
 ## Overview
 This function retrieves comprehensive statistical information about PostgreSQL's WAL archiver process, returning data as a structured tuple with details about archiving activity and failures.

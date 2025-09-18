@@ -1,7 +1,7 @@
 # SpecialVerVersion
 
 ## Location
-src/backend/tsearch/wparser_def.c: 603 - 611
+[src/backend/tsearch/wparser_def.c:603-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L603-L611)
 
 ## Overview
 A static helper function in PostgreSQL's text search parser that handles version number tokens by resetting the parser state to effectively "ignore" the token.

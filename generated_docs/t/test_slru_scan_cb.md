@@ -1,7 +1,7 @@
 # test_slru_scan_cb
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 50 - 56
+[src/test/modules/test_slru/test_slru.c:50-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L50-L56)
 
 ## Overview
 A callback function used by the SLRU test module to scan and delete all files in an SLRU directory during testing operations.

@@ -1,7 +1,7 @@
 # heap_insert
 
 ## Location
-src/backend/access/heap/heapam.c: 2038 - 2228
+[src/backend/access/heap/heapam.c:2038-2228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2038-L2228)
 
 ## Overview
 heap_insert inserts a tuple into a heap relation with full transactional support, WAL logging, and proper buffer management.

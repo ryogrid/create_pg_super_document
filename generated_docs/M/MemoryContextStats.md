@@ -1,7 +1,7 @@
 # MemoryContextStats
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 814 - 828
+[src/backend/utils/mmgr/mcxt.c:814-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L814-L828)
 
 ## Overview
 MemoryContextStats is a debugging utility function that prints comprehensive statistics about a specified memory context and all its descendant contexts to stderr.

@@ -1,7 +1,7 @@
 # removecaptures
 
 ## Location
-src/backend/regex/regcomp.c: 2218 - 2263
+[src/backend/regex/regcomp.c:2218-2263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2218-L2263)
 
 ## Overview
 A recursive optimization function that removes unnecessary capture groups from compiled regular expressions when submatch data is not needed, simplifying the regex structure for better performance.

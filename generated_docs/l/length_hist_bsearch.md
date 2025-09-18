@@ -1,7 +1,7 @@
 # length_hist_bsearch
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 768 - 793
+[src/backend/utils/adt/multirangetypes_selfuncs.c:768-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L768-L793)
 
 ## Overview
 Binary search function that finds the greatest index in a length histogram array where the stored length is less than (or less than or equal to) a given target length value, used for range length selectivity estimation.

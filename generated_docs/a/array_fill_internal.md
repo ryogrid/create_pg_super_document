@@ -1,7 +1,7 @@
 # array_fill_internal
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6073 - 6241
+[src/backend/utils/adt/arrayfuncs.c:6073-6241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6073-L6241)
 
 ## Overview
 The core implementation function for creating filled PostgreSQL arrays, handling all the complex memory allocation, type management, and data population logic for both null and non-null filled arrays.

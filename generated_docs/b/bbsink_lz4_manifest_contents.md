@@ -1,7 +1,7 @@
 # bbsink_lz4_manifest_contents
 
 ## Location
-src/backend/backup/basebackup_lz4.c: 274 - 284
+[src/backend/backup/basebackup_lz4.c:274-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_lz4.c#L274-L284)
 
 ## Overview
 A callback function for the LZ4 basebackup sink that handles manifest contents by copying them to the next sink in the chain without compression.

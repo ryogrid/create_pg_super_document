@@ -1,7 +1,7 @@
 # partition_range_datum_bsearch
 
 ## Location
-src/backend/partitioning/partbounds.c: 3695 - 3737
+[src/backend/partitioning/partbounds.c:3695-3737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3695-L3737)
 
 ## Overview
 Performs binary search on range partition bounds to find the greatest range bound that is less than or equal to a given tuple of values.

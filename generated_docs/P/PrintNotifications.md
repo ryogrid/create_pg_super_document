@@ -1,7 +1,7 @@
 # PrintNotifications
 
 ## Location
-src/bin/psql/common.c: 705 - 737
+[src/bin/psql/common.c:705-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L705-L737)
 
 ## Overview
 PrintNotifications is a static helper function that checks for and displays any pending asynchronous notifications from the PostgreSQL server in a formatted, user-friendly manner.

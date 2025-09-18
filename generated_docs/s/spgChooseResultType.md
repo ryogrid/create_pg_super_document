@@ -1,7 +1,7 @@
 # spgChooseResultType
 
 ## Location
-src/include/access/spgist.h: 72 - 73
+[src/include/access/spgist.h:72-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L72-L73)
 
 ## Overview
 An enumeration that defines the possible result types returned by the SP-GiST "choose" support function, indicating the action to be taken when inserting a new tuple into the index.

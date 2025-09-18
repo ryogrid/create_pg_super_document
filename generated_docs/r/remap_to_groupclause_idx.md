@@ -1,7 +1,7 @@
 # remap_to_groupclause_idx
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2258 - 2294
+[src/backend/optimizer/plan/planner.c:2258-2294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2258-L2294)
 
 ## Overview
 Converts grouping sets from sort group reference identifiers to zero-based column indices within a specific groupClause ordering.

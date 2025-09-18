@@ -1,7 +1,7 @@
 # ExecGrant_Language_check
 
 ## Location
-src/backend/catalog/aclchk.c: 2292 - 2307
+[src/backend/catalog/aclchk.c:2292-2307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2292-L2307)
 
 ## Overview
 ExecGrant_Language_check is a validation function that ensures GRANT and REVOKE operations are only performed on trusted procedural languages.

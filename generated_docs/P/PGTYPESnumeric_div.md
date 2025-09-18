@@ -1,7 +1,7 @@
 # PGTYPESnumeric_div
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 1053 - 1280
+[src/interfaces/ecpg/pgtypeslib/numeric.c:1053-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L1053-L1280)
 
 ## Overview
 Performs division of two numeric values in PostgreSQL's ECPG pgtypes library using long division algorithm with variable precision.

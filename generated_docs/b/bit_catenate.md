@@ -1,7 +1,7 @@
 # bit_catenate
 
 ## Location
-src/backend/utils/adt/varbit.c: 977 - 1037
+[src/backend/utils/adt/varbit.c:977-1037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L977-L1037)
 
 ## Overview
 The bit_catenate function performs the actual concatenation of two bit strings (VarBit types) in PostgreSQL, handling memory allocation, bit alignment, and padding.

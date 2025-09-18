@@ -1,7 +1,7 @@
 # set_stack_value
 
 ## Location
-src/backend/utils/misc/guc.c: 814 - 847
+[src/backend/utils/misc/guc.c:814-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L814-L847)
 
 ## Overview
 A static utility function in PostgreSQL's GUC system that copies a GUC variable's current active value into a stack entry, supporting all GUC variable types and handling associated extra data.

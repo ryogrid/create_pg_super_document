@@ -1,7 +1,7 @@
 # heapam_scan_analyze_next_block
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 1006 - 1029
+[src/backend/access/heap/heapam_handler.c:1006-1029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L1006-L1029)
 
 ## Overview
 This function advances to the next block in a heap relation during ANALYZE operations, managing buffer pins and locks for statistical sampling.

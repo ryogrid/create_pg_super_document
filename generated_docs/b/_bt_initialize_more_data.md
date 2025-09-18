@@ -1,7 +1,7 @@
 # _bt_initialize_more_data
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2663 - 2685
+[src/backend/access/nbtree/nbtsearch.c:2663-2685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2663-L2685)
 
 ## Overview
 Initializes the moreLeft, moreRight directional flags and resets scan state counters based on the current scan direction and primary scan requirements.

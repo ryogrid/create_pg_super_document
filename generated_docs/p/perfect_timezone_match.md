@@ -1,7 +1,7 @@
 # perfect_timezone_match
 
 ## Location
-src/bin/initdb/findtimezone.c: 320 - 330
+[src/bin/initdb/findtimezone.c:320-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L320-L330)
 
 ## Overview
 Determines whether a given timezone name provides a perfect match to the system's localtime() behavior across all test time points.

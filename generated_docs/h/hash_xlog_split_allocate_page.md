@@ -1,7 +1,7 @@
 # hash_xlog_split_allocate_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 311 - 427
+[src/backend/access/hash/hash_xlog.c:311-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L311-L427)
 
 ## Overview
 Replays the page allocation phase of a hash index bucket split operation during WAL recovery, setting up the old and new bucket pages and updating metapage structures.

@@ -1,7 +1,7 @@
 # reduce_outer_joins_pass2
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3084 - 3357
+[src/backend/optimizer/prep/prepjointree.c:3084-3357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3084-L3357)
 
 ## Overview
 Phase 2 processing function that examines qual clauses and performs actual outer join reductions based on strictness analysis and nullability constraints collected in pass 1.

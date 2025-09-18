@@ -1,7 +1,7 @@
 # fetch_statentries_for_relation
 
 ## Location
-src/backend/statistics/extended_stats.c: 422 - 527
+[src/backend/statistics/extended_stats.c:422-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L422-L527)
 
 ## Overview
 fetch_statentries_for_relation retrieves and parses all extended statistics object definitions from the pg_statistic_ext system catalog for a given relation, returning them as a list of StatExtEntry structures.

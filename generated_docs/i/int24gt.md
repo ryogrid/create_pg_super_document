@@ -1,7 +1,7 @@
 # int24gt
 
 ## Location
-src/backend/utils/adt/int.c: 540 - 548
+[src/backend/utils/adt/int.c:540-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L540-L548)
 
 ## Overview
 Compares a 16-bit signed integer (int2) with a 32-bit signed integer (int4) for greater-than relationship, returning true if the first value is greater than the second.

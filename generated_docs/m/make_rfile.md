@@ -1,7 +1,7 @@
 # make_rfile
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 510 - 532
+[src/bin/pg_combinebackup/reconstruct.c:510-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L510-L532)
 
 ## Overview
 Allocates and performs basic initialization of an rfile structure for reading backup files, with optional handling for missing files.

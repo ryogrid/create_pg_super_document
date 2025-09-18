@@ -1,7 +1,7 @@
 # pqTraceOutputNoTypeByteMessage
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 696 - 731
+[src/interfaces/libpq/fe-trace.c:696-731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L696-L731)
 
 ## Overview
 Outputs special PostgreSQL protocol messages that contain no type byte to the trace output stream for debugging purposes.

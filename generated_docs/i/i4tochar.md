@@ -1,7 +1,7 @@
 # i4tochar
 
 ## Location
-src/backend/utils/adt/char.c: 190 - 203
+[src/backend/utils/adt/char.c:190-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L190-L203)
 
 ## Overview
 Converts a 32-bit signed integer to PostgreSQL's "char" (single byte character) data type with range validation.

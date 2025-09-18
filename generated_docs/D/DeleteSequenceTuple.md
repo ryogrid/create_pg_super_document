@@ -1,7 +1,7 @@
 # DeleteSequenceTuple
 
 ## Location
-src/backend/commands/sequence.c: 570 - 592
+[src/backend/commands/sequence.c:570-592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L570-L592)
 
 ## Overview
 Removes a sequence's catalog entry from the pg_sequence system catalog when a sequence is being dropped.

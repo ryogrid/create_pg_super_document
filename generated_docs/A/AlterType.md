@@ -1,7 +1,7 @@
 # AlterType
 
 ## Location
-src/backend/commands/typecmds.c: 4312 - 4562
+[src/backend/commands/typecmds.c:4312-4562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L4312-L4562)
 
 ## Overview
 The main entry point for executing ALTER TYPE SET commands that modify various properties of PostgreSQL base types, with strict validation and security controls.

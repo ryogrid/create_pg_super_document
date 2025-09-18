@@ -1,7 +1,7 @@
 # pgstat_get_slru_name
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 118 - 131
+[src/backend/utils/activity/pgstat_slru.c:118-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L118-L131)
 
 ## Overview
 Returns the human-readable name of an SLRU (Simple LRU) buffer cache based on its index, with bounds checking.

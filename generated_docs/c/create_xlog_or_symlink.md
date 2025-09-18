@@ -1,7 +1,7 @@
 # create_xlog_or_symlink
 
 ## Location
-src/bin/initdb/initdb.c: 2933 - 3015
+[src/bin/initdb/initdb.c:2933-3015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2933-L3015)
 
 ## Overview
 Creates the PostgreSQL Write-Ahead Log (WAL) directory, either as a regular subdirectory or as a symbolic link to an external location specified by the -X option during initdb.

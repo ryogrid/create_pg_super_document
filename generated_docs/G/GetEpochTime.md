@@ -1,7 +1,7 @@
 # GetEpochTime
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2168 - 2189
+[src/backend/utils/adt/timestamp.c:2168-2189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2168-L2189)
 
 ## Overview
 A utility function that populates a pg_tm structure with the components of the Unix epoch time (January 1, 1970, 00:00:00 UTC).

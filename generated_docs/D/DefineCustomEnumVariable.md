@@ -1,7 +1,7 @@
 # DefineCustomEnumVariable
 
 ## Location
-src/backend/utils/misc/guc.c: 5251 - 5286
+[src/backend/utils/misc/guc.c:5251-5286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5251-L5286)
 
 ## Overview
 Registers a custom enumeration configuration variable in PostgreSQL's Grand Unified Configuration (GUC) system, allowing extensions to define their own enum-valued parameters with predefined options that can be set and managed like built-in configuration options.

@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_pg_authid_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 175 - 184
+[src/backend/utils/adt/pg_upgrade_support.c:175-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L175-L184)
 
 ## Overview
 Sets the next OID to be assigned to a role or user in pg_authid during a binary upgrade process.

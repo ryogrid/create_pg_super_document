@@ -1,7 +1,7 @@
 # has_function_privilege_id
 
 ## Location
-src/backend/utils/adt/acl.c: 3476 - 3503
+[src/backend/utils/adt/acl.c:3476-3503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3476-L3503)
 
 ## Overview
 Checks whether the current user has specific privileges on a function identified by its OID.

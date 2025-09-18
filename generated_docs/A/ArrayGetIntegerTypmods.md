@@ -1,7 +1,7 @@
 # ArrayGetIntegerTypmods
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 233 - 264
+[src/backend/utils/adt/arrayutils.c:233-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L233-L264)
 
 ## Overview
 Validates and converts a 1-D cstring array into an array of integer type modifiers, commonly used for processing SQL type constraints.

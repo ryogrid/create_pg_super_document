@@ -1,7 +1,7 @@
 # network_host
 
 ## Location
-src/backend/utils/adt/network.c: 1173 - 1198
+[src/backend/utils/adt/network.c:1173-1198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1173-L1198)
 
 ## Overview
 Extracts the host portion from a network datatype (inet/cidr), returning it as a text representation without the netmask component.

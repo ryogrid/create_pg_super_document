@@ -1,7 +1,7 @@
 # cnt_length
 
 ## Location
-src/backend/utils/adt/tsrank.c: 53 - 74
+[src/backend/utils/adt/tsrank.c:53-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L53-L74)
 
 ## Overview
 Calculates the total length (number of positions) of all lexemes in a TSVector, used for text search ranking normalization.

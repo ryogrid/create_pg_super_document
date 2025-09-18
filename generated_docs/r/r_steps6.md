@@ -1,7 +1,7 @@
 # r_steps6
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2676 - 2768
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2676-2768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2676-L2768)
 
 ## Overview
 The r_steps6 function is part of the Greek stemming algorithm in PostgreSQL's snowball stemmer library, implementing step 6 of the stemming process with complex multi-branch pattern matching and conditional suffix transformations.

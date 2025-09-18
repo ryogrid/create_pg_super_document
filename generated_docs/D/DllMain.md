@@ -1,7 +1,7 @@
 # DllMain
 
 ## Location
-src/bin/pgevent/pgevent.c: 152 - 160
+[src/bin/pgevent/pgevent.c:152-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgevent/pgevent.c#L152-L160)
 
 ## Overview
 DllMain is the optional entry point function for Windows DLLs that handles DLL lifecycle events and initializes the global module handle for the PostgreSQL event logging DLL.

@@ -1,7 +1,7 @@
 # _bt_check_third_page
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 5083 - 5140
+[src/backend/access/nbtree/nbtutils.c:5083-5140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L5083-L5140)
 
 ## Overview
 Validates that a new index tuple can fit on a B-tree page by enforcing the constraint that any single item must not exceed 1/3 of the available page space.

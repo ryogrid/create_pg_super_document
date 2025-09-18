@@ -1,7 +1,7 @@
 # r_plur_owner
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c: 768 - 797
+[src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c:768-797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_hungarian.c#L768-L797)
 
 ## Overview
 The r_plur_owner function handles plural possessor suffix removal for the Hungarian stemming algorithm in the Snowball stemming library.

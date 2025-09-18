@@ -1,7 +1,7 @@
 # gistxlogPage
 
 ## Location
-src/include/access/gist_private.h: 184 - 188
+[src/include/access/gist_private.h:184-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L184-L188)
 
 ## Overview
 gistxlogPage is a simple header structure that describes a page and the number of index tuples that follow it, used internally within the GiST split operation infrastructure.

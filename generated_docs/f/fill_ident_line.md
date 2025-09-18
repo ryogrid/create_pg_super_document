@@ -1,7 +1,7 @@
 # fill_ident_line
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 468 - 520
+[src/backend/utils/adt/hbafuncs.c:468-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L468-L520)
 
 ## Overview
 Builds one row of the pg_ident_file_mappings system view and adds it to a tuplestore, representing a single identity mapping rule from the pg_ident.conf file.

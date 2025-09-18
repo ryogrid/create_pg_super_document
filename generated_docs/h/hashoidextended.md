@@ -1,7 +1,7 @@
 # hashoidextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 122 - 127
+[src/backend/access/hash/hashfunc.c:122-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L122-L127)
 
 ## Overview
 The hashoidextended function computes an extended hash value for PostgreSQL's OID (Object Identifier) data type using an additional 64-bit seed value for enhanced hash distribution.

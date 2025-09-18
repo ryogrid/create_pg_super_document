@@ -1,7 +1,7 @@
 # ExecEndGather
 
 ## Location
-src/backend/executor/nodeGather.c: 244 - 255
+[src/backend/executor/nodeGather.c:244-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L244-L255)
 
 ## Overview
 Cleans up and frees all resources allocated by a Gather plan node, including shutting down parallel workers and releasing the parallel execution context.

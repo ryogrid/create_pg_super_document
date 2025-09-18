@@ -1,7 +1,7 @@
 # datan
 
 ## Location
-src/backend/utils/adt/float.c: 1810 - 1835
+[src/backend/utils/adt/float.c:1810-1835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1810-L1835)
 
 ## Overview
 The datan function computes the inverse tangent (arctangent) of a floating-point argument and returns the result in radians.

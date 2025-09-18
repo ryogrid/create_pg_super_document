@@ -1,7 +1,7 @@
 # standard_ExecutorStart
 
 ## Location
-src/backend/executor/execMain.c: 140 - 298
+[src/backend/executor/execMain.c:140-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L140-L298)
 
 ## Overview
 standard_ExecutorStart is the default implementation that performs the actual executor initialization work, including creating the execution state, setting up parameters, and initializing the plan state tree.

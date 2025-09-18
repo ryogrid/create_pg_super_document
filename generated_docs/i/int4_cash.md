@@ -1,7 +1,7 @@
 # int4_cash
 
 ## Location
-src/backend/utils/adt/cash.c: 1136 - 1165
+[src/backend/utils/adt/cash.c:1136-1165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L1136-L1165)
 
 ## Overview
 Converts a PostgreSQL int4 (32-bit integer) data type to a cash (money) data type, scaling the value according to locale-specific decimal precision.

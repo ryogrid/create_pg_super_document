@@ -1,7 +1,7 @@
 # tsquery_phrase_distance
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 114 - 149
+[src/backend/utils/adt/tsquery_op.c:114-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L114-L149)
 
 ## Overview
 Implements the phrase search operation between two TSQuery objects with a specified distance constraint, creating a new TSQuery that matches documents where terms appear within the given proximity.

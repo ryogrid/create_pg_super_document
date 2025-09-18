@@ -1,7 +1,7 @@
 # update_attstats
 
 ## Location
-src/backend/commands/analyze.c: 1609 - 1751
+[src/backend/commands/analyze.c:1609-1751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L1609-L1751)
 
 ## Overview
 Updates attribute statistics in the pg_statistic catalog table by inserting new or replacing existing statistical data computed during table analysis.

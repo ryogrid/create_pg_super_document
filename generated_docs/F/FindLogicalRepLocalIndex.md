@@ -1,7 +1,7 @@
 # FindLogicalRepLocalIndex
 
 ## Location
-src/backend/replication/logical/relation.c: 868 - 908
+[src/backend/replication/logical/relation.c:868-908](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L868-L908)
 
 ## Overview
 Determines the appropriate index OID to use for logical replication on the subscriber side, considering replica identity settings and available indexes.

@@ -1,7 +1,7 @@
 # addItemPointersToLeafTuple
 
 ## Location
-src/backend/access/gin/gininsert.c: 46 - 125
+[src/backend/access/gin/gininsert.c:46-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L46-L125)
 
 ## Overview
 Adds an array of item pointers to a GIN index tuple's posting list, or creates a posting tree if the tuple would become too large.

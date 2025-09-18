@@ -1,7 +1,7 @@
 # datum_to_json
 
 ## Location
-src/backend/utils/adt/json.c: 754 - 769
+[src/backend/utils/adt/json.c:754-769](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L754-L769)
 
 ## Overview
 The datum_to_json function converts a PostgreSQL Datum value to JSON text format, serving as the core conversion engine for JSON output operations.

@@ -1,7 +1,7 @@
 # contain_mutable_functions
 
 ## Location
-src/backend/optimizer/util/clauses.c: 370 - 375
+[src/backend/optimizer/util/clauses.c:370-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L370-L375)
 
 ## Overview
 Recursively searches for mutable functions within a clause, returning true if any mutable function or operator implemented by a mutable function is found.

@@ -1,7 +1,7 @@
 # get_join_index_paths
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 600 - 677
+[src/backend/optimizer/path/indxpath.c:600-677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L600-L677)
 
 ## Overview
 Generates index paths using clauses from specified outer relations by collecting applicable join clauses, restriction clauses, and delegating to get_index_paths for actual path creation.

@@ -1,7 +1,7 @@
 # pg_atomic_fetch_or_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 218 - 228
+[src/include/port/atomics/generic.h:218-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L218-L228)
 
 ## Overview
 Provides an atomic fetch-and-bitwise-OR operation for 32-bit unsigned integers using GCC's legacy sync builtin functions, returning the original value before the operation.

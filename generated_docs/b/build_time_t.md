@@ -1,7 +1,7 @@
 # build_time_t
 
 ## Location
-src/bin/initdb/findtimezone.c: 190 - 206
+[src/bin/initdb/findtimezone.c:190-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L190-L206)
 
 ## Overview
 Converts a calendar date (year, month, day) into a time_t value representing seconds since the Unix epoch, providing a convenient interface for date-to-timestamp conversion.

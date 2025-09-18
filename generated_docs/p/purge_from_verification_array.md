@@ -1,7 +1,7 @@
 # purge_from_verification_array
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 157 - 169
+[src/test/modules/test_tidstore/test_tidstore.c:157-169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L157-L169)
 
 ## Overview
 A static utility function that removes all ItemPointers belonging to a specific block number from the verification array used in tidstore testing.

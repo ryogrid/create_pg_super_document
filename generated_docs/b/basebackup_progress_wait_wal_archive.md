@@ -1,7 +1,7 @@
 # basebackup_progress_wait_wal_archive
 
 ## Location
-src/backend/backup/basebackup_progress.c: 206 - 228
+[src/backend/backup/basebackup_progress.c:206-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_progress.c#L206-L228)
 
 ## Overview
 Updates the progress tracking to indicate that the backup process is waiting for WAL archiving to complete at the end of a base backup operation.

@@ -1,7 +1,7 @@
 # reset_tsvector_parser
 
 ## Location
-src/backend/utils/adt/tsvector_parser.c: 81 - 89
+[src/backend/utils/adt/tsvector_parser.c:81-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_parser.c#L81-L89)
 
 ## Overview
 Reinitializes an existing parser state to parse a new input string while preserving the original configuration and error reporting context.

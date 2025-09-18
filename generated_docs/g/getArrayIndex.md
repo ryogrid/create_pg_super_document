@@ -1,7 +1,7 @@
 # getArrayIndex
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3459 - 3493
+[src/backend/utils/adt/jsonpath_exec.c:3459-3493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3459-L3493)
 
 ## Overview
 Executes array subscript expression and converts the resulting numeric item to an integer type with truncation for JSON array indexing operations.

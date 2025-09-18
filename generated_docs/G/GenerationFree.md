@@ -1,7 +1,7 @@
 # GenerationFree
 
 ## Location
-src/backend/utils/mmgr/generation.c: 689 - 799
+[src/backend/utils/mmgr/generation.c:689-799](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L689-L799)
 
 ## Overview
 GenerationFree is the primary function for deallocating memory chunks in the Generation memory allocator, handling chunk deallocation and block management with intelligent block retention strategies.

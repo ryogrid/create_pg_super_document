@@ -1,7 +1,7 @@
 # getsave
 
 ## Location
-src/timezone/zic.c: 1443 - 1470
+[src/timezone/zic.c:1443-1470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1443-L1470)
 
 ## Overview
 Parses timezone save time values with optional daylight saving time indicators, extracting both the time offset and DST status from formatted strings.

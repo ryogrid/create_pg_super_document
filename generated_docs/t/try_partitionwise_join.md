@@ -1,7 +1,7 @@
 # try_partitionwise_join
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1479 - 1693
+[src/backend/optimizer/path/joinrels.c:1479-1693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1479-L1693)
 
 ## Overview
 Attempts to perform partitionwise join optimization by breaking down a join between two partitioned relations into joins between matching partitions.

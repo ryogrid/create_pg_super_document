@@ -1,7 +1,7 @@
 # dumparcs
 
 ## Location
-src/backend/regex/regc_nfa.c: 3721 - 3752
+[src/backend/regex/regc_nfa.c:3721-3752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3721-L3752)
 
 ## Overview
 A debugging function that outputs all outgoing arcs from a given NFA state in human-readable format, organizing them for clear display.

@@ -1,7 +1,7 @@
 # hash_xlog_split_cleanup
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 939 - 963
+[src/backend/access/hash/hash_xlog.c:939-963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L939-L963)
 
 ## Overview
 This function replays the split cleanup flag operation for a primary bucket page during PostgreSQL hash index WAL recovery, clearing the flag that indicates a bucket requires split cleanup.

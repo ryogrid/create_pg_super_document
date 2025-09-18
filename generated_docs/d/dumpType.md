@@ -1,7 +1,7 @@
 # dumpType
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10920 - 10950
+[src/bin/pg_dump/pg_dump.c:10920-10950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10920-L10950)
 
 ## Overview
 Routes user-defined data types to their appropriate specialized dump functions based on the PostgreSQL type system classification.

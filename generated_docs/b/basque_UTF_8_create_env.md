@@ -1,7 +1,7 @@
 # basque_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_basque.c: 1181 - 1182
+[src/backend/snowball/libstemmer/stem_UTF_8_basque.c:1181-1182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_basque.c#L1181-L1182)
 
 ## Overview
 A factory function that creates and initializes a new Snowball environment specifically configured for Basque UTF-8 stemming operations.

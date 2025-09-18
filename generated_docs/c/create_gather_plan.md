@@ -1,7 +1,7 @@
 # create_gather_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1920 - 1957
+[src/backend/optimizer/plan/createplan.c:1920-1957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1920-L1957)
 
 ## Overview
 Creates a Gather plan node that coordinates parallel execution by collecting results from multiple worker processes.

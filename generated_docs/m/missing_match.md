@@ -1,7 +1,7 @@
 # missing_match
 
 ## Location
-src/backend/access/common/heaptuple.c: 108 - 121
+[src/backend/access/common/heaptuple.c:108-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L108-L121)
 
 ## Overview
 The `missing_match` function is a comparison function used by the missing attribute cache hash table to determine key equality during hash table operations in PostgreSQL heap tuple processing.

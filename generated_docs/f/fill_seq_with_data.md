@@ -1,7 +1,7 @@
 # fill_seq_with_data
 
 ## Location
-src/backend/commands/sequence.c: 338 - 358
+[src/backend/commands/sequence.c:338-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L338-L358)
 
 ## Overview
 fill_seq_with_data initializes a sequence relation with specified tuple data, handling both regular and unlogged sequences by writing to appropriate storage forks.

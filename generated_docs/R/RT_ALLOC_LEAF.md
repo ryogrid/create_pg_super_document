@@ -1,7 +1,7 @@
 # RT_ALLOC_LEAF
 
 ## Location
-src/include/lib/radixtree.h: 897 - 919
+[src/include/lib/radixtree.h:897-919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L897-L919)
 
 ## Overview
 RT_ALLOC_LEAF is a macro that resolves to a function name for allocating new leaf nodes in PostgreSQL's generic radix tree implementation.

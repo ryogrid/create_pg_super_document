@@ -1,7 +1,7 @@
 # lower
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 49 - 79
+[src/backend/utils/adt/oracle_compat.c:49-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L49-L79)
 
 ## Overview
 The  function converts all letters in a text string to lowercase, providing case conversion functionality as part of PostgreSQL's Oracle compatibility string functions.

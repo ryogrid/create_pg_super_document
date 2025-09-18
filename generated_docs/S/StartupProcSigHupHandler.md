@@ -1,7 +1,7 @@
 # StartupProcSigHupHandler
 
 ## Location
-src/backend/postmaster/startup.c: 101 - 108
+[src/backend/postmaster/startup.c:101-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L101-L108)
 
 ## Overview
 A SIGHUP signal handler that triggers configuration file reloading by setting a flag and waking up the recovery process at the next convenient time.

@@ -1,7 +1,7 @@
 # ReorderBufferSerializeReserve
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3650 - 3666
+[src/backend/replication/logical/reorderbuffer.c:3650-3666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3650-L3666)
 
 ## Overview
 Ensures that the reorder buffer's I/O output buffer has adequate space allocated for disk serialization operations by resizing the buffer as needed.

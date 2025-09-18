@@ -1,7 +1,7 @@
 # auth_failed
 
 ## Location
-src/backend/libpq/auth.c: 254 - 351
+[src/backend/libpq/auth.c:254-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L254-L351)
 
 ## Overview
 Handles authentication failure by sending an appropriate error message to the client and terminating the connection, providing different error messages based on the authentication method while balancing security concerns with user experience.

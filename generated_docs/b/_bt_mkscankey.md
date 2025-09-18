@@ -1,7 +1,7 @@
 # _bt_mkscankey
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 129 - 220
+[src/backend/access/nbtree/nbtutils.c:129-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L129-L220)
 
 ## Overview
 Builds an insertion scan key that contains comparison data from an index tuple as well as comparator routines appropriate to the key datatypes, intended for use with _bt_compare() and _bt_truncate().

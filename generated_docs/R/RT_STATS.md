@@ -1,7 +1,7 @@
 # RT_STATS
 
 ## Location
-src/include/lib/radixtree.h: 2794 - 2820
+[src/include/lib/radixtree.h:2794-2820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2794-L2820)
 
 ## Overview
 RT_STATS is a macro that generates the name for a debugging function that prints detailed statistics and diagnostic information about a radix tree data structure in PostgreSQL.

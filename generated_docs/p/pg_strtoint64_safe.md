@@ -1,7 +1,7 @@
 # pg_strtoint64_safe
 
 ## Location
-src/backend/utils/adt/numutils.c: 651 - 899
+[src/backend/utils/adt/numutils.c:651-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L651-L899)
 
 ## Overview
 Converts a string representation of an integer to a signed 64-bit integer value with comprehensive error handling, supporting multiple number bases and underscore separators.

@@ -1,7 +1,7 @@
 # gistunionsubkey
 
 ## Location
-src/backend/access/gist/gistsplit.c: 80 - 112
+[src/backend/access/gist/gistsplit.c:80-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistsplit.c#L80-L112)
 
 ## Overview
 Recomputes union keys for both left and right sides of a GiST index page split, excluding tuples marked as "don't care" entries.

@@ -1,7 +1,7 @@
 # show_tablesample
 
 ## Location
-src/backend/commands/explain.c: 2879 - 2944
+[src/backend/commands/explain.c:2879-2944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2879-L2944)
 
 ## Overview
 A static function that displays TABLESAMPLE clause information in PostgreSQL's EXPLAIN output, showing the sampling method, parameters, and optional repeatable seed.

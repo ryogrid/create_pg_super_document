@@ -1,7 +1,7 @@
 # get_db_info
 
 ## Location
-src/backend/commands/dbcommands.c: 2781 - 2938
+[src/backend/commands/dbcommands.c:2781-2938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2781-L2938)
 
 ## Overview
 get_db_info is a static helper function that looks up comprehensive information about a database by name, optionally acquiring a lock on the database, and fills in requested database attributes.

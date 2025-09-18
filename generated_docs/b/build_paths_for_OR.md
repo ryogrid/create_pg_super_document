@@ -1,7 +1,7 @@
 # build_paths_for_OR
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1086 - 1179
+[src/backend/optimizer/path/indxpath.c:1086-1179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1086-L1179)
 
 ## Overview
  constructs all matching IndexPaths for a relation given restriction clauses from one arm of an OR clause, scanning all indexes to support bitmap OR trees.

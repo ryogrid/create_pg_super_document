@@ -1,7 +1,7 @@
 # restore_toc_entries_parallel
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4277 - 4394
+[src/bin/pg_dump/pg_backup_archiver.c:4277-4394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4277-L4394)
 
 ## Overview
 Main engine for the second phase of parallel restore, dispatching TOC entries to parallel worker processes/threads while respecting dependencies and restore passes.

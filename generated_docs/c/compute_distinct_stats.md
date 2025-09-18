@@ -1,7 +1,7 @@
 # compute_distinct_stats
 
 ## Location
-src/backend/commands/analyze.c: 2013 - 2031
+[src/backend/commands/analyze.c:2013-2031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/analyze.c#L2013-L2031)
 
 ## Overview
 A static function that computes column statistics for PostgreSQL's ANALYZE command when only an equality operator is available for the data type, focusing on null fraction, average width, most common values, and estimated number of distinct values.

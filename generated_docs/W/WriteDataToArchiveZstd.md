@@ -1,7 +1,7 @@
 # WriteDataToArchiveZstd
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 149 - 161
+[src/bin/pg_dump/compress_zstd.c:149-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L149-L161)
 
 ## Overview
 A function that compresses input data using ZSTD compression and writes it to the archive as part of PostgreSQL's pg_dump compression pipeline.

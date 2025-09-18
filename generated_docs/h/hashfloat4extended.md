@@ -1,7 +1,7 @@
 # hashfloat4extended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 176 - 192
+[src/backend/access/hash/hashfunc.c:176-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L176-L192)
 
 ## Overview
 An extended PostgreSQL hash function for 4-byte floating-point values that supports a seed parameter while maintaining the same special case handling and cross-type compatibility as hashfloat4.

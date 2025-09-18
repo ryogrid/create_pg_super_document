@@ -1,7 +1,7 @@
 # errdetail_execute
 
 ## Location
-src/backend/tcop/postgres.c: 2470 - 2502
+[src/backend/tcop/postgres.c:2470-2502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2470-L2502)
 
 ## Overview
 Adds an error detail line showing the original query text referenced by an EXECUTE statement when errors occur during query execution.

@@ -1,7 +1,7 @@
 # SearchSysCache4
 
 ## Location
-src/backend/utils/cache/syscache.c: 254 - 268
+[src/backend/utils/cache/syscache.c:254-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L254-L268)
 
 ## Overview
 SearchSysCache4 is a high-level interface function that searches PostgreSQL's system cache for a tuple using four key values.

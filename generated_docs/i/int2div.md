@@ -1,7 +1,7 @@
 # int2div
 
 ## Location
-src/backend/utils/adt/int.c: 949 - 987
+[src/backend/utils/adt/int.c:949-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L949-L987)
 
 ## Overview
 A PostgreSQL system function that implements division for 16-bit signed integers (int2/smallint) with comprehensive error checking for division by zero and overflow conditions.

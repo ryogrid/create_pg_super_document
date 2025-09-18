@@ -1,7 +1,7 @@
 # error_commit_ts_disabled
 
 ## Location
-src/backend/access/transam/commit_ts.c: 381 - 396
+[src/backend/access/transam/commit_ts.c:381-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L381-L396)
 
 ## Overview
 A static error reporting function that generates a standardized error message when commit timestamp functionality is accessed while disabled.

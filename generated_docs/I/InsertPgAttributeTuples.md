@@ -1,7 +1,7 @@
 # InsertPgAttributeTuples
 
 ## Location
-src/backend/catalog/heap.c: 703 - 820
+[src/backend/catalog/heap.c:703-820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L703-L820)
 
 ## Overview
 Constructs and inserts a set of tuples in the pg_attribute system catalog, efficiently batch-inserting multiple attribute definitions for a relation.

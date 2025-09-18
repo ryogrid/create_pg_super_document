@@ -1,7 +1,7 @@
 # IndexGetRelation
 
 ## Location
-src/backend/catalog/index.c: 3522 - 3546
+[src/backend/catalog/index.c:3522-3546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3522-L3546)
 
 ## Overview
 Retrieves the OID of the table that an index is built on, given the index's relation OID, using the system cache for efficient lookup.

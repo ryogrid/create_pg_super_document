@@ -1,7 +1,7 @@
 # varbit
 
 ## Location
-src/backend/utils/adt/varbit.c: 742 - 773
+[src/backend/utils/adt/varbit.c:742-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L742-L773)
 
 ## Overview
 Performs length coercion of variable-length bit strings to fit specified maximum length constraints, with different behavior for explicit vs implicit casts.

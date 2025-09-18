@@ -1,7 +1,7 @@
 # LogicalRepWorkerType
 
 ## Location
-src/include/replication/worker_internal.h: 35 - 36
+[src/include/replication/worker_internal.h:35-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/worker_internal.h#L35-L36)
 
 ## Overview
 LogicalRepWorkerType is an enumeration that defines the different types of workers used in PostgreSQL logical replication system.

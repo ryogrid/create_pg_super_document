@@ -1,7 +1,7 @@
 # box_right
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 609 - 623
+[src/backend/utils/adt/geo_ops.c:609-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L609-L623)
 
 ## Overview
 The box_right function determines if one box is strictly to the right of another box by comparing their x-coordinates.

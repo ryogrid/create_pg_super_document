@@ -1,7 +1,7 @@
 # out_gistxlogPageReuse
 
 ## Location
-src/backend/access/rmgrdesc/gistdesc.c: 26 - 36
+[src/backend/access/rmgrdesc/gistdesc.c:26-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gistdesc.c#L26-L36)
 
 ## Overview
 A static function that formats and outputs detailed information about GiST page reuse WAL records for debugging and hot standby recovery purposes.

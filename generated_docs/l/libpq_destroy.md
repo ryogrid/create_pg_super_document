@@ -1,7 +1,7 @@
 # libpq_destroy
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 675 - 685
+[src/bin/pg_rewind/libpq_source.c:675-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L675-L685)
 
 ## Overview
 Cleans up and destroys a libpq_source structure by freeing all allocated memory, but intentionally does not close the database connection.

@@ -1,7 +1,7 @@
 # EvalPlanQualEnd
 
 ## Location
-src/backend/executor/execMain.c: 2986 - 3039
+[src/backend/executor/execMain.c:2986-3039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L2986-L3039)
 
 ## Overview
 EvalPlanQualEnd shuts down EPQ execution by cleaning up the EState and associated resources while preserving shared resources from the parent query.

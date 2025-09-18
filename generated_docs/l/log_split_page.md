@@ -1,7 +1,7 @@
 # log_split_page
 
 ## Location
-src/backend/access/hash/hashpage.c: 1474 - 1500
+[src/backend/access/hash/hashpage.c:1474-1500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L1474-L1500)
 
 ## Overview
 Logs a hash table bucket split operation to the Write-Ahead Log (WAL) when a new bucket page becomes full during the split process.

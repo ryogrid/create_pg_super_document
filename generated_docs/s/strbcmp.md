@@ -1,7 +1,7 @@
 # strbcmp
 
 ## Location
-src/backend/tsearch/spell.c: 257 - 279
+[src/backend/tsearch/spell.c:257-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L257-L279)
 
 ## Overview
 A backward string comparison function used for suffix tree operations in PostgreSQL's text search, comparing strings from right to left instead of the standard left-to-right comparison.

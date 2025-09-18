@@ -1,7 +1,7 @@
 # dumpIndexAttach
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 17117 - 17159
+[src/bin/pg_dump/pg_dump.c:17117-17159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L17117-L17159)
 
 ## Overview
 Writes out a partitioned-index attachment clause that attaches a partition index to its parent partitioned index using ALTER INDEX ATTACH PARTITION syntax.

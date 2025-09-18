@@ -1,7 +1,7 @@
 # prs_setup_firstcall
 
 ## Location
-src/backend/tsearch/wparser.c: 162 - 215
+[src/backend/tsearch/wparser.c:162-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L162-L215)
 
 ## Overview
 Initializes function context and performs text parsing during the first call of PostgreSQL text search parser functions that tokenize input text.

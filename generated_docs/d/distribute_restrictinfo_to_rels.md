@@ -1,7 +1,7 @@
 # distribute_restrictinfo_to_rels
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2876 - 2960
+[src/backend/optimizer/plan/initsplan.c:2876-2960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2876-L2960)
 
 ## Overview
 Distributes a completed RestrictInfo clause to the appropriate relation restriction lists or join clause lists based on which relations the clause references.

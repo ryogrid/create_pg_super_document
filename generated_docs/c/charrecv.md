@@ -1,7 +1,7 @@
 # charrecv
 
 ## Location
-src/backend/utils/adt/char.c: 94 - 104
+[src/backend/utils/adt/char.c:94-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L94-L104)
 
 ## Overview
 Converts a character value from PostgreSQL's external binary format to internal representation by reading a single byte from the message buffer.

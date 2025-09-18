@@ -1,7 +1,7 @@
 # AllTablesyncsReady
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1757 - 1781
+[src/backend/replication/logical/tablesync.c:1757-1781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1757-L1781)
 
 ## Overview
 AllTablesyncsReady checks whether all tables in a subscription have completed their initial synchronization and are in the READY state. It returns false if the subscription has no tables or if any table synchronization is still pending.

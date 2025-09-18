@@ -1,7 +1,7 @@
 # CopyStatistics
 
 ## Location
-src/backend/catalog/heap.c: 2921 - 2973
+[src/backend/catalog/heap.c:2921-2973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2921-L2973)
 
 ## Overview
 Copies statistical information entries from pg_statistic catalog from one relation to another, preserving column statistics during relation operations such as concurrent index rebuilds.

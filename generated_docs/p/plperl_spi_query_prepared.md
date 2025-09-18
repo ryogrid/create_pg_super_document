@@ -1,7 +1,7 @@
 # plperl_spi_query_prepared
 
 ## Location
-src/pl/plperl/plperl.c: 3842 - 3959
+[src/pl/plperl/plperl.c:3842-3959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3842-L3959)
 
 ## Overview
 Opens a cursor for a previously prepared SQL statement with parameters in PL/Perl, allowing for streaming result processing rather than fetching all results at once.

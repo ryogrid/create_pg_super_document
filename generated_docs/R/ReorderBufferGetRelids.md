@@ -1,7 +1,7 @@
 # ReorderBufferGetRelids
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 621 - 636
+[src/backend/replication/logical/reorderbuffer.c:621-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L621-L636)
 
 ## Overview
 Allocates and returns an array of Oid values to store relation IDs for truncated relations in logical replication.

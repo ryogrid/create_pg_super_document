@@ -1,7 +1,7 @@
 # multirange_ge
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2656 - 2663
+[src/backend/utils/adt/multirangetypes.c:2656-2663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2656-L2663)
 
 ## Overview
 A PostgreSQL function that implements the greater-than-or-equal-to operator (>=) for multirange types, determining if one multirange is greater than or equal to another according to PostgreSQL's multirange ordering semantics.

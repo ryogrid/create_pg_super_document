@@ -1,7 +1,7 @@
 # heap_redo
 
 ## Location
-src/backend/access/heap/heapam.c: 10338 - 10383
+[src/backend/access/heap/heapam.c:10338-10383](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10338-L10383)
 
 ## Overview
 WAL (Write-Ahead Logging) redo function for heap access method operations that processes heap-related log records during crash recovery and replication.

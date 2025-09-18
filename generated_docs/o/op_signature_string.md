@@ -1,7 +1,7 @@
 # op_signature_string
 
 ## Location
-src/backend/parser/parse_oper.c: 602 - 621
+[src/backend/parser/parse_oper.c:602-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L602-L621)
 
 ## Overview
 The  function builds a string representation of an operator name including its argument types, primarily used for error message construction.

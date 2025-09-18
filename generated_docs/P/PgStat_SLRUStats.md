@@ -1,7 +1,7 @@
 # PgStat_SLRUStats
 
 ## Location
-src/include/pgstat.h: 380 - 390
+[src/include/pgstat.h:380-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L380-L390)
 
 ## Overview
 PgStat_SLRUStats is a structure that tracks statistics for Simple Least Recently Used (SLRU) buffer caches in PostgreSQL, monitoring block operations, cache performance, and maintenance activities for various internal cache systems.

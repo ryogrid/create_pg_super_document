@@ -1,7 +1,7 @@
 # AppendJumble
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 161 - 197
+[src/backend/nodes/queryjumblefuncs.c:161-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L161-L197)
 
 ## Overview
 AppendJumble is a low-level utility function that appends substantive data to the query jumble buffer, handling buffer overflow through hash compression.

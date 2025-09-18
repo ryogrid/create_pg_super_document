@@ -1,7 +1,7 @@
 # ExecInitUpdateProjection
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 639 - 696
+[src/backend/executor/nodeModifyTable.c:639-696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L639-L696)
 
 ## Overview
 Performs one-time initialization of projection data for UPDATE operations, setting up tuple projection to merge new column values with unchanged columns from the existing tuple.

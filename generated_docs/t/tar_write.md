@@ -1,7 +1,7 @@
 # tar_write
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 765 - 804
+[src/bin/pg_basebackup/walmethods.c:765-804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L765-L804)
 
 ## Overview
 Writes data to a TAR archive file with support for both uncompressed and gzip-compressed output during PostgreSQL WAL streaming operations.

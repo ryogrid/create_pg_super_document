@@ -1,7 +1,7 @@
 # arabic_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1414 - 1660
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1414-1660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1414-L1660)
 
 ## Overview
 The main entry point function for performing Arabic text stemming using the Snowball stemming algorithm in PostgreSQL's full-text search system.

@@ -1,7 +1,7 @@
 # int4random
 
 ## Location
-src/backend/utils/adt/pseudorandomfuncs.c: 126 - 149
+[src/backend/utils/adt/pseudorandomfuncs.c:126-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudorandomfuncs.c#L126-L149)
 
 ## Overview
 Returns a pseudo-random 32-bit integer uniformly distributed within a specified range [rmin, rmax].

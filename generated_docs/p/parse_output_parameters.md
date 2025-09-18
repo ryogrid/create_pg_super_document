@@ -1,7 +1,7 @@
 # parse_output_parameters
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 283 - 424
+[src/backend/replication/pgoutput/pgoutput.c:283-424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L283-L424)
 
 ## Overview
 A static helper function that parses and validates configuration parameters for the pgoutput logical replication plugin during startup.

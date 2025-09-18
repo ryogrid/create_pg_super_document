@@ -1,7 +1,7 @@
 # SubOpts
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 83 - 102
+[src/backend/commands/subscriptioncmds.c:83-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L83-L102)
 
 ## Overview
 SubOpts is a structure that holds a bitmap representing user-provided CREATE/ALTER SUBSCRIPTION command options and their parsed/default values in PostgreSQL's logical replication system.

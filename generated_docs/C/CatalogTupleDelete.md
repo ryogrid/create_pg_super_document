@@ -1,7 +1,7 @@
 # CatalogTupleDelete
 
 ## Location
-src/backend/catalog/indexing.c: 365 - 368
+[src/backend/catalog/indexing.c:365-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L365-L368)
 
 ## Overview
 CatalogTupleDelete provides a uniform abstraction for deleting tuples from system catalog relations, currently implemented as a simple wrapper around heap deletion that maintains consistency with other catalog operations.

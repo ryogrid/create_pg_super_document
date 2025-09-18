@@ -1,7 +1,7 @@
 # numericvar_deserialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 7756 - 7778
+[src/backend/utils/adt/numeric.c:7756-7778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7756-L7778)
 
 ## Overview
 Deserializes binary data back into a NumericVar structure, reconstructing the internal representation from the format created by numericvar_serialize.

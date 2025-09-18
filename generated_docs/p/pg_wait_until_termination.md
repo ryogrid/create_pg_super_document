@@ -1,7 +1,7 @@
 # pg_wait_until_termination
 
 ## Location
-src/backend/storage/ipc/signalfuncs.c: 148 - 215
+[src/backend/storage/ipc/signalfuncs.c:148-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/signalfuncs.c#L148-L215)
 
 ## Overview
 Static helper function that waits for a backend process to terminate within a specified timeout period, using efficient latch-based waiting with interrupt handling.

@@ -1,7 +1,7 @@
 # exec_command
 
 ## Location
-src/bin/psql/command.c: 305 - 465
+[src/bin/psql/command.c:305-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L305-L465)
 
 ## Overview
 exec_command is a comprehensive command dispatcher that executes individual PostgreSQL psql backslash commands by matching command names to their respective handler functions.

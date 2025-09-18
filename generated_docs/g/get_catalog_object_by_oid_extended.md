@@ -1,7 +1,7 @@
 # get_catalog_object_by_oid_extended
 
 ## Location
-src/backend/catalog/objectaddress.c: 2794 - 2854
+[src/backend/catalog/objectaddress.c:2794-2854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2794-L2854)
 
 ## Overview
 Extended version of catalog object retrieval that provides fine-grained control over tuple locking behavior for inplace-updated tables.

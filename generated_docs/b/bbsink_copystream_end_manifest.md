@@ -1,7 +1,7 @@
 # bbsink_copystream_end_manifest
 
 ## Location
-src/backend/backup/basebackup_copy.c: 288 - 296
+[src/backend/backup/basebackup_copy.c:288-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L288-L296)
 
 ## Overview
 A no-op function that signals the end of backup manifest transmission in a copystream-based backup sink.

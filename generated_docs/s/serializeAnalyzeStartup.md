@@ -1,7 +1,7 @@
 # serializeAnalyzeStartup
 
 ## Location
-src/backend/commands/explain.c: 5490 - 5525
+[src/backend/commands/explain.c:5490-5525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5490-L5525)
 
 ## Overview
 Initializes a SerializeDestReceiver for analyzing and serializing query execution results, setting up the necessary memory context, output buffer, and serialization format based on the explain options.

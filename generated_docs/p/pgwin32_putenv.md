@@ -1,7 +1,7 @@
 # pgwin32_putenv
 
 ## Location
-src/port/win32env.c: 27 - 120
+[src/port/win32env.c:27-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32env.c#L27-L120)
 
 ## Overview
 Windows-specific replacement for POSIX putenv() that updates environment variables across all loaded CRT modules and the Windows process environment to ensure consistency across third-party libraries.

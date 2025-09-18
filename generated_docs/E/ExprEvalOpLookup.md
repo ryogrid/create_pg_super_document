@@ -1,7 +1,7 @@
 # ExprEvalOpLookup
 
 ## Location
-src/backend/executor/execExprInterp.c: 105 - 109
+[src/backend/executor/execExprInterp.c:105-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L105-L109)
 
 ## Overview
 ExprEvalOpLookup is a simple structure used to map jump target opcodes back to their corresponding ExprEvalOp enumeration values in PostgreSQL's expression evaluation system when using computed goto (direct threading) optimization.

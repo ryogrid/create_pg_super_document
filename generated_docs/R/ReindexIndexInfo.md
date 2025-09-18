@@ -1,7 +1,7 @@
 # ReindexIndexInfo
 
 ## Location
-src/backend/commands/indexcmds.c: 3439 - 3445
+[src/backend/commands/indexcmds.c:3439-3445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L3439-L3445)
 
 ## Overview
 A local structure used to store information about indexes during concurrent reindexing operations, particularly for tracking index properties needed for safe processing.

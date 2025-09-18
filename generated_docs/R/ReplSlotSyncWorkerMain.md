@@ -1,7 +1,7 @@
 # ReplSlotSyncWorkerMain
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1331 - 1509
+[src/backend/replication/logical/slotsync.c:1331-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1331-L1509)
 
 ## Overview
 The main entry point and loop for PostgreSQL's slot synchronization worker process, responsible for establishing a connection to the primary server and continuously synchronizing logical replication slots.

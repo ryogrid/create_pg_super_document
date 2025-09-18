@@ -1,7 +1,7 @@
 # findTargetlistEntrySQL92
 
 ## Location
-src/backend/parser/parse_clause.c: 2006 - 2171
+[src/backend/parser/parse_clause.c:2006-2171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2006-L2171)
 
 ## Overview
 Returns the targetlist entry matching a given (untransformed) node, implementing SQL92-style interpretation for ORDER BY, GROUP BY, and DISTINCT ON expressions where column names or position numbers can be used.

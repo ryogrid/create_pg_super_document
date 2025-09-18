@@ -1,7 +1,7 @@
 # dsa_pin_mapping
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 635 - 670
+[src/backend/utils/mmgr/dsa.c:635-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L635-L670)
 
 ## Overview
 Pins a DSA area's memory mappings to keep the area attached until end of session or explicit detach, removing it from automatic resource owner cleanup.

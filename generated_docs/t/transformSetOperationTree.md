@@ -1,7 +1,7 @@
 # transformSetOperationTree
 
 ## Location
-src/backend/parser/analyze.c: 2003 - 2333
+[src/backend/parser/analyze.c:2003-2333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2003-L2333)
 
 ## Overview
 Recursively transforms leaves and internal nodes of a set-operation tree, converting SelectStmt nodes into either subqueries (RangeTblRef) or SetOperationStmt nodes.

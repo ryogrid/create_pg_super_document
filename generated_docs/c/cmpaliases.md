@@ -1,7 +1,7 @@
 # cmpaliases
 
 ## Location
-src/backend/commands/collationcmds.c: 631 - 649
+[src/backend/commands/collationcmds.c:631-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L631-L649)
 
 ## Overview
 A comparison function used as a qsort comparator for CollAliasData items, enabling sorting of locale alias data by locale name.

@@ -1,7 +1,7 @@
 # json_agg_strict_transfn
 
 ## Location
-src/backend/utils/adt/json.c: 861 - 869
+[src/backend/utils/adt/json.c:861-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L861-L869)
 
 ## Overview
 The json_agg_strict_transfn function serves as the strict transition function for PostgreSQL's json_agg aggregate, excluding null values from the output JSON array.

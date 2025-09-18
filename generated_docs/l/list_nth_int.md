@@ -1,7 +1,7 @@
 # list_nth_int
 
 ## Location
-src/include/nodes/pg_list.h: 310 - 320
+[src/include/nodes/pg_list.h:310-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pg_list.h#L310-L320)
 
 ## Overview
 Returns the integer value contained in the n-th element of an IntList, providing type-safe indexed access to integer values.

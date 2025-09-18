@@ -1,7 +1,7 @@
 # gist_bbox_zorder_cmp
 
 ## Location
-src/backend/access/gist/gistproc.c: 1681 - 1713
+[src/backend/access/gist/gistproc.c:1681-1713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1681-L1713)
 
 ## Overview
 A static comparison function that compares two bounding boxes using their Z-order (Morton code) values for efficient spatial sorting during GiST index construction.

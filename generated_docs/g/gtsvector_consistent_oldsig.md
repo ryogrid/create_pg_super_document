@@ -1,7 +1,7 @@
 # gtsvector_consistent_oldsig
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 803 - 808
+[src/backend/utils/adt/tsgistidx.c:803-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L803-L808)
 
 ## Overview
 A backward compatibility wrapper function that maintains support for pre-9.6 contrib/tsearch2 opclass declarations by providing the old function signature.

@@ -1,7 +1,7 @@
 # deleteDependencyRecordsForSpecific
 
 ## Location
-src/backend/catalog/pg_depend.c: 399 - 457
+[src/backend/catalog/pg_depend.c:399-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L399-L457)
 
 ## Overview
 Deletes all dependency records that match exact depender and dependee object specifications with a specific dependency type, returning the count of deleted records.

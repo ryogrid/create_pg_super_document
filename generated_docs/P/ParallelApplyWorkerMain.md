@@ -1,7 +1,7 @@
 # ParallelApplyWorkerMain
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 857 - 988
+[src/backend/replication/logical/applyparallelworker.c:857-988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L857-L988)
 
 ## Overview
 ParallelApplyWorkerMain is the entry point function for PostgreSQL logical replication parallel apply worker processes, handling complete worker initialization and launching the main processing loop.

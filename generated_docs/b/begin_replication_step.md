@@ -1,7 +1,7 @@
 # begin_replication_step
 
 ## Location
-src/backend/replication/logical/worker.c: 510 - 532
+[src/backend/replication/logical/worker.c:510-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L510-L532)
 
 ## Overview
 Initiates a single replication step by setting up the appropriate transaction context, snapshot, and memory context for processing logical replication operations.

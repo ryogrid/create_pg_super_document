@@ -1,7 +1,7 @@
 # IndexRuntimeKeyInfo
 
 ## Location
-src/include/nodes/execnodes.h: 1613 - 1622
+[src/include/nodes/execnodes.h:1613-1622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1613-L1622)
 
 ## Overview
 IndexRuntimeKeyInfo represents metadata for index scan keys that require runtime evaluation, linking scan key structures with expressions that must be computed during execution.

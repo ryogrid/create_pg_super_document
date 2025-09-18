@@ -1,7 +1,7 @@
 # hashRowType
 
 ## Location
-src/backend/access/common/tupdesc.c: 622 - 650
+[src/backend/access/common/tupdesc.c:622-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L622-L650)
 
 ## Overview
 hashRowType generates a hash value for a TupleDesc that is consistent with the equality semantics of equalRowTypes, enabling efficient hash-based lookups and storage of row type descriptors.

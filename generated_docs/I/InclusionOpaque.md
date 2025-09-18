@@ -1,7 +1,7 @@
 # InclusionOpaque
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 76 - 82
+[src/backend/access/brin/brin_inclusion.c:76-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L76-L82)
 
 ## Overview
 InclusionOpaque is a structure that holds cached operator class information for BRIN inclusion indexes, providing fast access to support procedures and strategy operators.

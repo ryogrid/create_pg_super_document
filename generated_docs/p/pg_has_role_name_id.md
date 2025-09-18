@@ -1,7 +1,7 @@
 # pg_has_role_name_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4755 - 4778
+[src/backend/utils/adt/acl.c:4755-4778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4755-L4778)
 
 ## Overview
 Checks if a user (specified by name) has specific privileges on a role (specified by OID).

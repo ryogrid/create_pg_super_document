@@ -1,7 +1,7 @@
 # get_catalog_object_by_oid
 
 ## Location
-src/backend/catalog/objectaddress.c: 2781 - 2793
+[src/backend/catalog/objectaddress.c:2781-2793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2781-L2793)
 
 ## Overview
 Retrieves a copy of a catalog tuple for a given object OID from a specified catalog relation, using system cache optimization when available.

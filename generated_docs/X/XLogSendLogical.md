@@ -1,7 +1,7 @@
 # XLogSendLogical
 
 ## Location
-src/backend/replication/walsender.c: 3410 - 3502
+[src/backend/replication/walsender.c:3410-3502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3410-L3502)
 
 ## Overview
 XLogSendLogical streams logically decoded WAL data to replication clients by reading WAL records, processing them through logical decoding, and managing catch-up state for logical replication.

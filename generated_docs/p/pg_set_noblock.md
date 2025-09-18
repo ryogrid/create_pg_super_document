@@ -1,7 +1,7 @@
 # pg_set_noblock
 
 ## Location
-src/port/noblock.c: 25 - 48
+[src/port/noblock.c:25-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/noblock.c#L25-L48)
 
 ## Overview
 Sets a socket to non-blocking mode, allowing I/O operations to return immediately without waiting for completion.

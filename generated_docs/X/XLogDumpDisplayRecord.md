@@ -1,7 +1,7 @@
 # XLogDumpDisplayRecord
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 546 - 584
+[src/bin/pg_waldump/pg_waldump.c:546-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L546-L584)
 
 ## Overview
 XLogDumpDisplayRecord formats and prints a comprehensive, human-readable representation of a WAL record to stdout.

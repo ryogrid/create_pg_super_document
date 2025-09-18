@@ -1,7 +1,7 @@
 # PlannedStmtRequiresSnapshot
 
 ## Location
-src/backend/tcop/pquery.c: 1718 - 1765
+[src/backend/tcop/pquery.c:1718-1765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L1718-L1765)
 
 ## Overview
 PlannedStmtRequiresSnapshot determines whether a planned statement requires an MVCC snapshot to execute correctly.

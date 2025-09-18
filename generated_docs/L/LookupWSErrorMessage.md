@@ -1,7 +1,7 @@
 # LookupWSErrorMessage
 
 ## Location
-src/interfaces/libpq/win32.c: 218 - 233
+[src/interfaces/libpq/win32.c:218-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/win32.c#L218-L233)
 
 ## Overview
 LookupWSErrorMessage is a static helper function that searches for a Windows Winsock error code in a predefined error table and returns the corresponding human-readable error description.

@@ -1,7 +1,7 @@
 # getObjectDescription
 
 ## Location
-src/backend/catalog/objectaddress.c: 2903 - 4070
+[src/backend/catalog/objectaddress.c:2903-4070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2903-L4070)
 
 ## Overview
 Generates human-readable textual descriptions of PostgreSQL database objects for error messages and logging, providing localized string representations of any addressable object in the system catalog.

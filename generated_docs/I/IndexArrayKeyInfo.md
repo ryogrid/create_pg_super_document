@@ -1,7 +1,7 @@
 # IndexArrayKeyInfo
 
 ## Location
-src/include/nodes/execnodes.h: 1623 - 1650
+[src/include/nodes/execnodes.h:1623-1650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1623-L1650)
 
 ## Overview
 IndexArrayKeyInfo manages the state for index scan keys that use array expressions, supporting ScalarArrayOpExpr conditions like "column = ANY(array_expr)" in index scans.

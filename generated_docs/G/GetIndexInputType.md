@@ -1,7 +1,7 @@
 # GetIndexInputType
 
 ## Location
-src/backend/access/spgist/spgutils.c: 115 - 159
+[src/backend/access/spgist/spgutils.c:115-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L115-L159)
 
 ## Overview
 GetIndexInputType determines the nominal input data type for an index column, preferring the opclass's opcintype or falling back to the base type of the heap column or expression.

@@ -1,7 +1,7 @@
 # reduce_expanded_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1476 - 1557
+[src/backend/access/brin/brin_minmax_multi.c:1476-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1476-L1557)
 
 ## Overview
 Reduces the number of expanded ranges by merging adjacent ranges with the smallest gaps until the total number of boundary values falls below a specified threshold, optimizing storage efficiency in BRIN minmax-multi indexes.

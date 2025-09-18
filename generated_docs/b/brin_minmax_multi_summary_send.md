@@ -1,7 +1,7 @@
 # brin_minmax_multi_summary_send
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 3134 - 3137
+[src/backend/access/brin/brin_minmax_multi.c:3134-3137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L3134-L3137)
 
 ## Overview
 This function serves as the binary output routine for the BRIN minmax-multi summary type, delegating to the standard bytea send function since the summary data is internally stored as bytea.

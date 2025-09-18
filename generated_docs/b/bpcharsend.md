@@ -1,7 +1,7 @@
 # bpcharsend
 
 ## Location
-src/backend/utils/adt/varchar.c: 251 - 270
+[src/backend/utils/adt/varchar.c:251-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L251-L270)
 
 ## Overview
 Converts the PostgreSQL bpchar (blank-padded character) data type to external binary format for data transmission.

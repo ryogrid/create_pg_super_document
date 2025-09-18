@@ -1,7 +1,7 @@
 # brin_free_desc
 
 ## Location
-src/backend/access/brin/brin.c: 1627 - 1638
+[src/backend/access/brin/brin.c:1627-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1627-L1638)
 
 ## Overview
 Deallocates a BrinDesc structure and all its associated memory by deleting the dedicated memory context.

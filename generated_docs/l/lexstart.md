@@ -1,7 +1,7 @@
 # lexstart
 
 ## Location
-src/backend/regex/regc_lex.c: 70 - 98
+[src/backend/regex/regc_lex.c:70-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L70-L98)
 
 ## Overview
 Initializes lexical analysis setup and scans leading options for regular expression compilation, setting up the appropriate lexical context based on the regex flags.

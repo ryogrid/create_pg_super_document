@@ -1,7 +1,7 @@
 # pg_cryptohash_ctx
 
 ## Location
-src/common/cryptohash_openssl.c: 63 - 90
+[src/common/cryptohash_openssl.c:63-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L63-L90)
 
 ## Overview
 The `pg_cryptohash_ctx` structure is the internal context structure for PostgreSQL cryptographic hash operations, serving as a unified interface for multiple hash algorithms including MD5, SHA-1, SHA-224, SHA-256, SHA-384, and SHA-512.

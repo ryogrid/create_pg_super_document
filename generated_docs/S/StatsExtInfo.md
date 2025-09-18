@@ -1,7 +1,7 @@
 # StatsExtInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 440 - 441
+[src/bin/pg_dump/pg_dump.h:440-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L440-L441)
 
 ## Overview
 StatsExtInfo represents extended statistics objects in PostgreSQL's pg_dump utility, containing metadata about multivariate statistics and their associated tables and ownership.

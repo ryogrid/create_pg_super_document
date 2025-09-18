@@ -1,7 +1,7 @@
 # load_rangetype_info
 
 ## Location
-src/backend/utils/cache/typcache.c: 914 - 971
+[src/backend/utils/cache/typcache.c:914-971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L914-L971)
 
 ## Overview
 A helper function that loads and caches comprehensive information about range types by querying the pg_range catalog and setting up associated function information structures.

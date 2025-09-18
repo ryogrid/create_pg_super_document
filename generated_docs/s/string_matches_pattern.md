@@ -1,7 +1,7 @@
 # string_matches_pattern
 
 ## Location
-src/test/regress/pg_regress.c: 541 - 614
+[src/test/regress/pg_regress.c:541-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L541-L614)
 
 ## Overview
 Performs pattern matching for strings using a simplified regex implementation that supports basic wildcards, originally replacing shell script expr(1) functionality in pg_regress.

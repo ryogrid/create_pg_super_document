@@ -1,7 +1,7 @@
 # ExecUnique
 
 ## Location
-src/backend/executor/nodeUnique.c: 46 - 113
+[src/backend/executor/nodeUnique.c:46-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeUnique.c#L46-L113)
 
 ## Overview
 ExecUnique is the main execution function for the UNIQUE plan node that eliminates duplicate tuples from a sorted input stream, returning only the first occurrence of each distinct tuple.

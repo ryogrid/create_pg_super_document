@@ -1,7 +1,7 @@
 # compute_range_stats
 
 ## Location
-src/backend/utils/adt/rangetypes_typanalyze.c: 125 - 427
+[src/backend/utils/adt/rangetypes_typanalyze.c:125-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_typanalyze.c#L125-L427)
 
 ## Overview
 The  function is the core statistics computation routine for range and multirange columns, responsible for analyzing sample data and generating histograms and other statistical information used by the PostgreSQL query planner.

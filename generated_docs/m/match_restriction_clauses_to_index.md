@@ -1,7 +1,7 @@
 # match_restriction_clauses_to_index
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1968 - 1982
+[src/backend/optimizer/path/indxpath.c:1968-1982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1968-L1982)
 
 ## Overview
 Identifies restriction clauses for a relation that match a specific index and adds matching clauses to the provided clause set.

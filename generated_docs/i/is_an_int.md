@@ -1,7 +1,7 @@
 # is_an_int
 
 ## Location
-src/bin/pgbench/pgbench.c: 951 - 987
+[src/bin/pgbench/pgbench.c:951-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L951-L987)
 
 ## Overview
 A static utility function that validates whether a given string represents a valid integer according to a specific regular expression pattern.

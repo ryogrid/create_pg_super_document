@@ -1,7 +1,7 @@
 # cluster_rel
 
 ## Location
-src/backend/commands/cluster.c: 311 - 499
+[src/backend/commands/cluster.c:311-499](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L311-L499)
 
 ## Overview
 The core function that performs the physical clustering of a single relation by rebuilding it in the order of a specified index, preserving the original table's OID and metadata.

@@ -1,7 +1,7 @@
 # pg_ts_dict_is_visible
 
 ## Location
-src/backend/catalog/namespace.c: 5034 - 5047
+[src/backend/catalog/namespace.c:5034-5047](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L5034-L5047)
 
 ## Overview
 A PostgreSQL system function that determines whether a text search dictionary is visible in the current search path, returning NULL if the dictionary does not exist.

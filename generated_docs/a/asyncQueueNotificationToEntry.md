@@ -1,7 +1,7 @@
 # asyncQueueNotificationToEntry
 
 ## Location
-src/backend/commands/async.c: 1320 - 1355
+[src/backend/commands/async.c:1320-1355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1320-L1355)
 
 ## Overview
 Converts a Notification structure into an AsyncQueueEntry format suitable for storage in the asynchronous notification queue.

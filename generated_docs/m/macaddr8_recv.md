@@ -1,7 +1,7 @@
 # macaddr8_recv
 
 ## Location
-src/backend/utils/adt/mac8.c: 254 - 286
+[src/backend/utils/adt/mac8.c:254-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L254-L286)
 
 ## Overview
 A PostgreSQL binary input function that converts external binary format MAC addresses (both EUI-48 and EUI-64) from network protocol messages into the internal macaddr8 structure.

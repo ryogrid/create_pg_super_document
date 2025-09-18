@@ -1,7 +1,7 @@
 # brinhandler
 
 ## Location
-src/backend/access/brin/brin.c: 247 - 305
+[src/backend/access/brin/brin.c:247-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L247-L305)
 
 ## Overview
 The `brinhandler` function serves as the entry point for the BRIN (Block Range Index) access method, returning a fully configured `IndexAmRoutine` structure that defines the capabilities and callback functions for BRIN indexes.

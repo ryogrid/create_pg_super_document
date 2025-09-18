@@ -1,7 +1,7 @@
 # hash_multirange_extended
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2858 - 2926
+[src/backend/utils/adt/multirangetypes.c:2858-2926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2858-L2926)
 
 ## Overview
 Computes a 64-bit hash value for a multirange data type with an additional seed parameter, providing enhanced hash distribution for advanced hashing scenarios.

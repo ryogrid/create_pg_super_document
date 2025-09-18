@@ -1,7 +1,7 @@
 # pgstat_force_next_flush
 
 ## Location
-src/backend/utils/activity/pgstat.c: 693 - 701
+[src/backend/utils/activity/pgstat.c:693-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L693-L701)
 
 ## Overview
 A utility function that forces the next call to pgstat_report_stat() to flush all pending statistics updates, primarily used for testing purposes.

@@ -1,7 +1,7 @@
 # sequence_options
 
 ## Location
-src/backend/commands/sequence.c: 1707 - 1740
+[src/backend/commands/sequence.c:1707-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1707-L1740)
 
 ## Overview
 Retrieves sequence parameters from the system catalog and formats them as a list of DefElem nodes in the same format used by the SQL parser.

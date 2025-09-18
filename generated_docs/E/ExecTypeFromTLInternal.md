@@ -1,7 +1,7 @@
 # ExecTypeFromTLInternal
 
 ## Location
-src/backend/executor/execTuples.c: 2043 - 2083
+[src/backend/executor/execTuples.c:2043-2083](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2043-L2083)
 
 ## Overview
 Internal implementation function that creates a tuple descriptor from a target list, with optional filtering of resjunk columns.

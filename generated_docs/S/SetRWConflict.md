@@ -1,7 +1,7 @@
 # SetRWConflict
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 643 - 665
+[src/backend/storage/lmgr/predicate.c:643-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L643-L665)
 
 ## Overview
 Creates and records a read-write conflict between two serializable transactions by allocating a conflict record from the pool and linking it to both transactions.

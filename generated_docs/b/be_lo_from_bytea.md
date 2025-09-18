@@ -1,7 +1,7 @@
 # be_lo_from_bytea
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 827 - 849
+[src/backend/libpq/be-fsstubs.c:827-849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L827-L849)
 
 ## Overview
 A PostgreSQL backend function that creates a new large object and initializes it with content from a provided bytea argument.

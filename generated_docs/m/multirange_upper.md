@@ -1,7 +1,7 @@
 # multirange_upper
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1530 - 1555
+[src/backend/utils/adt/multirangetypes.c:1530-1555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1530-L1555)
 
 ## Overview
 Extracts the upper bound value from a multirange, returning the largest value contained in the multirange or NULL if the multirange is empty or has an infinite upper bound.

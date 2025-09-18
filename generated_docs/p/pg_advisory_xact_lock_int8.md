@@ -1,7 +1,7 @@
 # pg_advisory_xact_lock_int8
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 643 - 658
+[src/backend/utils/adt/lockfuncs.c:643-658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L643-L658)
 
 ## Overview
 Acquires a transaction-scoped exclusive advisory lock on a 64-bit integer key, providing application-level locking functionality that is automatically released at transaction end.

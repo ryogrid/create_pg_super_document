@@ -1,7 +1,7 @@
 # bms_intersect
 
 ## Location
-src/backend/nodes/bitmapset.c: 292 - 345
+[src/backend/nodes/bitmapset.c:292-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L292-L345)
 
 ## Overview
 Creates a new Bitmapset containing only members that exist in both input bitmapsets (set intersection operation).

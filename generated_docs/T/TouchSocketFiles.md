@@ -1,7 +1,7 @@
 # TouchSocketFiles
 
 ## Location
-src/backend/libpq/pqcomm.c: 829 - 846
+[src/backend/libpq/pqcomm.c:829-846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L829-L846)
 
 ## Overview
 Updates the modification time of all PostgreSQL socket files to prevent them from being removed by system cleanup processes.

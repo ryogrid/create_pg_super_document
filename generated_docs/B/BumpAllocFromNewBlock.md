@@ -1,7 +1,7 @@
 # BumpAllocFromNewBlock
 
 ## Location
-src/backend/utils/mmgr/bump.c: 430 - 490
+[src/backend/utils/mmgr/bump.c:430-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L430-L490)
 
 ## Overview
 BumpAllocFromNewBlock is a helper function that allocates a new memory block for the bump memory context and returns a chunk allocated from it.

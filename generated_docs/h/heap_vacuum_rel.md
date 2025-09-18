@@ -1,7 +1,7 @@
 # heap_vacuum_rel
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 295 - 815
+[src/backend/access/heap/vacuumlazy.c:295-815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L295-L815)
 
 ## Overview
 heap_vacuum_rel performs VACUUM operation for one heap relation, setting up the environment and orchestrating the entire vacuum process including heap scanning, index maintenance, and statistics updates.

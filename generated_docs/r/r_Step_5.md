@@ -1,7 +1,7 @@
 # r_Step_5
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_english.c: 820 - 868
+[src/backend/snowball/libstemmer/stem_UTF_8_english.c:820-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_english.c#L820-L868)
 
 ## Overview
 Implements Step 5 of the Porter stemming algorithm, removing or handling final "e" and "l" characters based on specific morphological conditions.

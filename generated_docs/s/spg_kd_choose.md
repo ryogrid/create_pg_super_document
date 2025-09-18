@@ -1,7 +1,7 @@
 # spg_kd_choose
 
 ## Location
-src/backend/access/spgist/spgkdtreeproc.c: 54 - 77
+[src/backend/access/spgist/spgkdtreeproc.c:54-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgkdtreeproc.c#L54-L77)
 
 ## Overview
 SP-GiST choose function for k-dimensional trees that determines which child node to follow when descending the tree during insertion or search operations.

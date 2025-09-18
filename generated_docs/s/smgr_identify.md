@@ -1,7 +1,7 @@
 # smgr_identify
 
 ## Location
-src/backend/access/rmgrdesc/smgrdesc.c: 46 - 61
+[src/backend/access/rmgrdesc/smgrdesc.c:46-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/smgrdesc.c#L46-L61)
 
 ## Overview
 Returns string identifiers for storage manager (SMGR) WAL record operation types to provide human-readable operation names.

@@ -1,7 +1,7 @@
 # ExecParallelHashCloseBatchAccessors
 
 ## Location
-src/backend/executor/nodeHash.c: 3184 - 3204
+[src/backend/executor/nodeHash.c:3184-3204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3184-L3204)
 
 ## Overview
 Properly closes and cleans up all ParallelHashJoinBatchAccessor objects, ensuring shared tuplestores are properly terminated and memory is freed.

@@ -1,7 +1,7 @@
 # lookup_descriptor
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 131 - 161
+[src/interfaces/ecpg/preproc/descriptor.c:131-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L131-L161)
 
 ## Overview
 Searches for an existing SQL descriptor by name and optionally by connection, returning a pointer to the descriptor structure if found.

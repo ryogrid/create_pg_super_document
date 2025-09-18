@@ -1,7 +1,7 @@
 # pg_SSPI_continue
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 218 - 350
+[src/interfaces/libpq/fe-auth.c:218-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L218-L350)
 
 ## Overview
 Continues SSPI authentication with the next token in a multi-step Windows authentication handshake between the PostgreSQL client and server.

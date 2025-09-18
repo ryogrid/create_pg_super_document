@@ -1,7 +1,7 @@
 # UpdateFullPageWrites
 
 ## Location
-src/backend/access/transam/xlog.c: 8182 - 8250
+[src/backend/access/transam/xlog.c:8182-8250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8182-L8250)
 
 ## Overview
 UpdateFullPageWrites synchronizes the full_page_writes configuration parameter between the GUC system and shared memory, writing a WAL record when necessary for standby consistency.

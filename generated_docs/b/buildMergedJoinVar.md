@@ -1,7 +1,7 @@
 # buildMergedJoinVar
 
 ## Location
-src/backend/parser/parse_clause.c: 1666 - 1773
+[src/backend/parser/parse_clause.c:1666-1773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1666-L1773)
 
 ## Overview
 Generates a suitable replacement expression for a merged join column, handling type coercion and join-type-specific logic for USING clause columns.

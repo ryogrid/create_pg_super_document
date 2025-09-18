@@ -1,7 +1,7 @@
 # BaseBackupTargetHandle
 
 ## Location
-src/backend/backup/basebackup_target.c: 28 - 60
+[src/backend/backup/basebackup_target.c:28-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L28-L60)
 
 ## Overview
 BaseBackupTargetHandle is a structure that represents an instance of a specific backup target, containing a reference to its target type definition and associated configuration details.

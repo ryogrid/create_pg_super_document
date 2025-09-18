@@ -1,7 +1,7 @@
 # numeric_fast_cmp
 
 ## Location
-src/backend/utils/adt/numeric.c: 2197 - 2218
+[src/backend/utils/adt/numeric.c:2197-2218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2197-L2218)
 
 ## Overview
 Provides an optimized non-fmgr comparison interface for numeric values, designed specifically for sort support to eliminate function manager overhead during sorting operations.

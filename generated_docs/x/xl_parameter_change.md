@@ -1,7 +1,7 @@
 # xl_parameter_change
 
 ## Location
-src/include/access/xlog_internal.h: 273 - 283
+[src/include/access/xlog_internal.h:273-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L273-L283)
 
 ## Overview
 A data structure that logs changes in PostgreSQL configuration parameters that are important for Hot Standby functionality, ensuring standby servers can maintain consistency with parameter changes on the primary server.

@@ -1,7 +1,7 @@
 # ResourceOwnerForgetBuffer
 
 ## Location
-src/include/storage/buf_internals.h: 398 - 402
+[src/include/storage/buf_internals.h:398-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L398-L402)
 
 ## Overview
 Removes a buffer pin from a resource owner's tracking list when the buffer is explicitly unpinned, completing the resource management lifecycle for buffer pins.

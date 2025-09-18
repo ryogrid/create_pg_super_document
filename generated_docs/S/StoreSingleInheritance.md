@@ -1,7 +1,7 @@
 # StoreSingleInheritance
 
 ## Location
-src/backend/catalog/pg_inherits.c: 508 - 551
+[src/backend/catalog/pg_inherits.c:508-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L508-L551)
 
 ## Overview
 Creates a single entry in the pg_inherits system catalog to record an inheritance relationship between two relations.

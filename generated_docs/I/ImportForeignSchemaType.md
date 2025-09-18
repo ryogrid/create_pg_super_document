@@ -1,7 +1,7 @@
 # ImportForeignSchemaType
 
 ## Location
-src/include/nodes/parsenodes.h: 2942 - 2943
+[src/include/nodes/parsenodes.h:2942-2943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2942-L2943)
 
 ## Overview
 ImportForeignSchemaType is an enumeration that defines the different filtering options for importing foreign tables in PostgreSQL's IMPORT FOREIGN SCHEMA statement.

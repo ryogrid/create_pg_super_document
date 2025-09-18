@@ -1,7 +1,7 @@
 # create_modifytable_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 3725 - 3825
+[src/backend/optimizer/util/pathnode.c:3725-3825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L3725-L3825)
 
 ## Overview
 Creates a pathnode that represents performing INSERT/UPDATE/DELETE/MERGE operations on database tables, serving as the top-level node for data modification queries in the query planner.

@@ -1,7 +1,7 @@
 # slurpFile
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 314 - 361
+[src/bin/pg_rewind/file_ops.c:314-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L314-L361)
 
 ## Overview
 Reads an entire file into memory, returning the contents in a malloc'd buffer with automatic zero-termination for convenient text file processing.

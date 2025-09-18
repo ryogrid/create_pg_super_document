@@ -1,7 +1,7 @@
 # plpython_inline_error_callback
 
 ## Location
-src/pl/plpython/plpy_main.c: 361 - 366
+[src/pl/plpython/plpy_main.c:361-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L361-L366)
 
 ## Overview
 plpython_inline_error_callback is an error context callback function specifically designed to provide context information when errors occur during the execution of PL/Python inline code blocks (DO statements).

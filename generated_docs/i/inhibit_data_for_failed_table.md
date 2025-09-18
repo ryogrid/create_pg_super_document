@@ -1,7 +1,7 @@
 # inhibit_data_for_failed_table
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4958 - 4977
+[src/bin/pg_dump/pg_backup_archiver.c:4958-4977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4958-L4977)
 
 ## Overview
 This function marks the DATA member corresponding to a failed TABLE member as not wanted, preventing data restoration attempts for tables that could not be created.

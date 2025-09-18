@@ -1,7 +1,7 @@
 # json_build_array_noargs
 
 ## Location
-src/backend/utils/adt/json.c: 1385 - 1396
+[src/backend/utils/adt/json.c:1385-1396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1385-L1396)
 
 ## Overview
 The json_build_array_noargs function is a degenerate case of json_build_array that handles the scenario when no arguments are provided, returning an empty JSON array.

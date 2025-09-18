@@ -1,7 +1,7 @@
 # check_publisher
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 841 - 960
+[src/bin/pg_basebackup/pg_createsubscriber.c:841-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L841-L960)
 
 ## Overview
 Validates that the primary server is properly configured and ready for logical replication by checking essential parameters and resource availability.

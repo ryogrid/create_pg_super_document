@@ -1,7 +1,7 @@
 # interval_lt
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2541 - 2549
+[src/backend/utils/adt/timestamp.c:2541-2549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2541-L2549)
 
 ## Overview
 Compares two interval values to determine if the first is less than the second, returning true if the first interval represents a shorter time span.

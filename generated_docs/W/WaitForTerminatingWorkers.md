@@ -1,7 +1,7 @@
 # WaitForTerminatingWorkers
 
 ## Location
-src/bin/pg_dump/parallel.c: 446 - 544
+[src/bin/pg_dump/parallel.c:446-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L446-L544)
 
 ## Overview
 Waits for all worker processes in a parallel pg_dump operation to terminate completely, performing platform-specific cleanup of process handles and updating internal state.

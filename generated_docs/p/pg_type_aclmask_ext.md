@@ -1,7 +1,7 @@
 # pg_type_aclmask_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3767 - 3892
+[src/backend/catalog/aclchk.c:3767-3892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3767-L3892)
 
 ## Overview
 This internal function examines a user's privileges for a PostgreSQL data type, with support for graceful handling of missing types through an optional is_missing parameter.

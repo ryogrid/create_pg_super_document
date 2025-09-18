@@ -1,7 +1,7 @@
 # html_escaped_print
 
 ## Location
-src/fe_utils/print.c: 1952 - 1992
+[src/fe_utils/print.c:1952-1992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L1952-L1992)
 
 ## Overview
 Escapes special HTML characters in a string for safe output to HTML format, handling characters that would otherwise be interpreted as HTML markup.

@@ -1,7 +1,7 @@
 # MergeWithExistingConstraint
 
 ## Location
-src/backend/catalog/heap.c: 2557 - 2711
+[src/backend/catalog/heap.c:2557-2711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2557-L2711)
 
 ## Overview
 MergeWithExistingConstraint checks for pre-existing check constraints with the same name and either merges them with appropriate inheritance settings or reports conflicts as needed.

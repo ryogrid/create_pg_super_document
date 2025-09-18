@@ -1,7 +1,7 @@
 # adjust_rowcount_for_semijoins
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1882 - 1925
+[src/backend/optimizer/path/indxpath.c:1882-1925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1882-L1925)
 
 ## Overview
 Adjusts row count estimates for relations that participate in semijoins by accounting for unique-ification effects.

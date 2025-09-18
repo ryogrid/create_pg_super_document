@@ -1,7 +1,7 @@
 # avl_sigusr2_handler
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1344 - 1358
+[src/backend/postmaster/autovacuum.c:1344-1358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1344-L1358)
 
 ## Overview
 A signal handler for SIGUSR2 in the autovacuum launcher that responds to worker lifecycle events including startup, completion, and fork failures.

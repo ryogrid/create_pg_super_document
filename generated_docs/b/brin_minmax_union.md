@@ -1,7 +1,7 @@
 # brin_minmax_union
 
 ## Location
-src/backend/access/brin/brin_minmax.c: 208 - 260
+[src/backend/access/brin/brin_minmax.c:208-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax.c#L208-L260)
 
 ## Overview
 Merges two BRIN minmax summary values by computing the union of their ranges, updating the first summary to encompass both value ranges.

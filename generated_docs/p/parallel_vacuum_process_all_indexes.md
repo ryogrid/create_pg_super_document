@@ -1,7 +1,7 @@
 # parallel_vacuum_process_all_indexes
 
 ## Location
-src/backend/commands/vacuumparallel.c: 609 - 771
+[src/backend/commands/vacuumparallel.c:609-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L609-L771)
 
 ## Overview
 This static function coordinates the parallel processing of all indexes during vacuum operations, managing worker distribution, task assignment, and synchronization between vacuum and cleanup phases.

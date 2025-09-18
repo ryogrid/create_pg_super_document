@@ -1,7 +1,7 @@
 # multirange_contains_range_internal
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1801 - 1828
+[src/backend/utils/adt/multirangetypes.c:1801-1828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1801-L1828)
 
 ## Overview
 An internal function that tests whether a multirange contains a specific range using efficient binary search.

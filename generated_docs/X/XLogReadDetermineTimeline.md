@@ -1,7 +1,7 @@
 # XLogReadDetermineTimeline
 
 ## Location
-src/backend/access/transam/xlogutils.c: 718 - 816
+[src/backend/access/transam/xlogutils.c:718-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L718-L816)
 
 ## Overview
 Determines which timeline to read an xlog page from and sets the XLogReaderState's currTLI to that timeline ID, handling timeline switches and historical timeline reading scenarios.

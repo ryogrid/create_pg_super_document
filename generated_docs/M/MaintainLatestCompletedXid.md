@@ -1,7 +1,7 @@
 # MaintainLatestCompletedXid
 
 ## Location
-src/backend/storage/ipc/procarray.c: 967 - 988
+[src/backend/storage/ipc/procarray.c:967-988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L967-L988)
 
 ## Overview
 MaintainLatestCompletedXid updates the global latest completed transaction ID if the provided transaction ID is newer than the currently recorded one.

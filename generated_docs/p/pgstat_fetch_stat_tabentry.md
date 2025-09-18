@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_tabentry
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 456 - 465
+[src/backend/utils/activity/pgstat_relation.c:456-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L456-L465)
 
 ## Overview
 Retrieves collected statistics for a specific table relation, serving as a convenience wrapper for SQL-callable statistics functions.

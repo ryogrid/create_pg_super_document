@@ -1,7 +1,7 @@
 # FunctionParameterMode
 
 ## Location
-src/include/nodes/parsenodes.h: 3449 - 3450
+[src/include/nodes/parsenodes.h:3449-3450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3449-L3450)
 
 ## Overview
 FunctionParameterMode is an enumeration type that defines the different modes for function parameters in PostgreSQL, specifying whether parameters are input-only, output-only, bidirectional, or have special properties like variadic behavior.

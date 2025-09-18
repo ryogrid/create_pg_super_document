@@ -1,7 +1,7 @@
 # xl_replorigin_set
 
 ## Location
-src/include/replication/origin.h: 18 - 23
+[src/include/replication/origin.h:18-23](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/origin.h#L18-L23)
 
 ## Overview
 WAL record structure that stores information for setting replication origin progress during recovery or replication operations.

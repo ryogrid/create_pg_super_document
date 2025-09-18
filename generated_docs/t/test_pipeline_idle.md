@@ -1,7 +1,7 @@
 # test_pipeline_idle
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 1423 - 1489
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:1423-1489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L1423-L1489)
 
 ## Overview
 Tests PostgreSQL pipeline mode behavior in idle states, including restrictions on exiting pipeline mode and proper handling of notices during pipeline operations.

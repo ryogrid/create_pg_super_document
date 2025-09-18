@@ -1,7 +1,7 @@
 # spgTestLeafTuple
 
 ## Location
-src/backend/access/spgist/spgscan.c: 763 - 816
+[src/backend/access/spgist/spgscan.c:763-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L763-L816)
 
 ## Overview
 Tests a leaf tuple during SP-GiST index scanning, handling various tuple states and performing leaf-specific consistency checks.

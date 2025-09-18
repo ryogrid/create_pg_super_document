@@ -1,7 +1,7 @@
 # FindLockCycleRecurse
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 454 - 532
+[src/backend/storage/lmgr/deadlock.c:454-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L454-L532)
 
 ## Overview
 FindLockCycleRecurse is a recursive function that performs depth-first search to detect deadlock cycles in PostgreSQL's lock dependency graph, handling both individual processes and lock group members.

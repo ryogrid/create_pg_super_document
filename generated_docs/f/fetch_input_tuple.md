@@ -1,7 +1,7 @@
 # fetch_input_tuple
 
 ## Location
-src/backend/executor/nodeAgg.c: 547 - 577
+[src/backend/executor/nodeAgg.c:547-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L547-L577)
 
 ## Overview
 Fetches input tuples for aggregate processing from either the outer plan (phase 1) or from a previously sorted tuplesort, optionally copying tuples to the output sorter.

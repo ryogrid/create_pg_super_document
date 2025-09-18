@@ -1,7 +1,7 @@
 # PQregisterEventProc
 
 ## Location
-src/interfaces/libpq/libpq-events.c: 40 - 97
+[src/interfaces/libpq/libpq-events.c:40-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.c#L40-L97)
 
 ## Overview
 Registers an event procedure with a PostgreSQL connection object to receive notifications about connection-related events.

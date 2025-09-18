@@ -1,7 +1,7 @@
 # DefineOpFamily
 
 ## Location
-src/backend/commands/opclasscmds.c: 772 - 816
+[src/backend/commands/opclasscmds.c:772-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L772-L816)
 
 ## Overview
 Creates a new index operator family, which is a higher-level grouping that can contain multiple related operator classes for the same access method.

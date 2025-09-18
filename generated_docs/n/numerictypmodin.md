@@ -1,7 +1,7 @@
 # numerictypmodin
 
 ## Location
-src/backend/utils/adt/numeric.c: 1322 - 1366
+[src/backend/utils/adt/numeric.c:1322-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1322-L1366)
 
 ## Overview
 The  function parses and validates type modifier strings for the NUMERIC data type, converting them into internal typmod representations.

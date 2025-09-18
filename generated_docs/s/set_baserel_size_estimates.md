@@ -1,7 +1,7 @@
 # set_baserel_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5242 - 5271
+[src/backend/optimizer/path/costsize.c:5242-5271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5242-L5271)
 
 ## Overview
 Sets the size estimates for a base relation including output rows, tuple width, and cost of evaluating base restriction clauses.

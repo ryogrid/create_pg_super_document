@@ -1,7 +1,7 @@
 # populate_array_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2751 - 2786
+[src/backend/utils/adt/jsonfuncs.c:2751-2786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2751-L2786)
 
 ## Overview
 A JSON parsing callback function that handles scalar values encountered during JSON array population, validating array dimensions and storing scalar tokens.

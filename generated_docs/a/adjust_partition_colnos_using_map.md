@@ -1,7 +1,7 @@
 # adjust_partition_colnos_using_map
 
 ## Location
-src/backend/executor/execPartition.c: 1716 - 1800
+[src/backend/executor/execPartition.c:1716-1800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1716-L1800)
 
 ## Overview
 Adjusts partition column numbers using a caller-supplied attribute map instead of assuming to map from the root result relation.

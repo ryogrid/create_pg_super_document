@@ -1,7 +1,7 @@
 # GetLeaderApplyWorkerPid
 
 ## Location
-src/backend/replication/logical/launcher.c: 1277 - 1303
+[src/backend/replication/logical/launcher.c:1277-1303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L1277-L1303)
 
 ## Overview
 Retrieves the process ID of the leader apply worker when given the PID of a parallel apply worker in logical replication.

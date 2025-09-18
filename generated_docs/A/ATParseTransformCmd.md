@@ -1,7 +1,7 @@
 # ATParseTransformCmd
 
 ## Location
-src/backend/commands/tablecmds.c: 5567 - 5701
+[src/backend/commands/tablecmds.c:5567-5701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L5567-L5701)
 
 ## Overview
 ATParseTransformCmd performs parse transformation for ALTER TABLE subcommands, converting raw parsed commands into executable forms and handling the scheduling of generated subcommands across multiple execution passes.

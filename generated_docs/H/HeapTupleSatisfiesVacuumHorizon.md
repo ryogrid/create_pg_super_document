@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesVacuumHorizon
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 1196 - 1428
+[src/backend/access/heap/heapam_visibility.c:1196-1428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L1196-L1428)
 
 ## Overview
 HeapTupleSatisfiesVacuumHorizon is the core work horse function that determines vacuum status of heap tuples, providing detailed transaction-based visibility checking and returning the specific transaction ID that determines when a tuple becomes truly dead.

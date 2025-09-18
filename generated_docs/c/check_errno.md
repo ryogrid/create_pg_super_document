@@ -1,7 +1,7 @@
 # check_errno
 
 ## Location
-src/interfaces/ecpg/test/expected/pgtypeslib-num_test2.c: 265 - 290
+[src/interfaces/ecpg/test/expected/pgtypeslib-num_test2.c:265-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/pgtypeslib-num_test2.c#L265-L290)
 
 ## Overview
 A diagnostic utility function that examines and reports the current value of the global errno variable, specifically designed to handle PostgreSQL ECPG and pgtypes numeric error conditions.

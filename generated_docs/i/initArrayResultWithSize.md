@@ -1,7 +1,7 @@
 # initArrayResultWithSize
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5298 - 5337
+[src/backend/utils/adt/arrayfuncs.c:5298-5337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5298-L5337)
 
 ## Overview
 Initializes an ArrayBuildState structure with a specified initial array size, providing fine-grained control over memory allocation for array building operations.

@@ -1,7 +1,7 @@
 # pushOperator
 
 ## Location
-src/backend/utils/adt/tsquery.c: 531 - 546
+[src/backend/utils/adt/tsquery.c:531-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L531-L546)
 
 ## Overview
 Pushes a query operator onto the parser state's polish notation stack during tsquery parsing, handling logical and phrase operators with optional distance parameters.

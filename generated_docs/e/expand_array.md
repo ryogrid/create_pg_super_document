@@ -1,7 +1,7 @@
 # expand_array
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 50 - 184
+[src/backend/utils/adt/array_expanded.c:50-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L50-L184)
 
 ## Overview
 Converts a PostgreSQL array Datum into an expanded array representation, which provides an optimized in-memory format for array operations.

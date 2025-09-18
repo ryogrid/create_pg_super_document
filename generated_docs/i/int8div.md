@@ -1,7 +1,7 @@
 # int8div
 
 ## Location
-src/backend/utils/adt/int8.c: 504 - 545
+[src/backend/utils/adt/int8.c:504-545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L504-L545)
 
 ## Overview
 Performs division of two 64-bit signed integers (bigint) with proper error handling for division by zero and overflow conditions.

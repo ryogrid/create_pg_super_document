@@ -1,7 +1,7 @@
 # prep
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 107 - 113
+[src/interfaces/ecpg/preproc/type.h:107-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L107-L113)
 
 ## Overview
 The  structure represents a prepared statement in the ECPG (Embedded SQL in C) system, storing essential information about prepared SQL statements including the statement name, SQL text, and type information.

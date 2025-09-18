@@ -1,7 +1,7 @@
 # GinState
 
 ## Location
-src/include/access/gin_private.h: 57 - 89
+[src/include/access/gin_private.h:57-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L57-L89)
 
 ## Overview
 GinState is a working data structure that describes the index being operated on, containing essential metadata, tuple descriptors, and opclass support functions for GIN index operations.

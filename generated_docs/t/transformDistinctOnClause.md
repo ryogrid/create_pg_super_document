@@ -1,7 +1,7 @@
 # transformDistinctOnClause
 
 ## Location
-src/backend/parser/parse_clause.c: 3069 - 3175
+[src/backend/parser/parse_clause.c:3069-3175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3069-L3175)
 
 ## Overview
 Transforms a DISTINCT ON clause in SQL queries by processing the specified expressions and creating a distinctClause that enforces uniqueness based on those expressions while coordinating with ORDER BY semantics.

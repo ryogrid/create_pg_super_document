@@ -1,7 +1,7 @@
 # postprocess_setop_rel
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1272 - 1289
+[src/backend/optimizer/prep/prepunion.c:1272-1289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1272-L1289)
 
 ## Overview
 Performs final processing steps for a set operation RelOptInfo after all paths have been added, including extension hook invocation and cheapest path selection.

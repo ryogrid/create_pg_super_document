@@ -3,7 +3,7 @@ This documentation is for getSubscriptions function in PostgreSQL pg_dump utilit
 # getSubscriptions
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4798 - 4997
+[src/bin/pg_dump/pg_dump.c:4798-4997](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4798-L4997)
 
 ## Overview
 Retrieves information about logical replication subscriptions from the PostgreSQL database and creates SubscriptionInfo objects for dumping subscription definitions.

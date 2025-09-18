@@ -1,7 +1,7 @@
 # parse_bool_with_len
 
 ## Location
-src/backend/utils/adt/bool.c: 36 - 125
+[src/backend/utils/adt/bool.c:36-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L36-L125)
 
 ## Overview
 Core boolean parsing function that interprets a string of specified length as a boolean value, supporting various boolean representations and their unique prefixes.

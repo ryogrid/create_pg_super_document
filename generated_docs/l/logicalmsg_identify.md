@@ -1,7 +1,7 @@
 # logicalmsg_identify
 
 ## Location
-src/backend/access/rmgrdesc/logicalmsgdesc.c: 46 - 52
+[src/backend/access/rmgrdesc/logicalmsgdesc.c:46-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/logicalmsgdesc.c#L46-L52)
 
 ## Overview
 A function that returns a string identifier for logical message WAL record types, used in PostgreSQL's WAL record identification system.

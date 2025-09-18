@@ -1,7 +1,7 @@
 # generate_series_int8_support
 
 ## Location
-src/backend/utils/adt/int8.c: 1459 - 1523
+[src/backend/utils/adt/int8.c:1459-1523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1459-L1523)
 
 ## Overview
 A PostgreSQL planner support function that provides row count estimation for generate_series functions operating on int8 (bigint) data types to help optimize query planning.

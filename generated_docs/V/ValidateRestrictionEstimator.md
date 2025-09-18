@@ -1,7 +1,7 @@
 # ValidateRestrictionEstimator
 
 ## Location
-src/backend/commands/operatorcmds.c: 275 - 309
+[src/backend/commands/operatorcmds.c:275-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/operatorcmds.c#L275-L309)
 
 ## Overview
 ValidateRestrictionEstimator looks up and validates a restriction selectivity estimator function by name, ensuring it has the correct signature and appropriate permissions for use with operators.

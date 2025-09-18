@@ -1,7 +1,7 @@
 # add_int_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 901 - 917
+[src/backend/access/common/reloptions.c:901-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L901-L917)
 
 ## Overview
 A public function that creates and registers a new integer-type relation option (reloption) with the PostgreSQL reloptions system.

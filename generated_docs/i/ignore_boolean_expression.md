@@ -1,7 +1,7 @@
 # ignore_boolean_expression
 
 ## Location
-src/bin/psql/command.c: 3190 - 3205
+[src/bin/psql/command.c:3190-3205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3190-L3205)
 
 ## Overview
 This function reads a boolean expression from the psql command input but discards it without processing, used in conditional command parsing when the expression should be skipped.

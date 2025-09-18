@@ -1,7 +1,7 @@
 # DecodingOutputState
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 40 - 46
+[src/backend/replication/logical/logicalfuncs.c:40-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L40-L46)
 
 ## Overview
 DecodingOutputState is a private data structure that manages output state for logical decoding operations, storing decoded changes into a tuplestore for SQL-callable logical replication functions.

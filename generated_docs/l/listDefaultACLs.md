@@ -1,7 +1,7 @@
 # listDefaultACLs
 
 ## Location
-src/bin/psql/describe.c: 1175 - 1251
+[src/bin/psql/describe.c:1175-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L1175-L1251)
 
 ## Overview
 Implements the \ddp psql command to display default access control lists (ACLs) that specify the privileges automatically granted to new objects created in specified schemas by particular roles.

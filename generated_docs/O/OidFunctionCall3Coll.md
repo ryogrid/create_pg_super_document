@@ -1,7 +1,7 @@
 # OidFunctionCall3Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1431 - 1441
+[src/backend/utils/fmgr/fmgr.c:1431-1441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1431-L1441)
 
 ## Overview
 A convenience function that calls a PostgreSQL function identified by its OID with three arguments and a specific collation, handling the function manager setup automatically.

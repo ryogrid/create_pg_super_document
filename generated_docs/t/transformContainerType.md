@@ -1,7 +1,7 @@
 # transformContainerType
 
 ## Location
-src/backend/parser/parse_node.c: 189 - 242
+[src/backend/parser/parse_node.c:189-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_node.c#L189-L242)
 
 ## Overview
 A function that identifies and prepares the actual container type for subscripting operations by resolving domains to their base types and handling special vector types.

@@ -1,7 +1,7 @@
 # PLyProcedureKey
 
 ## Location
-src/pl/plpython/plpy_procedure.h: 53 - 57
+[src/pl/plpython/plpy_procedure.h:53-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.h#L53-L57)
 
 ## Overview
 PLyProcedureKey is a simple structure that serves as the hash key for caching PLyProcedure instances in PostgreSQL's PL/Python extension, uniquely identifying procedures based on function OID and optionally the relation OID for triggers.

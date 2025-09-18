@@ -1,7 +1,7 @@
 # ReplicationSlotsShmemSize
 
 ## Location
-src/backend/replication/slot.c: 171 - 188
+[src/backend/replication/slot.c:171-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L171-L188)
 
 ## Overview
 Calculates the shared memory space required for the replication slot subsystem based on the configured maximum number of replication slots.

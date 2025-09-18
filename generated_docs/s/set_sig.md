@@ -1,7 +1,7 @@
 # set_sig
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 2063 - 2091
+[src/bin/pg_ctl/pg_ctl.c:2063-2091](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L2063-L2091)
 
 ## Overview
 A static function in pg_ctl that parses signal name strings and sets the global signal variable for the kill command functionality.

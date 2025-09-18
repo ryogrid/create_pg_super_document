@@ -1,7 +1,7 @@
 # get_index_paths
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 710 - 803
+[src/backend/optimizer/path/indxpath.c:710-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L710-L803)
 
 ## Overview
  constructs IndexPaths for a given index and set of index clauses, handling both plain index scans and bitmap index scans appropriately.

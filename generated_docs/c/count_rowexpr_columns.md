@@ -1,7 +1,7 @@
 # count_rowexpr_columns
 
 ## Location
-src/backend/parser/analyze.c: 1295 - 1336
+[src/backend/parser/analyze.c:1295-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L1295-L1336)
 
 ## Overview
 Counts the number of columns contained in a ROW() expression or a variable referencing one, primarily used for providing helpful error messages.

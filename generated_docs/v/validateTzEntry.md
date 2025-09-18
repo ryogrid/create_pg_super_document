@@ -1,7 +1,7 @@
 # validateTzEntry
 
 ## Location
-src/backend/utils/misc/tzparser.c: 52 - 97
+[src/backend/utils/misc/tzparser.c:52-97](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/tzparser.c#L52-L97)
 
 ## Overview
 Applies additional validation checks to a timezone entry structure to ensure it meets PostgreSQL's requirements for timezone abbreviations.

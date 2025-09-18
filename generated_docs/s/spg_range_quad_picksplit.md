@@ -1,7 +1,7 @@
 # spg_range_quad_picksplit
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 200 - 299
+[src/backend/utils/adt/rangetypes_spgist.c:200-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L200-L299)
 
 ## Overview
 SP-GiST picksplit function that divides a collection of ranges into child nodes by selecting a centroid range and distributing ranges according to quadrants.

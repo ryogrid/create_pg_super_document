@@ -1,7 +1,7 @@
 # XLogStats
 
 ## Location
-src/include/access/xlogstats.h: 28 - 37
+[src/include/access/xlogstats.h:28-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogstats.h#L28-L37)
 
 ## Overview
 XLogStats is a comprehensive structure for collecting and analyzing WAL (Write-Ahead Log) statistics in PostgreSQL, providing detailed breakdowns by resource manager and record type.

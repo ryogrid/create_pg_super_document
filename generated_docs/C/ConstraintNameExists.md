@@ -1,7 +1,7 @@
 # ConstraintNameExists
 
 ## Location
-src/backend/catalog/pg_constraint.c: 444 - 497
+[src/backend/catalog/pg_constraint.c:444-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L444-L497)
 
 ## Overview
 Checks if any constraint with the given name exists in a specified namespace, used to avoid autogenerating duplicate constraint names.

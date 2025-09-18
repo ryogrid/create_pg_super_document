@@ -1,7 +1,7 @@
 # get_rightop
 
 ## Location
-src/include/nodes/nodeFuncs.h: 95 - 106
+[src/include/nodes/nodeFuncs.h:95-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L95-L106)
 
 ## Overview
 A static inline utility function that extracts the right operand from a binary operator expression in PostgreSQL's parse tree, returning NULL for unary operator expressions.

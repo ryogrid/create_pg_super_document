@@ -1,7 +1,7 @@
 # gin_extract_tsquery_5args
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 316 - 327
+[src/backend/utils/adt/tsginidx.c:316-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L316-L327)
 
 ## Overview
 The gin_extract_tsquery_5args function serves as a compatibility wrapper for the older five-argument version of gin_extract_tsquery, maintaining backward compatibility with older opclass declarations.

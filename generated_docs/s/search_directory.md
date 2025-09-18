@@ -1,7 +1,7 @@
 # search_directory
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 210 - 291
+[src/bin/pg_waldump/pg_waldump.c:210-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L210-L291)
 
 ## Overview
 Searches for a specific WAL file or any valid WAL file in a given directory, opens it, and extracts the WAL segment size from the file header.

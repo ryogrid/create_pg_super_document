@@ -1,7 +1,7 @@
 # pg_atomic_init_u32
 
 ## Location
-src/include/port/atomics.h: 216 - 233
+[src/include/port/atomics.h:216-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L216-L233)
 
 ## Overview
 Initializes an atomic 32-bit unsigned integer variable with a specified value, preparing it for concurrent access with no memory barrier semantics.

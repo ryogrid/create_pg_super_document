@@ -1,7 +1,7 @@
 # pgstat_progress_update_param
 
 ## Location
-src/backend/utils/activity/backend_progress.c: 49 - 69
+[src/backend/utils/activity/backend_progress.c:49-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_progress.c#L49-L69)
 
 ## Overview
 Updates a specific progress parameter in the backend's progress tracking array to report incremental progress during long-running PostgreSQL operations.

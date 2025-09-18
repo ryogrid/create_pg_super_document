@@ -1,7 +1,7 @@
 # time_in
 
 ## Location
-src/backend/utils/adt/date.c: 1374 - 1415
+[src/backend/utils/adt/date.c:1374-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1374-L1415)
 
 ## Overview
 Parses a string representation of a time value and converts it to PostgreSQL's internal TimeADT format with optional precision adjustment.

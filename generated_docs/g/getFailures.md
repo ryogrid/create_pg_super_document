@@ -1,7 +1,7 @@
 # getFailures
 
 ## Location
-src/bin/pgbench/pgbench.c: 4519 - 4529
+[src/bin/pgbench/pgbench.c:4519-4529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4519-L4529)
 
 ## Overview
 Returns the total number of failed transactions by summing serialization failures and deadlock failures from the provided statistics data.

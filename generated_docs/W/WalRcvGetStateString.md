@@ -1,7 +1,7 @@
 # WalRcvGetStateString
 
 ## Location
-src/backend/replication/walreceiver.c: 1376 - 1400
+[src/backend/replication/walreceiver.c:1376-1400](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1376-L1400)
 
 ## Overview
 Returns a human-readable string representation of WAL receiver states for use in system functions and views.

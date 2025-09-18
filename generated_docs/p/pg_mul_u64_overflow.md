@@ -1,7 +1,7 @@
 # pg_mul_u64_overflow
 
 ## Location
-src/include/common/int.h: 414 - 470
+[src/include/common/int.h:414-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L414-L470)
 
 ## Overview
 A safe unsigned 64-bit integer multiplication function that detects arithmetic overflow, providing multiple implementation strategies based on available compiler and platform features.

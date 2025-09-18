@@ -1,7 +1,7 @@
 # count_nulls
 
 ## Location
-src/backend/utils/adt/misc.c: 76 - 161
+[src/backend/utils/adt/misc.c:76-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L76-L161)
 
 ## Overview
 A static helper function that counts the number of null values in function arguments for PostgreSQL's num_nulls() and num_nonnulls() functions, supporting both variadic array and separate argument calling conventions.

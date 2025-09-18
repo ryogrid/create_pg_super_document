@@ -1,7 +1,7 @@
 # gettoken_query_plain
 
 ## Location
-src/backend/utils/adt/tsquery.c: 510 - 530
+[src/backend/utils/adt/tsquery.c:510-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L510-L530)
 
 ## Overview
 A static tokenizer function that extracts tokens from plain text input for tsquery parsing, treating the entire input buffer as a single value token.

@@ -1,7 +1,7 @@
 # ParsedScript
 
 ## Location
-src/bin/pgbench/pgbench.c: 756 - 762
+[src/bin/pgbench/pgbench.c:756-762](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L756-L762)
 
 ## Overview
 The ParsedScript structure represents a complete, parsed pgbench script containing all its commands, metadata, and execution statistics for weighted script selection and performance tracking.

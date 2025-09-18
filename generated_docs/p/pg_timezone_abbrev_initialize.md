@@ -1,7 +1,7 @@
 # pg_timezone_abbrev_initialize
 
 ## Location
-src/backend/utils/misc/guc.c: 1994 - 2004
+[src/backend/utils/misc/guc.c:1994-2004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1994-L2004)
 
 ## Overview
 pg_timezone_abbrev_initialize is a static helper function that sets the default value for the timezone_abbreviations GUC parameter if no explicit value was configured.

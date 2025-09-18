@@ -1,7 +1,7 @@
 # ExecSupportsMarkRestore
 
 ## Location
-src/backend/executor/execAmi.c: 417 - 509
+[src/backend/executor/execAmi.c:417-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L417-L509)
 
 ## Overview
 ExecSupportsMarkRestore determines whether a given Path supports mark/restore operations during query planning, enabling the planner to make informed decisions about join algorithms and node placement.

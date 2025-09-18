@@ -1,7 +1,7 @@
 # conninfo_uri_parse_options
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6375 - 6615
+[src/interfaces/libpq/fe-connect.c:6375-6615](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6375-L6615)
 
 ## Overview
 Parses a PostgreSQL connection URI string according to RFC 3986 syntax and populates connection options with the extracted values.

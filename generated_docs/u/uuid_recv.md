@@ -1,7 +1,7 @@
 # uuid_recv
 
 ## Location
-src/backend/utils/adt/uuid.c: 145 - 155
+[src/backend/utils/adt/uuid.c:145-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L145-L155)
 
 ## Overview
 PostgreSQL binary receive function that reads a UUID from binary wire format during client-server communication.

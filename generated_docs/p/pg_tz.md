@@ -1,7 +1,7 @@
 # pg_tz
 
 ## Location
-src/timezone/pgtz.h: 65 - 81
+[src/timezone/pgtz.h:65-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/pgtz.h#L65-L81)
 
 ## Overview
 The pg_tz struct represents a PostgreSQL timezone object, containing the canonical timezone name and complete timezone state information.

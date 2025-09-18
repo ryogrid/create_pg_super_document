@@ -1,7 +1,7 @@
 # pg_open_tzfile
 
 ## Location
-src/bin/initdb/findtimezone.c: 65 - 90
+[src/bin/initdb/findtimezone.c:65-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L65-L90)
 
 ## Overview
 Opens a timezone data file given a timezone name and returns the file descriptor, providing a simplified interface for accessing timezone files in the initdb context.

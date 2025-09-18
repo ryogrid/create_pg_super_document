@@ -1,7 +1,7 @@
 # tts_buffer_heap_get_heap_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 903 - 915
+[src/backend/executor/execTuples.c:903-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L903-L915)
 
 ## Overview
 Returns a HeapTuple from a BufferHeapTupleTableSlot, materializing the slot if necessary to ensure a persistent HeapTuple is available.

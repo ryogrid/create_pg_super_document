@@ -1,7 +1,7 @@
 # BeginStrongLockAcquire
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1724 - 1749
+[src/backend/storage/lmgr/lock.c:1724-1749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1724-L1749)
 
 ## Overview
 BeginStrongLockAcquire inhibits the use of the fast-path locking mechanism for a given LOCALLOCK and sets up error cleanup handling for strong lock acquisition.

@@ -1,7 +1,7 @@
 # MultiXactShmemSize
 
 ## Location
-src/backend/access/transam/multixact.c: 1939 - 1943
+[src/backend/access/transam/multixact.c:1939-1943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L1939-L1943)
 
 ## Overview
 Calculates the total shared memory size required for PostgreSQL's multi-transaction (MultiXact) subsystem, including SLRU buffers and state structures.

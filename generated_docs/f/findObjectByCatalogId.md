@@ -1,7 +1,7 @@
 # findObjectByCatalogId
 
 ## Location
-src/bin/pg_dump/common.c: 767 - 785
+[src/bin/pg_dump/common.c:767-785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L767-L785)
 
 ## Overview
 Retrieves a DumpableObject by its catalog ID using hash table lookup in the pg_dump catalog ID mapping system.

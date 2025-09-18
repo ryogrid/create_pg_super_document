@@ -1,7 +1,7 @@
 # datetime_timestamp
 
 ## Location
-src/backend/utils/adt/date.c: 1966 - 1988
+[src/backend/utils/adt/date.c:1966-1988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1966-L1988)
 
 ## Overview
 Combines a date value and a time value to create a timestamp, merging separate date and time components into a single timestamp data type.

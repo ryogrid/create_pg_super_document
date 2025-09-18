@@ -1,7 +1,7 @@
 # WALInsertLockAcquire
 
 ## Location
-src/backend/access/transam/xlog.c: 1373 - 1417
+[src/backend/access/transam/xlog.c:1373-1417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1373-L1417)
 
 ## Overview
 WALInsertLockAcquire acquires one of the available WAL insertion locks to coordinate concurrent WAL record insertions, using an affinity-based selection strategy to minimize cache line bouncing.

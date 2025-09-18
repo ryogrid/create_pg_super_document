@@ -1,7 +1,7 @@
 # ReindexIndex
 
 ## Location
-src/backend/commands/indexcmds.c: 2788 - 2841
+[src/backend/commands/indexcmds.c:2788-2841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2788-L2841)
 
 ## Overview
 ReindexIndex recreates a specific index by handling different reindex scenarios including partitioned indexes, concurrent reindexing, and regular reindexing based on the index characteristics and requested options.

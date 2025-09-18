@@ -1,7 +1,7 @@
 # PLy_cursor_close
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 467 - 488
+[src/pl/plpython/plpy_cursorobject.c:467-488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L467-L488)
 
 ## Overview
 Closes a PostgreSQL cursor by unpinning and closing the associated portal, marking the PLyCursor object as closed to prevent further operations.

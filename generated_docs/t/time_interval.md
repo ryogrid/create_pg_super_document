@@ -1,7 +1,7 @@
 # time_interval
 
 ## Location
-src/backend/utils/adt/date.c: 1989 - 2011
+[src/backend/utils/adt/date.c:1989-2011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1989-L2011)
 
 ## Overview
 Converts a time value to an interval data type, creating an interval that represents the same duration as the time value from midnight.

@@ -1,7 +1,7 @@
 # AlterDomainDefault
 
 ## Location
-src/backend/commands/typecmds.c: 2576 - 2704
+[src/backend/commands/typecmds.c:2576-2704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2576-L2704)
 
 ## Overview
 AlterDomainDefault implements the ALTER DOMAIN SET/DROP DEFAULT statements, allowing users to modify or remove the default value for an existing domain type in PostgreSQL.

@@ -1,7 +1,7 @@
 # ExecCustomRestrPos
 
 ## Location
-src/backend/executor/nodeCustom.c: 150 - 160
+[src/backend/executor/nodeCustom.c:150-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCustom.c#L150-L160)
 
 ## Overview
 Restores the position of a custom scan node to a previously marked position using the custom scan method's RestrPosCustomScan callback.

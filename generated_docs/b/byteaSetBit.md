@@ -1,7 +1,7 @@
 # byteaSetBit
 
 ## Location
-src/backend/utils/adt/varlena.c: 3308 - 3358
+[src/backend/utils/adt/varlena.c:3308-3358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3308-L3358)
 
 ## Overview
 Creates a new bytea (binary string) instance with a specific bit at the given index position set to a new value (0 or 1).

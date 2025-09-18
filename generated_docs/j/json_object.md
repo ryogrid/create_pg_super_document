@@ -1,7 +1,7 @@
 # json_object
 
 ## Location
-src/backend/utils/adt/json.c: 1397 - 1484
+[src/backend/utils/adt/json.c:1397-1484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1397-L1484)
 
 ## Overview
 SQL function that constructs JSON objects from PostgreSQL text arrays containing key-value pairs.

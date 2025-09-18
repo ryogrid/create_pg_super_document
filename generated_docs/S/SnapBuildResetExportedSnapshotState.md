@@ -1,7 +1,7 @@
 # SnapBuildResetExportedSnapshotState
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 766 - 777
+[src/backend/replication/logical/snapbuild.c:766-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L766-L777)
 
 ## Overview
 Resets the global state variables related to exported snapshots during transaction abort, ensuring clean state recovery after transaction failures.

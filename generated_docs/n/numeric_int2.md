@@ -1,7 +1,7 @@
 # numeric_int2
 
 ## Location
-src/backend/utils/adt/numeric.c: 4569 - 4608
+[src/backend/utils/adt/numeric.c:4569-4608](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4569-L4608)
 
 ## Overview
 Converts a PostgreSQL numeric value to a 16-bit signed integer (smallint), performing range validation and error handling for special numeric values.

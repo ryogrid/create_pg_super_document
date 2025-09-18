@@ -1,7 +1,7 @@
 # test_simple_pipeline
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 1490 - 1576
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:1490-1576](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L1490-L1576)
 
 ## Overview
 Tests the basic functionality of PostgreSQL pipeline mode by entering pipeline mode, sending a single query, synchronizing, and properly exiting pipeline mode.

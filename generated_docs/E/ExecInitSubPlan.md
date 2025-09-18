@@ -1,7 +1,7 @@
 # ExecInitSubPlan
 
 ## Location
-src/backend/executor/nodeSubplan.c: 823 - 1091
+[src/backend/executor/nodeSubplan.c:823-1091](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L823-L1091)
 
 ## Overview
 Initializes a SubPlanState structure for executing subplans and initplans, setting up all necessary data structures including hash tables, projection nodes, and equality functions.

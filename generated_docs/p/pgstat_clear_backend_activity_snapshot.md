@@ -1,7 +1,7 @@
 # pgstat_clear_backend_activity_snapshot
 
 ## Location
-src/backend/utils/activity/backend_status.c: 467 - 481
+[src/backend/utils/activity/backend_status.c:467-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L467-L481)
 
 ## Overview
 Clears the backend activity snapshot data collected in the current transaction, releasing associated memory and resetting local status tracking variables.

@@ -1,7 +1,7 @@
 # line_out
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1023 - 1037
+[src/backend/utils/adt/geo_ops.c:1023-1037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1023-L1037)
 
 ## Overview
 Converts a LINE data structure to its string representation for output. This function serves as the output function for the PostgreSQL line data type.

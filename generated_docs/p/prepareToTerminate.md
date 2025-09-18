@@ -1,7 +1,7 @@
 # prepareToTerminate
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 1042 - 1069
+[src/bin/pg_basebackup/pg_recvlogical.c:1042-1069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L1042-L1069)
 
 ## Overview
 A function that gracefully notifies the PostgreSQL server about the upcoming termination of the logical replication stream and logs the termination reason.

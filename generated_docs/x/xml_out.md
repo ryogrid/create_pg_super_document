@@ -1,7 +1,7 @@
 # xml_out
 
 ## Location
-src/backend/utils/adt/xml.c: 356 - 370
+[src/backend/utils/adt/xml.c:356-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L356-L370)
 
 ## Overview
 PostgreSQL output function that converts the internal xml data type to a C string representation for client communication, specifically removing encoding declarations.

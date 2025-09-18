@@ -1,7 +1,7 @@
 # check_worker_status
 
 ## Location
-src/test/modules/test_shm_mq/setup.c: 306 - 323
+[src/test/modules/test_shm_mq/setup.c:306-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/setup.c#L306-L323)
 
 ## Overview
 A static utility function that checks the status of all background workers in a worker state structure, determining if any workers have died or if the postmaster has died.

@@ -1,7 +1,7 @@
 # generate_new_exec_param
 
 ## Location
-src/backend/optimizer/util/paramassign.c: 637 - 663
+[src/backend/optimizer/util/paramassign.c:637-663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/paramassign.c#L637-L663)
 
 ## Overview
 Generates a new execution parameter (Param node) with a unique ID that will not conflict with any existing parameters in the query plan.

@@ -1,7 +1,7 @@
 # PGChecksummablePage
 
 ## Location
-src/include/storage/checksum_impl.h: 115 - 134
+[src/include/storage/checksum_impl.h:115-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/checksum_impl.h#L115-L134)
 
 ## Overview
 A union data structure that provides safe aliasing for PostgreSQL page data, allowing access both as page header information and as a multi-dimensional uint32 array for efficient checksum computation.

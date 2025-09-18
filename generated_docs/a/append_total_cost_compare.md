@@ -1,7 +1,7 @@
 # append_total_cost_compare
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1375 - 1396
+[src/backend/optimizer/util/pathnode.c:1375-1396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1375-L1396)
 
 ## Overview
 A list_sort comparator function that sorts append child paths by total_cost in descending order for parallel append operations.

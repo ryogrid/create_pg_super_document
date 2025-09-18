@@ -1,7 +1,7 @@
 # r_remove_first_order_prefix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 194 - 273
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:194-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L194-L273)
 
 ## Overview
 Removes first-order prefixes from Indonesian words including 'di', 'ke', 'me', 'mem', 'men', 'meng', 'meny', 'pem', 'pen', 'peng', 'peny', and 'ter' with appropriate morphological transformations.

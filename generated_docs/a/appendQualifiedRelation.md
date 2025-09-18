@@ -1,7 +1,7 @@
 # appendQualifiedRelation
 
 ## Location
-src/bin/scripts/common.c: 69 - 131
+[src/bin/scripts/common.c:69-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/common.c#L69-L131)
 
 ## Overview
 Resolves a table specification string to its fully qualified name and appends it to a buffer, ensuring the table name is properly qualified with schema information.

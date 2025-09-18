@@ -1,7 +1,7 @@
 # TidRangeScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1864 - 1871
+[src/include/nodes/execnodes.h:1864-1871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1864-L1871)
 
 ## Overview
 TidRangeScanState is a runtime state structure for PostgreSQL's TID range scan executor node, which performs table scans based on a range of tuple identifiers (TIDs).

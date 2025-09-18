@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_tabentry_ext
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 466 - 486
+[src/backend/utils/activity/pgstat_relation.c:466-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L466-L486)
 
 ## Overview
 Extended and more efficient version of table statistics retrieval that allows explicit specification of whether the target relation is shared, avoiding the need to determine this at runtime.

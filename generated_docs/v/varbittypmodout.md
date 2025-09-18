@@ -1,7 +1,7 @@
 # varbittypmodout
 
 ## Location
-src/backend/utils/adt/varbit.c: 782 - 817
+[src/backend/utils/adt/varbit.c:782-817](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L782-L817)
 
 ## Overview
 Type modifier output function for the variable-length bit string (VARBIT) data type that converts internal type modifier values back to their string representation.

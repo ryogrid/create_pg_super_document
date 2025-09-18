@@ -1,7 +1,7 @@
 # InitProcessGlobals
 
 ## Location
-src/backend/postmaster/postmaster.c: 2034 - 2075
+[src/backend/postmaster/postmaster.c:2034-2075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2034-L2075)
 
 ## Overview
 Initializes process-level global variables including timestamps and random number generator seeds for secure random number generation.

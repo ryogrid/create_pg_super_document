@@ -1,7 +1,7 @@
 # pg_popcount_masked_optimized
 
 ## Location
-src/port/pg_bitutils.c: 525 - 530
+[src/port/pg_bitutils.c:525-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L525-L530)
 
 ## Overview
 Efficiently counts the number of 1 bits in a buffer after applying a bitmask to each byte, providing optimized masked population count operations for selective bit counting.

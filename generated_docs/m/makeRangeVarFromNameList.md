@@ -1,7 +1,7 @@
 # makeRangeVarFromNameList
 
 ## Location
-src/backend/catalog/namespace.c: 3554 - 3593
+[src/backend/catalog/namespace.c:3554-3593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3554-L3593)
 
 ## Overview
 Converts a qualified name list (strings) into a RangeVar structure for relation identification and manipulation.

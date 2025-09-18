@@ -1,7 +1,7 @@
 # to_bin64
 
 ## Location
-src/backend/utils/adt/varlena.c: 4963 - 4974
+[src/backend/utils/adt/varlena.c:4963-4974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4963-L4974)
 
 ## Overview
 Converts a 64-bit integer value to its binary (base-2) string representation.

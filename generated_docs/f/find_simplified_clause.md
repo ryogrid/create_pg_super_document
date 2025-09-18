@@ -1,7 +1,7 @@
 # find_simplified_clause
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2786 - 2907
+[src/backend/utils/adt/rangetypes.c:2786-2907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2786-L2907)
 
 ## Overview
 A static function that attempts to simplify range containment expressions by converting them into simpler boundary comparison expressions when the range is a constant.

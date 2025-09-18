@@ -1,7 +1,7 @@
 # ATExecSetExpression
 
 ## Location
-src/backend/commands/tablecmds.c: 8360 - 8472
+[src/backend/commands/tablecmds.c:8360-8472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8360-L8472)
 
 ## Overview
 ATExecSetExpression implements the ALTER TABLE ALTER COLUMN SET EXPRESSION command, allowing modification of the expression used by a generated column in PostgreSQL relations.

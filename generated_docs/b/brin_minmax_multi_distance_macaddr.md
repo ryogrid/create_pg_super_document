@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_macaddr
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2212 - 2248
+[src/backend/access/brin/brin_minmax_multi.c:2212-2248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2212-L2248)
 
 ## Overview  
 Computes the distance between two MAC address values by treating them as base-256 numbers and calculating their numerical difference, used by BRIN minmax multi operator classes for macaddr data types.

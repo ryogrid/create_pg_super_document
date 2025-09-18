@@ -1,7 +1,7 @@
 # make_result_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 7798 - 7906
+[src/backend/utils/adt/numeric.c:7798-7906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7798-L7906)
 
 ## Overview
 Converts a NumericVar structure to the packed database numeric format with optional error handling for overflow conditions, supporting both normal values and special cases like NaN and Infinity.

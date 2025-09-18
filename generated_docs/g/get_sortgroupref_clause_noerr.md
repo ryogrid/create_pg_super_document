@@ -1,7 +1,7 @@
 # get_sortgroupref_clause_noerr
 
 ## Location
-src/backend/optimizer/util/tlist.c: 443 - 462
+[src/backend/optimizer/util/tlist.c:443-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L443-L462)
 
 ## Overview
 Like get_sortgroupref_clause, but returns NULL rather than throwing an error if the SortGroupRef is not found.

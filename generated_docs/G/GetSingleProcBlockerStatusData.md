@@ -1,7 +1,7 @@
 # GetSingleProcBlockerStatusData
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3893 - 3987
+[src/backend/storage/lmgr/lock.c:3893-3987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3893-L3987)
 
 ## Overview
 GetSingleProcBlockerStatusData accumulates blocking data for a single process, collecting information about the lock it's waiting on and all processes that hold or wait for the same lock.

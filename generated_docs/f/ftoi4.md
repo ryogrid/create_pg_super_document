@@ -1,7 +1,7 @@
 # ftoi4
 
 ## Location
-src/backend/utils/adt/float.c: 1281 - 1305
+[src/backend/utils/adt/float.c:1281-1305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1281-L1305)
 
 ## Overview
 The ftoi4 function converts a float4 (single precision floating-point) number to an int4 (32-bit signed integer), performing range checking and error handling for values outside the representable integer range.

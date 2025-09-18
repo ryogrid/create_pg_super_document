@@ -1,7 +1,7 @@
 # escape_yaml
 
 ## Location
-src/backend/commands/explain.c: 5299 - 5313
+[src/backend/commands/explain.c:5299-5313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5299-L5313)
 
 ## Overview
 A utility function that escapes strings for safe inclusion in YAML output by delegating to JSON escaping rules.

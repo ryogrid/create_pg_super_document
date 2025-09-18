@@ -1,7 +1,7 @@
 # GetTopTransactionIdIfAny
 
 ## Location
-src/backend/access/transam/xact.c: 438 - 450
+[src/backend/access/transam/xact.c:438-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L438-L450)
 
 ## Overview
 Returns the transaction ID (XID) of the main transaction if one has been assigned, or InvalidTransactionId if no XID has been assigned or if not within a transaction.

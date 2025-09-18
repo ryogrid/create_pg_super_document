@@ -1,7 +1,7 @@
 # ExecParallelHashPopChunkQueue
 
 ## Location
-src/backend/executor/nodeHash.c: 3500 - 3540
+[src/backend/executor/nodeHash.c:3500-3540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3500-L3540)
 
 ## Overview
 Atomically retrieves the next available memory chunk from a work queue shared among parallel hash join workers, returning NULL when no more chunks are available for processing.

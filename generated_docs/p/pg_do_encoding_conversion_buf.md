@@ -1,7 +1,7 @@
 # pg_do_encoding_conversion_buf
 
 ## Location
-src/backend/utils/mb/mbutils.c: 469 - 500
+[src/backend/utils/mb/mbutils.c:469-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L469-L500)
 
 ## Overview
 Performs encoding conversion using a caller-provided destination buffer, providing a more memory-efficient alternative to pg_do_encoding_conversion for situations where the output buffer size is controlled.

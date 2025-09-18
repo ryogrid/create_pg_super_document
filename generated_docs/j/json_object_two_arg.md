@@ -1,7 +1,7 @@
 # json_object_two_arg
 
 ## Location
-src/backend/utils/adt/json.c: 1485 - 1562
+[src/backend/utils/adt/json.c:1485-1562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1485-L1562)
 
 ## Overview
 SQL function that constructs JSON objects from two separate PostgreSQL text arrays, one for keys and one for values.

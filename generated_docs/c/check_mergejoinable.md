@@ -1,7 +1,7 @@
 # check_mergejoinable
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 3374 - 3410
+[src/backend/optimizer/plan/initsplan.c:3374-3410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L3374-L3410)
 
 ## Overview
 Determines if a restriction clause is suitable for merge join operations and populates the mergejoin info fields in the RestrictInfo structure accordingly.

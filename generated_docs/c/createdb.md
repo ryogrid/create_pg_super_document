@@ -1,7 +1,7 @@
 # createdb
 
 ## Location
-src/backend/commands/dbcommands.c: 670 - 1556
+[src/backend/commands/dbcommands.c:670-1556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L670-L1556)
 
 ## Overview
 createdb is the main function that implements the CREATE DATABASE SQL command, responsible for creating a new PostgreSQL database by copying from a template database.

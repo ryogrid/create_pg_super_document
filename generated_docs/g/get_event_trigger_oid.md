@@ -1,7 +1,7 @@
 # get_event_trigger_oid
 
 ## Location
-src/backend/commands/event_trigger.c: 575 - 593
+[src/backend/commands/event_trigger.c:575-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L575-L593)
 
 ## Overview
 Looks up an event trigger by name to find its OID, with optional error handling for missing triggers.

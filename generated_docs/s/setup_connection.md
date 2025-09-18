@@ -1,7 +1,7 @@
 # setup_connection
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 1212 - 1381
+[src/bin/pg_dump/pg_dump.c:1212-1381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L1212-L1381)
 
 ## Overview
 Establishes and configures a database connection for pg_dump operations, setting up appropriate encoding, transaction isolation, timeouts, and other parameters needed for consistent data dumping.

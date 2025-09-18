@@ -1,7 +1,7 @@
 # finish_edata
 
 ## Location
-src/backend/replication/logical/worker.c: 711 - 741
+[src/backend/replication/logical/worker.c:711-741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L711-L741)
 
 ## Overview
 Performs cleanup and finalization operations for executor state data (ApplyExecutionData) created by create_edata_for_relation(), handling AFTER triggers, tuple routing cleanup, and proper resource deallocation.

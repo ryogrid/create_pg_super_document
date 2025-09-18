@@ -1,7 +1,7 @@
 # PQtrace
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 35 - 48
+[src/interfaces/libpq/fe-trace.c:35-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L35-L48)
 
 ## Overview
 Enables tracing of frontend-backend message traffic for a PostgreSQL connection by setting a debug output stream.

@@ -1,7 +1,7 @@
 # pg_console_handler
 
 ## Location
-src/backend/port/win32/signal.c: 377 - 388
+[src/backend/port/win32/signal.c:377-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/signal.c#L377-L388)
 
 ## Overview
 A Windows console control handler that converts console events (Ctrl+C, Ctrl+Break, close, shutdown) into PostgreSQL SIGINT signals.

@@ -1,7 +1,7 @@
 # ExecSetTupleBound
 
 ## Location
-src/backend/executor/execProcnode.c: 843 - 982
+[src/backend/executor/execProcnode.c:843-982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execProcnode.c#L843-L982)
 
 ## Overview
 ExecSetTupleBound propagates tuple count limits down through a PostgreSQL query plan tree to enable performance optimizations in child nodes that can benefit from knowing the maximum number of tuples their parent will consume.

@@ -1,7 +1,7 @@
 # intorel_startup
 
 ## Location
-src/backend/commands/createas.c: 452 - 575
+[src/backend/commands/createas.c:452-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L452-L575)
 
 ## Overview
 intorel_startup initializes the destination receiver for CREATE TABLE AS and CREATE MATERIALIZED VIEW operations by creating the target relation, setting up column definitions, and preparing the state for bulk tuple insertion.

@@ -1,7 +1,7 @@
 # IssuePendingWritebacks
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5934 - 6016
+[src/backend/storage/buffer/bufmgr.c:5934-6016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5934-L6016)
 
 ## Overview
 Issues all pending writeback requests that were previously scheduled with ScheduleBufferTagForWriteback to the operating system to improve IO scheduling performance.

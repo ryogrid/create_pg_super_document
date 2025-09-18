@@ -1,7 +1,7 @@
 # db_dir_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 74 - 117
+[src/backend/utils/adt/dbsize.c:74-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L74-L117)
 
 ## Overview
 A static utility function that calculates the physical size of a directory by recursively summing the sizes of all files within it, returning 0 if the directory doesn't exist.

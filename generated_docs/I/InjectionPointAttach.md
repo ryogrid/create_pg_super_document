@@ -1,7 +1,7 @@
 # InjectionPointAttach
 
 ## Location
-src/backend/utils/misc/injection_point.c: 272 - 359
+[src/backend/utils/misc/injection_point.c:272-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L272-L359)
 
 ## Overview
 Registers a new injection point in the shared memory hash table, associating a name with a library, function, and optional private data for dynamic code injection during testing.

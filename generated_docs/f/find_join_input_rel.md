@@ -1,7 +1,7 @@
 # find_join_input_rel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6494 - 6525
+[src/backend/utils/adt/selfuncs.c:6494-6525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6494-L6525)
 
 ## Overview
 Looks up the input relation for a join operation by finding the corresponding RelOptInfo structure for the given set of relation IDs.

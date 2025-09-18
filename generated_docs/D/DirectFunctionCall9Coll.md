@@ -1,7 +1,7 @@
 # DirectFunctionCall9Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1017 - 1064
+[src/backend/utils/fmgr/fmgr.c:1017-1064](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1017-L1064)
 
 ## Overview
 DirectFunctionCall9Coll is a utility function that directly calls a PostgreSQL function with 9 arguments and a specified collation, handling function call setup and result validation.

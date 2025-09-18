@@ -1,7 +1,7 @@
 # index_insert
 
 ## Location
-src/backend/access/index/indexam.c: 213 - 240
+[src/backend/access/index/indexam.c:213-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L213-L240)
 
 ## Overview
 Inserts an index tuple into an index relation using the access method's insert procedure.

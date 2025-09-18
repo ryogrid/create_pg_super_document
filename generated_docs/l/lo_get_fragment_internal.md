@@ -1,7 +1,7 @@
 # lo_get_fragment_internal
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 741 - 791
+[src/backend/libpq/be-fsstubs.c:741-791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L741-L791)
 
 ## Overview
 Reads a specified fragment of data from a large object, handling bounds checking, size validation, and returning the data as a bytea structure.

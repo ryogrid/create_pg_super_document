@@ -1,7 +1,7 @@
 # ProcWaitForSignal
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1871 - 1882
+[src/backend/storage/lmgr/proc.c:1871-1882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1871-L1882)
 
 ## Overview
 Waits for a signal from another backend using the generic process latch mechanism, providing a standardized way for processes to block until signaled by other processes.

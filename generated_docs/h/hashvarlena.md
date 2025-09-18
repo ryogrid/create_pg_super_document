@@ -1,7 +1,7 @@
 # hashvarlena
 
 ## Location
-src/backend/access/hash/hashfunc.c: 383 - 397
+[src/backend/access/hash/hashfunc.c:383-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L383-L397)
 
 ## Overview
 A general-purpose hash function for variable-length data types where all bits are significant for equality comparison.

@@ -1,7 +1,7 @@
 # dsynonym_lexize
 
 ## Location
-src/backend/tsearch/dict_synonym.c: 210 - 241
+[src/backend/tsearch/dict_synonym.c:210-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_synonym.c#L210-L241)
 
 ## Overview
 Performs synonym replacement by searching for input tokens in the initialized synonym dictionary and returning appropriate lexeme replacements.

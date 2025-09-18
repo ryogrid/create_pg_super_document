@@ -1,7 +1,7 @@
 # parseQuery
 
 ## Location
-src/bin/pgbench/pgbench.c: 5453 - 5513
+[src/bin/pgbench/pgbench.c:5453-5513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5453-L5513)
 
 ## Overview
 Parses a pgbench SQL command to replace parameter placeholders (:param) with PostgreSQL-style positional parameters (, , etc.).

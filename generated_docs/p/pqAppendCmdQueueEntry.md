@@ -1,7 +1,7 @@
 # pqAppendCmdQueueEntry
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1339 - 1385
+[src/interfaces/libpq/fe-exec.c:1339-1385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1339-L1385)
 
 ## Overview
 Appends a caller-allocated command queue entry to the connection's command queue and updates the connection's asynchronous status to properly handle pipeline execution states.

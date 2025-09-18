@@ -1,7 +1,7 @@
 # get_ext_ver_list
 
 ## Location
-src/backend/commands/extension.c: 1204 - 1266
+[src/backend/commands/extension.c:1204-1266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1204-L1266)
 
 ## Overview
 Scans the extension script directory to build a comprehensive list of ExtensionVersionInfo structures representing all available extension versions and their upgrade paths.

@@ -1,7 +1,7 @@
 # ExplainSaveGroup
 
 ## Location
-src/backend/commands/explain.c: 5016 - 5045
+[src/backend/commands/explain.c:5016-5045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5016-L5045)
 
 ## Overview
 ExplainSaveGroup pops one level of grouping state while preserving the state information for later restoration, typically used in conjunction with ExplainOpenSetAsideGroup.

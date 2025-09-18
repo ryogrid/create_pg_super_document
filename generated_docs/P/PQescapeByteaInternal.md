@@ -1,7 +1,7 @@
 # PQescapeByteaInternal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4418 - 4513
+[src/interfaces/libpq/fe-exec.c:4418-4513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4418-L4513)
 
 ## Overview
 PQescapeByteaInternal converts binary data to a string representation suitable for inclusion in SQL statements as bytea literals, supporting both hexadecimal and traditional escape formats.

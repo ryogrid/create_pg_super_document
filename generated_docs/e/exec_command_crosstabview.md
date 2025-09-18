@@ -1,7 +1,7 @@
 # exec_command_crosstabview
 
 ## Location
-src/bin/psql/command.c: 749 - 772
+[src/bin/psql/command.c:749-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L749-L772)
 
 ## Overview
 Processes the \crosstabview psql command which executes a query and displays the result in a crosstab (pivot table) format.

@@ -1,7 +1,7 @@
 # dlist_insert_after
 
 ## Location
-src/include/lib/ilist.h: 381 - 392
+[src/include/lib/ilist.h:381-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L381-L392)
 
 ## Overview
 Inserts a new node after a specified node in a doubly-linked list, maintaining proper linkages in both directions.

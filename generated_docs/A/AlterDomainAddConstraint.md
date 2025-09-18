@@ -1,7 +1,7 @@
 # AlterDomainAddConstraint
 
 ## Location
-src/backend/commands/typecmds.c: 2897 - 3036
+[src/backend/commands/typecmds.c:2897-3036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2897-L3036)
 
 ## Overview
 Implements the ALTER DOMAIN ADD CONSTRAINT statement, adding CHECK or NOT NULL constraints to domain types with proper validation and constraint enforcement.

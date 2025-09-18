@@ -1,7 +1,7 @@
 # InitCatalogCachePhase2
 
 ## Location
-src/backend/utils/cache/syscache.c: 180 - 207
+[src/backend/utils/cache/syscache.c:180-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L180-L207)
 
 ## Overview
 Completes the initialization of PostgreSQL's system catalog caches by performing database access to preload the most commonly-used system catalogs.

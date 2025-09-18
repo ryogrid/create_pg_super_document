@@ -1,7 +1,7 @@
 # get_position
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 794 - 872
+[src/backend/utils/adt/multirangetypes_selfuncs.c:794-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L794-L872)
 
 ## Overview
 Calculates the relative position of a range bound value within a histogram bin, returning a normalized position in the range [0,1] for interpolation during selectivity estimation.

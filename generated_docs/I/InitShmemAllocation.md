@@ -1,7 +1,7 @@
 # InitShmemAllocation
 
 ## Location
-src/backend/storage/ipc/shmem.c: 115 - 151
+[src/backend/storage/ipc/shmem.c:115-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L115-L151)
 
 ## Overview
 InitShmemAllocation sets up the shared memory space allocation system by initializing the allocation spinlock and aligning the free space to cache line boundaries.

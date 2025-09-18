@@ -1,7 +1,7 @@
 # generator_init
 
 ## Location
-src/backend/statistics/mvdistinct.c: 589 - 626
+[src/backend/statistics/mvdistinct.c:589-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L589-L626)
 
 ## Overview
 Initializes a generator that produces combinations of K elements from the interval (0..N).

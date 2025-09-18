@@ -1,7 +1,7 @@
 # add_column_datatype_dependency
 
 ## Location
-src/backend/commands/tablecmds.c: 7491 - 7508
+[src/backend/commands/tablecmds.c:7491-7508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7491-L7508)
 
 ## Overview
 Establishes a dependency relationship between a table column and its data type to ensure referential integrity in the PostgreSQL catalog system.

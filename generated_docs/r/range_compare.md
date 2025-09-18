@@ -1,7 +1,7 @@
 # range_compare
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2129 - 2164
+[src/backend/utils/adt/rangetypes.c:2129-2164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2129-L2164)
 
 ## Overview
 A qsort-compatible comparison function for sorting arrays of RangeType pointers, implementing a total ordering where empty ranges sort before non-empty ranges.

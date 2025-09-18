@@ -1,7 +1,7 @@
 # ReplicationSlotAcquire
 
 ## Location
-src/backend/replication/slot.c: 540 - 651
+[src/backend/replication/slot.c:540-651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L540-L651)
 
 ## Overview
 Finds and acquires an existing replication slot by name, marking it as active for the current process.

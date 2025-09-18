@@ -1,7 +1,7 @@
 # get_publication_oid
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3625 - 3644
+[src/backend/utils/cache/lsyscache.c:3625-3644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3625-L3644)
 
 ## Overview
 Looks up the object identifier (OID) of a publication given its name, with optional error handling for missing publications.

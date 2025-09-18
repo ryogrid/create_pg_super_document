@@ -1,7 +1,7 @@
 # PLy_plan_execute
 
 ## Location
-src/pl/plpython/plpy_planobject.c: 103 - 115
+[src/pl/plpython/plpy_planobject.c:103-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.c#L103-L115)
 
 ## Overview
 PLy_plan_execute is a Python method wrapper function that executes a prepared SQL plan from PL/Python, serving as the Python-facing interface for executing prepared statements.

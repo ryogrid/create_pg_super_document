@@ -1,7 +1,7 @@
 # EndCompressor
 
 ## Location
-src/bin/pg_dump/compress_io.c: 149 - 163
+[src/bin/pg_dump/compress_io.c:149-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L149-L163)
 
 ## Overview
 This function terminates the compression library context, flushes any remaining buffers, and frees the CompressorState structure.

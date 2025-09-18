@@ -1,7 +1,7 @@
 # pg_popcount_masked_fast
 
 ## Location
-src/port/pg_bitutils.c: 295 - 347
+[src/port/pg_bitutils.c:295-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L295-L347)
 
 ## Overview
 An optimized masked population count function that efficiently counts the number of set bits in a buffer after applying a bit mask to each byte, using hardware-accelerated instructions and alignment-aware processing.

@@ -1,7 +1,7 @@
 # create_gather_merge_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1958 - 2018
+[src/backend/optimizer/plan/createplan.c:1958-2018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1958-L2018)
 
 ## Overview
 Creates a GatherMerge plan node that performs ordered parallel execution by collecting and merging sorted results from multiple worker processes.

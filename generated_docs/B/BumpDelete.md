@@ -1,7 +1,7 @@
 # BumpDelete
 
 ## Location
-src/backend/utils/mmgr/bump.c: 278 - 292
+[src/backend/utils/mmgr/bump.c:278-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L278-L292)
 
 ## Overview
 Completely destroys a Bump memory context by freeing all allocated memory and the context structure itself.

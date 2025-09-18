@@ -1,7 +1,7 @@
 # pg_lsn_pli
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 251 - 284
+[src/backend/utils/adt/pg_lsn.c:251-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L251-L284)
 
 ## Overview
 The pg_lsn_pli function adds a numeric byte offset to a PostgreSQL Log Sequence Number (LSN), returning a new LSN value, and handles both positive and negative byte offsets.

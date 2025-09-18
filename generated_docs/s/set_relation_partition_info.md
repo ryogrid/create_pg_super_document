@@ -1,7 +1,7 @@
 # set_relation_partition_info
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2419 - 2448
+[src/backend/optimizer/util/plancat.c:2419-2448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2419-L2448)
 
 ## Overview
 Sets up partitioning scheme and related metadata for a partitioned table in the RelOptInfo structure during query planning.

@@ -1,7 +1,7 @@
 # fe
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-init.c: 111 - 116
+[src/interfaces/ecpg/test/expected/preproc-init.c:111-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-init.c#L111-L116)
 
 ## Overview
 A static test function used in ECPG (Embedded SQL in C) test cases that demonstrates enum parameter handling and type casting operations.

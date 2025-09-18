@@ -1,7 +1,7 @@
 # comparecost
 
 ## Location
-src/backend/utils/adt/tsquery_gist.c: 158 - 163
+[src/backend/utils/adt/tsquery_gist.c:158-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_gist.c#L158-L163)
 
 ## Overview
 A comparison function used for sorting SPLITCOST structures by their cost values during GiST index node splitting operations in text search indexing.

@@ -1,7 +1,7 @@
 # InitializeBackupManifest
 
 ## Location
-src/backend/backup/backup_manifest.c: 56 - 90
+[src/backend/backup/backup_manifest.c:56-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L56-L90)
 
 ## Overview
 Initializes the backup manifest infrastructure by setting up the manifest buffer file, cryptographic checksum context, and writing the initial JSON header for backup manifest generation.

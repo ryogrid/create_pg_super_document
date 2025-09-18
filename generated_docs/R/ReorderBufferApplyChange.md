@@ -1,7 +1,7 @@
 # ReorderBufferApplyChange
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2012 - 2025
+[src/backend/replication/logical/reorderbuffer.c:2012-2025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2012-L2025)
 
 ## Overview
 ReorderBufferApplyChange is a helper function that applies individual changes during transaction processing, choosing between streaming and regular apply modes based on the context.

@@ -1,7 +1,7 @@
 # my_BIO_s_socket
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1972 - 2037
+[src/interfaces/libpq/fe-secure-openssl.c:1972-2037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1972-L2037)
 
 ## Overview
 Creates and returns a custom BIO_METHOD structure for PostgreSQL's secure socket communication with OpenSSL, providing PostgreSQL-specific socket I/O operations.

@@ -1,7 +1,7 @@
 # LockBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5132 - 5157
+[src/backend/storage/buffer/bufmgr.c:5132-5157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5132-L5157)
 
 ## Overview
 LockBuffer acquires or releases the content lock for a buffer, providing exclusive or shared access to buffer contents.

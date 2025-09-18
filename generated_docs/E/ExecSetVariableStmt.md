@@ -1,7 +1,7 @@
 # ExecSetVariableStmt
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 43 - 166
+[src/backend/utils/misc/guc_funcs.c:43-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L43-L166)
 
 ## Overview
 Executes PostgreSQL SET statements, handling various types of variable assignments including regular GUC parameters, transaction-level settings, and special multi-value settings like TRANSACTION and SESSION CHARACTERISTICS.

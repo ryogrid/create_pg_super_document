@@ -1,7 +1,7 @@
 # text_to_table
 
 ## Location
-src/backend/utils/adt/varlena.c: 4551 - 4574
+[src/backend/utils/adt/varlena.c:4551-4574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4551-L4574)
 
 ## Overview
 Parses input string and returns a table (set-returning function) of elements based on a provided field separator.

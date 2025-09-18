@@ -1,7 +1,7 @@
 # pltcl_InitNotifier
 
 ## Location
-src/pl/tcl/pltcl.c: 350 - 357
+[src/pl/tcl/pltcl.c:350-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L350-L357)
 
 ## Overview
 A custom Tcl notifier initialization function that prevents PostgreSQL backends from becoming multithreaded when using PL/Tcl.

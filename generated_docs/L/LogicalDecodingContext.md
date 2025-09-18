@@ -1,7 +1,7 @@
 # LogicalDecodingContext
 
 ## Location
-src/include/replication/logical.h: 33 - 115
+[src/include/replication/logical.h:33-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logical.h#L33-L115)
 
 ## Overview
 LogicalDecodingContext is a central control structure that manages all aspects of logical replication decoding in PostgreSQL. It maintains the state, configuration, and infrastructure needed to decode WAL records into logical changes for replication plugins.

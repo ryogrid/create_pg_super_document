@@ -1,7 +1,7 @@
 # get_indexpath_pages
 
 ## Location
-src/backend/optimizer/path/costsize.c: 963 - 1012
+[src/backend/optimizer/path/costsize.c:963-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L963-L1012)
 
 ## Overview
 Determines the total size (in pages) of all indexes used in a bitmap index path by recursively traversing the bitmap qualification tree.

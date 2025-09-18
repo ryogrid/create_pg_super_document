@@ -1,7 +1,7 @@
 # send_cancellable_query_impl
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 175 - 205
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:175-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L175-L205)
 
 ## Overview
 A test utility function that sends a long-running pg_sleep query and ensures it reaches active execution state, preparing it for reliable cancellation testing.

@@ -1,7 +1,7 @@
 # PQgetlength
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3887 - 3900
+[src/interfaces/libpq/fe-exec.c:3887-3900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3887-L3900)
 
 ## Overview
 PQgetlength returns the actual length in bytes of a field value in a PostgreSQL query result set.

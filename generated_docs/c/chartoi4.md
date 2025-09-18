@@ -1,7 +1,7 @@
 # chartoi4
 
 ## Location
-src/backend/utils/adt/char.c: 182 - 189
+[src/backend/utils/adt/char.c:182-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L182-L189)
 
 ## Overview
 Converts a PostgreSQL "char" (single byte character) data type to a 32-bit signed integer.

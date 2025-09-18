@@ -1,7 +1,7 @@
 # connectToServer
 
 ## Location
-src/bin/pg_upgrade/server.c: 28 - 56
+[src/bin/pg_upgrade/server.c:28-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L28-L56)
 
 ## Overview
 Connects to a designated PostgreSQL server database with error handling and automatic program termination on connection failure.

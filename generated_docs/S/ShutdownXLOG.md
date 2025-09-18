@@ -1,7 +1,7 @@
 # ShutdownXLOG
 
 ## Location
-src/backend/access/transam/xlog.c: 6581 - 6627
+[src/backend/access/transam/xlog.c:6581-6627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6581-L6627)
 
 ## Overview
 ShutdownXLOG performs the final WAL operations during PostgreSQL server shutdown, coordinating WAL senders and creating final checkpoints or restart points to ensure data consistency.

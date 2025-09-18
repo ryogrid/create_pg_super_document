@@ -1,7 +1,7 @@
 # BTreeShmemInit
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4535 - 4562
+[src/backend/access/nbtree/nbtutils.c:4535-4562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4535-L4562)
 
 ## Overview
 Initializes the shared memory structures used for coordinating B-tree VACUUM operations across all PostgreSQL backends.

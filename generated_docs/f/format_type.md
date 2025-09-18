@@ -1,7 +1,7 @@
 # format_type
 
 ## Location
-src/backend/utils/adt/format_type.c: 60 - 111
+[src/backend/utils/adt/format_type.c:60-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L60-L111)
 
 ## Overview
 SQL function that converts a PostgreSQL type OID and typemod into a human-readable type name formatted in canonical SQL format.

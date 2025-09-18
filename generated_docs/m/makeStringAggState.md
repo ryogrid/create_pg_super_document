@@ -1,7 +1,7 @@
 # makeStringAggState
 
 ## Location
-src/backend/utils/adt/varlena.c: 5162 - 5185
+[src/backend/utils/adt/varlena.c:5162-5185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5162-L5185)
 
 ## Overview
 A static helper function that initializes and returns a StringInfo state structure for string aggregation functions in the proper aggregate memory context.

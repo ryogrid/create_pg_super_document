@@ -1,7 +1,7 @@
 # table_to_xml
 
 ## Location
-src/backend/utils/adt/xml.c: 2885 - 2898
+[src/backend/utils/adt/xml.c:2885-2898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2885-L2898)
 
 ## Overview
 SQL/XML function that converts a PostgreSQL table to XML format, providing a standardized way to export table data as XML documents.

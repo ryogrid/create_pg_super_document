@@ -1,7 +1,7 @@
 # generator_free
 
 ## Location
-src/backend/statistics/mvdistinct.c: 642 - 656
+[src/backend/statistics/mvdistinct.c:642-656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L642-L656)
 
 ## Overview
 Frees the internal state of the combination generator and releases allocated memory.

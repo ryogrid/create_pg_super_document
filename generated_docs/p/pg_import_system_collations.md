@@ -1,7 +1,7 @@
 # pg_import_system_collations
 
 ## Location
-src/backend/commands/collationcmds.c: 840 - 1058
+[src/backend/commands/collationcmds.c:840-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L840-L1058)
 
 ## Overview
 A PostgreSQL system function that imports available system collations from the operating system into the pg_collation catalog table for use in database operations.

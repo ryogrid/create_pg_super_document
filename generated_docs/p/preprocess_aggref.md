@@ -1,7 +1,7 @@
 # preprocess_aggref
 
 ## Location
-src/backend/optimizer/prep/prepagg.c: 116 - 343
+[src/backend/optimizer/prep/prepagg.c:116-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepagg.c#L116-L343)
 
 ## Overview
 Preprocesses a single Aggref (aggregate reference) node by resolving its transition type, finding compatible aggregates for optimization, and setting up aggregate and transition state information.

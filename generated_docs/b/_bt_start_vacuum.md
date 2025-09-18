@@ -1,7 +1,7 @@
 # _bt_start_vacuum
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4428 - 4484
+[src/backend/access/nbtree/nbtutils.c:4428-4484](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4428-L4484)
 
 ## Overview
 Assigns a cycle ID to a B-tree index at the beginning of a VACUUM operation, tracking active VACUUM processes to coordinate concurrent operations.

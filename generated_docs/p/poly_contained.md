@@ -1,7 +1,7 @@
 # poly_contained
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3988 - 4007
+[src/backend/utils/adt/geo_ops.c:3988-4007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3988-L4007)
 
 ## Overview
 PostgreSQL function that determines if polygon A is contained within polygon B by switching the arguments and delegating to poly_contain_poly.

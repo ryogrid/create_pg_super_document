@@ -1,7 +1,7 @@
 # computeDistance
 
 ## Location
-src/backend/access/gist/gistproc.c: 1221 - 1286
+[src/backend/access/gist/gistproc.c:1221-1286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1221-L1286)
 
 ## Overview
 A static utility function that calculates the minimum distance between a point and a bounding box, with different algorithms for leaf and internal GiST index nodes.

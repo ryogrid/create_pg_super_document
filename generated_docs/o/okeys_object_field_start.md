@@ -1,7 +1,7 @@
 # okeys_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 784 - 806
+[src/backend/utils/adt/jsonfuncs.c:784-806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L784-L806)
 
 ## Overview
 A semantic action callback function used during JSON parsing to collect object field names (keys) for the json_object_keys function.

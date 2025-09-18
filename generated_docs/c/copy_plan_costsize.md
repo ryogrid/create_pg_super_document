@@ -1,7 +1,7 @@
 # copy_plan_costsize
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5425 - 5446
+[src/backend/optimizer/plan/createplan.c:5425-5446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5425-L5446)
 
 ## Overview
 Copies cost and size information from a lower plan node to an inserted node, with specific handling for parallel execution flags appropriate for intermediate nodes.

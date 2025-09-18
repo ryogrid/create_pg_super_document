@@ -1,7 +1,7 @@
 # pre_format_elog_string
 
 ## Location
-src/backend/utils/error/elog.c: 1645 - 1653
+[src/backend/utils/error/elog.c:1645-1653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1645-L1653)
 
 ## Overview
 Saves the error number and text domain before formatting an error message, preserving these values before argument evaluation can modify them.

@@ -1,7 +1,7 @@
 # commandError
 
 ## Location
-src/bin/pgbench/pgbench.c: 3038 - 3046
+[src/bin/pgbench/pgbench.c:3038-3046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3038-L3046)
 
 ## Overview
 Reports SQL command errors that occur during pgbench script execution, providing informational logging for debugging purposes.

@@ -1,7 +1,7 @@
 # int2mod
 
 ## Location
-src/backend/utils/adt/int.c: 1158 - 1190
+[src/backend/utils/adt/int.c:1158-1190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1158-L1190)
 
 ## Overview
 Computes the modulo (remainder) of two 16-bit integers, handling division-by-zero and the special case of any value % -1.

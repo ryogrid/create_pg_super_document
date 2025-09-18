@@ -1,7 +1,7 @@
 # CatalogCloseIndexes
 
 ## Location
-src/backend/catalog/indexing.c: 61 - 74
+[src/backend/catalog/indexing.c:61-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L61-L74)
 
 ## Overview
 CatalogCloseIndexes cleans up and releases resources allocated by CatalogOpenIndexes, properly closing all opened indexes on a system catalog.

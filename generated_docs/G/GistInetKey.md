@@ -1,7 +1,7 @@
 # GistInetKey
 
 ## Location
-src/backend/utils/adt/network_gist.c: 79 - 86
+[src/backend/utils/adt/network_gist.c:79-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L79-L86)
 
 ## Overview
 A specialized data structure used to represent INET/CIDR index keys in PostgreSQL's GiST (Generalized Search Tree) indexing system for network address types.

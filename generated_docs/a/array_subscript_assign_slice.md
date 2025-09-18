@@ -1,7 +1,7 @@
 # array_subscript_assign_slice
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 344 - 398
+[src/backend/utils/adt/arraysubs.c:344-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L344-L398)
 
 ## Overview
 Handles array slice assignment operations for PostgreSQL's subscripting framework, evaluating assignments to array slices and updating the original array with replacement values.

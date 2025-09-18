@@ -1,7 +1,7 @@
 # datan2
 
 ## Location
-src/backend/utils/adt/float.c: 1836 - 1861
+[src/backend/utils/adt/float.c:1836-1861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1836-L1861)
 
 ## Overview
 The datan2 function computes the inverse tangent of y/x (two-argument arctangent) and returns the result in radians, handling the correct quadrant determination.

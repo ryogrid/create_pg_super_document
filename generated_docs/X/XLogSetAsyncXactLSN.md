@@ -1,7 +1,7 @@
 # XLogSetAsyncXactLSN
 
 ## Location
-src/backend/access/transam/xlog.c: 2614 - 2664
+[src/backend/access/transam/xlog.c:2614-2664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2614-L2664)
 
 ## Overview
 Records the LSN of an asynchronous transaction commit or abort and intelligently awakens the WAL writer process when necessary to ensure timely WAL flushing.

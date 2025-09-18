@@ -1,7 +1,7 @@
 # SH_START_ITERATE
 
 ## Location
-src/include/lib/simplehash.h: 983 - 1022
+[src/include/lib/simplehash.h:983-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L983-L1022)
 
 ## Overview
 A macro that expands to a hash table iteration initialization function used in PostgreSQL's simplehash system to begin iterating over all elements in a hash table.

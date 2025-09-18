@@ -1,7 +1,7 @@
 # ItemPointerGetBlockNumber
 
 ## Location
-src/include/storage/itemptr.h: 103 - 113
+[src/include/storage/itemptr.h:103-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L103-L113)
 
 ## Overview
 Safely extracts the block number from an ItemPointerData structure with validity checking enabled.

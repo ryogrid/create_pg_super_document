@@ -1,7 +1,7 @@
 # SecLabelSupportsObjectType
 
 ## Location
-src/backend/commands/seclabel.c: 37 - 114
+[src/backend/commands/seclabel.c:37-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L37-L114)
 
 ## Overview
 Determines whether security labels are supported for a given PostgreSQL object type by checking the object type against a predefined list of supported types.

@@ -1,7 +1,7 @@
 # cleanup_path
 
 ## Location
-src/port/path.c: 257 - 284
+[src/port/path.c:257-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L257-L284)
 
 ## Overview
 Cleans up file paths on Windows by converting them to short filenames (8.3 format) and replacing backslashes with forward slashes to ensure compatibility with both cmd.exe and MSYS environments.

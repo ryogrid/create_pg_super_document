@@ -1,7 +1,7 @@
 # toast_flatten_tuple_to_datum
 
 ## Location
-src/backend/access/heap/heaptoast.c: 449 - 562
+[src/backend/access/heap/heaptoast.c:449-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heaptoast.c#L449-L562)
 
 ## Overview
 Converts a HeapTupleHeader containing external TOAST references into a flattened Datum with all values stored inline, also decompressing any compressed fields.

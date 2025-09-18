@@ -1,7 +1,7 @@
 # tlist_member_match_var
 
 ## Location
-src/backend/optimizer/util/tlist.c: 102 - 131
+[src/backend/optimizer/util/tlist.c:102-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L102-L131)
 
 ## Overview
 Searches a target list for a Var entry that matches the provided Var based on specific attributes rather than full structural equality.

@@ -1,7 +1,7 @@
 # MaybeExtendOffsetSlru
 
 ## Location
-src/backend/access/transam/multixact.c: 2110 - 2144
+[src/backend/access/transam/multixact.c:2110-2144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2110-L2144)
 
 ## Overview
 MaybeExtendOffsetSlru extends the MultiXact offsets SLRU area when necessary, particularly to handle missing pages after binary upgrades from PostgreSQL 9.2 and earlier.

@@ -1,7 +1,7 @@
 # describePublications
 
 ## Location
-src/bin/psql/describe.c: 6339 - 6524
+[src/bin/psql/describe.c:6339-6524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6339-L6524)
 
 ## Overview
 Provides detailed descriptions of PostgreSQL logical replication publications, including their properties and associated tables/schemas, implementing the psql \dRp+ meta-command functionality.

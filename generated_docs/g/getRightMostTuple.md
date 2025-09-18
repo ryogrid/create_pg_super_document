@@ -1,7 +1,7 @@
 # getRightMostTuple
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 235 - 242
+[src/backend/access/gin/ginentrypage.c:235-242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L235-L242)
 
 ## Overview
 Retrieves the rightmost tuple from a GIN entry page, used instead of right bounds since entry trees are static structures.

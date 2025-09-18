@@ -1,7 +1,7 @@
 # get_typalign
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2399 - 2418
+[src/backend/utils/cache/lsyscache.c:2399-2418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2399-L2418)
 
 ## Overview
 Retrieves the alignment requirement for a specified PostgreSQL data type from the system catalog.

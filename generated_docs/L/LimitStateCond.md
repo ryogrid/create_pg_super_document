@@ -1,7 +1,7 @@
 # LimitStateCond
 
 ## Location
-src/include/nodes/execnodes.h: 2834 - 2835
+[src/include/nodes/execnodes.h:2834-2835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2834-L2835)
 
 ## Overview
 An enumeration that tracks the execution state of LIMIT/OFFSET operations, managing the complex state machine required for efficient tuple window processing with support for WITH TIES clause.

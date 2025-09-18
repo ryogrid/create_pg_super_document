@@ -1,7 +1,7 @@
 # RecoveryLockXidEntry
 
 ## Location
-src/backend/storage/ipc/standby.c: 58 - 62
+[src/backend/storage/ipc/standby.c:58-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L58-L62)
 
 ## Overview
 A structure that serves as the entry point for tracking all exclusive locks belonging to a specific transaction during standby recovery, storing the transaction ID and head of the lock chain.

@@ -1,7 +1,7 @@
 # WorkTableScanState
 
 ## Location
-src/include/nodes/execnodes.h: 2026 - 2030
+[src/include/nodes/execnodes.h:2026-2030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2026-L2030)
 
 ## Overview
 WorkTableScanState is the execution state node for scanning work tables created by RecursiveUnion nodes in PostgreSQL. It is used specifically in recursive query execution to access the working data produced during recursive iterations.

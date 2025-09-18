@@ -1,7 +1,7 @@
 # pg_strnxfrm_prefix_icu
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2321 - 2371
+[src/backend/utils/adt/pg_locale.c:2321-2371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2321-L2371)
 
 ## Overview
 Generates a partial sort key prefix for string collation using the ICU (International Components for Unicode) library provider, supporting both UTF-8 and non-UTF-8 database encodings.

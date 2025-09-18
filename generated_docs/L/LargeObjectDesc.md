@@ -1,7 +1,7 @@
 # LargeObjectDesc
 
 ## Location
-src/include/storage/large_object.h: 39 - 51
+[src/include/storage/large_object.h:39-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/large_object.h#L39-L51)
 
 ## Overview
 A structure that represents the state of a currently-open large object in PostgreSQL, containing metadata necessary for read/write operations on large objects.

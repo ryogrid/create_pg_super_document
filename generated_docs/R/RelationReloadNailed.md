@@ -1,7 +1,7 @@
 # RelationReloadNailed
 
 ## Location
-src/backend/utils/cache/relcache.c: 2371 - 2442
+[src/backend/utils/cache/relcache.c:2371-2442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2371-L2442)
 
 ## Overview
 RelationReloadNailed reloads minimal information for nailed relations after invalidations, ensuring critical catalog data like pg_class.relfrozenxid remains accurate while preserving the unchangeable structural information.

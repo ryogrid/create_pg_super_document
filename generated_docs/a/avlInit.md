@@ -1,7 +1,7 @@
 # avlInit
 
 ## Location
-src/bin/psql/crosstabview.c: 438 - 447
+[src/bin/psql/crosstabview.c:438-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L438-L447)
 
 ## Overview
 Initializes an AVL binary tree structure used to efficiently collect distinct values that will form the horizontal and vertical headers in crosstab view.

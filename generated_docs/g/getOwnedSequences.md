@@ -1,7 +1,7 @@
 # getOwnedSequences
 
 ## Location
-src/backend/catalog/pg_depend.c: 937 - 945
+[src/backend/catalog/pg_depend.c:937-945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L937-L945)
 
 ## Overview
 Collects a list of OIDs for all sequences owned (either identity or serial) by a specified relation, serving as a convenience wrapper function.

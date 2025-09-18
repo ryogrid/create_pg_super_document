@@ -1,7 +1,7 @@
 # SPI_pfree
 
 ## Location
-src/backend/executor/spi.c: 1354 - 1360
+[src/backend/executor/spi.c:1354-1360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1354-L1360)
 
 ## Overview
 Frees memory previously allocated through SPI memory allocation functions, providing a memory deallocation interface for SPI-connected procedures.

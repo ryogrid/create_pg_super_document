@@ -1,7 +1,7 @@
 # cost_bitmap_and_node
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1157 - 1200
+[src/backend/optimizer/path/costsize.c:1157-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1157-L1200)
 
 ## Overview
 Estimates the cost of a BitmapAnd node by calculating the combined costs of its constituent bitmap operations and the bitmap intersection overhead.

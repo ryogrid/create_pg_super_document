@@ -1,7 +1,7 @@
 # CompareOpclassOptions
 
 ## Location
-src/backend/commands/indexcmds.c: 360 - 432
+[src/backend/commands/indexcmds.c:360-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L360-L432)
 
 ## Overview
 Compares per-column opclass options which are represented by arrays of text[] datums, handling cases where both elements and arrays can be NULL.

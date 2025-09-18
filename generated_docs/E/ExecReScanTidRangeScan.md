@@ -1,7 +1,7 @@
 # ExecReScanTidRangeScan
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 308 - 326
+[src/backend/executor/nodeTidrangescan.c:308-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L308-L326)
 
 ## Overview
 ExecReScanTidRangeScan resets a TID range scan to its initial state, preparing it to be re-executed from the beginning without performing the actual table rescan until needed.

@@ -1,7 +1,7 @@
 # view_reloptions
 
 ## Location
-src/backend/access/common/reloptions.c: 2007 - 2027
+[src/backend/access/common/reloptions.c:2007-2027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L2007-L2027)
 
 ## Overview
 Parses and validates relation options specifically for database views, handling view-specific options like security barriers, security invokers, and check options.

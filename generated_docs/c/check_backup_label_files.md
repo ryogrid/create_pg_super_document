@@ -1,7 +1,7 @@
 # check_backup_label_files
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 501 - 593
+[src/bin/pg_combinebackup/pg_combinebackup.c:501-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L501-L593)
 
 ## Overview
 Validates that backup_label files form a coherent backup chain and returns the backup_label contents from the latest backup in the chain.

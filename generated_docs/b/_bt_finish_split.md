@@ -1,7 +1,7 @@
 # _bt_finish_split
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2241 - 2318
+[src/backend/access/nbtree/nbtinsert.c:2241-2318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2241-L2318)
 
 ## Overview
 _bt_finish_split completes a previously incomplete page split operation that was interrupted by a crash or other failure, ensuring B-tree consistency.

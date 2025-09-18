@@ -1,7 +1,7 @@
 # internal_ping
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4471 - 4534
+[src/interfaces/libpq/fe-connect.c:4471-4534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4471-L4534)
 
 ## Overview
 Determines if a PostgreSQL server is running and if a connection can be established to it by analyzing the connection state and error conditions.

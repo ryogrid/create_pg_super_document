@@ -1,7 +1,7 @@
 # ReorderBufferGetTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 431 - 454
+[src/backend/replication/logical/reorderbuffer.c:431-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L431-L454)
 
 ## Overview
 Allocates and initializes a new ReorderBufferTXN structure from the reorder buffer's transaction memory context.

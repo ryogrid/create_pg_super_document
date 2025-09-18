@@ -1,7 +1,7 @@
 # additional_numeric_locale_len
 
 ## Location
-src/fe_utils/print.c: 289 - 313
+[src/fe_utils/print.c:289-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L289-L313)
 
 ## Overview
 Calculates the additional string length required when formatting a numeric string with locale-aware separators and decimal points.

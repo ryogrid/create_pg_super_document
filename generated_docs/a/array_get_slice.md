@@ -1,7 +1,7 @@
 # array_get_slice
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 2030 - 2200
+[src/backend/utils/adt/arrayfuncs.c:2030-2200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L2030-L2200)
 
 ## Overview
 Extracts a slice (subarray) from an array using upper and lower bounds for each dimension, creating a new array structure containing the specified range of elements.

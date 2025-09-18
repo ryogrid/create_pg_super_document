@@ -1,7 +1,7 @@
 # SH_DESTROY
 
 ## Location
-src/include/lib/simplehash.h: 472 - 479
+[src/include/lib/simplehash.h:472-479](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L472-L479)
 
 ## Overview
 Completely destroys a PostgreSQL simplehash table, deallocating all associated memory and cleaning up resources.

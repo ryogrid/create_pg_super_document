@@ -1,7 +1,7 @@
 # string_hash
 
 ## Location
-src/common/hashfn.c: 660 - 676
+[src/common/hashfn.c:660-676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hashfn.c#L660-L676)
 
 ## Overview
 The `string_hash` function is the default hash function for NUL-terminated string keys in PostgreSQL's hash table infrastructure, providing automatic length handling and truncation safety.

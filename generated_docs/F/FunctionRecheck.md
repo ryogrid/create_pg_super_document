@@ -1,7 +1,7 @@
 # FunctionRecheck
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 249 - 264
+[src/backend/executor/nodeFunctionscan.c:249-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L249-L264)
 
 ## Overview
 FunctionRecheck is an access method routine used to recheck a tuple during EvalPlanQual operations in function scans.

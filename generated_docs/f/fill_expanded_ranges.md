@@ -1,7 +1,7 @@
 # fill_expanded_ranges
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1134 - 1178
+[src/backend/access/brin/brin_minmax_multi.c:1134-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1134-L1178)
 
 ## Overview
 Expands Ranges data structure into an ExpandedRange array, converting both range intervals and individual values into a uniform expanded range format.

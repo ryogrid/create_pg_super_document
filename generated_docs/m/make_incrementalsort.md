@@ -1,7 +1,7 @@
 # make_incrementalsort
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6099 - 6164
+[src/backend/optimizer/plan/createplan.c:6099-6164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6099-L6164)
 
 ## Overview
 The make_incrementalsort function creates an IncrementalSort plan node, which performs sorting optimized for cases where the input is already partially sorted according to some prefix of the sort columns.

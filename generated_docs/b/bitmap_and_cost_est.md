@@ -1,7 +1,7 @@
 # bitmap_and_cost_est
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1560 - 1588
+[src/backend/optimizer/path/indxpath.c:1560-1588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1560-L1588)
 
 ## Overview
 Estimates the cost of executing a BitmapAnd scan with the given input paths by creating a real BitmapAndPath and delegating to bitmap_scan_cost_est for cost calculation.

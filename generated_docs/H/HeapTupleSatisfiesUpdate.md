@@ -1,7 +1,7 @@
 # HeapTupleSatisfiesUpdate
 
 ## Location
-src/backend/access/heap/heapam_visibility.c: 458 - 742
+[src/backend/access/heap/heapam_visibility.c:458-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_visibility.c#L458-L742)
 
 ## Overview
 HeapTupleSatisfiesUpdate determines the visibility status of a heap tuple for UPDATE operations, providing detailed result codes beyond simple visibility to handle complex transaction scenarios including multi-transaction locking and command-level visibility.

@@ -1,7 +1,7 @@
 # line_interpt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1286 - 1313
+[src/backend/utils/adt/geo_ops.c:1286-1313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1286-L1313)
 
 ## Overview
 Computes the intersection point of two lines and returns it as a Point, or NULL if the lines do not intersect.

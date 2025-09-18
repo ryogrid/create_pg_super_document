@@ -1,7 +1,7 @@
 # WindowStatePerAgg
 
 ## Location
-src/include/nodes/execnodes.h: 2545 - 2549
+[src/include/nodes/execnodes.h:2545-2549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2545-L2549)
 
 ## Overview
 WindowStatePerAgg is a pointer type that maintains execution state and cached data for plain aggregate functions used as window functions in PostgreSQL's window aggregation implementation.

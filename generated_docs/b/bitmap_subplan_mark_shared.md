@@ -1,7 +1,7 @@
 # bitmap_subplan_mark_shared
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5479 - 5508
+[src/backend/optimizer/plan/createplan.c:5479-5508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5479-L5508)
 
 ## Overview
 A recursive utility function that marks bitmap index scan subplans as shared, enabling them to be created in shared memory for parallel execution.

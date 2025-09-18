@@ -1,7 +1,7 @@
 # ShutdownInformation
 
 ## Location
-src/bin/pg_dump/parallel.c: 146 - 150
+[src/bin/pg_dump/parallel.c:146-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L146-L150)
 
 ## Overview
 A structure that holds state information needed for the archive_close_connection() shutdown callback in PostgreSQL's pg_dump parallel processing system.

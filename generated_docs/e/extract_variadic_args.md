@@ -1,7 +1,7 @@
 # extract_variadic_args
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 2005 - 2101
+[src/backend/utils/fmgr/funcapi.c:2005-2101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L2005-L2101)
 
 ## Overview
 Extracts argument values, types, and NULL markers for functions that use VARIADIC parameters, handling both variadic array arguments and regular argument lists with proper type conversion and validation.

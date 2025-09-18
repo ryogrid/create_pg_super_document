@@ -1,7 +1,7 @@
 # register_dirty_segment
 
 ## Location
-src/backend/storage/smgr/md.c: 1355 - 1398
+[src/backend/storage/smgr/md.c:1355-1398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1355-L1398)
 
 ## Overview
 Marks a relation segment as needing fsync by registering it with the sync request system or performing an immediate sync if the request queue is full.

@@ -1,7 +1,7 @@
 # to_oct64
 
 ## Location
-src/backend/utils/adt/varlena.c: 4982 - 4993
+[src/backend/utils/adt/varlena.c:4982-4993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4982-L4993)
 
 ## Overview
 Converts a 64-bit integer value to its octal (base-8) string representation.

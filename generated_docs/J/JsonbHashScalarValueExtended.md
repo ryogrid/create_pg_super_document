@@ -1,7 +1,7 @@
 # JsonbHashScalarValueExtended
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1365 - 1406
+[src/backend/utils/adt/jsonb_util.c:1365-1406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1365-L1406)
 
 ## Overview
 JsonbHashScalarValueExtended computes a 64-bit hash value for a PostgreSQL JSONB scalar value with a seed, providing extended hash functionality for better hash distribution.

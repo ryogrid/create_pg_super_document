@@ -1,7 +1,7 @@
 # check_role_for_policy
 
 ## Location
-src/backend/rewrite/rowsecurity.c: 916 - 932
+[src/backend/rewrite/rowsecurity.c:916-932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rowsecurity.c#L916-L932)
 
 ## Overview
 Determines if a row-level security policy should be applied for the current role by checking if the specified user has privileges of any role listed in the policy's role array.

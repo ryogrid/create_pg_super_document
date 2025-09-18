@@ -1,7 +1,7 @@
 # vector8_broadcast
 
 ## Location
-src/include/port/simd.h: 135 - 147
+[src/include/port/simd.h:135-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L135-L147)
 
 ## Overview
 Creates a Vector8 SIMD register with all elements (8 bytes) set to the same uint8 value, providing platform-optimized broadcast operations for SIMD-enabled code paths.

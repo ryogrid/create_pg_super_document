@@ -1,7 +1,7 @@
 # r_combo_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_romanian.c: 771 - 818
+[src/backend/snowball/libstemmer/stem_UTF_8_romanian.c:771-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_romanian.c#L771-L818)
 
 ## Overview
 A specialized suffix processing function in the Romanian Snowball stemming algorithm that handles complex combination suffixes requiring multi-character replacements and state tracking through flag management.

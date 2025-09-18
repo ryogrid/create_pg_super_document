@@ -1,7 +1,7 @@
 # ConditionalLockRelationOid
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 151 - 183
+[src/backend/storage/lmgr/lmgr.c:151-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L151-L183)
 
 ## Overview
 ConditionalLockRelationOid attempts to acquire a lock on a relation using only its OID, but only if the lock can be obtained without blocking, returning success/failure status.

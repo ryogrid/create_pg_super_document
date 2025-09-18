@@ -1,7 +1,7 @@
 # ts_rank_wtt
 
 ## Location
-src/backend/utils/adt/tsrank.c: 455 - 470
+[src/backend/utils/adt/tsrank.c:455-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L455-L470)
 
 ## Overview
 A PostgreSQL function that calculates the rank of a TSVector (text search vector) against a TSQuery with custom weight assignments for different word classes.

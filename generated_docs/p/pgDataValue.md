@@ -1,7 +1,7 @@
 # pgDataValue
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 306 - 309
+[src/interfaces/libpq/libpq-int.h:306-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L306-L309)
 
 ## Overview
 pgDataValue represents a single data field value in a PostgreSQL result row, used for passing column data to row processors in libpq with support for both text and binary data formats.

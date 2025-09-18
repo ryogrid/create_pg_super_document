@@ -1,7 +1,7 @@
 # window_lead_with_offset_and_default
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 638 - 648
+[src/backend/utils/adt/windowfuncs.c:638-648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L638-L648)
 
 ## Overview
 The window_lead_with_offset_and_default function implements the LEAD window function with both an offset parameter and a default value, returning the value of a column from a row that is a specified number of positions after the current row, or a default value if no such row exists.

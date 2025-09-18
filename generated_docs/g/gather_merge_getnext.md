@@ -1,7 +1,7 @@
 # gather_merge_getnext
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 540 - 589
+[src/backend/executor/nodeGatherMerge.c:540-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L540-L589)
 
 ## Overview
 Retrieves the next tuple in sorted order from the GatherMerge operation by managing the binary heap and coordinating reads from multiple parallel sources.

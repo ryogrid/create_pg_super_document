@@ -1,7 +1,7 @@
 # adjust_relid_set
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 738 - 773
+[src/backend/rewrite/rewriteManip.c:738-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L738-L773)
 
 ## Overview
 A static utility function that substitutes one relation ID with another in a bitmap set of relation IDs (Relids).

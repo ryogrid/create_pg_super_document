@@ -1,7 +1,7 @@
 # make_result
 
 ## Location
-src/backend/utils/adt/numeric.c: 7907 - 7922
+[src/backend/utils/adt/numeric.c:7907-7922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7907-L7922)
 
 ## Overview
 A convenient wrapper function that converts a NumericVar to packed Numeric format with exception-throwing behavior for overflow conditions.

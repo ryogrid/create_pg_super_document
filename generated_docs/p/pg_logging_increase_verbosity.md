@@ -1,7 +1,7 @@
 # pg_logging_increase_verbosity
 
 ## Location
-src/common/logging.c: 182 - 192
+[src/common/logging.c:182-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L182-L192)
 
 ## Overview
 Increases the verbosity of logging output by decreasing the minimum log level threshold, typically invoked by command-line switches like --verbose.

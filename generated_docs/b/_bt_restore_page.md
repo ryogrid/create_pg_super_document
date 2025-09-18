@@ -1,7 +1,7 @@
 # _bt_restore_page
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 36 - 81
+[src/backend/access/nbtree/nbtxlog.c:36-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L36-L81)
 
 ## Overview
 Re-enters all index tuples on a freshly initialized B-tree page during WAL replay operations.

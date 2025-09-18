@@ -1,7 +1,7 @@
 # disconnect_atexit
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 178 - 184
+[src/bin/pg_basebackup/pg_recvlogical.c:178-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L178-L184)
 
 ## Overview
 The disconnect_atexit function is an atexit handler that ensures proper cleanup of PostgreSQL database connections when the program terminates.

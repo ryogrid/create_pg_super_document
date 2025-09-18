@@ -1,7 +1,7 @@
 # dumpOpr
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12962 - 13180
+[src/bin/pg_dump/pg_dump.c:12962-13180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12962-L13180)
 
 ## Overview
 Generates SQL DDL statements to recreate PostgreSQL user-defined operators, including all operator properties and associated functions during database dump operations.

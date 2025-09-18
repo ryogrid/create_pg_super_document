@@ -1,7 +1,7 @@
 # sort_item_compare
 
 ## Location
-src/backend/statistics/mcv.c: 465 - 489
+[src/backend/statistics/mcv.c:465-489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L465-L489)
 
 ## Overview
 A comparison function for sorting SortItem objects based on a single column value, used with qsort for single-dimensional sorting operations.

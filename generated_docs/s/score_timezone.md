@@ -1,7 +1,7 @@
 # score_timezone
 
 ## Location
-src/bin/initdb/findtimezone.c: 234 - 319
+[src/bin/initdb/findtimezone.c:234-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/findtimezone.c#L234-L319)
 
 ## Overview
 Evaluates how well a specific timezone setting matches the system's timezone behavior by testing it against a series of reference time points.

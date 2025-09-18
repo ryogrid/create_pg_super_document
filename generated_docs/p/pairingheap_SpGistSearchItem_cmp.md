@@ -1,7 +1,7 @@
 # pairingheap_SpGistSearchItem_cmp
 
 ## Location
-src/backend/access/spgist/spgscan.c: 41 - 83
+[src/backend/access/spgist/spgscan.c:41-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L41-L83)
 
 ## Overview
 A comparison function for the pairing heap used in SP-GiST KNN search operations, implementing the priority ordering logic for SpGistSearchItem elements in the search queue.

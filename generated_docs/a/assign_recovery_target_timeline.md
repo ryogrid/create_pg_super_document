@@ -1,7 +1,7 @@
 # assign_recovery_target_timeline
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4999 - 5011
+[src/backend/access/transam/xlogrecovery.c:4999-5011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4999-L5011)
 
 ## Overview
 A GUC assign hook function that sets the recovery target timeline goal and specific timeline ID based on validated input from the check hook.

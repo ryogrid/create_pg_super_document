@@ -1,7 +1,7 @@
 # _bt_delitems_vacuum
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1154 - 1283
+[src/backend/access/nbtree/nbtpage.c:1154-1283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1154-L1283)
 
 ## Overview
 _bt_delitems_vacuum removes dead tuples and updates posting lists on B-tree leaf pages during VACUUM operations, handling both simple deletions and partial posting list updates with proper WAL logging.

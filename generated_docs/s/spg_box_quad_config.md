@@ -1,7 +1,7 @@
 # spg_box_quad_config
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 401 - 416
+[src/backend/utils/adt/geo_spgist.c:401-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L401-L416)
 
 ## Overview
 An SP-GiST configuration function that sets up the parameters for a quadtree-based spatial index for box geometric data types.

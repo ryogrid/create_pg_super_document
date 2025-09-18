@@ -1,7 +1,7 @@
 # ReplicationOriginShmemInit
 
 ## Location
-src/backend/replication/logical/origin.c: 526 - 572
+[src/backend/replication/logical/origin.c:526-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L526-L572)
 
 ## Overview
 Initializes the shared memory segment for replication origin state tracking, setting up control structures and synchronization primitives.

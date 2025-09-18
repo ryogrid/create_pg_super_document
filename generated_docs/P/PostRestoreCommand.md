@@ -1,7 +1,7 @@
 # PostRestoreCommand
 
 ## Location
-src/backend/postmaster/startup.c: 282 - 287
+[src/backend/postmaster/startup.c:282-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L282-L287)
 
 ## Overview
 PostRestoreCommand is a function that cleans up the startup process state after completing a restore command execution, resetting the restore command flag to its normal state.

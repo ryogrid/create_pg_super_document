@@ -1,7 +1,7 @@
 # pq_writestring
 
 ## Location
-src/include/libpq/pqformat.h: 108 - 127
+[src/include/libpq/pqformat.h:108-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L108-L127)
 
 ## Overview
 A static inline function that appends a null-terminated string to a StringInfo buffer with automatic character encoding conversion for PostgreSQL's libpq protocol format handling.

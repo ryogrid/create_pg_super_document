@@ -1,7 +1,7 @@
 # BTBuildState
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 202 - 223
+[src/backend/access/nbtree/nbtsort.c:202-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L202-L223)
 
 ## Overview
 BTBuildState is the working state structure for B-tree index construction (btbuild) and its callback functions, with each participant process having its own instance during parallel index builds.

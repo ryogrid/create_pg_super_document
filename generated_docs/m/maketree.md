@@ -1,7 +1,7 @@
 # maketree
 
 ## Location
-src/backend/utils/adt/tsquery_cleanup.c: 33 - 58
+[src/backend/utils/adt/tsquery_cleanup.c:33-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_cleanup.c#L33-L58)
 
 ## Overview
 The  function constructs a binary tree representation from a flat array representation of a TSQuery expression in PostgreSQL's text search functionality.

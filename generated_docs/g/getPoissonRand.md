@@ -1,7 +1,7 @@
 # getPoissonRand
 
 ## Location
-src/bin/pgbench/pgbench.c: 1179 - 1200
+[src/bin/pgbench/pgbench.c:1179-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1179-L1200)
 
 ## Overview
 Generates random integers following an approximate Poisson distribution centered on a given value using inverse transform sampling.

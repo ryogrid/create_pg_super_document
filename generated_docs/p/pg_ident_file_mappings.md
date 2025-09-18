@@ -1,7 +1,7 @@
 # pg_ident_file_mappings
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 574 - 591
+[src/backend/utils/adt/hbafuncs.c:574-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L574-L591)
 
 ## Overview
 A SQL-accessible set-returning function (SRF) that returns all entries from the pg_ident.conf file as a system view.

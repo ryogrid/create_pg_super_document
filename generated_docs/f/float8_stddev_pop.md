@@ -1,7 +1,7 @@
 # float8_stddev_pop
 
 ## Location
-src/backend/utils/adt/float.c: 3182 - 3203
+[src/backend/utils/adt/float.c:3182-3203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3182-L3203)
 
 ## Overview
 Final function for the STDDEV_POP aggregate that computes the population standard deviation from accumulated transition state values.

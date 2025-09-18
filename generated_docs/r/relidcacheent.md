@@ -1,7 +1,7 @@
 # relidcacheent
 
 ## Location
-src/backend/utils/cache/relcache.c: 128 - 131
+[src/backend/utils/cache/relcache.c:128-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L128-L131)
 
 ## Overview
 The  is a hash table entry structure used to index the PostgreSQL relation cache by relation OID, providing fast lookup of cached relation descriptors.

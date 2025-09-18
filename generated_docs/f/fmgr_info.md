@@ -1,7 +1,7 @@
 # fmgr_info
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 127 - 136
+[src/backend/utils/fmgr/fmgr.c:127-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L127-L136)
 
 ## Overview
 A convenience wrapper function that initializes a FmgrInfo struct for a given function Oid using the current memory context.

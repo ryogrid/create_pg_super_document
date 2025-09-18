@@ -1,7 +1,7 @@
 # changes_filename
 
 ## Location
-src/backend/replication/logical/worker.c: 4204 - 4217
+[src/backend/replication/logical/worker.c:4204-4217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4204-L4217)
 
 ## Overview
 Formats a standardized filename for files containing serialized changes in PostgreSQL logical replication streaming.

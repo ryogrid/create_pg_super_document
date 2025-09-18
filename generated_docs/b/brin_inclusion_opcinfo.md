@@ -1,7 +1,7 @@
 # brin_inclusion_opcinfo
 
 ## Location
-src/backend/access/brin/brin_inclusion.c: 94 - 137
+[src/backend/access/brin/brin_inclusion.c:94-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_inclusion.c#L94-L137)
 
 ## Overview
 BRIN inclusion operator class information function that initializes and returns metadata required for inclusion-based BRIN indexing operations on a specific data type.

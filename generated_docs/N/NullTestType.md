@@ -1,7 +1,7 @@
 # NullTestType
 
 ## Location
-src/include/nodes/primnodes.h: 1953 - 1954
+[src/include/nodes/primnodes.h:1953-1954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1953-L1954)
 
 ## Overview
 NullTestType is an enumeration that defines the types of NULL testing operations available in PostgreSQL for checking whether values are NULL or NOT NULL.

@@ -1,7 +1,7 @@
 # GlobalVisState
 
 ## Location
-src/backend/storage/ipc/procarray.c: 167 - 178
+[src/backend/storage/ipc/procarray.c:167-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L167-L178)
 
 ## Overview
 GlobalVisState is a structure that maintains transaction visibility boundaries to efficiently determine whether deleted tuples can be safely removed without violating MVCC semantics.

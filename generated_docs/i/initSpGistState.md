@@ -1,7 +1,7 @@
 # initSpGistState
 
 ## Location
-src/backend/access/spgist/spgutils.c: 340 - 385
+[src/backend/access/spgist/spgutils.c:340-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L340-L385)
 
 ## Overview
 Initializes a SpGistState structure for working with a given SP-GiST index, setting up all necessary configuration and metadata required for subsequent index operations.

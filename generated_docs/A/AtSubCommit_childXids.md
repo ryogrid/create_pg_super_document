@@ -1,7 +1,7 @@
 # AtSubCommit_childXids
 
 ## Location
-src/backend/access/transam/xact.c: 1633 - 1722
+[src/backend/access/transam/xact.c:1633-1722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L1633-L1722)
 
 ## Overview
 AtSubCommit_childXids is a static function responsible for passing the current subtransaction's XID and all its child XIDs up to its parent transaction as committed children during subtransaction commit processing.

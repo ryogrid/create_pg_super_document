@@ -1,7 +1,7 @@
 # geqo_eval
 
 ## Location
-src/backend/optimizer/geqo/geqo_eval.c: 57 - 162
+[src/backend/optimizer/geqo/geqo_eval.c:57-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_eval.c#L57-L162)
 
 ## Overview
 Evaluates the fitness of a given gene tour in the GEQO (Genetic Query Optimizer) algorithm by constructing a join tree and returning its total cost.

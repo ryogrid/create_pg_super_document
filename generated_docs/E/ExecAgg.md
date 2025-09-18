@@ -1,7 +1,7 @@
 # ExecAgg
 
 ## Location
-src/backend/executor/nodeAgg.c: 2158 - 2193
+[src/backend/executor/nodeAgg.c:2158-2193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2158-L2193)
 
 ## Overview
 ExecAgg is the main execution function for PostgreSQL's aggregate node that receives tuples from its outer subplan and processes aggregates according to the chosen aggregation strategy (plain, sorted, hashed, or mixed).

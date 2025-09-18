@@ -1,7 +1,7 @@
 # CheckPointMultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 2296 - 2319
+[src/backend/access/transam/multixact.c:2296-2319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2296-L2319)
 
 ## Overview
 Performs checkpoint operations for the MultiXact subsystem by writing all dirty MultiXact pages to disk.

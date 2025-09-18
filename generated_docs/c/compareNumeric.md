@@ -1,7 +1,7 @@
 # compareNumeric
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3437 - 3444
+[src/backend/utils/adt/jsonpath_exec.c:3437-3444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3437-L3444)
 
 ## Overview
 A utility function that compares two PostgreSQL Numeric values using the built-in numeric comparison function.

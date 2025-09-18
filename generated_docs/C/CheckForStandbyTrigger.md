@@ -1,7 +1,7 @@
 # CheckForStandbyTrigger
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4434 - 4454
+[src/backend/access/transam/xlogrecovery.c:4434-4454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4434-L4454)
 
 ## Overview
 Checks whether a promotion request has been issued for the standby server, either locally or through signal files.

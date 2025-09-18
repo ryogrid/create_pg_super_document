@@ -1,7 +1,7 @@
 # tsquerysel
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 150 - 206
+[src/backend/tsearch/ts_selfuncs.c:150-206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L150-L206)
 
 ## Overview
 Computes selectivity estimates for tsvector variables against tsquery constants by analyzing statistics and query structure.

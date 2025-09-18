@@ -1,7 +1,7 @@
 # repoint_table_dependencies
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4805 - 4838
+[src/bin/pg_dump/pg_backup_archiver.c:4805-4838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4805-L4838)
 
 ## Overview
 This function modifies dependency relationships for PostgreSQL dump entries by redirecting table dependencies to their corresponding table data items, specifically for POST_DATA section items during database restore operations.

@@ -1,7 +1,7 @@
 # oid_compare
 
 ## Location
-src/backend/utils/cache/syscache.c: 796 - 802
+[src/backend/utils/cache/syscache.c:796-802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L796-L802)
 
 ## Overview
 A static comparison function used by qsort to compare Object Identifier (OID) values in ascending order for sorting operations in PostgreSQL's system cache.

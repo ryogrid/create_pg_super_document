@@ -1,7 +1,7 @@
 # POLYGON
 
 ## Location
-src/include/utils/geo_decls.h: 157 - 165
+[src/include/utils/geo_decls.h:157-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L157-L165)
 
 ## Overview
 POLYGON is a geometric data type in PostgreSQL that represents a closed polygonal shape specified by an array of vertex points, with an embedded bounding box for performance optimization.

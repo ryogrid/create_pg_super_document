@@ -1,7 +1,7 @@
 # check_agg_arguments_context
 
 ## Location
-src/backend/parser/parse_agg.c: 41 - 53
+[src/backend/parser/parse_agg.c:41-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L41-L53)
 
 ## Overview
 A context structure used during parsing to track the minimum variable and aggregate levels found while walking through aggregate function arguments to detect nested aggregation violations.

@@ -1,7 +1,7 @@
 # check_wal_buffers
 
 ## Location
-src/backend/access/transam/xlog.c: 4592 - 4626
+[src/backend/access/transam/xlog.c:4592-4626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4592-L4626)
 
 ## Overview
 A GUC check hook function that validates and adjusts the wal_buffers parameter value, supporting auto-tuning and enforcing minimum buffer requirements.

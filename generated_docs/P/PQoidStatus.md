@@ -1,7 +1,7 @@
 # PQoidStatus
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3765 - 3792
+[src/interfaces/libpq/fe-exec.c:3765-3792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3765-L3792)
 
 ## Overview
 PQoidStatus extracts the OID (Object Identifier) string from INSERT command results, returning an empty string for all other command types.

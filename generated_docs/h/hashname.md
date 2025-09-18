@@ -1,7 +1,7 @@
 # hashname
 
 ## Location
-src/backend/access/hash/hashfunc.c: 250 - 257
+[src/backend/access/hash/hashfunc.c:250-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L250-L257)
 
 ## Overview
 Computes a hash value for a PostgreSQL Name data type by hashing its string content.

@@ -1,7 +1,7 @@
 # CheckpointWriteDelay
 
 ## Location
-src/backend/postmaster/checkpointer.c: 714 - 782
+[src/backend/postmaster/checkpointer.c:714-782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L714-L782)
 
 ## Overview
 Controls the rate of checkpoint writes to achieve the target checkpoint completion time while handling administrative tasks during write delays.

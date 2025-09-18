@@ -1,7 +1,7 @@
 # slot_compile_deform
 
 ## Location
-src/backend/jit/llvm/llvmjit_deform.c: 34 - 777
+[src/backend/jit/llvm/llvmjit_deform.c:34-777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit_deform.c#L34-L777)
 
 ## Overview
 Compiles an optimized LLVM function that efficiently deforms (unpacks) tuple data from a heap tuple into a TupleTableSlot structure up to a specified number of attributes.

@@ -1,7 +1,7 @@
 # check_ok
 
 ## Location
-src/bin/initdb/initdb.c: 2091 - 2115
+[src/bin/initdb/initdb.c:2091-2115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2091-L2115)
 
 ## Overview
 A utility function that checks for error conditions and either exits with an error message or prints "ok" to indicate successful completion of an operation.

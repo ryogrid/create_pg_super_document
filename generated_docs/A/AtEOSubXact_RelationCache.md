@@ -1,7 +1,7 @@
 # AtEOSubXact_RelationCache
 
 ## Location
-src/backend/utils/cache/relcache.c: 3389 - 3443
+[src/backend/utils/cache/relcache.c:3389-3443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L3389-L3443)
 
 ## Overview
 Cleans up the relation cache at subtransaction commit or abort, handling subtransaction-specific cleanup operations while preserving the eoxact_list for subsequent main transaction processing.

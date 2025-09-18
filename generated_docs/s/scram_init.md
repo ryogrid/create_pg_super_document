@@ -1,7 +1,7 @@
 # scram_init
 
 ## Location
-src/backend/libpq/auth-scram.c: 236 - 347
+[src/backend/libpq/auth-scram.c:236-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L236-L347)
 
 ## Overview
 Initializes a new SCRAM authentication exchange status tracker and prepares the authentication state for a client connection.

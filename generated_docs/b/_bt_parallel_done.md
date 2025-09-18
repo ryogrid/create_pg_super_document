@@ -1,7 +1,7 @@
 # _bt_parallel_done
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 736 - 783
+[src/backend/access/nbtree/nbtree.c:736-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L736-L783)
 
 ## Overview
 Marks a parallel B-tree index scan as complete and notifies other worker processes that no more pages are left to scan.

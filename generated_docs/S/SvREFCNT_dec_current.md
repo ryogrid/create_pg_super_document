@@ -1,7 +1,7 @@
 # SvREFCNT_dec_current
 
 ## Location
-src/pl/plperl/plperl.c: 312 - 322
+[src/pl/plperl/plperl.c:312-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L312-L322)
 
 ## Overview
 A static inline function that decrements the reference count of a given Perl SV (scalar value) within the currently active Perl interpreter, providing a convenient wrapper that handles interpreter context setup.

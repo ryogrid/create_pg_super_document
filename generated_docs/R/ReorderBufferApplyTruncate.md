@@ -1,7 +1,7 @@
 # ReorderBufferApplyTruncate
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2026 - 2039
+[src/backend/replication/logical/reorderbuffer.c:2026-2039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2026-L2039)
 
 ## Overview
 ReorderBufferApplyTruncate is a helper function that applies TRUNCATE operations during transaction processing, choosing between streaming and regular apply modes based on the replication context.

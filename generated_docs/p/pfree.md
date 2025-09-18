@@ -1,7 +1,7 @@
 # pfree
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1520 - 1539
+[src/backend/utils/mmgr/mcxt.c:1520-1539](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1520-L1539)
 
 ## Overview
 Releases (deallocates) a previously allocated memory chunk, handling both regular and aligned allocations through the appropriate memory context method.

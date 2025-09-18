@@ -1,7 +1,7 @@
 # ResourceOwnerRememberCryptoHash
 
 ## Location
-src/common/cryptohash_openssl.c: 91 - 95
+[src/common/cryptohash_openssl.c:91-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L91-L95)
 
 ## Overview
 A convenience wrapper function that registers a cryptographic hash context with PostgreSQL's resource owner system for automatic cleanup upon transaction abort or process exit.

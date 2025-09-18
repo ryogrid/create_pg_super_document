@@ -1,7 +1,7 @@
 # array_subscript_check_subscripts
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 180 - 235
+[src/backend/utils/adt/arraysubs.c:180-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L180-L235)
 
 ## Overview
 Processes and validates subscript expressions during execution of a SubscriptingRef expression, converting evaluated Datum subscripts to integers and handling NULL values appropriately.

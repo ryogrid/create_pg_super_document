@@ -1,7 +1,7 @@
 # l_sbool_const
 
 ## Location
-src/include/jit/llvmjit_emit.h: 93 - 101
+[src/include/jit/llvmjit_emit.h:93-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L93-L101)
 
 ## Overview
 Creates an LLVM constant boolean value suitable for storage operations (such as global variables and struct members) within PostgreSQL's JIT compilation system.

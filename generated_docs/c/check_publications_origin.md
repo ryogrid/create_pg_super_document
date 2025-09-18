@@ -1,7 +1,7 @@
 # check_publications_origin
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 2032 - 2139
+[src/backend/commands/subscriptioncmds.c:2032-2139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L2032-L2139)
 
 ## Overview
 Validates and warns when a subscription might copy data with different origins during initial synchronization with copy_data=true and origin=none settings.

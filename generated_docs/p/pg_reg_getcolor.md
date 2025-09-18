@@ -1,7 +1,7 @@
 # pg_reg_getcolor
 
 ## Location
-src/backend/regex/regc_color.c: 120 - 171
+[src/backend/regex/regc_color.c:120-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L120-L171)
 
 ## Overview
 Determines the color assignment for characters outside the simple character range using binary search and locale-dependent character classification.

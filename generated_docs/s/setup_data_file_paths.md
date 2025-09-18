@@ -1,7 +1,7 @@
 # setup_data_file_paths
 
 ## Location
-src/bin/initdb/initdb.c: 2768 - 2811
+[src/bin/initdb/initdb.c:2768-2811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2768-L2811)
 
 ## Overview
 Establishes file paths for all essential PostgreSQL data files and templates required during database initialization, and validates their accessibility.

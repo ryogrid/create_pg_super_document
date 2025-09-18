@@ -1,7 +1,7 @@
 # AtEOXact_SPI
 
 ## Location
-src/backend/executor/spi.c: 428 - 481
+[src/backend/executor/spi.c:428-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L428-L481)
 
 ## Overview
 AtEOXact_SPI cleans up SPI state at transaction commit or abort, handling proper cleanup of nested SPI connections when a transaction ends.

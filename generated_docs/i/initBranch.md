@@ -1,7 +1,7 @@
 # initBranch
 
 ## Location
-src/bin/pgbench/pgbench.c: 4928 - 4936
+[src/bin/pgbench/pgbench.c:4928-4936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4928-L4936)
 
 ## Overview
 Generates a single row of data for the pgbench_branches table in tab-separated format for COPY operations.

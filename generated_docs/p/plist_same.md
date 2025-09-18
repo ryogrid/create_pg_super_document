@@ -1,7 +1,7 @@
 # plist_same
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5457 - 5518
+[src/backend/utils/adt/geo_ops.c:5457-5518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5457-L5518)
 
 ## Overview
 A static utility function that determines if two point lists represent the same geometric shape, accounting for different starting points and orientations (clockwise vs counterclockwise).

@@ -1,7 +1,7 @@
 # SerializedClientConnectionInfo
 
 ## Location
-src/backend/utils/init/miscinit.c: 1071 - 1075
+[src/backend/utils/init/miscinit.c:1071-1075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1071-L1075)
 
 ## Overview
 A struct used as an intermediate representation of ClientConnectionInfo for easier serialization, particularly for passing client connection information to parallel worker processes.

@@ -1,7 +1,7 @@
 # nlikejoinsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 948 - 956
+[src/backend/utils/adt/like_support.c:948-956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L948-L956)
 
 ## Overview
 Computes join selectivity estimates for LIKE pattern non-match operations between two tables.

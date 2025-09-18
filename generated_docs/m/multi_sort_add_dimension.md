@@ -1,7 +1,7 @@
 # multi_sort_add_dimension
 
 ## Location
-src/backend/statistics/extended_stats.c: 851 - 864
+[src/backend/statistics/extended_stats.c:851-864](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L851-L864)
 
 ## Overview
 Prepares sort support information for multi-column sorting operations by configuring a specific dimension within a MultiSortSupport structure using the provided sort operator and collation.

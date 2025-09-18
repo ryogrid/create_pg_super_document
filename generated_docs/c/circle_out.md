@@ -1,7 +1,7 @@
 # circle_out
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4681 - 4702
+[src/backend/utils/adt/geo_ops.c:4681-4702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4681-L4702)
 
 ## Overview
 Converts PostgreSQL's internal CIRCLE data structure to its external string representation in the standard format.

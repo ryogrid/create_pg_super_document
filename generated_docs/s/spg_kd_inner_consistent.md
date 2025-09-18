@@ -1,7 +1,7 @@
 # spg_kd_inner_consistent
 
 ## Location
-src/backend/access/spgist/spgkdtreeproc.c: 160 - 349
+[src/backend/access/spgist/spgkdtreeproc.c:160-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgkdtreeproc.c#L160-L349)
 
 ## Overview
 A SP-GiST inner consistent function that determines which child nodes to traverse during k-d tree searches by evaluating query constraints against the splitting coordinate at each internal node.

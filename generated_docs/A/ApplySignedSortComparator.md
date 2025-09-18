@@ -1,7 +1,7 @@
 # ApplySignedSortComparator
 
 ## Location
-src/include/utils/sortsupport.h: 267 - 301
+[src/include/utils/sortsupport.h:267-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sortsupport.h#L267-L301)
 
 ## Overview
 ApplySignedSortComparator is an inline function that performs signed comparison of two Datum values, handling NULL values and sort direction according to sort support configuration.

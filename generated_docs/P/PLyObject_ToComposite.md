@@ -1,7 +1,7 @@
 # PLyObject_ToComposite
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 941 - 1023
+[src/pl/plpython/plpy_typeio.c:941-1023](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L941-L1023)
 
 ## Overview
 Converts a Python object to a PostgreSQL composite type (record/tuple), handling multiple input formats including sequences, mappings, and objects with __getattr__ methods.

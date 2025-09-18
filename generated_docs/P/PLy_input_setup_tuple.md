@@ -1,7 +1,7 @@
 # PLy_input_setup_tuple
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 165 - 214
+[src/pl/plpython/plpy_typeio.c:165-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L165-L214)
 
 ## Overview
 Initializes or re-initializes per-column input conversion information for composite/tuple types in PL/Python.

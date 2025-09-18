@@ -1,7 +1,7 @@
 # ExecIRDeleteTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2859 - 2905
+[src/backend/commands/trigger.c:2859-2905](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2859-L2905)
 
 ## Overview
 ExecIRDeleteTriggers executes INSTEAD OF ROW DELETE triggers on views, allowing views to handle DELETE operations through custom trigger logic.

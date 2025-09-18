@@ -1,7 +1,7 @@
 # contain_placeholder_references_to
 
 ## Location
-src/backend/optimizer/util/placeholder.c: 464 - 478
+[src/backend/optimizer/util/placeholder.c:464-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/placeholder.c#L464-L478)
 
 ## Overview
 Detects whether any PlaceHolderVars in a given clause contain references to a specified relation ID, typically used for outer join analysis.

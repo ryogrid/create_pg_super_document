@@ -1,7 +1,7 @@
 # getHashFnv1a
 
 ## Location
-src/bin/pgbench/pgbench.c: 1245 - 1269
+[src/bin/pgbench/pgbench.c:1245-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1245-L1269)
 
 ## Overview
 Implements the FNV-1a (Fowler-Noll-Vo) hash function variant that produces a 64-bit hash value from an input integer and seed.

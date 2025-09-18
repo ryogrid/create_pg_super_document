@@ -1,7 +1,7 @@
 # ginRedoInsertListPage
 
 ## Location
-src/backend/access/gin/ginxlog.c: 620 - 674
+[src/backend/access/gin/ginxlog.c:620-674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L620-L674)
 
 ## Overview
 This function handles the redo operation for GIN list page insertions during WAL recovery, re-initializing a list page and adding all tuples from the WAL record data.

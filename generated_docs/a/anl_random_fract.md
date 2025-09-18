@@ -1,7 +1,7 @@
 # anl_random_fract
 
 ## Location
-src/backend/utils/misc/sampling.c: 266 - 280
+[src/backend/utils/misc/sampling.c:266-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L266-L280)
 
 ## Overview
 Provides a convenient interface for generating random fractions for ANALYZE operations, managing its own global random state with lazy initialization.

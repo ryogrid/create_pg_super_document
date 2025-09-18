@@ -1,7 +1,7 @@
 # get_fn_expr_arg_stable
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1975 - 1993
+[src/backend/utils/fmgr/fmgr.c:1975-1993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1975-L1993)
 
 ## Overview
 Determines whether a specific function argument is constant for the duration of a query by examining the FmgrInfo structure's expression node.

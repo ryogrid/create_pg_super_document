@@ -1,7 +1,7 @@
 # test_re_flags
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 27 - 35
+[src/test/modules/test_regex/test_regex.c:27-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L27-L35)
 
 ## Overview
 A structure that holds all configuration options for PostgreSQL's regex testing functions, encapsulating both compilation and execution flags for Spencer's regex engine.

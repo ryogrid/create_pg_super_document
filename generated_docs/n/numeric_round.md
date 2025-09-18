@@ -1,7 +1,7 @@
 # numeric_round
 
 ## Location
-src/backend/utils/adt/numeric.c: 1541 - 1594
+[src/backend/utils/adt/numeric.c:1541-1594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1541-L1594)
 
 ## Overview
 The numeric_round function implements PostgreSQL's ROUND() SQL function for NUMERIC data types, rounding a value to a specified number of digits after the decimal point.

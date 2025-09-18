@@ -1,7 +1,7 @@
 # DetachPartitionFinalize
 
 ## Location
-src/backend/commands/tablecmds.c: 19320 - 19645
+[src/backend/commands/tablecmds.c:19320-19645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L19320-L19645)
 
 ## Overview
 DetachPartitionFinalize performs the final cleanup operations when detaching a partition from its parent table, handling constraint removal, foreign key management, index detachment, and catalog updates.

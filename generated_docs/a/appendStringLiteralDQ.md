@@ -1,7 +1,7 @@
 # appendStringLiteralDQ
 
 ## Location
-src/fe_utils/string_utils.c: 484 - 526
+[src/fe_utils/string_utils.c:484-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L484-L526)
 
 ## Overview
 Converts a string value to a dollar-quoted literal and appends it to a PQExpBuffer, ensuring proper quoting without character escaping.

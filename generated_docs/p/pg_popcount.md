@@ -1,7 +1,7 @@
 # pg_popcount
 
 ## Location
-src/include/port/pg_bitutils.h: 339 - 369
+[src/include/port/pg_bitutils.h:339-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L339-L369)
 
 ## Overview
 The pg_popcount function counts the number of 1-bits (population count) in a buffer of bytes, providing an optimized implementation that switches between simple lookup and hardware-accelerated approaches based on buffer size.

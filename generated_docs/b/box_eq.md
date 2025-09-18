@@ -1,7 +1,7 @@
 # box_eq
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 762 - 770
+[src/backend/utils/adt/geo_ops.c:762-770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L762-L770)
 
 ## Overview
 The  function checks if two PostgreSQL BOX geometries are equal by comparing their areas.

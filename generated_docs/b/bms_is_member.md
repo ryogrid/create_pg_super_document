@@ -1,7 +1,7 @@
 # bms_is_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 510 - 538
+[src/backend/nodes/bitmapset.c:510-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L510-L538)
 
 ## Overview
 Tests whether a specific integer value is a member of a bitmap set by checking if the corresponding bit is set.

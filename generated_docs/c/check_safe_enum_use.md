@@ -1,7 +1,7 @@
 # check_safe_enum_use
 
 ## Location
-src/backend/utils/adt/enum.c: 63 - 108
+[src/backend/utils/adt/enum.c:63-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L63-L108)
 
 ## Overview
 Ensures that uncommitted enum values are not used in SQL operations to prevent index corruption during transaction rollbacks.

@@ -1,7 +1,7 @@
 # make_native_path
 
 ## Location
-src/port/path.c: 235 - 256
+[src/port/path.c:235-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L235-L256)
 
 ## Overview
 Converts forward slash ('/') characters to backslash ('\\') characters in a file path string on Windows platforms to create Windows-native path format.

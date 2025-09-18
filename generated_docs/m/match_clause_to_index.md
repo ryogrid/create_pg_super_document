@@ -1,7 +1,7 @@
 # match_clause_to_index
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2084 - 2202
+[src/backend/optimizer/path/indxpath.c:2084-2202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2084-L2202)
 
 ## Overview
 Tests whether a qualification clause can be used with an index and adds appropriate IndexClause entries to the clause set if usable.

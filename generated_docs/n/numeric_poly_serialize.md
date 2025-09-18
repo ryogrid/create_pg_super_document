@@ -1,7 +1,7 @@
 # numeric_poly_serialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5697 - 5754
+[src/backend/utils/adt/numeric.c:5697-5754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5697-L5754)
 
 ## Overview
 The numeric_poly_serialize function serializes a PolyNumAggState structure into a bytea format for PostgreSQL's parallel aggregation framework, enabling transfer of partial aggregate states between processes.

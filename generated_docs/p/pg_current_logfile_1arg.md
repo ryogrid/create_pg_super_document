@@ -1,7 +1,7 @@
 # pg_current_logfile_1arg
 
 ## Location
-src/backend/utils/adt/misc.c: 1092 - 1100
+[src/backend/utils/adt/misc.c:1092-1100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L1092-L1100)
 
 ## Overview
 A wrapper function that provides a single-argument version of pg_current_logfile for PostgreSQL's built-in function system compatibility.

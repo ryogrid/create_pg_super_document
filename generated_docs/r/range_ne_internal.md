@@ -1,7 +1,7 @@
 # range_ne_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 618 - 624
+[src/backend/utils/adt/rangetypes.c:618-624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L618-L624)
 
 ## Overview
 This internal PostgreSQL function performs inequality comparison between two range types by negating the result of the equality comparison.

@@ -1,7 +1,7 @@
 # xml_in
 
 ## Location
-src/backend/utils/adt/xml.c: 273 - 300
+[src/backend/utils/adt/xml.c:273-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L273-L300)
 
 ## Overview
 PostgreSQL input function that converts a C string representation of XML data into the internal xml data type, with validation for well-formed XML.

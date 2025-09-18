@@ -1,7 +1,7 @@
 # avx512_popcnt_available
 
 ## Location
-src/port/pg_popcount_avx512_choose.c: 75 - 94
+[src/port/pg_popcount_avx512_choose.c:75-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_popcount_avx512_choose.c#L75-L94)
 
 ## Overview
 A static inline function that uses CPUID to detect CPU support for specific AVX-512 instruction subsets required for optimized population count operations: AVX512-VPOPCNTDQ and AVX512-BW.

@@ -1,7 +1,7 @@
 # time2tm
 
 ## Location
-src/backend/utils/adt/date.c: 1488 - 1500
+[src/backend/utils/adt/date.c:1488-1500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1488-L1500)
 
 ## Overview
 Converts a PostgreSQL TimeADT value to a broken-down time structure, extracting hour, minute, second, and fractional second components.

@@ -1,7 +1,7 @@
 # CreateFakeRelcacheEntry
 
 ## Location
-src/backend/access/transam/xlogutils.c: 582 - 628
+[src/backend/access/transam/xlogutils.c:582-628](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L582-L628)
 
 ## Overview
 Creates a fake relation cache entry for physical relations during XLOG replay and WAL-skipped file syncing, enabling the use of standard functions that expect a relcache entry.

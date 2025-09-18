@@ -1,7 +1,7 @@
 # PgStat_StatFuncEntry
 
 ## Location
-src/include/pgstat.h: 359 - 365
+[src/include/pgstat.h:359-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L359-L365)
 
 ## Overview
 PgStat_StatFuncEntry is a structure that tracks execution statistics for individual functions in PostgreSQL, including call counts and timing information for performance monitoring and profiling.

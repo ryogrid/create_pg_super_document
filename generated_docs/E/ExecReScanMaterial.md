@@ -1,7 +1,7 @@
 # ExecReScanMaterial
 
 ## Location
-src/backend/executor/nodeMaterial.c: 313 - 363
+[src/backend/executor/nodeMaterial.c:313-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMaterial.c#L313-L363)
 
 ## Overview
 ExecReScanMaterial rescans a materialized relation node, handling both cases where materialization has occurred and pass-through scenarios. It manages the state of stored tuples and coordinates with the underlying subplan for efficient re-execution.

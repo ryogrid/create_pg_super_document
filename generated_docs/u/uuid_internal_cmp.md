@@ -1,7 +1,7 @@
 # uuid_internal_cmp
 
 ## Location
-src/backend/utils/adt/uuid.c: 168 - 173
+[src/backend/utils/adt/uuid.c:168-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L168-L173)
 
 ## Overview
 Internal comparison function that performs lexicographic comparison of two UUID values by comparing their raw byte data.

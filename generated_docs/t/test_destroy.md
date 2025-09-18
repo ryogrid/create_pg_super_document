@@ -1,7 +1,7 @@
 # test_destroy
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 327 - 339
+[src/test/modules/test_tidstore/test_tidstore.c:327-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L327-L339)
 
 ## Overview
 A cleanup function that properly destroys the TidStore and frees all associated memory resources, including verification arrays used in testing.

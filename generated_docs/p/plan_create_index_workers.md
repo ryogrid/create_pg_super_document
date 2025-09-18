@@ -1,7 +1,7 @@
 # plan_create_index_workers
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6859 - 6992
+[src/backend/optimizer/plan/planner.c:6859-6992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6859-L6992)
 
 ## Overview
 Uses the planner to determine the optimal number of parallel worker processes for CREATE INDEX operations based on table characteristics and system constraints.

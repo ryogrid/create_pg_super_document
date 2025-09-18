@@ -1,7 +1,7 @@
 # PLy_output_setup_tuple
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 215 - 260
+[src/pl/plpython/plpy_typeio.c:215-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L215-L260)
 
 ## Overview
 Initializes or re-initializes per-column output conversion information for composite/tuple types in PL/Python.

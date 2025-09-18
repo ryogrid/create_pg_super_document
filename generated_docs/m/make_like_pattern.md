@@ -1,7 +1,7 @@
 # make_like_pattern
 
 ## Location
-src/bin/psql/tab-complete.c: 5953 - 5998
+[src/bin/psql/tab-complete.c:5953-5998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5953-L5998)
 
 ## Overview
 Converts a string into a PostgreSQL LIKE pattern by escaping special characters and appending a wildcard for prefix matching.

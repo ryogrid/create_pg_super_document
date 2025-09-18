@@ -1,7 +1,7 @@
 # get_qual_for_range
 
 ## Location
-src/backend/partitioning/partbounds.c: 4275 - 4631
+[src/backend/partitioning/partbounds.c:4275-4631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L4275-L4631)
 
 ## Overview
 Generates complex CHECK constraint expressions for range partitions that handle multi-column range boundaries with proper comparison logic and special handling for MINVALUE/MAXVALUE bounds.

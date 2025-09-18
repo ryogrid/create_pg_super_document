@@ -1,7 +1,7 @@
 # g_box_consider_split
 
 ## Location
-src/backend/access/gist/gistproc.c: 351 - 459
+[src/backend/access/gist/gistproc.c:351-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L351-L459)
 
 ## Overview
 A static inline function that evaluates a potential split candidate for GiST box splitting and selects it if it provides a better split than the currently selected one.

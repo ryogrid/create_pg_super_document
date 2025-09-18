@@ -1,7 +1,7 @@
 # CopyGetInt16
 
 ## Location
-src/backend/commands/copyfromparse.c: 379 - 399
+[src/backend/commands/copyfromparse.c:379-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L379-L399)
 
 ## Overview
 Reads a 16-bit integer from binary COPY data with automatic conversion from network byte order to host byte order.

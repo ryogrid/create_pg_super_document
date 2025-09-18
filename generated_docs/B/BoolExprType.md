@@ -1,7 +1,7 @@
 # BoolExprType
 
 ## Location
-src/include/nodes/primnodes.h: 932 - 933
+[src/include/nodes/primnodes.h:932-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L932-L933)
 
 ## Overview
 BoolExprType is an enumeration that defines the types of basic Boolean operations (AND, OR, NOT) supported in PostgreSQL's expression system.

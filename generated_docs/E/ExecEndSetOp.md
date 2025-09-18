@@ -1,7 +1,7 @@
 # ExecEndSetOp
 
 ## Location
-src/backend/executor/nodeSetOp.c: 583 - 593
+[src/backend/executor/nodeSetOp.c:583-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L583-L593)
 
 ## Overview
 ExecEndSetOp is a cleanup function for SetOp execution nodes that shuts down the subplan and frees resources allocated to the node during set operation processing.

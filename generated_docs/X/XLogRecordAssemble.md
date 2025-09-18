@@ -1,7 +1,7 @@
 # XLogRecordAssemble
 
 ## Location
-src/backend/access/transam/xloginsert.c: 548 - 943
+[src/backend/access/transam/xloginsert.c:548-943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L548-L943)
 
 ## Overview
 XLogRecordAssemble constructs a complete WAL record from all registered data and buffer references, preparing it for insertion into the WAL.

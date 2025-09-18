@@ -1,7 +1,7 @@
 # bgworker_should_start_now
 
 ## Location
-src/backend/postmaster/postmaster.c: 4305 - 4346
+[src/backend/postmaster/postmaster.c:4305-4346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4305-L4346)
 
 ## Overview
 Determines whether a background worker should be started based on the current postmaster state and the worker's configured start time.

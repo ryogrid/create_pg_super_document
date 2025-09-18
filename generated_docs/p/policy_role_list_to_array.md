@@ -1,7 +1,7 @@
 # policy_role_list_to_array
 
 ## Location
-src/backend/commands/policy.c: 137 - 192
+[src/backend/commands/policy.c:137-192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/policy.c#L137-L192)
 
 ## Overview
 A helper function that converts a list of RoleSpec structures into an array of role OID Datums for use in row-level security policy storage and validation.

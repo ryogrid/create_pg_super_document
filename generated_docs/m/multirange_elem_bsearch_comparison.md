@@ -1,7 +1,7 @@
 # multirange_elem_bsearch_comparison
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1674 - 1706
+[src/backend/utils/adt/multirangetypes.c:1674-1706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1674-L1706)
 
 ## Overview
 A static comparison function used for binary search to determine if a given element is contained within any range of a multirange by comparing it against range bounds.

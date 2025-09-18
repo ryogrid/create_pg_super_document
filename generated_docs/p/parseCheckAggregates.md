@@ -1,7 +1,7 @@
 # parseCheckAggregates
 
 ## Location
-src/backend/parser/parse_agg.c: 1078 - 1274
+[src/backend/parser/parse_agg.c:1078-1274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1078-L1274)
 
 ## Overview
 Validates aggregate function placement and grouping correctness after query parsing is complete, checking for misplaced aggregates and improper grouping violations.

@@ -1,7 +1,7 @@
 # initcap
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 114 - 146
+[src/backend/utils/adt/oracle_compat.c:114-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L114-L146)
 
 ## Overview
 The  function capitalizes the first letter of each word in a text string while converting all other letters to lowercase, implementing proper title case formatting.

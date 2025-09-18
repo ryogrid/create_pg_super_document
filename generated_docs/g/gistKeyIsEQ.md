@@ -1,7 +1,7 @@
 # gistKeyIsEQ
 
 ## Location
-src/backend/access/gist/gistutil.c: 280 - 294
+[src/backend/access/gist/gistutil.c:280-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L280-L294)
 
 ## Overview
 Tests equality between two datums for a specific index column using the column's configured equality function.

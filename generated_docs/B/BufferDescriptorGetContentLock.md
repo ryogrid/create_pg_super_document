@@ -1,7 +1,7 @@
 # BufferDescriptorGetContentLock
 
 ## Location
-src/include/storage/buf_internals.h: 343 - 351
+[src/include/storage/buf_internals.h:343-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L343-L351)
 
 ## Overview
 Returns a pointer to the content lock associated with a buffer descriptor, providing access to the lightweight lock that protects the buffer's data content.

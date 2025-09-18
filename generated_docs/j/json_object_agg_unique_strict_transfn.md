@@ -1,7 +1,7 @@
 # json_object_agg_unique_strict_transfn
 
 ## Location
-src/backend/utils/adt/json.c: 1168 - 1176
+[src/backend/utils/adt/json.c:1168-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1168-L1176)
 
 ## Overview
 A PostgreSQL aggregate transition function that builds JSON objects from key-value pairs while enforcing key uniqueness and omitting NULL values during aggregation.

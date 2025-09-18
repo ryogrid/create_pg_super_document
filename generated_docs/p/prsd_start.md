@@ -1,7 +1,7 @@
 # prsd_start
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1896 - 1901
+[src/backend/tsearch/wparser_def.c:1896-1901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1896-L1901)
 
 ## Overview
 A PostgreSQL function that initializes the default text search parser with a given input string and length, serving as the start interface for text parsing operations.

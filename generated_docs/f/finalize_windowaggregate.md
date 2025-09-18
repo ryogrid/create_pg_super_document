@@ -1,7 +1,7 @@
 # finalize_windowaggregate
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 582 - 662
+[src/backend/executor/nodeWindowAgg.c:582-662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L582-L662)
 
 ## Overview
 Finalizes a window aggregate computation by applying the aggregate's final function (if any) to produce the final result value.

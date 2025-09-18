@@ -1,7 +1,7 @@
 # verbosity_hook
 
 ## Location
-src/bin/psql/startup.c: 1127 - 1149
+[src/bin/psql/startup.c:1127-1149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1127-L1149)
 
 ## Overview
 A variable hook function that processes changes to the VERBOSITY variable in psql, controlling how much detail is shown in PostgreSQL error messages.

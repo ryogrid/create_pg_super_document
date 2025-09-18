@@ -1,7 +1,7 @@
 # floor_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 9985 - 10007
+[src/backend/utils/adt/numeric.c:9985-10007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L9985-L10007)
 
 ## Overview
 The `floor_var` function returns the largest integer less than or equal to the given numeric value, implementing the mathematical floor function for PostgreSQL's `NumericVar` data type.

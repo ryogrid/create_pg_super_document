@@ -1,7 +1,7 @@
 # InstrStartParallelQuery
 
 ## Location
-src/backend/executor/instrument.c: 200 - 207
+[src/backend/executor/instrument.c:200-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L200-L207)
 
 ## Overview
 Captures baseline buffer usage and WAL usage statistics at the start of parallel query execution for later comparison and instrumentation.

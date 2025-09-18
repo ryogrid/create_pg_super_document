@@ -1,7 +1,7 @@
 # page_size
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6356 - 6365
+[src/backend/optimizer/path/costsize.c:6356-6365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6356-L6365)
 
 ## Overview
 Estimates the number of pages required to store a given number of tuples with a specified width.

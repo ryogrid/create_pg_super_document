@@ -1,7 +1,7 @@
 # tidstore_iter_extract_tids
 
 ## Location
-src/backend/access/common/tidstore.c: 580 - 622
+[src/backend/access/common/tidstore.c:580-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L580-L622)
 
 ## Overview
 A static helper function that extracts tuple identifiers (TIDs) from a BlocktableEntry and populates the iterator's output structure with the corresponding block number and offset numbers.

@@ -1,7 +1,7 @@
 # pg_get_utf8_id
 
 ## Location
-src/fe_utils/mbprint.c: 34 - 42
+[src/fe_utils/mbprint.c:34-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L34-L42)
 
 ## Overview
 A static utility function that returns the character encoding ID for UTF-8, caching the result to avoid repeated lookups.

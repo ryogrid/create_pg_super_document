@@ -1,7 +1,7 @@
 # FixedParamState
 
 ## Location
-src/backend/parser/parse_param.c: 36 - 40
+[src/backend/parser/parse_param.c:36-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_param.c#L36-L40)
 
 ## Overview
 FixedParamState is a structure used to store parameter type information for SQL queries with a fixed, pre-determined number of parameters during parsing.

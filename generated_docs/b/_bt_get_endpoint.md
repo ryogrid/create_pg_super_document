@@ -1,7 +1,7 @@
 # _bt_get_endpoint
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 2492 - 2572
+[src/backend/access/nbtree/nbtsearch.c:2492-2572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L2492-L2572)
 
 ## Overview
 Finds the first or last page at a specified level in a B-tree index, providing the foundation for endpoint-based tree operations and traversals.

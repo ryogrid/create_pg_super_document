@@ -1,7 +1,7 @@
 # replorigin_session_setup
 
 ## Location
-src/backend/replication/logical/origin.c: 1097 - 1189
+[src/backend/replication/logical/origin.c:1097-1189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1097-L1189)
 
 ## Overview
 Sets up a replication origin in shared memory for tracking replication progress and caches access to the specific ReplicationSlot to avoid array searches during subsequent operations.

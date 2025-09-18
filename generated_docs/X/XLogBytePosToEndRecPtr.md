@@ -1,7 +1,7 @@
 # XLogBytePosToEndRecPtr
 
 ## Location
-src/backend/access/transam/xlog.c: 1900 - 1942
+[src/backend/access/transam/xlog.c:1900-1942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1900-L1942)
 
 ## Overview
 Converts a usable byte position to an XLogRecPtr with special handling for page boundaries, returning pointers to page starts when at boundaries.

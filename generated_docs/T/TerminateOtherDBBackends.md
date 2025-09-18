@@ -1,7 +1,7 @@
 # TerminateOtherDBBackends
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3827 - 3941
+[src/backend/storage/ipc/procarray.c:3827-3941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3827-L3941)
 
 ## Overview
 Terminates existing connections to a specified database, typically used by the DROP DATABASE command when the user has requested to forcefully drop the database.

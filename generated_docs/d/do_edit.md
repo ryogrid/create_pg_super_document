@@ -1,7 +1,7 @@
 # do_edit
 
 ## Location
-src/bin/psql/command.c: 4185 - 4379
+[src/bin/psql/command.c:4185-4379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L4185-L4379)
 
 ## Overview
 Implements psql's \e command functionality by managing the complete workflow of editing query content in an external editor, including temporary file creation, editor invocation, and result processing.

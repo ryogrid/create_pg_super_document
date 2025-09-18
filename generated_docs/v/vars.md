@@ -1,7 +1,7 @@
 # vars
 
 ## Location
-src/backend/regex/regcomp.c: 281 - 312
+[src/backend/regex/regcomp.c:281-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L281-L312)
 
 ## Overview
 The `vars` struct is a central data structure in PostgreSQL's regex engine that bundles all internal variables and state needed during regular expression compilation and execution, providing a convenient way to pass context between regex processing functions.

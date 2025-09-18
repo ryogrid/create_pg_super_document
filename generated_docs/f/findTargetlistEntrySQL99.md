@@ -1,7 +1,7 @@
 # findTargetlistEntrySQL99
 
 ## Location
-src/backend/parser/parse_clause.c: 2172 - 2257
+[src/backend/parser/parse_clause.c:2172-2257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2172-L2257)
 
 ## Overview
 Returns the targetlist entry matching a given expression using SQL99 interpretation, where expressions are treated as ordinary expressions referencing input column names rather than output column names or positions.

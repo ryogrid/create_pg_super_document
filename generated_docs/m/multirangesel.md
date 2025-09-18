@@ -1,7 +1,7 @@
 # multirangesel
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 137 - 290
+[src/backend/utils/adt/multirangetypes_selfuncs.c:137-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L137-L290)
 
 ## Overview
 PostgreSQL selectivity estimation function for multirange operators that calculates the probability of rows matching multirange query conditions.

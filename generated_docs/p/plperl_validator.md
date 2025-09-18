@@ -1,7 +1,7 @@
 # plperl_validator
 
 ## Location
-src/pl/plperl/plperl.c: 1989 - 2066
+[src/pl/plperl/plperl.c:1989-2066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1989-L2066)
 
 ## Overview
 Validates PL/Perl function definitions during CREATE FUNCTION, checking argument and return types, and optionally compiling the function body for syntax errors.

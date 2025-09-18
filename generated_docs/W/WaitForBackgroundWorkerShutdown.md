@@ -1,7 +1,7 @@
 # WaitForBackgroundWorkerShutdown
 
 ## Location
-src/backend/postmaster/bgworker.c: 1182 - 1220
+[src/backend/postmaster/bgworker.c:1182-1220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L1182-L1220)
 
 ## Overview
 Waits for a background worker to completely stop, blocking until the worker transitions to STOPPED status regardless of its initial state.

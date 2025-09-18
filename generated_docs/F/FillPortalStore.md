@@ -1,7 +1,7 @@
 # FillPortalStore
 
 ## Location
-src/backend/tcop/pquery.c: 998 - 1058
+[src/backend/tcop/pquery.c:998-1058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L998-L1058)
 
 ## Overview
 Runs a query and loads result tuples into the portal's tuple store for cases that require holding results in memory before delivery to the client.

@@ -1,7 +1,7 @@
 # IsInplaceUpdateRelation
 
 ## Location
-src/backend/catalog/catalog.c: 152 - 161
+[src/backend/catalog/catalog.c:152-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L152-L161)
 
 ## Overview
 IsInplaceUpdateRelation identifies relations where PostgreSQL core code performs in-place updates, requiring special locking protocols and executor assumptions.

@@ -1,7 +1,7 @@
 # HandleCopyStream
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 745 - 869
+[src/bin/pg_basebackup/receivelog.c:745-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L745-L869)
 
 ## Overview
 Main event loop that handles the COPY stream protocol for PostgreSQL streaming replication, processing WAL data messages and keepalive messages while managing feedback and synchronization.

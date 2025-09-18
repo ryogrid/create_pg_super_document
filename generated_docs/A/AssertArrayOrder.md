@@ -1,7 +1,7 @@
 # AssertArrayOrder
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 279 - 295
+[src/backend/access/brin/brin_minmax_multi.c:279-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L279-L295)
 
 ## Overview
 AssertArrayOrder is a static debugging function that validates the sorted order of an array of values using a comparison function, ensuring data integrity in BRIN minmax-multi indexes.

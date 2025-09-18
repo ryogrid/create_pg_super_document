@@ -1,7 +1,7 @@
 # compareWordEntryPos
 
 ## Location
-src/backend/utils/adt/tsvector.c: 36 - 51
+[src/backend/utils/adt/tsvector.c:36-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector.c#L36-L51)
 
 ## Overview
 A comparison function used for sorting WordEntryPos values in PostgreSQL's text search functionality.

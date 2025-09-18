@@ -1,7 +1,7 @@
 # get_icu_locale_comment
 
 ## Location
-src/backend/commands/collationcmds.c: 650 - 697
+[src/backend/commands/collationcmds.c:650-697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L650-L697)
 
 ## Overview
 Retrieves a human-readable display name (comment) for an ICU locale, ensuring the result contains only ASCII characters suitable for template0 database storage.

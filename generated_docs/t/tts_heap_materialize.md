@@ -1,7 +1,7 @@
 # tts_heap_materialize
 
 ## Location
-src/backend/executor/execTuples.c: 398 - 437
+[src/backend/executor/execTuples.c:398-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L398-L437)
 
 ## Overview
 Ensures that a heap tuple table slot contains a materialized (physically allocated) heap tuple by either forming a new tuple from deconstructed values or copying an existing tuple into the slot's memory context.

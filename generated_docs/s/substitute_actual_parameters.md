@@ -1,7 +1,7 @@
 # substitute_actual_parameters
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4907 - 4919
+[src/backend/optimizer/util/clauses.c:4907-4919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4907-L4919)
 
 ## Overview
 Replaces Param nodes in an expression tree with their corresponding actual parameter values, serving as a wrapper function for the parameter substitution process.

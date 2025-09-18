@@ -1,7 +1,7 @@
 # pg_add_u32_overflow
 
 ## Location
-src/include/common/int.h: 325 - 342
+[src/include/common/int.h:325-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L325-L342)
 
 ## Overview
 A safe 32-bit unsigned integer addition function that detects overflow conditions and prevents undefined behavior.

@@ -1,7 +1,7 @@
 # DllInstall
 
 ## Location
-src/bin/pgevent/pgevent.c: 38 - 64
+[src/bin/pgevent/pgevent.c:38-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgevent/pgevent.c#L38-L64)
 
 ## Overview
 DllInstall is a Windows DLL entry point function that handles command-line installation parameters for the PostgreSQL event logging DLL, providing custom event source registration functionality.

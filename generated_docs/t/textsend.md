@@ -1,7 +1,7 @@
 # textsend
 
 ## Location
-src/backend/utils/adt/varlena.c: 619 - 633
+[src/backend/utils/adt/varlena.c:619-633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L619-L633)
 
 ## Overview
 The  function converts PostgreSQL's internal text representation to external binary format, serving as the binary send function for the text data type.

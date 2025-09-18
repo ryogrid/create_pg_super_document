@@ -1,7 +1,7 @@
 # pgstat_report_appname
 
 ## Location
-src/backend/utils/activity/backend_status.c: 653 - 681
+[src/backend/utils/activity/backend_status.c:653-681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L653-L681)
 
 ## Overview
 Updates the application name field in the backend status entry, enabling identification of different client applications in PostgreSQL's monitoring views.

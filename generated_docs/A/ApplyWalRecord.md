@@ -1,7 +1,7 @@
 # ApplyWalRecord
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1908 - 2071
+[src/backend/access/transam/xlogrecovery.c:1908-2071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1908-L2071)
 
 ## Overview
 ApplyWalRecord is a subroutine of PerformWalRecovery that applies a single WAL record during recovery, handling timeline switches, transaction ID advancement, and various recovery-specific operations.

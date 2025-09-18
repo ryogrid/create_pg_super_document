@@ -1,7 +1,7 @@
 # pseudocolor
 
 ## Location
-src/backend/regex/regc_color.c: 312 - 335
+[src/backend/regex/regc_color.c:312-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L312-L335)
 
 ## Overview
 Allocates a false or pseudo color in the colormap that is intended to be managed by external means rather than through normal character-to-color mapping.

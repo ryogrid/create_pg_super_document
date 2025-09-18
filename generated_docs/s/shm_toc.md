@@ -1,7 +1,7 @@
 # shm_toc
 
 ## Location
-src/backend/storage/ipc/shm_toc.c: 26 - 39
+[src/backend/storage/ipc/shm_toc.c:26-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_toc.c#L26-L39)
 
 ## Overview
 The shm_toc structure is PostgreSQL's shared memory table of contents (TOC), providing a mechanism for processes to register and discover data structures within shared memory segments using key-based lookups.

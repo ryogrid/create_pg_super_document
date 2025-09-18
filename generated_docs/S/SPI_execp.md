@@ -1,7 +1,7 @@
 # SPI_execp
 
 ## Location
-src/backend/executor/spi.c: 704 - 710
+[src/backend/executor/spi.c:704-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L704-L710)
 
 ## Overview
 SPI_execp is a legacy wrapper function that provides backward compatibility for executing prepared SPI plans without specifying read-only mode explicitly.

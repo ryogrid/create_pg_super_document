@@ -1,7 +1,7 @@
 # similar_to_escape_1
 
 ## Location
-src/backend/utils/adt/regexp.c: 1048 - 1065
+[src/backend/utils/adt/regexp.c:1048-1065](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1048-L1065)
 
 ## Overview
 A PostgreSQL SQL function wrapper that converts a SIMILAR TO pattern to POSIX-style regular expression format using the default escape character.

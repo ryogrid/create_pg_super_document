@@ -1,7 +1,7 @@
 # spgInnerConsistentIn
 
 ## Location
-src/include/access/spgist.h: 132 - 152
+[src/include/access/spgist.h:132-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L132-L152)
 
 ## Overview
 spgInnerConsistentIn is a structure that provides input parameters for SP-GiST inner node consistency checking operations, containing scan keys, traversal context, and inner tuple information needed to determine which child nodes to visit during index traversal.

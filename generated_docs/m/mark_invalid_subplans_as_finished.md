@@ -1,7 +1,7 @@
 # mark_invalid_subplans_as_finished
 
 ## Location
-src/backend/executor/nodeAppend.c: 828 - 861
+[src/backend/executor/nodeAppend.c:828-861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L828-L861)
 
 ## Overview
 Marks invalid subplans as finished in the ParallelAppendState during runtime partition pruning, ensuring that parallel workers skip subplans that have been determined to be unnecessary for query execution.

@@ -1,7 +1,7 @@
 # ExecCloseResultRelations
 
 ## Location
-src/backend/executor/execMain.c: 1516 - 1575
+[src/backend/executor/execMain.c:1516-1575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1516-L1575)
 
 ## Overview
 ExecCloseResultRelations closes any relations that have been opened for ResultRelInfos during query execution, ensuring proper cleanup of result relations and their associated resources.

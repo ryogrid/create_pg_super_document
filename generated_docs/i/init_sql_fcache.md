@@ -1,7 +1,7 @@
 # init_sql_fcache
 
 ## Location
-src/backend/executor/functions.c: 583 - 813
+[src/backend/executor/functions.c:583-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L583-L813)
 
 ## Overview
 Initializes the SQLFunctionCache structure for a SQL function, handling parsing, planning, and validation of function body queries.

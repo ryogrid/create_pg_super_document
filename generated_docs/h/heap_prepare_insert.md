@@ -1,7 +1,7 @@
 # heap_prepare_insert
 
 ## Location
-src/backend/access/heap/heapam.c: 2229 - 2276
+[src/backend/access/heap/heapam.c:2229-2276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2229-L2276)
 
 ## Overview
 heap_prepare_insert prepares a tuple for insertion by setting header fields and performing toasting if necessary, returning the prepared tuple ready for storage.

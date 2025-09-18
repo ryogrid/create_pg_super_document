@@ -1,7 +1,7 @@
 # WaitEventAdjustKqueueAdd
 
 ## Location
-src/backend/storage/ipc/latch.c: 1224 - 1235
+[src/backend/storage/ipc/latch.c:1224-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L1224-L1235)
 
 ## Overview
 A static inline utility function that configures a kevent structure for kqueue-based event monitoring by setting the file descriptor, filter, action flags, and associating it with a WaitEvent.

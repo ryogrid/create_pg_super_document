@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_sync_time
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1239 - 1246
+[src/backend/utils/adt/pgstatfuncs.c:1239-1246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1239-L1246)
 
 ## Overview
 Returns the total time spent by the checkpointer process syncing files to disk, measured in milliseconds since server startup.

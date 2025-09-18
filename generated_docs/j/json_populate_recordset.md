@@ -1,7 +1,7 @@
 # json_populate_recordset
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3986 - 3992
+[src/backend/utils/adt/jsonfuncs.c:3986-3992](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3986-L3992)
 
 ## Overview
 A PostgreSQL SQL function that populates a recordset from a JSON array using a prototype record to define the output structure.

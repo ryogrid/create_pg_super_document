@@ -1,7 +1,7 @@
 # pqAddTuple
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 993 - 1059
+[src/interfaces/libpq/fe-exec.c:993-1059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L993-L1059)
 
 ## Overview
 pqAddTuple is a private utility function that adds a row pointer to a PGresult structure, automatically growing the tuple array when necessary to accommodate new tuples.

@@ -1,7 +1,7 @@
 # macaddr_abbrev_convert
 
 ## Location
-src/backend/utils/adt/mac.c: 483 - 532
+[src/backend/utils/adt/mac.c:483-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L483-L532)
 
 ## Overview
 A SortSupport conversion function that transforms MAC address data into abbreviated key representation for optimized sorting operations by packing the 6-byte MAC address into a Datum for efficient comparison.

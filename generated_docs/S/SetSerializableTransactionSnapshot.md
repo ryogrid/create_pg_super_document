@@ -1,7 +1,7 @@
 # SetSerializableTransactionSnapshot
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1712 - 1753
+[src/backend/storage/lmgr/predicate.c:1712-1753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1712-L1753)
 
 ## Overview
 Imports an externally-provided snapshot to be used for the current serializable transaction, setting up the serializable transaction context without taking a new snapshot.

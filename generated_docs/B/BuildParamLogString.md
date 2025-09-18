@@ -1,7 +1,7 @@
 # BuildParamLogString
 
 ## Location
-src/backend/nodes/params.c: 335 - 406
+[src/backend/nodes/params.c:335-406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/params.c#L335-L406)
 
 ## Overview
 Generates a human-readable string representation of parameter values for logging and error reporting purposes.

@@ -1,7 +1,7 @@
 # tts_minimal_getsysattr
 
 ## Location
-src/backend/executor/execTuples.c: 557 - 573
+[src/backend/executor/execTuples.c:557-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L557-L573)
 
 ## Overview
 A slot operation function for minimal tuple table slots that throws an error when attempting to retrieve system attributes, as minimal tuples do not support system columns.

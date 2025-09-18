@@ -1,7 +1,7 @@
 # scanNameSpaceForENR
 
 ## Location
-src/backend/parser/parse_relation.c: 335 - 355
+[src/backend/parser/parse_relation.c:335-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L335-L355)
 
 ## Overview
 Searches the query's ephemeral named relation namespace for a relation matching the given unqualified reference name.

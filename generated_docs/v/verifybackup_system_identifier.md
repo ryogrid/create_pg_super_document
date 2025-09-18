@@ -1,7 +1,7 @@
 # verifybackup_system_identifier
 
 ## Location
-src/bin/pg_verifybackup/pg_verifybackup.c: 535 - 547
+[src/bin/pg_verifybackup/pg_verifybackup.c:535-547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_verifybackup/pg_verifybackup.c#L535-L547)
 
 ## Overview
 Callback function used during manifest parsing to extract and store the PostgreSQL system identifier from the backup manifest for later validation.

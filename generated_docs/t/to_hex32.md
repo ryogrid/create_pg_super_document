@@ -1,7 +1,7 @@
 # to_hex32
 
 ## Location
-src/backend/utils/adt/varlena.c: 4994 - 5000
+[src/backend/utils/adt/varlena.c:4994-5000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4994-L5000)
 
 ## Overview
 Converts a 32-bit integer value to its hexadecimal (base-16) string representation.

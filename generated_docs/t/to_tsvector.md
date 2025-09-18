@@ -1,7 +1,7 @@
 # to_tsvector
 
 ## Location
-src/backend/tsearch/to_tsany.c: 270 - 284
+[src/backend/tsearch/to_tsany.c:270-284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L270-L284)
 
 ## Overview
 Converts text input to a text search vector (TSVector) using the current default text search configuration.

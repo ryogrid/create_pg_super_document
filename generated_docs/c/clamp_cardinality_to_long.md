@@ -1,7 +1,7 @@
 # clamp_cardinality_to_long
 
 ## Location
-src/backend/optimizer/path/costsize.c: 254 - 283
+[src/backend/optimizer/path/costsize.c:254-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L254-L283)
 
 ## Overview
 Safely casts a Cardinality value (double) to a long integer while handling edge cases and preventing overflow.

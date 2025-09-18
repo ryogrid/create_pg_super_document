@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_fmt_asc
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 782 - 796
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:782-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L782-L796)
 
 ## Overview
 Formats a PostgreSQL timestamp into an ASCII string representation according to a specified format string.

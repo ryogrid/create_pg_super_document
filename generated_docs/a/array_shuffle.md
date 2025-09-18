@@ -1,7 +1,7 @@
 # array_shuffle
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1626 - 1659
+[src/backend/utils/adt/array_userfuncs.c:1626-1659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1626-L1659)
 
 ## Overview
 A PostgreSQL user function that returns an array with the same dimensions as input, but with first-dimension elements randomly shuffled.

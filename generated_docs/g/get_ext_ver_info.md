@@ -1,7 +1,7 @@
 # get_ext_ver_info
 
 ## Location
-src/backend/commands/extension.c: 1143 - 1175
+[src/backend/commands/extension.c:1143-1175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1143-L1175)
 
 ## Overview
 Finds or creates an ExtensionVersionInfo structure for a specified version name, maintaining a list of version information for extension management.

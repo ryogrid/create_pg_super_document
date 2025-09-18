@@ -1,7 +1,7 @@
 # tm2time
 
 ## Location
-src/backend/utils/adt/date.c: 1416 - 1426
+[src/backend/utils/adt/date.c:1416-1426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1416-L1426)
 
 ## Overview
 Converts a tm structure to a PostgreSQL time data type, combining hours, minutes, seconds, and fractional seconds into a single TimeADT value.

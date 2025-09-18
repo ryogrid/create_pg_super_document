@@ -1,7 +1,7 @@
 # populate_composite
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3056 - 3122
+[src/backend/utils/adt/jsonfuncs.c:3056-3122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3056-L3122)
 
 ## Overview
 Recursively populates a composite (row type) value from JSON/JsonB data, handling both regular composite types and domain types over composites.

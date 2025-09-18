@@ -1,7 +1,7 @@
 # SH_FREE
 
 ## Location
-src/include/lib/simplehash.h: 424 - 441
+[src/include/lib/simplehash.h:424-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L424-L441)
 
 ## Overview
 Deallocates memory previously allocated by SH_ALLOCATE in PostgreSQL's simplehash implementation, providing the corresponding cleanup function for hash table memory management.

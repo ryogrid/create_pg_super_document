@@ -1,7 +1,7 @@
 # SetInstallXLogFileSegmentActive
 
 ## Location
-src/backend/access/transam/xlog.c: 9500 - 9507
+[src/backend/access/transam/xlog.c:9500-9507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9500-L9507)
 
 ## Overview
 Enables WAL file recycling and preallocation by setting the InstallXLogFileSegmentActive flag to true in a thread-safe manner.

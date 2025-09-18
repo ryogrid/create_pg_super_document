@@ -1,7 +1,7 @@
 # test_pattern
 
 ## Location
-src/test/modules/test_integerset/test_integerset.c: 135 - 320
+[src/test/modules/test_integerset/test_integerset.c:135-320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_integerset/test_integerset.c#L135-L320)
 
 ## Overview
 Comprehensive test function that validates IntegerSet functionality using repeating bit patterns, performing thorough testing of insertion, lookup, iteration, and memory usage operations.

@@ -1,7 +1,7 @@
 # in_range_timetz_interval
 
 ## Location
-src/backend/utils/adt/date.c: 2650 - 2694
+[src/backend/utils/adt/date.c:2650-2694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2650-L2694)
 
 ## Overview
 Provides in_range support for timetz values, determining if a value falls within a specified range relative to a base time and interval offset, used in window functions.

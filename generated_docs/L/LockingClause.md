@@ -1,7 +1,7 @@
 # LockingClause
 
 ## Location
-src/include/nodes/parsenodes.h: 831 - 837
+[src/include/nodes/parsenodes.h:831-837](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L831-L837)
 
 ## Overview
 LockingClause represents the raw parse tree representation of FOR UPDATE/FOR SHARE locking clauses in SELECT statements, specifying which relations to lock and with what strength and wait policy.

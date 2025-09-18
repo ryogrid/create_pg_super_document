@@ -1,7 +1,7 @@
 # default_multirange_selectivity
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 78 - 136
+[src/backend/utils/adt/multirangetypes_selfuncs.c:78-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L78-L136)
 
 ## Overview
 Returns a default selectivity estimate for multirange operators when statistics are unavailable or cannot be used.

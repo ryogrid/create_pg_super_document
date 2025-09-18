@@ -1,7 +1,7 @@
 # calc_length_hist_frac
 
 ## Location
-src/backend/utils/adt/multirangetypes_selfuncs.c: 966 - 1130
+[src/backend/utils/adt/multirangetypes_selfuncs.c:966-1130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes_selfuncs.c#L966-L1130)
 
 ## Overview
 Calculates the average fraction of tuples with length < x (or <= x) in a given length interval using histogram data for multirange type selectivity estimation.

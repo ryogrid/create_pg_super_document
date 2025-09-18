@@ -1,7 +1,7 @@
 # common_entry_cmp
 
 ## Location
-src/backend/utils/adt/rangetypes_gist.c: 1770 - 1787
+[src/backend/utils/adt/rangetypes_gist.c:1770-1787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_gist.c#L1770-L1787)
 
 ## Overview
 A comparison function that compares two CommonEntry structures based on their delta values for use in GiST index splitting algorithms.

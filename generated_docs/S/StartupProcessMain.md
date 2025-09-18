@@ -1,7 +1,7 @@
 # StartupProcessMain
 
 ## Location
-src/backend/postmaster/startup.c: 216 - 267
+[src/backend/postmaster/startup.c:216-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L216-L267)
 
 ## Overview
 StartupProcessMain is the main entry point for PostgreSQL's startup process, responsible for initializing the process environment, setting up signal handlers, and executing crash recovery through the StartupXLOG function.

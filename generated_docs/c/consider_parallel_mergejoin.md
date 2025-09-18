@@ -1,7 +1,7 @@
 # consider_parallel_mergejoin
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1969 - 2008
+[src/backend/optimizer/path/joinpath.c:1969-2008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1969-L2008)
 
 ## Overview
 Attempts to build partial paths for a join relation by combining partial paths from the outer relation with complete paths from the inner relation using merge join algorithm in a parallel context.

@@ -1,7 +1,7 @@
 # DatumGetLsegP
 
 ## Location
-src/include/utils/geo_decls.h: 189 - 193
+[src/include/utils/geo_decls.h:189-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L189-L193)
 
 ## Overview
 DatumGetLsegP is an inline utility function that converts a Datum value to an LSEG (line segment) pointer, providing type-safe access to geometric line segment data in PostgreSQL's function manager interface.

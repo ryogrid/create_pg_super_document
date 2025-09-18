@@ -1,7 +1,7 @@
 # puttzcode
 
 ## Location
-src/timezone/zic.c: 2014 - 2022
+[src/timezone/zic.c:2014-2022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2014-L2022)
 
 ## Overview
 A static utility function that writes a 32-bit integer value to a file in big-endian binary format for timezone data files.

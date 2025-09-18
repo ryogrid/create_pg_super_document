@@ -1,7 +1,7 @@
 # SearchCatCache2
 
 ## Location
-src/backend/utils/cache/catcache.c: 1337 - 1344
+[src/backend/utils/cache/catcache.c:1337-1344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1337-L1344)
 
 ## Overview
 SearchCatCache2 is an optimized version of SearchCatCache specifically designed for catalog cache searches that require exactly two search keys, providing better performance through compiler optimizations.

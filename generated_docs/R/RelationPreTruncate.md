@@ -1,7 +1,7 @@
 # RelationPreTruncate
 
 ## Location
-src/backend/catalog/storage.c: 449 - 476
+[src/backend/catalog/storage.c:449-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L449-L476)
 
 ## Overview
 RelationPreTruncate performs access method-independent preparatory work before a physical relation truncation, specifically managing pending sync operations for relations that are about to be truncated.

@@ -1,7 +1,7 @@
 # LookupNamespaceNoError
 
 ## Location
-src/backend/catalog/namespace.c: 3355 - 3384
+[src/backend/catalog/namespace.c:3355-3384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3355-L3384)
 
 ## Overview
 Looks up a schema name and returns its namespace OID, returning InvalidOid if the namespace is not found (without raising an error).

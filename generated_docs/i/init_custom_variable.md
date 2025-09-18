@@ -1,7 +1,7 @@
 # init_custom_variable
 
 ## Location
-src/backend/utils/misc/guc.c: 4879 - 4938
+[src/backend/utils/misc/guc.c:4879-4938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4879-L4938)
 
 ## Overview
 Common initialization function for custom GUC variables that allocates and configures the generic fields of a config structure for all custom variable types.

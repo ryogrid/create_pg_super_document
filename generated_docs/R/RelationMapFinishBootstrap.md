@@ -1,7 +1,7 @@
 # RelationMapFinishBootstrap
 
 ## Location
-src/backend/utils/cache/relmapper.c: 625 - 650
+[src/backend/utils/cache/relmapper.c:625-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L625-L650)
 
 ## Overview
 Writes out the initial relation mapping files at the completion of PostgreSQL's bootstrap process.

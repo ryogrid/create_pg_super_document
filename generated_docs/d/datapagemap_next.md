@@ -1,7 +1,7 @@
 # datapagemap_next
 
 ## Location
-src/bin/pg_rewind/datapagemap.c: 87 - 116
+[src/bin/pg_rewind/datapagemap.c:87-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/datapagemap.c#L87-L116)
 
 ## Overview
 Retrieves the next set block number from a datapagemap iterator, returning false when no more blocks are found.

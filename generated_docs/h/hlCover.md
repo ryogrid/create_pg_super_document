@@ -1,7 +1,7 @@
 # hlCover
 
 ## Location
-src/backend/tsearch/wparser_def.c: 2032 - 2183
+[src/backend/tsearch/wparser_def.c:2032-2183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L2032-L2183)
 
 ## Overview
 Finds the minimal substring of parsed headline words that satisfies a given TSQuery, using lexeme position information to optimize text search highlighting.

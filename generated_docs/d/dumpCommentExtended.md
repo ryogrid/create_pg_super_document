@@ -1,7 +1,7 @@
 # dumpCommentExtended
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10146 - 10245
+[src/bin/pg_dump/pg_dump.c:10146-10245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10146-L10245)
 
 ## Overview
 Dumps comments associated with database objects by searching for matching pg_description entries and generating COMMENT ON statements in the dump output.

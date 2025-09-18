@@ -1,7 +1,7 @@
 # swedish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_swedish.c: 291 - 292
+[src/backend/snowball/libstemmer/stem_UTF_8_swedish.c:291-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_swedish.c#L291-L292)
 
 ## Overview
 Properly destroys and deallocates a Snowball stemming environment that was created for Swedish UTF-8 text processing.

@@ -1,7 +1,7 @@
 # AbsorbSyncRequests
 
 ## Location
-src/backend/postmaster/checkpointer.c: 1270 - 1316
+[src/backend/postmaster/checkpointer.c:1270-1316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L1270-L1316)
 
 ## Overview
 AbsorbSyncRequests retrieves queued synchronization requests from shared memory and passes them to the sync mechanism for processing during checkpoint operations.

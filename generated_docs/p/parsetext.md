@@ -1,7 +1,7 @@
 # parsetext
 
 ## Location
-src/backend/tsearch/ts_parse.c: 355 - 439
+[src/backend/tsearch/ts_parse.c:355-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_parse.c#L355-L439)
 
 ## Overview
 Parses and lexically analyzes a text string using a specified text search configuration, producing normalized words with positional information.

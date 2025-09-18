@@ -1,7 +1,7 @@
 # ginFillScanEntry
 
 ## Location
-src/backend/access/gin/ginscan.c: 57 - 141
+[src/backend/access/gin/ginscan.c:57-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L57-L141)
 
 ## Overview
 Creates a new GinScanEntry for a GIN index scan, or returns an existing equivalent entry to avoid duplication and optimize performance.

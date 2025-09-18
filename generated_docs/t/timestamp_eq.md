@@ -1,7 +1,7 @@
 # timestamp_eq
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2216 - 2224
+[src/backend/utils/adt/timestamp.c:2216-2224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2216-L2224)
 
 ## Overview
 PostgreSQL function that implements the equality operator (=) for timestamp values, returning true if two timestamps are equal.

@@ -1,7 +1,7 @@
 # gin_xlog_startup
 
 ## Location
-src/backend/access/gin/ginxlog.c: 775 - 782
+[src/backend/access/gin/ginxlog.c:775-782](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L775-L782)
 
 ## Overview
 This function initializes the memory context used for GIN (Generalized Inverted Index) WAL recovery operations during PostgreSQL startup.

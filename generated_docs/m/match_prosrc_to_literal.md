@@ -1,7 +1,7 @@
 # match_prosrc_to_literal
 
 ## Location
-src/backend/catalog/pg_proc.c: 1127 - 1183
+[src/backend/catalog/pg_proc.c:1127-1183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L1127-L1183)
 
 ## Overview
 Matches function source text against a single-quoted string literal and adjusts cursor positions to account for escape sequences and quote doubling.

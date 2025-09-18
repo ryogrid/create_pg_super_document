@@ -1,7 +1,7 @@
 # ExecDeleteEpilogue
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1391 - 1448
+[src/backend/executor/nodeModifyTable.c:1391-1448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1391-L1448)
 
 ## Overview
 A subroutine for ExecDelete that handles the closing steps of tuple deletion, including firing AFTER FOR EACH ROW triggers and managing transition tables for cross-partition tuple moves.

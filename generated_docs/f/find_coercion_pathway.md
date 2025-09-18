@@ -1,7 +1,7 @@
 # find_coercion_pathway
 
 ## Location
-src/backend/parser/parse_coerce.c: 3155 - 3317
+[src/backend/parser/parse_coerce.c:3155-3317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L3155-L3317)
 
 ## Overview
 Searches for a coercion pathway between two scalar data types, determining the method and function needed for type conversion based on the specified coercion context.

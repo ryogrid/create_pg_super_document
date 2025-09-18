@@ -1,7 +1,7 @@
 # rel_supports_distinctness
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 806 - 860
+[src/backend/optimizer/plan/analyzejoins.c:806-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L806-L860)
 
 ## Overview
 A fast pre-checking function that determines whether a relation could possibly be proven distinct on some set of columns, serving as an optimization filter before expensive distinctness analysis.

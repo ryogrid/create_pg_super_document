@@ -1,7 +1,7 @@
 # build_minmax_path
 
 ## Location
-src/backend/optimizer/plan/planagg.c: 316 - 477
+[src/backend/optimizer/plan/planagg.c:316-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planagg.c#L316-L477)
 
 ## Overview
 Attempts to build an optimized index scan path for a single MIN/MAX aggregate by creating a specialized subquery with LIMIT 1.

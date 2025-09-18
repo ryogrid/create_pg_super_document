@@ -1,7 +1,7 @@
 # accessMethodNameCompare
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 515 - 544
+[src/bin/pg_dump/pg_dump_sort.c:515-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L515-L544)
 
 ## Overview
 A static utility function that compares two PostgreSQL access methods by their names, providing consistent ordering for access method-dependent database objects in pg_dump.

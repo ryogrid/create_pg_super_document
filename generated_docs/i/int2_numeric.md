@@ -1,7 +1,7 @@
 # int2_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 4560 - 4568
+[src/backend/utils/adt/numeric.c:4560-4568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4560-L4568)
 
 ## Overview
 Converts a 16-bit signed integer (int2/smallint) to PostgreSQL's numeric data type.

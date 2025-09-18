@@ -1,7 +1,7 @@
 # r_remove_particle
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c: 123 - 134
+[src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c:123-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_indonesian.c#L123-L134)
 
 ## Overview
 A static function in the Indonesian stemmer that removes particle suffixes from Indonesian words as part of the morphological stemming process.

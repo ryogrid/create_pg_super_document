@@ -1,7 +1,7 @@
 # cost_sort
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2124 - 2154
+[src/backend/optimizer/path/costsize.c:2124-2154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2124-L2154)
 
 ## Overview
 Determines and returns the cost of sorting a relation, including the cost of reading the input data.

@@ -1,7 +1,7 @@
 # ExecCteScan
 
 ## Location
-src/backend/executor/nodeCtescan.c: 160 - 174
+[src/backend/executor/nodeCtescan.c:160-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCtescan.c#L160-L174)
 
 ## Overview
 ExecCteScan is the main execution function for CTE (Common Table Expression) scans that returns the next qualifying tuple by delegating to the generic ExecScan framework with CTE-specific access methods.

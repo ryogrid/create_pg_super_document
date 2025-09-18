@@ -1,7 +1,7 @@
 # PosixSemaphoreCreate
 
 ## Location
-src/backend/port/posix_sema.c: 86 - 135
+[src/backend/port/posix_sema.c:86-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/posix_sema.c#L86-L135)
 
 ## Overview
 PosixSemaphoreCreate is a static internal function that creates a new POSIX named semaphore with a unique name, handling collisions automatically and ensuring the semaphore is immediately unlinked for security.

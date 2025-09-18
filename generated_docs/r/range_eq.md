@@ -1,7 +1,7 @@
 # range_eq
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 605 - 617
+[src/backend/utils/adt/rangetypes.c:605-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L605-L617)
 
 ## Overview
 This PostgreSQL function implements the equality operator (=) for range types, providing the public interface for comparing two ranges for equality.

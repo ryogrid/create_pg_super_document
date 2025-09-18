@@ -1,7 +1,7 @@
 # btequalimage
 
 ## Location
-src/backend/utils/adt/datum.c: 397 - 411
+[src/backend/utils/adt/datum.c:397-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datum.c#L397-L411)
 
 ## Overview
 A generic "equalimage" support function for B-Tree operator classes that can safely use binary image equality comparisons for optimization purposes.

@@ -1,7 +1,7 @@
 # EvaluateParams
 
 ## Location
-src/backend/commands/prepare.c: 278 - 368
+[src/backend/commands/prepare.c:278-368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L278-L368)
 
 ## Overview
 Evaluates a list of parameter expressions for a prepared statement, performing type checking, coercion, and expression evaluation to produce a ParamListInfo structure for query execution.

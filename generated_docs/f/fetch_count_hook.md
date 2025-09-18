@@ -1,7 +1,7 @@
 # fetch_count_hook
 
 ## Location
-src/bin/psql/startup.c: 913 - 918
+[src/bin/psql/startup.c:913-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L913-L918)
 
 ## Overview
 A static hook function in psql that validates and processes the FETCH_COUNT variable when it's being set, ensuring the value is a valid number for controlling how many rows to fetch at once.

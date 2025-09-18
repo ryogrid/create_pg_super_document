@@ -1,7 +1,7 @@
 # PlanCacheRelCallback
 
 ## Location
-src/backend/utils/cache/plancache.c: 1985 - 2068
+[src/backend/utils/cache/plancache.c:1985-2068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1985-L2068)
 
 ## Overview
 A relcache invalidation callback function that invalidates cached plans when a relation is changed or dropped.

@@ -1,7 +1,7 @@
 # recordDependencyOnOwner
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 168 - 205
+[src/backend/catalog/pg_shdepend.c:168-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L168-L205)
 
 ## Overview
 A convenience wrapper function that records ownership dependency between a database object and its owner (user/role) by creating an entry in the shared dependency system.

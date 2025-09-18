@@ -1,7 +1,7 @@
 # TypeInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 223 - 224
+[src/bin/pg_dump/pg_dump.h:223-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L223-L224)
 
 ## Overview
 TypeInfo represents a PostgreSQL data type object in pg_dump, storing comprehensive metadata about types including their definition, ownership, element relationships, and associated constraints.

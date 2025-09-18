@@ -1,7 +1,7 @@
 # makeVacuumRelation
 
 ## Location
-src/backend/nodes/makefuncs.c: 879 - 893
+[src/backend/nodes/makefuncs.c:879-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L879-L893)
 
 ## Overview
 Creates a VacuumRelation node that encapsulates information about a table or relation to be processed by VACUUM or ANALYZE commands.

@@ -1,7 +1,7 @@
 # print_slot
 
 ## Location
-src/backend/nodes/print.c: 492 - 506
+[src/backend/nodes/print.c:492-506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/print.c#L492-L506)
 
 ## Overview
 A debugging utility function that prints the contents of a tuple stored in a TupleTableSlot with appropriate error handling for null or invalid slots.

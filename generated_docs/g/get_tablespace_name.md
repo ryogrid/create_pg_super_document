@@ -1,7 +1,7 @@
 # get_tablespace_name
 
 ## Location
-src/backend/commands/tablespace.c: 1472 - 1510
+[src/backend/commands/tablespace.c:1472-1510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1472-L1510)
 
 ## Overview
 This function looks up the name of a tablespace given its OID (Object IDentifier), returning a palloc'd string containing the tablespace name or NULL if no such tablespace exists.

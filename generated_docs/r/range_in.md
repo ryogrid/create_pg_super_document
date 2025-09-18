@@ -1,7 +1,7 @@
 # range_in
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 88 - 136
+[src/backend/utils/adt/rangetypes.c:88-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L88-L136)
 
 ## Overview
 The range_in function is the text input function for PostgreSQL range types, responsible for parsing string representations of ranges and converting them into internal RangeType structures.

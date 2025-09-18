@@ -1,7 +1,7 @@
 # rainbow
 
 ## Location
-src/backend/regex/regc_color.c: 1031 - 1063
+[src/backend/regex/regc_color.c:1031-1063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L1031-L1063)
 
 ## Overview
 The  function creates arcs for all full colors (except optionally one) between specified states, using either a special RAINBOW arc or individual color arcs for optimization.

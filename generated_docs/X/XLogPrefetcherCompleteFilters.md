@@ -1,7 +1,7 @@
 # XLogPrefetcherCompleteFilters
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 896 - 915
+[src/backend/access/transam/xlogprefetcher.c:896-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L896-L915)
 
 ## Overview
 Removes expired prefetch filters that are no longer needed because the corresponding LSN has been replayed, allowing prefetching to resume for those block ranges.

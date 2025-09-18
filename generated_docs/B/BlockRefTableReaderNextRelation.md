@@ -1,7 +1,7 @@
 # BlockRefTableReaderNextRelation
 
 ## Location
-src/common/blkreftable.c: 613 - 688
+[src/common/blkreftable.c:613-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L613-L688)
 
 ## Overview
 Reads the next relation fork entry from a block reference table file, advancing the reader to the next relation and preparing it for block data extraction.

@@ -1,7 +1,7 @@
 # BackgroundWorkerMain
 
 ## Location
-src/backend/postmaster/bgworker.c: 723 - 861
+[src/backend/postmaster/bgworker.c:723-861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L723-L861)
 
 ## Overview
 The main entry point function for background worker processes that handles initialization, signal setup, and execution of user-defined worker code.

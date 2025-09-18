@@ -1,7 +1,7 @@
 # collprovider_name
 
 ## Location
-src/include/catalog/pg_collation.h: 76 - 106
+[src/include/catalog/pg_collation.h:76-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_collation.h#L76-L106)
 
 ## Overview
 A static inline utility function that converts collation provider character codes to their corresponding human-readable string names.

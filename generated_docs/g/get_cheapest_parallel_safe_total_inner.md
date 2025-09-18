@@ -1,7 +1,7 @@
 # get_cheapest_parallel_safe_total_inner
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 697 - 737
+[src/backend/optimizer/path/pathkeys.c:697-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L697-L737)
 
 ## Overview
 Finds the unparameterized parallel-safe path with the least total cost from a list of paths.

@@ -1,7 +1,7 @@
 # ExecInitTidScan
 
 ## Location
-src/backend/executor/nodeTidscan.c: 488 - 548
+[src/backend/executor/nodeTidscan.c:488-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L488-L548)
 
 ## Overview
 ExecInitTidScan initializes a TID scan node's execution state, creates scan keys, and opens the base relation for TID-based scanning operations.

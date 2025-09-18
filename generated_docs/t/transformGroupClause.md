@@ -1,7 +1,7 @@
 # transformGroupClause
 
 ## Location
-src/backend/parser/parse_clause.c: 2632 - 2731
+[src/backend/parser/parse_clause.c:2632-2731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2632-L2731)
 
 ## Overview
 Transforms a GROUP BY clause (or window PARTITION BY clause) into a flat list of SortGroupClause nodes while building the groupingSets tree structure.

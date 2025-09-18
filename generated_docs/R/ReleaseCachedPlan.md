@@ -1,7 +1,7 @@
 # ReleaseCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 1291 - 1335
+[src/backend/utils/cache/plancache.c:1291-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1291-L1335)
 
 ## Overview
 Decrements the reference count of a cached plan and frees the plan if the reference count reaches zero, providing reference-counted memory management for cached execution plans.

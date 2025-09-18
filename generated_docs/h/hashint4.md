@@ -1,7 +1,7 @@
 # hashint4
 
 ## Location
-src/backend/access/hash/hashfunc.c: 71 - 76
+[src/backend/access/hash/hashfunc.c:71-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L71-L76)
 
 ## Overview
 hashint4 is a hash function for the int4 (32-bit integer) data type in PostgreSQL, used to compute hash values for hash indexes and hash joins.

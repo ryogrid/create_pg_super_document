@@ -1,7 +1,7 @@
 # getRoleName
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 9946 - 9981
+[src/bin/pg_dump/pg_dump.c:9946-9981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L9946-L9981)
 
 ## Overview
 Looks up the name of a PostgreSQL role given its OID using binary search on a pre-populated sorted array.

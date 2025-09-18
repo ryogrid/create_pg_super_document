@@ -1,7 +1,7 @@
 # HASH
 
 ## Location
-src/backend/regex/regexec.c: 49 - 49
+[src/backend/regex/regexec.c:49-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L49-L49)
 
 ## Overview
 HASH is a macro definition in PostgreSQL's regular expression engine that provides an optimized method for computing hash values of bitvectors used in DFA state representation.

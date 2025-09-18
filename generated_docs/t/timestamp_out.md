@@ -1,7 +1,7 @@
 # timestamp_out
 
 ## Location
-src/backend/utils/adt/timestamp.c: 232 - 257
+[src/backend/utils/adt/timestamp.c:232-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L232-L257)
 
 ## Overview
 A PostgreSQL output function that converts internal timestamp values to their external string representation, handling both finite timestamps and special values like infinity.

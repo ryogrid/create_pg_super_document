@@ -1,7 +1,7 @@
 # ListenActionKind
 
 ## Location
-src/backend/commands/async.c: 337 - 342
+[src/backend/commands/async.c:337-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L337-L342)
 
 ## Overview
 ListenActionKind is an enumeration type that defines the possible actions for PostgreSQL's LISTEN/NOTIFY functionality, used to categorize different operations on notification channels.

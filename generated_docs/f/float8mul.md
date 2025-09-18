@@ -1,7 +1,7 @@
 # float8mul
 
 ## Location
-src/backend/utils/adt/float.c: 781 - 789
+[src/backend/utils/adt/float.c:781-789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L781-L789)
 
 ## Overview
 PostgreSQL function that performs multiplication of two double-precision floating-point numbers (float8) and returns the result as a Datum for use in SQL operations.

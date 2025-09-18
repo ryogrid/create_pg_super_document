@@ -1,7 +1,7 @@
 # FreeSnapshotBuilder
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 372 - 390
+[src/backend/replication/logical/snapbuild.c:372-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L372-L390)
 
 ## Overview
 FreeSnapshotBuilder deallocates a snapshot builder and all its associated resources, properly cleaning up the memory context and releasing any held snapshots.

@@ -1,7 +1,7 @@
 # append_variable_names
 
 ## Location
-src/bin/psql/tab-complete.c: 5730 - 5752
+[src/bin/psql/tab-complete.c:5730-5752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5730-L5752)
 
 ## Overview
 Appends a variable name with optional prefix and suffix to a dynamically growing array of variable names used in PostgreSQL's psql tab completion system.

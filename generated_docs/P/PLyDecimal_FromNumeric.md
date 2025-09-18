@@ -1,7 +1,7 @@
 # PLyDecimal_FromNumeric
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 570 - 603
+[src/pl/plpython/plpy_typeio.c:570-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L570-L603)
 
 ## Overview
 Converts a PostgreSQL numeric value to a Python Decimal object in the PL/Python extension, providing high-precision decimal arithmetic support.

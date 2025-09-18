@@ -1,7 +1,7 @@
 # pltcl_WaitForEvent
 
 ## Location
-src/pl/tcl/pltcl.c: 389 - 403
+[src/pl/tcl/pltcl.c:389-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L389-L403)
 
 ## Overview
 A stub implementation of Tcl's event waiting function that always returns 0 to prevent multithreading issues in PostgreSQL's PL/Tcl environment.

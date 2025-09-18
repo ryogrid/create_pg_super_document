@@ -1,7 +1,7 @@
 # dcosh
 
 ## Location
-src/backend/utils/adt/float.c: 2620 - 2644
+[src/backend/utils/adt/float.c:2620-2644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2620-L2644)
 
 ## Overview
 The dcosh function computes the hyperbolic cosine of a floating-point number, handling overflow conditions and providing PostgreSQL-specific error handling for mathematical operations.

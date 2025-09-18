@@ -1,7 +1,7 @@
 # SyncRepGetSyncRecPtr
 
 ## Location
-src/backend/replication/syncrep.c: 586 - 659
+[src/backend/replication/syncrep.c:586-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L586-L659)
 
 ## Overview
 Calculates the synchronized Write, Flush, and Apply positions among synchronous standbys and determines if the current WAL sender is managing a sync standby.

@@ -1,7 +1,7 @@
 # CompareIndexInfo
 
 ## Location
-src/backend/catalog/index.c: 2511 - 2641
+[src/backend/catalog/index.c:2511-2641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L2511-L2641)
 
 ## Overview
 CompareIndexInfo determines whether two index definitions are equivalent by comparing their structural properties, expressions, predicates, and metadata.

@@ -1,7 +1,7 @@
 # write_block
 
 ## Location
-src/bin/pg_combinebackup/reconstruct.c: 751 - 774
+[src/bin/pg_combinebackup/reconstruct.c:751-774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/reconstruct.c#L751-L774)
 
 ## Overview
 A utility function that writes a single PostgreSQL block to a file descriptor and updates the checksum calculation, with robust error handling for incomplete writes.

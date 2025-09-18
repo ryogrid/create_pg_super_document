@@ -1,7 +1,7 @@
 # dtan
 
 ## Location
-src/backend/utils/adt/float.c: 1958 - 2011
+[src/backend/utils/adt/float.c:1958-2011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1958-L2011)
 
 ## Overview
 A PostgreSQL function that calculates the tangent of a given floating-point number in radians.

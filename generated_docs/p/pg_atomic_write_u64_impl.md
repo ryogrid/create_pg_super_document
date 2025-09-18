@@ -1,7 +1,7 @@
 # pg_atomic_write_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 284 - 298
+[src/include/port/atomics/generic.h:284-298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L284-L298)
 
 ## Overview
 Atomically writes a 64-bit unsigned integer value to a memory location, providing thread-safe assignment for 64-bit values on platforms where aligned 64-bit writes are guaranteed to be atomic.

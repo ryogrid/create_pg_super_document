@@ -1,7 +1,7 @@
 # bpcharrecv
 
 ## Location
-src/backend/utils/adt/varchar.c: 230 - 250
+[src/backend/utils/adt/varchar.c:230-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L230-L250)
 
 ## Overview
 Converts external binary format to the PostgreSQL bpchar (blank-padded character) data type during binary data reception.

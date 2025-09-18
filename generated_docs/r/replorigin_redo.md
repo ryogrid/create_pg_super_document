@@ -1,7 +1,7 @@
 # replorigin_redo
 
 ## Location
-src/backend/replication/logical/origin.c: 827 - 887
+[src/backend/replication/logical/origin.c:827-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L827-L887)
 
 ## Overview
 Processes replication origin-related WAL records during recovery, handling both SET and DROP operations for replication origins.

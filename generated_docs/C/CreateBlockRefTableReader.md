@@ -1,7 +1,7 @@
 # CreateBlockRefTableReader
 
 ## Location
-src/common/blkreftable.c: 577 - 612
+[src/common/blkreftable.c:577-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L577-L612)
 
 ## Overview
 Creates and initializes a BlockRefTableReader for incrementally reading and parsing a serialized block reference table file with error handling and magic number verification.

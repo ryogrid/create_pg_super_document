@@ -1,7 +1,7 @@
 # ExecEvalPreOrderedDistinctSingle
 
 ## Location
-src/backend/executor/execExprInterp.c: 5119 - 5161
+[src/backend/executor/execExprInterp.c:5119-5161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5119-L5161)
 
 ## Overview
 ExecEvalPreOrderedDistinctSingle determines whether the current aggregate input value is distinct from the previous input value for single-argument DISTINCT aggregates.

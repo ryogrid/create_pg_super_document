@@ -1,7 +1,7 @@
 # macaddr8_ne
 
 ## Location
-src/backend/utils/adt/mac8.c: 383 - 394
+[src/backend/utils/adt/mac8.c:383-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L383-L394)
 
 ## Overview
 The macaddr8_ne function implements the not-equal comparison operator (!=) for PostgreSQL's 8-byte MAC address (macaddr8) data type.

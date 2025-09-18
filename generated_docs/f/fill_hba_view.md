@@ -1,7 +1,7 @@
 # fill_hba_view
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 374 - 429
+[src/backend/utils/adt/hbafuncs.c:374-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L374-L429)
 
 ## Overview
 Reads the pg_hba.conf file and processes all authentication rules to fill a tuplestore with view records for the pg_hba_file_rules system view.

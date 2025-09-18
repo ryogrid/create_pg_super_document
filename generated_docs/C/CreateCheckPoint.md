@@ -1,7 +1,7 @@
 # CreateCheckPoint
 
 ## Location
-src/backend/access/transam/xlog.c: 6863 - 7368
+[src/backend/access/transam/xlog.c:6863-7368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6863-L7368)
 
 ## Overview
 Performs a comprehensive checkpoint operation that ensures data consistency by flushing all dirty buffers to disk, recording critical system state, and managing WAL records for both online and shutdown scenarios.

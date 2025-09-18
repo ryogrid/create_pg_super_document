@@ -1,7 +1,7 @@
 # FetchPreparedStatementResultDesc
 
 ## Location
-src/backend/commands/prepare.c: 463 - 485
+[src/backend/commands/prepare.c:463-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L463-L485)
 
 ## Overview
 Retrieves the result tuple descriptor for a prepared statement, returning a copy that describes the structure of tuples the statement will produce when executed.

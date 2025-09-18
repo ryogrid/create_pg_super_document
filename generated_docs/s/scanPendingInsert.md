@@ -1,7 +1,7 @@
 # scanPendingInsert
 
 ## Location
-src/backend/access/gin/ginget.c: 1824 - 1914
+[src/backend/access/gin/ginget.c:1824-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L1824-L1914)
 
 ## Overview
 Scans the entire GIN pending list to collect all matching heap row TIDs into a bitmap, coordinating between pending list processing and consistent function evaluation.

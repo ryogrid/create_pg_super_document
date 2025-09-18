@@ -1,7 +1,7 @@
 # transformJsonArrayQueryConstructor
 
 ## Location
-src/backend/parser/parse_expr.c: 3751 - 3821
+[src/backend/parser/parse_expr.c:3751-3821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3751-L3821)
 
 ## Overview
 Transforms JSON_ARRAY(query) constructor expressions into equivalent JSON_ARRAYAGG subquery expressions for PostgreSQL's JSON array construction from query results.

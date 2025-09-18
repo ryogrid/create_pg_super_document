@@ -1,7 +1,7 @@
 # window_dense_rank_support
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 220 - 260
+[src/backend/utils/adt/windowfuncs.c:220-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L220-L260)
 
 ## Overview
 A PostgreSQL prosupport function that provides optimization hints and monotonicity information for the window_dense_rank() window function to the query planner and executor.

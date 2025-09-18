@@ -1,7 +1,7 @@
 # innerrel_is_unique
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 1184 - 1291
+[src/backend/optimizer/plan/analyzejoins.c:1184-1291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L1184-L1291)
 
 ## Overview
 Determines whether an inner relation provably contains at most one tuple matching any tuple from the outer relation, using join clauses and caching results for performance optimization.

@@ -1,7 +1,7 @@
 # SH_DELETE
 
 ## Location
-src/include/lib/simplehash.h: 857 - 927
+[src/include/lib/simplehash.h:857-927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L857-L927)
 
 ## Overview
 A macro that defines the public hash table deletion function name using the SH_MAKE_NAME naming convention for PostgreSQL's generic simple hash table implementation.

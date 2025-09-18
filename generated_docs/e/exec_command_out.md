@@ -1,7 +1,7 @@
 # exec_command_out
 
 ## Location
-src/bin/psql/command.c: 2076 - 2098
+[src/bin/psql/command.c:2076-2098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2076-L2098)
 
 ## Overview
 Handles the \\o command in psql, which redirects query output to a file or pipe instead of the standard display.

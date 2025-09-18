@@ -1,7 +1,7 @@
 # _bt_delete_or_dedup_one_page
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2683 - 2811
+[src/backend/access/nbtree/nbtinsert.c:2683-2811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2683-L2811)
 
 ## Overview
 Attempts to avoid a leaf page split by performing deletion of dead tuples, bottom-up deletion, and deduplication operations to free space for a new item insertion.

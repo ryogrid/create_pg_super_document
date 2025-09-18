@@ -1,7 +1,7 @@
 # make_orclause
 
 ## Location
-src/backend/nodes/makefuncs.c: 717 - 732
+[src/backend/nodes/makefuncs.c:717-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L717-L732)
 
 ## Overview
 Creates an OR boolean expression node from a list of subclauses, used in PostgreSQL's query planning and execution system.

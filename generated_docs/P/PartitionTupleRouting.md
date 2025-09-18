@@ -1,7 +1,7 @@
 # PartitionTupleRouting
 
 ## Location
-src/backend/executor/execPartition.c: 91 - 142
+[src/backend/executor/execPartition.c:91-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L91-L142)
 
 ## Overview
 PartitionTupleRouting encapsulates all information required to route a tuple inserted into a partitioned table to one of its leaf partitions, managing the complex hierarchy of partition dispatch information and result relations.

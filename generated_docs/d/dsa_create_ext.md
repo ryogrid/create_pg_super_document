@@ -1,7 +1,7 @@
 # dsa_create_ext
 
 ## Location
-src/backend/utils/mmgr/dsa.c: 421 - 470
+[src/backend/utils/mmgr/dsa.c:421-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/dsa.c#L421-L470)
 
 ## Overview
 Creates a new Dynamic Shared Area (DSA) in a new Dynamic Shared Memory (DSM) segment with extended parameters for controlling segment sizes and LWLock tranche management.

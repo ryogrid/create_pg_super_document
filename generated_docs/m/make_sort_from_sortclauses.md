@@ -1,7 +1,7 @@
 # make_sort_from_sortclauses
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6416 - 6464
+[src/backend/optimizer/plan/createplan.c:6416-6464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6416-L6464)
 
 ## Overview
 Creates a Sort plan node to sort input tuples according to given sort clauses, converting a list-based representation into the array format required by the executor.

@@ -1,7 +1,7 @@
 # time_eq
 
 ## Location
-src/backend/utils/adt/date.c: 1680 - 1688
+[src/backend/utils/adt/date.c:1680-1688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1680-L1688)
 
 ## Overview
 A PostgreSQL function that performs equality comparison between two TIME values, returning true if they are identical.

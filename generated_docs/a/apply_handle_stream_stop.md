@@ -1,7 +1,7 @@
 # apply_handle_stream_stop
 
 ## Location
-src/backend/replication/logical/worker.c: 1628 - 1730
+[src/backend/replication/logical/worker.c:1628-1730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1628-L1730)
 
 ## Overview
 Handles the STREAM STOP message in logical replication, finalizing a streaming transaction and coordinating between leader and parallel apply workers to complete transaction processing.

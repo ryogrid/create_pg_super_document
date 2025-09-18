@@ -1,7 +1,7 @@
 # index_insert_cleanup
 
 ## Location
-src/backend/access/index/indexam.c: 241 - 255
+[src/backend/access/index/indexam.c:241-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L241-L255)
 
 ## Overview
 The  function performs cleanup operations after all index insertions are completed during batch index operations.

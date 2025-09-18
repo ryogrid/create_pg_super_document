@@ -1,7 +1,7 @@
 # set_rtable_names
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3828 - 3972
+[src/backend/utils/adt/ruleutils.c:3828-3972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3828-L3972)
 
 ## Overview
 Selects unique RTE (Range Table Entry) aliases to be used when printing a query, ensuring name uniqueness across current and parent namespaces.

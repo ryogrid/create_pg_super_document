@@ -1,7 +1,7 @@
 # translate_sub_tlist
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1946 - 1971
+[src/backend/optimizer/util/pathnode.c:1946-1971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1946-L1971)
 
 ## Overview
 Extracts column numbers (varattnos) from a target list that references a specific subquery relation, returning them as an integer list for uniqueness analysis.

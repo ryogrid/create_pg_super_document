@@ -1,7 +1,7 @@
 # SlruPagePrecedesUnitTests
 
 ## Location
-src/backend/access/transam/slru.c: 1694 - 1708
+[src/backend/access/transam/slru.c:1694-1708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1694-L1708)
 
 ## Overview
 Public unit testing function that validates SLRU PagePrecedes callback functions across multiple offset scenarios.

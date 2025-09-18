@@ -1,7 +1,7 @@
 # checkSplitConditions
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 333 - 386
+[src/backend/access/spgist/spgdoinsert.c:333-386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L333-L386)
 
 ## Overview
 This function counts the number and total size of leaf tuples in a chain to help determine if a page split is needed in SPGiST index operations.

@@ -1,7 +1,7 @@
 # get_variable
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7330 - 7602
+[src/backend/utils/adt/ruleutils.c:7330-7602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7330-L7602)
 
 ## Overview
 Displays a Var (variable reference) appropriately in the context of SQL rule decompilation, handling various special cases including whole-row variables, join aliases, and subplan references.

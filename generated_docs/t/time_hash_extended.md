@@ -1,7 +1,7 @@
 # time_hash_extended
 
 ## Location
-src/backend/utils/adt/date.c: 1753 - 1758
+[src/backend/utils/adt/date.c:1753-1758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1753-L1758)
 
 ## Overview
 The time_hash_extended function computes an extended hash value for PostgreSQL's TimeADT data type, providing enhanced hash distribution with an additional seed parameter for advanced hashing scenarios.

@@ -1,7 +1,7 @@
 # gistnospace
 
 ## Location
-src/backend/access/gist/gistutil.c: 58 - 77
+[src/backend/access/gist/gistutil.c:58-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L58-L77)
 
 ## Overview
 Determines whether there is insufficient space on a GiST page to accommodate a vector of index tuples, accounting for potential tuple deletion and additional free space.

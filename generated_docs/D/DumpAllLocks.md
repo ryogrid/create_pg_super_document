@@ -1,7 +1,7 @@
 # DumpAllLocks
 
 ## Location
-src/backend/storage/lmgr/lock.c: 4117 - 4173
+[src/backend/storage/lmgr/lock.c:4117-4173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L4117-L4173)
 
 ## Overview
 Dumps all locks in the PostgreSQL lock manager system by iterating through the entire PROCLOCK hash table for comprehensive debugging purposes.

@@ -1,7 +1,7 @@
 # numeric_maximum_size
 
 ## Location
-src/backend/utils/adt/numeric.c: 951 - 989
+[src/backend/utils/adt/numeric.c:951-989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L951-L989)
 
 ## Overview
 A function that calculates the maximum storage size in bytes for a numeric value with a given typmod, considering worst-case storage requirements.

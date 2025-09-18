@@ -1,7 +1,7 @@
 # timestamptz_pl_interval_at_zone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3360 - 3370
+[src/backend/utils/adt/timestamp.c:3360-3370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3360-L3370)
 
 ## Overview
 Adds an interval to a timestamptz (timestamp with time zone) value, performing the calculation in a specified timezone rather than the session timezone.

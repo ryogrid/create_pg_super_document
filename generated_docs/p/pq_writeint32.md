@@ -1,7 +1,7 @@
 # pq_writeint32
 
 ## Location
-src/include/libpq/pqformat.h: 74 - 87
+[src/include/libpq/pqformat.h:74-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqformat.h#L74-L87)
 
 ## Overview
 A static inline function that appends a 32-bit unsigned integer to a StringInfo buffer in network byte order for PostgreSQL's libpq protocol format handling.

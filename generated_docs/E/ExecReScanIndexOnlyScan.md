@@ -1,7 +1,7 @@
 # ExecReScanIndexOnlyScan
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 363 - 397
+[src/backend/executor/nodeIndexonlyscan.c:363-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L363-L397)
 
 ## Overview
 Recalculates runtime-dependent scan keys and restarts an index-only scan from the beginning, integrating key evaluation with scan restart for optimal performance.

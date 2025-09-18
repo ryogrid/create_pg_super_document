@@ -1,7 +1,7 @@
 # float48div
 
 ## Location
-src/backend/utils/adt/float.c: 3804 - 3818
+[src/backend/utils/adt/float.c:3804-3818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3804-L3818)
 
 ## Overview
 The float48div function performs division between a float4 (single precision) and a float8 (double precision) number, returning the result as a float8.

@@ -1,7 +1,7 @@
 # AlterTSConfigType
 
 ## Location
-src/include/nodes/parsenodes.h: 4112 - 4113
+[src/include/nodes/parsenodes.h:4112-4113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L4112-L4113)
 
 ## Overview
 AlterTSConfigType is an enumeration that specifies the type of alteration operation to perform on a text search configuration in PostgreSQL.

@@ -1,7 +1,7 @@
 # pg_atomic_sub_fetch_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 240 - 246
+[src/include/port/atomics/generic.h:240-246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L240-L246)
 
 ## Overview
 This function performs an atomic subtraction operation on a 32-bit unsigned integer and returns the new value after the subtraction, providing a generic implementation for architectures without native atomic subtract-and-fetch support.

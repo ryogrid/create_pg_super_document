@@ -1,7 +1,7 @@
 # ZstdCompressorState
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 39 - 51
+[src/bin/pg_dump/compress_zstd.c:39-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L39-L51)
 
 ## Overview
 A structure that maintains the state and context for Zstandard (Zstd) compression and decompression operations in PostgreSQL's pg_dump utility.

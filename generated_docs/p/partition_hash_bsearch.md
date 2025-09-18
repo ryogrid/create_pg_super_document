@@ -1,7 +1,7 @@
 # partition_hash_bsearch
 
 ## Location
-src/backend/partitioning/partbounds.c: 3738 - 3777
+[src/backend/partitioning/partbounds.c:3738-3777](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3738-L3777)
 
 ## Overview
 Performs binary search on hash partition bounds to find the greatest (modulus, remainder) pair that is less than or equal to a given (modulus, remainder) pair.

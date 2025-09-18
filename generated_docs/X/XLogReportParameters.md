@@ -1,7 +1,7 @@
 # XLogReportParameters
 
 ## Location
-src/backend/access/transam/xlog.c: 8119 - 8181
+[src/backend/access/transam/xlog.c:8119-8181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L8119-L8181)
 
 ## Overview
 XLogReportParameters checks if critical GUC parameters for hot standby have changed and updates both the WAL and pg_control file to reflect these changes.

@@ -1,7 +1,7 @@
 # is_degenerate_grouping
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3986 - 4006
+[src/backend/optimizer/plan/planner.c:3986-4006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3986-L4006)
 
 ## Overview
 Determines whether the current query represents a degenerate grouping case that can be optimized with special handling.

@@ -1,7 +1,7 @@
 # dump_lo_buf
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1784 - 1826
+[src/bin/pg_dump/pg_backup_archiver.c:1784-1826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1784-L1826)
 
 ## Overview
 A function that flushes the current contents of the Large Object (LO) data buffer during LO restoration, handling both direct database connections and file-based output formats.

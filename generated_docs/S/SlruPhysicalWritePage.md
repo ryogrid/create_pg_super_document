@@ -1,7 +1,7 @@
 # SlruPhysicalWritePage
 
 ## Location
-src/backend/access/transam/slru.c: 873 - 1044
+[src/backend/access/transam/slru.c:873-1044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L873-L1044)
 
 ## Overview
 Low-level function that performs physical disk I/O to write SLRU pages from shared memory buffers to persistent storage, with comprehensive WAL synchronization and error handling.

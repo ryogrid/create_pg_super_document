@@ -1,7 +1,7 @@
 # spgbulkdelete
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 916 - 935
+[src/backend/access/spgist/spgvacuum.c:916-935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L916-L935)
 
 ## Overview
 Entry point function for SP-GiST bulk delete operations, setting up the bulk delete state and initiating the vacuum scan.

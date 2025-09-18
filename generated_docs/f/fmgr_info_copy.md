@@ -1,7 +1,7 @@
 # fmgr_info_copy
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 580 - 594
+[src/backend/utils/fmgr/fmgr.c:580-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L580-L594)
 
 ## Overview
 Creates a copy of an FmgrInfo structure while handling memory context management and resetting language-dependent subsidiary information.

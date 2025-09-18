@@ -1,7 +1,7 @@
 # mda_get_range
 
 ## Location
-src/backend/utils/adt/arrayutils.c: 153 - 166
+[src/backend/utils/adt/arrayutils.c:153-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayutils.c#L153-L166)
 
 ## Overview
 Computes ranges (sub-array dimensions) for an array slice by calculating the span of each dimension from start to end indices.

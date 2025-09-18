@@ -1,7 +1,7 @@
 # interval_um
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3405 - 3417
+[src/backend/utils/adt/timestamp.c:3405-3417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3405-L3417)
 
 ## Overview
 The `interval_um` function implements the unary minus operator for PostgreSQL interval data types, negating all components of an interval value.

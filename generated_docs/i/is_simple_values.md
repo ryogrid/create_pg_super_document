@@ -1,7 +1,7 @@
 # is_simple_values
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1895 - 1953
+[src/backend/optimizer/prep/prepjointree.c:1895-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1895-L1953)
 
 ## Overview
 Determines whether a VALUES RTE (Range Table Entry) is simple enough to be pulled up and optimized by replacing it with a more efficient RESULT RTE.

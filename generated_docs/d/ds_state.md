@@ -1,7 +1,7 @@
 # ds_state
 
 ## Location
-src/backend/commands/tsearchcmds.c: 1641 - 1833
+[src/backend/commands/tsearchcmds.c:1641-1833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L1641-L1833)
 
 ## Overview
 ds_state is an enumerated type (enum) that defines the different parsing states used in the deserialize_deflist function for parsing parameter lists in text search configuration.

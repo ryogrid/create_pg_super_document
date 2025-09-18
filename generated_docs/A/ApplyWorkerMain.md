@@ -1,7 +1,7 @@
 # ApplyWorkerMain
 
 ## Location
-src/backend/replication/logical/worker.c: 4745 - 4764
+[src/backend/replication/logical/worker.c:4745-4764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4745-L4764)
 
 ## Overview
 Main entry point function for PostgreSQL logical replication apply workers that orchestrates the complete worker lifecycle from initialization to termination.

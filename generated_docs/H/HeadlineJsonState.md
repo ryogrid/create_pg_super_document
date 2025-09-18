@@ -1,7 +1,7 @@
 # HeadlineJsonState
 
 ## Location
-src/backend/tsearch/wparser.c: 34 - 42
+[src/backend/tsearch/wparser.c:34-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L34-L42)
 
 ## Overview
 HeadlineJsonState is a struct that maintains state information for JSON text search headline generation functions in PostgreSQL's full-text search system.

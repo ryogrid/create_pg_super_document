@@ -1,7 +1,7 @@
 # jsonb_build_array
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1237 - 1257
+[src/backend/utils/adt/jsonb.c:1237-1257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1237-L1257)
 
 ## Overview
 A PostgreSQL SQL function that constructs a JSONB array from a variadic list of arguments.

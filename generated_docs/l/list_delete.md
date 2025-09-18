@@ -1,7 +1,7 @@
 # list_delete
 
 ## Location
-src/backend/nodes/list.c: 853 - 871
+[src/backend/nodes/list.c:853-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L853-L871)
 
 ## Overview
 Deletes the first cell in a list that contains a datum matching the specified value, using PostgreSQL's generic equality comparison.

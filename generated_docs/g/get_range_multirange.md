@@ -1,7 +1,7 @@
 # get_range_multirange
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3458 - 3482
+[src/backend/utils/cache/lsyscache.c:3458-3482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3458-L3482)
 
 ## Overview
 Returns the multirange type corresponding to a given range type, enabling conversion between range and multirange types in PostgreSQL's type system.

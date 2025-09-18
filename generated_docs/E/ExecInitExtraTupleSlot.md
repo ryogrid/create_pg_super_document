@@ -1,7 +1,7 @@
 # ExecInitExtraTupleSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1918 - 1933
+[src/backend/executor/execTuples.c:1918-1933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1918-L1933)
 
 ## Overview
 Creates and returns a new tuple slot for special-purpose use, optionally initialized with a specific tuple descriptor.

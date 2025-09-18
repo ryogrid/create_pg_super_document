@@ -1,7 +1,7 @@
 # JsonSemAction
 
 ## Location
-src/include/common/jsonapi.h: 132 - 144
+[src/include/common/jsonapi.h:132-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/jsonapi.h#L132-L144)
 
 ## Overview
 JsonSemAction is a structure that defines semantic action callbacks for JSON parsing, providing a callback-based interface for handling different JSON constructs during parsing.

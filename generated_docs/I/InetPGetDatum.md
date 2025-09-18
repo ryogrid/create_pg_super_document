@@ -1,7 +1,7 @@
 # InetPGetDatum
 
 ## Location
-src/include/utils/inet.h: 129 - 133
+[src/include/utils/inet.h:129-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L129-L133)
 
 ## Overview
 Converts an inet pointer to a Datum value for use in PostgreSQL's function manager interface.

@@ -1,7 +1,7 @@
 # pg_cryptohash_update
 
 ## Location
-src/common/cryptohash_openssl.c: 230 - 254
+[src/common/cryptohash_openssl.c:230-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L230-L254)
 
 ## Overview
 Updates a hash context with new data, supporting multiple hash algorithms including MD5, SHA-1, and SHA-2 family algorithms (SHA-224, SHA-256, SHA-384, SHA-512).

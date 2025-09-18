@@ -1,7 +1,7 @@
 # GetJsonBehaviorValueString
 
 ## Location
-src/backend/executor/execExprInterp.c: 4608 - 4635
+[src/backend/executor/execExprInterp.c:4608-4635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4608-L4635)
 
 ## Overview
 Returns a human-readable string representation of JSON behavior types for error reporting and debugging purposes.

@@ -1,7 +1,7 @@
 # UpdateMinRecoveryPoint
 
 ## Location
-src/backend/access/transam/xlog.c: 2699 - 2778
+[src/backend/access/transam/xlog.c:2699-2778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2699-L2778)
 
 ## Overview
 Updates the minimum recovery point in the control file to ensure database consistency during crash recovery, tracking the WAL location that must be reached before the database can be considered consistent.

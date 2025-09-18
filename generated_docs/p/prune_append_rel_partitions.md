@@ -1,7 +1,7 @@
 # prune_append_rel_partitions
 
 ## Location
-src/backend/partitioning/partprune.c: 750 - 816
+[src/backend/partitioning/partprune.c:750-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L750-L816)
 
 ## Overview
 Performs compile-time partition pruning by processing base restriction clauses to determine the minimum set of partitions that must be scanned.

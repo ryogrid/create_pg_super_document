@@ -1,7 +1,7 @@
 # r_residual_form
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_portuguese.c: 831 - 883
+[src/backend/snowball/libstemmer/stem_UTF_8_portuguese.c:831-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_portuguese.c#L831-L883)
 
 ## Overview
 The r_residual_form function handles specialized Portuguese morphological patterns involving specific character sequences and complex suffix transformations as a final step in the Portuguese stemming algorithm.

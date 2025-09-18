@@ -1,7 +1,7 @@
 # r_prelude
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c: 502 - 618
+[src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:502-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c#L502-L618)
 
 ## Overview
 The r_prelude function performs preprocessing operations on text before stemming, handling character normalization and vowel-consonant pattern adjustments in the Snowball stemming algorithm.

@@ -1,7 +1,7 @@
 # pg_prng_double
 
 ## Location
-src/common/pg_prng.c: 268 - 289
+[src/common/pg_prng.c:268-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/pg_prng.c#L268-L289)
 
 ## Overview
 Generates a random double-precision floating-point number uniformly distributed in the range [0.0, 1.0).

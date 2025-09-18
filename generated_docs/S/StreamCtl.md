@@ -1,7 +1,7 @@
 # StreamCtl
 
 ## Location
-src/bin/pg_basebackup/receivelog.h: 29 - 49
+[src/bin/pg_basebackup/receivelog.h:29-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.h#L29-L49)
 
 ## Overview
 StreamCtl is a control structure that encapsulates all global parameters needed for receiving WAL (Write-Ahead Log) stream data during PostgreSQL replication operations.

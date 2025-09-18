@@ -1,7 +1,7 @@
 # do_scalar
 
 ## Location
-src/test/modules/test_json_parser/test_json_parser_incremental.c: 281 - 299
+[src/test/modules/test_json_parser/test_json_parser_incremental.c:281-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_json_parser/test_json_parser_incremental.c#L281-L299)
 
 ## Overview
 The `do_scalar` function is a JSON parsing callback function that handles scalar values (strings, numbers, booleans, null) in PostgreSQL's incremental JSON parser test module.

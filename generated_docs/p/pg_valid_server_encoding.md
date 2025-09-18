@@ -1,7 +1,7 @@
 # pg_valid_server_encoding
 
 ## Location
-src/common/encnames.c: 499 - 512
+[src/common/encnames.c:499-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/encnames.c#L499-L512)
 
 ## Overview
 Validates whether a given encoding name is a valid server-side character encoding in PostgreSQL.

@@ -1,7 +1,7 @@
 # IndexAttributeBitMapData
 
 ## Location
-src/include/access/itup.h: 55 - 58
+[src/include/access/itup.h:55-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/itup.h#L55-L58)
 
 ## Overview
 IndexAttributeBitMapData is a structure that provides a bitmap to track null values in index tuples, used when the HasNulls bit is set in the IndexTupleData header.

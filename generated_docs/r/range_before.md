@@ -1,7 +1,7 @@
 # range_before
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 689 - 701
+[src/backend/utils/adt/rangetypes.c:689-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L689-L701)
 
 ## Overview
 The  function determines whether one range is strictly positioned before another range, implementing the PostgreSQL range "strictly left of" operator (<<).

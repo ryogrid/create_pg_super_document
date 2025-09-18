@@ -1,7 +1,7 @@
 # check_new_partition_bound
 
 ## Location
-src/backend/partitioning/partbounds.c: 2896 - 3250
+[src/backend/partitioning/partbounds.c:2896-3250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2896-L3250)
 
 ## Overview
 Validates that a new partition's bounds do not overlap with any existing partitions and enforces partition strategy-specific constraints.

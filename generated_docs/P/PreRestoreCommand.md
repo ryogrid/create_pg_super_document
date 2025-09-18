@@ -1,7 +1,7 @@
 # PreRestoreCommand
 
 ## Location
-src/backend/postmaster/startup.c: 268 - 281
+[src/backend/postmaster/startup.c:268-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L268-L281)
 
 ## Overview
 PreRestoreCommand is a function that prepares the startup process for entering a restore command execution state, setting appropriate flags and handling pending shutdown requests safely.

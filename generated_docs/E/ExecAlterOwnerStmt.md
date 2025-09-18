@@ -1,7 +1,7 @@
 # ExecAlterOwnerStmt
 
 ## Location
-src/backend/commands/alter.c: 826 - 916
+[src/backend/commands/alter.c:826-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/alter.c#L826-L916)
 
 ## Overview
 Executes an ALTER OBJECT OWNER TO statement by dispatching to the appropriate type-specific owner alteration function based on the object type.

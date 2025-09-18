@@ -1,7 +1,7 @@
 # PREDICATELOCKTARGETTAG
 
 ## Location
-src/include/storage/predicate_internals.h: 267 - 273
+[src/include/storage/predicate_internals.h:267-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/predicate_internals.h#L267-L273)
 
 ## Overview
 A structure that serves as a hash key to identify database objects (relations, pages, tuples) that can be targets of predicate locks in PostgreSQL's serializable snapshot isolation system.

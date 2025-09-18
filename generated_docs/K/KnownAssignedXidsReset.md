@@ -1,7 +1,7 @@
 # KnownAssignedXidsReset
 
 ## Location
-src/backend/storage/ipc/procarray.c: 5255 - 5266
+[src/backend/storage/ipc/procarray.c:5255-5266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L5255-L5266)
 
 ## Overview
 KnownAssignedXidsReset clears the KnownAssignedXids array by resetting all its metadata counters and position indicators to zero.

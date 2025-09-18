@@ -1,7 +1,7 @@
 # tuplesort_begin_common
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 645 - 756
+[src/backend/utils/sort/tuplesort.c:645-756](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L645-L756)
 
 ## Overview
 The core initialization function for PostgreSQL's tuple sorting system that sets up the common infrastructure for all tuplesort operations, including memory management, parallel coordination, and basic state initialization.

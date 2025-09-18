@@ -1,7 +1,7 @@
 # array_element_has_equality
 
 ## Location
-src/backend/utils/cache/typcache.c: 1427 - 1434
+[src/backend/utils/cache/typcache.c:1427-1434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1427-L1434)
 
 ## Overview
 A helper routine that checks whether array equality operations (like array_eq) should be expected to work on a given array type by verifying that the array element type supports equality.

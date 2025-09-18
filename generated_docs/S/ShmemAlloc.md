@@ -1,7 +1,7 @@
 # ShmemAlloc
 
 ## Location
-src/backend/storage/ipc/shmem.c: 152 - 171
+[src/backend/storage/ipc/shmem.c:152-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L152-L171)
 
 ## Overview
 ShmemAlloc allocates a max-aligned chunk of memory from the shared memory segment and throws an error if the allocation cannot be satisfied.

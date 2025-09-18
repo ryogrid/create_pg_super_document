@@ -1,7 +1,7 @@
 # copy_options
 
 ## Location
-src/bin/psql/copy.c: 53 - 64
+[src/bin/psql/copy.c:53-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/copy.c#L53-L64)
 
 ## Overview
 A structure that holds parsed options and parameters for psql's \copy command, encapsulating all information needed to execute a copy operation between files and database tables.

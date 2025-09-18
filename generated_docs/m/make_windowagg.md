@@ -1,7 +1,7 @@
 # make_windowagg
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6628 - 6669
+[src/backend/optimizer/plan/createplan.c:6628-6669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6628-L6669)
 
 ## Overview
 Creates and initializes a WindowAgg plan node for executing window function operations in PostgreSQL query plans.

@@ -1,7 +1,7 @@
 # ProcessClientReadInterrupt
 
 ## Location
-src/backend/tcop/postgres.c: 513 - 558
+[src/backend/tcop/postgres.c:513-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L513-L558)
 
 ## Overview
 Processes interrupts specific to client reads, handling various interrupt conditions before and after low-level read operations.

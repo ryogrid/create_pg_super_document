@@ -1,7 +1,7 @@
 # removable_cutoff
 
 ## Location
-src/test/modules/injection_points/regress_injection.c: 42 - 78
+[src/test/modules/injection_points/regress_injection.c:42-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/regress_injection.c#L42-L78)
 
 ## Overview
 A test utility function that wraps GetOldestNonRemovableTransactionId() to determine the oldest transaction ID that cannot be removed by VACUUM, primarily used for isolation testing in the injection_points test module.

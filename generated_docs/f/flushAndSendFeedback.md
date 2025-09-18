@@ -1,7 +1,7 @@
 # flushAndSendFeedback
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 1025 - 1041
+[src/bin/pg_basebackup/pg_recvlogical.c:1025-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L1025-L1041)
 
 ## Overview
 A function that synchronizes output data to disk and sends a feedback message to the PostgreSQL server during logical replication streaming.

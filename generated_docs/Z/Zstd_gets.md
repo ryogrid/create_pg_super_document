@@ -1,7 +1,7 @@
 # Zstd_gets
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 404 - 428
+[src/bin/pg_dump/compress_zstd.c:404-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L404-L428)
 
 ## Overview
 Reads a line of text from a Zstd-compressed file handle, stopping at newline or end-of-file.

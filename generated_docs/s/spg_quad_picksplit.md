@@ -1,7 +1,7 @@
 # spg_quad_picksplit
 
 ## Location
-src/backend/access/spgist/spgquadtreeproc.c: 169 - 226
+[src/backend/access/spgist/spgquadtreeproc.c:169-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgquadtreeproc.c#L169-L226)
 
 ## Overview
 An SP-GiST operator function that implements the picksplit operation for quadtree-based spatial indexing, determining how to split a node when it becomes full by calculating a centroid point and partitioning tuples into four quadrants.

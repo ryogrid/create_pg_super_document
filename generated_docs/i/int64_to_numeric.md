@@ -1,7 +1,7 @@
 # int64_to_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 4299 - 4319
+[src/backend/utils/adt/numeric.c:4299-4319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4299-L4319)
 
 ## Overview
 Converts a 64-bit signed integer value to PostgreSQL's Numeric data type.

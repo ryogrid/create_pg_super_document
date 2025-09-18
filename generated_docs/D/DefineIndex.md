@@ -1,7 +1,7 @@
 # DefineIndex
 
 ## Location
-src/backend/commands/indexcmds.c: 540 - 1791
+[src/backend/commands/indexcmds.c:540-1791](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L540-L1791)
 
 ## Overview
 Creates a new index on a specified table relation, handling both regular and concurrent index creation with comprehensive validation, permission checks, and support for partitioned tables.

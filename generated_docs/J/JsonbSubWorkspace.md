@@ -1,7 +1,7 @@
 # JsonbSubWorkspace
 
 ## Location
-src/backend/utils/adt/jsonbsubs.c: 27 - 33
+[src/backend/utils/adt/jsonbsubs.c:27-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonbsubs.c#L27-L33)
 
 ## Overview
 JsonbSubWorkspace is a workspace structure used for PostgreSQL's JSONB subscripting operations, storing execution state and metadata needed during JSONB array/object element access and assignment operations.

@@ -1,7 +1,7 @@
 # GetConfigOptionByName
 
 ## Location
-src/backend/utils/misc/guc.c: 5440 - 5472
+[src/backend/utils/misc/guc.c:5440-5472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5440-L5472)
 
 ## Overview
 Retrieves the current value of a GUC configuration variable by name, with optional canonical name output and permission checking, returning a palloc'd string representation of the value.

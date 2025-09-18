@@ -1,7 +1,7 @@
 # gin_mask
 
 ## Location
-src/backend/access/gin/ginxlog.c: 793 - 813
+[src/backend/access/gin/ginxlog.c:793-813](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L793-L813)
 
 ## Overview
 A specialized page masking function for GIN (Generalized Inverted Index) pages that prepares them for consistency checks by masking variable data elements that should not be compared during verification.

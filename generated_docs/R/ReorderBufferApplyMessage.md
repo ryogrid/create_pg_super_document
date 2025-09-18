@@ -1,7 +1,7 @@
 # ReorderBufferApplyMessage
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2040 - 2059
+[src/backend/replication/logical/reorderbuffer.c:2040-2059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2040-L2059)
 
 ## Overview
 Helper function for ReorderBufferProcessTXN that applies logical replication messages during transaction processing, handling both streaming and non-streaming modes.

@@ -1,7 +1,7 @@
 # BlockedProcData
 
 ## Location
-src/include/storage/lock.h: 471 - 482
+[src/include/storage/lock.h:471-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L471-L482)
 
 ## Overview
 BlockedProcData is a structure that contains information about a blocked process, including its PID, associated locks, and position in wait queues within PostgreSQL's lock management system.

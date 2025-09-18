@@ -1,7 +1,7 @@
 # GetWALAvailability
 
 ## Location
-src/backend/access/transam/xlog.c: 7881 - 7966
+[src/backend/access/transam/xlog.c:7881-7966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7881-L7966)
 
 ## Overview
 GetWALAvailability reports the availability status of WAL segments for a given target LSN, typically used to determine if a replication slot's restart_lsn is still accessible.

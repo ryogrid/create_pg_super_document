@@ -1,7 +1,7 @@
 # multipleOfPowerOf2
 
 ## Location
-src/common/f2s.c: 109 - 119
+[src/common/f2s.c:109-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L109-L119)
 
 ## Overview
 Determines whether a given 64-bit unsigned integer value is divisible by a specified power of 2 (2^p).

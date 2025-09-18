@@ -1,7 +1,7 @@
 # tuplesort_estimate_shared
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2955 - 2975
+[src/backend/utils/sort/tuplesort.c:2955-2975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2955-L2975)
 
 ## Overview
 Estimates the amount of shared memory required for parallel tuple sorting operations based on the number of worker processes.

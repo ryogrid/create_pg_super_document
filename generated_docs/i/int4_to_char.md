@@ -1,7 +1,7 @@
 # int4_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 6527 - 6620
+[src/backend/utils/adt/formatting.c:6527-6620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L6527-L6620)
 
 ## Overview
 A PostgreSQL built-in function that converts a 32-bit integer value to a formatted text string using a specified format pattern.

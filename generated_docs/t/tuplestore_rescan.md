@@ -1,7 +1,7 @@
 # tuplestore_rescan
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1233 - 1267
+[src/backend/utils/sort/tuplestore.c:1233-1267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1233-L1267)
 
 ## Overview
 Rewinds the active read pointer of a tuplestore back to the beginning, enabling re-reading of the stored tuples from the start.

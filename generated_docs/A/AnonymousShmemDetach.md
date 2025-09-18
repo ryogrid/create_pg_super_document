@@ -1,7 +1,7 @@
 # AnonymousShmemDetach
 
 ## Location
-src/backend/port/sysv_shmem.c: 675 - 699
+[src/backend/port/sysv_shmem.c:675-699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L675-L699)
 
 ## Overview
 Detaches from an anonymous memory-mapped shared memory block, serving as a cleanup callback for process exit handling.

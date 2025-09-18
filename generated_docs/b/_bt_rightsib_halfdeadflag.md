@@ -1,7 +1,7 @@
 # _bt_rightsib_halfdeadflag
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1752 - 1801
+[src/backend/access/nbtree/nbtpage.c:1752-1801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1752-L1801)
 
 ## Overview
 This function checks whether the right sibling leaf page of a target page is marked with the ISHALFDEAD flag during B-tree page deletion operations.

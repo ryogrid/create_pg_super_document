@@ -1,7 +1,7 @@
 # get_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5437 - 5519
+[src/backend/utils/adt/ruleutils.c:5437-5519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5437-L5519)
 
 ## Overview
 Converts a Query parse tree back into readable SQL text by dispatching to appropriate command-specific formatting functions based on the query's command type.

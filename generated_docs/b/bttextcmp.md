@@ -1,7 +1,7 @@
 # bttextcmp
 
 ## Location
-src/backend/utils/adt/varlena.c: 1831 - 1845
+[src/backend/utils/adt/varlena.c:1831-1845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1831-L1845)
 
 ## Overview
 A PostgreSQL function that provides B-tree comparison functionality for text data types, returning an integer indicating the lexicographic ordering relationship between two text values.

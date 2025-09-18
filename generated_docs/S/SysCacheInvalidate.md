@@ -1,7 +1,7 @@
 # SysCacheInvalidate
 
 ## Location
-src/backend/utils/cache/syscache.c: 699 - 722
+[src/backend/utils/cache/syscache.c:699-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L699-L722)
 
 ## Overview
 Invalidates entries in a specified system catalog cache using a hash value to target specific cached tuples.

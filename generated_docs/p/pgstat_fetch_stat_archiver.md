@@ -1,7 +1,7 @@
 # pgstat_fetch_stat_archiver
 
 ## Location
-src/backend/utils/activity/pgstat_archiver.c: 58 - 65
+[src/backend/utils/activity/pgstat_archiver.c:58-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_archiver.c#L58-L65)
 
 ## Overview
 Retrieves a snapshot of archiver statistics from shared memory and returns a pointer to the local archiver statistics structure for SQL-accessible functions.

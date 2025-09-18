@@ -1,7 +1,7 @@
 # pg_isblank
 
 ## Location
-src/backend/libpq/hba.c: 144 - 184
+[src/backend/libpq/hba.c:144-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L144-L184)
 
 ## Overview
 A portable implementation of the isblank() function that tests whether a character is a whitespace character (space, tab, or carriage return).

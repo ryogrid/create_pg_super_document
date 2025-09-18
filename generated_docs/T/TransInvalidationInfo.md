@@ -1,7 +1,7 @@
 # TransInvalidationInfo
 
 ## Location
-src/backend/utils/cache/inval.c: 220 - 236
+[src/backend/utils/cache/inval.c:220-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L220-L236)
 
 ## Overview
 TransInvalidationInfo is a data structure that manages cache invalidation state for PostgreSQL transactions and subtransactions, organizing invalidation messages by transaction nesting level and command boundaries.

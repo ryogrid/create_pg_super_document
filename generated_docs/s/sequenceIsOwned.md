@@ -1,7 +1,7 @@
 # sequenceIsOwned
 
 ## Location
-src/backend/catalog/pg_depend.c: 829 - 877
+[src/backend/catalog/pg_depend.c:829-877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L829-L877)
 
 ## Overview
 Detects whether a sequence is marked as "owned" by a table column through AUTO or INTERNAL dependency relationships.

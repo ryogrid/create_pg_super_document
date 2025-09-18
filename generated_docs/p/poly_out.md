@@ -1,7 +1,7 @@
 # poly_out
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3459 - 3474
+[src/backend/utils/adt/geo_ops.c:3459-3474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3459-L3474)
 
 ## Overview
 The `poly_out` function converts PostgreSQLs internal POLYGON representation into a human-readable string format for external display and output.

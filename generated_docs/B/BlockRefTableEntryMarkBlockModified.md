@@ -1,7 +1,7 @@
 # BlockRefTableEntryMarkBlockModified
 
 ## Location
-src/common/blkreftable.c: 965 - 1121
+[src/common/blkreftable.c:965-1121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L965-L1121)
 
 ## Overview
 Marks a specific block in a BlockRefTableEntry as known to have been modified, managing the internal data structures that track block modifications.

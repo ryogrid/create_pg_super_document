@@ -1,7 +1,7 @@
 # minimal_error_message
 
 ## Location
-src/bin/psql/command.c: 5956 - 5978
+[src/bin/psql/command.c:5956-5978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L5956-L5978)
 
 ## Overview
 Reports only the primary error information from a PostgreSQL result to avoid cluttering output with verbose error details and internally generated queries.

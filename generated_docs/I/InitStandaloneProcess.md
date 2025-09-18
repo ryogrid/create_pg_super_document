@@ -1,7 +1,7 @@
 # InitStandaloneProcess
 
 ## Location
-src/backend/utils/init/miscinit.c: 182 - 221
+[src/backend/utils/init/miscinit.c:182-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L182-L221)
 
 ## Overview
 Initializes the basic environment for a standalone PostgreSQL process that runs without a postmaster, setting up essential process state and determining executable paths.

@@ -1,7 +1,7 @@
 # get_template0_info
 
 ## Location
-src/bin/pg_upgrade/info.c: 314 - 378
+[src/bin/pg_upgrade/info.c:314-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L314-L378)
 
 ## Overview
 Retrieves locale and encoding information from the template0 database, which serves as the base template that will be copied from the old cluster to the new cluster during PostgreSQL upgrades.

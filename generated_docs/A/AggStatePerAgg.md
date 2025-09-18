@@ -1,7 +1,7 @@
 # AggStatePerAgg
 
 ## Location
-src/include/nodes/execnodes.h: 2457 - 2457
+[src/include/nodes/execnodes.h:2457-2457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2457-L2457)
 
 ## Overview
 AggStatePerAgg is a typedef pointer to AggStatePerAggData structure that represents per-aggregate information in PostgreSQL's aggregation execution system, containing metadata and state needed to compute individual aggregate functions.

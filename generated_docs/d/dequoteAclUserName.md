@@ -1,7 +1,7 @@
 # dequoteAclUserName
 
 ## Location
-src/bin/pg_dump/dumputils.c: 616 - 654
+[src/bin/pg_dump/dumputils.c:616-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L616-L654)
 
 ## Overview
 Transfers a user or group name from an input string into an output buffer, dequoting if needed, and returns a pointer to just past the input name.

@@ -1,7 +1,7 @@
 # gimme_gene
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 282 - 371
+[src/backend/optimizer/geqo/geqo_erx.c:282-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L282-L371)
 
 ## Overview
 The gimme_gene function selects the next gene to be added to the tour during the ERX (Edge Recombination Crossover) algorithm, giving priority to shared edges and genes with fewer remaining connections.

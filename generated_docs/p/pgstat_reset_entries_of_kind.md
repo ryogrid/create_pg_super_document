@@ -1,7 +1,7 @@
 # pgstat_reset_entries_of_kind
 
 ## Location
-src/backend/utils/activity/pgstat_shmem.c: 1065 - 1070
+[src/backend/utils/activity/pgstat_shmem.c:1065-1070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_shmem.c#L1065-L1070)
 
 ## Overview
 This function resets all statistics entries in the shared hashtable that match a specific statistics kind.

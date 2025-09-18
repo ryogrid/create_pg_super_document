@@ -1,7 +1,7 @@
 # _bt_lockbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1039 - 1069
+[src/backend/access/nbtree/nbtpage.c:1039-1069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1039-L1069)
 
 ## Overview
 _bt_lockbuf locks a pinned buffer for safe page access, serving as a wrapper around LockBuffer() with additional Valgrind support for memory debugging.

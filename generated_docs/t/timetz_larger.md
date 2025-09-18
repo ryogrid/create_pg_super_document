@@ -1,7 +1,7 @@
 # timetz_larger
 
 ## Location
-src/backend/utils/adt/date.c: 2565 - 2578
+[src/backend/utils/adt/date.c:2565-2578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2565-L2578)
 
 ## Overview
 Returns the larger of two time-with-timezone values, comparing them based on their equivalent UTC times.

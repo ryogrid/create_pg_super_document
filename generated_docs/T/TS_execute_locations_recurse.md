@@ -1,7 +1,7 @@
 # TS_execute_locations_recurse
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2025 - 2155
+[src/backend/utils/adt/tsvector_op.c:2025-2155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2025-L2155)
 
 ## Overview
 A recursive function that executes text search query evaluation while tracking position locations, handling operators above any phrase operator in the query tree.

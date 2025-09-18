@@ -1,7 +1,7 @@
 # tts_virtual_getsomeattrs
 
 ## Location
-src/backend/executor/execTuples.c: 130 - 140
+[src/backend/executor/execTuples.c:130-140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L130-L140)
 
 ## Overview
 A placeholder function that should never be called for virtual tuple table slots, as they always maintain fully populated attribute arrays.

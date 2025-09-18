@@ -1,7 +1,7 @@
 # ScalarArrayOpExprHashTable
 
 ## Location
-src/backend/executor/execExprInterp.c: 211 - 217
+[src/backend/executor/execExprInterp.c:211-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L211-L217)
 
 ## Overview
 ScalarArrayOpExprHashTable is a comprehensive data structure that encapsulates all components needed for optimized hash-based scalar-array operations, serving as the complete execution context for EEOP_HASHED_SCALARARRAYOP expression evaluation.

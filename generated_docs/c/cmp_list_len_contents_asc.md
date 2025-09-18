@@ -1,7 +1,7 @@
 # cmp_list_len_contents_asc
 
 ## Location
-src/backend/parser/parse_agg.c: 1769 - 1802
+[src/backend/parser/parse_agg.c:1769-1802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1769-L1802)
 
 ## Overview
 A two-level comparator function that sorts lists first by length and then by contents, ensuring deterministic ordering of grouping sets with identical lengths.

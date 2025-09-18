@@ -1,7 +1,7 @@
 # processStdStringsEntry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2850 - 2865
+[src/bin/pg_dump/pg_backup_archiver.c:2850-2865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2850-L2865)
 
 ## Overview
 This function processes a standard_conforming_strings configuration entry from a PostgreSQL archive during restoration, parsing the SET command to determine the appropriate string literal behavior.

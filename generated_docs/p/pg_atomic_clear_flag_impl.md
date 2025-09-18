@@ -1,7 +1,7 @@
 # pg_atomic_clear_flag_impl
 
 ## Location
-src/backend/port/atomics.c: 89 - 96
+[src/backend/port/atomics.c:89-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L89-L96)
 
 ## Overview
 Atomically clears (resets to false) an atomic flag using spinlock protection when native atomic flag operations are not available.

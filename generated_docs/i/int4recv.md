@@ -1,7 +1,7 @@
 # int4recv
 
 ## Location
-src/backend/utils/adt/int.c: 311 - 321
+[src/backend/utils/adt/int.c:311-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L311-L321)
 
 ## Overview
 Converts external binary format data to a 32-bit integer (int4) for PostgreSQL internal use.

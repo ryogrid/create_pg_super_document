@@ -1,7 +1,7 @@
 # qsort_partition_rbound_cmp
 
 ## Location
-src/backend/partitioning/partbounds.c: 3810 - 3831
+[src/backend/partitioning/partbounds.c:3810-3831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3810-L3831)
 
 ## Overview
 A comparison function used by qsort to sort range partition bounds across all range partitions using the partition key's comparison functions.

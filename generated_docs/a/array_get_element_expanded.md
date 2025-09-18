@@ -1,7 +1,7 @@
 # array_get_element_expanded
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1921 - 2029
+[src/backend/utils/adt/arrayfuncs.c:1921-2029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1921-L2029)
 
 ## Overview
 Specialized implementation of array element access for expanded arrays, providing optimized access to deconstructed array data.

@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_inet
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2297 - 2379
+[src/backend/access/brin/brin_minmax_multi.c:2297-2379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2297-L2379)
 
 ## Overview
 Computes the normalized distance between two inet values for BRIN minmax multi-column index operations, used for data type correlation analysis.

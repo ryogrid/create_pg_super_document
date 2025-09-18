@@ -1,7 +1,7 @@
 # SerializeSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1716 - 1774
+[src/backend/utils/time/snapmgr.c:1716-1774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1716-L1774)
 
 ## Overview
 Serializes a snapshot structure into a binary format that can be stored in memory or transmitted to parallel workers.

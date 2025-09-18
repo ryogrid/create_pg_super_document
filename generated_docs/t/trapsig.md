@@ -1,7 +1,7 @@
 # trapsig
 
 ## Location
-src/bin/initdb/initdb.c: 2080 - 2090
+[src/bin/initdb/initdb.c:2080-2090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2080-L2090)
 
 ## Overview
 A signal handler function that safely manages interruption signals during initdb execution by setting a flag instead of directly calling exit().

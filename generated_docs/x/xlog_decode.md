@@ -1,7 +1,7 @@
 # xlog_decode
 
 ## Location
-src/backend/replication/logical/decode.c: 129 - 200
+[src/backend/replication/logical/decode.c:129-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L129-L200)
 
 ## Overview
 Handles XLOG_ID resource manager records during logical decoding, processing various WAL record types that manage database state transitions and administrative operations.

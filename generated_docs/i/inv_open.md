@@ -1,7 +1,7 @@
 # inv_open
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 253 - 336
+[src/backend/storage/large_object/inv_api.c:253-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L253-L336)
 
 ## Overview
 Opens an existing large object and returns a descriptor for subsequent operations, with proper permission checking and snapshot management.

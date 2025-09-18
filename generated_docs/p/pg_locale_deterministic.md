@@ -1,7 +1,7 @@
 # pg_locale_deterministic
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1554 - 1573
+[src/backend/utils/adt/pg_locale.c:1554-1573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1554-L1573)
 
 ## Overview
 A function that determines whether a given PostgreSQL locale produces deterministic collation results, which is essential for operations requiring consistent ordering and hashing.

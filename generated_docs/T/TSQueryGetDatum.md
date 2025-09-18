@@ -1,7 +1,7 @@
 # TSQueryGetDatum
 
 ## Location
-src/include/tsearch/ts_type.h: 263 - 267
+[src/include/tsearch/ts_type.h:263-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L263-L267)
 
 ## Overview
 TSQueryGetDatum is a static inline function that converts a TSQueryData pointer to a PostgreSQL Datum representation, enabling TSQuery data structures to be passed through PostgreSQL's internal function calling interface.

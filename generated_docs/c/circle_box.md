@@ -1,7 +1,7 @@
 # circle_box
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5186 - 5207
+[src/backend/utils/adt/geo_ops.c:5186-5207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5186-L5207)
 
 ## Overview
 Converts a circle to the largest square (box) that can be inscribed within it.

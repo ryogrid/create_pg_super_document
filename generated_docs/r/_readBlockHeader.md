@@ -1,7 +1,7 @@
 # _readBlockHeader
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 956 - 987
+[src/bin/pg_dump/pg_backup_custom.c:956-987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L956-L987)
 
 ## Overview
 This function reads the header of a data block from a custom-format archive file, handling version compatibility between different archive format versions.

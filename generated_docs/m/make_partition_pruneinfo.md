@@ -1,7 +1,7 @@
 # make_partition_pruneinfo
 
 ## Location
-src/backend/partitioning/partprune.c: 220 - 391
+[src/backend/partitioning/partprune.c:220-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L220-L391)
 
 ## Overview
 Builds a PartitionPruneInfo structure that enables additional partition pruning during query execution, returning NULL when partition pruning would be ineffective.

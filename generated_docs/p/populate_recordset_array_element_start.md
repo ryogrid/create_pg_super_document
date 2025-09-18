@@ -1,7 +1,7 @@
 # populate_recordset_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4266 - 4280
+[src/backend/utils/adt/jsonfuncs.c:4266-4280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4266-L4280)
 
 ## Overview
 A static function that validates array elements during JSON recordset population, ensuring that top-level array elements are JSON objects representing individual records.

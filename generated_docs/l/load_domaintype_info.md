@@ -1,7 +1,7 @@
 # load_domaintype_info
 
 ## Location
-src/backend/utils/cache/typcache.c: 994 - 1229
+[src/backend/utils/cache/typcache.c:994-1229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L994-L1229)
 
 ## Overview
 A helper function that loads and caches domain constraint information for PostgreSQL domain types, including CHECK constraints and NOT NULL constraints from the type hierarchy.

@@ -1,7 +1,7 @@
 # json_typeof
 
 ## Location
-src/backend/utils/adt/json.c: 1726 - 1765
+[src/backend/utils/adt/json.c:1726-1765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1726-L1765)
 
 ## Overview
 A SQL function that determines and returns the type of the outermost JSON value as a text string.

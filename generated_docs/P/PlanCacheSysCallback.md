@@ -1,7 +1,7 @@
 # PlanCacheSysCallback
 
 ## Location
-src/backend/utils/cache/plancache.c: 2178 - 2186
+[src/backend/utils/cache/plancache.c:2178-2186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L2178-L2186)
 
 ## Overview
 A syscache invalidation callback function that invalidates all cached plans when other (non-relation, non-procedure/type) system catalog objects are modified.

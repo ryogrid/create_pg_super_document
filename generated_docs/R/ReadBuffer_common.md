@@ -1,7 +1,7 @@
 # ReadBuffer_common
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1198 - 1256
+[src/backend/storage/buffer/bufmgr.c:1198-1256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1198-L1256)
 
 ## Overview
 ReadBuffer_common is the central unified function that implements the common logic for all PostgreSQL ReadBuffer variants, handling different read modes and delegating to appropriate buffer management functions.

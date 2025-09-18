@@ -1,7 +1,7 @@
 # has_database_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 2990 - 3015
+[src/backend/utils/adt/acl.c:2990-3015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2990-L3015)
 
 ## Overview
 Checks if a specified user has a given privilege on a specified database, where all parameters are provided as names (not OIDs).

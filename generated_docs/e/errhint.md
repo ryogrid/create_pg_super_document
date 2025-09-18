@@ -1,7 +1,7 @@
 # errhint
 
 ## Location
-src/backend/utils/error/elog.c: 1317 - 1338
+[src/backend/utils/error/elog.c:1317-1338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1317-L1338)
 
 ## Overview
 A function that adds a hint error message text to the current error being processed.

@@ -1,7 +1,7 @@
 # list_make5_impl
 
 ## Location
-src/backend/nodes/list.c: 284 - 304
+[src/backend/nodes/list.c:284-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L284-L304)
 
 ## Overview
 Creates a new PostgreSQL list with exactly five elements, serving as the core implementation for the list_make5 family of macros.

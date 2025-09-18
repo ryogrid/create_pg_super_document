@@ -1,7 +1,7 @@
 # outzone
 
 ## Location
-src/timezone/zic.c: 2946 - 3061
+[src/timezone/zic.c:2946-3061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2946-L3061)
 
 ## Overview
 The main function that generates binary timezone data for a timezone zone, creating the transition times, types, and POSIX timezone string for output to timezone files.

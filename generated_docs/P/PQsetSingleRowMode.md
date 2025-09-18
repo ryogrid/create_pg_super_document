@@ -1,7 +1,7 @@
 # PQsetSingleRowMode
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1948 - 1964
+[src/interfaces/libpq/fe-exec.c:1948-1964](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1948-L1964)
 
 ## Overview
 PQsetSingleRowMode enables single-row processing mode for a PostgreSQL connection, allowing results to be retrieved one row at a time instead of waiting for the complete result set.

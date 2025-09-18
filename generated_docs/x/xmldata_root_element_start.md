@@ -1,7 +1,7 @@
 # xmldata_root_element_start
 
 ## Location
-src/backend/utils/adt/xml.c: 2967 - 2993
+[src/backend/utils/adt/xml.c:2967-2993](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2967-L2993)
 
 ## Overview
 Internal utility function that generates the opening XML tag for root elements in PostgreSQL's XML data mapping functions, handling namespace declarations and schema location attributes.

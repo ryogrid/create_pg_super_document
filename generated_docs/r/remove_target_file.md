@@ -1,7 +1,7 @@
 # remove_target_file
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 187 - 205
+[src/bin/pg_rewind/file_ops.c:187-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L187-L205)
 
 ## Overview
 Removes a file from the target data directory during PostgreSQL rewind operations, with optional handling for missing files.

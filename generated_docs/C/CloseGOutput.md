@@ -1,7 +1,7 @@
 # CloseGOutput
 
 ## Location
-src/bin/psql/common.c: 110 - 131
+[src/bin/psql/common.c:110-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L110-L131)
 
 ## Overview
 Closes the output stream opened for psql's \g command, handling both regular files and pipes with appropriate cleanup and signal restoration.

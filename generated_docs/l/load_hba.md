@@ -1,7 +1,7 @@
 # load_hba
 
 ## Location
-src/backend/libpq/hba.c: 2583 - 2688
+[src/backend/libpq/hba.c:2583-2688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L2583-L2688)
 
 ## Overview
 Reads and parses the pg_hba.conf configuration file, creating a validated list of HBA (Host-Based Authentication) rules that control client access to the PostgreSQL database.

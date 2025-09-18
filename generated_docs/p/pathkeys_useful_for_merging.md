@@ -1,7 +1,7 @@
 # pathkeys_useful_for_merging
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 2033 - 2099
+[src/backend/optimizer/path/pathkeys.c:2033-2099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L2033-L2099)
 
 ## Overview
 This function counts the number of pathkeys that may be useful for mergejoins above the given relation.

@@ -1,7 +1,7 @@
 # read_nondefault_variables
 
 ## Location
-src/backend/utils/misc/guc.c: 5749 - 5821
+[src/backend/utils/misc/guc.c:5749-5821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5749-L5821)
 
 ## Overview
 read_nondefault_variables deserializes non-default GUC configuration variables from a binary file to restore configuration state in newly spawned backend processes.

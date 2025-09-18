@@ -1,7 +1,7 @@
 # get_steps_using_prefix_recurse
 
 ## Location
-src/backend/partitioning/partprune.c: 2496 - 2662
+[src/backend/partitioning/partprune.c:2496-2662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L2496-L2662)
 
 ## Overview
 Recursively generates all valid combinations of PartitionPruneStepOps when multiple PartClauseInfos exist for the same partition key.

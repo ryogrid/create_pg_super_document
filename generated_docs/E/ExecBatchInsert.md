@@ -1,7 +1,7 @@
 # ExecBatchInsert
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1244 - 1303
+[src/backend/executor/nodeModifyTable.c:1244-1303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1244-L1303)
 
 ## Overview
 Efficiently inserts multiple tuples into a foreign table in a single batch operation, delegating the actual insertion to the Foreign Data Wrapper (FDW) and handling post-insertion triggers and constraint checks.

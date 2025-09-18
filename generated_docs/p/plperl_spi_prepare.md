@@ -1,7 +1,7 @@
 # plperl_spi_prepare
 
 ## Location
-src/pl/plperl/plperl.c: 3567 - 3714
+[src/pl/plperl/plperl.c:3567-3714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3567-L3714)
 
 ## Overview
 Prepares a parameterized SQL statement for execution, creating a reusable query plan with type information for efficient repeated execution in PL/Perl functions.

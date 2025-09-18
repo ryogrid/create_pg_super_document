@@ -1,7 +1,7 @@
 # TrimMultiXact
 
 ## Location
-src/backend/access/transam/multixact.c: 2170 - 2273
+[src/backend/access/transam/multixact.c:2170-2273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2170-L2273)
 
 ## Overview
 Performs final cleanup and initialization of MultiXact data structures that must be called ONCE at the end of startup/recovery.

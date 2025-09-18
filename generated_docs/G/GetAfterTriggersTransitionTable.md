@@ -1,7 +1,7 @@
 # GetAfterTriggersTransitionTable
 
 ## Location
-src/backend/commands/trigger.c: 5533 - 5583
+[src/backend/commands/trigger.c:5533-5583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5533-L5583)
 
 ## Overview
 Retrieves the appropriate transition table (tuplestore) for storing old or new tuples based on the trigger event type and transition capture requirements.

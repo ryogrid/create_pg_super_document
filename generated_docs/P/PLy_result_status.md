@@ -1,7 +1,7 @@
 # PLy_result_status
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 196 - 204
+[src/pl/plpython/plpy_resultobject.c:196-204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L196-L204)
 
 ## Overview
 Returns the status string of a SQL command execution result in PLython, indicating the type and outcome of the executed command.

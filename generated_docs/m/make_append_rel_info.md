@@ -1,7 +1,7 @@
 # make_append_rel_info
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 51 - 79
+[src/backend/optimizer/util/appendinfo.c:51-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L51-L79)
 
 ## Overview
 Creates and initializes an AppendRelInfo structure to represent the relationship between a parent relation and its child relation in PostgreSQL's inheritance hierarchy.

@@ -1,7 +1,7 @@
 # getTypes
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 5847 - 6017
+[src/bin/pg_dump/pg_dump.c:5847-6017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L5847-L6017)
 
 ## Overview
 Reads all data types from the PostgreSQL system catalogs and returns them as an array of TypeInfo structures for pg_dump processing, including built-in, user-defined, and array types.

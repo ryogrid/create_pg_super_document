@@ -1,7 +1,7 @@
 # ginFindParents
 
 ## Location
-src/backend/access/gin/ginbtree.c: 218 - 336
+[src/backend/access/gin/ginbtree.c:218-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbtree.c#L218-L336)
 
 ## Overview
 ginFindParents reconstructs the parent path for a GIN B-tree stack by traversing from the root down to locate the parent of a specified child page.

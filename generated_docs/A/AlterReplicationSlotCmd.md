@@ -1,7 +1,7 @@
 # AlterReplicationSlotCmd
 
 ## Location
-src/include/nodes/replnodes.h: 79 - 84
+[src/include/nodes/replnodes.h:79-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L79-L84)
 
 ## Overview
 AlterReplicationSlotCmd represents the ALTER_REPLICATION_SLOT replication protocol command, used to modify properties of existing replication slots.

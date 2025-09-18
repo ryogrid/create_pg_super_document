@@ -1,7 +1,7 @@
 # ExecResult
 
 ## Location
-src/backend/executor/nodeResult.c: 67 - 145
+[src/backend/executor/nodeResult.c:67-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeResult.c#L67-L145)
 
 ## Overview
 ExecResult is the core execution function for the Result plan node that returns tuples from an outer plan or generates tuples from constant expressions, applying optional qualification clauses.

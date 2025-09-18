@@ -1,7 +1,7 @@
 # pg_result
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 170 - 220
+[src/interfaces/libpq/libpq-int.h:170-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L170-L220)
 
 ## Overview
 The core internal structure in libpq that represents a query result set, containing data, metadata, and management information for PostgreSQL query results.

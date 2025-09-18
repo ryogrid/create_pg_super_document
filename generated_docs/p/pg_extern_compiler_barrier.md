@@ -1,7 +1,7 @@
 # pg_extern_compiler_barrier
 
 ## Location
-src/backend/port/atomics.c: 45 - 54
+[src/backend/port/atomics.c:45-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L45-L54)
 
 ## Overview
 A fallback compiler barrier implementation that prevents compiler reordering optimizations by using an external function call when native compiler barriers are unavailable.

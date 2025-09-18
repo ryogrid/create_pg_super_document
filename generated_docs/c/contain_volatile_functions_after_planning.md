@@ -1,7 +1,7 @@
 # contain_volatile_functions_after_planning
 
 ## Location
-src/backend/optimizer/util/clauses.c: 659 - 672
+[src/backend/optimizer/util/clauses.c:659-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L659-L672)
 
 ## Overview
 Tests whether a given expression contains volatile functions after performing expression planning. This function provides a safe interface for checking volatility from outside the planner context.

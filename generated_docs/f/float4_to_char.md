@@ -1,7 +1,7 @@
 # float4_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 6727 - 6828
+[src/backend/utils/adt/formatting.c:6727-6828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L6727-L6828)
 
 ## Overview
 Converts a single-precision floating-point number (float4) to its formatted text representation according to a specified format pattern.

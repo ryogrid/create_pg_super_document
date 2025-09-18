@@ -1,7 +1,7 @@
 # pgoutput_stream_stop
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1815 - 1835
+[src/backend/replication/pgoutput/pgoutput.c:1815-1835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1815-L1835)
 
 ## Overview
 pgoutput_stream_stop is a callback function that handles the end of streaming for large transactions in PostgreSQL logical replication, outputting stream stop messages to the replication protocol.

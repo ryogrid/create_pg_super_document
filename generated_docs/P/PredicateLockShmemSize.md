@@ -1,7 +1,7 @@
 # PredicateLockShmemSize
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1347 - 1408
+[src/backend/storage/lmgr/predicate.c:1347-1408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1347-L1408)
 
 ## Overview
 PredicateLockShmemSize calculates the total shared memory space required for all predicate locking data structures used in PostgreSQL's serializable snapshot isolation implementation.

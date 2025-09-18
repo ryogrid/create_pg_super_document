@@ -1,7 +1,7 @@
 # PGEventResultCopy
 
 ## Location
-src/interfaces/libpq/libpq-events.h: 62 - 66
+[src/interfaces/libpq/libpq-events.h:62-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.h#L62-L66)
 
 ## Overview
 PGEventResultCopy is a structure used in PostgreSQL's libpq event system to pass information about result copying operations to registered event handlers.

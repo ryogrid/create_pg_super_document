@@ -1,7 +1,7 @@
 # text_to_table_null
 
 ## Location
-src/backend/utils/adt/varlena.c: 4575 - 4590
+[src/backend/utils/adt/varlena.c:4575-4590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4575-L4590)
 
 ## Overview
 A wrapper function for text_to_table that handles null string parameters in table-based text splitting operations.

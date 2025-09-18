@@ -1,7 +1,7 @@
 # PLy_result_item
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 213 - 224
+[src/pl/plpython/plpy_resultobject.c:213-224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L213-L224)
 
 ## Overview
 Implements Python sequence indexing for PLython result objects, allowing individual row access using bracket notation like result[index].

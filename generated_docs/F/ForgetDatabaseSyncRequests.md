@@ -1,7 +1,7 @@
 # ForgetDatabaseSyncRequests
 
 ## Location
-src/backend/storage/smgr/md.c: 1430 - 1447
+[src/backend/storage/smgr/md.c:1430-1447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1430-L1447)
 
 ## Overview
 Cancels all pending fsync and unlink requests for an entire database by registering a filter request that removes database-specific sync operations.

@@ -1,7 +1,7 @@
 # int2int4_sum
 
 ## Location
-src/backend/utils/adt/numeric.c: 6843 - 6873
+[src/backend/utils/adt/numeric.c:6843-6873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6843-L6873)
 
 ## Overview
 Computes the sum of int2 or int4 values by extracting the accumulated sum from an Int8TransTypeData transition array and returning it as an int8 result.

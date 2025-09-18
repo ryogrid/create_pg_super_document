@@ -1,7 +1,7 @@
 # list_append_unique_oid
 
 ## Location
-src/backend/nodes/list.c: 1380 - 1404
+[src/backend/nodes/list.c:1380-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1380-L1404)
 
 ## Overview
 Appends an OID (Object Identifier) value to a list only if it is not already present, ensuring uniqueness of OID values in the list.

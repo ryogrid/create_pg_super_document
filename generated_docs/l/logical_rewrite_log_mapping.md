@@ -1,7 +1,7 @@
 # logical_rewrite_log_mapping
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 935 - 998
+[src/backend/access/heap/rewriteheap.c:935-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L935-L998)
 
 ## Overview
 Logs a single tuple location mapping from old to new position for a specific transaction during heap rewrite operations, maintaining the mapping data needed for logical decoding consistency.

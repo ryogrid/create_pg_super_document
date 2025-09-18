@@ -1,7 +1,7 @@
 # EstimateRelationMapSpace
 
 ## Location
-src/backend/utils/cache/relmapper.c: 713 - 723
+[src/backend/utils/cache/relmapper.c:713-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L713-L723)
 
 ## Overview
 EstimateRelationMapSpace calculates the memory space required to serialize and pass active relation maps to parallel worker processes.

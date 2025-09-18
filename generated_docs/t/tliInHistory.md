@@ -1,7 +1,7 @@
 # tliInHistory
 
 ## Location
-src/backend/access/transam/timeline.c: 526 - 543
+[src/backend/access/transam/timeline.c:526-543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L526-L543)
 
 ## Overview
 Checks if a given timeline ID exists within a list of expected timeline history entries.

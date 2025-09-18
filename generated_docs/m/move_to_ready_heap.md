@@ -1,7 +1,7 @@
 # move_to_ready_heap
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4519 - 4553
+[src/bin/pg_dump/pg_backup_archiver.c:4519-4553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4519-L4553)
 
 ## Overview
 Moves all immediately-ready TOC entries from the pending list to the ready heap for parallel restoration processing.

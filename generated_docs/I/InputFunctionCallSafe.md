@@ -1,7 +1,7 @@
 # InputFunctionCallSafe
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1585 - 1639
+[src/backend/utils/fmgr/fmgr.c:1585-1639](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1585-L1639)
 
 ## Overview
 InputFunctionCallSafe is a safe variant of InputFunctionCall that provides non-exception handling of "soft" errors during datatype input function calls.

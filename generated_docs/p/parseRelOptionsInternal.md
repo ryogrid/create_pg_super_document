@@ -1,7 +1,7 @@
 # parseRelOptionsInternal
 
 ## Location
-src/backend/access/common/reloptions.c: 1436 - 1507
+[src/backend/access/common/reloptions.c:1436-1507](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1436-L1507)
 
 ## Overview
 Internal function that parses relation options from a Datum array and populates a pre-allocated reloptions array with parsed values.

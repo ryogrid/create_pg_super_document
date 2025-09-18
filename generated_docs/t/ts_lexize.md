@@ -1,7 +1,7 @@
 # ts_lexize
 
 ## Location
-src/backend/tsearch/dict.c: 27 - 85
+[src/backend/tsearch/dict.c:27-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict.c#L27-L85)
 
 ## Overview
 This function lexizes a single word using a specified text search dictionary, primarily serving as a debug function for testing dictionary operations in PostgreSQL's full-text search system.

@@ -1,7 +1,7 @@
 # get_merged_range_bounds
 
 ## Location
-src/backend/partitioning/partbounds.c: 2711 - 2774
+[src/backend/partitioning/partbounds.c:2711-2774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2711-L2774)
 
 ## Overview
 Determines the bounds of a merged partition by combining the bounds of two range partitions based on the specified join type.

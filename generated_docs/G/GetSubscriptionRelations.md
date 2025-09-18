@@ -1,7 +1,7 @@
 # GetSubscriptionRelations
 
 ## Location
-src/backend/catalog/pg_subscription.c: 526 - 578
+[src/backend/catalog/pg_subscription.c:526-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_subscription.c#L526-L578)
 
 ## Overview
 Retrieves a list of subscription relations for a given subscription, with optional filtering to return only relations that are not in a ready state.

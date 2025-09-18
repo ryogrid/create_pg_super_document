@@ -1,7 +1,7 @@
 # InitCatalogCache
 
 ## Location
-src/backend/utils/cache/syscache.c: 110 - 179
+[src/backend/utils/cache/syscache.c:110-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L110-L179)
 
 ## Overview
 Initializes PostgreSQL's system catalog cache infrastructure by allocating memory and setting up cache structures without performing any database access.

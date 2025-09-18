@@ -1,7 +1,7 @@
 # BumpGetChunkSpace
 
 ## Location
-src/backend/utils/mmgr/bump.c: 649 - 659
+[src/backend/utils/mmgr/bump.c:649-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L649-L659)
 
 ## Overview
 BumpGetChunkSpace is a stub function in the Bump memory allocator that deliberately throws an error as this functionality is not supported by the bump allocator design.

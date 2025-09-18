@@ -1,7 +1,7 @@
 # hv_fetch_string
 
 ## Location
-src/pl/plperl/plperl.c: 4120 - 4142
+[src/pl/plperl/plperl.c:4120-4142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L4120-L4142)
 
 ## Overview
 A utility function that retrieves a Perl scalar value (SV) from a Perl hash table using a string key, with proper encoding conversion from the database encoding to UTF-8.

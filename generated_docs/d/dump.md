@@ -1,7 +1,7 @@
 # dump
 
 ## Location
-src/backend/regex/regcomp.c: 2494 - 2556
+[src/backend/regex/regcomp.c:2494-2556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2494-L2556)
 
 ## Overview
 A debugging function that dumps the internal structure of a compiled regular expression in human-readable form.

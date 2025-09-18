@@ -1,7 +1,7 @@
 # pa_set_stream_apply_worker
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1334 - 1347
+[src/backend/replication/logical/applyparallelworker.c:1334-1347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1334-L1347)
 
 ## Overview
 pa_set_stream_apply_worker is a utility function that caches the parallel apply worker information for use within PostgreSQL's logical replication streaming system.

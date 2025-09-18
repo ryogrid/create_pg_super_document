@@ -1,7 +1,7 @@
 # equalRSDesc
 
 ## Location
-src/backend/utils/cache/relcache.c: 999 - 1039
+[src/backend/utils/cache/relcache.c:999-1039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L999-L1039)
 
 ## Overview
 Determines whether two RowSecurityDesc structures are equivalent by comparing the lists of row security policies they contain.

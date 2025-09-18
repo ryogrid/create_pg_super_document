@@ -1,7 +1,7 @@
 # regexp_substr
 
 ## Location
-src/backend/utils/adt/regexp.c: 1858 - 1945
+[src/backend/utils/adt/regexp.c:1858-1945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1858-L1945)
 
 ## Overview
 Returns the substring that matches a regular expression pattern, providing full parameter control for pattern matching position, occurrence number, flags, and subexpression selection.

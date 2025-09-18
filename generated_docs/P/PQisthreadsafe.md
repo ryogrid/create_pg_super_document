@@ -1,7 +1,7 @@
 # PQisthreadsafe
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3992 - 3999
+[src/interfaces/libpq/fe-exec.c:3992-3999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3992-L3999)
 
 ## Overview
 Returns whether the libpq library was compiled with thread safety support, indicating if it's safe to use libpq functions from multiple threads simultaneously.

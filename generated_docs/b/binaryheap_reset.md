@@ -1,7 +1,7 @@
 # binaryheap_reset
 
 ## Location
-src/common/binaryheap.c: 63 - 74
+[src/common/binaryheap.c:63-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/binaryheap.c#L63-L74)
 
 ## Overview
 Resets an existing binary heap to an empty state while preserving its capacity and configuration parameters.

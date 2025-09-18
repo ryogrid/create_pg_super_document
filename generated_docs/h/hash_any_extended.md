@@ -1,7 +1,7 @@
 # hash_any_extended
 
 ## Location
-src/include/common/hashfn.h: 37 - 42
+[src/include/common/hashfn.h:37-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn.h#L37-L42)
 
 ## Overview
 The `hash_any_extended` function provides seeded hashing for arbitrary byte sequences, enabling enhanced hash distribution and collision resistance through the inclusion of a 64-bit seed value.

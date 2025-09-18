@@ -1,7 +1,7 @@
 # heap_inplace_lock
 
 ## Location
-src/backend/access/heap/heapam.c: 6308 - 6431
+[src/backend/access/heap/heapam.c:6308-6431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L6308-L6431)
 
 ## Overview
 Protects inplace updates from concurrent heap_update() operations by evaluating tuple compatibility and acquiring necessary locks.

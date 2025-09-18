@@ -1,7 +1,7 @@
 # IsTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 4915 - 4932
+[src/backend/access/transam/xact.c:4915-4932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4915-L4932)
 
 ## Overview
 IsTransactionBlock is a utility function that determines whether the current session is within a transaction block, which is essential for PostgreSQL's transaction state management and enforcing transaction-level constraints.

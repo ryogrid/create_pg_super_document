@@ -1,7 +1,7 @@
 # initPopulateTable
 
 ## Location
-src/bin/pgbench/pgbench.c: 4955 - 5084
+[src/bin/pgbench/pgbench.c:4955-5084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4955-L5084)
 
 ## Overview
 The  function populates a pgbench table with test data using PostgreSQL's COPY protocol, providing progress reporting and optimized data loading with freeze option on supported server versions.

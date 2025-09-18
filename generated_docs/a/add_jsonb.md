@@ -1,7 +1,7 @@
 # add_jsonb
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1016 - 1048
+[src/backend/utils/adt/jsonb.c:1016-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1016-L1048)
 
 ## Overview
 A static helper function that appends JSON text for a given value to a JsonbInState result structure, serving as a thin wrapper around datum_to_jsonb_internal.

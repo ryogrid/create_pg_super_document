@@ -1,7 +1,7 @@
 # transformJsonTableColumns
 
 ## Location
-src/backend/parser/parse_jsontable.c: 251 - 376
+[src/backend/parser/parse_jsontable.c:251-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L251-L376)
 
 ## Overview
 Creates a JsonTablePlan and transforms JSON_TABLE column specifications into their corresponding expression nodes and metadata for execution by the PostgreSQL engine.

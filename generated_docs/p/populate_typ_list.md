@@ -1,7 +1,7 @@
 # populate_typ_list
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 695 - 734
+[src/backend/bootstrap/bootstrap.c:695-734](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L695-L734)
 
 ## Overview
 A static function in the PostgreSQL bootstrap module that loads the global Typ list by reading all type definitions from the pg_type system catalog.

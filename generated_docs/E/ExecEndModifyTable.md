@@ -1,7 +1,7 @@
 # ExecEndModifyTable
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 4907 - 4960
+[src/backend/executor/nodeModifyTable.c:4907-4960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L4907-L4960)
 
 ## Overview
 Performs cleanup and shutdown operations for a ModifyTable execution node, releasing all allocated resources including FDW connections, tuple routing structures, and EPQ state.

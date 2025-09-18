@@ -1,7 +1,7 @@
 # RelFileLocatorSkippingWAL
 
 ## Location
-src/backend/catalog/storage.c: 557 - 570
+[src/backend/catalog/storage.c:557-570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L557-L570)
 
 ## Overview
 RelFileLocatorSkippingWAL determines whether a given RelFileLocator is currently skipping WAL logging, which is used for optimization during relation creation and bulk loading operations.

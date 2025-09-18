@@ -1,7 +1,7 @@
 # ExecLookupResultRelByOid
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 4373 - 4421
+[src/backend/executor/nodeModifyTable.c:4373-4421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L4373-L4421)
 
 ## Overview
 Locates a ResultRelInfo structure for a specific table OID among the result relations managed by a ModifyTable node, providing efficient lookup for DML operations.

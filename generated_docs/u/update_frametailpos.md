@@ -1,7 +1,7 @@
 # update_frametailpos
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1735 - 1984
+[src/backend/executor/nodeWindowAgg.c:1735-1984](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1735-L1984)
 
 ## Overview
 A static function that computes and sets the frame tail position for the current row in window function processing, determining where the window frame ends based on various boundary modes including UNBOUNDED FOLLOWING, CURRENT ROW, and offset-based frames.

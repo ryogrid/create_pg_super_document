@@ -1,7 +1,7 @@
 # comparetup_index_btree
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1442 - 1465
+[src/backend/utils/sort/tuplesortvariants.c:1442-1465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1442-L1465)
 
 ## Overview
 Compares two index tuples for btree sorting operations, implementing a multi-level comparison strategy with support for uniqueness enforcement and comprehensive tiebreaking.

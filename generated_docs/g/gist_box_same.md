@@ -1,7 +1,7 @@
 # gist_box_same
 
 ## Location
-src/backend/access/gist/gistproc.c: 852 - 871
+[src/backend/access/gist/gistproc.c:852-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L852-L871)
 
 ## Overview
 A PostgreSQL function that implements the equality method for GiST indexes on geometric data types, testing whether two bounding boxes are exactly identical.

@@ -1,7 +1,7 @@
 # expand_vacuum_rel
 
 ## Location
-src/backend/commands/vacuum.c: 881 - 1020
+[src/backend/commands/vacuum.c:881-1020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L881-L1020)
 
 ## Overview
 Expands a VacuumRelation by filling in the table OID if not specified and optionally adding VacuumRelations for all partitions of a partitioned table.

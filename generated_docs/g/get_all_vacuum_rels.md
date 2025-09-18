@@ -1,7 +1,7 @@
 # get_all_vacuum_rels
 
 ## Location
-src/backend/commands/vacuum.c: 1021 - 1082
+[src/backend/commands/vacuum.c:1021-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1021-L1082)
 
 ## Overview
 Constructs a list of VacuumRelations for all vacuumable relations in the current database by scanning the system catalog.

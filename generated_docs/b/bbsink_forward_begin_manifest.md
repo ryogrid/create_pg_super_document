@@ -1,7 +1,7 @@
 # bbsink_forward_begin_manifest
 
 ## Location
-src/backend/backup/basebackup_sink.c: 76 - 88
+[src/backend/backup/basebackup_sink.c:76-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L76-L88)
 
 ## Overview
 Forwards the begin_manifest callback to the next bbsink in a chain, enabling the initiation of manifest processing in a cascaded bbsink architecture.

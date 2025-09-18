@@ -1,7 +1,7 @@
 # generate_restrict_key
 
 ## Location
-src/bin/pg_dump/dumputils.c: 931 - 954
+[src/bin/pg_dump/dumputils.c:931-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L931-L954)
 
 ## Overview
 generate_restrict_key creates a random alphanumeric string for use as a restrict key with psql's \restrict and \unrestrict meta-commands.

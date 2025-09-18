@@ -1,7 +1,7 @@
 # partition_bounds_equal
 
 ## Location
-src/backend/partitioning/partbounds.c: 896 - 1001
+[src/backend/partitioning/partbounds.c:896-1001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L896-L1001)
 
 ## Overview
 Determines if two partition bound collections are logically equal by comparing their structural elements and data content.

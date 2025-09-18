@@ -1,7 +1,7 @@
 # makeConst
 
 ## Location
-src/backend/nodes/makefuncs.c: 348 - 385
+[src/backend/nodes/makefuncs.c:348-385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L348-L385)
 
 ## Overview
 Creates a Const node representing a constant value in PostgreSQL's expression tree, handling proper storage format and type information.

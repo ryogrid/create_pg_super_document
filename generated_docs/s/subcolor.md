@@ -1,7 +1,7 @@
 # subcolor
 
 ## Location
-src/backend/regex/regc_color.c: 336 - 365
+[src/backend/regex/regc_color.c:336-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L336-L365)
 
 ## Overview
 Allocates a new subcolor for a specific character if necessary, working only with characters that map into the low color map.

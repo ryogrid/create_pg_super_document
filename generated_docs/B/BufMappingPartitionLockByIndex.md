@@ -1,7 +1,7 @@
 # BufMappingPartitionLockByIndex
 
 ## Location
-src/include/storage/buf_internals.h: 193 - 244
+[src/include/storage/buf_internals.h:193-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L193-L244)
 
 ## Overview
 Returns a pointer to the lightweight lock (LWLock) for a specific buffer mapping partition identified by index, providing access to the lock that protects buffer mapping data structures.

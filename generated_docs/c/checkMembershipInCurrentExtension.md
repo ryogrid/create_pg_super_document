@@ -1,7 +1,7 @@
 # checkMembershipInCurrentExtension
 
 ## Location
-src/backend/catalog/pg_depend.c: 259 - 301
+[src/backend/catalog/pg_depend.c:259-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L259-L301)
 
 ## Overview
 Validates that an existing object is a member of the currently executing extension during CREATE IF NOT EXISTS operations, preventing security vulnerabilities from hostile object substitution.

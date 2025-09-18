@@ -1,7 +1,7 @@
 # PQgetisnull
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3901 - 3914
+[src/interfaces/libpq/fe-exec.c:3901-3914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3901-L3914)
 
 ## Overview
 PQgetisnull tests whether a field value in a PostgreSQL query result is NULL, returning 1 if NULL and 0 if not NULL.

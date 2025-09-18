@@ -1,7 +1,7 @@
 # restore_backend_variables
 
 ## Location
-src/backend/postmaster/launch_backend.c: 977 - 1055
+[src/backend/postmaster/launch_backend.c:977-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L977-L1055)
 
 ## Overview
 Restores critical backend global variables and shared memory structures from a BackendParameters struct that was passed from the postmaster process.

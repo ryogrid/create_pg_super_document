@@ -1,7 +1,7 @@
 # JsonbToJsonbValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 72 - 91
+[src/backend/utils/adt/jsonb_util.c:72-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L72-L91)
 
 ## Overview
 Converts a Jsonb structure to a JsonbValue by wrapping the binary data for internal processing within the JSONB system.

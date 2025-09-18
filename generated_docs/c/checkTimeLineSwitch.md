@@ -1,7 +1,7 @@
 # checkTimeLineSwitch
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2377 - 2425
+[src/backend/access/transam/xlogrecovery.c:2377-2425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2377-L2425)
 
 ## Overview
 A validation function that ensures timeline switches during WAL recovery are safe and consistent, preventing corruption by verifying timeline constraints and minimum recovery point requirements.

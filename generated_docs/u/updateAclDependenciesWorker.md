@@ -1,7 +1,7 @@
 # updateAclDependenciesWorker
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 525 - 603
+[src/backend/catalog/pg_shdepend.c:525-603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L525-L603)
 
 ## Overview
 Core worker function that performs the actual shared dependency updates for ACL and initial ACL changes, handling the addition and removal of role-based dependencies.

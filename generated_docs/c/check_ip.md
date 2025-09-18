@@ -1,7 +1,7 @@
 # check_ip
 
 ## Location
-src/backend/libpq/hba.c: 1163 - 1176
+[src/backend/libpq/hba.c:1163-1176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1163-L1176)
 
 ## Overview
 Determines whether a client's IP address matches a given network address and netmask combination for host-based authentication.

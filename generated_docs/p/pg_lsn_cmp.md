@@ -1,7 +1,7 @@
 # pg_lsn_cmp
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 191 - 205
+[src/backend/utils/adt/pg_lsn.c:191-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L191-L205)
 
 ## Overview
 The pg_lsn_cmp function provides a three-way comparison of PostgreSQL Log Sequence Numbers (LSNs) for btree index support, returning -1, 0, or 1 based on the relative ordering of two LSN values.

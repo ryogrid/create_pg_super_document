@@ -1,7 +1,7 @@
 # r_step2b
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2904 - 2921
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2904-2921](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2904-L2921)
 
 ## Overview
 A static function that implements step 2b of the Greek language stemming algorithm, performing two-stage suffix removal and replacement with character validation at both stages.

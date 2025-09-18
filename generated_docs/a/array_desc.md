@@ -1,7 +1,7 @@
 # array_desc
 
 ## Location
-src/backend/access/rmgrdesc/rmgrdesc_utils.c: 24 - 43
+[src/backend/access/rmgrdesc/rmgrdesc_utils.c:24-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/rmgrdesc_utils.c#L24-L43)
 
 ## Overview
 A utility function that formats and prints array contents into a StringInfo buffer for WAL record description purposes.

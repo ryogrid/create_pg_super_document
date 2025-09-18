@@ -1,7 +1,7 @@
 # close_tsvector_parser
 
 ## Location
-src/backend/utils/adt/tsvector_parser.c: 90 - 96
+[src/backend/utils/adt/tsvector_parser.c:90-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_parser.c#L90-L96)
 
 ## Overview
 Shuts down a tsvector parser by freeing all allocated memory associated with the parser state.

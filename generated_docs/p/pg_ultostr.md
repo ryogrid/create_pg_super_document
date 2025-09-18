@@ -1,7 +1,7 @@
 # pg_ultostr
 
 ## Location
-src/backend/utils/adt/numutils.c: 1309 - 1314
+[src/backend/utils/adt/numutils.c:1309-1314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L1309-L1314)
 
 ## Overview
 Converts an unsigned 32-bit integer to its decimal string representation without NUL termination, designed for efficient building of multi-component strings.

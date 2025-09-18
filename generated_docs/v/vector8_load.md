@@ -1,7 +1,7 @@
 # vector8_load
 
 ## Location
-src/include/port/simd.h: 108 - 120
+[src/include/port/simd.h:108-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L108-L120)
 
 ## Overview
 Loads a chunk of memory (8 uint8 values) into a Vector8 SIMD register, providing platform-optimized memory loading operations for SIMD-enabled code paths.

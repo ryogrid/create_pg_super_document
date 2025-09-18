@@ -1,7 +1,7 @@
 # _jumbleNode
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 236 - 291
+[src/backend/nodes/queryjumblefuncs.c:236-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L236-L291)
 
 ## Overview
 The `_jumbleNode` function is a core recursive function in PostgreSQL's query jumbling system that processes AST (Abstract Syntax Tree) nodes to generate normalized query fingerprints for query plan caching and statistics.

@@ -1,7 +1,7 @@
 # AfterTriggerEventData
 
 ## Location
-src/backend/commands/trigger.c: 3730 - 3743
+[src/backend/commands/trigger.c:3730-3743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3730-L3743)
 
 ## Overview
 AfterTriggerEventData is the core data structure that stores information about deferred trigger events, including status flags, tuple identifiers, and partition OIDs for cross-partition operations.

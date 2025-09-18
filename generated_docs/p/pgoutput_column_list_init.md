@@ -1,7 +1,7 @@
 # pgoutput_column_list_init
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1041 - 1155
+[src/backend/replication/pgoutput/pgoutput.c:1041-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1041-L1155)
 
 ## Overview
 Initializes column list filtering for a relation in the pgoutput logical replication plugin by building a bitmap of published columns from multiple publications.

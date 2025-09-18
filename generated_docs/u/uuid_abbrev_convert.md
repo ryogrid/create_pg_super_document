@@ -1,7 +1,7 @@
 # uuid_abbrev_convert
 
 ## Location
-src/backend/utils/adt/uuid.c: 358 - 394
+[src/backend/utils/adt/uuid.c:358-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L358-L394)
 
 ## Overview
 A conversion function that transforms UUID values into abbreviated keys for optimized sorting by packing the first bytes of UUID data into a Datum for faster comparison.

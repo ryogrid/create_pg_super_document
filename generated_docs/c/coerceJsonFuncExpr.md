@@ -1,7 +1,7 @@
 # coerceJsonFuncExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 3590 - 3653
+[src/backend/parser/parse_expr.c:3590-3653](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3590-L3653)
 
 ## Overview  
 Coerces JSON/JSONB function expressions to the specified output type, handling special cases like BYTEA encoding and general type conversions with appropriate error reporting.

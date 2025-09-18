@@ -1,7 +1,7 @@
 # SpGistInitBuffer
 
 ## Location
-src/backend/access/spgist/spgutils.c: 714 - 723
+[src/backend/access/spgist/spgutils.c:714-723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L714-L723)
 
 ## Overview
 Initializes a buffer's page to empty state with specified flags, serving as a wrapper around SpGistInitPage with buffer validation.

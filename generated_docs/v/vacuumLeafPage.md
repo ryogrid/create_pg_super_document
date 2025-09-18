@@ -1,7 +1,7 @@
 # vacuumLeafPage
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 125 - 407
+[src/backend/access/spgist/spgvacuum.c:125-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L125-L407)
 
 ## Overview
 Vacuums a regular (non-root) leaf page in an SP-GiST index, deleting tuples targeted for deletion while preserving chain structure and handling concurrent redirections.

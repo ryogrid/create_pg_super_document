@@ -1,7 +1,7 @@
 # pgstat_tracks_io_op
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 424 - 478
+[src/backend/utils/activity/pgstat_io.c:424-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L424-L478)
 
 ## Overview
 This function validates whether a specific I/O operation should be tracked for a given combination of backend type, I/O object, I/O context, and I/O operation by implementing comprehensive compatibility rules.

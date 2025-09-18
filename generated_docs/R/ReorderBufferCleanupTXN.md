@@ -1,7 +1,7 @@
 # ReorderBufferCleanupTXN
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 1531 - 1650
+[src/backend/replication/logical/reorderbuffer.c:1531-1650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L1531-L1650)
 
 ## Overview
 Performs comprehensive cleanup of a transaction and all its associated resources, including subtransactions, changes, snapshots, and memory, typically after the transaction has committed or aborted.

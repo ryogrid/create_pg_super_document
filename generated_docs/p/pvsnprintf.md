@@ -1,7 +1,7 @@
 # pvsnprintf
 
 ## Location
-src/common/psprintf.c: 106 - 151
+[src/common/psprintf.c:106-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/psprintf.c#L106-L151)
 
 ## Overview
 A PostgreSQL utility function that attempts to format text data into a buffer using sprintf-style formatting, returning either the number of bytes written or an estimate of the required buffer size.

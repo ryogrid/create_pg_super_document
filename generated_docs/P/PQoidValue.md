@@ -1,7 +1,7 @@
 # PQoidValue
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3793 - 3821
+[src/interfaces/libpq/fe-exec.c:3793-3821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3793-L3821)
 
 ## Overview
 PQoidValue extracts the OID (Object Identifier) from INSERT command results and returns it as a proper Oid data type, providing a more type-safe alternative to PQoidStatus.

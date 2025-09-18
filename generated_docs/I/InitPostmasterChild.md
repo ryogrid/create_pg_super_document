@@ -1,7 +1,7 @@
 # InitPostmasterChild
 
 ## Location
-src/backend/utils/init/miscinit.c: 96 - 181
+[src/backend/utils/init/miscinit.c:96-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L96-L181)
 
 ## Overview
 Initializes the basic environment for a postmaster child process, setting up essential process state and signal handling mechanisms that all PostgreSQL child processes require.

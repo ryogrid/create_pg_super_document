@@ -1,7 +1,7 @@
 # CreateQueryDesc
 
 ## Location
-src/backend/tcop/pquery.c: 67 - 104
+[src/backend/tcop/pquery.c:67-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/pquery.c#L67-L104)
 
 ## Overview
 CreateQueryDesc constructs and initializes a QueryDesc structure that encapsulates all information needed to execute a planned query statement in PostgreSQL.

@@ -1,7 +1,7 @@
 # findPartialMatch
 
 ## Location
-src/backend/executor/nodeSubplan.c: 744 - 778
+[src/backend/executor/nodeSubplan.c:744-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L744-L778)
 
 ## Overview
 Searches a hash table to determine if it contains an entry that is not provably distinct from a given tuple, used in subplan execution for partial match detection.

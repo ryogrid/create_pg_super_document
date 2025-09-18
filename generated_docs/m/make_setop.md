@@ -1,7 +1,7 @@
 # make_setop
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6884 - 6939
+[src/backend/optimizer/plan/createplan.c:6884-6939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6884-L6939)
 
 ## Overview
 Creates a SetOp plan node that implements set operations like UNION, INTERSECT, and EXCEPT by filtering duplicate tuples based on specified columns.

@@ -1,7 +1,7 @@
 # format_type_be
 
 ## Location
-src/backend/utils/adt/format_type.c: 343 - 352
+[src/backend/utils/adt/format_type.c:343-352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L343-L352)
 
 ## Overview
 Backend-specific function for formatting PostgreSQL type names in error messages and internal operations, with strict error handling for invalid types.

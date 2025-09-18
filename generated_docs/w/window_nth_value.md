@@ -1,7 +1,7 @@
 # window_nth_value
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 691 - 716
+[src/backend/utils/adt/windowfuncs.c:691-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L691-L716)
 
 ## Overview
 Implements the SQL window function NTH_VALUE(), which returns the value of the specified expression evaluated at the nth row from the first row of the window frame.

@@ -1,7 +1,7 @@
 # PGTYPEStimestamp_current
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 294 - 303
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:294-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L294-L303)
 
 ## Overview
 Retrieves the current system time and converts it to PostgreSQL's internal timestamp format for use in ECPG applications.

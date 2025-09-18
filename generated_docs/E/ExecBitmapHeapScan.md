@@ -1,7 +1,7 @@
 # ExecBitmapHeapScan
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 581 - 594
+[src/backend/executor/nodeBitmapHeapscan.c:581-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L581-L594)
 
 ## Overview
 ExecBitmapHeapScan is the main execution function for bitmap heap scan nodes that retrieves the next qualifying tuple by delegating to the generic scan framework with bitmap-specific access and recheck methods.

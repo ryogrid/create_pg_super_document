@@ -1,7 +1,7 @@
 # deconstruct_distribute_oj_quals
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 1878 - 2118
+[src/backend/optimizer/plan/initsplan.c:1878-2118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L1878-L2118)
 
 ## Overview
 Adjusts LEFT JOIN qualifiers for commuted-left-join cases and distributes them into the appropriate joinqual lists and EquivalenceClass structures.

@@ -1,7 +1,7 @@
 # get_config_handle
 
 ## Location
-src/backend/utils/misc/guc.c: 4287 - 4301
+[src/backend/utils/misc/guc.c:4287-4301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4287-L4301)
 
 ## Overview
 Retrieves a configuration handle for a given parameter name to optimize repeated calls to set_config_with_handle().

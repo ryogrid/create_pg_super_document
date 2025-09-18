@@ -1,7 +1,7 @@
 # conninfo_find
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6928 - 6945
+[src/interfaces/libpq/fe-connect.c:6928-6945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6928-L6945)
 
 ## Overview
 A static utility function that searches for a specific connection option by keyword in the PQconninfoOption array.

@@ -1,7 +1,7 @@
 # BitmapHeapScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1815 - 1833
+[src/include/nodes/execnodes.h:1815-1833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1815-L1833)
 
 ## Overview
 BitmapHeapScanState is an execution state structure that manages bitmap heap scan operations, retrieving actual tuples from heap pages identified by TID bitmaps created by bitmap index scans, with support for prefetching and parallel execution.

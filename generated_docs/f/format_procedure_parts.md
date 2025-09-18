@@ -1,7 +1,7 @@
 # format_procedure_parts
 
 ## Location
-src/backend/utils/adt/regproc.c: 398 - 434
+[src/backend/utils/adt/regproc.c:398-434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L398-L434)
 
 ## Overview
 Outputs an objname/objargs representation for a procedure with the given OID, which can be used to feed get_object_address for object identification and manipulation.

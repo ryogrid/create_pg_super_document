@@ -1,7 +1,7 @@
 # split_array
 
 ## Location
-src/pl/plperl/plperl.c: 1559 - 1592
+[src/pl/plperl/plperl.c:1559-1592](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1559-L1592)
 
 ## Overview
 Recursively converts multi-dimensional PostgreSQL array data into nested Perl array references by splitting array dimensions.

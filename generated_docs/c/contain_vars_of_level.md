@@ -1,7 +1,7 @@
 # contain_vars_of_level
 
 ## Location
-src/backend/optimizer/util/var.c: 441 - 451
+[src/backend/optimizer/util/var.c:441-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L441-L451)
 
 ## Overview
 Recursively scans a clause to discover whether it contains any Var nodes of the specified query level.

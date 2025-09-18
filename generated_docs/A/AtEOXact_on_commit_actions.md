@@ -1,7 +1,7 @@
 # AtEOXact_on_commit_actions
 
 ## Location
-src/backend/commands/tablecmds.c: 17688 - 17719
+[src/backend/commands/tablecmds.c:17688-17719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17688-L17719)
 
 ## Overview
 AtEOXact_on_commit_actions performs post-commit or post-abort cleanup for ON COMMIT management by removing no-longer-needed OnCommitItem entries from the global on_commits list.

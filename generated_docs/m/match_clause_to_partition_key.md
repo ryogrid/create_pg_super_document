@@ -1,7 +1,7 @@
 # match_clause_to_partition_key
 
 ## Location
-src/backend/partitioning/partprune.c: 1790 - 2437
+[src/backend/partitioning/partprune.c:1790-2437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L1790-L2437)
 
 ## Overview
 Attempts to match a given clause with a specified partition key and determines how the clause can be used for partition pruning.

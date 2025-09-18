@@ -1,7 +1,7 @@
 # pgwin32_CommandLine
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1417 - 1500
+[src/bin/pg_ctl/pg_ctl.c:1417-1500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1417-L1500)
 
 ## Overview
 Constructs a properly formatted command line string for PostgreSQL processes on Windows, handling both service registration and runtime execution scenarios.

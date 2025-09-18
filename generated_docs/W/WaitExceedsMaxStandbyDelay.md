@@ -1,7 +1,7 @@
 # WaitExceedsMaxStandbyDelay
 
 ## Location
-src/backend/storage/ipc/standby.c: 233 - 272
+[src/backend/storage/ipc/standby.c:233-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L233-L272)
 
 ## Overview
 Implements a progressive backoff waiting mechanism for recovery conflicts, determining whether the maximum standby delay has been exceeded and providing controlled sleep intervals.

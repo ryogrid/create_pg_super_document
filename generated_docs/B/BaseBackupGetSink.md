@@ -1,7 +1,7 @@
 # BaseBackupGetSink
 
 ## Location
-src/backend/backup/basebackup_target.c: 163 - 171
+[src/backend/backup/basebackup_target.c:163-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L163-L171)
 
 ## Overview
 Creates and returns a bbsink object for the specified backup target handle, delegating to the target-specific get_sink function to construct the appropriate backup sink implementation.

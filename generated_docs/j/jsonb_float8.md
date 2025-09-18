@@ -1,7 +1,7 @@
 # jsonb_float8
 
 ## Location
-src/backend/utils/adt/jsonb.c: 2145 - 2165
+[src/backend/utils/adt/jsonb.c:2145-2165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L2145-L2165)
 
 ## Overview
 Converts a JSONB value to a PostgreSQL float8 (double precision) data type, extracting numeric scalar values from JSONB format.

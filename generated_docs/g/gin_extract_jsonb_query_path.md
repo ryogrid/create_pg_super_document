@@ -1,7 +1,7 @@
 # gin_extract_jsonb_query_path
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 1180 - 1219
+[src/backend/utils/adt/jsonb_gin.c:1180-1219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L1180-L1219)
 
 ## Overview
 The query extraction function for the jsonb_path_ops GIN opclass that extracts search keys from query values for index lookups using path-sensitive hashing.

@@ -1,7 +1,7 @@
 # replace_correlation_vars_mutator
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1875 - 1918
+[src/backend/optimizer/plan/subselect.c:1875-1918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1875-L1918)
 
 ## Overview
 A tree-walking mutator function that recursively traverses expression trees to replace uplevel correlation variables and expressions with appropriate Param nodes for subquery execution.

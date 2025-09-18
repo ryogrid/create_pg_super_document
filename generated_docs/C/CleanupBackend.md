@@ -1,7 +1,7 @@
 # CleanupBackend
 
 ## Location
-src/backend/postmaster/postmaster.c: 2791 - 2874
+[src/backend/postmaster/postmaster.c:2791-2874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2791-L2874)
 
 ## Overview
 CleanupBackend handles the cleanup operations after a PostgreSQL backend process terminates, removing all local state associated with the backend and determining if the termination requires emergency actions.

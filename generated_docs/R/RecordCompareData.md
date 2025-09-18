@@ -1,7 +1,7 @@
 # RecordCompareData
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 59 - 67
+[src/backend/utils/adt/rowtypes.c:59-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L59-L67)
 
 ## Overview
 A structure that caches metadata needed for comparing entire records, supporting comparisons between records of potentially different types by maintaining type information for both operands.

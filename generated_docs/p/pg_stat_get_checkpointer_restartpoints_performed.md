@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_restartpoints_performed
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1207 - 1212
+[src/backend/utils/adt/pgstatfuncs.c:1207-1212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1207-L1212)
 
 ## Overview
 Returns the total number of restartpoints that have been successfully completed by the checkpointer process.

@@ -1,7 +1,7 @@
 # pg_snapshot_xmax
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 582 - 594
+[src/backend/utils/adt/xid8funcs.c:582-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L582-L594)
 
 ## Overview
 Extracts and returns the maximum transaction ID (xmax) from a PostgreSQL snapshot, representing the first transaction ID that was not yet assigned when the snapshot was taken.

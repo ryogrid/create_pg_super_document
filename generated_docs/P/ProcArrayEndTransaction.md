@@ -1,7 +1,7 @@
 # ProcArrayEndTransaction
 
 ## Location
-src/backend/storage/ipc/procarray.c: 667 - 730
+[src/backend/storage/ipc/procarray.c:667-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L667-L730)
 
 ## Overview
 Marks a transaction as no longer running in the shared process array, handling both commit and abort cases with optimizations for lock contention.

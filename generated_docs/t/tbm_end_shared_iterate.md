@@ -1,7 +1,7 @@
 # tbm_end_shared_iterate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 1158 - 1168
+[src/backend/nodes/tidbitmap.c:1158-1168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L1158-L1168)
 
 ## Overview
 Finishes a shared iteration over a TIDBitmap by cleaning up the backend-private iterator state while leaving shared state intact.

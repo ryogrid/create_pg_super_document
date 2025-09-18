@@ -1,7 +1,7 @@
 # terminate_brin_buildstate
 
 ## Location
-src/backend/access/brin/brin.c: 1707 - 1751
+[src/backend/access/brin/brin.c:1707-1751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1707-L1751)
 
 ## Overview
 Releases all resources associated with a BrinBuildState structure, including buffers, descriptors, and memory allocations used during BRIN index construction.

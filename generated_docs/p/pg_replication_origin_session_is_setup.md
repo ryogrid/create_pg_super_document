@@ -1,7 +1,7 @@
 # pg_replication_origin_session_is_setup
 
 ## Location
-src/backend/replication/logical/origin.c: 1389 - 1404
+[src/backend/replication/logical/origin.c:1389-1404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1389-L1404)
 
 ## Overview
 SQL-callable function that checks whether a replication origin has been set up for the current session, returning a boolean indicating the session's origin setup status.

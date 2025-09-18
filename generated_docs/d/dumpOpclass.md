@@ -1,7 +1,7 @@
 # dumpOpclass
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 13342 - 13622
+[src/bin/pg_dump/pg_dump.c:13342-13622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L13342-L13622)
 
 ## Overview
 Writes out a complete operator class definition including its operators and functions, generating CREATE OPERATOR CLASS and DROP OPERATOR CLASS statements for pg_dump output.

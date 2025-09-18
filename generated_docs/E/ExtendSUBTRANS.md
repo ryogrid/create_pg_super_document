@@ -1,7 +1,7 @@
 # ExtendSUBTRANS
 
 ## Location
-src/backend/access/transam/subtrans.c: 379 - 410
+[src/backend/access/transam/subtrans.c:379-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L379-L410)
 
 ## Overview
 Ensures that the SUBTRANS system has room for a newly-allocated transaction ID by extending and zeroing new pages as needed during transaction ID allocation.

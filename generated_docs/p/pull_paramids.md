@@ -1,7 +1,7 @@
 # pull_paramids
 
 ## Location
-src/backend/optimizer/util/clauses.c: 5418 - 5427
+[src/backend/optimizer/util/clauses.c:5418-5427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L5418-L5427)
 
 ## Overview
 Extracts parameter IDs from an expression tree and returns them as a Bitmapset containing the paramids of all Params found in the given expression.

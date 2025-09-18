@@ -1,7 +1,7 @@
 # getCollations
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 6100 - 6171
+[src/bin/pg_dump/pg_dump.c:6100-6171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L6100-L6171)
 
 ## Overview
 Reads all collations from the PostgreSQL system catalogs and returns them in a CollInfo structure array for pg_dump processing.

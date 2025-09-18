@@ -1,7 +1,7 @@
 # NoticeProcessor
 
 ## Location
-src/bin/psql/common.c: 267 - 296
+[src/bin/psql/common.c:267-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L267-L296)
 
 ## Overview
 NoticeProcessor is a callback function used in psql to handle backend notice messages (INFO, WARNING, etc.) from PostgreSQL server connections.

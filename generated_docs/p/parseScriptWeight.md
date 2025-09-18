@@ -1,7 +1,7 @@
 # parseScriptWeight
 
 ## Location
-src/bin/pgbench/pgbench.c: 6192 - 6228
+[src/bin/pgbench/pgbench.c:6192-6228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L6192-L6228)
 
 ## Overview
 Parses script weight specifications from command-line options and extracts the script name and weight value.

@@ -1,7 +1,7 @@
 # regoperatorin
 
 ## Location
-src/backend/utils/adt/regproc.c: 639 - 693
+[src/backend/utils/adt/regproc.c:639-693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L639-L693)
 
 ## Overview
 Converts operator name with argument types in the format "oprname(args)" to operator OID, used for regoperator data type input.

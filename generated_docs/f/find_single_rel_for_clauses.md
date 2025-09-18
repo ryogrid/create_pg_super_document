@@ -1,7 +1,7 @@
 # find_single_rel_for_clauses
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 523 - 585
+[src/backend/optimizer/path/clausesel.c:523-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L523-L585)
 
 ## Overview
 Analyzes a list of clauses to determine if they all reference exactly one relation, enabling the application of extended statistics for more accurate selectivity estimation.

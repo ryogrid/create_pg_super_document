@@ -1,7 +1,7 @@
 # GetCurrentChunkReplayStartTime
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4627 - 4642
+[src/backend/access/transam/xlogrecovery.c:4627-4642](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4627-L4642)
 
 ## Overview
 GetCurrentChunkReplayStartTime retrieves the timestamp marking the beginning of the current chunk of WAL records being processed during recovery.

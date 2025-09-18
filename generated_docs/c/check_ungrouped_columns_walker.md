@@ -1,7 +1,7 @@
 # check_ungrouped_columns_walker
 
 ## Location
-src/backend/parser/parse_agg.c: 1295 - 1482
+[src/backend/parser/parse_agg.c:1295-1482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1295-L1482)
 
 ## Overview
 Core recursive tree walker that implements PostgreSQL's GROUP BY validation logic by examining each node for ungrouped variables and enforcing SQL aggregation rules.

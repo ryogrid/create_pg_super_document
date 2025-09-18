@@ -1,7 +1,7 @@
 # PrintQueryStatus
 
 ## Location
-src/bin/psql/common.c: 957 - 1003
+[src/bin/psql/common.c:957-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L957-L1003)
 
 ## Overview
 Prints the command status message for completed SQL queries, handling different output formats and logging while also setting the LASTOID psql variable.

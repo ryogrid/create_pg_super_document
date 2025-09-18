@@ -1,7 +1,7 @@
 # ATExecAddIdentity
 
 ## Location
-src/backend/commands/tablecmds.c: 8023 - 8128
+[src/backend/commands/tablecmds.c:8023-8128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8023-L8128)
 
 ## Overview
 ATExecAddIdentity implements the ALTER TABLE ALTER COLUMN ADD IDENTITY command, adding identity column properties to an existing column in a PostgreSQL relation.

@@ -1,7 +1,7 @@
 # GetXLogReceiptTime
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4643 - 4659
+[src/backend/access/transam/xlogrecovery.c:4643-4659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4643-L4659)
 
 ## Overview
 GetXLogReceiptTime returns the time of receipt of the current chunk of XLOG data and indicates whether it was received from streaming replication or from archives.

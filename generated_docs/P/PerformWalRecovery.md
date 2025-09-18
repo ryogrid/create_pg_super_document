@@ -1,7 +1,7 @@
 # PerformWalRecovery
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 1652 - 1907
+[src/backend/access/transam/xlogrecovery.c:1652-1907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L1652-L1907)
 
 ## Overview
 PerformWalRecovery performs WAL (Write-Ahead Log) recovery by replaying WAL records from the REDO start location to either the end of available WAL or a configured recovery target.

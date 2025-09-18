@@ -1,7 +1,7 @@
 # pg_popcount_avx512
 
 ## Location
-src/port/pg_popcount_avx512.c: 31 - 85
+[src/port/pg_popcount_avx512.c:31-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_popcount_avx512.c#L31-L85)
 
 ## Overview
 pg_popcount_avx512 is an AVX-512 optimized function that efficiently counts the number of 1-bits (population count) in a buffer of bytes using Intel's AVX-512 SIMD instructions.

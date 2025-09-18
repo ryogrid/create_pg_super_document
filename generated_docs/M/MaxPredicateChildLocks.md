@@ -1,7 +1,7 @@
 # MaxPredicateChildLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2279 - 2315
+[src/backend/storage/lmgr/predicate.c:2279-2315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2279-L2315)
 
 ## Overview
 Returns the promotion limit for a given predicate lock target, specifying the maximum number of descendant locks allowed before promoting to the specified tag.

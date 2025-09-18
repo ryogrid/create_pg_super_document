@@ -1,7 +1,7 @@
 # DefineCustomStringVariable
 
 ## Location
-src/backend/utils/misc/guc.c: 5226 - 5250
+[src/backend/utils/misc/guc.c:5226-5250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5226-L5250)
 
 ## Overview
 Registers a custom string configuration variable in PostgreSQL's Grand Unified Configuration (GUC) system, allowing extensions to define their own string-valued parameters that can be set and managed like built-in configuration options.

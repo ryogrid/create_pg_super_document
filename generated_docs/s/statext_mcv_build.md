@@ -1,7 +1,7 @@
 # statext_mcv_build
 
 ## Location
-src/backend/statistics/mcv.c: 180 - 346
+[src/backend/statistics/mcv.c:180-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mcv.c#L180-L346)
 
 ## Overview
 Builds a Most Common Values (MCV) list from sampled rows for multi-column extended statistics, implementing a four-step algorithm to identify and store the most frequently occurring value combinations.

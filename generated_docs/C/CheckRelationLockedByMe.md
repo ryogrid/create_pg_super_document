@@ -1,7 +1,7 @@
 # CheckRelationLockedByMe
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 330 - 346
+[src/backend/storage/lmgr/lmgr.c:330-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L330-L346)
 
 ## Overview
 CheckRelationLockedByMe checks whether the current transaction holds a lock on the specified relation with the given lock mode or potentially stronger.

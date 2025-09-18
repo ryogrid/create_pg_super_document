@@ -1,7 +1,7 @@
 # generate_series_timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6506 - 6589
+[src/backend/utils/adt/timestamp.c:6506-6589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6506-L6589)
 
 ## Overview
 This function generates a set-returning series of timestamp values from a start timestamp to a finish timestamp, incrementing by a specified interval step, implementing PostgreSQL's generate_series() function for timestamp data types.

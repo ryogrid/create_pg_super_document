@@ -1,7 +1,7 @@
 # ShmemBackendArraySize
 
 ## Location
-src/backend/postmaster/postmaster.c: 4550 - 4555
+[src/backend/postmaster/postmaster.c:4550-4555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4550-L4555)
 
 ## Overview
 Calculates the required shared memory size for the Backend array used in EXEC_BACKEND configurations to track all postmaster child processes.

@@ -1,7 +1,7 @@
 # euc_cn_to_mic
 
 ## Location
-src/backend/utils/mb/conversion_procs/euc_cn_and_mic/euc_cn_and_mic.c: 41 - 56
+[src/backend/utils/mb/conversion_procs/euc_cn_and_mic/euc_cn_and_mic.c:41-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/euc_cn_and_mic/euc_cn_and_mic.c#L41-L56)
 
 ## Overview
 PostgreSQL function that serves as the entry point for converting text from EUC-CN (Extended Unix Code for Chinese) encoding to MIC (Multi-byte Internal Code) encoding.

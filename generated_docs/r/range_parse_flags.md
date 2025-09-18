@@ -1,7 +1,7 @@
 # range_parse_flags
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2247 - 2321
+[src/backend/utils/adt/rangetypes.c:2247-2321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2247-L2321)
 
 ## Overview
 Static utility function that parses a string representation of range boundary flags and converts it into a character bitmask representing the inclusivity/exclusivity of range bounds.

@@ -1,7 +1,7 @@
 # compare_values
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 896 - 920
+[src/backend/access/brin/brin_minmax_multi.c:896-920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L896-L920)
 
 ## Overview
 Compares two Datum values for sorting purposes using a user-provided comparison function and collation.

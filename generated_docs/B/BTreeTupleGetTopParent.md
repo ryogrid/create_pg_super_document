@@ -1,7 +1,7 @@
 # BTreeTupleGetTopParent
 
 ## Location
-src/include/access/nbtree.h: 620 - 625
+[src/include/access/nbtree.h:620-625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L620-L625)
 
 ## Overview
 Retrieves the "top parent" block number from a leaf page's high key tuple, which is used during B-tree page deletion operations to track parent page relationships.

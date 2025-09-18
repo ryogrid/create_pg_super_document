@@ -1,7 +1,7 @@
 # toast_decompress_datum_slice
 
 ## Location
-src/backend/access/common/detoast.c: 503 - 544
+[src/backend/access/common/detoast.c:503-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L503-L544)
 
 ## Overview
 Decompresses only the front portion (prefix) of a compressed varlena datum, optimizing performance when only a partial decompression is needed from compressed TOAST data.

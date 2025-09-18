@@ -1,7 +1,7 @@
 # heap_modify_tuple_by_cols
 
 ## Location
-src/backend/access/common/heaptuple.c: 1277 - 1344
+[src/backend/access/common/heaptuple.c:1277-1344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1277-L1344)
 
 ## Overview
 Creates a new HeapTuple by replacing specific columns identified by column numbers rather than using a boolean replacement mask.

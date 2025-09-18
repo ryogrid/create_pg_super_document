@@ -1,7 +1,7 @@
 # remove_nulling_relids
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1238 - 1253
+[src/backend/rewrite/rewriteManip.c:1238-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1238-L1253)
 
 ## Overview
 remove_nulling_relids traverses an expression tree and removes specified relation IDs from the nulling relation sets of Vars and PlaceHolderVars, with exceptions for variables belonging to certain protected relations.

@@ -1,7 +1,7 @@
 # clause_selectivity_ext
 
 ## Location
-src/backend/optimizer/path/clausesel.c: 684 - 973
+[src/backend/optimizer/path/clausesel.c:684-973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/clausesel.c#L684-L973)
 
 ## Overview
 Extended version of clause_selectivity that provides fine-grained control over extended statistics usage and implements the core logic for computing selectivity of general boolean expression clauses.

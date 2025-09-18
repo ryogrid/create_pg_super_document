@@ -1,7 +1,7 @@
 # NameGetDatum
 
 ## Location
-src/include/postgres.h: 373 - 384
+[src/include/postgres.h:373-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L373-L384)
 
 ## Overview
 NameGetDatum converts a NameData structure to PostgreSQL's internal Datum representation, enabling Name values to be used in the type system and function interfaces.

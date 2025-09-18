@@ -1,7 +1,7 @@
 # romanian_ISO_8859_2_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c: 906 - 961
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c:906-961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_romanian.c#L906-L961)
 
 ## Overview
 The main stemming function for Romanian text encoded in ISO-8859-2, implementing the complete Romanian Snowball stemming algorithm through a sequence of morphological analysis steps.

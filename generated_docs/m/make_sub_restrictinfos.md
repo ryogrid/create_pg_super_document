@@ -1,7 +1,7 @@
 # make_sub_restrictinfos
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 271 - 358
+[src/backend/optimizer/util/restrictinfo.c:271-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L271-L358)
 
 ## Overview
 Recursively inserts RestrictInfo nodes into boolean expressions, handling the proper structuring of AND/OR clause hierarchies by wrapping appropriate sub-expressions in RestrictInfo nodes.

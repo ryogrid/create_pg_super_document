@@ -1,7 +1,7 @@
 # createForeignKeyCheckTriggers
 
 ## Location
-src/backend/commands/tablecmds.c: 12536 - 12555
+[src/backend/commands/tablecmds.c:12536-12555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12536-L12555)
 
 ## Overview
 Creates the referencing-side "check" triggers that implement foreign key constraint validation on the referencing table for INSERT and UPDATE operations.

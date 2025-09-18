@@ -1,7 +1,7 @@
 # preprocess_function_rtes
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 887 - 933
+[src/backend/optimizer/prep/prepjointree.c:887-933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L887-L933)
 
 ## Overview
 Constant-simplifies FUNCTION RTEs in the FROM clause and attempts to inline set-returning functions by converting them to subqueries for optimization purposes.

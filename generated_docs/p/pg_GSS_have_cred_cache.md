@@ -1,7 +1,7 @@
 # pg_GSS_have_cred_cache
 
 ## Location
-src/interfaces/libpq/fe-gssapi-common.c: 61 - 81
+[src/interfaces/libpq/fe-gssapi-common.c:61-81](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-gssapi-common.c#L61-L81)
 
 ## Overview
 Client-side function that checks if GSS-API credentials can be acquired from the credential cache and optionally returns the credential handle.

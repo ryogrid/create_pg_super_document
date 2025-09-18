@@ -1,7 +1,7 @@
 # dttoasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 656 - 665
+[src/interfaces/ecpg/compatlib/informix.c:656-665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L656-L665)
 
 ## Overview
 The dttoasc function converts a timestamp value to its ASCII string representation, providing Informix ESQL/C compatibility for timestamp-to-string conversion operations.

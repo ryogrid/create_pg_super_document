@@ -1,7 +1,7 @@
 # ArrayType
 
 ## Location
-src/include/utils/array.h: 92 - 98
+[src/include/utils/array.h:92-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/array.h#L92-L98)
 
 ## Overview
 ArrayType is a fundamental structure in PostgreSQL that represents array values as varlena objects, providing the core data structure for all array types in the system.

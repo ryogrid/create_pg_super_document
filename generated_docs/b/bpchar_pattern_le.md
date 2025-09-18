@@ -1,7 +1,7 @@
 # bpchar_pattern_le
 
 ## Location
-src/backend/utils/adt/varchar.c: 1157 - 1172
+[src/backend/utils/adt/varchar.c:1157-1172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L1157-L1172)
 
 ## Overview
 Implements the "less than or equal to" operator for pattern-based comparison of BPCHAR (blank-padded character) values, supporting character-by-character comparison suitable for LIKE clause indexing.

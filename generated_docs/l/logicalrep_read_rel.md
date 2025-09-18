@@ -1,7 +1,7 @@
 # logicalrep_read_rel
 
 ## Location
-src/backend/replication/logical/proto.c: 700 - 724
+[src/backend/replication/logical/proto.c:700-724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L700-L724)
 
 ## Overview
 Deserializes and reads a relation (table) description from the logical replication input stream, reconstructing schema information for subscriber use.

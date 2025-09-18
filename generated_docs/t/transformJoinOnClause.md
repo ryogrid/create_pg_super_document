@@ -1,7 +1,7 @@
 # transformJoinOnClause
 
 ## Location
-src/backend/parser/parse_clause.c: 367 - 396
+[src/backend/parser/parse_clause.c:367-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L367-L396)
 
 ## Overview
 Transforms the qualification conditions for JOIN/ON clauses by setting up the appropriate namespace context and processing the boolean expressions.

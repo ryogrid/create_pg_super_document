@@ -1,7 +1,7 @@
 # get_expr_result_tupdesc
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 551 - 588
+[src/backend/utils/fmgr/funcapi.c:551-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L551-L588)
 
 ## Overview
 A simplified function that extracts only the TupleDesc from composite-valued expressions, providing a convenient interface when only the tuple descriptor is needed rather than full type classification.

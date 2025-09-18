@@ -1,7 +1,7 @@
 # ExecTypeFromExprList
 
 ## Location
-src/backend/executor/execTuples.c: 2084 - 2116
+[src/backend/executor/execTuples.c:2084-2116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2084-L2116)
 
 ## Overview
 ExecTypeFromExprList builds a tuple descriptor from a list of expressions without attached column names, serving as a utility for creating type information structures from bare expressions rather than TargetEntry nodes.

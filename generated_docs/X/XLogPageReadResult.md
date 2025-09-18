@@ -1,7 +1,7 @@
 # XLogPageReadResult
 
 ## Location
-src/include/access/xlogreader.h: 354 - 381
+[src/include/access/xlogreader.h:354-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L354-L381)
 
 ## Overview
 XLogPageReadResult is an enumeration that defines the return values for XLogPageReadCB callback functions, indicating the success, failure, or blocking status of WAL (Write-Ahead Logging) page read operations.

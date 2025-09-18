@@ -1,7 +1,7 @@
 # diag3
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 573 - 589
+[src/tools/pg_bsd_indent/io.c:573-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L573-L589)
 
 ## Overview
 A diagnostic message output function in the pg_bsd_indent tool that formats and prints error or warning messages with a single integer argument.

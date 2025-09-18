@@ -1,7 +1,7 @@
 # offset_to_interval
 
 ## Location
-src/backend/replication/walsender.c: 3889 - 3904
+[src/backend/replication/walsender.c:3889-3904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3889-L3904)
 
 ## Overview
 Converts a TimeOffset value into a PostgreSQL Interval data structure for use in system views and time calculations.

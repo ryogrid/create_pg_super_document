@@ -1,7 +1,7 @@
 # fmgr_security_definer_cache
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 611 - 631
+[src/backend/utils/fmgr/fmgr.c:611-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L611-L631)
 
 ## Overview
 This structure caches information required for executing security-definer functions and functions with proconfig settings, supporting both features through a unified call handler for efficiency.

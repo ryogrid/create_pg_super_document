@@ -1,7 +1,7 @@
 # ReplicationSlotsDropDBSlots
 
 ## Location
-src/backend/replication/slot.c: 1270 - 1361
+[src/backend/replication/slot.c:1270-1361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1270-L1361)
 
 ## Overview
 Drops all database-specific logical replication slots associated with a given database OID, typically called during database drop operations.

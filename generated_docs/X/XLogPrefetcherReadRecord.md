@@ -1,7 +1,7 @@
 # XLogPrefetcherReadRecord
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 983 - 1082
+[src/backend/access/transam/xlogprefetcher.c:983-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L983-L1082)
 
 ## Overview
 XLogPrefetcherReadRecord is a wrapper function for XLogReadRecord() that provides the same interface while simultaneously initiating I/O prefetching for blocks referenced in future WAL records to improve recovery performance.

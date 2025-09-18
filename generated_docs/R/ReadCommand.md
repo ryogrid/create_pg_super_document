@@ -1,7 +1,7 @@
 # ReadCommand
 
 ## Location
-src/backend/tcop/postgres.c: 492 - 512
+[src/backend/tcop/postgres.c:492-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L492-L512)
 
 ## Overview
 A dispatcher function that routes command reading to either socket-based or interactive input depending on the output destination configuration.

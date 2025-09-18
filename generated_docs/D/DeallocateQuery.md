@@ -1,7 +1,7 @@
 # DeallocateQuery
 
 ## Location
-src/backend/commands/prepare.c: 502 - 515
+[src/backend/commands/prepare.c:502-515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L502-L515)
 
 ## Overview
 Implements the DEALLOCATE SQL utility statement by removing specified prepared statements from storage or deallocating all prepared statements.

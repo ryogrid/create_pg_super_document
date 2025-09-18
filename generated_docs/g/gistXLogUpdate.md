@@ -1,7 +1,7 @@
 # gistXLogUpdate
 
 ## Location
-src/backend/access/gist/gistxlog.c: 629 - 669
+[src/backend/access/gist/gistxlog.c:629-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L629-L669)
 
 ## Overview
 gistXLogUpdate creates a Write-Ahead Log (WAL) record for GiST index page updates that can include any number of tuple deletions and insertions on a single index page.

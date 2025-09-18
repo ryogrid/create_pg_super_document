@@ -1,7 +1,7 @@
 # spgxlogMoveLeafs
 
 ## Location
-src/include/access/spgxlog.h: 64 - 89
+[src/include/access/spgxlog.h:64-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L64-L89)
 
 ## Overview
 The spgxlogMoveLeafs structure contains WAL record data for SP-GiST operations that move multiple leaf tuples from a source page to a destination page.

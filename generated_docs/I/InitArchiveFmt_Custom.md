@@ -1,7 +1,7 @@
 # InitArchiveFmt_Custom
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 106 - 198
+[src/bin/pg_dump/pg_backup_custom.c:106-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L106-L198)
 
 ## Overview
 InitArchiveFmt_Custom is the initialization routine for the custom archive format in PostgreSQL's pg_dump utility, responsible for setting up function pointers and preparing the archive for reading or writing operations.

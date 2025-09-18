@@ -1,7 +1,7 @@
 # getTypeOutputInfo
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2907 - 2939
+[src/backend/utils/cache/lsyscache.c:2907-2939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2907-L2939)
 
 ## Overview
 Retrieves the output function and variable-length information needed for converting values from a type's internal form to printable string representation, forming the counterpart to input conversion in PostgreSQL's type system.

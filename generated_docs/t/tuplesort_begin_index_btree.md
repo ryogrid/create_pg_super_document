@@ -1,7 +1,7 @@
 # tuplesort_begin_index_btree
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 352 - 436
+[src/backend/utils/sort/tuplesortvariants.c:352-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L352-L436)
 
 ## Overview
 Initializes a Tuplesortstate for sorting index tuples during B-tree index creation, with support for uniqueness enforcement and parallel index building operations.

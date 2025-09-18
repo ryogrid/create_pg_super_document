@@ -1,7 +1,7 @@
 # PLy_cursor_plan
 
 ## Location
-src/pl/plpython/plpy_cursorobject.c: 141 - 276
+[src/pl/plpython/plpy_cursorobject.c:141-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.c#L141-L276)
 
 ## Overview
 Creates a PL/Python cursor object from a prepared plan object and optional parameter arguments for parameterized query execution.

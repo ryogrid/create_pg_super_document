@@ -1,7 +1,7 @@
 # PQenv2encoding
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1261 - 1279
+[src/interfaces/libpq/fe-misc.c:1261-1279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1261-L1279)
 
 ## Overview
 Retrieves the encoding ID from the PGCLIENTENCODING environment variable to determine the client character encoding.

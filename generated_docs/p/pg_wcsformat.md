@@ -1,7 +1,7 @@
 # pg_wcsformat
 
 ## Location
-src/fe_utils/mbprint.c: 294 - 391
+[src/fe_utils/mbprint.c:294-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L294-L391)
 
 ## Overview
 Formats a multibyte character string into one or more lineptr structures for display purposes, handling special characters and multibyte sequences according to the specified encoding.

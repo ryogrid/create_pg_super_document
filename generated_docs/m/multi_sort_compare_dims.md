@@ -1,7 +1,7 @@
 # multi_sort_compare_dims
 
 ## Location
-src/backend/statistics/extended_stats.c: 899 - 918
+[src/backend/statistics/extended_stats.c:899-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L899-L918)
 
 ## Overview
 Compares two SortItem structures across a specified range of dimensions, providing flexible partial comparison functionality for multi-dimensional sorting operations.

@@ -1,7 +1,7 @@
 # pg_lsn_smaller
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 181 - 190
+[src/backend/utils/adt/pg_lsn.c:181-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L181-L190)
 
 ## Overview
 The pg_lsn_smaller function returns the smaller (earlier) of two PostgreSQL Log Sequence Numbers (LSNs).

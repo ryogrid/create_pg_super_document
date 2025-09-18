@@ -1,7 +1,7 @@
 # SampleScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1586 - 1601
+[src/include/nodes/execnodes.h:1586-1601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1586-L1601)
 
 ## Overview
 SampleScanState represents the execution state for TABLESAMPLE operations in PostgreSQL's executor, managing the stateful sampling of table rows using various sampling methods.

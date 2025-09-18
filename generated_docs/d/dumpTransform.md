@@ -1,7 +1,7 @@
 # dumpTransform
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12833 - 12961
+[src/bin/pg_dump/pg_dump.c:12833-12961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12833-L12961)
 
 ## Overview
 Generates SQL DDL statements to recreate PostgreSQL transforms, which define how data types are converted between SQL and procedural language representations.

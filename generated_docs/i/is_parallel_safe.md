@@ -1,7 +1,7 @@
 # is_parallel_safe
 
 ## Location
-src/backend/optimizer/util/clauses.c: 753 - 793
+[src/backend/optimizer/util/clauses.c:753-793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L753-L793)
 
 ## Overview
 Determines whether a given expression contains only parallel-safe functions, enabling the PostgreSQL query planner to decide if an expression can be safely executed in parallel workers.

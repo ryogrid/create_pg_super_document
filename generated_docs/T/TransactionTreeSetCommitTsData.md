@@ -1,7 +1,7 @@
 # TransactionTreeSetCommitTsData
 
 ## Location
-src/backend/access/transam/commit_ts.c: 141 - 221
+[src/backend/access/transam/commit_ts.c:141-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L141-L221)
 
 ## Overview
 Records the final commit timestamp for a transaction and its entire subtransaction tree, optimizing storage by grouping transactions by SLRU page to minimize page locks.

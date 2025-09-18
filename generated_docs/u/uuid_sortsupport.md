@@ -1,7 +1,7 @@
 # uuid_sortsupport
 
 ## Location
-src/backend/utils/adt/uuid.c: 241 - 276
+[src/backend/utils/adt/uuid.c:241-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L241-L276)
 
 ## Overview
 Implements PostgreSQL's sort support strategy for UUID data type, providing optimized comparison functions and optional abbreviation support to enhance sorting performance.

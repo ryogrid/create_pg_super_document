@@ -1,7 +1,7 @@
 # CompositeIOData
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 173 - 186
+[src/backend/utils/adt/jsonfuncs.c:173-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L173-L186)
 
 ## Overview
 CompositeIOData is a structure used to cache metadata needed for populating composite types during JSON processing operations in PostgreSQL.

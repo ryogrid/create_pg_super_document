@@ -1,7 +1,7 @@
 # record_image_le
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1771 - 1776
+[src/backend/utils/adt/rowtypes.c:1771-1776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1771-L1776)
 
 ## Overview
 A PostgreSQL function that performs a "less than or equal to" comparison between two record (composite) types using byte-oriented comparison rather than semantic equality.

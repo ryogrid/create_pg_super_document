@@ -1,7 +1,7 @@
 # moveouts
 
 ## Location
-src/backend/regex/regc_nfa.c: 1066 - 1166
+[src/backend/regex/regc_nfa.c:1066-1166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L1066-L1166)
 
 ## Overview
 Moves all outgoing arcs from one state to another state, transferring ownership and removing arcs from the source state.

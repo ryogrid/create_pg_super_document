@@ -1,7 +1,7 @@
 # DefineAggregate
 
 ## Location
-src/backend/commands/aggregatecmds.c: 53 - 477
+[src/backend/commands/aggregatecmds.c:53-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/aggregatecmds.c#L53-L477)
 
 ## Overview
 DefineAggregate is the top-level function responsible for parsing and processing the CREATE AGGREGATE command in PostgreSQL, handling all aspects of aggregate function definition validation and creation.

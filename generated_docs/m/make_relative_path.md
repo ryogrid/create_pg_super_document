@@ -1,7 +1,7 @@
 # make_relative_path
 
 ## Location
-src/port/path.c: 737 - 805
+[src/port/path.c:737-805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L737-L805)
 
 ## Overview
 Creates a relative path from a target directory to support relocation of PostgreSQL installation trees by computing paths based on the actual executable location.

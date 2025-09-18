@@ -1,7 +1,7 @@
 # ExecParallelReinitialize
 
 ## Location
-src/backend/executor/execParallel.c: 904 - 952
+[src/backend/executor/execParallel.c:904-952](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L904-L952)
 
 ## Overview
 ExecParallelReinitialize resets the parallel execution environment to prepare for launching a fresh batch of workers while reusing existing shared memory infrastructure and updating runtime parameters.

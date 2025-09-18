@@ -1,7 +1,7 @@
 # pg_class_aclmask
 
 ## Location
-src/backend/catalog/aclchk.c: 3329 - 3338
+[src/backend/catalog/aclchk.c:3329-3338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3329-L3338)
 
 ## Overview
 A wrapper function that examines a user's privileges for a specific table/relation by checking against the relation's access control list (ACL).

@@ -1,7 +1,7 @@
 # executeBinaryArithmExpr
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2105 - 2175
+[src/backend/utils/adt/jsonpath_exec.c:2105-2175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2105-L2175)
 
 ## Overview
 Executes binary arithmetic expressions on singleton numeric operands with automatic array unwrapping in lax mode, supporting standard arithmetic operations in JSON path expressions.

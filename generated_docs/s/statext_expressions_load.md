@@ -1,7 +1,7 @@
 # statext_expressions_load
 
 ## Location
-src/backend/statistics/extended_stats.c: 2405 - 2451
+[src/backend/statistics/extended_stats.c:2405-2451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L2405-L2451)
 
 ## Overview
 Loads a specific pg_statistic record from stored expression statistics for a given statistics object and expression index.

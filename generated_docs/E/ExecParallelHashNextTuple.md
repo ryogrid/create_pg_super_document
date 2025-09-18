@@ -1,7 +1,7 @@
 # ExecParallelHashNextTuple
 
 ## Location
-src/backend/executor/nodeHash.c: 3447 - 3460
+[src/backend/executor/nodeHash.c:3447-3460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3447-L3460)
 
 ## Overview
 Retrieves the next tuple in a hash bucket chain during parallel hash join execution using shared memory pointers.

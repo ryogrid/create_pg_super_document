@@ -1,7 +1,7 @@
 # check_publication_add_schema
 
 ## Location
-src/backend/catalog/pg_publication.c: 98 - 136
+[src/backend/catalog/pg_publication.c:98-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L98-L136)
 
 ## Overview
 A static validation function that checks if a schema can be added to a publication, throwing appropriate errors if the schema is not suitable for publication.

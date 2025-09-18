@@ -1,7 +1,7 @@
 # network_send
 
 ## Location
-src/backend/utils/adt/network.c: 270 - 291
+[src/backend/utils/adt/network.c:270-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L270-L291)
 
 ## Overview
 Converts internal inet representation to external binary format, serving as the core serialization function for both inet and cidr data types.

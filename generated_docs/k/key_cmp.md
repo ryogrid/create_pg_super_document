@@ -1,7 +1,7 @@
 # key_cmp
 
 ## Location
-src/test/modules/test_radixtree/test_radixtree.c: 299 - 304
+[src/test/modules/test_radixtree/test_radixtree.c:299-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_radixtree/test_radixtree.c#L299-L304)
 
 ## Overview
 A comparison function for sorting uint64 keys, designed to be used with standard library sorting functions like qsort.

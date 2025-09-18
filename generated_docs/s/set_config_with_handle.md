@@ -1,7 +1,7 @@
 # set_config_with_handle
 
 ## Location
-src/backend/utils/misc/guc.c: 3408 - 3711
+[src/backend/utils/misc/guc.c:3408-3711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L3408-L3711)
 
 ## Overview
 Sets a configuration option to a given value with optional handle optimization for repeated settings of the same option.

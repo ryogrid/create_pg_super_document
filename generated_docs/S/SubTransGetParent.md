@@ -1,7 +1,7 @@
 # SubTransGetParent
 
 ## Location
-src/backend/access/transam/subtrans.c: 122 - 162
+[src/backend/access/transam/subtrans.c:122-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/subtrans.c#L122-L162)
 
 ## Overview
 Retrieves the parent transaction ID of a given subtransaction from the subtransaction log, enabling traversal of the nested transaction hierarchy.

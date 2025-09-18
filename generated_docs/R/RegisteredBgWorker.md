@@ -1,7 +1,7 @@
 # RegisteredBgWorker
 
 ## Location
-src/include/postmaster/bgworker_internals.h: 33 - 43
+[src/include/postmaster/bgworker_internals.h:33-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postmaster/bgworker_internals.h#L33-L43)
 
 ## Overview
 RegisteredBgWorker is an internal structure used by the PostgreSQL postmaster to track and manage background worker processes throughout their lifecycle.

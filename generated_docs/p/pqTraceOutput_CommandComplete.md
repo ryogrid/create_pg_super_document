@@ -1,7 +1,7 @@
 # pqTraceOutput_CommandComplete
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 266 - 272
+[src/interfaces/libpq/fe-trace.c:266-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L266-L272)
 
 ## Overview
 Outputs a formatted trace of a PostgreSQL CommandComplete message to a file stream, displaying the command completion status string.

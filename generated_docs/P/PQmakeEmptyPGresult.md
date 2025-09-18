@@ -1,7 +1,7 @@
 # PQmakeEmptyPGresult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 159 - 248
+[src/interfaces/libpq/fe-exec.c:159-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L159-L248)
 
 ## Overview
 Creates and initializes a new empty PGresult structure with a specified execution status, optionally copying connection-related information and events from a PGconn.

@@ -1,7 +1,7 @@
 # directBoolConsistentFn
 
 ## Location
-src/backend/access/gin/ginlogic.c: 65 - 88
+[src/backend/access/gin/ginlogic.c:65-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginlogic.c#L65-L88)
 
 ## Overview
 A helper function that calls a regular binary logic consistent function for GIN index scans, providing a wrapper around the user-defined consistent function.

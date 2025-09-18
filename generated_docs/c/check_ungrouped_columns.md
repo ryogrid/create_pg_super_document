@@ -1,7 +1,7 @@
 # check_ungrouped_columns
 
 ## Location
-src/backend/parser/parse_agg.c: 1275 - 1294
+[src/backend/parser/parse_agg.c:1275-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L1275-L1294)
 
 ## Overview
 Scans an expression tree to detect ungrouped variables (variables not in GROUP BY clauses and not within aggregate functions) and emits appropriate error messages.

@@ -1,7 +1,7 @@
 # macaddr_trunc
 
 ## Location
-src/backend/utils/adt/mac.c: 341 - 362
+[src/backend/utils/adt/mac.c:341-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L341-L362)
 
 ## Overview
 Truncates a MAC address to keep only the manufacturer identifier (first 3 bytes), setting the device-specific portion to zero for manufacturer comparison purposes.

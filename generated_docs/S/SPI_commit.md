@@ -1,7 +1,7 @@
 # SPI_commit
 
 ## Location
-src/backend/executor/spi.c: 320 - 325
+[src/backend/executor/spi.c:320-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L320-L325)
 
 ## Overview
 SPI_commit commits the current transaction and starts a new one within the SPI (Server Programming Interface) context, providing transaction control for procedural languages and extensions.

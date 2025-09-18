@@ -1,7 +1,7 @@
 # bbstreamer_plain_writer_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 131 - 148
+[src/bin/pg_basebackup/bbstreamer_file.c:131-148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L131-L148)
 
 ## Overview
 This function finalizes a plain file writer bbstreamer by closing the file if it was opened by the streamer itself, and cleaning up file-related state.

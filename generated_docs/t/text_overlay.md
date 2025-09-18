@@ -1,7 +1,7 @@
 # text_overlay
 
 ## Location
-src/backend/utils/adt/varlena.c: 1116 - 1152
+[src/backend/utils/adt/varlena.c:1116-1152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1116-L1152)
 
 ## Overview
 A PostgreSQL internal function that performs the core text overlay operation by replacing a specified substring with new text through substring extraction and concatenation.

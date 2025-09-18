@@ -1,7 +1,7 @@
 # quote_ident
 
 ## Location
-src/backend/utils/adt/quote.c: 25 - 46
+[src/backend/utils/adt/quote.c:25-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/quote.c#L25-L46)
 
 ## Overview
 Returns a properly quoted identifier for PostgreSQL, ensuring that identifiers that need quoting (e.g., contain special characters or are reserved words) are correctly quoted with double quotes.

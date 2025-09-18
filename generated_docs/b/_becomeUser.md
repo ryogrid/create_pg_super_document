@@ -1,7 +1,7 @@
 # _becomeUser
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3416 - 3438
+[src/bin/pg_dump/pg_backup_archiver.c:3416-3438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3416-L3438)
 
 ## Overview
 A static function that changes the session authorization to a specified user while tracking state to avoid redundant SET SESSION AUTHORIZATION commands.

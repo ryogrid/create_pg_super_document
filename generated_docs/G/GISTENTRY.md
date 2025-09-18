@@ -1,7 +1,7 @@
 # GISTENTRY
 
 ## Location
-src/include/access/gist.h: 158 - 165
+[src/include/access/gist.h:158-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist.h#L158-L165)
 
 ## Overview
 GISTENTRY represents an entry on a GiST index node, containing the key data along with its physical location information and metadata about whether it's in a leaf node.

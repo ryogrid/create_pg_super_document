@@ -1,7 +1,7 @@
 # ExecParallelHashTableAlloc
 
 ## Location
-src/backend/executor/nodeHash.c: 3269 - 3288
+[src/backend/executor/nodeHash.c:3269-3288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3269-L3288)
 
 ## Overview
 Allocates an empty shared memory hash table for a specific batch in a parallel hash join operation.

@@ -1,7 +1,7 @@
 # dectodbl
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 432 - 452
+[src/interfaces/ecpg/compatlib/informix.c:432-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L432-L452)
 
 ## Overview
 Converts a decimal number to a double-precision floating-point value using ECPG Informix compatibility library.

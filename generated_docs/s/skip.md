@@ -1,7 +1,7 @@
 # skip
 
 ## Location
-src/backend/regex/regc_lex.c: 982 - 1009
+[src/backend/regex/regc_lex.c:982-1009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L982-L1009)
 
 ## Overview
 The `skip` function advances the parser position past whitespace characters and comments when processing regular expressions in expanded form mode.

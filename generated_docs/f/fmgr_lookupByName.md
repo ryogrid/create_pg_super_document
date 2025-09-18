@@ -1,7 +1,7 @@
 # fmgr_lookupByName
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 101 - 126
+[src/backend/utils/fmgr/fmgr.c:101-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L101-L126)
 
 ## Overview
 A lookup function that searches the builtin function table by function name to locate PostgreSQL builtin functions when the Oid is not available.

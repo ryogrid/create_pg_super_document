@@ -1,7 +1,7 @@
 # optimal_k
 
 ## Location
-src/backend/lib/bloomfilter.c: 229 - 249
+[src/backend/lib/bloomfilter.c:229-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L229-L249)
 
 ## Overview
 The `optimal_k` function calculates the optimal number of hash functions for a bloom filter based on the filter size in bits and the projected total number of elements to minimize false positive rates.

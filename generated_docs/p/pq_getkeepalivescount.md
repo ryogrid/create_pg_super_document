@@ -1,7 +1,7 @@
 # pq_getkeepalivescount
 
 ## Location
-src/backend/libpq/pqcomm.c: 1798 - 1827
+[src/backend/libpq/pqcomm.c:1798-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1798-L1827)
 
 ## Overview
 Retrieves the TCP keep-alive probe count setting for a PostgreSQL connection port, determining how many unanswered keep-alive probes are sent before considering the connection dead.

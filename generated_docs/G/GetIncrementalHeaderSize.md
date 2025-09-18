@@ -1,7 +1,7 @@
 # GetIncrementalHeaderSize
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 871 - 898
+[src/backend/backup/basebackup_incremental.c:871-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L871-L898)
 
 ## Overview
 Computes the size for a header of an incremental backup file containing a specified number of blocks, with proper alignment to BLCKSZ boundaries.

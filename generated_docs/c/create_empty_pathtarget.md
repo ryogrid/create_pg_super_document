@@ -1,7 +1,7 @@
 # create_empty_pathtarget
 
 ## Location
-src/backend/optimizer/util/tlist.c: 681 - 694
+[src/backend/optimizer/util/tlist.c:681-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L681-L694)
 
 ## Overview
 Creates an empty PathTarget structure with zero columns and zero cost, serving as a foundation for building PathTarget structures incrementally.

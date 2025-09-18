@@ -1,7 +1,7 @@
 # english_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_english.c: 1071 - 1072
+[src/backend/snowball/libstemmer/stem_UTF_8_english.c:1071-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_english.c#L1071-L1072)
 
 ## Overview
 Factory function that creates and initializes a Snowball environment structure specifically configured for English UTF-8 stemming operations.

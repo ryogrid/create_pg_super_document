@@ -1,7 +1,7 @@
 # dsimple_lexize
 
 ## Location
-src/backend/tsearch/dict_simple.c: 75 - 105
+[src/backend/tsearch/dict_simple.c:75-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_simple.c#L75-L105)
 
 ## Overview
 Performs lexical analysis on input text using a simple dictionary by converting text to lowercase, checking against stopwords, and returning appropriate lexemes based on dictionary configuration.

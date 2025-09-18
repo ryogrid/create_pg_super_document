@@ -1,7 +1,7 @@
 # table_beginscan
 
 ## Location
-src/include/access/tableam.h: 909 - 932
+[src/include/access/tableam.h:909-932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L909-L932)
 
 ## Overview
 table_beginscan is a core table scanning function that initiates a sequential scan of a table relation with optional filtering capabilities through scan keys and snapshot visibility checks.

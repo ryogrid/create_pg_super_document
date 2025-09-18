@@ -1,7 +1,7 @@
 # XLogArchiveCheckDone
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 565 - 618
+[src/backend/access/transam/xlogarchive.c:565-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L565-L618)
 
 ## Overview
 Determines whether an old XLOG segment file can be safely deleted by checking its archive status and ensuring proper archival notification exists.

@@ -1,7 +1,7 @@
 # WaitXLogInsertionsToFinish
 
 ## Location
-src/backend/access/transam/xlog.c: 1506 - 1633
+[src/backend/access/transam/xlog.c:1506-1633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1506-L1633)
 
 ## Overview
 Waits for all WAL insertions prior to a specified position to complete, returning the location of the oldest still in-progress insertion.

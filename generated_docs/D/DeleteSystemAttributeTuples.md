@@ -1,7 +1,7 @@
 # DeleteSystemAttributeTuples
 
 ## Location
-src/backend/catalog/heap.c: 1625 - 1665
+[src/backend/catalog/heap.c:1625-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1625-L1665)
 
 ## Overview
 Removes pg_attribute entries for system columns of a specified relation, primarily used when converting tables to views.

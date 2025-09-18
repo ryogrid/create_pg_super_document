@@ -1,7 +1,7 @@
 # SPI_plan_get_plan_sources
 
 ## Location
-src/backend/executor/spi.c: 2057 - 2075
+[src/backend/executor/spi.c:2057-2075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2057-L2075)
 
 ## Overview
 Returns the underlying list of CachedPlanSources from a SPI plan, providing direct access to the plan's internal cached plan structure.

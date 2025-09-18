@@ -1,7 +1,7 @@
 # _bt_keep_natts
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4802 - 4875
+[src/backend/access/nbtree/nbtutils.c:4802-4875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4802-L4875)
 
 ## Overview
 The _bt_keep_natts function determines the minimum number of key attributes that must be retained when creating a truncated pivot tuple during B-tree page splits.

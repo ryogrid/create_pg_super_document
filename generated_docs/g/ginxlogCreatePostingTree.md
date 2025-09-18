@@ -1,7 +1,7 @@
 # ginxlogCreatePostingTree
 
 ## Location
-src/include/access/ginxlog.h: 21 - 25
+[src/include/access/ginxlog.h:21-25](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L21-L25)
 
 ## Overview
 Structure used for WAL (Write-Ahead Logging) record when creating a new posting tree in a GIN index data page.

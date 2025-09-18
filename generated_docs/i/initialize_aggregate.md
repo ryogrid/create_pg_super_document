@@ -1,7 +1,7 @@
 # initialize_aggregate
 
 ## Location
-src/backend/executor/nodeAgg.c: 578 - 664
+[src/backend/executor/nodeAgg.c:578-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L578-L664)
 
 ## Overview
 Initializes or reinitializes an individual aggregate function for a specific grouping set, setting up sort operations and transition values.

@@ -1,7 +1,7 @@
 # convert64
 
 ## Location
-src/timezone/zic.c: 2003 - 2013
+[src/timezone/zic.c:2003-2013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2003-L2013)
 
 ## Overview
 A static utility function that converts a 64-bit integer value into its 8-byte big-endian binary representation for timezone data encoding.

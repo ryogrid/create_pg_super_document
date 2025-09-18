@@ -1,7 +1,7 @@
 # report_invalid_encoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1698 - 1729
+[src/backend/utils/mb/mbutils.c:1698-1729](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1698-L1729)
 
 ## Overview
 Reports an error when invalid multibyte character sequences are encountered, providing detailed information about the invalid bytes.

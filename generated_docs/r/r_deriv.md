@@ -1,7 +1,7 @@
 # r_deriv
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_irish.c: 360 - 403
+[src/backend/snowball/libstemmer/stem_UTF_8_irish.c:360-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_irish.c#L360-L403)
 
 ## Overview
 The r_deriv function handles Irish derivational suffix removal and transformation during the stemming process, performing both deletion and replacement operations based on the identified suffix type.

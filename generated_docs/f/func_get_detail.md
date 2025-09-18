@@ -1,7 +1,7 @@
 # func_get_detail
 
 ## Location
-src/backend/parser/parse_func.c: 1395 - 1740
+[src/backend/parser/parse_func.c:1395-1740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1395-L1740)
 
 ## Overview
 Main function resolution engine that searches system catalogs to find the best matching function for given name and arguments, handling exact matches, type coercion, and ambiguity resolution.

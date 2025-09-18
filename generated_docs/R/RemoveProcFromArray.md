@@ -1,7 +1,7 @@
 # RemoveProcFromArray
 
 ## Location
-src/backend/storage/lmgr/proc.c: 828 - 838
+[src/backend/storage/lmgr/proc.c:828-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L828-L838)
 
 ## Overview
 Removes the current process from the shared ProcArray, typically called during process cleanup or termination.

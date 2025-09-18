@@ -1,7 +1,7 @@
 # substitute_phv_relids_walker
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3965 - 4008
+[src/backend/optimizer/prep/prepjointree.c:3965-4008](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3965-L4008)
 
 ## Overview
 A tree walker function that modifies PlaceHolderVar relation ID sets in-place by substituting one relation ID with a set of subrelation IDs.

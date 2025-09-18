@@ -1,7 +1,7 @@
 # array_agg_finalfn
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 822 - 856
+[src/backend/utils/adt/array_userfuncs.c:822-856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L822-L856)
 
 ## Overview
 Finalizes the array_agg() aggregate by converting the accumulated ArrayBuildState into a PostgreSQL array result.

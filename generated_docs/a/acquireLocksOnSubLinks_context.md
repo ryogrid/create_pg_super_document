@@ -1,7 +1,7 @@
 # acquireLocksOnSubLinks_context
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 56 - 59
+[src/backend/rewrite/rewriteHandler.c:56-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L56-L59)
 
 ## Overview
 A context structure used to pass state information during the process of acquiring locks on sublinks within query rewriting operations.

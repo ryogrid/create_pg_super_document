@@ -1,7 +1,7 @@
 # NamespaceCreate
 
 ## Location
-src/backend/catalog/pg_namespace.c: 43 - 120
+[src/backend/catalog/pg_namespace.c:43-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_namespace.c#L43-L120)
 
 ## Overview
 Creates a new namespace (schema) in the PostgreSQL catalog with the given name and owner, handling both regular schemas and temporary schemas with appropriate dependency tracking.

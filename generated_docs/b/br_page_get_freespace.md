@@ -1,7 +1,7 @@
 # br_page_get_freespace
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 916 - 923
+[src/backend/access/brin/brin_pageops.c:916-923](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L916-L923)
 
 ## Overview
 Returns the amount of free space available on a regular BRIN index page, excluding pages marked for evacuation.

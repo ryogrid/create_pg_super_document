@@ -1,7 +1,7 @@
 # create_s
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 5 - 14
+[src/backend/snowball/libstemmer/utilities.c:5-14](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L5-L14)
 
 ## Overview
 Creates and initializes a new symbol structure with default capacity for the Snowball stemming library.

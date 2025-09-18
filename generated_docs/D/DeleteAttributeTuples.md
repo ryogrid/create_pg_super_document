@@ -1,7 +1,7 @@
 # DeleteAttributeTuples
 
 ## Location
-src/backend/catalog/heap.c: 1588 - 1624
+[src/backend/catalog/heap.c:1588-1624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1588-L1624)
 
 ## Overview
 Removes all pg_attribute catalog entries associated with a specified relation during relation or index deletion operations.

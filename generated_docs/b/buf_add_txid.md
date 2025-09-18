@@ -1,7 +1,7 @@
 # buf_add_txid
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 237 - 247
+[src/backend/utils/adt/xid8funcs.c:237-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L237-L247)
 
 ## Overview
 A static utility function that appends a FullTransactionId to a StringInfo buffer containing a pg_snapshot structure.

@@ -1,7 +1,7 @@
 # regoperin
 
 ## Location
-src/backend/utils/adt/regproc.c: 478 - 526
+[src/backend/utils/adt/regproc.c:478-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L478-L526)
 
 ## Overview
 Converts operator name strings to operator OIDs, serving as the input function for PostgreSQL's regoper data type.

@@ -1,7 +1,7 @@
 # text_smaller
 
 ## Location
-src/backend/utils/adt/varlena.c: 2583 - 2599
+[src/backend/utils/adt/varlena.c:2583-2599](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2583-L2599)
 
 ## Overview
 A comparison function that returns the lexicographically smaller of two text values according to the specified collation.

@@ -1,7 +1,7 @@
 # float8_regr_intercept
 
 ## Location
-src/backend/utils/adt/float.c: 3733 - 3776
+[src/backend/utils/adt/float.c:3733-3776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3733-L3776)
 
 ## Overview
 Computes the y-intercept of the linear regression line from statistical aggregate data stored in a transition array.

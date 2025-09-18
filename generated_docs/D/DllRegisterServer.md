@@ -1,7 +1,7 @@
 # DllRegisterServer
 
 ## Location
-src/bin/pgevent/pgevent.c: 65 - 126
+[src/bin/pgevent/pgevent.c:65-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgevent/pgevent.c#L65-L126)
 
 ## Overview
 DllRegisterServer is a standard Windows COM DLL export function that registers the PostgreSQL event logging DLL with the Windows Event Log system by creating the necessary registry entries.

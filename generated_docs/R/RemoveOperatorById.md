@@ -1,7 +1,7 @@
 # RemoveOperatorById
 
 ## Location
-src/backend/commands/operatorcmds.c: 413 - 461
+[src/backend/commands/operatorcmds.c:413-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/operatorcmds.c#L413-L461)
 
 ## Overview
 RemoveOperatorById performs the core deletion logic for removing an operator from the system catalog, handling commutator and negator link cleanup before removing the operator tuple.

@@ -1,7 +1,7 @@
 # n_choose_k
 
 ## Location
-src/backend/statistics/mvdistinct.c: 550 - 574
+[src/backend/statistics/mvdistinct.c:550-574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L550-L574)
 
 ## Overview
 Computes binomial coefficients using an algorithm that is both efficient and prevents overflows.

@@ -1,7 +1,7 @@
 # ExecReScanIndexScan
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 551 - 598
+[src/backend/executor/nodeIndexscan.c:551-598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L551-L598)
 
 ## Overview
 Restarts an index scan operation with potentially new runtime-calculated scan keys, handling cleanup of reorder queues and reinitializing the index scan descriptor.

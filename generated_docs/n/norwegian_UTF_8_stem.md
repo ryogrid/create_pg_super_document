@@ -1,7 +1,7 @@
 # norwegian_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_norwegian.c: 242 - 272
+[src/backend/snowball/libstemmer/stem_UTF_8_norwegian.c:242-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_norwegian.c#L242-L272)
 
 ## Overview
 The main entry point function that implements the complete Norwegian UTF-8 Snowball stemming algorithm by coordinating region marking, suffix removal, and morphological cleanup phases.

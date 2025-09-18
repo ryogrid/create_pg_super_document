@@ -1,7 +1,7 @@
 # ri_FetchPreparedPlan
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2709 - 2760
+[src/backend/utils/adt/ri_triggers.c:2709-2760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2709-L2760)
 
 ## Overview
 Retrieves a cached SPI execution plan from the private hash table using a query key, validating the plan before returning it.

@@ -1,7 +1,7 @@
 # CreateSharedMemoryAndSemaphores
 
 ## Location
-src/backend/storage/ipc/ipci.c: 199 - 280
+[src/backend/storage/ipc/ipci.c:199-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipci.c#L199-L280)
 
 ## Overview
 Creates and initializes the entire shared memory segment and semaphore infrastructure required for PostgreSQL operation.

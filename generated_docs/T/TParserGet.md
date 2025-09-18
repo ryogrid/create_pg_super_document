@@ -1,7 +1,7 @@
 # TParserGet
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1710 - 1877
+[src/backend/tsearch/wparser_def.c:1710-1877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1710-L1877)
 
 ## Overview
 The core parsing engine function that processes text character by character using a state machine to identify and extract tokens from input text for PostgreSQL's full-text search functionality.

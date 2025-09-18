@@ -1,7 +1,7 @@
 # ExecParallelRetrieveInstrumentation
 
 ## Location
-src/backend/executor/execParallel.c: 1022 - 1090
+[src/backend/executor/execParallel.c:1022-1090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1022-L1090)
 
 ## Overview
 Copies instrumentation statistics from dynamic shared memory to local memory structures, aggregating performance data from all parallel workers for each node in the plan tree.

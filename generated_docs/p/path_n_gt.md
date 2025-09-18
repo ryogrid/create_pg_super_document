@@ -1,7 +1,7 @@
 # path_n_gt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1562 - 1570
+[src/backend/utils/adt/geo_ops.c:1562-1570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1562-L1570)
 
 ## Overview
 Relational operator that compares two PATH objects based on their cardinality (number of points), returning true if the first path has more points than the second.

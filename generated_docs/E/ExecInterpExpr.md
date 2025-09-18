@@ -1,7 +1,7 @@
 # ExecInterpExpr
 
 ## Location
-src/backend/executor/execExprInterp.c: 396 - 1914
+[src/backend/executor/execExprInterp.c:396-1914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L396-L1914)
 
 ## Overview
 The core interpreter function that executes PostgreSQL expressions by evaluating a sequence of expression evaluation steps (opcodes) in a large switch statement or computed goto dispatch loop.

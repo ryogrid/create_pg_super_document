@@ -1,7 +1,7 @@
 # dist_polyp
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2621 - 2629
+[src/backend/utils/adt/geo_ops.c:2621-2629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2621-L2629)
 
 ## Overview
 A PostgreSQL function that calculates the distance between a polygon and a point, serving as a wrapper function for the internal distance calculation.

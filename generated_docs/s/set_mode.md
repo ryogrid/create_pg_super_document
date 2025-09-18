@@ -1,7 +1,7 @@
 # set_mode
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 2035 - 2062
+[src/bin/pg_ctl/pg_ctl.c:2035-2062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L2035-L2062)
 
 ## Overview
 A static function in pg_ctl that parses and sets the shutdown mode for PostgreSQL server operations, mapping mode strings to appropriate shutdown modes and signals.

@@ -1,7 +1,7 @@
 # conditional_stack_poke
 
 ## Location
-src/fe_utils/conditional.c: 118 - 129
+[src/fe_utils/conditional.c:118-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L118-L129)
 
 ## Overview
 Modifies the state of the topmost element on the conditional stack, allowing the conditional processing logic to update the current branch state.

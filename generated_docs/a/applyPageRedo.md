@@ -1,7 +1,7 @@
 # applyPageRedo
 
 ## Location
-src/backend/access/transam/generic_xlog.c: 453 - 477
+[src/backend/access/transam/generic_xlog.c:453-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/generic_xlog.c#L453-L477)
 
 ## Overview
 Applies delta changes to a database page during WAL replay by parsing and applying a series of offset-length-data triplets to reconstruct the modified page.

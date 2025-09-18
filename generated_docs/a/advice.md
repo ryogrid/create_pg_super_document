@@ -1,7 +1,7 @@
 # advice
 
 ## Location
-src/bin/pg_config/pg_config.c: 110 - 115
+[src/bin/pg_config/pg_config.c:110-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_config/pg_config.c#L110-L115)
 
 ## Overview
 A simple utility function that displays a brief message directing users to use the --help option for more detailed information.

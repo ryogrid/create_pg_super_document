@@ -1,7 +1,7 @@
 # icu_unicode_version
 
 ## Location
-src/backend/utils/adt/varlena.c: 6302 - 6315
+[src/backend/utils/adt/varlena.c:6302-6315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6302-L6315)
 
 ## Overview
 Returns the version of Unicode used by the ICU (International Components for Unicode) library if ICU support is enabled, otherwise returns NULL.

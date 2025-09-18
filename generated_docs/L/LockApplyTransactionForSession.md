@@ -1,7 +1,7 @@
 # LockApplyTransactionForSession
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1199 - 1216
+[src/backend/storage/lmgr/lmgr.c:1199-1216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1199-L1216)
 
 ## Overview
 LockApplyTransactionForSession obtains a session-level lock on a transaction being applied on a logical replication subscriber, ensuring coordination between parallel apply workers.

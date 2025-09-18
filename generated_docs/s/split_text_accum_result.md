@@ -1,7 +1,7 @@
 # split_text_accum_result
 
 ## Location
-src/backend/utils/adt/varlena.c: 4727 - 4765
+[src/backend/utils/adt/varlena.c:4727-4765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4727-L4765)
 
 ## Overview
 Helper function for text splitting operations that adds individual text items to a result set (either tuple store or array accumulator), handling null value detection based on a null string pattern.

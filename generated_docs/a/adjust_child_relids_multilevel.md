@@ -1,7 +1,7 @@
 # adjust_child_relids_multilevel
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 588 - 627
+[src/backend/optimizer/util/appendinfo.c:588-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L588-L627)
 
 ## Overview
 Substitutes child relation IDs for parent relation IDs in a Relids set, handling multi-level inheritance hierarchies where the child relation can be multiple inheritance levels below the parent.

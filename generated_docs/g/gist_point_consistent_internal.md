@@ -1,7 +1,7 @@
 # gist_point_consistent_internal
 
 ## Location
-src/backend/access/gist/gistproc.c: 1287 - 1329
+[src/backend/access/gist/gistproc.c:1287-1329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1287-L1329)
 
 ## Overview
 A static utility function that implements the core consistency logic for point queries in GiST indexes, handling different spatial relationship strategies with appropriate logic for leaf versus internal nodes.

@@ -1,7 +1,7 @@
 # be_lo_truncate
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 574 - 585
+[src/backend/libpq/be-fsstubs.c:574-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L574-L585)
 
 ## Overview
 Backend function that truncates a PostgreSQL large object to a specified 32-bit length, implementing the lo_truncate() SQL function.

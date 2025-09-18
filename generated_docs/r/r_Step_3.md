@@ -1,7 +1,7 @@
 # r_Step_3
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c: 729 - 776
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c:729-776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_english.c#L729-L776)
 
 ## Overview
 The r_Step_3 function implements Step 3 of the English Porter stemming algorithm, handling the removal and transformation of specific adjectival and nominal suffixes within the R1 and R2 regions.

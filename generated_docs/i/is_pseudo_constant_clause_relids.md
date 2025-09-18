@@ -1,7 +1,7 @@
 # is_pseudo_constant_clause_relids
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2108 - 2129
+[src/backend/optimizer/util/clauses.c:2108-2129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2108-L2129)
 
 ## Overview
 An optimized version of is_pseudo_constant_clause() that accepts pre-computed relation membership information to avoid redundant variable scanning.

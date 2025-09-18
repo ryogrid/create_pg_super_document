@@ -1,7 +1,7 @@
 # rinfo_is_constant_true
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 453 - 468
+[src/backend/optimizer/util/restrictinfo.c:453-468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L453-L468)
 
 ## Overview
 A static inline helper function that detects whether a RestrictInfo's clause is a constant TRUE boolean expression.

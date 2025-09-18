@@ -1,7 +1,7 @@
 # SeenRelsEntry
 
 ## Location
-src/backend/catalog/pg_inherits.c: 37 - 41
+[src/backend/catalog/pg_inherits.c:37-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_inherits.c#L37-L41)
 
 ## Overview
 A hash table entry structure used internally by the `find_all_inheritors` function to efficiently track visited relations during inheritance tree traversal and maintain their position in output lists.

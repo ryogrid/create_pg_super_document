@@ -1,7 +1,7 @@
 # heap_form_minimal_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1452 - 1522
+[src/backend/access/common/heaptuple.c:1452-1522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1452-L1522)
 
 ## Overview
 Constructs a MinimalTuple from arrays of values and null indicators, creating a compact tuple representation without a HeapTupleData header or system columns.

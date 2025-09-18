@@ -1,7 +1,7 @@
 # slock_t
 
 ## Location
-src/include/storage/s_lock.h: 735 - 741
+[src/include/storage/s_lock.h:735-741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/s_lock.h#L735-L741)
 
 ## Overview
  is a platform-dependent typedef that defines the fundamental data type used for PostgreSQL's spinlock implementation across different hardware architectures.

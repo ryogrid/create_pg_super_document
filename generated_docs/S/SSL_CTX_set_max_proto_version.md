@@ -1,7 +1,7 @@
 # SSL_CTX_set_max_proto_version
 
 ## Location
-src/common/protocol_openssl.c: 80 - 117
+[src/common/protocol_openssl.c:80-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/protocol_openssl.c#L80-L117)
 
 ## Overview
 Sets the maximum SSL/TLS protocol version for an SSL context by disabling newer protocol versions through SSL options.

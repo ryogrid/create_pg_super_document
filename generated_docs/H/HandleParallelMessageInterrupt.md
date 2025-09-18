@@ -1,7 +1,7 @@
 # HandleParallelMessageInterrupt
 
 ## Location
-src/backend/access/transam/parallel.c: 1033 - 1043
+[src/backend/access/transam/parallel.c:1033-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1033-L1043)
 
 ## Overview
 Handles receipt of an interrupt indicating a parallel worker message by setting flags and latches to trigger message processing during the next interrupt check.

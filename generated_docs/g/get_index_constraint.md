@@ -1,7 +1,7 @@
 # get_index_constraint
 
 ## Location
-src/backend/catalog/pg_depend.c: 989 - 1044
+[src/backend/catalog/pg_depend.c:989-1044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L989-L1044)
 
 ## Overview
 Retrieves the OID of the constraint (unique, primary key, or exclusion) that owns a given index, returning InvalidOid if no owning constraint exists.

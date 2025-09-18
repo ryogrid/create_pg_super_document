@@ -1,7 +1,7 @@
 # SH_NEXT
 
 ## Location
-src/include/lib/simplehash.h: 364 - 374
+[src/include/lib/simplehash.h:364-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L364-L374)
 
 ## Overview
 Returns the next bucket after the current bucket in a PostgreSQL simple hash table, handling wraparound to implement linear probing.

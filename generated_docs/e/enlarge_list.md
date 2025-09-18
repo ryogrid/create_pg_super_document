@@ -1,7 +1,7 @@
 # enlarge_list
 
 ## Location
-src/backend/nodes/list.c: 155 - 235
+[src/backend/nodes/list.c:155-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L155-L235)
 
 ## Overview
 A static function that expands the capacity of an existing non-NIL List to accommodate at least the specified minimum number of cells, handling both initial inline storage and separate allocation scenarios.

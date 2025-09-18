@@ -1,7 +1,7 @@
 # cannotCastJsonbValue
 
 ## Location
-src/backend/utils/adt/jsonb.c: 2008 - 2037
+[src/backend/utils/adt/jsonb.c:2008-2037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L2008-L2037)
 
 ## Overview
 Static helper function that generates appropriate, translatable error messages when JSONB values cannot be cast to specific SQL types.

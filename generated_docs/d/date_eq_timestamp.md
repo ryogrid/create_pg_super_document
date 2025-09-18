@@ -1,7 +1,7 @@
 # date_eq_timestamp
 
 ## Location
-src/backend/utils/adt/date.c: 760 - 768
+[src/backend/utils/adt/date.c:760-768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L760-L768)
 
 ## Overview
 PostgreSQL built-in function that tests equality between a date value and a timestamp value.

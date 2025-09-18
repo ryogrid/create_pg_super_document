@@ -1,7 +1,7 @@
 # test_create
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 86 - 135
+[src/test/modules/test_tidstore/test_tidstore.c:86-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L86-L135)
 
 ## Overview
 A PostgreSQL C function that creates and initializes a TidStore for testing purposes, with support for both local and shared memory configurations.

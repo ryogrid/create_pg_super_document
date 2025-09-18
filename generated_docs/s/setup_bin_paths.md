@@ -1,7 +1,7 @@
 # setup_bin_paths
 
 ## Location
-src/bin/initdb/initdb.c: 2626 - 2662
+[src/bin/initdb/initdb.c:2626-2662](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2626-L2662)
 
 ## Overview
 Locates and validates PostgreSQL binary and share directory paths during initialization, ensuring the required postgres backend executable is available and version-compatible.

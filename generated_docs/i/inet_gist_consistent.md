@@ -1,7 +1,7 @@
 # inet_gist_consistent
 
 ## Location
-src/backend/utils/adt/network_gist.c: 115 - 344
+[src/backend/utils/adt/network_gist.c:115-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_gist.c#L115-L344)
 
 ## Overview
 The GiST query consistency check function for inet data types that determines whether a query condition can be satisfied by values represented by a GiST index key.

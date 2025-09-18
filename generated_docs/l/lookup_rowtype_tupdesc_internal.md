@@ -1,7 +1,7 @@
 # lookup_rowtype_tupdesc_internal
 
 ## Location
-src/backend/utils/cache/typcache.c: 1739 - 1832
+[src/backend/utils/cache/typcache.c:1739-1832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1739-L1832)
 
 ## Overview
 Internal routine to lookup a row type's tuple descriptor, handling both named composite types and transient record types, with support for shared typmod registries in parallel processing environments.

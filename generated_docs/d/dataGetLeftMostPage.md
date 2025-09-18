@@ -1,7 +1,7 @@
 # dataGetLeftMostPage
 
 ## Location
-src/backend/access/gin/gindatapage.c: 364 - 379
+[src/backend/access/gin/gindatapage.c:364-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L364-L379)
 
 ## Overview
 dataGetLeftMostPage retrieves the block number of the leftmost child page from a non-leaf GIN data page.

@@ -1,7 +1,7 @@
 # ExecForeignScanEstimate
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 356 - 374
+[src/backend/executor/nodeForeignscan.c:356-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L356-L374)
 
 ## Overview
 ExecForeignScanEstimate estimates the size of shared memory required for parallel foreign scan coordination information.

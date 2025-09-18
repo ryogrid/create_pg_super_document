@@ -1,7 +1,7 @@
 # bttidcmp
 
 ## Location
-src/backend/utils/adt/tid.c: 230 - 238
+[src/backend/utils/adt/tid.c:230-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L230-L238)
 
 ## Overview
 A PostgreSQL function that compares two tuple identifiers (TIDs) for B-tree indexing operations, providing the ordering comparison needed for B-tree internal nodes.

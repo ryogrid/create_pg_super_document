@@ -1,7 +1,7 @@
 # CastCreate
 
 ## Location
-src/backend/catalog/pg_cast.c: 49 - 138
+[src/backend/catalog/pg_cast.c:49-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_cast.c#L49-L138)
 
 ## Overview
 Creates a new type cast in the PostgreSQL catalog by forming and inserting tuples into pg_cast, along with proper dependency tracking for all related objects.

@@ -1,7 +1,7 @@
 # lazy_cleanup_one_index
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2470 - 2529
+[src/backend/access/heap/vacuumlazy.c:2470-2529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2470-L2529)
 
 ## Overview
 Performs post-vacuum cleanup operations for a single index relation by calling the index access method's amvacuumcleanup routine.

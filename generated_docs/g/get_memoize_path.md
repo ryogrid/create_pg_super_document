@@ -1,7 +1,7 @@
 # get_memoize_path
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 581 - 720
+[src/backend/optimizer/path/joinpath.c:581-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L581-L720)
 
 ## Overview
 Creates a Memoize path node to cache results of parameterized inner scans in nested loop joins, improving performance when the same parameter values are repeated across multiple outer tuples.

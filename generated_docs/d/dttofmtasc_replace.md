@@ -1,7 +1,7 @@
 # dttofmtasc_replace
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/timestamp.c: 304 - 781
+[src/interfaces/ecpg/pgtypeslib/timestamp.c:304-781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/timestamp.c#L304-L781)
 
 ## Overview
 A comprehensive datetime format string processor that converts format specifiers in strftime-style format strings to their corresponding timestamp value representations.

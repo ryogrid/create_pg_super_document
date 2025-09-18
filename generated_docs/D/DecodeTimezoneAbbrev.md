@@ -1,7 +1,7 @@
 # DecodeTimezoneAbbrev
 
 ## Location
-src/backend/utils/adt/datetime.c: 3091 - 3147
+[src/backend/utils/adt/datetime.c:3091-3147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L3091-L3147)
 
 ## Overview
 DecodeTimezoneAbbrev interprets string tokens as timezone abbreviations and retrieves the corresponding timezone information, utilizing a cache for performance optimization.

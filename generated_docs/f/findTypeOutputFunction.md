@@ -1,7 +1,7 @@
 # findTypeOutputFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2016 - 2050
+[src/backend/commands/typecmds.c:2016-2050](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2016-L2050)
 
 ## Overview
 Validates and retrieves the OID of a type's output function, ensuring it meets PostgreSQL's requirements for converting internal type representation to external string format.

@@ -1,7 +1,7 @@
 # convert_server_priv_string
 
 ## Location
-src/backend/utils/adt/acl.c: 4179 - 4206
+[src/backend/utils/adt/acl.c:4179-4206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4179-L4206)
 
 ## Overview
 This static helper function converts a text representation of server privilege names into their corresponding AclMode bitmask values for foreign server access control.

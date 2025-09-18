@@ -1,7 +1,7 @@
 # ReplaceVarsFromTargetList_callback
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1669 - 1773
+[src/backend/rewrite/rewriteManip.c:1669-1773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1669-L1773)
 
 ## Overview
 A callback function used with replace_rte_variables to substitute Var nodes with corresponding expressions from a target list, handling whole-tuple references and various no-match scenarios.

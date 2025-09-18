@@ -1,7 +1,7 @@
 # mdunlink
 
 ## Location
-src/backend/storage/smgr/md.c: 307 - 322
+[src/backend/storage/smgr/md.c:307-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L307-L322)
 
 ## Overview
 mdunlink safely removes relation files from disk, coordinating the deletion of specific forks or all forks while handling complex scenarios involving crash recovery, relfilenumber reuse prevention, and different relation types.

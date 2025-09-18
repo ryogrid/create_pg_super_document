@@ -1,7 +1,7 @@
 # _equalList
 
 ## Location
-src/backend/nodes/equalfuncs.c: 156 - 222
+[src/backend/nodes/equalfuncs.c:156-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/equalfuncs.c#L156-L222)
 
 ## Overview
 A static comparison function that determines if two List nodes are equal by comparing their types, lengths, and element-by-element content using specialized comparison logic for different list types.

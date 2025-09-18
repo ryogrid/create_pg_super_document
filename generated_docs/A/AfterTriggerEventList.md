@@ -1,7 +1,7 @@
 # AfterTriggerEventList
 
 ## Location
-src/backend/commands/trigger.c: 3797 - 3802
+[src/backend/commands/trigger.c:3797-3802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3797-L3802)
 
 ## Overview
 AfterTriggerEventList is a container structure that manages a linked list of AfterTriggerEventChunk structures, providing efficient access to both the head and tail of the event storage chain.

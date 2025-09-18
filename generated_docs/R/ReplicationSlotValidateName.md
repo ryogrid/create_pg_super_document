@@ -1,7 +1,7 @@
 # ReplicationSlotValidateName
 
 ## Location
-src/backend/replication/slot.c: 252 - 308
+[src/backend/replication/slot.c:252-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L252-L308)
 
 ## Overview
 Validates replication slot names according to PostgreSQL naming rules and reports appropriate errors if validation fails.

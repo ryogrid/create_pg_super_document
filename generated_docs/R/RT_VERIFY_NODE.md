@@ -1,7 +1,7 @@
 # RT_VERIFY_NODE
 
 ## Location
-src/include/lib/radixtree.h: 2706 - 2793
+[src/include/lib/radixtree.h:2706-2793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L2706-L2793)
 
 ## Overview
 RT_VERIFY_NODE is a macro that generates the name for a static debugging function that performs sanity checks on radix tree node data structures in PostgreSQL.

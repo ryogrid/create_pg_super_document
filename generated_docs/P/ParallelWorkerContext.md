@@ -1,7 +1,7 @@
 # ParallelWorkerContext
 
 ## Location
-src/include/access/parallel.h: 50 - 54
+[src/include/access/parallel.h:50-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/parallel.h#L50-L54)
 
 ## Overview
 A lightweight structure used by parallel worker processes to access shared memory segments and their table of contents during parallel execution.

@@ -1,7 +1,7 @@
 # PQsendQueryInternal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1428 - 1491
+[src/interfaces/libpq/fe-exec.c:1428-1491](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1428-L1491)
 
 ## Overview
 PQsendQueryInternal is a static function that implements the core logic for sending a simple SQL query using PostgreSQL's simple query protocol in asynchronous mode.

@@ -1,7 +1,7 @@
 # pqConnectDBComplete
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2470 - 2595
+[src/interfaces/libpq/fe-connect.c:2470-2595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2470-L2595)
 
 ## Overview
 `pqConnectDBComplete` is an internal libpq function that blocks and completes a PostgreSQL database connection, handling the final stages of connection establishment with timeout support.

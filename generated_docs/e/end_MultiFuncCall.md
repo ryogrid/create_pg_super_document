@@ -1,7 +1,7 @@
 # end_MultiFuncCall
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 220 - 237
+[src/backend/utils/fmgr/funcapi.c:220-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L220-L237)
 
 ## Overview
 end_MultiFuncCall performs cleanup operations for set-returning functions, deregistering callbacks and releasing resources allocated during multi-call function execution.

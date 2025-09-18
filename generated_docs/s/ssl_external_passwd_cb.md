@@ -1,7 +1,7 @@
 # ssl_external_passwd_cb
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1116 - 1135
+[src/backend/libpq/be-secure-openssl.c:1116-1135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1116-L1135)
 
 ## Overview
 A callback function that collects SSL certificate passphrases using an external command specified by ssl_passphrase_command.

@@ -1,7 +1,7 @@
 # init_toast_snapshot
 
 ## Location
-src/backend/access/common/toast_internals.c: 641 - 671
+[src/backend/access/common/toast_internals.c:641-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L641-L671)
 
 ## Overview
 Initializes an appropriate TOAST snapshot using MVCC (Multi-Version Concurrency Control) by selecting the oldest available snapshot to ensure consistent access to TOAST data.

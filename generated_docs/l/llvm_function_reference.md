@@ -1,7 +1,7 @@
 # llvm_function_reference
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 573 - 635
+[src/backend/jit/llvm/llvmjit.c:573-635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L573-L635)
 
 ## Overview
 Returns a callable LLVMValueRef for a PostgreSQL function referenced by FunctionCallInfo, handling both internal functions and external library functions.

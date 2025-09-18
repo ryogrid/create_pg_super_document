@@ -1,7 +1,7 @@
 # pltcl_FinalizeNotifier
 
 ## Location
-src/pl/tcl/pltcl.c: 358 - 362
+[src/pl/tcl/pltcl.c:358-362](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L358-L362)
 
 ## Overview
 A no-op function that serves as a custom Tcl notifier finalization function in PostgreSQL's PL/Tcl implementation.

@@ -1,7 +1,7 @@
 # ATCheckPartitionsNotInUse
 
 ## Location
-src/backend/commands/tablecmds.c: 6663 - 6692
+[src/backend/commands/tablecmds.c:6663-6692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L6663-L6692)
 
 ## Overview
 A specialized validation function that ensures all partitions of a partitioned table are safe for ALTER TABLE operations by checking that they are not currently in use by other transactions.

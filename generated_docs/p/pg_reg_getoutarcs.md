@@ -1,7 +1,7 @@
 # pg_reg_getoutarcs
 
 ## Location
-src/backend/regex/regexport.c: 155 - 173
+[src/backend/regex/regexport.c:155-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L155-L173)
 
 ## Overview
 Extracts the outgoing NFA (Non-deterministic Finite Automaton) arcs from a specified state in a compiled regular expression, writing them to a provided array.

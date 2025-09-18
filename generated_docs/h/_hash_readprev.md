@@ -1,7 +1,7 @@
 # _hash_readprev
 
 ## Location
-src/backend/access/hash/hashsearch.c: 197 - 287
+[src/backend/access/hash/hashsearch.c:197-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L197-L287)
 
 ## Overview
 Moves to the previous page in a hash bucket during backward scanning, with special handling for bucket splits and buffer management.

@@ -1,7 +1,7 @@
 # isQueryUsingTempRelation_walker
 
 ## Location
-src/backend/parser/parse_relation.c: 3830 - 3873
+[src/backend/parser/parse_relation.c:3830-3873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3830-L3873)
 
 ## Overview
 This is a static helper function that performs the actual tree traversal to detect temporary relations within a query structure using the walker pattern.

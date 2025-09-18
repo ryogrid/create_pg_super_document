@@ -1,7 +1,7 @@
 # NullCommand
 
 ## Location
-src/backend/tcop/dest.c: 218 - 255
+[src/backend/tcop/dest.c:218-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/dest.c#L218-L255)
 
 ## Overview
 NullCommand handles the response when an empty query string is recognized, ensuring proper protocol completion for remote clients in the extended query protocol.

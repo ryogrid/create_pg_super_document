@@ -1,7 +1,7 @@
 # range_adjacent_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 798 - 827
+[src/backend/utils/adt/rangetypes.c:798-827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L798-L827)
 
 ## Overview
 Determines if two ranges are adjacent (touching but not overlapping) by checking if their boundaries meet without gaps or overlaps.

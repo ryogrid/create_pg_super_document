@@ -1,7 +1,7 @@
 # builtin_locale_encoding
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2547 - 2567
+[src/backend/utils/adt/pg_locale.c:2547-2567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2547-L2567)
 
 ## Overview
 Returns the required encoding ID for a given builtin locale, or -1 if any encoding is valid for the locale.

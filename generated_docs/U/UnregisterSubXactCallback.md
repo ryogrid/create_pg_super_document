@@ -1,7 +1,7 @@
 # UnregisterSubXactCallback
 
 ## Location
-src/backend/access/transam/xact.c: 3826 - 3846
+[src/backend/access/transam/xact.c:3826-3846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3826-L3846)
 
 ## Overview
 UnregisterSubXactCallback removes a previously registered subtransaction callback function from the callback chain, allowing modules to stop receiving subtransaction event notifications.

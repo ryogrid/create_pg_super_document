@@ -1,7 +1,7 @@
 # ECPG_informix_set_var
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 1019 - 1024
+[src/interfaces/ecpg/compatlib/informix.c:1019-1024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L1019-L1024)
 
 ## Overview
 ECPG_informix_set_var is a wrapper function in PostgreSQL's ECPG Informix compatibility library that sets a variable in the ECPG environment.

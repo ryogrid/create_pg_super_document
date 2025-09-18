@@ -1,7 +1,7 @@
 # complex_send
 
 ## Location
-src/tutorial/complex.c: 85 - 104
+[src/tutorial/complex.c:85-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L85-L104)
 
 ## Overview
 Binary output function for the  data type that serializes a complex number to PostgreSQL's binary message format for network transmission.

@@ -1,7 +1,7 @@
 # array_larger
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5875 - 5883
+[src/backend/utils/adt/arrayfuncs.c:5875-5883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5875-L5883)
 
 ## Overview
 array_larger returns the lexicographically larger of two arrays by comparing them using array comparison semantics.

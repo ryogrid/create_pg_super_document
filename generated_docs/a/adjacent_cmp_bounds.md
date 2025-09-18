@@ -1,7 +1,7 @@
 # adjacent_cmp_bounds
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 785 - 886
+[src/backend/utils/adt/rangetypes_spgist.c:785-886](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L785-L886)
 
 ## Overview
 Determines the spatial relationship between an argument bound and centroid bound for adjacent range searches in SP-GiST indexing.

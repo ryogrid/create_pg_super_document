@@ -1,7 +1,7 @@
 # get_formatted_log_time
 
 ## Location
-src/backend/utils/error/elog.c: 2654 - 2691
+[src/backend/utils/error/elog.c:2654-2691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2654-L2691)
 
 ## Overview
 The get_formatted_log_time function computes and returns a formatted timestamp string for PostgreSQL log entries, ensuring consistency across all log destinations.

@@ -1,7 +1,7 @@
 # process_session_preload_libraries
 
 ## Location
-src/backend/utils/init/miscinit.c: 1912 - 1925
+[src/backend/utils/init/miscinit.c:1912-1925](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1912-L1925)
 
 ## Overview
 process_session_preload_libraries loads both session_preload_libraries and local_preload_libraries during backend/session initialization, with different security restrictions for each.

@@ -1,7 +1,7 @@
 # ReachedEndOfBackup
 
 ## Location
-src/backend/access/transam/xlog.c: 6226 - 6262
+[src/backend/access/transam/xlog.c:6226-6262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L6226-L6262)
 
 ## Overview
 ReachedEndOfBackup is called when WAL recovery reaches the end of a base backup, updating the control file to reflect that the database has reached a consistent state.

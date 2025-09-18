@@ -1,7 +1,7 @@
 # getRestoreCommand
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 1056 - 1128
+[src/bin/pg_rewind/pg_rewind.c:1056-1128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L1056-L1128)
 
 ## Overview
 Retrieves the value of the restore_command GUC parameter from the target PostgreSQL cluster using the postgres executable's -C option.

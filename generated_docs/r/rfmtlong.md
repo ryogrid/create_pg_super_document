@@ -1,7 +1,7 @@
 # rfmtlong
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 768 - 961
+[src/interfaces/ecpg/compatlib/informix.c:768-961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L768-L961)
 
 ## Overview
 A complex numeric formatting function that converts a long integer to a formatted ASCII string using Informix-style format specifiers, supporting advanced formatting features like alignment, padding, sign handling, and bracket notation.

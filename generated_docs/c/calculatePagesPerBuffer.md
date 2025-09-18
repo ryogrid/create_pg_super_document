@@ -1,7 +1,7 @@
 # calculatePagesPerBuffer
 
 ## Location
-src/backend/access/gist/gistbuild.c: 787 - 819
+[src/backend/access/gist/gistbuild.c:787-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L787-L819)
 
 ## Overview
 Calculates the optimal buffer size (in pages) for the GiST index buffering algorithm, ensuring efficient memory utilization during the index build process.

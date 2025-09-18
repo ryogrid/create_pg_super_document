@@ -1,7 +1,7 @@
 # PartitionPruneFixSubPlanMap
 
 ## Location
-src/backend/executor/execPartition.c: 2192 - 2302
+[src/backend/executor/execPartition.c:2192-2302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L2192-L2302)
 
 ## Overview
 Fixes mapping of partition indexes to subplan indexes in PartitionPruneState by updating indexes to reflect the new subplan set after initial pruning has eliminated some subplans.

@@ -1,7 +1,7 @@
 # ProcSendSignal
 
 ## Location
-src/backend/storage/lmgr/proc.c: 1883 - 1897
+[src/backend/storage/lmgr/proc.c:1883-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L1883-L1897)
 
 ## Overview
 Sets the latch of a backend process identified by its ProcNumber to signal that process to wake up from waiting.

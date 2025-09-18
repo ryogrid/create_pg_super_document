@@ -1,7 +1,7 @@
 # ExecEstimateCacheEntryOverheadBytes
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1172 - 1189
+[src/backend/executor/nodeMemoize.c:1172-1189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1172-L1189)
 
 ## Overview
 ExecEstimateCacheEntryOverheadBytes provides a memory estimation function for the query planner to calculate the storage overhead required for a single cache entry in the Memoize node.

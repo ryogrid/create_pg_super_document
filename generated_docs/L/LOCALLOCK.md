@@ -1,7 +1,7 @@
 # LOCALLOCK
 
 ## Location
-src/include/storage/lock.h: 426 - 441
+[src/include/storage/lock.h:426-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lock.h#L426-L441)
 
 ## Overview
 LOCALLOCK represents a backend's local view of a lock it has acquired or is interested in, maintaining reference counts and pointers to shared memory structures.

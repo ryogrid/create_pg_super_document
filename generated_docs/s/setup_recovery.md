@@ -1,7 +1,7 @@
 # setup_recovery
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1183 - 1251
+[src/bin/pg_basebackup/pg_createsubscriber.c:1183-1251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1183-L1251)
 
 ## Overview
 Configures PostgreSQL recovery parameters for the standby-to-subscriber conversion process, setting up the recovery configuration file with appropriate LSN targets and recovery behavior.

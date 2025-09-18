@@ -1,7 +1,7 @@
 # yiddish_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c: 1230 - 1231
+[src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:1230-1231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c#L1230-L1231)
 
 ## Overview
 Factory function that creates and initializes a new Snowball environment structure specifically configured for Yiddish UTF-8 stemming operations.

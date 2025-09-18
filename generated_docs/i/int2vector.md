@@ -1,7 +1,7 @@
 # int2vector
 
 ## Location
-src/include/c.h: 723 - 733
+[src/include/c.h:723-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/c.h#L723-L733)
 
 ## Overview
 A specialized data structure representing a variable-length array of 16-bit signed integers (int16), designed to efficiently store vectors of small integer values in PostgreSQL's catalog system.

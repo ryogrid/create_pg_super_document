@@ -1,7 +1,7 @@
 # oidne
 
 ## Location
-src/backend/utils/adt/oid.c: 281 - 289
+[src/backend/utils/adt/oid.c:281-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L281-L289)
 
 ## Overview
 A PostgreSQL function that tests inequality between two Oid (Object Identifier) values, returning a boolean result indicating whether the two Oids are not equal.

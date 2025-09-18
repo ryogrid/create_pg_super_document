@@ -1,7 +1,7 @@
 # jsonPathFromCstring
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 173 - 212
+[src/backend/utils/adt/jsonpath.c:173-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L173-L212)
 
 ## Overview
 The  function is the core parsing function that converts a C-string representation of a JSON path expression into PostgreSQL's internal binary jsonpath format.

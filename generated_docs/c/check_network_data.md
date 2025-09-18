@@ -1,7 +1,7 @@
 # check_network_data
 
 ## Location
-src/backend/libpq/hba.c: 55 - 60
+[src/backend/libpq/hba.c:55-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L55-L60)
 
 ## Overview
 A structure that serves as callback data for network interface enumeration during host-based authentication (HBA) processing in PostgreSQL.

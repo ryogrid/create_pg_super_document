@@ -1,7 +1,7 @@
 # ProcessSyncRequests
 
 ## Location
-src/backend/storage/sync/sync.c: 286 - 486
+[src/backend/storage/sync/sync.c:286-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/sync/sync.c#L286-L486)
 
 ## Overview
 Processes queued fsync requests during checkpoints, ensuring all modified files are synchronized to disk with comprehensive error handling and performance monitoring.

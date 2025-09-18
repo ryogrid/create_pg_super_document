@@ -1,7 +1,7 @@
 # TablespaceCreateDbspace
 
 ## Location
-src/backend/commands/tablespace.c: 112 - 207
+[src/backend/commands/tablespace.c:112-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L112-L207)
 
 ## Overview
 Creates database-specific subdirectories within tablespaces to isolate each database's objects into its own namespace, handling both normal operation and WAL replay scenarios.

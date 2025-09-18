@@ -1,7 +1,7 @@
 # DomainHasConstraints
 
 ## Location
-src/backend/utils/cache/typcache.c: 1400 - 1426
+[src/backend/utils/cache/typcache.c:1400-1426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1400-L1426)
 
 ## Overview
 A utility routine that checks whether a given domain type has any associated constraints, returning false (rather than failing) if the type is not a domain.

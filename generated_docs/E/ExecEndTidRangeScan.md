@@ -1,7 +1,7 @@
 # ExecEndTidRangeScan
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 327 - 346
+[src/backend/executor/nodeTidrangescan.c:327-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L327-L346)
 
 ## Overview
 ExecEndTidRangeScan performs cleanup operations for a TID range scan, releasing any storage allocated through C routines and properly terminating the scan.

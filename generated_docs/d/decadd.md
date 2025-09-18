@@ -1,7 +1,7 @@
 # decadd
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 151 - 166
+[src/interfaces/ecpg/compatlib/informix.c:151-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L151-L166)
 
 ## Overview
 Performs addition of two decimal numbers, providing Informix-compatible decimal arithmetic with proper overflow/underflow handling and error reporting.

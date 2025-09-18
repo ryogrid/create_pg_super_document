@@ -1,7 +1,7 @@
 # compareVariableNames
 
 ## Location
-src/bin/pgbench/pgbench.c: 1596 - 1603
+[src/bin/pgbench/pgbench.c:1596-1603](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1596-L1603)
 
 ## Overview
 A qsort comparator function that compares Variable structures by their name field using lexicographic string ordering for efficient variable lookup operations.

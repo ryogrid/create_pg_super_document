@@ -1,7 +1,7 @@
 # spggettuple
 
 ## Location
-src/backend/access/spgist/spgscan.c: 1026 - 1082
+[src/backend/access/spgist/spgscan.c:1026-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L1026-L1082)
 
 ## Overview
 Primary function for retrieving individual tuples during SPGiST index scans, implementing the gettuple interface for the SPGiST access method.

@@ -1,7 +1,7 @@
 # fmgr_c_validator
 
 ## Location
-src/backend/catalog/pg_proc.c: 768 - 810
+[src/backend/catalog/pg_proc.c:768-810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L768-L810)
 
 ## Overview
 Validates C language functions by verifying that the shared library exists, is loadable, and contains the specified function symbol with valid function information.

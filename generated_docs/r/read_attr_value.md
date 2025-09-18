@@ -1,7 +1,7 @@
 # read_attr_value
 
 ## Location
-src/backend/libpq/auth-scram.c: 729 - 764
+[src/backend/libpq/auth-scram.c:729-764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L729-L764)
 
 ## Overview
 Reads and extracts the value of a specified attribute from a SCRAM exchange message string.

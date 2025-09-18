@@ -1,7 +1,7 @@
 # int8_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 4493 - 4500
+[src/backend/utils/adt/numeric.c:4493-4500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4493-L4500)
 
 ## Overview
 Converts a 64-bit signed integer (int8/bigint) to PostgreSQL's numeric data type.

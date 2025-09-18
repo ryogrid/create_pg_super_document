@@ -1,7 +1,7 @@
 # hashendscan
 
 ## Location
-src/backend/access/hash/hash.c: 431 - 461
+[src/backend/access/hash/hash.c:431-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L431-L461)
 
 ## Overview
 Terminates a hash index scan and cleans up all associated resources including buffers and memory allocations.

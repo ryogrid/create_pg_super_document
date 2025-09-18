@@ -1,7 +1,7 @@
 # pull_up_union_leaf_queries
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1551 - 1620
+[src/backend/optimizer/prep/prepjointree.c:1551-1620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1551-L1620)
 
 ## Overview
 A recursive function that builds AppendRelInfo structures for each leaf query in a setop (set operation) tree and applies query pull-up optimization to those leaf queries.

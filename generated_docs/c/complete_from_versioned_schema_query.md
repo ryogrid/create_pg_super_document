@@ -1,7 +1,7 @@
 # complete_from_versioned_schema_query
 
 ## Location
-src/bin/psql/tab-complete.c: 5192 - 5249
+[src/bin/psql/tab-complete.c:5192-5249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L5192-L5249)
 
 ## Overview
 Provides version-aware tab completion functionality for PostgreSQL schema queries by selecting an appropriate schema query based on the current server version.

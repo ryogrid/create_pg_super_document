@@ -1,7 +1,7 @@
 # itssymlink
 
 ## Location
-src/timezone/zic.c: 1131 - 1150
+[src/timezone/zic.c:1131-1150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L1131-L1150)
 
 ## Overview
 Determines whether a given path refers to a symbolic link, with conditional compilation support for systems that may not have symbolic link functionality.

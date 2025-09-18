@@ -1,7 +1,7 @@
 # gistcanreturn
 
 ## Location
-src/backend/access/gist/gistget.c: 793 - 801
+[src/backend/access/gist/gistget.c:793-801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L793-L801)
 
 ## Overview
 gistcanreturn determines whether a specific index column supports index-only scans by checking for fetch functions, included attributes, or absence of compression.

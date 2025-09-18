@@ -1,7 +1,7 @@
 # makeNumericAggStateCurrentContext
 
 ## Location
-src/backend/utils/adt/numeric.c: 4858 - 4872
+[src/backend/utils/adt/numeric.c:4858-4872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4858-L4872)
 
 ## Overview
 Creates and initializes a NumericAggState structure in the current memory context, used for situations where aggregate context validation is not needed.

@@ -1,7 +1,7 @@
 # ts_headline_json_byid_opt
 
 ## Location
-src/backend/tsearch/wparser.c: 443 - 490
+[src/backend/tsearch/wparser.c:443-490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser.c#L443-L490)
 
 ## Overview
 A core PostgreSQL function that generates highlighted headlines from JSON documents based on a specified text search configuration and query, with support for customizable headline generation options.

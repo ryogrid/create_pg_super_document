@@ -1,7 +1,7 @@
 # AttachSerializableXact
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 5045 - 5053
+[src/backend/storage/lmgr/predicate.c:5045-5053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L5045-L5053)
 
 ## Overview
 AttachSerializableXact allows parallel workers to import and attach to the leader's SERIALIZABLEXACT, enabling consistent serializable transaction behavior across parallel query participants.

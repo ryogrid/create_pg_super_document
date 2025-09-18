@@ -1,7 +1,7 @@
 # PLyPlanObject
 
 ## Location
-src/pl/plpython/plpy_planobject.h: 12 - 21
+[src/pl/plpython/plpy_planobject.h:12-21](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_planobject.h#L12-L21)
 
 ## Overview
 PLyPlanObject is a C structure that represents a PostgreSQL execution plan within the PL/Python language extension, serving as a Python object wrapper for prepared SQL statements that can be executed multiple times with different parameter values.

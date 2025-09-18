@@ -1,7 +1,7 @@
 # quote_identifier
 
 ## Location
-src/bin/pg_upgrade/util.c: 299 - 322
+[src/bin/pg_upgrade/util.c:299-322](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L299-L322)
 
 ## Overview
 quote_identifier is a PostgreSQL backend utility function that conditionally adds double quotes around SQL identifiers when necessary to preserve their case sensitivity or to handle reserved keywords and special characters.

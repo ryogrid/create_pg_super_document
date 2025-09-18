@@ -1,7 +1,7 @@
 # pg_rotate_logfile
 
 ## Location
-src/backend/storage/ipc/signalfuncs.c: 280 - 291
+[src/backend/storage/ipc/signalfuncs.c:280-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/signalfuncs.c#L280-L291)
 
 ## Overview
 Triggers log file rotation in PostgreSQL by sending a signal to the postmaster process.

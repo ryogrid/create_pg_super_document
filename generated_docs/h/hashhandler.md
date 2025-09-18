@@ -1,7 +1,7 @@
 # hashhandler
 
 ## Location
-src/backend/access/hash/hash.c: 57 - 114
+[src/backend/access/hash/hash.c:57-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L57-L114)
 
 ## Overview
 Hash handler function that returns the IndexAmRoutine structure with access method parameters and callbacks for PostgreSQL hash indexes.

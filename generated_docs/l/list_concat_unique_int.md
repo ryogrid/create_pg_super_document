@@ -1,7 +1,7 @@
 # list_concat_unique_int
 
 ## Location
-src/backend/nodes/list.c: 1448 - 1468
+[src/backend/nodes/list.c:1448-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1448-L1468)
 
 ## Overview
 Concatenates two integer lists by appending each integer from the second list to the first list, but only if it is not already present, ensuring no duplicate integers.

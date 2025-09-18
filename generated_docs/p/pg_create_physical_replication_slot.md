@@ -1,7 +1,7 @@
 # pg_create_physical_replication_slot
 
 ## Location
-src/backend/replication/slotfuncs.c: 69 - 120
+[src/backend/replication/slotfuncs.c:69-120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slotfuncs.c#L69-L120)
 
 ## Overview
 SQL function that creates a new physical (streaming replication) replication slot and returns slot name and optionally the restart LSN.

@@ -1,7 +1,7 @@
 # table_beginscan_strat
 
 ## Location
-src/include/access/tableam.h: 933 - 953
+[src/include/access/tableam.h:933-953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L933-L953)
 
 ## Overview
 table_beginscan_strat is an extended version of table_beginscan that provides fine-grained control over buffer access strategy and synchronization options during table scanning operations.

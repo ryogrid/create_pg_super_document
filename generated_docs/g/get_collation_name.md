@@ -1,7 +1,7 @@
 # get_collation_name
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1035 - 1053
+[src/backend/utils/cache/lsyscache.c:1035-1053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1035-L1053)
 
 ## Overview
 Retrieves the name of a collation from the PostgreSQL system catalog given its OID, primarily used for error reporting and diagnostic purposes.

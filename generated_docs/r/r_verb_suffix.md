@@ -1,7 +1,7 @@
 # r_verb_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_spanish.c: 902 - 940
+[src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:902-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_spanish.c#L902-L940)
 
 ## Overview
 This function removes verb-specific suffixes from words in the Snowball stemming algorithm, handling a large collection of verb endings with different region requirements.

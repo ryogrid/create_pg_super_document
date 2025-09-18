@@ -1,7 +1,7 @@
 # gather_readnext
 
 ## Location
-src/backend/executor/nodeGather.c: 304 - 392
+[src/backend/executor/nodeGather.c:304-392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L304-L392)
 
 ## Overview
 Implements the worker tuple reading logic for Gather nodes, managing round-robin reading from multiple worker process tuple queues with non-blocking I/O and worker lifecycle management.

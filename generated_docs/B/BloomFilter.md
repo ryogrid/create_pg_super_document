@@ -1,7 +1,7 @@
 # BloomFilter
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 242 - 257
+[src/backend/access/brin/brin_bloom.c:242-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L242-L257)
 
 ## Overview
 BloomFilter represents a bloom filter data structure used in BRIN indexes, built on hashes of indexed values to provide efficient membership testing with controlled false positive rates.

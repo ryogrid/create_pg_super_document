@@ -1,7 +1,7 @@
 # ParseExprKind
 
 ## Location
-src/include/parser/parse_node.h: 85 - 189
+[src/include/parser/parse_node.h:85-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parse_node.h#L85-L189)
 
 ## Overview
 ParseExprKind is an enumeration that identifies different contexts in which expressions are being transformed during SQL query parsing, enabling context-specific error messages and validation rules.

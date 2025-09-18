@@ -1,7 +1,7 @@
 # DSMRegistryEntry
 
 ## Location
-src/backend/storage/ipc/dsm_registry.c: 43 - 48
+[src/backend/storage/ipc/dsm_registry.c:43-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm_registry.c#L43-L48)
 
 ## Overview
 DSMRegistryEntry represents an individual entry in the dynamic shared memory registry, storing the name, handle, and size information for a named DSM segment.

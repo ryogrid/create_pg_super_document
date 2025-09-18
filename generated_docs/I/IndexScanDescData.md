@@ -1,7 +1,7 @@
 # IndexScanDescData
 
 ## Location
-src/include/access/relscan.h: 114 - 167
+[src/include/access/relscan.h:114-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L114-L167)
 
 ## Overview
 A comprehensive structure that describes an index scan operation, containing all state and metadata needed for both amgettuple-based and amgetbitmap-based index scans in PostgreSQL.

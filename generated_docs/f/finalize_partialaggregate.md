@@ -1,7 +1,7 @@
 # finalize_partialaggregate
 
 ## Location
-src/backend/executor/nodeAgg.c: 1146 - 1203
+[src/backend/executor/nodeAgg.c:1146-1203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1146-L1203)
 
 ## Overview
 Computes the output value of one partial aggregate by optionally serializing the transition value before returning it in the output-tuple context.

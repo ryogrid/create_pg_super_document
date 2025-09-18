@@ -1,7 +1,7 @@
 # find_other_exec_or_die
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 867 - 893
+[src/bin/pg_ctl/pg_ctl.c:867-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L867-L893)
 
 ## Overview
 Locates a required PostgreSQL executable program in the installation directory, terminating the process with an error message if the program cannot be found or has an incompatible version.

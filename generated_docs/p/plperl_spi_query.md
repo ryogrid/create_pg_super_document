@@ -1,7 +1,7 @@
 # plperl_spi_query
 
 ## Location
-src/pl/plperl/plperl.c: 3404 - 3475
+[src/pl/plperl/plperl.c:3404-3475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3404-L3475)
 
 ## Overview
 Executes a SQL query string through SPI interface, returning a cursor name that can be used to fetch results in PL/Perl functions.

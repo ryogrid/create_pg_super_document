@@ -1,7 +1,7 @@
 # _bt_insert_parent
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 2099 - 2240
+[src/backend/access/nbtree/nbtinsert.c:2099-2240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L2099-L2240)
 
 ## Overview
 _bt_insert_parent completes a page split by inserting a downlink to the new right page into the appropriate parent page, handling both normal splits and root splits.

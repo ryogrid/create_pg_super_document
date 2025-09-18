@@ -1,7 +1,7 @@
 # lookup_filehash_entry
 
 ## Location
-src/bin/pg_rewind/filemap.c: 233 - 241
+[src/bin/pg_rewind/filemap.c:233-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L233-L241)
 
 ## Overview
 Performs a hash table lookup to find an existing file entry for a given file path without creating a new entry.

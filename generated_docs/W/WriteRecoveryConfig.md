@@ -1,7 +1,7 @@
 # WriteRecoveryConfig
 
 ## Location
-src/fe_utils/recovery_gen.c: 124 - 162
+[src/fe_utils/recovery_gen.c:124-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/recovery_gen.c#L124-L162)
 
 ## Overview
 WriteRecoveryConfig writes recovery configuration content to the appropriate configuration file and creates necessary signal files for PostgreSQL standby server setup.

@@ -1,7 +1,7 @@
 # exec_execute_message
 
 ## Location
-src/backend/tcop/postgres.c: 2101 - 2367
+[src/backend/tcop/postgres.c:2101-2367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2101-L2367)
 
 ## Overview
 Processes an "Execute" message for a portal, running the actual query execution and returning results to the client in PostgreSQL's extended query protocol.

@@ -1,7 +1,7 @@
 # outChar
 
 ## Location
-src/backend/nodes/outfuncs.c: 190 - 210
+[src/backend/nodes/outfuncs.c:190-210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L190-L210)
 
 ## Overview
 Converts a single character into a safely escaped string format for PostgreSQL node serialization, delegating to outToken for proper character escaping.

@@ -1,7 +1,7 @@
 # test_psql_parse
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 580 - 636
+[src/test/modules/test_escape/test_escape.c:580-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L580-L636)
 
 ## Overview
 A test function that verifies that psql parses a given input as a single SQL statement to ensure escape functions effectively protect against SQL injection by preventing statement smuggling.

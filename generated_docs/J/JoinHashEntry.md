@@ -1,7 +1,7 @@
 # JoinHashEntry
 
 ## Location
-src/backend/optimizer/util/relnode.c: 38 - 42
+[src/backend/optimizer/util/relnode.c:38-42](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L38-L42)
 
 ## Overview
 JoinHashEntry is a hash table entry structure used by PostgreSQL's query planner to efficiently store and lookup join relations during query optimization.

@@ -1,7 +1,7 @@
 # searchstoplist
 
 ## Location
-src/backend/tsearch/ts_utils.c: 140 - 145
+[src/backend/tsearch/ts_utils.c:140-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_utils.c#L140-L145)
 
 ## Overview
 Performs a binary search to determine if a given word exists in a sorted StopList structure.

@@ -1,7 +1,7 @@
 # ExecParallelInitializeWorker
 
 ## Location
-src/backend/executor/execParallel.c: 1309 - 1399
+[src/backend/executor/execParallel.c:1309-1399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L1309-L1399)
 
 ## Overview
 Initializes PlanState nodes and their descendants with information retrieved from shared memory for parallel worker execution.

@@ -1,7 +1,7 @@
 # SPI_unregister_relation
 
 ## Location
-src/backend/executor/spi.c: 3331 - 3363
+[src/backend/executor/spi.c:3331-3363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3331-L3363)
 
 ## Overview
 Unregisters an ephemeral named relation by name from the current SPI connection's query environment.

@@ -1,7 +1,7 @@
 # getSQLErrorStatus
 
 ## Location
-src/bin/pgbench/pgbench.c: 3208 - 3224
+[src/bin/pgbench/pgbench.c:3208-3224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3208-L3224)
 
 ## Overview
 Analyzes SQL error codes and categorizes them into specific error status types for pgbench error handling and retry logic.

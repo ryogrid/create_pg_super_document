@@ -1,7 +1,7 @@
 # get_type_func_class
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 1328 - 1378
+[src/backend/utils/fmgr/funcapi.c:1328-1378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L1328-L1378)
 
 ## Overview
 Classifies a PostgreSQL data type by its functional characteristics and returns the base type OID if it's a domain type.

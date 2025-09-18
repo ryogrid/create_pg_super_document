@@ -1,7 +1,7 @@
 # _defaultACLInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 586 - 591
+[src/bin/pg_dump/pg_dump.h:586-591](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L586-L591)
 
 ## Overview
 The `_defaultACLInfo` structure represents default access control list (ACL) information for database objects in pg_dump, used to store and manage default privilege settings during database dump operations.

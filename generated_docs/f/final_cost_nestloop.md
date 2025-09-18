@@ -1,7 +1,7 @@
 # final_cost_nestloop
 
 ## Location
-src/backend/optimizer/path/costsize.c: 3308 - 3513
+[src/backend/optimizer/path/costsize.c:3308-3513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L3308-L3513)
 
 ## Overview
 Provides the final estimate of the cost and result size of a nestloop join path, performing detailed cost calculations including CPU costs and join qualification evaluation.

@@ -1,7 +1,7 @@
 # exec_command_ef_ev
 
 ## Location
-src/bin/psql/command.c: 1177 - 1292
+[src/bin/psql/command.c:1177-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1177-L1292)
 
 ## Overview
 Implements the \ef (edit function) and \ev (edit view) commands in psql for editing existing functions/views or creating new ones from templates using an external editor.

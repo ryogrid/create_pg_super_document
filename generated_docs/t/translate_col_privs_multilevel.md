@@ -1,7 +1,7 @@
 # translate_col_privs_multilevel
 
 ## Location
-src/backend/optimizer/util/inherit.c: 760 - 798
+[src/backend/optimizer/util/inherit.c:760-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/inherit.c#L760-L798)
 
 ## Overview
 Recursively translates column number privileges from a parent relation to a descendant relation through multiple levels of inheritance hierarchy.

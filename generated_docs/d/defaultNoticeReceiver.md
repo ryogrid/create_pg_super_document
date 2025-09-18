@@ -1,7 +1,7 @@
 # defaultNoticeReceiver
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7361 - 7375
+[src/interfaces/libpq/fe-connect.c:7361-7375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7361-L7375)
 
 ## Overview
 The default notice message receiver function that processes PostgreSQL notice messages by extracting the standard notice text and forwarding it to the configured notice processor.

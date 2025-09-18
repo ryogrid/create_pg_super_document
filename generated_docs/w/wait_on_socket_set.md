@@ -1,7 +1,7 @@
 # wait_on_socket_set
 
 ## Location
-src/bin/pgbench/pgbench.c: 7940 - 7956
+[src/bin/pgbench/pgbench.c:7940-7956](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L7940-L7956)
 
 ## Overview
 Waits for input activity on a set of sockets using the select() system call, with optional timeout support.

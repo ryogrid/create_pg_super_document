@@ -1,7 +1,7 @@
 # pgstat_reset_of_kind
 
 ## Location
-src/backend/utils/activity/pgstat.c: 755 - 780
+[src/backend/utils/activity/pgstat.c:755-780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L755-L780)
 
 ## Overview
 This function resets statistics for all entries of a specified statistics kind within PostgreSQL's statistics collection system.

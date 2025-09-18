@@ -1,7 +1,7 @@
 # heap_update
 
 ## Location
-src/backend/access/heap/heapam.c: 3200 - 4181
+[src/backend/access/heap/heapam.c:3200-4181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L3200-L4181)
 
 ## Overview
 heap_update is the core function responsible for replacing a tuple in a heap table, handling complex visibility rules, hot updates, toast management, and multi-version concurrency control to ensure ACID compliance.

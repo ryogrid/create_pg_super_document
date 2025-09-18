@@ -1,7 +1,7 @@
 # domain_in
 
 ## Location
-src/backend/utils/adt/domains.c: 227 - 286
+[src/backend/utils/adt/domains.c:227-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L227-L286)
 
 ## Overview
 Input routine for any domain type that converts string input to the domain's internal representation and validates domain constraints.

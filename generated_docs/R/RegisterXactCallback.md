@@ -1,7 +1,7 @@
 # RegisterXactCallback
 
 ## Location
-src/backend/access/transam/xact.c: 3753 - 3765
+[src/backend/access/transam/xact.c:3753-3765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3753-L3765)
 
 ## Overview
 Registers a callback function to be invoked at transaction start and end events for dynamically loaded modules.

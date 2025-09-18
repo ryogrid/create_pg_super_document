@@ -1,7 +1,7 @@
 # make_path_rowexpr
 
 ## Location
-src/backend/rewrite/rewriteSearchCycle.c: 117 - 158
+[src/backend/rewrite/rewriteSearchCycle.c:117-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteSearchCycle.c#L117-L158)
 
 ## Overview
 Creates a RowExpr node from specified column names for use in PostgreSQL's CTE (Common Table Expression) SEARCH and CYCLE clause rewriting.

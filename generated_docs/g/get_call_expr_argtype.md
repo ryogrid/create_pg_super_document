@@ -1,7 +1,7 @@
 # get_call_expr_argtype
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1929 - 1974
+[src/backend/utils/fmgr/fmgr.c:1929-1974](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1929-L1974)
 
 ## Overview
 Retrieves the actual type OID of a specific function argument from a calling expression tree, enabling type checking and polymorphic function resolution without requiring FmgrInfo.

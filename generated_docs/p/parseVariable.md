@@ -1,7 +1,7 @@
 # parseVariable
 
 ## Location
-src/bin/pgbench/pgbench.c: 1889 - 1915
+[src/bin/pgbench/pgbench.c:1889-1915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1889-L1915)
 
 ## Overview
 Parses a variable reference in SQL text that starts with a colon (:varname) and extracts the variable name.

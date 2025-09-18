@@ -1,7 +1,7 @@
 # parallel_vacuum_end
 
 ## Location
-src/backend/commands/vacuumparallel.c: 434 - 464
+[src/backend/commands/vacuumparallel.c:434-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L434-L464)
 
 ## Overview
 Cleanly terminates parallel vacuum execution by copying statistics from shared memory to local memory, destroying the parallel context, and freeing all allocated resources.

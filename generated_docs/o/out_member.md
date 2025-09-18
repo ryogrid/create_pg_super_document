@@ -1,7 +1,7 @@
 # out_member
 
 ## Location
-src/backend/access/rmgrdesc/mxactdesc.c: 20 - 49
+[src/backend/access/rmgrdesc/mxactdesc.c:20-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/mxactdesc.c#L20-L49)
 
 ## Overview
 A static helper function that formats a MultiXact member (transaction ID and status) into a human-readable string representation for debugging and logging purposes.

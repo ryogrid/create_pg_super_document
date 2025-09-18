@@ -1,7 +1,7 @@
 # xidrecv
 
 ## Location
-src/backend/utils/adt/xid.c: 55 - 65
+[src/backend/utils/adt/xid.c:55-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L55-L65)
 
 ## Overview
 The xidrecv function converts external binary format data to PostgreSQL's internal xid (TransactionId) type, used in the binary protocol for data transmission.

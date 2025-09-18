@@ -1,7 +1,7 @@
 # ExecCleanTypeFromTL
 
 ## Location
-src/backend/executor/execTuples.c: 2037 - 2042
+[src/backend/executor/execTuples.c:2037-2042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2037-L2042)
 
 ## Overview
 Generates a tuple descriptor for the result tuple of a target list, excluding resjunk columns from the result.

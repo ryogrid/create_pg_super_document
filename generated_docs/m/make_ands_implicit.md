@@ -1,7 +1,7 @@
 # make_ands_implicit
 
 ## Location
-src/backend/nodes/makefuncs.c: 784 - 807
+[src/backend/nodes/makefuncs.c:784-807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L784-L807)
 
 ## Overview
 Converts an expression clause into a list of conjunctive (AND) terms, treating implicit AND operations explicitly for query processing optimization.

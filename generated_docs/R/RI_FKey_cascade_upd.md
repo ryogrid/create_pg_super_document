@@ -1,7 +1,7 @@
 # RI_FKey_cascade_upd
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 849 - 969
+[src/backend/utils/adt/ri_triggers.c:849-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L849-L969)
 
 ## Overview
 A trigger function that implements CASCADE behavior for UPDATE operations, automatically updating all foreign key references when a primary key value is updated in the referenced table.

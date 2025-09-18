@@ -1,7 +1,7 @@
 # gtsvector_decompress
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 252 - 278
+[src/backend/utils/adt/tsgistidx.c:252-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L252-L278)
 
 ## Overview
 Decompresses a TSVector GiST index entry by handling TOAST detoasting to ensure other support functions can work with the uncompressed data.

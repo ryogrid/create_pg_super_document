@@ -1,7 +1,7 @@
 # date_larger
 
 ## Location
-src/backend/utils/adt/date.c: 467 - 475
+[src/backend/utils/adt/date.c:467-475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L467-L475)
 
 ## Overview
 Returns the larger (more recent) of two date values.

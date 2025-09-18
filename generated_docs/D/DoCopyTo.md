@@ -1,7 +1,7 @@
 # DoCopyTo
 
 ## Location
-src/backend/commands/copyto.c: 747 - 906
+[src/backend/commands/copyto.c:747-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L747-L906)
 
 ## Overview
 DoCopyTo executes the main logic of a COPY TO operation, reading tuples from a relation or query and formatting them for output to the configured destination.

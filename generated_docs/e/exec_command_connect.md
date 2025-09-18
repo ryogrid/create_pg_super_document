@@ -1,7 +1,7 @@
 # exec_command_connect
 
 ## Location
-src/bin/psql/command.c: 554 - 606
+[src/bin/psql/command.c:554-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L554-L606)
 
 ## Overview
 Implements the psql  or  command for establishing a new database connection with specified parameters.

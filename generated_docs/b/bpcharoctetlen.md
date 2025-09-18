@@ -1,7 +1,7 @@
 # bpcharoctetlen
 
 ## Location
-src/backend/utils/adt/varchar.c: 709 - 726
+[src/backend/utils/adt/varchar.c:709-726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L709-L726)
 
 ## Overview
 Returns the octet length (byte length) of a BPCHAR (blank-padded character) value without detoasting the input.

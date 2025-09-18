@@ -1,7 +1,7 @@
 # icu_test_simple
 
 ## Location
-src/common/unicode/case_test.c: 30 - 54
+[src/common/unicode/case_test.c:30-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode/case_test.c#L30-L54)
 
 ## Overview
 A static test function that validates PostgreSQL's Unicode case conversion implementation against ICU library results for a specific Unicode codepoint.

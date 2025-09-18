@@ -1,7 +1,7 @@
 # pg_total_relation_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 547 - 568
+[src/backend/utils/adt/dbsize.c:547-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L547-L568)
 
 ## Overview
 This function calculates and returns the total size of a PostgreSQL relation (table/index) including all associated files such as TOAST tables, indexes, and FSM/VM files.

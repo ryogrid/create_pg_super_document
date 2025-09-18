@@ -1,7 +1,7 @@
 # CollInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 287 - 288
+[src/bin/pg_dump/pg_dump.h:287-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L287-L288)
 
 ## Overview
 CollInfo represents collation objects in PostgreSQL's pg_dump utility, storing information about database collations that need to be dumped and restored.

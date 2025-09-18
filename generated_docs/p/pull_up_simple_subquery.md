@@ -1,7 +1,7 @@
 # pull_up_simple_subquery
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 1123 - 1468
+[src/backend/optimizer/prep/prepjointree.c:1123-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L1123-L1468)
 
 ## Overview
 Performs the complex transformation of pulling up a simple subquery into the parent query by merging range tables, adjusting variable references, and handling various semantic complications.

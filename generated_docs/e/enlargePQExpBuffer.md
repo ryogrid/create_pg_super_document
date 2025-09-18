@@ -1,7 +1,7 @@
 # enlargePQExpBuffer
 
 ## Location
-src/interfaces/libpq/pqexpbuffer.c: 172 - 234
+[src/interfaces/libpq/pqexpbuffer.c:172-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/pqexpbuffer.c#L172-L234)
 
 ## Overview
 Ensures that a PQExpBuffer has sufficient space to accommodate additional data by enlarging the buffer if necessary.

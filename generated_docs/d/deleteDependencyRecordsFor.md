@@ -1,7 +1,7 @@
 # deleteDependencyRecordsFor
 
 ## Location
-src/backend/catalog/pg_depend.c: 302 - 351
+[src/backend/catalog/pg_depend.c:302-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L302-L351)
 
 ## Overview
 Deletes all dependency records where the specified object is the depender, typically used when redefining existing objects to clean up old dependencies before recreating them.

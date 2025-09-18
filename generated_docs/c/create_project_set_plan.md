@@ -1,7 +1,7 @@
 # create_project_set_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1613 - 1638
+[src/backend/optimizer/plan/createplan.c:1613-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1613-L1638)
 
 ## Overview
 Creates a ProjectSet plan node for handling set-returning functions in the target list, enabling the execution of functions that return multiple rows from a single input row.

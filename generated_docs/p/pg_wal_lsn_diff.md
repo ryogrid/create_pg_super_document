@@ -1,7 +1,7 @@
 # pg_wal_lsn_diff
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 651 - 668
+[src/backend/access/transam/xlogfuncs.c:651-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L651-L668)
 
 ## Overview
 Computes the difference in bytes between two WAL (Write-Ahead Log) LSN (Log Sequence Number) positions.

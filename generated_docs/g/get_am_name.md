@@ -1,7 +1,7 @@
 # get_am_name
 
 ## Location
-src/backend/commands/amcmds.c: 192 - 211
+[src/backend/commands/amcmds.c:192-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/amcmds.c#L192-L211)
 
 ## Overview
 Retrieves the name of an access method given its object identifier (OID) from the PostgreSQL system catalog.

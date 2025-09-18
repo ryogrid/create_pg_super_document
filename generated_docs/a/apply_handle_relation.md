@@ -1,7 +1,7 @@
 # apply_handle_relation
 
 ## Location
-src/backend/replication/logical/worker.c: 2303 - 2325
+[src/backend/replication/logical/worker.c:2303-2325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2303-L2325)
 
 ## Overview
 apply_handle_relation processes RELATION messages in PostgreSQL logical replication, updating the local relation mapping and partition information without immediate schema validation.

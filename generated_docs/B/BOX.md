@@ -1,7 +1,7 @@
 # BOX
 
 ## Location
-src/include/utils/geo_decls.h: 144 - 156
+[src/include/utils/geo_decls.h:144-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L144-L156)
 
 ## Overview
 BOX is a geometric data type in PostgreSQL that represents a rectangular bounding box specified by two corner points, which are automatically sorted for efficient geometric operations.

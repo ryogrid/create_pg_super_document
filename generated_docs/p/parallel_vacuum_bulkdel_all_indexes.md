@@ -1,7 +1,7 @@
 # parallel_vacuum_bulkdel_all_indexes
 
 ## Location
-src/backend/commands/vacuumparallel.c: 498 - 516
+[src/backend/commands/vacuumparallel.c:498-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L498-L516)
 
 ## Overview
 Coordinates parallel execution of bulk delete operations across all indexes by setting up shared metadata and delegating the actual work to the parallel processing infrastructure.

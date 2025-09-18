@@ -1,7 +1,7 @@
 # add_values_to_range
 
 ## Location
-src/backend/access/brin/brin.c: 2196 - 2289
+[src/backend/access/brin/brin.c:2196-2289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2196-L2289)
 
 ## Overview
 Updates a BRIN range summary by incorporating new data values, modifying the summary statistics to ensure the range encompasses both existing and new values.

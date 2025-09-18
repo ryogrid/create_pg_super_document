@@ -1,7 +1,7 @@
 # update_mergeclause_eclasses
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1490 - 1523
+[src/backend/optimizer/path/pathkeys.c:1490-1523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1490-L1523)
 
 ## Overview
 Updates the cached EquivalenceClass links in a mergeclause RestrictInfo to point to canonical merged parent EquivalenceClasses after EC merging is complete.

@@ -1,7 +1,7 @@
 # pg_lsn_hash
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 206 - 212
+[src/backend/utils/adt/pg_lsn.c:206-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L206-L212)
 
 ## Overview
 The pg_lsn_hash function computes a hash value for PostgreSQL Log Sequence Numbers (LSNs) to support hash index operations on pg_lsn data types.

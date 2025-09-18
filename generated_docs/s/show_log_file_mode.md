@@ -1,7 +1,7 @@
 # show_log_file_mode
 
 ## Location
-src/backend/commands/variable.c: 1168 - 1179
+[src/backend/commands/variable.c:1168-1179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L1168-L1179)
 
 ## Overview
 A GUC (Grand Unified Configuration) show hook function that formats and displays the `log_file_mode` configuration parameter value in octal notation for user readability.

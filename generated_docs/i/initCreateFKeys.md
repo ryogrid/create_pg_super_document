@@ -1,7 +1,7 @@
 # initCreateFKeys
 
 ## Location
-src/bin/pgbench/pgbench.c: 5213 - 5238
+[src/bin/pgbench/pgbench.c:5213-5238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5213-L5238)
 
 ## Overview
 Creates foreign key constraints between the standard pgbench tables to establish referential integrity relationships.

@@ -1,7 +1,7 @@
 # decoct
 
 ## Location
-src/port/inet_net_ntop.c: 155 - 177
+[src/port/inet_net_ntop.c:155-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/inet_net_ntop.c#L155-L177)
 
 ## Overview
 Converts a sequence of bytes to dot-separated decimal notation, used as a utility function for formatting IPv6 address components.

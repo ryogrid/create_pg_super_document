@@ -1,7 +1,7 @@
 # xmlcomment
 
 ## Location
-src/backend/utils/adt/xml.c: 491 - 526
+[src/backend/utils/adt/xml.c:491-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L491-L526)
 
 ## Overview
 Creates an XML comment from a text input, validating that the text doesn't contain invalid comment sequences.

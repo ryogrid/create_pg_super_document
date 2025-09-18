@@ -1,7 +1,7 @@
 # ReindexMultipleTables
 
 ## Location
-src/backend/commands/indexcmds.c: 2977 - 3195
+[src/backend/commands/indexcmds.c:2977-3195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L2977-L3195)
 
 ## Overview
 ReindexMultipleTables recreates indexes for multiple tables selected by objectName/objectKind (schema, database, or system catalogs) with each table processed in a separate transaction to reduce deadlock probability.

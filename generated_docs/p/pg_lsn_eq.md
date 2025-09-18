@@ -1,7 +1,7 @@
 # pg_lsn_eq
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 118 - 126
+[src/backend/utils/adt/pg_lsn.c:118-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L118-L126)
 
 ## Overview
 Compares two PostgreSQL Log Sequence Number (LSN) values for equality, returning true if they represent the same position in the WAL (Write-Ahead Log).

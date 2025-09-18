@@ -1,7 +1,7 @@
 # listTSConfigsVerbose
 
 ## Location
-src/bin/psql/describe.c: 5573 - 5656
+[src/bin/psql/describe.c:5573-5656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5573-L5656)
 
 ## Overview
 Lists all text search configurations in the PostgreSQL database with detailed information, including their associated parsers and namespaces.

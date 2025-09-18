@@ -1,7 +1,7 @@
 # pgwin32_register_deadchild_callback
 
 ## Location
-src/backend/postmaster/postmaster.c: 4677 - 4704
+[src/backend/postmaster/postmaster.c:4677-4704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4677-L4704)
 
 ## Overview
 Registers a Windows-specific callback to be invoked when a child process terminates, using the Windows thread pool to handle the wait operation asynchronously.

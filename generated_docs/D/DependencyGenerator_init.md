@@ -1,7 +1,7 @@
 # DependencyGenerator_init
 
 ## Location
-src/backend/statistics/dependencies.c: 173 - 195
+[src/backend/statistics/dependencies.c:173-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L173-L195)
 
 ## Overview
 Initializes a DependencyGenerator by allocating memory, setting up state variables, and pre-generating all possible functional dependencies of size k from n attributes.

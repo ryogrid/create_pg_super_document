@@ -1,7 +1,7 @@
 # namelike
 
 ## Location
-src/backend/utils/adt/like.c: 240 - 260
+[src/backend/utils/adt/like.c:240-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L240-L260)
 
 ## Overview
 A PostgreSQL function that implements LIKE pattern matching for the Name data type, serving as the backend for the ~~ operator and LIKE expressions involving name columns.

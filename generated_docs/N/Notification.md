@@ -1,7 +1,7 @@
 # Notification
 
 ## Location
-src/backend/commands/async.c: 381 - 387
+[src/backend/commands/async.c:381-387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L381-L387)
 
 ## Overview
 The Notification structure represents a pending NOTIFY event in PostgreSQL's asynchronous notification system, storing both the channel name and optional payload data for a notification that will be delivered when the current transaction commits.

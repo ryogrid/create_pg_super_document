@@ -1,7 +1,7 @@
 # pqsecure_raw_write
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 331 - 442
+[src/interfaces/libpq/fe-secure.c:331-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L331-L442)
 
 ## Overview
 Performs low-level unencrypted socket-based writing to a PostgreSQL connection, implementing sophisticated error handling that defers write failures to prioritize server error messages.

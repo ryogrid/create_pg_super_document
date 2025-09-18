@@ -1,7 +1,7 @@
 # _bt_readpage
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 1560 - 1944
+[src/backend/access/nbtree/nbtsearch.c:1560-1944](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L1560-L1944)
 
 ## Overview
 Loads qualifying data from the current index page into the scan position structure, filtering tuples based on scan keys and handling both regular and posting list tuples.

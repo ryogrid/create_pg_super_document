@@ -1,7 +1,7 @@
 # GetHeapamTableAmRoutine
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2653 - 2658
+[src/backend/access/heap/heapam_handler.c:2653-2658](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2653-L2658)
 
 ## Overview
 GetHeapamTableAmRoutine returns a pointer to the heap access method's complete TableAmRoutine structure, providing the interface for all heap table operations.

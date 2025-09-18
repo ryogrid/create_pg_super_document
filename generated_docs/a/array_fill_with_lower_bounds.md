@@ -1,7 +1,7 @@
 # array_fill_with_lower_bounds
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5980 - 6020
+[src/backend/utils/adt/arrayfuncs.c:5980-6020](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5980-L6020)
 
 ## Overview
 Creates and fills a new PostgreSQL array with specified dimensions, lower bounds, and a fill value, providing full control over array structure including custom lower bounds for each dimension.

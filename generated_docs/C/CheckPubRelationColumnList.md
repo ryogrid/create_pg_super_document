@@ -1,7 +1,7 @@
 # CheckPubRelationColumnList
 
 ## Location
-src/backend/commands/publicationcmds.c: 677 - 727
+[src/backend/commands/publicationcmds.c:677-727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L677-L727)
 
 ## Overview
 Validates column list specifications for publication relations, enforcing restrictions based on schema publication settings and partition root publishing configuration.

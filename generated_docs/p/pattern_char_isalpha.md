@@ -1,7 +1,7 @@
 # pattern_char_isalpha
 
 ## Location
-src/backend/utils/adt/like_support.c: 1501 - 1522
+[src/backend/utils/adt/like_support.c:1501-1522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1501-L1522)
 
 ## Overview
 Determines whether a character is alphabetic and subject to case-folding for pattern matching operations in PostgreSQL's LIKE support.

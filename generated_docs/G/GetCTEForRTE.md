@@ -1,7 +1,7 @@
 # GetCTEForRTE
 
 ## Location
-src/backend/parser/parse_relation.c: 557 - 586
+[src/backend/parser/parse_relation.c:557-586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L557-L586)
 
 ## Overview
 Retrieves the Common Table Expression (CTE) definition corresponding to a CTE-reference Range Table Entry, resolving it across multiple query nesting levels.

@@ -1,7 +1,7 @@
 # write_multirange_data
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 596 - 645
+[src/backend/utils/adt/multirangetypes.c:596-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L596-L645)
 
 ## Overview
 Serializes an array of ranges into a pre-allocated MultirangeType structure, writing the optimized binary representation with items, flags, and boundary data.

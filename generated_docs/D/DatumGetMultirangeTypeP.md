@@ -1,7 +1,7 @@
 # DatumGetMultirangeTypeP
 
 ## Location
-src/include/utils/multirangetypes.h: 48 - 53
+[src/include/utils/multirangetypes.h:48-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/multirangetypes.h#L48-L53)
 
 ## Overview
 DatumGetMultirangeTypeP is an inline function that converts a PostgreSQL Datum value to a MultirangeType pointer, handling potential TOAST decompression automatically.

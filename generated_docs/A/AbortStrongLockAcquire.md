@@ -1,7 +1,7 @@
 # AbortStrongLockAcquire
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1760 - 1788
+[src/backend/storage/lmgr/lock.c:1760-1788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1760-L1788)
 
 ## Overview
 AbortStrongLockAcquire undoes the state changes made by BeginStrongLockAcquire when a strong lock acquisition fails or needs to be aborted.

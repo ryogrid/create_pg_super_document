@@ -1,7 +1,7 @@
 # DoState
 
 ## Location
-src/test/modules/test_json_parser/test_json_parser_incremental.c: 42 - 47
+[src/test/modules/test_json_parser/test_json_parser_incremental.c:42-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_json_parser/test_json_parser_incremental.c#L42-L47)
 
 ## Overview
 DoState is a state structure used by the incremental JSON parser test module to maintain parsing context and formatting state during semantic processing of JSON documents.

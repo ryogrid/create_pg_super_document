@@ -1,7 +1,7 @@
 # writefile
 
 ## Location
-src/bin/initdb/initdb.c: 720 - 741
+[src/bin/initdb/initdb.c:720-741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L720-L741)
 
 ## Overview
 Writes an array of strings to a text file, freeing all allocated memory in the process.

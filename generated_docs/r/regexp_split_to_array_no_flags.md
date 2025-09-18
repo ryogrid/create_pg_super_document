@@ -1,7 +1,7 @@
 # regexp_split_to_array_no_flags
 
 ## Location
-src/backend/utils/adt/regexp.c: 1805 - 1816
+[src/backend/utils/adt/regexp.c:1805-1816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1805-L1816)
 
 ## Overview
 A wrapper function for regexp_split_to_array that provides a two-argument interface without regex flags parameter.

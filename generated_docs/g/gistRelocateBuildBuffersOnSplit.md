@@ -1,7 +1,7 @@
 # gistRelocateBuildBuffersOnSplit
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 533 - 749
+[src/backend/access/gist/gistbuildbuffers.c:533-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L533-L749)
 
 ## Overview
 Redistributes buffered tuples from a split page to the appropriate new buffer pages during GiST index construction, using penalty-based page selection.

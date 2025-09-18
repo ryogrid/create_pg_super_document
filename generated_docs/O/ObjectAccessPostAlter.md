@@ -1,7 +1,7 @@
 # ObjectAccessPostAlter
 
 ## Location
-src/include/catalog/objectaccess.h: 103 - 123
+[src/include/catalog/objectaccess.h:103-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/objectaccess.h#L103-L123)
 
 ## Overview
 ObjectAccessPostAlter is a struct that holds arguments for the OAT_POST_ALTER object access hook event, providing context information about object alteration operations to security and logging extensions.

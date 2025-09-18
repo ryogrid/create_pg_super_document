@@ -1,7 +1,7 @@
 # heap_prune_record_prunable
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1201 - 1214
+[src/backend/access/heap/pruneheap.c:1201-1214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1201-L1214)
 
 ## Overview
 Records the lowest soon-prunable transaction ID (XID) in the pruning state, which is used to track when a page may need pruning again.

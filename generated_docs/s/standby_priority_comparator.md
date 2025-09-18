@@ -1,7 +1,7 @@
 # standby_priority_comparator
 
 ## Location
-src/backend/replication/syncrep.c: 833 - 859
+[src/backend/replication/syncrep.c:833-859](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L833-L859)
 
 ## Overview
 A qsort comparator function that sorts SyncRepStandbyData entries by their synchronous standby priority values in ascending order.

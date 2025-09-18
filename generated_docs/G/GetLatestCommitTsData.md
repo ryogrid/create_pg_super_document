@@ -1,7 +1,7 @@
 # GetLatestCommitTsData
 
 ## Location
-src/backend/access/transam/commit_ts.c: 360 - 380
+[src/backend/access/transam/commit_ts.c:360-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L360-L380)
 
 ## Overview
 Returns the transaction ID of the latest committed transaction along with its commit timestamp and replication origin node ID.

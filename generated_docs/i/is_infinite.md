@@ -1,7 +1,7 @@
 # is_infinite
 
 ## Location
-src/backend/utils/adt/float.c: 111 - 156
+[src/backend/utils/adt/float.c:111-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L111-L156)
 
 ## Overview
 A utility function that determines whether a double-precision floating-point value represents positive infinity, negative infinity, or a finite value.

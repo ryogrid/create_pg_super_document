@@ -1,7 +1,7 @@
 # _bt_posting_valid
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 1078 - 1105
+[src/backend/access/nbtree/nbtdedup.c:1078-1105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L1078-L1105)
 
 ## Overview
 Validates that a posting list tuple is correctly structured with properly ordered heap TIDs in ascending order.

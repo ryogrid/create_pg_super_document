@@ -1,7 +1,7 @@
 # bloom_init
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 310 - 369
+[src/backend/access/brin/brin_bloom.c:310-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L310-L369)
 
 ## Overview
 Initializes and allocates memory for a new Bloom filter with optimal parameters calculated for the expected number of distinct values and desired false positive rate.

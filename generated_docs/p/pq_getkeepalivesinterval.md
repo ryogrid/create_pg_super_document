@@ -1,7 +1,7 @@
 # pq_getkeepalivesinterval
 
 ## Location
-src/backend/libpq/pqcomm.c: 1714 - 1748
+[src/backend/libpq/pqcomm.c:1714-1748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1714-L1748)
 
 ## Overview
 Retrieves the current TCP keepalive interval value (time between keepalive probes) for a given port connection.

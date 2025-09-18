@@ -1,7 +1,7 @@
 # basque_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_basque.c: 1183 - 1184
+[src/backend/snowball/libstemmer/stem_UTF_8_basque.c:1183-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_basque.c#L1183-L1184)
 
 ## Overview
 A cleanup function that properly deallocates and closes a Snowball environment previously created for Basque UTF-8 stemming operations.

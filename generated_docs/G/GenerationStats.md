@@ -1,7 +1,7 @@
 # GenerationStats
 
 ## Location
-src/backend/utils/mmgr/generation.c: 1033 - 1092
+[src/backend/utils/mmgr/generation.c:1033-1092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L1033-L1092)
 
 ## Overview
 Computes and reports comprehensive memory consumption statistics for a Generation memory context, including block count, chunk utilization, and space usage metrics.

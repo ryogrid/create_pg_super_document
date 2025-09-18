@@ -1,7 +1,7 @@
 # ReplicationSlotMarkDirty
 
 ## Location
-src/backend/replication/slot.c: 1010 - 1026
+[src/backend/replication/slot.c:1010-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1010-L1026)
 
 ## Overview
 Marks the currently acquired replication slot as dirty, signaling that it should be flushed to disk when convenient.

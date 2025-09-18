@@ -1,7 +1,7 @@
 # check_srf_call_placement
 
 ## Location
-src/backend/parser/parse_func.c: 2511 - 2682
+[src/backend/parser/parse_func.c:2511-2682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L2511-L2682)
 
 ## Overview
 check_srf_call_placement validates that set-returning functions (SRFs) are called in syntactically valid locations within SQL queries and sets appropriate parser state flags for query planning.

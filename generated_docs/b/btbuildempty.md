@@ -1,7 +1,7 @@
 # btbuildempty
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 159 - 181
+[src/backend/access/nbtree/nbtree.c:159-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L159-L181)
 
 ## Overview
 The btbuildempty function builds an empty B-tree index in the initialization fork, creating the minimal structure needed for an empty B-tree index.

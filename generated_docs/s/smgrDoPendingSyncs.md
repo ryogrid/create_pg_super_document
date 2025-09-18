@@ -1,7 +1,7 @@
 # smgrDoPendingSyncs
 
 ## Location
-src/backend/catalog/storage.c: 725 - 876
+[src/backend/catalog/storage.c:725-876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L725-L876)
 
 ## Overview
 smgrDoPendingSyncs executes deferred relation file synchronizations at transaction end, either syncing files to disk or emitting WAL records based on file size and truncation status.

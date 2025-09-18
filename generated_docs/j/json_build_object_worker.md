@@ -1,7 +1,7 @@
 # json_build_object_worker
 
 ## Location
-src/backend/utils/adt/json.c: 1215 - 1308
+[src/backend/utils/adt/json.c:1215-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1215-L1308)
 
 ## Overview
 A worker function that constructs JSON objects from alternating key-value argument pairs, with support for key uniqueness validation and NULL value handling.

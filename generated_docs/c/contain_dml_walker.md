@@ -1,7 +1,7 @@
 # contain_dml_walker
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1062 - 1082
+[src/backend/optimizer/plan/subselect.c:1062-1082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1062-L1082)
 
 ## Overview
 A recursive tree walker function that traverses query trees to detect any Data Manipulation Language (DML) operations or row locking clauses.

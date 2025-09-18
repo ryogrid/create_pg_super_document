@@ -1,7 +1,7 @@
 # get_lwlock_stats_entry
 
 ## Location
-src/backend/storage/lmgr/lwlock.c: 371 - 407
+[src/backend/storage/lmgr/lwlock.c:371-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lwlock.c#L371-L407)
 
 ## Overview
 Retrieves or creates a statistics entry for a specific lightweight lock, managing the hash table lookup and initialization of new entries.

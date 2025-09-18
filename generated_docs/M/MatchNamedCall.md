@@ -1,7 +1,7 @@
 # MatchNamedCall
 
 ## Location
-src/backend/catalog/namespace.c: 1585 - 1695
+[src/backend/catalog/namespace.c:1585-1695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L1585-L1695)
 
 ## Overview
 Determines whether a PostgreSQL function can match a call that uses named or mixed argument notation by validating argument names and positions.

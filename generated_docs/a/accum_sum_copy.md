@@ -1,7 +1,7 @@
 # accum_sum_copy
 
 ## Location
-src/backend/utils/adt/numeric.c: 12253 - 12269
+[src/backend/utils/adt/numeric.c:12253-12269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L12253-L12269)
 
 ## Overview
 Creates a deep copy of a NumericSumAccum structure, duplicating all digit arrays and metadata to enable independent manipulation of accumulator state.

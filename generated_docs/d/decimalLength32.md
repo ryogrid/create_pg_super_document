@@ -1,7 +1,7 @@
 # decimalLength32
 
 ## Location
-src/backend/utils/adt/numutils.c: 44 - 62
+[src/backend/utils/adt/numutils.c:44-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L44-L62)
 
 ## Overview
 Calculates the number of decimal digits required to represent a 32-bit unsigned integer value.

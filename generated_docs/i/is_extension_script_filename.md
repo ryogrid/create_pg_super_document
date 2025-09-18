@@ -1,7 +1,7 @@
 # is_extension_script_filename
 
 ## Location
-src/backend/commands/extension.c: 368 - 375
+[src/backend/commands/extension.c:368-375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L368-L375)
 
 ## Overview
 Utility function that determines whether a given filename represents an extension script file by checking if it ends with the ".sql" extension.

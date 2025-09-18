@@ -1,7 +1,7 @@
 # preprocess_targetlist
 
 ## Location
-src/backend/optimizer/prep/preptlist.c: 64 - 347
+[src/backend/optimizer/prep/preptlist.c:64-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/preptlist.c#L64-L347)
 
 ## Overview
 Driver function for preprocessing the parse tree targetlist, handling different command types (INSERT, UPDATE, DELETE, MERGE, SELECT) and preparing the targetlist for query execution.

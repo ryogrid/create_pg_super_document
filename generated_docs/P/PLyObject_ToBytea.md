@@ -1,7 +1,7 @@
 # PLyObject_ToBytea
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 897 - 940
+[src/pl/plpython/plpy_typeio.c:897-940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L897-L940)
 
 ## Overview
 Converts a Python object to a PostgreSQL bytea (binary data) datum, bypassing generic conversion to properly handle embedded null bytes and optimize performance.

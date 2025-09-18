@@ -1,7 +1,7 @@
 # GetComment
 
 ## Location
-src/backend/commands/comment.c: 410 - 459
+[src/backend/commands/comment.c:410-459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/comment.c#L410-L459)
 
 ## Overview
 Retrieves the comment text associated with a specific database object from the pg_description system catalog, or returns null if no comment is found.

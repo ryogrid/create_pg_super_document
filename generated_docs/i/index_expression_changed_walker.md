@@ -1,7 +1,7 @@
 # index_expression_changed_walker
 
 ## Location
-src/backend/executor/execIndexing.c: 1077 - 1099
+[src/backend/executor/execIndexing.c:1077-1099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L1077-L1099)
 
 ## Overview
 A static recursive helper function that traverses index expressions to detect if any variables reference columns that have been updated, supporting index optimization decisions.

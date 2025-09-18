@@ -1,7 +1,7 @@
 # _SPI_execute_plan
 
 ## Location
-src/backend/executor/spi.c: 2399 - 2848
+[src/backend/executor/spi.c:2399-2848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2399-L2848)
 
 ## Overview
 _SPI_execute_plan is the core internal function that executes prepared SQL plans with comprehensive options for controlling execution behavior, snapshot management, and result handling.

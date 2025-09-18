@@ -1,7 +1,7 @@
 # btreevacuumposting
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 1408 - 1456
+[src/backend/access/nbtree/nbtree.c:1408-1456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L1408-L1456)
 
 ## Overview
 Determines which TIDs need to be preserved in a posting list tuple during vacuum, creating metadata for partial tuple updates when some TIDs are dead.

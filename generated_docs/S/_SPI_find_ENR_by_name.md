@@ -1,7 +1,7 @@
 # _SPI_find_ENR_by_name
 
 ## Location
-src/backend/executor/spi.c: 3280 - 3296
+[src/backend/executor/spi.c:3280-3296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L3280-L3296)
 
 ## Overview
 Internal function that looks up an ephemeral named relation by name within the current SPI execution context.

@@ -1,7 +1,7 @@
 # heap_abort_speculative
 
 ## Location
-src/backend/access/heap/heapam.c: 6129 - 6307
+[src/backend/access/heap/heapam.c:6129-6307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L6129-L6307)
 
 ## Overview
 Kills a speculatively inserted tuple by marking it as immediately dead, preventing unprincipled deadlocks in high-concurrency scenarios.

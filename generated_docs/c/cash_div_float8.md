@@ -1,7 +1,7 @@
 # cash_div_float8
 
 ## Location
-src/backend/utils/adt/cash.c: 130 - 142
+[src/backend/utils/adt/cash.c:130-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L130-L142)
 
 ## Overview
 A private inline function that performs safe division of a Cash value by a float8 (double precision floating point) value with range checking and proper rounding.

@@ -1,7 +1,7 @@
 # _readExtensibleNode
 
 ## Location
-src/backend/nodes/readfuncs.c: 526 - 561
+[src/backend/nodes/readfuncs.c:526-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L526-L561)
 
 ## Overview
 A static function that deserializes ExtensibleNode instances from their string representation using registered extension-specific deserialization methods.

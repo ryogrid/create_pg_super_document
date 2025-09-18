@@ -1,7 +1,7 @@
 # nodeTokenType
 
 ## Location
-src/backend/nodes/read.c: 246 - 319
+[src/backend/nodes/read.c:246-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/read.c#L246-L319)
 
 ## Overview
 Determines the type of a node token from its string representation, classifying it as one of several PostgreSQL node types or special tokens.

@@ -1,7 +1,7 @@
 # regexp_split_to_array
 
 ## Location
-src/backend/utils/adt/regexp.c: 1766 - 1804
+[src/backend/utils/adt/regexp.c:1766-1804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1766-L1804)
 
 ## Overview
 Splits a string at matches of a regular expression pattern, returning all split-out substrings as a single array.

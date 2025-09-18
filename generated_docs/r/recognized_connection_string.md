@@ -1,7 +1,7 @@
 # recognized_connection_string
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5842 - 5852
+[src/interfaces/libpq/fe-connect.c:5842-5852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5842-L5852)
 
 ## Overview
 Determines whether a given string is a recognized PostgreSQL connection string format by checking for URI prefix or key-value pair syntax.

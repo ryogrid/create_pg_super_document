@@ -1,7 +1,7 @@
 # ginarrayextract_2args
 
 ## Location
-src/backend/access/gin/ginarrayproc.c: 68 - 78
+[src/backend/access/gin/ginarrayproc.c:68-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginarrayproc.c#L68-L78)
 
 ## Overview
 A compatibility wrapper function that provides backward compatibility for the old 2-argument version of ginarrayextract, supporting pre-9.1 contrib/intarray opclass declarations.

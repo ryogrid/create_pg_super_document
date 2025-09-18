@@ -1,7 +1,7 @@
 # PostPrepare_Inval
 
 ## Location
-src/backend/utils/cache/inval.c: 864 - 882
+[src/backend/utils/cache/inval.c:864-882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L864-L882)
 
 ## Overview
 Cleans up invalidation state after successful PREPARE by undoing syscache changes to maintain consistency with the external world view.

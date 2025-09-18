@@ -1,7 +1,7 @@
 # ATExecSetCompression
 
 ## Location
-src/backend/commands/tablecmds.c: 17008 - 17087
+[src/backend/commands/tablecmds.c:17008-17087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17008-L17087)
 
 ## Overview
 ATExecSetCompression handles the ALTER TABLE ALTER COLUMN SET COMPRESSION command by updating the compression method for a specific table column in the pg_attribute catalog and propagating the change to related indexes.

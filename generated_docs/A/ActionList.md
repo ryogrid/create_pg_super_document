@@ -1,7 +1,7 @@
 # ActionList
 
 ## Location
-src/backend/commands/async.c: 345 - 350
+[src/backend/commands/async.c:345-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L345-L350)
 
 ## Overview
 ActionList is a structure that maintains transaction-aware state for LISTEN/NOTIFY actions, supporting nested transactions and proper rollback behavior.

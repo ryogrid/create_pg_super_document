@@ -1,7 +1,7 @@
 # numeric_avg_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5128 - 5147
+[src/backend/utils/adt/numeric.c:5128-5147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5128-L5147)
 
 ## Overview
 A PostgreSQL aggregate transition function for numeric aggregates that only require sum (sumX) calculations, such as average (AVG) and sum (SUM) functions, without needing sum of squares.

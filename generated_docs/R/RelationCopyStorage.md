@@ -1,7 +1,7 @@
 # RelationCopyStorage
 
 ## Location
-src/backend/catalog/storage.c: 477 - 556
+[src/backend/catalog/storage.c:477-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L477-L556)
 
 ## Overview
 RelationCopyStorage copies data from one relation storage to another, block by block, handling WAL logging and data validation during the copy process.

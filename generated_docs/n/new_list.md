@@ -1,7 +1,7 @@
 # new_list
 
 ## Location
-src/backend/nodes/list.c: 91 - 154
+[src/backend/nodes/list.c:91-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L91-L154)
 
 ## Overview
 A static function that allocates and initializes a new List structure with room for at least the specified minimum number of cells, implementing efficient memory allocation strategies.

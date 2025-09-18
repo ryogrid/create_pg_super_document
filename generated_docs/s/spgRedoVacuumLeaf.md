@@ -1,7 +1,7 @@
 # spgRedoVacuumLeaf
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 751 - 833
+[src/backend/access/spgist/spgxlog.c:751-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L751-L833)
 
 ## Overview
 Replays a vacuum leaf operation from the WAL for SP-GiST indexes, reconstructing the cleanup and compaction of dead tuples on leaf pages during crash recovery.

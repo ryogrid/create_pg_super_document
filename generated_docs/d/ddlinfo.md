@@ -1,7 +1,7 @@
 # ddlinfo
 
 ## Location
-src/bin/pgbench/pgbench.c: 4836 - 4917
+[src/bin/pgbench/pgbench.c:4836-4917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4836-L4917)
 
 ## Overview
 The ddlinfo structure defines table schema information for pgbench's standard TPC-B benchmark tables, supporting both 32-bit and 64-bit account ID configurations.

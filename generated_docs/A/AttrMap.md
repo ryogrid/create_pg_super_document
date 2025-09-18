@@ -1,7 +1,7 @@
 # AttrMap
 
 ## Location
-src/include/access/attmap.h: 34 - 38
+[src/include/access/attmap.h:34-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/attmap.h#L34-L38)
 
 ## Overview
 AttrMap is a structure that maps attribute numbers between a pair of relations (typically inheritance parent and child relations) whose common columns may have different attribute numbers.

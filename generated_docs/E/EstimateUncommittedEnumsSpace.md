@@ -1,7 +1,7 @@
 # EstimateUncommittedEnumsSpace
 
 ## Location
-src/backend/catalog/pg_enum.c: 813 - 826
+[src/backend/catalog/pg_enum.c:813-826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L813-L826)
 
 ## Overview
 Calculates the size required to serialize uncommitted enum types and values for parallel query processing.

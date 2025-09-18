@@ -1,7 +1,7 @@
 # test_shm_mq_pipelined
 
 ## Location
-src/test/modules/test_shm_mq/test.c: 132 - 257
+[src/test/modules/test_shm_mq/test.c:132-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/test.c#L132-L257)
 
 ## Overview
 A pipelined test function that validates PostgreSQL's shared memory message queue infrastructure by sending multiple copies of a message concurrently through a ring of background processes using non-blocking operations.

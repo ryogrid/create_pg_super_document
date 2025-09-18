@@ -1,7 +1,7 @@
 # pqSaveParameterStatus
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1081 - 1205
+[src/interfaces/libpq/fe-exec.c:1081-1205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1081-L1205)
 
 ## Overview
 pqSaveParameterStatus stores and manages server parameter status information received from the PostgreSQL backend, maintaining a linked list of parameter name-value pairs and updating connection-specific cached values for critical parameters.

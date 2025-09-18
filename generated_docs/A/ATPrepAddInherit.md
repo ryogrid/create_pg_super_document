@@ -1,7 +1,7 @@
 # ATPrepAddInherit
 
 ## Location
-src/backend/commands/tablecmds.c: 15639 - 15660
+[src/backend/commands/tablecmds.c:15639-15660](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15639-L15660)
 
 ## Overview
 Validates preconditions for ALTER TABLE INHERIT operations by checking that the child relation is eligible for inheritance modification.

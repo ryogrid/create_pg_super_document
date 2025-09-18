@@ -1,7 +1,7 @@
 # startup_progress_timeout_handler
 
 ## Location
-src/backend/postmaster/startup.c: 303 - 308
+[src/backend/postmaster/startup.c:303-308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L303-L308)
 
 ## Overview
 A timeout handler function that sets a flag to indicate that it's time to log a startup progress report during PostgreSQL recovery operations.

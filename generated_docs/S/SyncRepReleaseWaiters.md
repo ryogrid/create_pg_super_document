@@ -1,7 +1,7 @@
 # SyncRepReleaseWaiters
 
 ## Location
-src/backend/replication/syncrep.c: 474 - 585
+[src/backend/replication/syncrep.c:474-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L474-L585)
 
 ## Overview
 Updates synchronous replication LSN positions and releases waiting backend processes based on the current state of synchronous standbys.

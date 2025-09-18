@@ -1,7 +1,7 @@
 # StoreViewQuery
 
 ## Location
-src/backend/commands/view.c: 511 - 517
+[src/backend/commands/view.c:511-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/view.c#L511-L517)
 
 ## Overview
 StoreViewQuery stores the query definition for a view using the PostgreSQL rules system, serving as a simple wrapper around DefineViewRules.

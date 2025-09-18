@@ -1,7 +1,7 @@
 # GetStandbyFlushRecPtr
 
 ## Location
-src/backend/replication/walsender.c: 3546 - 3578
+[src/backend/replication/walsender.c:3546-3578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3546-L3578)
 
 ## Overview
 GetStandbyFlushRecPtr returns the latest WAL position that has been safely flushed to disk on a standby server, considering both replayed WAL and received but not yet replayed WAL from the same timeline.

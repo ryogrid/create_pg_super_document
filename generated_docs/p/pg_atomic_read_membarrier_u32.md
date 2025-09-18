@@ -1,7 +1,7 @@
 # pg_atomic_read_membarrier_u32
 
 ## Location
-src/include/port/atomics.h: 253 - 270
+[src/include/port/atomics.h:253-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L253-L270)
 
 ## Overview
 An atomic read function with full memory barrier semantics that guarantees to return the current value when used with other barrier-semantic operations.

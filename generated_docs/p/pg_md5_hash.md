@@ -1,7 +1,7 @@
 # pg_md5_hash
 
 ## Location
-src/common/md5_common.c: 74 - 107
+[src/common/md5_common.c:74-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/md5_common.c#L74-L107)
 
 ## Overview
 Calculates the MD5 hash digest of a buffer and returns it as a hexadecimal string representation.

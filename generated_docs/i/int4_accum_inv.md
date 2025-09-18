@@ -1,7 +1,7 @@
 # int4_accum_inv
 
 ## Location
-src/backend/utils/adt/numeric.c: 6015 - 6039
+[src/backend/utils/adt/numeric.c:6015-6039](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6015-L6039)
 
 ## Overview
 Inverse accumulation function for 32-bit integer aggregate operations that removes a value from the running aggregate state.

@@ -1,7 +1,7 @@
 # PageClearAllVisible
 
 ## Location
-src/include/storage/bufpage.h: 437 - 444
+[src/include/storage/bufpage.h:437-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L437-L444)
 
 ## Overview
 PageClearAllVisible clears the PD_ALL_VISIBLE flag from a page header, indicating that not all tuples on the page are visible to everyone.

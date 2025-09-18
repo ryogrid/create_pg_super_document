@@ -1,7 +1,7 @@
 # pgstat_checkpointer_reset_all_cb
 
 ## Location
-src/backend/utils/activity/pgstat_checkpointer.c: 88 - 102
+[src/backend/utils/activity/pgstat_checkpointer.c:88-102](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_checkpointer.c#L88-L102)
 
 ## Overview
 Resets all checkpointer statistics by copying current statistics to the reset offset and updating the reset timestamp.

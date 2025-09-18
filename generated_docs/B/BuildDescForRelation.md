@@ -1,7 +1,7 @@
 # BuildDescForRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 1291 - 1392
+[src/backend/commands/tablecmds.c:1291-1392](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1291-L1392)
 
 ## Overview
 BuildDescForRelation constructs a TupleDesc (tuple descriptor) from a list of ColumnDef nodes, defining the structure and attributes of a database relation.

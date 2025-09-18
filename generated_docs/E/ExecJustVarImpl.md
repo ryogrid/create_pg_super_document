@@ -1,7 +1,7 @@
 # ExecJustVarImpl
 
 ## Location
-src/backend/executor/execExprInterp.c: 2150 - 2166
+[src/backend/executor/execExprInterp.c:2150-2166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2150-L2166)
 
 ## Overview
 ExecJustVarImpl is a fast-path implementation function for simple variable expressions, providing optimized attribute retrieval from tuple slots.

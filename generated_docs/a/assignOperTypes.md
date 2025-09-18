@@ -1,7 +1,7 @@
 # assignOperTypes
 
 ## Location
-src/backend/commands/opclasscmds.c: 1137 - 1202
+[src/backend/commands/opclasscmds.c:1137-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1137-L1202)
 
 ## Overview
 Determines and assigns the lefttype/righttype for an operator member in an operator family, performing validation checks to ensure the operator is suitable for index operations.

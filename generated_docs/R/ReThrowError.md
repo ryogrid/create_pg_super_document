@@ -1,7 +1,7 @@
 # ReThrowError
 
 ## Location
-src/backend/utils/error/elog.c: 1951 - 2000
+[src/backend/utils/error/elog.c:1951-2000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1951-L2000)
 
 ## Overview
 ReThrowError is a function that re-throws a previously copied error in PostgreSQL's error handling system, allowing for intermediate processing between error capture and re-throwing.

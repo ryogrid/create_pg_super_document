@@ -1,7 +1,7 @@
 # bbsink_server_new
 
 ## Location
-src/backend/backup/basebackup_server.c: 60 - 133
+[src/backend/backup/basebackup_server.c:60-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L60-L133)
 
 ## Overview
 Creates a new server-side basebackup sink that stores backup archives directly on the PostgreSQL server filesystem.

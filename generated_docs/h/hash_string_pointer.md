@@ -1,7 +1,7 @@
 # hash_string_pointer
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 921 - 931
+[src/backend/backup/basebackup_incremental.c:921-931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L921-L931)
 
 ## Overview
 A helper function that computes a 32-bit hash value for a null-terminated string, used by the filemap hash table in incremental backup operations.

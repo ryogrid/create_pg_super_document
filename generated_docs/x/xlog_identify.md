@@ -1,7 +1,7 @@
 # xlog_identify
 
 ## Location
-src/backend/access/rmgrdesc/xlogdesc.c: 173 - 230
+[src/backend/access/rmgrdesc/xlogdesc.c:173-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xlogdesc.c#L173-L230)
 
 ## Overview
 Returns a string identifier for XLOG (transaction log) record types based on the record's info field, used for debugging and diagnostic purposes.

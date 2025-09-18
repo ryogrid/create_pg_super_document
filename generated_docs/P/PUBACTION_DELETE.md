@@ -1,7 +1,7 @@
 # PUBACTION_DELETE
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 109 - 111
+[src/backend/replication/pgoutput/pgoutput.c:109-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L109-L111)
 
 ## Overview
 PUBACTION_DELETE is an enum value representing the delete operation in PostgreSQL's logical replication row filtering system, used to identify and filter DELETE operations during publication.

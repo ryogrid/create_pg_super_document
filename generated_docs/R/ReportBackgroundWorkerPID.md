@@ -1,7 +1,7 @@
 # ReportBackgroundWorkerPID
 
 ## Location
-src/backend/postmaster/bgworker.c: 467 - 485
+[src/backend/postmaster/bgworker.c:467-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L467-L485)
 
 ## Overview
 Reports the PID of a newly-launched background worker in shared memory, allowing other processes to track the worker's status and optionally notify the requesting process.

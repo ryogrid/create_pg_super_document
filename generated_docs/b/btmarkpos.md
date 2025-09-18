@@ -1,7 +1,7 @@
 # btmarkpos
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 453 - 478
+[src/backend/access/nbtree/nbtree.c:453-478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L453-L478)
 
 ## Overview
 Saves the current position in a B-tree index scan to enable later restoration to this position via btrestrpos.

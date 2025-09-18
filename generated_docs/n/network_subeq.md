@@ -1,7 +1,7 @@
 # network_subeq
 
 ## Location
-src/backend/utils/adt/network.c: 918 - 932
+[src/backend/utils/adt/network.c:918-932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L918-L932)
 
 ## Overview
 Implements the subnet containment or equality operator (<<= operator) to test whether one network is a subnet of or equal to another network.

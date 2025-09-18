@@ -1,7 +1,7 @@
 # nameicnlike
 
 ## Location
-src/backend/utils/adt/like.c: 385 - 399
+[src/backend/utils/adt/like.c:385-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like.c#L385-L399)
 
 ## Overview
 A PostgreSQL function that performs case-insensitive NOT LIKE pattern matching on Name data types using the NOT ILIKE operator.

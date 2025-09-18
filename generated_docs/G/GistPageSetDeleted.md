@@ -1,7 +1,7 @@
 # GistPageSetDeleted
 
 ## Location
-src/include/access/gist.h: 204 - 214
+[src/include/access/gist.h:204-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist.h#L204-L214)
 
 ## Overview
 Marks a GiST index page as deleted and stores the transaction ID that performed the deletion for later recycling.

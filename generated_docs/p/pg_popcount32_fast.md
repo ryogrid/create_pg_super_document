@@ -1,7 +1,7 @@
 # pg_popcount32_fast
 
 ## Location
-src/port/pg_bitutils.c: 215 - 231
+[src/port/pg_bitutils.c:215-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L215-L231)
 
 ## Overview
 A fast implementation of 32-bit population count that uses hardware-accelerated instructions to count the number of set bits in a 32-bit word.

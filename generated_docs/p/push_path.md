@@ -1,7 +1,7 @@
 # push_path
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1719 - 1802
+[src/backend/utils/adt/jsonfuncs.c:1719-1802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1719-L1802)
 
 ## Overview
 Prepares a new structure containing nested empty objects and arrays corresponding to a specified path, and assigns a new value at the end of this path.

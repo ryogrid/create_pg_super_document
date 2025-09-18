@@ -1,7 +1,7 @@
 # collectTSQueryValues
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 267 - 297
+[src/backend/utils/adt/tsquery_op.c:267-297](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L267-L297)
 
 ## Overview
 Extracts all textual values from a TSQuery structure, creating an array of null-terminated strings representing the query operands.

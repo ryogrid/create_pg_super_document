@@ -1,7 +1,7 @@
 # ConstrCheck
 
 ## Location
-src/include/access/tupdesc.h: 28 - 34
+[src/include/access/tupdesc.h:28-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tupdesc.h#L28-L34)
 
 ## Overview
 ConstrCheck represents a CHECK constraint in PostgreSQL's constraint system, storing the constraint name, expression, validity status, and inheritance properties.

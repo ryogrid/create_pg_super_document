@@ -1,7 +1,7 @@
 # int24pl
 
 ## Location
-src/backend/utils/adt/int.c: 988 - 1001
+[src/backend/utils/adt/int.c:988-1001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L988-L1001)
 
 ## Overview
  is a PostgreSQL function that performs addition between a 16-bit integer (int2/smallint) and a 32-bit integer (int4/integer), returning a 32-bit integer result with overflow checking.

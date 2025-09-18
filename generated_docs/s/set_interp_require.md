@@ -1,7 +1,7 @@
 # set_interp_require
 
 ## Location
-src/pl/plperl/plperl.c: 490 - 508
+[src/pl/plperl/plperl.c:490-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L490-L508)
 
 ## Overview
 A static function that configures Perl's require and dofile operations to use either safe or original implementations based on whether the interpreter is running in trusted mode.

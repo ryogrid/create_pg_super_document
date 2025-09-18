@@ -1,7 +1,7 @@
 # DropPreparedStatement
 
 ## Location
-src/backend/commands/prepare.c: 516 - 536
+[src/backend/commands/prepare.c:516-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L516-L536)
 
 ## Overview
 Internal implementation function that removes a specific prepared statement from the hash table and releases its associated cached plan resources.

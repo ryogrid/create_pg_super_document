@@ -1,7 +1,7 @@
 # pg_mul_u32_overflow
 
 ## Location
-src/include/common/int.h: 359 - 379
+[src/include/common/int.h:359-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L359-L379)
 
 ## Overview
 A safe 32-bit unsigned integer multiplication function that detects overflow conditions and prevents undefined behavior.

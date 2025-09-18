@@ -1,7 +1,7 @@
 # PLy_abort_open_subtransactions
 
 ## Location
-src/pl/plpython/plpy_exec.c: 1104 - 1126
+[src/pl/plpython/plpy_exec.c:1104-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L1104-L1126)
 
 ## Overview
 Forcibly aborts and cleans up lingering subtransactions that were explicitly started by plpy.subtransaction().start() but not properly closed by the Python code.

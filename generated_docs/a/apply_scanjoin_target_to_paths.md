@@ -1,7 +1,7 @@
 # apply_scanjoin_target_to_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 7705 - 7939
+[src/backend/optimizer/plan/planner.c:7705-7939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L7705-L7939)
 
 ## Overview
 Recursively adjusts the final scan/join relation and all its children to generate the target output by either updating sortgroupref information or creating projection paths, handling partitioned relations and parallel safety constraints.

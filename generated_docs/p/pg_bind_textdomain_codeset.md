@@ -1,7 +1,7 @@
 # pg_bind_textdomain_codeset
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1226 - 1260
+[src/backend/utils/mb/mbutils.c:1226-1260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1226-L1260)
 
 ## Overview
 Binds a gettext message domain to the appropriate character encoding codeset, automatically determining whether to use the database encoding or the locale-implied encoding based on platform and locale settings.

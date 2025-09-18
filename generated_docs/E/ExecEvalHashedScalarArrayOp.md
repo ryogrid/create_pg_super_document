@@ -1,7 +1,7 @@
 # ExecEvalHashedScalarArrayOp
 
 ## Location
-src/backend/executor/execExprInterp.c: 3670 - 3851
+[src/backend/executor/execExprInterp.c:3670-3851](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3670-L3851)
 
 ## Overview
 Evaluates "scalar op ANY (const array)" expressions using a hash table for optimized repeat lookups, supporting only OR semantics and building a reusable hashtable on first evaluation.

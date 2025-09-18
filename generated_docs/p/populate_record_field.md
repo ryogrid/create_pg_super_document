@@ -1,7 +1,7 @@
 # populate_record_field
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3404 - 3473
+[src/backend/utils/adt/jsonfuncs.c:3404-3473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3404-L3473)
 
 ## Overview
 Recursively populates a PostgreSQL record field or array element from a JSON/JSONB value, handling type conversion based on the target type's category (scalar, array, composite, domain).

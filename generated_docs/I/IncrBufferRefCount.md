@@ -1,7 +1,7 @@
 # IncrBufferRefCount
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4929 - 4960
+[src/backend/storage/buffer/bufmgr.c:4929-4960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4929-L4960)
 
 ## Overview
 IncrBufferRefCount increments the pin count on a buffer that is already pinned at least once, without changing the shared buffer state.

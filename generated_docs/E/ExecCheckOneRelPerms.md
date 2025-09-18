@@ -1,7 +1,7 @@
 # ExecCheckOneRelPerms
 
 ## Location
-src/backend/executor/execMain.c: 636 - 744
+[src/backend/executor/execMain.c:636-744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L636-L744)
 
 ## Overview
 Checks access permissions for a single relation, ensuring that the current user has the required permissions at either the relation level or column level to perform the specified operations.

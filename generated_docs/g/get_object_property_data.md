@@ -1,7 +1,7 @@
 # get_object_property_data
 
 ## Location
-src/backend/catalog/objectaddress.c: 2746 - 2780
+[src/backend/catalog/objectaddress.c:2746-2780](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2746-L2780)
 
 ## Overview
 Retrieves the ObjectProperty structure for a given object class identifier, providing metadata about how to handle objects of that class.

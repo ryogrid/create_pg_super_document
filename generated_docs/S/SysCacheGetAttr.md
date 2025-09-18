@@ -1,7 +1,7 @@
 # SysCacheGetAttr
 
 ## Location
-src/backend/utils/cache/syscache.c: 601 - 631
+[src/backend/utils/cache/syscache.c:601-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L601-L631)
 
 ## Overview
 Extracts a specific attribute from a tuple previously fetched by SearchSysCache(), providing type-safe access to system catalog attributes.

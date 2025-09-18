@@ -1,7 +1,7 @@
 # schema_does_not_exist_skipping
 
 ## Location
-src/backend/commands/dropcmds.c: 174 - 205
+[src/backend/commands/dropcmds.c:174-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dropcmds.c#L174-L205)
 
 ## Overview
 schema_does_not_exist_skipping is a helper function that determines whether a missing schema-qualifiable object should be skipped because its specified schema doesn't exist, rather than the object itself being missing.

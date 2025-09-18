@@ -1,7 +1,7 @@
 # range_intersect_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1143 - 1181
+[src/backend/utils/adt/rangetypes.c:1143-1181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1143-L1181)
 
 ## Overview
 Performs the core intersection logic for two range values, computing the overlapping portion and returning a new range containing only the intersection.

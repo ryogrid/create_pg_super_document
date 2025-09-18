@@ -1,7 +1,7 @@
 # JsonbValueInitNumericDatum
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3131 - 3140
+[src/backend/utils/adt/jsonpath_exec.c:3131-3140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3131-L3140)
 
 ## Overview
 Initializes a JsonbValue structure with a numeric value from a given PostgreSQL Datum.

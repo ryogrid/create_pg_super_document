@@ -1,7 +1,7 @@
 # logicalrep_write_typ
 
 ## Location
-src/backend/replication/logical/proto.c: 725 - 755
+[src/backend/replication/logical/proto.c:725-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L725-L755)
 
 ## Overview
 Writes PostgreSQL type information to the logical replication output stream, always writing base type information regardless of the input type (e.g., domain types are resolved to their base types).

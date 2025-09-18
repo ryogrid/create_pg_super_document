@@ -1,7 +1,7 @@
 # ClearOrSaveAllResults
 
 ## Location
-src/bin/psql/common.c: 547 - 560
+[src/bin/psql/common.c:547-560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L547-L560)
 
 ## Overview
 ClearOrSaveAllResults consumes all remaining query results from the database connection, applying appropriate memory management to each one.

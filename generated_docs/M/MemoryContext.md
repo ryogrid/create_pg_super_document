@@ -1,7 +1,7 @@
 # MemoryContext
 
 ## Location
-src/include/utils/palloc.h: 36 - 46
+[src/include/utils/palloc.h:36-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/palloc.h#L36-L46)
 
 ## Overview
 A pointer typedef to MemoryContextData structure that represents PostgreSQL's memory allocation contexts, providing hierarchical memory management with automatic cleanup.

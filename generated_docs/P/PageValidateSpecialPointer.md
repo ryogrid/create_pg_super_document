@@ -1,7 +1,7 @@
 # PageValidateSpecialPointer
 
 ## Location
-src/include/storage/bufpage.h: 325 - 336
+[src/include/storage/bufpage.h:325-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L325-L336)
 
 ## Overview
 Validates that the special pointer in a page header is within acceptable bounds, intended to catch usage before proper page initialization.

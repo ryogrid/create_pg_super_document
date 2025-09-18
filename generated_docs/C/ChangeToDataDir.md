@@ -1,7 +1,7 @@
 # ChangeToDataDir
 
 ## Location
-src/backend/utils/init/miscinit.c: 455 - 514
+[src/backend/utils/init/miscinit.c:455-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L455-L514)
 
 ## Overview
 Changes the current working directory to the PostgreSQL data directory, enabling the use of relative paths throughout the codebase.

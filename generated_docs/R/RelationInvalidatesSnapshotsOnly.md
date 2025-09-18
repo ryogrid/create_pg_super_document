@@ -1,7 +1,7 @@
 # RelationInvalidatesSnapshotsOnly
 
 ## Location
-src/backend/utils/cache/syscache.c: 723 - 745
+[src/backend/utils/cache/syscache.c:723-745](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L723-L745)
 
 ## Overview
 Determines whether a given relation sends snapshot invalidation messages instead of catalog cache invalidation messages.

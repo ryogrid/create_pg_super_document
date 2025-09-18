@@ -1,7 +1,7 @@
 # inet_masklen_inclusion_cmp
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 905 - 938
+[src/backend/utils/adt/network_selfuncs.c:905-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L905-L938)
 
 ## Overview
 A specialized comparison function that compares the mask lengths (network prefix lengths) of two inet values according to subnet inclusion operator semantics.

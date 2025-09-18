@@ -1,7 +1,7 @@
 # xmax_infomask_changed
 
 ## Location
-src/backend/access/heap/heapam.c: 2708 - 2730
+[src/backend/access/heap/heapam.c:2708-2730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2708-L2730)
 
 ## Overview
 xmax_infomask_changed compares two versions of a tuple's infomask to detect whether the Xmax-related transaction status has changed, used for validation after buffer lock reacquisition.

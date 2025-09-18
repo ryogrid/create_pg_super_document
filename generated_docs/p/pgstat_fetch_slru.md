@@ -1,7 +1,7 @@
 # pgstat_fetch_slru
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 105 - 117
+[src/backend/utils/activity/pgstat_slru.c:105-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L105-L117)
 
 ## Overview
 Retrieves a snapshot of SLRU (Simple LRU) buffer cache statistics for SQL-callable pgstat functions.

@@ -1,7 +1,7 @@
 # fsync_parent_path
 
 ## Location
-src/common/file_utils.c: 434 - 460
+[src/common/file_utils.c:434-460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/file_utils.c#L434-L460)
 
 ## Overview
 A static function that synchronizes the parent directory of a given file or directory path to ensure filesystem metadata persistence.

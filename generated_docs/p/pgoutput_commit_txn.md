@@ -1,7 +1,7 @@
 # pgoutput_commit_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 610 - 641
+[src/backend/replication/pgoutput/pgoutput.c:610-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L610-L641)
 
 ## Overview
 Handles the COMMIT callback for logical replication transactions, sending commit messages to subscribers when the transaction contains relevant changes.

@@ -1,7 +1,7 @@
 # XmlSerialize
 
 ## Location
-src/include/nodes/parsenodes.h: 842 - 850
+[src/include/nodes/parsenodes.h:842-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L842-L850)
 
 ## Overview
 XmlSerialize represents the raw parse tree node for the XMLSERIALIZE SQL function, which converts XML values to character string representations with specified formatting options.

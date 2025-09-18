@@ -1,7 +1,7 @@
 # pgstat_have_entry
 
 ## Location
-src/backend/utils/activity/pgstat.c: 924 - 939
+[src/backend/utils/activity/pgstat.c:924-939](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L924-L939)
 
 ## Overview
 This function determines whether statistics exist for a specific database object identified by kind, database OID, and object OID.

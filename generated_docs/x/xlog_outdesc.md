@@ -1,7 +1,7 @@
 # xlog_outdesc
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2297 - 2317
+[src/backend/access/transam/xlogrecovery.c:2297-2317](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2297-L2317)
 
 ## Overview
 A utility function that generates a human-readable string description of an XLog (WAL) record, including the resource manager name, operation type, and detailed operation description.

@@ -1,7 +1,7 @@
 # ReorderBufferTupleCidEnt
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 141 - 147
+[src/backend/replication/logical/reorderbuffer.c:141-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L141-L147)
 
 ## Overview
 ReorderBufferTupleCidEnt is a hash table entry structure that stores command ID mapping information for specific tuples, containing both the tuple location key and the associated command IDs (cmin, cmax, combocid).

@@ -1,7 +1,7 @@
 # deparse_expression
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3599 - 3625
+[src/backend/utils/adt/ruleutils.c:3599-3625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3599-L3625)
 
 ## Overview
 A general utility function for deparsing expressions that calls deparse_expression_pretty with all pretty printing disabled.

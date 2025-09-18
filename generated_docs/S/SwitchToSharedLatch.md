@@ -1,7 +1,7 @@
 # SwitchToSharedLatch
 
 ## Location
-src/backend/utils/init/miscinit.c: 222 - 241
+[src/backend/utils/init/miscinit.c:222-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L222-L241)
 
 ## Overview
 Switches the current process from using a process-local latch to using a shared latch stored in the process's PROC structure, enabling participation in shared memory-based signaling.

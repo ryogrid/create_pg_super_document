@@ -1,7 +1,7 @@
 # refresh_by_heap_swap
 
 ## Location
-src/backend/commands/matview.c: 888 - 897
+[src/backend/commands/matview.c:888-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L888-L897)
 
 ## Overview
 Performs a simple materialized view refresh by swapping the physical heap files between the target materialized view and a transient table containing new data.

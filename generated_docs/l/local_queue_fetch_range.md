@@ -1,7 +1,7 @@
 # local_queue_fetch_range
 
 ## Location
-src/bin/pg_rewind/local_source.c: 128 - 175
+[src/bin/pg_rewind/local_source.c:128-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L128-L175)
 
 ## Overview
 A static function that copies a specific range of bytes from a file in the local source to the target during pg_rewind operations, supporting partial file transfers.

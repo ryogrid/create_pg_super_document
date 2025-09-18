@@ -1,7 +1,7 @@
 # ts_match_tt
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 2244 - 2265
+[src/backend/utils/adt/tsvector_op.c:2244-2265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L2244-L2265)
 
 ## Overview
 A convenience function that performs text search matching between two plain text strings by automatically converting them to tsvector and tsquery formats.

@@ -1,7 +1,7 @@
 # ascii_safe_strlcpy
 
 ## Location
-src/backend/utils/adt/ascii.c: 174 - 199
+[src/backend/utils/adt/ascii.c:174-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ascii.c#L174-L199)
 
 ## Overview
 A safe string copy function that converts arbitrary backend-safe encoded strings to ASCII by replacing non-ASCII bytes with question marks.

@@ -1,7 +1,7 @@
 # ResourceOwnerRememberBuffer
 
 ## Location
-src/include/storage/buf_internals.h: 393 - 397
+[src/include/storage/buf_internals.h:393-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L393-L397)
 
 ## Overview
 Registers a buffer pin with a resource owner to ensure proper cleanup and tracking of buffer references during transaction processing.

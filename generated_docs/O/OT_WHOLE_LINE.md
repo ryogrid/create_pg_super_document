@@ -1,7 +1,7 @@
 # OT_WHOLE_LINE
 
 ## Location
-src/bin/psql/psqlscanslash.h: 21 - 40
+[src/bin/psql/psqlscanslash.h:21-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/psqlscanslash.h#L21-L40)
 
 ## Overview
 OT_WHOLE_LINE is an enumeration constant in psql that instructs the slash command option parser to consume and return the entire remainder of the current input line as a single parameter.

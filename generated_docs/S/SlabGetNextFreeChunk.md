@@ -1,7 +1,7 @@
 # SlabGetNextFreeChunk
 
 ## Location
-src/backend/utils/mmgr/slab.c: 271 - 321
+[src/backend/utils/mmgr/slab.c:271-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L271-L321)
 
 ## Overview
 SlabGetNextFreeChunk retrieves the next available memory chunk from a slab block and updates the block's internal state to reflect that the chunk is now in use.

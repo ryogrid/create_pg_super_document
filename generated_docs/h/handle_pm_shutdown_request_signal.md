@@ -1,7 +1,7 @@
 # handle_pm_shutdown_request_signal
 
 ## Location
-src/backend/postmaster/postmaster.c: 2169 - 2192
+[src/backend/postmaster/postmaster.c:2169-2192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L2169-L2192)
 
 ## Overview
 A signal handler function that processes shutdown request signals (SIGTERM, SIGINT, SIGQUIT) sent to the PostgreSQL postmaster process, setting appropriate flags to indicate the type of shutdown requested.

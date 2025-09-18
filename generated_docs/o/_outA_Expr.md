@@ -1,7 +1,7 @@
 # _outA_Expr
 
 ## Location
-src/backend/nodes/outfuncs.c: 576 - 647
+[src/backend/nodes/outfuncs.c:576-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L576-L647)
 
 ## Overview
 Serializes an A_Expr (raw parsed expression) structure to string format, handling different expression kinds like operators, comparisons, and special SQL constructs.

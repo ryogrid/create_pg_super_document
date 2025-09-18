@@ -1,7 +1,7 @@
 # ImportForeignSchema
 
 ## Location
-src/backend/commands/foreigncmds.c: 1495 - 1610
+[src/backend/commands/foreigncmds.c:1495-1610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1495-L1610)
 
 ## Overview
 ImportForeignSchema implements the SQL IMPORT FOREIGN SCHEMA command, which allows users to import table definitions from a foreign database into the local PostgreSQL instance as foreign tables.

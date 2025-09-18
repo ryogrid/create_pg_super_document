@@ -1,7 +1,7 @@
 # json_unique_hash_match
 
 ## Location
-src/backend/utils/adt/json.c: 902 - 922
+[src/backend/utils/adt/json.c:902-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L902-L922)
 
 ## Overview
 The  function compares two JSON hash table entries to determine their equality and ordering, serving as the comparison function for the JSON key uniqueness hash table.

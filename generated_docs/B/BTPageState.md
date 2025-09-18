@@ -1,7 +1,7 @@
 # BTPageState
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 229 - 239
+[src/backend/access/nbtree/nbtsort.c:229-239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L229-L239)
 
 ## Overview
 BTPageState is a status record structure that represents a B-tree page being built during index construction, with one instance maintained for each active tree level.

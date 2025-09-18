@@ -1,7 +1,7 @@
 # set_simple_column_names
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4038 - 4078
+[src/backend/utils/adt/ruleutils.c:4038-4078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4038-L4078)
 
 ## Overview
 Fills in column aliases for simple situations like EXPLAIN and cases with only relation RTEs, without complex join tree processing.

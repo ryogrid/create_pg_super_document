@@ -1,7 +1,7 @@
 # ri_LoadConstraintInfo
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2112 - 2193
+[src/backend/utils/adt/ri_triggers.c:2112-2193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2112-L2193)
 
 ## Overview
 Fetches or creates the RI_ConstraintInfo struct for a foreign key constraint by loading constraint data from the system catalog and caching it in a hash table.

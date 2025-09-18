@@ -1,7 +1,7 @@
 # dlist_node_init
 
 ## Location
-src/include/lib/ilist.h: 325 - 335
+[src/include/lib/ilist.h:325-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L325-L335)
 
 ## Overview
 Initializes a doubly-linked list node to a detached state by setting its pointers to NULL, enabling safe detection of unlinked nodes.

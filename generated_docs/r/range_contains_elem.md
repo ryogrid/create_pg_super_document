@@ -1,7 +1,7 @@
 # range_contains_elem
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 544 - 556
+[src/backend/utils/adt/rangetypes.c:544-556](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L544-L556)
 
 ## Overview
 Determines whether a given range contains a specific element value, returning a boolean result indicating if the element falls within the range boundaries.

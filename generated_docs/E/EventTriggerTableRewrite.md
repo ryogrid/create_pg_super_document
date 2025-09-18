@@ -1,7 +1,7 @@
 # EventTriggerTableRewrite
 
 ## Location
-src/backend/commands/event_trigger.c: 1004 - 1068
+[src/backend/commands/event_trigger.c:1004-1068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1004-L1068)
 
 ## Overview
 EventTriggerTableRewrite fires table_rewrite event triggers when a table undergoes a rewrite operation, providing hooks for monitoring and responding to table restructuring activities.

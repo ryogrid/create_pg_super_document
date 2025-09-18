@@ -1,7 +1,7 @@
 # AlterTablePass
 
 ## Location
-src/backend/commands/tablecmds.c: 162 - 163
+[src/backend/commands/tablecmds.c:162-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L162-L163)
 
 ## Overview
 AlterTablePass is an enumeration that defines the execution phases for ALTER TABLE commands in PostgreSQL, ensuring operations are performed in the correct order to maintain data integrity and consistency.

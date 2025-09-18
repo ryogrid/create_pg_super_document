@@ -1,7 +1,7 @@
 # publication_translate_columns
 
 ## Location
-src/backend/catalog/pg_publication.c: 502 - 569
+[src/backend/catalog/pg_publication.c:502-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L502-L569)
 
 ## Overview
 Translates a list of column names to an array of attribute numbers and validates that each attribute is appropriate for inclusion in a publication column list.

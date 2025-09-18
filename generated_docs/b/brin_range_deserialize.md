@@ -1,7 +1,7 @@
 # brin_range_deserialize
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 721 - 857
+[src/backend/access/brin/brin_minmax_multi.c:721-857](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L721-L857)
 
 ## Overview
 Deserializes a compact varlena SerializedRanges value back into the in-memory Ranges representation for BRIN index operations.

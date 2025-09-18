@@ -1,7 +1,7 @@
 # ExecReScanGather
 
 ## Location
-src/backend/executor/nodeGather.c: 435 - 469
+[src/backend/executor/nodeGather.c:435-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGather.c#L435-L469)
 
 ## Overview
 Prepares a Gather node for re-scanning by shutting down existing workers and resetting scan state for both parallel and child nodes.

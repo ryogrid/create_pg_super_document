@@ -1,7 +1,7 @@
 # get_array_element_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 1351 - 1398
+[src/backend/utils/adt/jsonfuncs.c:1351-1398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L1351-L1398)
 
 ## Overview
 A static callback function used during JSON parsing to handle the start of individual array elements, managing array index tracking and determining when specific array elements should be captured based on the extraction path.

@@ -1,7 +1,7 @@
 # InvalidatePublicationRels
 
 ## Location
-src/backend/commands/publicationcmds.c: 1058 - 1078
+[src/backend/commands/publicationcmds.c:1058-1078](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1058-L1078)
 
 ## Overview
 InvalidatePublicationRels efficiently invalidates relation cache entries for a list of relations, optimizing between individual invalidations and full cache resets based on the number of relations.

@@ -1,7 +1,7 @@
 # checkDomainOwner
 
 ## Location
-src/backend/commands/typecmds.c: 3490 - 3509
+[src/backend/commands/typecmds.c:3490-3509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3490-L3509)
 
 ## Overview
 Validates that a given type is actually a domain and that the current user has ownership privileges to perform ALTER DOMAIN operations on it.

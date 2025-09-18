@@ -1,7 +1,7 @@
 # table_scan_getnextslot
 
 ## Location
-src/include/access/tableam.h: 1056 - 1084
+[src/include/access/tableam.h:1056-1084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1056-L1084)
 
 ## Overview
 Retrieves the next tuple from a table scan and stores it in the specified tuple slot, supporting both forward and backward scan directions.

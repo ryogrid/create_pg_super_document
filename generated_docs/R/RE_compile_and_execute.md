@@ -1,7 +1,7 @@
 # RE_compile_and_execute
 
 ## Location
-src/backend/utils/adt/regexp.c: 358 - 384
+[src/backend/utils/adt/regexp.c:358-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L358-L384)
 
 ## Overview
 Provides a high-level interface for compiling and executing regular expressions in a single operation, combining caching and pattern matching for PostgreSQL's regex operations.

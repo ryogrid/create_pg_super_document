@@ -1,7 +1,7 @@
 # check_result_of_insert
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-prepareas.c: 29 - 52
+[src/interfaces/ecpg/test/expected/sql-prepareas.c:29-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-prepareas.c#L29-L52)
 
 ## Overview
 A static utility function in the ECPG test suite that verifies the result of database insert operations by executing a SELECT query and displaying the retrieved values.

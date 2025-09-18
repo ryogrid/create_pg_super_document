@@ -1,7 +1,7 @@
 # compute_tsvector_stats
 
 ## Location
-src/backend/tsearch/ts_typanalyze.c: 141 - 452
+[src/backend/tsearch/ts_typanalyze.c:141-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_typanalyze.c#L141-L452)
 
 ## Overview
 Computes statistics for tsvector columns using the Lossy Counting algorithm to identify the most common lexemes and their frequencies for query selectivity estimation.

@@ -1,7 +1,7 @@
 # float4_accum
 
 ## Location
-src/backend/utils/adt/float.c: 3033 - 3117
+[src/backend/utils/adt/float.c:3033-3117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3033-L3117)
 
 ## Overview
 Accumulator function for statistical aggregates on float4 (single precision) values that maintains running statistics using double precision arithmetic internally for improved numerical stability.

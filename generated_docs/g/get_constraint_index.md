@@ -1,7 +1,7 @@
 # get_constraint_index
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1113 - 1142
+[src/backend/utils/cache/lsyscache.c:1113-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1113-L1142)
 
 ## Overview
 Returns the OID of the underlying index for a given unique, primary-key, or exclusion constraint.

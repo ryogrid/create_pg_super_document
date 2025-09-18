@@ -1,7 +1,7 @@
 # MergeJoinClause
 
 ## Location
-src/include/nodes/execnodes.h: 2134 - 2135
+[src/include/nodes/execnodes.h:2134-2135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2134-L2135)
 
 ## Overview
 MergeJoinClause is a typedef for a pointer to MergeJoinClauseData structure, representing runtime data for each individual mergejoin clause used in merge join operations.

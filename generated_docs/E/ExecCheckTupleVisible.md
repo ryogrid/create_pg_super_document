@@ -1,7 +1,7 @@
 # ExecCheckTupleVisible
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 309 - 342
+[src/backend/executor/nodeModifyTable.c:309-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L309-L342)
 
 ## Overview
 Verifies that a tuple is visible according to MVCC snapshot consistency rules and raises serialization failures when necessary to maintain isolation level guarantees.

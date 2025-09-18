@@ -1,7 +1,7 @@
 # AcquireExecutorLocks
 
 ## Location
-src/backend/utils/cache/plancache.c: 1772 - 1827
+[src/backend/utils/cache/plancache.c:1772-1827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1772-L1827)
 
 ## Overview
 Acquires or releases locks needed for execution of a cached plan by iterating through the statement list and locking/unlocking all relations referenced in the plan.

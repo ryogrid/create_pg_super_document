@@ -1,7 +1,7 @@
 # initReadOnlyStringInfo
 
 ## Location
-src/include/lib/stringinfo.h: 130 - 147
+[src/include/lib/stringinfo.h:130-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/stringinfo.h#L130-L147)
 
 ## Overview
 initReadOnlyStringInfo initializes a StringInfoData struct from an existing string buffer without copying the data, optimized for performance-critical scenarios where buffer allocation and copying would be too costly.

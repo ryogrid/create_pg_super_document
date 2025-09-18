@@ -1,7 +1,7 @@
 # assign_checkpoint_completion_target
 
 ## Location
-src/backend/access/transam/xlog.c: 2200 - 2206
+[src/backend/access/transam/xlog.c:2200-2206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2200-L2206)
 
 ## Overview
 Assignment hook function that updates the checkpoint completion target configuration and recalculates checkpoint segment parameters.

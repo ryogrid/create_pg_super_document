@@ -1,7 +1,7 @@
 # ssl_protocol_version_to_string
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1726 - 1746
+[src/backend/libpq/be-secure-openssl.c:1726-1746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1726-L1746)
 
 ## Overview
 Converts PostgreSQL TLS protocol version enumeration values to human-readable string representations for logging and display purposes.

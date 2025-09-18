@@ -1,7 +1,7 @@
 # JsonbValueToJsonb
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 92 - 133
+[src/backend/utils/adt/jsonb_util.c:92-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L92-L133)
 
 ## Overview
 Converts an in-memory JsonbValue into a Jsonb structure suitable for on-disk storage, handling different value types including scalars, objects, arrays, and binary data.

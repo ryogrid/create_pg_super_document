@@ -1,7 +1,7 @@
 # float4_lt
 
 ## Location
-src/include/utils/float.h: 286 - 291
+[src/include/utils/float.h:286-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L286-L291)
 
 ## Overview
 Compares two single-precision floating-point numbers to determine if the first is less than the second, handling NaN values according to PostgreSQL semantics.

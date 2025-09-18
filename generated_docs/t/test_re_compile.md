@@ -1,7 +1,7 @@
 # test_re_compile
 
 ## Location
-src/test/modules/test_regex/test_regex.c: 161 - 201
+[src/test/modules/test_regex/test_regex.c:161-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_regex/test_regex.c#L161-L201)
 
 ## Overview
 test_re_compile is a static function that compiles a regular expression pattern using PostgreSQL's regex engine with proper character encoding handling and collation support.

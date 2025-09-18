@@ -1,7 +1,7 @@
 # sigUsr1Handler
 
 ## Location
-src/backend/postmaster/syslogger.c: 1594 - 1598
+[src/backend/postmaster/syslogger.c:1594-1598](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1594-L1598)
 
 ## Overview
 A signal handler function that processes SIGUSR1 signals to initiate log file rotation in the PostgreSQL syslogger process.

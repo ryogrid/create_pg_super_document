@@ -1,7 +1,7 @@
 # SlabBlock
 
 ## Location
-src/backend/utils/mmgr/slab.c: 146 - 154
+[src/backend/utils/mmgr/slab.c:146-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L146-L154)
 
 ## Overview
 SlabBlock represents a single block of memory within a SlabContext, containing multiple fixed-size chunks that can be allocated and freed individually.

@@ -1,7 +1,7 @@
 # ginbulkdelete
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 565 - 687
+[src/backend/access/gin/ginvacuum.c:565-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L565-L687)
 
 ## Overview
 The main bulk delete function for GIN indexes that performs vacuum operations by traversing entry pages and posting trees to remove dead tuples and reclaim storage space.

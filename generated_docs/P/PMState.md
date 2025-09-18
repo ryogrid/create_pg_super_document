@@ -1,7 +1,7 @@
 # PMState
 
 ## Location
-src/backend/postmaster/postmaster.c: 329 - 345
+[src/backend/postmaster/postmaster.c:329-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L329-L345)
 
 ## Overview
 PMState is an enumeration that represents the different operational states of the PostgreSQL postmaster process throughout its lifecycle.

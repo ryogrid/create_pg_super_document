@@ -1,7 +1,7 @@
 # _bt_recsplitloc
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 449 - 565
+[src/backend/access/nbtree/nbtsplitloc.c:449-565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L449-L565)
 
 ## Overview
 Records a potential split point between two tuples on a B-tree page, calculating space utilization and verifying the split legality before storing it for later analysis.

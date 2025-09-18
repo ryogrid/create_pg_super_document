@@ -1,7 +1,7 @@
 # get_cheapest_parameterized_child_path
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 1999 - 2086
+[src/backend/optimizer/path/allpaths.c:1999-2086](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L1999-L2086)
 
 ## Overview
 Finds the cheapest path for a child relation that has exactly the requested parameterization, potentially reparameterizing existing paths to match the requirement.

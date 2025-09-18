@@ -1,7 +1,7 @@
 # InstrAccumParallelQuery
 
 ## Location
-src/backend/executor/instrument.c: 218 - 225
+[src/backend/executor/instrument.c:218-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L218-L225)
 
 ## Overview
 Accumulates resource usage statistics from parallel workers into the leaders global statistics, consolidating distributed work measurements.

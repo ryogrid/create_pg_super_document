@@ -1,7 +1,7 @@
 # PLyResultObject
 
 ## Location
-src/pl/plpython/plpy_resultobject.h: 13 - 22
+[src/pl/plpython/plpy_resultobject.h:13-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.h#L13-L22)
 
 ## Overview
 PLyResultObject is a C structure that represents the result set of a PostgreSQL query execution in the PL/Python procedural language extension, serving as the bridge between PostgreSQL query results and Python objects.

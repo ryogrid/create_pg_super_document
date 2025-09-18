@@ -1,7 +1,7 @@
 # AdjustFractDays
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 41 - 55
+[src/interfaces/ecpg/pgtypeslib/interval.c:41-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L41-L55)
 
 ## Overview
 AdjustFractDays multiplies a fractional value by a scale factor to produce days, adds the integral part to the day field of a time structure, and handles the fractional remainder appropriately.

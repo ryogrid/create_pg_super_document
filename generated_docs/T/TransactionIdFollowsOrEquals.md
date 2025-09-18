@@ -1,7 +1,7 @@
 # TransactionIdFollowsOrEquals
 
 ## Location
-src/backend/access/transam/transam.c: 329 - 344
+[src/backend/access/transam/transam.c:329-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/transam.c#L329-L344)
 
 ## Overview
 Determines whether one transaction ID logically follows or equals another, using PostgreSQL's modular transaction ID arithmetic.

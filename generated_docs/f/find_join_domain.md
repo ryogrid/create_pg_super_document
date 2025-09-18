@@ -1,7 +1,7 @@
 # find_join_domain
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 2420 - 2448
+[src/backend/optimizer/path/equivclass.c:2420-2448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L2420-L2448)
 
 ## Overview
 Finds the highest JoinDomain that is completely enclosed within a given set of relation IDs, used in query optimization for handling outer and full joins.

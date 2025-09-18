@@ -1,7 +1,7 @@
 # populate_recordset_array_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4281 - 4287
+[src/backend/utils/adt/jsonfuncs.c:4281-4287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4281-L4287)
 
 ## Overview
 A static function that handles the start of a JSON array during JSON recordset population, serving as a no-operation callback in the JSON parsing framework.

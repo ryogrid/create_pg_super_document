@@ -1,7 +1,7 @@
 # postquel_sub_params
 
 ## Location
-src/backend/executor/functions.c: 931 - 985
+[src/backend/executor/functions.c:931-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L931-L985)
 
 ## Overview
 Builds a ParamListInfo array representing the current function arguments, converting FunctionCallInfo parameters into a format suitable for query execution within SQL functions.

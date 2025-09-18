@@ -1,7 +1,7 @@
 # getMaxDumpId
 
 ## Location
-src/bin/pg_dump/common.c: 743 - 753
+[src/bin/pg_dump/common.c:743-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L743-L753)
 
 ## Overview
 Returns the highest DumpId that has been assigned so far during the pg_dump process.

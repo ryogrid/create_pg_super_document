@@ -1,7 +1,7 @@
 # pg_size_pretty_numeric
 
 ## Location
-src/backend/utils/adt/dbsize.c: 672 - 712
+[src/backend/utils/adt/dbsize.c:672-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L672-L712)
 
 ## Overview
 This PostgreSQL SQL function converts a numeric byte size value into a human-readable string format with appropriate units (bytes, kB, MB, GB, TB, PB).

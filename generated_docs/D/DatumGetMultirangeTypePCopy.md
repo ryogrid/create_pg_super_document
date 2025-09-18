@@ -1,7 +1,7 @@
 # DatumGetMultirangeTypePCopy
 
 ## Location
-src/include/utils/multirangetypes.h: 54 - 59
+[src/include/utils/multirangetypes.h:54-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/multirangetypes.h#L54-L59)
 
 ## Overview
 DatumGetMultirangeTypePCopy is an inline function that converts a PostgreSQL Datum value to a MultirangeType pointer, ensuring the result is always a writable copy through TOAST decompression and copying.

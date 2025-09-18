@@ -1,7 +1,7 @@
 # lazy_vacuum_one_index
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2421 - 2469
+[src/backend/access/heap/vacuumlazy.c:2421-2469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2421-L2469)
 
 ## Overview
 Removes dead index tuples from a single index by performing bulk deletion of entries corresponding to dead heap tuples, delegating the actual work to the index access method's ambulkdelete routine.

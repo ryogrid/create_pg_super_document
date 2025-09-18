@@ -1,7 +1,7 @@
 # operator_same_subexprs_lookup
 
 ## Location
-src/backend/optimizer/util/predtest.c: 2305 - 2329
+[src/backend/optimizer/util/predtest.c:2305-2329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L2305-L2329)
 
 ## Overview
 Convenience function that retrieves cached proof results for same-subexpressions cases by delegating to the lookup_proof_cache and extracting the appropriate boolean result.

@@ -1,7 +1,7 @@
 # ProcSignalShmemSize
 
 ## Location
-src/backend/storage/ipc/procsignal.c: 111 - 124
+[src/backend/storage/ipc/procsignal.c:111-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procsignal.c#L111-L124)
 
 ## Overview
 Computes the shared memory space needed for PostgreSQL's process signaling system, calculating the total size required for process signal slots and header structure.

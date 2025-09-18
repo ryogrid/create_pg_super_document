@@ -1,7 +1,7 @@
 # check_root
 
 ## Location
-src/backend/main/main.c: 381 - 437
+[src/backend/main/main.c:381-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/main/main.c#L381-L437)
 
 ## Overview
 Security validation function that prevents PostgreSQL server from running with administrator/root privileges to avoid potential system security compromises.

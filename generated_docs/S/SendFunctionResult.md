@@ -1,7 +1,7 @@
 # SendFunctionResult
 
 ## Location
-src/backend/tcop/fastpath.c: 68 - 119
+[src/backend/tcop/fastpath.c:68-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/fastpath.c#L68-L119)
 
 ## Overview
 Sends the result of a function call back to the client in the PostgreSQL fast-path protocol, handling both text and binary output formats as well as NULL values.

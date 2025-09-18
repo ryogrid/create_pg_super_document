@@ -1,7 +1,7 @@
 # interval_div
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3697 - 3797
+[src/backend/utils/adt/timestamp.c:3697-3797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3697-L3797)
 
 ## Overview
 A PostgreSQL function that implements interval division by a floating-point factor with comprehensive handling of special values and fractional unit cascading.

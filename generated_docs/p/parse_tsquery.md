@@ -1,7 +1,7 @@
 # parse_tsquery
 
 ## Location
-src/backend/utils/adt/tsquery.c: 817 - 941
+[src/backend/utils/adt/tsquery.c:817-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L817-L941)
 
 ## Overview
 The  function parses a text search query string and converts it into PostgreSQL's internal TSQuery representation, handling different query formats (standard, plain text, and websearch) with customizable processing callbacks.

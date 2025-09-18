@@ -1,7 +1,7 @@
 # dclist_delete_from_thoroughly
 
 ## Location
-src/include/lib/ilist.h: 776 - 788
+[src/include/lib/ilist.h:776-788](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L776-L788)
 
 ## Overview
 Removes a node from a doubly-linked counted list and sets the node's next/prev pointers to NULL to indicate it's no longer part of any list.

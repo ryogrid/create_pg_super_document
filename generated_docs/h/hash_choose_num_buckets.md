@@ -1,7 +1,7 @@
 # hash_choose_num_buckets
 
 ## Location
-src/backend/executor/nodeAgg.c: 1966 - 1990
+[src/backend/executor/nodeAgg.c:1966-1990](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1966-L1990)
 
 ## Overview
 Calculates an appropriate number of buckets for the initial hash table size in hash aggregation, balancing memory usage with hash distribution efficiency.

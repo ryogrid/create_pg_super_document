@@ -1,7 +1,7 @@
 # HandleConcurrentAbort
 
 ## Location
-src/backend/access/index/genam.c: 482 - 504
+[src/backend/access/index/genam.c:482-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L482-L504)
 
 ## Overview
 HandleConcurrentAbort is a static inline function that handles concurrent abort scenarios during system catalog scans by checking if a transaction marked for monitoring has been aborted.

@@ -1,7 +1,7 @@
 # transform_string_values_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5931 - 5947
+[src/backend/utils/adt/jsonfuncs.c:5931-5947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5931-L5947)
 
 ## Overview
 Handles scalar JSON values during string transformation, applying user-defined transformations to string tokens while preserving other scalar types unchanged.

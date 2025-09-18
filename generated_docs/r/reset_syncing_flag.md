@@ -1,7 +1,7 @@
 # reset_syncing_flag
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1315 - 1330
+[src/backend/replication/logical/slotsync.c:1315-1330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1315-L1330)
 
 ## Overview
 Resets the global synchronization flags used in PostgreSQL's replication slot synchronization mechanism to indicate that slot synchronization is no longer active.

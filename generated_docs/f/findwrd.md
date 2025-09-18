@@ -1,7 +1,7 @@
 # findwrd
 
 ## Location
-src/backend/tsearch/dict_synonym.c: 44 - 84
+[src/backend/tsearch/dict_synonym.c:44-84](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_synonym.c#L44-L84)
 
 ## Overview
 Finds the next whitespace-delimited word within an input string, handling multibyte characters and special prefix flags.

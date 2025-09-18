@@ -1,7 +1,7 @@
 # _enableTriggersIfNecessary
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1133 - 1169
+[src/bin/pg_dump/pg_backup_archiver.c:1133-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1133-L1169)
 
 ## Overview
 _enableTriggersIfNecessary is a utility function that re-enables all triggers on a table after data loading is complete during data-only restore operations, restoring normal trigger functionality.

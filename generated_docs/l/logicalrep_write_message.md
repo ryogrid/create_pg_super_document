@@ -1,7 +1,7 @@
 # logicalrep_write_message
 
 ## Location
-src/backend/replication/logical/proto.c: 643 - 669
+[src/backend/replication/logical/proto.c:643-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L643-L669)
 
 ## Overview
 Serializes and writes a MESSAGE to the logical replication output stream, allowing custom application messages to be transmitted to subscribers.

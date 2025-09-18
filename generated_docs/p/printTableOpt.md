@@ -1,7 +1,7 @@
 # printTableOpt
 
 ## Location
-src/include/fe_utils/print.h: 111 - 144
+[src/include/fe_utils/print.h:111-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L111-L144)
 
 ## Overview
 A comprehensive configuration structure that controls all aspects of table formatting and output in PostgreSQL frontend utilities, including layout, styling, pagination, and field separators.

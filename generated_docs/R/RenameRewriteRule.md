@@ -1,7 +1,7 @@
 # RenameRewriteRule
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 793 - 872
+[src/backend/rewrite/rewriteDefine.c:793-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L793-L872)
 
 ## Overview
 Renames an existing rewrite rule by updating the rule name in the system catalog while performing comprehensive validation and maintaining system consistency.

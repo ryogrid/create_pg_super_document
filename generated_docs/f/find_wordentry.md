@@ -1,7 +1,7 @@
 # find_wordentry
 
 ## Location
-src/backend/utils/adt/tsrank.c: 86 - 134
+[src/backend/utils/adt/tsrank.c:86-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L86-L134)
 
 ## Overview
 Searches for a specific query operand within a TSVector using binary search, returning the corresponding WordEntry and count of matching items.

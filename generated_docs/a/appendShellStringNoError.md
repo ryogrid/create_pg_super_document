@@ -1,7 +1,7 @@
 # appendShellStringNoError
 
 ## Location
-src/fe_utils/string_utils.c: 594 - 697
+[src/fe_utils/string_utils.c:594-697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L594-L697)
 
 ## Overview
 Safely appends a string to a shell command buffer with proper platform-specific quoting, gracefully handling dangerous characters by omitting them and returning false.

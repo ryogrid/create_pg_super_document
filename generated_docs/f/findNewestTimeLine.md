@@ -1,7 +1,7 @@
 # findNewestTimeLine
 
 ## Location
-src/backend/access/transam/timeline.c: 264 - 303
+[src/backend/access/transam/timeline.c:264-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/timeline.c#L264-L303)
 
 ## Overview
 Finds the newest existing timeline starting from a given timeline ID by probing for timeline history files.

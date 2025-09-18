@@ -1,7 +1,7 @@
 # shared_record_table_hash
 
 ## Location
-src/backend/utils/cache/typcache.c: 241 - 277
+[src/backend/utils/cache/typcache.c:241-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L241-L277)
 
 ## Overview
 A hash function for SharedRecordTableKey structures that generates consistent hash values based on the associated TupleDesc structure.

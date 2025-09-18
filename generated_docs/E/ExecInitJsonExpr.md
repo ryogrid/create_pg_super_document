@@ -1,7 +1,7 @@
 # ExecInitJsonExpr
 
 ## Location
-src/backend/executor/execExpr.c: 4236 - 4537
+[src/backend/executor/execExpr.c:4236-4537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L4236-L4537)
 
 ## Overview
 Initializes expression evaluation steps for a JsonExpr and its various subsidiary expressions, including formatted_expr, path_spec, passing arguments, coercion handling, and ON ERROR/ON EMPTY behaviors.

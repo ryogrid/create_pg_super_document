@@ -1,7 +1,7 @@
 # repeat
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 1121 - 1157
+[src/backend/utils/adt/oracle_compat.c:1121-1157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L1121-L1157)
 
 ## Overview
 Repeats a given text string a specified number of times, concatenating the results into a single output string.

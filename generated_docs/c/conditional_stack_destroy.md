@@ -1,7 +1,7 @@
 # conditional_stack_destroy
 
 ## Location
-src/fe_utils/conditional.c: 43 - 52
+[src/fe_utils/conditional.c:43-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/conditional.c#L43-L52)
 
 ## Overview
 Completely destroys a conditional stack by clearing all its elements and deallocating the stack structure itself.

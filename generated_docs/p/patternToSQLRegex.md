@@ -1,7 +1,7 @@
 # patternToSQLRegex
 
 ## Location
-src/fe_utils/string_utils.c: 1225 - 1393
+[src/fe_utils/string_utils.c:1225-1393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L1225-L1393)
 
 ## Overview
 Transforms a shell-style object name pattern into SQL-style regular expressions, handling qualified names, case conversion, and wildcard character mapping.

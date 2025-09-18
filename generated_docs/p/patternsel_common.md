@@ -1,7 +1,7 @@
 # patternsel_common
 
 ## Location
-src/backend/utils/adt/like_support.c: 486 - 759
+[src/backend/utils/adt/like_support.c:486-759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L486-L759)
 
 ## Overview
 A comprehensive selectivity estimation function for pattern matching operations that combines histogram analysis, most-common-values statistics, and heuristic methods to predict how many rows will match a given pattern.

@@ -1,7 +1,7 @@
 # show_tcp_keepalives_idle
 
 ## Location
-src/backend/libpq/pqcomm.c: 1971 - 1983
+[src/backend/libpq/pqcomm.c:1971-1983](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1971-L1983)
 
 ## Overview
 A GUC (Grand Unified Configuration) show hook function that displays the current TCP keepalive idle timeout value for the current connection.

@@ -1,7 +1,7 @@
 # llvm_release_context
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 265 - 334
+[src/backend/jit/llvm/llvmjit.c:265-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L265-L334)
 
 ## Overview
 A static cleanup function responsible for releasing all resources associated with an LLVM JIT compilation context when it's no longer needed.

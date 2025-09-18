@@ -1,7 +1,7 @@
 # int64_to_numericvar
 
 ## Location
-src/backend/utils/adt/numeric.c: 8120 - 8166
+[src/backend/utils/adt/numeric.c:8120-8166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8120-L8166)
 
 ## Overview
 The `int64_to_numericvar` function converts a 64-bit signed integer value into PostgreSQL's internal numeric variable representation, handling sign conversion and digit allocation efficiently.

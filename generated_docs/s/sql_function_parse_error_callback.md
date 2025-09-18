@@ -1,7 +1,7 @@
 # sql_function_parse_error_callback
 
 ## Location
-src/backend/catalog/pg_proc.c: 978 - 1001
+[src/backend/catalog/pg_proc.c:978-1001](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L978-L1001)
 
 ## Overview
 Error context callback function that provides enhanced error reporting for SQL function definition parsing errors.

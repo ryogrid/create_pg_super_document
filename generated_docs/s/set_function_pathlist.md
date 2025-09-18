@@ -1,7 +1,7 @@
 # set_function_pathlist
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2749 - 2815
+[src/backend/optimizer/path/allpaths.c:2749-2815](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2749-L2815)
 
 ## Overview
 Builds the single access path for a function RTE (Range Table Entry), handling the pathlist generation for function scans in PostgreSQL's query planner.

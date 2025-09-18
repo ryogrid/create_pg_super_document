@@ -1,7 +1,7 @@
 # avlAdjustBalance
 
 ## Location
-src/bin/psql/crosstabview.c: 506 - 528
+[src/bin/psql/crosstabview.c:506-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/crosstabview.c#L506-L528)
 
 ## Overview
 Rebalances an AVL tree node after insertion to ensure height differences between left and right subtrees don't exceed 1, maintaining AVL tree properties.

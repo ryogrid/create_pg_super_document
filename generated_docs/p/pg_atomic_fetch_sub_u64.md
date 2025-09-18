@@ -1,7 +1,7 @@
 # pg_atomic_fetch_sub_u64
 
 ## Location
-src/include/port/atomics.h: 526 - 535
+[src/include/port/atomics.h:526-535](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L526-L535)
 
 ## Overview
 Atomically subtracts a value from a 64-bit unsigned integer and returns the original value before the subtraction.

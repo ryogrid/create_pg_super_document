@@ -1,7 +1,7 @@
 # SetExprState
 
 ## Location
-src/include/nodes/execnodes.h: 890 - 954
+[src/include/nodes/execnodes.h:890-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L890-L954)
 
 ## Overview
 SetExprState manages the execution state for set-returning expressions (SRFs), handling both true set-returning functions and expressions treated as single-row sets in ROWS FROM clauses.

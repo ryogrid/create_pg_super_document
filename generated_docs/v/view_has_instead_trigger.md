@@ -1,7 +1,7 @@
 # view_has_instead_trigger
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2511 - 2574
+[src/backend/rewrite/rewriteHandler.c:2511-2574](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2511-L2574)
 
 ## Overview
 Determines whether a view has an INSTEAD OF trigger for a specific command type (INSERT, UPDATE, DELETE, or MERGE), which affects whether the view can be treated as auto-updatable.

@@ -1,7 +1,7 @@
 # pqGetCopyData3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1751 - 1809
+[src/interfaces/libpq/fe-protocol3.c:1751-1809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1751-L1809)
 
 ## Overview
 Reads a row of data from the PostgreSQL backend during COPY OUT or COPY BOTH operations, implementing the protocol 3.0 version of copy data retrieval.

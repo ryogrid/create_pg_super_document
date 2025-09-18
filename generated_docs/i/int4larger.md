@@ -1,7 +1,7 @@
 # int4larger
 
 ## Location
-src/backend/utils/adt/int.c: 1364 - 1372
+[src/backend/utils/adt/int.c:1364-1372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1364-L1372)
 
 ## Overview
 Returns the larger of two 32-bit signed integers (int32).

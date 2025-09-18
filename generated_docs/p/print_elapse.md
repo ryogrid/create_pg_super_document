@@ -1,7 +1,7 @@
 # print_elapse
 
 ## Location
-src/bin/pg_test_fsync/pg_test_fsync.c: 630 - 641
+[src/bin/pg_test_fsync/pg_test_fsync.c:630-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_test_fsync/pg_test_fsync.c#L630-L641)
 
 ## Overview
 A utility function in pg_test_fsync that calculates and displays performance statistics for filesystem synchronization operations, showing operations per second and average operation time.

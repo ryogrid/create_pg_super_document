@@ -1,7 +1,7 @@
 # heap_lock_tuple
 
 ## Location
-src/backend/access/heap/heapam.c: 4533 - 5230
+[src/backend/access/heap/heapam.c:4533-5230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4533-L5230)
 
 ## Overview
 heap_lock_tuple is the core function responsible for acquiring shared or exclusive locks on heap tuples, handling complex concurrency control, transaction visibility, and MultiXact management in PostgreSQL.

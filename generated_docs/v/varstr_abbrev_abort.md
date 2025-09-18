@@ -1,7 +1,7 @@
 # varstr_abbrev_abort
 
 ## Location
-src/backend/utils/adt/varlena.c: 2437 - 2554
+[src/backend/utils/adt/varlena.c:2437-2554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2437-L2554)
 
 ## Overview
 An intelligent cost-benefit analysis function that determines whether abbreviated key optimization should be disabled based on effectiveness heuristics using cardinality estimation.

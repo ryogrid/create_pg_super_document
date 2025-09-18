@@ -1,7 +1,7 @@
 # unicode_normalize_func
 
 ## Location
-src/backend/utils/adt/varlena.c: 6344 - 6409
+[src/backend/utils/adt/varlena.c:6344-6409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6344-L6409)
 
 ## Overview
 Applies Unicode normalization to a UTF-8 text string using a specified normalization form (NFC, NFD, NFKC, or NFKD).

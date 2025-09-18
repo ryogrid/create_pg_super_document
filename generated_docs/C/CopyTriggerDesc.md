@@ -1,7 +1,7 @@
 # CopyTriggerDesc
 
 ## Location
-src/backend/commands/trigger.c: 2085 - 2139
+[src/backend/commands/trigger.c:2085-2139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2085-L2139)
 
 ## Overview
 CopyTriggerDesc creates a deep copy of a TriggerDesc data structure, allocating the copy in the current memory context and duplicating all variable-length fields.

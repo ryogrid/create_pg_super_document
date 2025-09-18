@@ -1,7 +1,7 @@
 # ExecReadyInterpretedExpr
 
 ## Location
-src/backend/executor/execExprInterp.c: 236 - 395
+[src/backend/executor/execExprInterp.c:236-395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L236-L395)
 
 ## Overview
 Prepares an ExprState for interpreted execution by initializing the interpreter, setting up fast-path optimizations for simple expressions, and configuring appropriate evaluation functions.

@@ -1,7 +1,7 @@
 # printTextLineFormat
 
 ## Location
-src/include/fe_utils/print.h: 43 - 50
+[src/include/fe_utils/print.h:43-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L43-L50)
 
 ## Overview
 A structure that defines the line drawing characters used for formatting text tables in PostgreSQL frontend utilities.

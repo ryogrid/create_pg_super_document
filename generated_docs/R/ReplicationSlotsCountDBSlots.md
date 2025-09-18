@@ -1,7 +1,7 @@
 # ReplicationSlotsCountDBSlots
 
 ## Location
-src/backend/replication/slot.c: 1212 - 1269
+[src/backend/replication/slot.c:1212-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L1212-L1269)
 
 ## Overview
 Counts the number of logical replication slots that refer to a specific database, providing both total slot count and count of currently active slots.

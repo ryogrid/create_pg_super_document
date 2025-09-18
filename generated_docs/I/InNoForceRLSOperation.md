@@ -1,7 +1,7 @@
 # InNoForceRLSOperation
 
 ## Location
-src/backend/utils/init/miscinit.c: 694 - 706
+[src/backend/utils/init/miscinit.c:694-706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L694-L706)
 
 ## Overview
 Checks whether PostgreSQL should ignore FORCE ROW LEVEL SECURITY directives in the current execution context by examining security restriction flags.

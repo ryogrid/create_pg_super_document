@@ -1,7 +1,7 @@
 # uuid_out
 
 ## Location
-src/backend/utils/adt/uuid.c: 53 - 94
+[src/backend/utils/adt/uuid.c:53-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L53-L94)
 
 ## Overview
 PostgreSQL output function that converts internal UUID binary format to its standard string representation with hyphens.

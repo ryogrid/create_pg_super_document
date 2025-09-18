@@ -1,7 +1,7 @@
 # setDecimalLocale
 
 ## Location
-src/fe_utils/print.c: 3641 - 3676
+[src/fe_utils/print.c:3641-3676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3641-L3676)
 
 ## Overview
 The setDecimalLocale function initializes locale-specific numeric formatting settings by extracting decimal point, thousands separator, and digit grouping information from the system locale for proper number display.

@@ -1,7 +1,7 @@
 # pct_info
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 634 - 645
+[src/backend/utils/adt/orderedsetaggs.c:634-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L634-L645)
 
 ## Overview
 pct_info is a structure used in PostgreSQL's ordered-set aggregates to handle arrays of percentiles, particularly for multi-percentile functions like percentile_disc and percentile_cont when processing multiple percentile values simultaneously.

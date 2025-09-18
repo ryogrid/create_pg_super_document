@@ -1,7 +1,7 @@
 # apply_handle_begin_prepare
 
 ## Location
-src/backend/replication/logical/worker.c: 1044 - 1072
+[src/backend/replication/logical/worker.c:1044-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1044-L1072)
 
 ## Overview
 apply_handle_begin_prepare handles BEGIN PREPARE messages in PostgreSQL logical replication, marking the start of a prepared transaction for two-phase commit processing on the apply worker side.

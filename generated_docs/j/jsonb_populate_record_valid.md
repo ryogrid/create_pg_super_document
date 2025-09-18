@@ -1,7 +1,7 @@
 # jsonb_populate_record_valid
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2475 - 2485
+[src/backend/utils/adt/jsonfuncs.c:2475-2485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2475-L2485)
 
 ## Overview
 This SQL function tests whether a JSONB object can successfully populate a PostgreSQL record without raising errors, returning a boolean result indicating validation success or failure.

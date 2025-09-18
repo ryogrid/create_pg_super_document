@@ -1,7 +1,7 @@
 # r_step5a
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3005 - 3043
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3005-3043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3005-L3043)
 
 ## Overview
 A complex step function in the Greek Snowball stemmer that performs multi-phase suffix transformations with backtracking, handling specific Greek word endings and morphological patterns.

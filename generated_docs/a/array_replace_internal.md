@@ -1,7 +1,7 @@
 # array_replace_internal
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6369 - 6626
+[src/backend/utils/adt/arrayfuncs.c:6369-6626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6369-L6626)
 
 ## Overview
 An internal static function that provides the core implementation for both array_remove() and array_replace() operations by finding and either removing or replacing array elements that match a search value.

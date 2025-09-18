@@ -1,7 +1,7 @@
 # PredClass
 
 ## Location
-src/backend/optimizer/util/predtest.c: 55 - 56
+[src/backend/optimizer/util/predtest.c:55-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L55-L56)
 
 ## Overview
 PredClass is an enumeration type that classifies expression nodes based on their logical structure for predicate testing operations in PostgreSQL's optimizer.

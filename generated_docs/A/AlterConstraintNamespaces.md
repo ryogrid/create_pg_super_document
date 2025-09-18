@@ -1,7 +1,7 @@
 # AlterConstraintNamespaces
 
 ## Location
-src/backend/catalog/pg_constraint.c: 755 - 823
+[src/backend/catalog/pg_constraint.c:755-823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L755-L823)
 
 ## Overview
 Moves all constraints belonging to a specified object (relation or domain type) from one namespace to another during namespace change operations.

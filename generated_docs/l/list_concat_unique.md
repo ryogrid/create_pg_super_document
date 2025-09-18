@@ -1,7 +1,7 @@
 # list_concat_unique
 
 ## Location
-src/backend/nodes/list.c: 1405 - 1426
+[src/backend/nodes/list.c:1405-1426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1405-L1426)
 
 ## Overview
 Concatenates two pointer lists by appending each member of the second list to the first list, but only if it is not already present, ensuring no duplicates while preserving order.

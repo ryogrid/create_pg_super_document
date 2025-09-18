@@ -1,7 +1,7 @@
 # SH_INSERT
 
 ## Location
-src/include/lib/simplehash.h: 777 - 789
+[src/include/lib/simplehash.h:777-789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L777-L789)
 
 ## Overview
 SH_INSERT is a macro that defines a function name for inserting a key into a simple hash table, computing the hash value automatically and delegating to the internal insertion logic.

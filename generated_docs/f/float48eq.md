@@ -1,7 +1,7 @@
 # float48eq
 
 ## Location
-src/backend/utils/adt/float.c: 3864 - 3872
+[src/backend/utils/adt/float.c:3864-3872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3864-L3872)
 
 ## Overview
 Compares a float4 (single precision) value with a float8 (double precision) value for equality, returning a boolean result.

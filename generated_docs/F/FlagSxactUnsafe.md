@@ -1,7 +1,7 @@
 # FlagSxactUnsafe
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 699 - 730
+[src/backend/storage/lmgr/predicate.c:699-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L699-L730)
 
 ## Overview
 Marks a read-only serializable transaction as unsafe and cleans up its possible unsafe conflict records.

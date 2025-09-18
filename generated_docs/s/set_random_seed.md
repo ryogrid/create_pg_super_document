@@ -1,7 +1,7 @@
 # set_random_seed
 
 ## Location
-src/bin/pgbench/pgbench.c: 6607 - 6652
+[src/bin/pgbench/pgbench.c:6607-6652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L6607-L6652)
 
 ## Overview
 Initializes the random number generator seed for pgbench based on the provided seed parameter and sets up the base random sequence for other random number generators.

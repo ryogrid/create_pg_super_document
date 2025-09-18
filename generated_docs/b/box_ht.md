@@ -1,7 +1,7 @@
 # box_ht
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 893 - 907
+[src/backend/utils/adt/geo_ops.c:893-907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L893-L907)
 
 ## Overview
 Returns the height (vertical magnitude) of a BOX geometric type by calculating the difference between the high and low y-coordinates.

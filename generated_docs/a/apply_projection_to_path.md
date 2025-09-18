@@ -1,7 +1,7 @@
 # apply_projection_to_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2793 - 2881
+[src/backend/optimizer/util/pathnode.c:2793-2881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2793-L2881)
 
 ## Overview
 Adds a projection step to a path or directly applies the target to the given path when possible, providing a more invasive in-place alternative to create_projection_path.

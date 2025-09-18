@@ -1,7 +1,7 @@
 # GetAllSchemaPublicationRelations
 
 ## Location
-src/backend/catalog/pg_publication.c: 982 - 1005
+[src/backend/catalog/pg_publication.c:982-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L982-L1005)
 
 ## Overview
 Retrieves a consolidated list of all relation OIDs published by a specific publication that uses "FOR TABLES IN SCHEMA" syntax, aggregating relations from all schemas included in the publication.

@@ -1,7 +1,7 @@
 # network_masklen
 
 ## Location
-src/backend/utils/adt/network.c: 1258 - 1265
+[src/backend/utils/adt/network.c:1258-1265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1258-L1265)
 
 ## Overview
 Extracts and returns the netmask length (number of network bits) from an inet or cidr value as an integer.

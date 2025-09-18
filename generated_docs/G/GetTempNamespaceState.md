@@ -1,7 +1,7 @@
 # GetTempNamespaceState
 
 ## Location
-src/backend/catalog/namespace.c: 3805 - 3820
+[src/backend/catalog/namespace.c:3805-3820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3805-L3820)
 
 ## Overview
 Fetches the status of the session's temporary namespace, specifically designed for conveying state to parallel workers.

@@ -1,7 +1,7 @@
 # ReadStr
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2189 - 2208
+[src/bin/pg_dump/pg_backup_archiver.c:2189-2208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2189-L2208)
 
 ## Overview
 ReadStr is a function in PostgreSQL's pg_dump archiver that reads a null-terminated string from an archive handle.

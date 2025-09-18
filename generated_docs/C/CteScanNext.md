@@ -1,7 +1,7 @@
 # CteScanNext
 
 ## Location
-src/backend/executor/nodeCtescan.c: 31 - 144
+[src/backend/executor/nodeCtescan.c:31-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCtescan.c#L31-L144)
 
 ## Overview
 CteScanNext is the workhorse function for ExecCteScan that retrieves the next tuple from a Common Table Expression (CTE) scan, handling both forward and backward scanning directions and managing the underlying tuplestore.

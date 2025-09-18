@@ -1,7 +1,7 @@
 # build_guc_variables
 
 ## Location
-src/backend/utils/misc/guc.c: 905 - 1048
+[src/backend/utils/misc/guc.c:905-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L905-L1048)
 
 ## Overview
 Builds the GUC (Grand Unified Configuration) hash table by counting all built-in configuration variables and populating the global hash table for efficient variable lookup.

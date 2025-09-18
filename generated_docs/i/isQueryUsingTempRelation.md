@@ -1,7 +1,7 @@
 # isQueryUsingTempRelation
 
 ## Location
-src/backend/parser/parse_relation.c: 3824 - 3829
+[src/backend/parser/parse_relation.c:3824-3829](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3824-L3829)
 
 ## Overview
 This function examines a fully-parsed query and returns true if any relation underlying the query is a temporary relation (table, view, or materialized view).

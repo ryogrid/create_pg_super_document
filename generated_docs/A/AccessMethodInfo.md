@@ -1,7 +1,7 @@
 # AccessMethodInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 266 - 267
+[src/bin/pg_dump/pg_dump.h:266-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L266-L267)
 
 ## Overview
 AccessMethodInfo is a structure used in pg_dump to represent access method metadata during database dump operations, storing essential information about PostgreSQL access methods including their type and handler function.

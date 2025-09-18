@@ -1,7 +1,7 @@
 # getmissingattr
 
 ## Location
-src/backend/access/common/heaptuple.c: 147 - 214
+[src/backend/access/common/heaptuple.c:147-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L147-L214)
 
 ## Overview
 The `getmissingattr` function returns the missing value for a specified attribute from a tuple descriptor, with caching support for efficient repeated access to by-reference missing values.

@@ -1,7 +1,7 @@
 # pqSetResultError
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 692 - 720
+[src/interfaces/libpq/fe-exec.c:692-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L692-L720)
 
 ## Overview
 pqSetResultError assigns a new error message to a PGresult object, handling out-of-memory scenarios gracefully with fallback error messages.

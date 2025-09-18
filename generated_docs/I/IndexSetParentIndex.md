@@ -1,7 +1,7 @@
 # IndexSetParentIndex
 
 ## Location
-src/backend/commands/indexcmds.c: 4304 - 4435
+[src/backend/commands/indexcmds.c:4304-4435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L4304-L4435)
 
 ## Overview
 IndexSetParentIndex establishes or removes parent-child inheritance relationships between indexes by managing pg_inherits entries and associated dependency records for index partitioning.

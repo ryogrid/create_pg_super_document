@@ -1,7 +1,7 @@
 # unknown_attribute
 
 ## Location
-src/backend/parser/parse_expr.c: 392 - 437
+[src/backend/parser/parse_expr.c:392-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L392-L437)
 
 ## Overview
  is a specialized error reporting function that generates appropriate "column does not exist" error messages when field selection fails on an arbitrary node.

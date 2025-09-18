@@ -1,7 +1,7 @@
 # SerialControl
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 352 - 497
+[src/backend/storage/lmgr/predicate.c:352-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L352-L497)
 
 ## Overview
 SerialControl is a pointer type to SerialControlData that serves as the main handle for accessing serializable transaction control data in PostgreSQL's predicate locking system.

@@ -1,7 +1,7 @@
 # splitTzLine
 
 ## Location
-src/backend/utils/misc/tzparser.c: 98 - 187
+[src/backend/utils/misc/tzparser.c:98-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/tzparser.c#L98-L187)
 
 ## Overview
 Parses a single line from a timezone abbreviation file and extracts timezone information into a tzEntry structure.

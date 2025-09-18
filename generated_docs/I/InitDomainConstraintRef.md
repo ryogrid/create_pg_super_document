@@ -1,7 +1,7 @@
 # InitDomainConstraintRef
 
 ## Location
-src/backend/utils/cache/typcache.c: 1313 - 1350
+[src/backend/utils/cache/typcache.c:1313-1350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1313-L1350)
 
 ## Overview
 Initializes a DomainConstraintRef structure that manages references to domain constraint information with proper memory context management and optional expression state preparation.

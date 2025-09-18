@@ -1,7 +1,7 @@
 # SlabGetChunkSpace
 
 ## Location
-src/backend/utils/mmgr/slab.c: 887 - 911
+[src/backend/utils/mmgr/slab.c:887-911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L887-L911)
 
 ## Overview
 SlabGetChunkSpace determines the total space occupied by an allocated chunk, including all memory allocation overhead.

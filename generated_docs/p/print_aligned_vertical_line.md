@@ -1,7 +1,7 @@
 # print_aligned_vertical_line
 
 ## Location
-src/fe_utils/print.c: 1225 - 1323
+[src/fe_utils/print.c:1225-1323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L1225-L1323)
 
 ## Overview
 Draws horizontal separating lines for aligned vertical table format, including record separators with optional record numbers and proper border formatting.

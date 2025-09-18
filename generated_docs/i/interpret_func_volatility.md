@@ -1,7 +1,7 @@
 # interpret_func_volatility
 
 ## Location
-src/backend/commands/functioncmds.c: 602 - 619
+[src/backend/commands/functioncmds.c:602-619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L602-L619)
 
 ## Overview
 Converts string-based volatility specifications from CREATE FUNCTION or ALTER FUNCTION statements into the corresponding internal character constants used by PostgreSQL's catalog system.

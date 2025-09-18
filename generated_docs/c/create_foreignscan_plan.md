@@ -1,7 +1,7 @@
 # create_foreignscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4122 - 4276
+[src/backend/optimizer/plan/createplan.c:4122-4276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4122-L4276)
 
 ## Overview
 Creates a ForeignScan plan node for scanning a relation using a Foreign Data Wrapper (FDW), handling both base relations and foreign joins with appropriate optimization and parameter handling.

@@ -1,7 +1,7 @@
 # SS_make_initplan_output_param
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 3001 - 3016
+[src/backend/optimizer/plan/subselect.c:3001-3016](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L3001-L3016)
 
 ## Overview
 Creates a new Param node to represent the output of an initplan that returns a scalar value of specified type, collation, and typmod.

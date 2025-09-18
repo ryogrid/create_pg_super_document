@@ -1,7 +1,7 @@
 # ExecCallTriggerFunc
 
 ## Location
-src/backend/commands/trigger.c: 2304 - 2395
+[src/backend/commands/trigger.c:2304-2395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2304-L2395)
 
 ## Overview
 Executes a trigger function with proper context management, instrumentation, and error handling, returning the tuple result as specified by PostgreSQL's trigger protocol.

@@ -1,7 +1,7 @@
 # pg_wc_isupper
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 405 - 438
+[src/backend/regex/regc_pg_locale.c:405-438](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L405-L438)
 
 ## Overview
 Determines whether a given wide character is an uppercase letter, handling multiple locale and encoding strategies for PostgreSQL's regex engine.

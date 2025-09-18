@@ -1,7 +1,7 @@
 # printResult
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-declare.c: 607 - 618
+[src/interfaces/ecpg/test/expected/sql-declare.c:607-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-declare.c#L607-L618)
 
 ## Overview
 The printResult function displays the results of ECPG test cases by printing the contents of global result arrays f1, f2, and f3 with formatted output.

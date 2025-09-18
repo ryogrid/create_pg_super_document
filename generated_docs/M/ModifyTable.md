@@ -1,7 +1,7 @@
 # ModifyTable
 
 ## Location
-src/include/nodes/plannodes.h: 229 - 256
+[src/include/nodes/plannodes.h:229-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L229-L256)
 
 ## Overview
 ModifyTable is a plan node that applies data modification operations (INSERT, UPDATE, DELETE, MERGE) to target tables using rows produced by its outer plan, supporting complex features like partitioning, inheritance, triggers, and conflict resolution.

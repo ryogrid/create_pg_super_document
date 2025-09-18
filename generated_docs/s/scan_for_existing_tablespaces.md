@@ -1,7 +1,7 @@
 # scan_for_existing_tablespaces
 
 ## Location
-src/bin/pg_combinebackup/pg_combinebackup.c: 1245 - 1375
+[src/bin/pg_combinebackup/pg_combinebackup.c:1245-1375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/pg_combinebackup.c#L1245-L1375)
 
 ## Overview
 Scans the pg_tblspc directory of the final input backup to create a canonical list of tablespaces that are part of the backup, handling both in-place and relocated tablespaces.

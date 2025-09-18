@@ -1,7 +1,7 @@
 # btoidsortsupport
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 287 - 295
+[src/backend/access/nbtree/nbtcompare.c:287-295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L287-L295)
 
 ## Overview
 A PostgreSQL function that initializes sort support for OID (Object Identifier) data types by setting up an optimized comparison function for B-tree sorting operations.

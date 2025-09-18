@@ -1,7 +1,7 @@
 # deconstruct_recurse
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 822 - 1119
+[src/backend/optimizer/plan/initsplan.c:822-1119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L822-L1119)
 
 ## Overview
 Recursively traverses the query's join tree to extract join structure information and build hierarchical join lists while handling different join types and domain assignments.

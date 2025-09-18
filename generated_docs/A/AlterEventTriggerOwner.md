@@ -1,7 +1,7 @@
 # AlterEventTriggerOwner
 
 ## Location
-src/backend/commands/event_trigger.c: 475 - 509
+[src/backend/commands/event_trigger.c:475-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L475-L509)
 
 ## Overview
 Changes the owner of an event trigger identified by name, implementing the ALTER EVENT TRIGGER ... OWNER TO command functionality.

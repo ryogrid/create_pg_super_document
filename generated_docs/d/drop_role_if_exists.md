@@ -1,7 +1,7 @@
 # drop_role_if_exists
 
 ## Location
-src/test/regress/pg_regress.c: 1989 - 1999
+[src/test/regress/pg_regress.c:1989-1999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1989-L1999)
 
 ## Overview
 Safely drops a PostgreSQL role if it exists, suppressing warnings about non-existent roles.

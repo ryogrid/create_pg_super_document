@@ -1,7 +1,7 @@
 # LogicalSlotInfoArr
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.h: 171 - 186
+[src/bin/pg_upgrade/pg_upgrade.h:171-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.h#L171-L186)
 
 ## Overview
 LogicalSlotInfoArr is a container structure that holds an array of logical replication slot information during the pg_upgrade process, facilitating the migration of logical replication slots from the old to new PostgreSQL cluster.

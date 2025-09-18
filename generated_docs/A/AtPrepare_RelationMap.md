@@ -1,7 +1,7 @@
 # AtPrepare_RelationMap
 
 ## Location
-src/backend/utils/cache/relmapper.c: 588 - 610
+[src/backend/utils/cache/relmapper.c:588-610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L588-L610)
 
 ## Overview
 Handles relation mapping during PREPARE TRANSACTION by rejecting any transaction that has modified relation mappings.

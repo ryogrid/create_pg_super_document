@@ -1,7 +1,7 @@
 # network_eq
 
 ## Location
-src/backend/utils/adt/network.c: 814 - 822
+[src/backend/utils/adt/network.c:814-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L814-L822)
 
 ## Overview
 PostgreSQL function that implements the equality comparison operator (=) for inet and cidr data types, returning true if the two network addresses are considered equal.

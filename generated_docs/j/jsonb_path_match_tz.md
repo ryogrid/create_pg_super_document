@@ -1,7 +1,7 @@
 # jsonb_path_match_tz
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 503 - 513
+[src/backend/utils/adt/jsonpath_exec.c:503-513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L503-L513)
 
 ## Overview
 SQL function wrapper that evaluates a JSONPath predicate expression against a JSONB value with timezone-aware datetime operations and returns a boolean result.

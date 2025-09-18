@@ -1,7 +1,7 @@
 # InvalidateTSCacheCallBack
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 94 - 112
+[src/backend/utils/cache/ts_cache.c:94-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L94-L112)
 
 ## Overview
 A callback function that invalidates text search cache entries when changes are detected in the PostgreSQL text search system catalog, ensuring cache consistency across backends.

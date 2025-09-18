@@ -1,7 +1,7 @@
 # win1251_to_win866
 
 ## Location
-src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c: 515 - 530
+[src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c:515-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/cyrillic_and_mic/cyrillic_and_mic.c#L515-L530)
 
 ## Overview
 Converts a string from WIN1251 (Windows Cyrillic) encoding to WIN866 (IBM/MS-DOS Cyrillic) encoding using PostgreSQL's character conversion framework.

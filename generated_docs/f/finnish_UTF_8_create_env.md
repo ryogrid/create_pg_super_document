@@ -1,7 +1,7 @@
 # finnish_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 719 - 720
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:719-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L719-L720)
 
 ## Overview
 The finnish_UTF_8_create_env function creates and initializes a Snowball environment structure specifically configured for Finnish UTF-8 text stemming operations.

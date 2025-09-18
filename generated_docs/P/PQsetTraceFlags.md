@@ -1,7 +1,7 @@
 # PQsetTraceFlags
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 64 - 79
+[src/interfaces/libpq/fe-trace.c:64-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L64-L79)
 
 ## Overview
 Sets the trace flags for an active tracing session to control the format and content of the trace output.

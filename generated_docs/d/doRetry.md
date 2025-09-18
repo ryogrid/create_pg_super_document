@@ -1,7 +1,7 @@
 # doRetry
 
 ## Location
-src/bin/pgbench/pgbench.c: 3428 - 3473
+[src/bin/pgbench/pgbench.c:3428-3473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3428-L3473)
 
 ## Overview
 Determines whether a failed transaction can be retried based on error type, retry limits, latency constraints, and benchmark duration.

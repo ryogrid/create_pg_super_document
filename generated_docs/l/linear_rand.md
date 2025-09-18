@@ -1,7 +1,7 @@
 # linear_rand
 
 ## Location
-src/backend/optimizer/geqo/geqo_selection.c: 88 - 111
+[src/backend/optimizer/geqo/geqo_selection.c:88-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_selection.c#L88-L111)
 
 ## Overview
 Generates a biased random integer index using a linear probability distribution to implement selection pressure in genetic algorithms.

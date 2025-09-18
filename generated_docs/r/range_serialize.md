@@ -1,7 +1,7 @@
 # range_serialize
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1727 - 1855
+[src/backend/utils/adt/rangetypes.c:1727-1855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1727-L1855)
 
 ## Overview
 Constructs a range value from bound specifications and empty flag, performing validation and serialization into the internal RangeType format.

@@ -1,7 +1,7 @@
 # drop_publication
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1637 - 1690
+[src/bin/pg_basebackup/pg_createsubscriber.c:1637-1690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1637-L1690)
 
 ## Overview
 drop_publication is a cleanup function that removes a PostgreSQL publication when the pg_createsubscriber process cannot complete all required steps successfully.

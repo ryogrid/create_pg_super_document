@@ -1,7 +1,7 @@
 # WalRcvRunning
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 75 - 125
+[src/backend/replication/walreceiverfuncs.c:75-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L75-L125)
 
 ## Overview
 Determines whether the WAL receiver process is currently running or in the process of starting up, with timeout handling for startup failures.

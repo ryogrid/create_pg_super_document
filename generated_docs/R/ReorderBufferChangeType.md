@@ -1,7 +1,7 @@
 # ReorderBufferChangeType
 
 ## Location
-src/include/replication/reorderbuffer.h: 59 - 70
+[src/include/replication/reorderbuffer.h:59-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/reorderbuffer.h#L59-L70)
 
 ## Overview
 An enumeration that defines the types of changes that can be recorded in PostgreSQL's reorder buffer during logical replication and WAL decoding operations.

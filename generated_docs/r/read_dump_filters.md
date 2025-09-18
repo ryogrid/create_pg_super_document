@@ -1,7 +1,7 @@
 # read_dump_filters
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 19058 - 19159
+[src/bin/pg_dump/pg_dump.c:19058-19159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L19058-L19159)
 
 ## Overview
 Parses filter files to configure include/exclude patterns for PostgreSQL pg_dump operations, determining which database objects should be dumped or excluded from the dump.

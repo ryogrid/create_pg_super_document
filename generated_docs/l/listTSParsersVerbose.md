@@ -1,7 +1,7 @@
 # listTSParsersVerbose
 
 ## Location
-src/bin/psql/describe.c: 5199 - 5273
+[src/bin/psql/describe.c:5199-5273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L5199-L5273)
 
 ## Overview
 Provides detailed information about text search parsers matching a given pattern by querying PostgreSQL's text search parser catalog and displaying verbose descriptions for each parser.

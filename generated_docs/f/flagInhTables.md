@@ -1,7 +1,7 @@
 # flagInhTables
 
 ## Location
-src/bin/pg_dump/common.c: 293 - 410
+[src/bin/pg_dump/common.c:293-410](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L293-L410)
 
 ## Overview
 Establishes parent-child relationships for inheritance hierarchies and marks parent tables as interesting for dump processing.

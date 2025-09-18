@@ -1,7 +1,7 @@
 # ItemPointerInc
 
 ## Location
-src/backend/storage/page/itemptr.c: 84 - 113
+[src/backend/storage/page/itemptr.c:84-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/itemptr.c#L84-L113)
 
 ## Overview
 ItemPointerInc increments an ItemPointer to the next logical position, handling overflow from maximum offset to the next block, while respecting the type's range limits.

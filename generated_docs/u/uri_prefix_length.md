@@ -1,7 +1,7 @@
 # uri_prefix_length
 
 ## Location
-src/bin/psql/common.c: 2231 - 2254
+[src/bin/psql/common.c:2231-2254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L2231-L2254)
 
 ## Overview
 This function checks if a connection string starts with a valid PostgreSQL URI prefix and returns the length of the prefix if found.

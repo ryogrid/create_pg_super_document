@@ -1,7 +1,7 @@
 # tablesample_init
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 218 - 319
+[src/backend/executor/nodeSamplescan.c:218-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L218-L319)
 
 ## Overview
 Initializes the TABLESAMPLE method by evaluating sampling parameters and calling the BeginSampleScan routine to set up the sampling mechanism.

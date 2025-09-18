@@ -1,7 +1,7 @@
 # heap_multi_insert
 
 ## Location
-src/backend/access/heap/heapam.c: 2309 - 2672
+[src/backend/access/heap/heapam.c:2309-2672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L2309-L2672)
 
 ## Overview
 heap_multi_insert efficiently inserts multiple tuples into a heap relation in one operation, optimizing performance by batching WAL records and minimizing page lock operations when multiple tuples fit on the same page.

@@ -1,7 +1,7 @@
 # btvacuumscan
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 939 - 1072
+[src/backend/access/nbtree/nbtree.c:939-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L939-L1072)
 
 ## Overview
 Scans the entire B-tree index for VACUUM purposes, identifying deletable tuples, empty pages, and recyclable deleted pages.

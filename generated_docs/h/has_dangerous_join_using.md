@@ -1,7 +1,7 @@
 # has_dangerous_join_using
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 4079 - 4144
+[src/backend/utils/adt/ruleutils.c:4079-4144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L4079-L4144)
 
 ## Overview
 Searches a join tree to detect unnamed JOIN USING constructs that require global column name uniqueness to avoid ambiguous references.

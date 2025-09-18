@@ -1,7 +1,7 @@
 # time_send
 
 ## Location
-src/backend/utils/adt/date.c: 1547 - 1557
+[src/backend/utils/adt/date.c:1547-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1547-L1557)
 
 ## Overview
 Converts PostgreSQL's internal TimeADT representation to external binary format for network transmission and storage.

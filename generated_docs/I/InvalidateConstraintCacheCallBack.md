@@ -1,7 +1,7 @@
 # InvalidateConstraintCacheCallBack
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2228 - 2268
+[src/backend/utils/adt/ri_triggers.c:2228-2268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2228-L2268)
 
 ## Overview
 Cache invalidation callback function for pg_constraint system catalog changes that intelligently invalidates constraint cache entries based on hash values.

@@ -1,7 +1,7 @@
 # read_server_final_message
 
 ## Location
-src/interfaces/libpq/fe-auth-scram.c: 688 - 760
+[src/interfaces/libpq/fe-auth-scram.c:688-760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth-scram.c#L688-L760)
 
 ## Overview
 Parses and validates the final message from the PostgreSQL server in SCRAM authentication, extracting the server signature for mutual authentication verification.

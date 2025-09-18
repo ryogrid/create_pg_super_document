@@ -1,7 +1,7 @@
 # binary_encode
 
 ## Location
-src/backend/utils/adt/encode.c: 48 - 95
+[src/backend/utils/adt/encode.c:48-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L48-L95)
 
 ## Overview
 PostgreSQL SQL function that encodes binary data (bytea) into a text representation using a specified encoding format.

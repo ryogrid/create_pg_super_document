@@ -1,7 +1,7 @@
 # makeInt128AggStateCurrentContext
 
 ## Location
-src/backend/utils/adt/numeric.c: 5520 - 5533
+[src/backend/utils/adt/numeric.c:5520-5533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5520-L5533)
 
 ## Overview
 Creates and initializes a state structure for 128-bit aggregate functions in the current memory context, similar to makeInt128AggState but without aggregate context management.

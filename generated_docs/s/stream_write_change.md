@@ -1,7 +1,7 @@
 # stream_write_change
 
 ## Location
-src/backend/replication/logical/worker.c: 4305 - 4334
+[src/backend/replication/logical/worker.c:4305-4334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4305-L4334)
 
 ## Overview
 Serializes a logical replication change to a file using a simple format consisting of length, action code, and message contents.

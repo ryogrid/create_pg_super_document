@@ -1,7 +1,7 @@
 # mkANode
 
 ## Location
-src/backend/tsearch/spell.c: 1830 - 1906
+[src/backend/tsearch/spell.c:1830-1906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1830-L1906)
 
 ## Overview
 mkANode builds a prefix tree (Trie) for affix rules with non-empty replacement strings, creating an efficient hierarchical structure for affix matching during spell checking.

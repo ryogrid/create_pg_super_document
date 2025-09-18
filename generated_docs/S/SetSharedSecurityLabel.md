@@ -1,7 +1,7 @@
 # SetSharedSecurityLabel
 
 ## Location
-src/backend/commands/seclabel.c: 329 - 403
+[src/backend/commands/seclabel.c:329-403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/seclabel.c#L329-L403)
 
 ## Overview
 Sets or removes a security label for a shared database object in the pg_shseclabel system catalog, handling insert, update, and delete operations as needed.

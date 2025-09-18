@@ -1,7 +1,7 @@
 # plperl_init_shared_libs
 
 ## Location
-src/pl/plperl/plperl.c: 2168 - 2179
+[src/pl/plperl/plperl.c:2168-2179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L2168-L2179)
 
 ## Overview
 Initializes shared Perl libraries and XS (eXternal Subroutine) modules during Perl interpreter startup for PL/Perl.

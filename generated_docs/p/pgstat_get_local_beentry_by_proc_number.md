@@ -1,7 +1,7 @@
 # pgstat_get_local_beentry_by_proc_number
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1097 - 1127
+[src/backend/utils/activity/backend_status.c:1097-1127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1097-L1127)
 
 ## Overview
 Retrieves a LocalPgBackendStatus entry by process number, providing access to backend status information with locally computed additions like transaction ID and xmin values.

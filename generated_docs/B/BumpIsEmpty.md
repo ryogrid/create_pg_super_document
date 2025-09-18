@@ -1,7 +1,7 @@
 # BumpIsEmpty
 
 ## Location
-src/backend/utils/mmgr/bump.c: 660 - 687
+[src/backend/utils/mmgr/bump.c:660-687](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/bump.c#L660-L687)
 
 ## Overview
 BumpIsEmpty checks whether a BumpContext contains any allocated memory chunks by iterating through all blocks and checking if they contain allocated data.

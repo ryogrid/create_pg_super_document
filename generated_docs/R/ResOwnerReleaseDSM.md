@@ -1,7 +1,7 @@
 # ResOwnerReleaseDSM
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1289 - 1296
+[src/backend/storage/ipc/dsm.c:1289-1296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1289-L1296)
 
 ## Overview
 A ResourceOwner callback function that automatically releases a DSM (Dynamic Shared Memory) segment when its associated resource owner is destroyed or cleaned up.

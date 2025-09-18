@@ -1,7 +1,7 @@
 # add_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 700 - 733
+[src/backend/access/common/reloptions.c:700-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L700-L733)
 
 ## Overview
 The add_reloption function adds an already-created custom relation option to the global list and triggers recomputation of the main parser table.

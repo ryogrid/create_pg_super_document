@@ -1,7 +1,7 @@
 # get_gz_error
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 194 - 211
+[src/bin/pg_basebackup/bbstreamer_gzip.c:194-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L194-L211)
 
 ## Overview
 Helper function that provides human-readable error messages for gzip/zlib operations by interpreting error codes and returning appropriate error strings.

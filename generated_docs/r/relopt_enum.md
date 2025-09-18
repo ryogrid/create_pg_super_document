@@ -1,7 +1,7 @@
 # relopt_enum
 
 ## Location
-src/include/access/reloptions.h: 123 - 130
+[src/include/access/reloptions.h:123-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L123-L130)
 
 ## Overview
 A structure that defines an enumerated relation option in PostgreSQL's relation options system, containing metadata and valid values for enum-type storage parameters.

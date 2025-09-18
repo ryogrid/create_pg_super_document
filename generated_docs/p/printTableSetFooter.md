@@ -1,7 +1,7 @@
 # printTableSetFooter
 
 ## Location
-src/fe_utils/print.c: 3335 - 3352
+[src/fe_utils/print.c:3335-3352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3335-L3352)
 
 ## Overview
 Modifies the content of the last-added footer in a table content structure, or adds a new footer if none exists.

@@ -1,7 +1,7 @@
 # manifest_process_version
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 932 - 945
+[src/backend/backup/basebackup_incremental.c:932-945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L932-L945)
 
 ## Overview
 A callback function that validates the manifest version compatibility for incremental backup operations, ensuring only supported manifest versions are used.

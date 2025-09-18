@@ -1,7 +1,7 @@
 # XLogRecord
 
 ## Location
-src/include/access/xlogrecord.h: 41 - 53
+[src/include/access/xlogrecord.h:41-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogrecord.h#L41-L53)
 
 ## Overview
 XLogRecord is the fundamental data structure that represents the fixed-size header of every WAL (Write-Ahead Logging) record in PostgreSQL. It contains essential metadata for transaction logging, recovery, and replication operations.

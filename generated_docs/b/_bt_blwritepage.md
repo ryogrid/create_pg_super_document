@@ -1,7 +1,7 @@
 # _bt_blwritepage
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 635 - 645
+[src/backend/access/nbtree/nbtsort.c:635-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L635-L645)
 
 ## Overview
 Emits a completed B-tree page to storage and releases the associated working buffer during bulk index construction.

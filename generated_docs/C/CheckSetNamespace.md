@@ -1,7 +1,7 @@
 # CheckSetNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3459 - 3486
+[src/backend/catalog/namespace.c:3459-3486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3459-L3486)
 
 ## Overview
 Validates that namespace transitions are allowed by checking restrictions on temporary and TOAST schemas during object moves.

@@ -1,7 +1,7 @@
 # line_contain_point
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3087 - 3094
+[src/backend/utils/adt/geo_ops.c:3087-3094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3087-L3094)
 
 ## Overview
 Determines whether a given point lies on a specified line by checking if the point satisfies the line equation.

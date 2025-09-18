@@ -1,7 +1,7 @@
 # storeBitmap
 
 ## Location
-src/backend/access/spgist/spgscan.c: 931 - 941
+[src/backend/access/spgist/spgscan.c:931-941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L931-L941)
 
 ## Overview
 A specialized result storage function used during SP-GiST bitmap scans to add matching heap tuple pointers to a tuple bitmap.

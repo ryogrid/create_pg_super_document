@@ -1,7 +1,7 @@
 # ReportWalSummaryError
 
 ## Location
-src/backend/backup/walsummary.c: 322 - 346
+[src/backend/backup/walsummary.c:322-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L322-L346)
 
 ## Overview
 An error-reporting callback function designed for use with CreateBlockRefTableReader to handle and report errors encountered during WAL summary processing.

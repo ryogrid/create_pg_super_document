@@ -1,7 +1,7 @@
 # ModifyTableState
 
 ## Location
-src/include/nodes/execnodes.h: 1355 - 1418
+[src/include/nodes/execnodes.h:1355-1418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1355-L1418)
 
 ## Overview
 ModifyTableState is a comprehensive execution state structure for ModifyTable nodes in PostgreSQL's executor, which handle data modification operations including INSERT, UPDATE, DELETE, and MERGE commands across single and partitioned tables.

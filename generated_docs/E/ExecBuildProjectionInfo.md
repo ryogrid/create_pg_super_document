@@ -1,7 +1,7 @@
 # ExecBuildProjectionInfo
 
 ## Location
-src/backend/executor/execExpr.c: 362 - 521
+[src/backend/executor/execExpr.c:362-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L362-L521)
 
 ## Overview
 Builds a ProjectionInfo node for evaluating a target list in a given expression context and storing results into a tuple slot, implementing efficient projection through compiled expression evaluation.

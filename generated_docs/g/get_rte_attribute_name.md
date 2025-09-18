@@ -1,7 +1,7 @@
 # get_rte_attribute_name
 
 ## Location
-src/backend/parser/parse_relation.c: 3253 - 3290
+[src/backend/parser/parse_relation.c:3253-3290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3253-L3290)
 
 ## Overview
 This function retrieves an attribute name from a RangeTblEntry, using aliases when available and handling various relation types including subselects and joins.

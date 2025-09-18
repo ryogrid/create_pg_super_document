@@ -1,7 +1,7 @@
 # CopyToStateData
 
 ## Location
-src/backend/commands/copyto.c: 65 - 95
+[src/backend/commands/copyto.c:65-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L65-L95)
 
 ## Overview
 CopyToStateData is a structure that contains all the state variables used throughout a COPY TO operation in PostgreSQL, managing the complete context for exporting data from tables or queries to external destinations.

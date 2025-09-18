@@ -1,7 +1,7 @@
 # PreviousMultiXactId
 
 ## Location
-src/backend/access/transam/multixact.c: 220 - 230
+[src/backend/access/transam/multixact.c:220-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L220-L230)
 
 ## Overview
 Returns the MultiXact ID that immediately precedes the given MultiXact ID, handling wraparound at the boundary between MaxMultiXactId and FirstMultiXactId.

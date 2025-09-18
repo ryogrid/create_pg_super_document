@@ -1,7 +1,7 @@
 # ConnectionOption
 
 ## Location
-src/backend/foreign/foreign.c: 564 - 600
+[src/backend/foreign/foreign.c:564-600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L564-L600)
 
 ## Overview
 Defines the structure for valid PostgreSQL foreign data wrapper connection options, mapping libpq connection parameters to their appropriate PostgreSQL catalog contexts.

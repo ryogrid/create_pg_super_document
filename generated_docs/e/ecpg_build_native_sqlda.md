@@ -1,7 +1,7 @@
 # ecpg_build_native_sqlda
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 412 - 443
+[src/interfaces/ecpg/ecpglib/sqlda.c:412-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L412-L443)
 
 ## Overview
 Builds a native SQLDA (SQL Descriptor Area) structure from a PostgreSQL result set, creating a standard SQLDA format with embedded column names.

@@ -1,7 +1,7 @@
 # timestamptypmodin
 
 ## Location
-src/backend/utils/adt/timestamp.c: 302 - 309
+[src/backend/utils/adt/timestamp.c:302-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L302-L309)
 
 ## Overview
 Parses and validates type modifier input for timestamp data type, converting string-based precision specifications into internal typmod representation.

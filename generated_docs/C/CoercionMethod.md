@@ -1,7 +1,7 @@
 # CoercionMethod
 
 ## Location
-src/include/catalog/pg_cast.h: 92 - 106
+[src/include/catalog/pg_cast.h:92-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_cast.h#L92-L106)
 
 ## Overview
 CoercionMethod is an enumeration that defines the allowable methods for type casting in PostgreSQL's pg_cast system catalog.

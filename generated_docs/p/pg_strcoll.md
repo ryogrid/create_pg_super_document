@@ -1,7 +1,7 @@
 # pg_strcoll
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2121 - 2155
+[src/backend/utils/adt/pg_locale.c:2121-2155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2121-L2155)
 
 ## Overview
 Main public interface for locale-aware string collation that automatically dispatches to the appropriate collation provider (libc or ICU) based on locale configuration.

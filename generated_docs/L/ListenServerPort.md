@@ -1,7 +1,7 @@
 # ListenServerPort
 
 ## Location
-src/backend/libpq/pqcomm.c: 417 - 683
+[src/backend/libpq/pqcomm.c:417-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L417-L683)
 
 ## Overview
 Creates and configures listening sockets for PostgreSQL server connections, supporting both TCP/IP and Unix domain socket communication with proper address binding and connection queue setup.

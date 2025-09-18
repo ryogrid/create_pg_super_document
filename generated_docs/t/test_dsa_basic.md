@@ -1,7 +1,7 @@
 # test_dsa_basic
 
 ## Location
-src/test/modules/test_dsa/test_dsa.c: 25 - 63
+[src/test/modules/test_dsa/test_dsa.c:25-63](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_dsa/test_dsa.c#L25-L63)
 
 ## Overview
 A PostgreSQL test function that demonstrates basic Dynamic Shared Area (DSA) functionality including allocation, address translation, data storage and retrieval, and cleanup operations.

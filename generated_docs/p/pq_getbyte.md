@@ -1,7 +1,7 @@
 # pq_getbyte
 
 ## Location
-src/backend/libpq/pqcomm.c: 963 - 981
+[src/backend/libpq/pqcomm.c:963-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L963-L981)
 
 ## Overview
 Retrieves a single byte from the client connection, automatically refilling the receive buffer when necessary.

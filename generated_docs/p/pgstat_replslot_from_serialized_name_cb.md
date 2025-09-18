@@ -1,7 +1,7 @@
 # pgstat_replslot_from_serialized_name_cb
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 202 - 217
+[src/backend/utils/activity/pgstat_replslot.c:202-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L202-L217)
 
 ## Overview
 A callback function that converts a serialized replication slot name back to its corresponding statistics hash key during PostgreSQL startup or statistics deserialization.

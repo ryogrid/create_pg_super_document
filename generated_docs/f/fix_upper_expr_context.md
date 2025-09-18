@@ -1,7 +1,7 @@
 # fix_upper_expr_context
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 83 - 89
+[src/backend/optimizer/plan/setrefs.c:83-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L83-L89)
 
 ## Overview
 A context structure used during upper-level expression fixing to provide access to subplan target lists and variable renumbering information for resolving references in upper query plan nodes.

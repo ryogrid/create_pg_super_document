@@ -1,7 +1,7 @@
 # has_language_privilege_id_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3713 - 3735
+[src/backend/utils/adt/acl.c:3713-3735](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3713-L3735)
 
 ## Overview
 This function checks whether a specified user has a particular privilege on a language, given the user's role OID and the language name as parameters.

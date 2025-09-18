@@ -1,7 +1,7 @@
 # compute_semi_anti_join_factors
 
 ## Location
-src/backend/optimizer/path/costsize.c: 5007 - 5103
+[src/backend/optimizer/path/costsize.c:5007-5103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L5007-L5103)
 
 ## Overview
 Estimates how much of the inner input a SEMI, ANTI, or inner_unique join can be expected to scan, computing factors needed for cost adjustments in hash or nestloop joins where execution stops scanning inner rows upon finding a match.

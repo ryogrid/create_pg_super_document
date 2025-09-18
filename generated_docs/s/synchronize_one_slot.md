@@ -1,7 +1,7 @@
 # synchronize_one_slot
 
 ## Location
-src/backend/replication/logical/slotsync.c: 609 - 790
+[src/backend/replication/logical/slotsync.c:609-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L609-L790)
 
 ## Overview
 Synchronizes a single replication slot with remote slot data from the primary server, creating new slots or updating existing ones as needed for PostgreSQL's logical replication.

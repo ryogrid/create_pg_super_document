@@ -1,7 +1,7 @@
 # pq_gettcpusertimeout
 
 ## Location
-src/backend/libpq/pqcomm.c: 1873 - 1902
+[src/backend/libpq/pqcomm.c:1873-1902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L1873-L1902)
 
 ## Overview
 Retrieves the TCP user timeout setting for a PostgreSQL connection port, which specifies the total time for unacknowledged data to remain outstanding before the connection is forcefully closed.

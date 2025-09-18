@@ -1,7 +1,7 @@
 # get_visible_ENR
 
 ## Location
-src/backend/parser/parse_enr.c: 26 - 29
+[src/backend/parser/parse_enr.c:26-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_enr.c#L26-L29)
 
 ## Overview
 Retrieves the metadata for a visible Ephemeral Named Relation (ENR) by name from the current parse state context.

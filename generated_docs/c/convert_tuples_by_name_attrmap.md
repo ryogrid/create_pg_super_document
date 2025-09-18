@@ -1,7 +1,7 @@
 # convert_tuples_by_name_attrmap
 
 ## Location
-src/backend/access/common/tupconvert.c: 124 - 153
+[src/backend/access/common/tupconvert.c:124-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupconvert.c#L124-L153)
 
 ## Overview
 Creates a tuple conversion map using a pre-built attribute map, providing the core tuple conversion infrastructure setup functionality.

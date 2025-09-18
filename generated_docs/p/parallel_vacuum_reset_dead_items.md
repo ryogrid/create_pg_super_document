@@ -1,7 +1,7 @@
 # parallel_vacuum_reset_dead_items
 
 ## Location
-src/backend/commands/vacuumparallel.c: 473 - 497
+[src/backend/commands/vacuumparallel.c:473-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L473-L497)
 
 ## Overview
 Clears all dead tuple identifiers from the shared TidStore and recreates it with fresh memory, effectively resetting the dead items storage for continued parallel vacuum operations.

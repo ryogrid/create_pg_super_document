@@ -1,7 +1,7 @@
 # oidsend
 
 ## Location
-src/backend/utils/adt/oid.c: 71 - 86
+[src/backend/utils/adt/oid.c:71-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L71-L86)
 
 ## Overview
 The oidsend function converts an internal OID value to binary format for transmission over PostgreSQL's wire protocol, serving as the binary output function for the OID data type.

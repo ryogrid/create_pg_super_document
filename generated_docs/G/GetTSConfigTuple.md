@@ -1,7 +1,7 @@
 # GetTSConfigTuple
 
 ## Location
-src/backend/commands/tsearchcmds.c: 787 - 811
+[src/backend/commands/tsearchcmds.c:787-811](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tsearchcmds.c#L787-L811)
 
 ## Overview
 Finds and retrieves the system catalog tuple for a text search configuration by name, returning NULL if no such configuration exists.

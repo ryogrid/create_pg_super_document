@@ -1,7 +1,7 @@
 # HashState
 
 ## Location
-src/include/nodes/execnodes.h: 2744 - 2767
+[src/include/nodes/execnodes.h:2744-2767](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2744-L2767)
 
 ## Overview
 HashState is the execution state structure for Hash nodes in PostgreSQL's executor, maintaining the hash table and related information for hash joins and other hash-based operations.

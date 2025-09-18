@@ -1,7 +1,7 @@
 # get_matching_hash_bounds
 
 ## Location
-src/backend/partitioning/partprune.c: 2663 - 2739
+[src/backend/partitioning/partprune.c:2663-2739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L2663-L2739)
 
 ## Overview
 Determines which hash partition bound matches the specified values by computing the hash value and finding the corresponding partition offset.

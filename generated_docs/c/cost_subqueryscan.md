@@ -1,7 +1,7 @@
 # cost_subqueryscan
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1451 - 1530
+[src/backend/optimizer/path/costsize.c:1451-1530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1451-L1530)
 
 ## Overview
 Determines and returns the cost of scanning a subquery RTE, calculating costs for accessing results from a subquery as if it were a base relation.

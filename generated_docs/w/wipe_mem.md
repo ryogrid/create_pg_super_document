@@ -1,7 +1,7 @@
 # wipe_mem
 
 ## Location
-src/include/utils/memdebug.h: 39 - 50
+[src/include/utils/memdebug.h:39-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memdebug.h#L39-L50)
 
 ## Overview
 A debugging utility function that overwrites freed memory with a distinctive byte pattern to help detect use-after-free bugs and make debugging easier.

@@ -1,7 +1,7 @@
 # btfloat8cmp
 
 ## Location
-src/backend/utils/adt/float.c: 967 - 975
+[src/backend/utils/adt/float.c:967-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L967-L975)
 
 ## Overview
 PostgreSQL function that provides a three-way comparison between two double-precision floating-point numbers for B-tree indexing operations.

@@ -1,7 +1,7 @@
 # has_tablespace_privilege_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4287 - 4314
+[src/backend/utils/adt/acl.c:4287-4314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4287-L4314)
 
 ## Overview
 PostgreSQL built-in function that checks whether the current user has specific privileges on a tablespace identified by OID.

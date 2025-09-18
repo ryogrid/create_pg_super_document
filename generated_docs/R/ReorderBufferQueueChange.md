@@ -1,7 +1,7 @@
 # ReorderBufferQueueChange
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 806 - 868
+[src/backend/replication/logical/reorderbuffer.c:806-868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L806-L868)
 
 ## Overview
 Queues a change into a transaction for later replay upon commit or streaming when memory thresholds are reached during logical replication decoding.

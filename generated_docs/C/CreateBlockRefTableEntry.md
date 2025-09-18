@@ -1,7 +1,7 @@
 # CreateBlockRefTableEntry
 
 ## Location
-src/common/blkreftable.c: 875 - 893
+[src/common/blkreftable.c:875-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L875-L893)
 
 ## Overview
 CreateBlockRefTableEntry allocates and initializes a standalone BlockRefTableEntry for a specific relation fork, enabling incremental block reference table construction without requiring the entire table in memory.

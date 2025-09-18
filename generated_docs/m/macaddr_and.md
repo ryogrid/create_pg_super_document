@@ -1,7 +1,7 @@
 # macaddr_and
 
 ## Location
-src/backend/utils/adt/mac.c: 303 - 319
+[src/backend/utils/adt/mac.c:303-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L303-L319)
 
 ## Overview
 Performs bitwise AND operation between two MAC addresses, returning a new MAC address with each byte being the result of the AND operation on corresponding bytes.

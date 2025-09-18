@@ -1,7 +1,7 @@
 # do_setval
 
 ## Location
-src/backend/commands/sequence.c: 945 - 1048
+[src/backend/commands/sequence.c:945-1048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L945-L1048)
 
 ## Overview
 Internal procedure that implements the core functionality for both 2-argument and 3-argument forms of SETVAL, allowing manual setting of sequence values and state.

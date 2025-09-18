@@ -1,7 +1,7 @@
 # pow5Factor
 
 ## Location
-src/common/f2s.c: 81 - 101
+[src/common/f2s.c:81-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L81-L101)
 
 ## Overview
 Calculates the highest power of 5 that divides a given 64-bit unsigned integer value.

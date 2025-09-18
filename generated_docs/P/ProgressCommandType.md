@@ -1,7 +1,7 @@
 # ProgressCommandType
 
 ## Location
-src/include/utils/backend_progress.h: 31 - 32
+[src/include/utils/backend_progress.h:31-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/backend_progress.h#L31-L32)
 
 ## Overview
 An enumeration that defines the types of long-running database commands that can report progress information to PostgreSQL's progress monitoring system.

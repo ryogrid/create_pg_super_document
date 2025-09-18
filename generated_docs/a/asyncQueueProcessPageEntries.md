@@ -1,7 +1,7 @@
 # asyncQueueProcessPageEntries
 
 ## Location
-src/backend/commands/async.c: 2016 - 2107
+[src/backend/commands/async.c:2016-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2016-L2107)
 
 ## Overview
 Processes notification entries from a page buffer, filtering and delivering relevant notifications to the frontend while respecting transaction visibility rules.

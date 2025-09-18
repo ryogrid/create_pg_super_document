@@ -1,7 +1,7 @@
 # output_set_descr_header
 
 ## Location
-src/interfaces/ecpg/preproc/descriptor.c: 214 - 232
+[src/interfaces/ecpg/preproc/descriptor.c:214-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/descriptor.c#L214-L232)
 
 ## Overview
 Generates C code for setting header information in an SQL descriptor, specifically handling the assignment of the count value.

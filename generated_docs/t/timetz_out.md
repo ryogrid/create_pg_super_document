@@ -1,7 +1,7 @@
 # timetz_out
 
 ## Location
-src/backend/utils/adt/date.c: 2314 - 2334
+[src/backend/utils/adt/date.c:2314-2334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2314-L2334)
 
 ## Overview
 The timetz_out function is PostgreSQL's output function for the TIME WITH TIME ZONE data type, responsible for converting internal TimeTzADT values into their human-readable string representations.

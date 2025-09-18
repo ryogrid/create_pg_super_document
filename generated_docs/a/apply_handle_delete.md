@@ -1,7 +1,7 @@
 # apply_handle_delete
 
 ## Location
-src/backend/replication/logical/worker.c: 2710 - 2803
+[src/backend/replication/logical/worker.c:2710-2803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2710-L2803)
 
 ## Overview
 Handles DELETE messages in PostgreSQL logical replication by applying the delete operation to the appropriate local table or partition, ensuring proper security context switching and tuple routing.

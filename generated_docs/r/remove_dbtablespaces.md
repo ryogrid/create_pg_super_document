@@ -1,7 +1,7 @@
 # remove_dbtablespaces
 
 ## Location
-src/backend/commands/dbcommands.c: 2964 - 3053
+[src/backend/commands/dbcommands.c:2964-3053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2964-L3053)
 
 ## Overview
 Removes database directories from all tablespaces when a database is being dropped, ensuring complete cleanup of filesystem resources.

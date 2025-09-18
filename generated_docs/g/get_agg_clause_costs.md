@@ -1,7 +1,7 @@
 # get_agg_clause_costs
 
 ## Location
-src/backend/optimizer/prep/prepagg.c: 560 - 696
+[src/backend/optimizer/prep/prepagg.c:560-696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepagg.c#L560-L696)
 
 ## Overview
 Processes the PlannerInfo's aggregate transition and aggregate info lists to accumulate cost information for aggregate clauses, taking into account the expected partial-aggregation mode.

@@ -1,7 +1,7 @@
 # mb_utf_validate
 
 ## Location
-src/fe_utils/mbprint.c: 136 - 176
+[src/fe_utils/mbprint.c:136-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/mbprint.c#L136-L176)
 
 ## Overview
 A static function that validates and sanitizes a UTF-8 string by removing invalid characters while preserving valid ones in-place.

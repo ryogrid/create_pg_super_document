@@ -1,7 +1,7 @@
 # parse_analyze_fixedparams
 
 ## Location
-src/backend/parser/analyze.c: 104 - 143
+[src/backend/parser/analyze.c:104-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L104-L143)
 
 ## Overview
 Analyzes a raw parse tree and transforms it into a Query node, with support for pre-defined parameter types where references to undefined parameter indexes are disallowed.

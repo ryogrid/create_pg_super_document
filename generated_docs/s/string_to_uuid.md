@@ -1,7 +1,7 @@
 # string_to_uuid
 
 ## Location
-src/backend/utils/adt/uuid.c: 95 - 144
+[src/backend/utils/adt/uuid.c:95-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L95-L144)
 
 ## Overview
 Internal helper function that parses a UUID string representation and converts it to the internal binary format with comprehensive validation and error handling.

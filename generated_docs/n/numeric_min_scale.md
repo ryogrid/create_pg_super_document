@@ -1,7 +1,7 @@
 # numeric_min_scale
 
 ## Location
-src/backend/utils/adt/numeric.c: 4203 - 4222
+[src/backend/utils/adt/numeric.c:4203-4222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4203-L4222)
 
 ## Overview
 Returns the minimum scale required to represent a numeric value without loss of precision, effectively determining the smallest number of decimal places needed.

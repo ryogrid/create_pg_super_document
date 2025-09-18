@@ -1,7 +1,7 @@
 # sequence_open
 
 ## Location
-src/backend/access/sequence/sequence.c: 37 - 57
+[src/backend/access/sequence/sequence.c:37-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/sequence/sequence.c#L37-L57)
 
 ## Overview
 Opens a sequence relation by its OID and ensures the relation is a valid sequence type.

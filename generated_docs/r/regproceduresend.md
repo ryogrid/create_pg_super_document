@@ -1,7 +1,7 @@
 # regproceduresend
 
 ## Location
-src/backend/utils/adt/regproc.c: 462 - 477
+[src/backend/utils/adt/regproc.c:462-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L462-L477)
 
 ## Overview
 Converts regprocedure values to PostgreSQL's external binary format, serving as the binary output function for the regprocedure data type.

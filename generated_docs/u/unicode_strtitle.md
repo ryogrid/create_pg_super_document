@@ -1,7 +1,7 @@
 # unicode_strtitle
 
 ## Location
-src/common/unicode_case.c: 100 - 123
+[src/common/unicode_case.c:100-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L100-L123)
 
 ## Overview
 Converts a UTF-8 encoded string to titlecase using Unicode case mapping rules and word boundary detection, returning the result length.

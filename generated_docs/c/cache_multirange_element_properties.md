@@ -1,7 +1,7 @@
 # cache_multirange_element_properties
 
 ## Location
-src/backend/utils/cache/typcache.c: 1682 - 1709
+[src/backend/utils/cache/typcache.c:1682-1709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1682-L1709)
 
 ## Overview
 Caches hash function properties for the element type of a multirange type, determining whether the element type supports regular and extended hashing.

@@ -1,7 +1,7 @@
 # get_man_path
 
 ## Location
-src/port/path.c: 991 - 1003
+[src/port/path.c:991-1003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L991-L1003)
 
 ## Overview
 Constructs the full path to PostgreSQL's manual pages directory by calculating a relative path from the executable location.

@@ -1,7 +1,7 @@
 # inet_in
 
 ## Location
-src/backend/utils/adt/network.c: 121 - 128
+[src/backend/utils/adt/network.c:121-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L121-L128)
 
 ## Overview
 The input function for the INET data type that converts string representations of IP addresses into PostgreSQL's internal inet format.

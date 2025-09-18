@@ -1,7 +1,7 @@
 # SnapBuildSnapIncRefcount
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 455 - 466
+[src/backend/replication/logical/snapbuild.c:455-466](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L455-L466)
 
 ## Overview
 Increments the reference count of a snapshot to prevent premature deallocation when the snapshot is shared or handed out to external resources.

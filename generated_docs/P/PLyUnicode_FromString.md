@@ -1,7 +1,7 @@
 # PLyUnicode_FromString
 
 ## Location
-src/pl/plpython/plpy_util.c: 118 - 121
+[src/pl/plpython/plpy_util.c:118-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_util.c#L118-L121)
 
 ## Overview
 A convenience wrapper that converts a null-terminated C string in PostgreSQL server encoding to a Python unicode object.

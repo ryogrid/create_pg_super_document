@@ -1,7 +1,7 @@
 # parallel_restore
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4611 - 4633
+[src/bin/pg_dump/pg_backup_archiver.c:4611-4633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4611-L4633)
 
 ## Overview
 Restores a single TOC item in a parallel worker process or thread during parallel backup/restore operations.

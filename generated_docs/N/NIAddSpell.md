@@ -1,7 +1,7 @@
 # NIAddSpell
 
 ## Location
-src/backend/tsearch/spell.c: 487 - 517
+[src/backend/tsearch/spell.c:487-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L487-L517)
 
 ## Overview
 A static function that adds a new word entry with associated affix flags to the temporary spell dictionary array during dictionary loading.

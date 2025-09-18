@@ -1,7 +1,7 @@
 # GetCurrentStatementStartTimestamp
 
 ## Location
-src/backend/access/transam/xact.c: 876 - 887
+[src/backend/access/transam/xact.c:876-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L876-L887)
 
 ## Overview
 Returns the timestamp marking the start of the current SQL statement execution, providing a consistent timestamp reference for statement-level operations.

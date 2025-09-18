@@ -1,7 +1,7 @@
 # substitute_actual_srf_parameters_mutator
 
 ## Location
-src/backend/optimizer/util/clauses.c: 5373 - 5417
+[src/backend/optimizer/util/clauses.c:5373-5417](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L5373-L5417)
 
 ## Overview
 The actual mutator function that performs the substitution of Param nodes with real argument expressions during set-returning function inlining, handling proper variable level adjustments.

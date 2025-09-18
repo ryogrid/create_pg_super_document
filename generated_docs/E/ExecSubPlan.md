@@ -1,7 +1,7 @@
 # ExecSubPlan
 
 ## Location
-src/backend/executor/nodeSubplan.c: 62 - 100
+[src/backend/executor/nodeSubplan.c:62-100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L62-L100)
 
 ## Overview
 ExecSubPlan is the main entry point for executing a regular SubPlan in PostgreSQL's executor, handling the evaluation of subqueries by selecting the appropriate execution strategy (hash table or scan-based).

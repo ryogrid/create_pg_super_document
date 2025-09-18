@@ -1,7 +1,7 @@
 # raw_array_subscript_handler
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 566 - 577
+[src/backend/utils/adt/arraysubs.c:566-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L566-L577)
 
 ## Overview
 Subscripting handler function for "raw" arrays that contain N independent instances of the element type, providing the core functionality for array subscript operations in PostgreSQL.

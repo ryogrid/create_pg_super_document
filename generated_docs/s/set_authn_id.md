@@ -1,7 +1,7 @@
 # set_authn_id
 
 ## Location
-src/backend/libpq/auth.c: 352 - 389
+[src/backend/libpq/auth.c:352-389](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L352-L389)
 
 ## Overview
 Sets the authenticated identity for the current user connection and stores it alongside the authentication method in the client connection info structure.

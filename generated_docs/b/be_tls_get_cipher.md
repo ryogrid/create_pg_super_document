@@ -1,7 +1,7 @@
 # be_tls_get_cipher
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1507 - 1515
+[src/backend/libpq/be-secure-openssl.c:1507-1515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1507-L1515)
 
 ## Overview
 Returns the name of the cipher suite being used for an active TLS connection.

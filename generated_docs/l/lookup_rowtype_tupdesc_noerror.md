@@ -1,7 +1,7 @@
 # lookup_rowtype_tupdesc_noerror
 
 ## Location
-src/backend/utils/cache/typcache.c: 1850 - 1866
+[src/backend/utils/cache/typcache.c:1850-1866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1850-L1866)
 
 ## Overview
 Public function to lookup a row type's tuple descriptor with optional error suppression, providing graceful handling when composite types may not exist.

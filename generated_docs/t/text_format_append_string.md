@@ -1,7 +1,7 @@
 # text_format_append_string
 
 ## Location
-src/backend/utils/adt/varlena.c: 6090 - 6141
+[src/backend/utils/adt/varlena.c:6090-6141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6090-L6141)
 
 ## Overview
 Appends a string to a StringInfo buffer with optional padding and alignment based on specified flags and field width in PostgreSQL's text formatting system.

@@ -1,7 +1,7 @@
 # _tmplInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 551 - 555
+[src/bin/pg_dump/pg_dump.h:551-555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L551-L555)
 
 ## Overview
 The  structure represents text search template information in the PostgreSQL dump utility, storing metadata about dictionary templates for database export operations.

@@ -1,7 +1,7 @@
 # point_in
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1831 - 1841
+[src/backend/utils/adt/geo_ops.c:1831-1841](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1831-L1841)
 
 ## Overview
 Converts a string representation of a 2D point into PostgreSQL's internal Point data structure.

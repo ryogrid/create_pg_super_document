@@ -1,7 +1,7 @@
 # _bt_binsrch_posting
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 596 - 681
+[src/backend/access/nbtree/nbtsearch.c:596-681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L596-L681)
 
 ## Overview
 Performs binary search within a posting list to find the appropriate position for a given tuple identifier (TID) during B-tree insertion operations.

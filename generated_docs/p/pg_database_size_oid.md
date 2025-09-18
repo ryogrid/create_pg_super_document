@@ -1,7 +1,7 @@
 # pg_database_size_oid
 
 ## Location
-src/backend/utils/adt/dbsize.c: 168 - 181
+[src/backend/utils/adt/dbsize.c:168-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L168-L181)
 
 ## Overview
 A PostgreSQL SQL-callable function that returns the total disk space used by a database identified by its OID (Object Identifier).

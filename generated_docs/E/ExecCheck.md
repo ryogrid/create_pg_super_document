@@ -1,7 +1,7 @@
 # ExecCheck
 
 ## Location
-src/backend/executor/execExpr.c: 847 - 876
+[src/backend/executor/execExpr.c:847-876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L847-L876)
 
 ## Overview
 ExecCheck evaluates a check constraint expression and returns a boolean result, treating NULL values as TRUE (constraint passes).

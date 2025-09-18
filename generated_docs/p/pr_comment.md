@@ -1,7 +1,7 @@
 # pr_comment
 
 ## Location
-src/tools/pg_bsd_indent/pr_comment.c: 79 - 354
+[src/tools/pg_bsd_indent/pr_comment.c:79-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/pr_comment.c#L79-L354)
 
 ## Overview
 This function handles the scanning and printing of comments in the pg_bsd_indent tool, managing comment formatting, alignment, and line breaking according to various style options.

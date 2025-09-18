@@ -1,7 +1,7 @@
 # xlogVacuumPage
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 90 - 113
+[src/backend/access/gin/ginvacuum.c:90-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L90-L113)
 
 ## Overview
 Creates a Write-Ahead Log (WAL) record for vacuuming entry tree leaf pages in GIN indexes to ensure crash recovery consistency.

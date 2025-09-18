@@ -1,7 +1,7 @@
 # ReservePrivateRefCountEntry
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 249 - 314
+[src/backend/storage/buffer/bufmgr.c:249-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L249-L314)
 
 ## Overview
 ReservePrivateRefCountEntry ensures that the PrivateRefCountArray has sufficient space to store one more entry, preparing the system for potential buffer reference count tracking.

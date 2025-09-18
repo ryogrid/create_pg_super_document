@@ -1,7 +1,7 @@
 # to_hex64
 
 ## Location
-src/backend/utils/adt/varlena.c: 5001 - 5013
+[src/backend/utils/adt/varlena.c:5001-5013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5001-L5013)
 
 ## Overview
 Converts a 64-bit integer value to its hexadecimal string representation.

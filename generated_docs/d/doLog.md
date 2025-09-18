@@ -1,7 +1,7 @@
 # doLog
 
 ## Location
-src/bin/pgbench/pgbench.c: 4561 - 4680
+[src/bin/pgbench/pgbench.c:4561-4680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4561-L4680)
 
 ## Overview
 Prints log entries after completing transactions in pgbench, handling both aggregated and raw transaction logging with Unix-epoch timestamps.

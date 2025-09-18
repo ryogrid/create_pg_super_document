@@ -1,7 +1,7 @@
 # contain_subplans_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 336 - 369
+[src/backend/optimizer/util/clauses.c:336-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L336-L369)
 
 ## Overview
 A tree-walking function that recursively searches for subplan-related nodes (SubPlan, AlternativeSubPlan, or SubLink) within an expression tree.

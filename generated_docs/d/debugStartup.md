@@ -1,7 +1,7 @@
 # debugStartup
 
 ## Location
-src/backend/access/common/printtup.c: 444 - 461
+[src/backend/access/common/printtup.c:444-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L444-L461)
 
 ## Overview
 The debugStartup function prepares for debug output by displaying the schema information of tuples that will be processed by an interactive backend.

@@ -1,7 +1,7 @@
 # rtrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 746 - 765
+[src/backend/utils/adt/oracle_compat.c:746-765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L746-L765)
 
 ## Overview
 The  function removes characters from the end (right side) of a text string, trimming all trailing characters that match any character in the specified set.

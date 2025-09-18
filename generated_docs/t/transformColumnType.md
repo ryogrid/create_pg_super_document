@@ -1,7 +1,7 @@
 # transformColumnType
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3752 - 3808
+[src/backend/parser/parse_utilcmd.c:3752-3808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3752-L3808)
 
 ## Overview
 Validates and processes column type definitions during table creation or alteration, ensuring type validity and proper collation handling.

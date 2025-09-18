@@ -1,7 +1,7 @@
 # pg_encoding_verifymbchar
 
 ## Location
-src/common/wchar.c: 2189 - 2201
+[src/common/wchar.c:2189-2201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2189-L2201)
 
 ## Overview
 Verifies the validity of the first multibyte character in a given string and returns its byte length if valid, or -1 if invalid.

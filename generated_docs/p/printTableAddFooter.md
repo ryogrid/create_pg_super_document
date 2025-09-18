@@ -1,7 +1,7 @@
 # printTableAddFooter
 
 ## Location
-src/fe_utils/print.c: 3310 - 3334
+[src/fe_utils/print.c:3310-3334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3310-L3334)
 
 ## Overview
 Adds a footer to a table content structure as part of a singly-linked list, with automatic memory management for the footer string.

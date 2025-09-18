@@ -1,7 +1,7 @@
 # box_contain_lseg
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3217 - 3223
+[src/backend/utils/adt/geo_ops.c:3217-3223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3217-L3223)
 
 ## Overview
 This static function tests whether a line segment is contained within a box or lies on its border by checking if both endpoints are within the box.

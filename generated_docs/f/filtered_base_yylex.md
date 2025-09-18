@@ -1,7 +1,7 @@
 # filtered_base_yylex
 
 ## Location
-src/interfaces/ecpg/preproc/parser.c: 56 - 227
+[src/interfaces/ecpg/preproc/parser.c:56-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/parser.c#L56-L227)
 
 ## Overview
 An intermediate lexical filter between the parser and base lexer that handles multi-token lookahead scenarios and converts Unicode identifiers/string constants to their standard forms.

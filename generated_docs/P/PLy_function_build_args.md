@@ -1,7 +1,7 @@
 # PLy_function_build_args
 
 ## Location
-src/pl/plpython/plpy_exec.c: 435 - 497
+[src/pl/plpython/plpy_exec.c:435-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_exec.c#L435-L497)
 
 ## Overview
 PLy_function_build_args constructs a Python list of arguments from PostgreSQL function call parameters, handling type conversion and null values for PL/Python function execution.

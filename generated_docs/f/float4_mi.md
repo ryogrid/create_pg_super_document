@@ -1,7 +1,7 @@
 # float4_mi
 
 ## Location
-src/include/utils/float.h: 170 - 181
+[src/include/utils/float.h:170-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L170-L181)
 
 ## Overview
 Performs single-precision floating-point subtraction with overflow detection and error reporting.

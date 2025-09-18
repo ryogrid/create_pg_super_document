@@ -1,7 +1,7 @@
 # getFormattedOperatorName
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 13222 - 13251
+[src/bin/pg_dump/pg_dump.c:13222-13251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L13222-L13251)
 
 ## Overview
 Retrieves and formats an operator name for the given operator OID, producing a fully qualified operator reference suitable for SQL commands.

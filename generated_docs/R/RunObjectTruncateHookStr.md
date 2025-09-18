@@ -1,7 +1,7 @@
 # RunObjectTruncateHookStr
 
 ## Location
-src/backend/catalog/objectaccess.c: 202 - 217
+[src/backend/catalog/objectaccess.c:202-217](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaccess.c#L202-L217)
 
 ## Overview
 RunObjectTruncateHookStr is a function that triggers object access hook callbacks for table truncate operations using string-based object names, allowing extensions to be notified when tables are being truncated.

@@ -1,7 +1,7 @@
 # append_db_pattern_cte
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1537 - 1582
+[src/bin/pg_amcheck/pg_amcheck.c:1537-1582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1537-L1582)
 
 ## Overview
 Constructs a Common Table Expression (CTE) containing database name patterns extracted from a pattern array for SQL query generation in pg_amcheck.

@@ -1,7 +1,7 @@
 # SerializeDestReceiver
 
 ## Location
-src/backend/commands/explain.c: 5314 - 5325
+[src/backend/commands/explain.c:5314-5325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5314-L5325)
 
 ## Overview
 SerializeDestReceiver is a specialized DestReceiver implementation for PostgreSQL's EXPLAIN SERIALIZE option that serializes query result rows into RowData messages while measuring resource consumption and serialized data size without actually sending data to clients.

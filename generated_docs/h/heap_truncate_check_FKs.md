@@ -1,7 +1,7 @@
 # heap_truncate_check_FKs
 
 ## Location
-src/backend/catalog/heap.c: 3154 - 3248
+[src/backend/catalog/heap.c:3154-3248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3154-L3248)
 
 ## Overview
 heap_truncate_check_FKs validates that relations to be truncated do not have foreign key constraints that would be violated by the truncation operation.

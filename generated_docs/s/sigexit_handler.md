@@ -1,7 +1,7 @@
 # sigexit_handler
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 674 - 683
+[src/bin/pg_basebackup/pg_recvlogical.c:674-683](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L674-L683)
 
 ## Overview
 A signal handler function that sets a global flag to gracefully stop the WAL receiver process when termination signals are received.

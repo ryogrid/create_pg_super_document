@@ -1,7 +1,7 @@
 # dataLocateItem
 
 ## Location
-src/backend/access/gin/gindatapage.c: 252 - 318
+[src/backend/access/gin/gindatapage.c:252-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L252-L318)
 
 ## Overview
 Locates the correct PostingItem in a non-leaf GIN data page using binary search to find the appropriate child page to descend to.

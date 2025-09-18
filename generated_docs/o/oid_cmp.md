@@ -1,7 +1,7 @@
 # oid_cmp
 
 ## Location
-src/backend/utils/adt/oid.c: 258 - 271
+[src/backend/utils/adt/oid.c:258-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L258-L271)
 
 ## Overview
 A comparison function for Oid (Object Identifier) values designed for use with qsort and other sorting algorithms that require a standard comparison callback.

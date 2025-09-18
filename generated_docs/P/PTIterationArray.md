@@ -1,7 +1,7 @@
 # PTIterationArray
 
 ## Location
-src/backend/nodes/tidbitmap.c: 209 - 213
+[src/backend/nodes/tidbitmap.c:209-213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L209-L213)
 
 ## Overview
 PTIterationArray is a data structure used for managing shared iteration over pagetable entries in PostgreSQL's TID (tuple identifier) bitmap implementation, providing reference counting and index array storage for concurrent iterator access.

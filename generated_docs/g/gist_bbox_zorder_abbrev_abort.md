@@ -1,7 +1,7 @@
 # gist_bbox_zorder_abbrev_abort
 
 ## Location
-src/backend/access/gist/gistproc.c: 1736 - 1744
+[src/backend/access/gist/gistproc.c:1736-1744](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1736-L1744)
 
 ## Overview
 Determines whether to abort the Z-order abbreviated sorting optimization for GiST spatial index operations, always returning false to maintain the abbreviation.

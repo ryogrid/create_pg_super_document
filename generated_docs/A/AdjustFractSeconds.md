@@ -1,7 +1,7 @@
 # AdjustFractSeconds
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 23 - 40
+[src/interfaces/ecpg/pgtypeslib/interval.c:23-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L23-L40)
 
 ## Overview
 AdjustFractSeconds is a utility function that adjusts fractional seconds by converting them to whole seconds and microseconds, updating a time structure and fractional seconds field accordingly.

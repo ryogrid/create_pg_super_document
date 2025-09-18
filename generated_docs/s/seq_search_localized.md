@@ -1,7 +1,7 @@
 # seq_search_localized
 
 ## Location
-src/backend/utils/adt/formatting.c: 2635 - 2718
+[src/backend/utils/adt/formatting.c:2635-2718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2635-L2718)
 
 ## Overview
 A static function that performs a case-insensitive sequential search through an array of strings (potentially non-English) using locale-aware case folding rules, designed to handle international text properly.

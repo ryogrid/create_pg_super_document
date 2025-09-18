@@ -1,7 +1,7 @@
 # rebuild_database_list
 
 ## Location
-src/backend/postmaster/autovacuum.c: 876 - 1054
+[src/backend/postmaster/autovacuum.c:876-1054](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L876-L1054)
 
 ## Overview
 Constructs an updated list of databases that need autovacuum maintenance, sorted by scheduling priority and distributed evenly across the autovacuum naptime interval.

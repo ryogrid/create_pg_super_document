@@ -1,7 +1,7 @@
 # path_n_eq
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1571 - 1579
+[src/backend/utils/adt/geo_ops.c:1571-1579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1571-L1579)
 
 ## Overview
 Relational operator that compares two PATH objects for equality based on their cardinality (number of points), returning true if both paths have the same number of points.

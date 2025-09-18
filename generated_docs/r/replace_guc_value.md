@@ -1,7 +1,7 @@
 # replace_guc_value
 
 ## Location
-src/bin/initdb/initdb.c: 525 - 640
+[src/bin/initdb/initdb.c:525-640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L525-L640)
 
 ## Overview
 Modifies an array of configuration lines by replacing or adding a GUC (Grand Unified Configuration) parameter assignment with proper value quoting and comment preservation.

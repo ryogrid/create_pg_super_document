@@ -1,7 +1,7 @@
 # out_grouping_b
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 203 - 214
+[src/backend/snowball/libstemmer/utilities.c:203-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L203-L214)
 
 ## Overview
 The `out_grouping_b` function checks if characters in a Snowball stemmer environment fall outside a specified character grouping, operating in backward direction for non-UTF8 encodings.

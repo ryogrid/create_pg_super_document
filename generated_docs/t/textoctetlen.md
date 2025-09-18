@@ -1,7 +1,7 @@
 # textoctetlen
 
 ## Location
-src/backend/utils/adt/varlena.c: 731 - 749
+[src/backend/utils/adt/varlena.c:731-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L731-L749)
 
 ## Overview
 Returns the physical byte length of a text value, excluding the variable-length header.

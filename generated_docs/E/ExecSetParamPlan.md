@@ -1,7 +1,7 @@
 # ExecSetParamPlan
 
 ## Location
-src/backend/executor/nodeSubplan.c: 1092 - 1267
+[src/backend/executor/nodeSubplan.c:1092-1267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubplan.c#L1092-L1267)
 
 ## Overview
 Executes a subplan and sets its output parameters, implementing lazy evaluation of initplans by running the subplan only when parameter values are actually needed.

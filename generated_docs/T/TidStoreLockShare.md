@@ -1,7 +1,7 @@
 # TidStoreLockShare
 
 ## Location
-src/backend/access/common/tidstore.c: 305 - 311
+[src/backend/access/common/tidstore.c:305-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L305-L311)
 
 ## Overview
 Acquires a shared lock on a TidStore to enable safe concurrent read access in multi-process scenarios.

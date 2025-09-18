@@ -1,7 +1,7 @@
 # AlterDatabase
 
 ## Location
-src/backend/commands/dbcommands.c: 2328 - 2500
+[src/backend/commands/dbcommands.c:2328-2500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2328-L2500)
 
 ## Overview
 AlterDatabase processes ALTER DATABASE statements to modify database properties such as template status, connection permissions, connection limits, and tablespace assignments.

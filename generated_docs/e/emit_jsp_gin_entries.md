@@ -1,7 +1,7 @@
 # emit_jsp_gin_entries
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 719 - 747
+[src/backend/utils/adt/jsonb_gin.c:719-747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L719-L747)
 
 ## Overview
 Recursively traverses a JsonPathGinNode tree and collects all GIN index entries, replacing entry datums with their corresponding indices in the GIN entries array.

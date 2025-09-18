@@ -1,7 +1,7 @@
 # replorigin_desc
 
 ## Location
-src/backend/access/rmgrdesc/replorigindesc.c: 19 - 50
+[src/backend/access/rmgrdesc/replorigindesc.c:19-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/replorigindesc.c#L19-L50)
 
 ## Overview
 Generates human-readable descriptions of replication origin WAL records for debugging and logging purposes.

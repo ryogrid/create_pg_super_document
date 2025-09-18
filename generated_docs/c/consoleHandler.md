@@ -1,7 +1,7 @@
 # consoleHandler
 
 ## Location
-src/fe_utils/cancel.c: 195 - 231
+[src/fe_utils/cancel.c:195-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/cancel.c#L195-L231)
 
 ## Overview
 consoleHandler is a Windows-specific console interrupt handler that manages graceful shutdown of pg_dump parallel operations when Ctrl+C or Ctrl+Break is pressed.

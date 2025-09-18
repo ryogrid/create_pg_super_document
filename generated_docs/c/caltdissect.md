@@ -1,7 +1,7 @@
 # caltdissect
 
 ## Location
-src/backend/regex/regexec.c: 1076 - 1116
+[src/backend/regex/regexec.c:1076-1116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexec.c#L1076-L1116)
 
 ## Overview
 Implements alternation node dissection in regular expression matching by testing each alternative branch until one succeeds.

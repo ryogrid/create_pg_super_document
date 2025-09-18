@@ -1,7 +1,7 @@
 # build_startup_packet
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 2260 - 2277
+[src/interfaces/libpq/fe-protocol3.c:2260-2277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L2260-L2277)
 
 ## Overview
 Constructs the actual PostgreSQL startup packet content by serializing connection parameters, user credentials, database information, and environment options into the protocol 3 message format.

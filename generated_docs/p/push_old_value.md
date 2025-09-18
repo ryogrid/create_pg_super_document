@@ -1,7 +1,7 @@
 # push_old_value
 
 ## Location
-src/backend/utils/misc/guc.c: 2136 - 2216
+[src/backend/utils/misc/guc.c:2136-2216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2136-L2216)
 
 ## Overview
 The push_old_value function manages the stack of previous GUC (Grand Unified Configuration) variable values during transactional assignments, ensuring proper rollback semantics for configuration changes within transaction nesting levels.

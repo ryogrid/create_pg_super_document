@@ -1,7 +1,7 @@
 # lookup_hash_entries
 
 ## Location
-src/backend/executor/nodeAgg.c: 2095 - 2157
+[src/backend/executor/nodeAgg.c:2095-2157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2095-L2157)
 
 ## Overview
 Looks up hash entries for the current tuple across all hashed grouping sets, handling both in-memory and spill-mode scenarios in hash aggregation.

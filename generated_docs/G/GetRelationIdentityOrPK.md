@@ -1,7 +1,7 @@
 # GetRelationIdentityOrPK
 
 ## Location
-src/backend/replication/logical/relation.c: 851 - 867
+[src/backend/replication/logical/relation.c:851-867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L851-L867)
 
 ## Overview
 Returns the OID of either the replica identity index or primary key index for a relation, prioritizing the replica identity index if defined.

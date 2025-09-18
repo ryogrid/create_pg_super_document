@@ -1,7 +1,7 @@
 # ArrayBuildState
 
 ## Location
-src/include/utils/array.h: 187 - 199
+[src/include/utils/array.h:187-199](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/array.h#L187-L199)
 
 ## Overview
 ArrayBuildState is a working state structure used by accumArrayResult() and related functions to efficiently build arrays by accumulating scalar elements one at a time.

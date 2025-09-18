@@ -1,7 +1,7 @@
 # GetConfigOption
 
 ## Location
-src/backend/utils/misc/guc.c: 4358 - 4407
+[src/backend/utils/misc/guc.c:4358-4407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L4358-L4407)
 
 ## Overview
 Retrieves the current value of a configuration option as a string with optional privilege checking and error handling.

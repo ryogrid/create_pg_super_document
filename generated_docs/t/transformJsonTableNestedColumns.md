@@ -1,7 +1,7 @@
 # transformJsonTableNestedColumns
 
 ## Location
-src/backend/parser/parse_jsontable.c: 454 - 498
+[src/backend/parser/parse_jsontable.c:454-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L454-L498)
 
 ## Overview
 Recursively transforms nested column definitions in JSON_TABLE and creates child execution plans for evaluating their row patterns, combining multiple nested columns using sibling joins.

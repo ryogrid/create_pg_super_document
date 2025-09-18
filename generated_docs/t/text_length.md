@@ -1,7 +1,7 @@
 # text_length
 
 ## Location
-src/backend/utils/adt/varlena.c: 711 - 730
+[src/backend/utils/adt/varlena.c:711-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L711-L730)
 
 ## Overview
 Internal function that efficiently calculates the character length of a text datum, with optimizations for different database encodings and compression states.

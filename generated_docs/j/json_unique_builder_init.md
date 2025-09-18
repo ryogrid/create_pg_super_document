@@ -1,7 +1,7 @@
 # json_unique_builder_init
 
 ## Location
-src/backend/utils/adt/json.c: 941 - 948
+[src/backend/utils/adt/json.c:941-948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L941-L948)
 
 ## Overview
 The  function initializes a JSON unique builder state structure for tracking key uniqueness and managing skipped keys during JSON object construction.

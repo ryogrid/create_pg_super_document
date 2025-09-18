@@ -1,7 +1,7 @@
 # sind_0_to_30
 
 ## Location
-src/backend/utils/adt/float.c: 2245 - 2258
+[src/backend/utils/adt/float.c:2245-2258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2245-L2258)
 
 ## Overview
 The  function is a static helper function that computes the sine of an angle in degrees, specifically optimized for angles between 0 and 30 degrees with exact results at key values.

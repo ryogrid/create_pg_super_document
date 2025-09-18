@@ -1,7 +1,7 @@
 # freecnfa
 
 ## Location
-src/backend/regex/regc_nfa.c: 3633 - 3645
+[src/backend/regex/regc_nfa.c:3633-3645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3633-L3645)
 
 ## Overview
 A static function that properly deallocates memory for a compacted NFA (Non-deterministic Finite Automaton) structure used in PostgreSQL's regular expression processing.

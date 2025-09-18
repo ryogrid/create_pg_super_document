@@ -1,7 +1,7 @@
 # ExecSetupPartitionTupleRouting
 
 ## Location
-src/backend/executor/execPartition.c: 215 - 261
+[src/backend/executor/execPartition.c:215-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L215-L261)
 
 ## Overview
 Sets up information needed during tuple routing for partitioned tables, encapsulating it in a PartitionTupleRouting structure that serves as the foundation for efficient partition lookup and tuple routing operations.

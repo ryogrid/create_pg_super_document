@@ -1,7 +1,7 @@
 # bitsetbit
 
 ## Location
-src/backend/utils/adt/varbit.c: 1807 - 1868
+[src/backend/utils/adt/varbit.c:1807-1868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1807-L1868)
 
 ## Overview
 Creates a new bit string by setting a specific bit position to a given value (0 or 1) in a PostgreSQL variable-length bit string.

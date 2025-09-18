@@ -1,7 +1,7 @@
 # sigchld_handler
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 297 - 307
+[src/bin/pg_basebackup/pg_basebackup.c:297-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L297-L307)
 
 ## Overview
 A signal handler function that detects premature termination of background child processes during pg_basebackup operations.

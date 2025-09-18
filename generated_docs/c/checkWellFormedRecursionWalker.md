@@ -1,7 +1,7 @@
 # checkWellFormedRecursionWalker
 
 ## Location
-src/backend/parser/parse_cte.c: 1027 - 1206
+[src/backend/parser/parse_cte.c:1027-1206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L1027-L1206)
 
 ## Overview
 checkWellFormedRecursionWalker is a recursive tree walker function that traverses SQL parse trees to detect and validate self-references in recursive CTE queries, ensuring they appear only in valid contexts and with proper frequency.

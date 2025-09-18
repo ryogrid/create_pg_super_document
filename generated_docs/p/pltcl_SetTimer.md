@@ -1,7 +1,7 @@
 # pltcl_SetTimer
 
 ## Location
-src/pl/tcl/pltcl.c: 363 - 367
+[src/pl/tcl/pltcl.c:363-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L363-L367)
 
 ## Overview
 A no-op function that serves as a custom Tcl timer setting function in PostgreSQL's PL/Tcl notifier subsystem override.

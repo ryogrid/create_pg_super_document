@@ -1,7 +1,7 @@
 # commonPrefix
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 77 - 96
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:77-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L77-L96)
 
 ## Overview
 A utility function that finds the length of the common prefix shared between two character strings.

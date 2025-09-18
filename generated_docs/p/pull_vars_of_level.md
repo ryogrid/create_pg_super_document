@@ -1,7 +1,7 @@
 # pull_vars_of_level
 
 ## Location
-src/backend/optimizer/util/var.c: 335 - 354
+[src/backend/optimizer/util/var.c:335-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L335-L354)
 
 ## Overview
 Creates a list of all Vars (and PlaceHolderVars) referencing the specified query level in the given parsetree.

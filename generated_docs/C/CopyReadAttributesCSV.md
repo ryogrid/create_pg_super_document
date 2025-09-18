@@ -1,7 +1,7 @@
 # CopyReadAttributesCSV
 
 ## Location
-src/backend/commands/copyfromparse.c: 1791 - 1985
+[src/backend/commands/copyfromparse.c:1791-1985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L1791-L1985)
 
 ## Overview
 Parses a single line of CSV-format COPY data into separate attribute fields, handling CSV-specific features like quoted fields, escape sequences, and delimiter handling according to standard CSV conventions.

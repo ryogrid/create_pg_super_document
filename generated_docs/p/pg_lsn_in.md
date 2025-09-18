@@ -1,7 +1,7 @@
 # pg_lsn_in
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 63 - 79
+[src/backend/utils/adt/pg_lsn.c:63-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L63-L79)
 
 ## Overview
 A PostgreSQL input function that converts a string representation of a Log Sequence Number (LSN) into the internal pg_lsn data type format.

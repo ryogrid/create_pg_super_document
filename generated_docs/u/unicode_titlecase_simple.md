@@ -1,7 +1,7 @@
 # unicode_titlecase_simple
 
 ## Location
-src/common/unicode_case.c: 37 - 44
+[src/common/unicode_case.c:37-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_case.c#L37-L44)
 
 ## Overview
 Converts a Unicode codepoint to its titlecase equivalent using simple case mapping rules.

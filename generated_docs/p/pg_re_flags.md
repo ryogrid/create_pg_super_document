@@ -1,7 +1,7 @@
 # pg_re_flags
 
 ## Location
-src/backend/utils/adt/regexp.c: 45 - 49
+[src/backend/utils/adt/regexp.c:45-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L45-L49)
 
 ## Overview
 The pg_re_flags structure encapsulates all the options of interest for PostgreSQL's regular expression functions, providing a consolidated way to pass compilation flags and behavioral options.

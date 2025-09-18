@@ -1,7 +1,7 @@
 # LockTupleMode
 
 ## Location
-src/include/nodes/lockoptions.h: 59 - 61
+[src/include/nodes/lockoptions.h:59-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/lockoptions.h#L59-L61)
 
 ## Overview
 LockTupleMode is an enumeration that defines the different locking modes available for individual tuples in PostgreSQL, corresponding to the various FOR clauses in SELECT statements and the implicit locking behavior of UPDATE and DELETE operations.

@@ -1,7 +1,7 @@
 # map_xml_name_to_sql_identifier
 
 ## Location
-src/backend/utils/adt/xml.c: 2436 - 2477
+[src/backend/utils/adt/xml.c:2436-2477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L2436-L2477)
 
 ## Overview
 Maps XML names back to SQL identifiers by reversing the character escaping performed by , implementing SQL/XML:2008 section 9.3.

@@ -1,7 +1,7 @@
 # partition_rbound_cmp
 
 ## Location
-src/backend/partitioning/partbounds.c: 3488 - 3555
+[src/backend/partitioning/partbounds.c:3488-3555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3488-L3555)
 
 ## Overview
 Compares two range partition bounds to determine their relative ordering, serving as the fundamental comparison function for range partition bound operations.

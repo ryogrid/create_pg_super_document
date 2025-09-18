@@ -1,7 +1,7 @@
 # ExecReScanNamedTuplestoreScan
 
 ## Location
-src/backend/executor/nodeNamedtuplestorescan.c: 164 - 178
+[src/backend/executor/nodeNamedtuplestorescan.c:164-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeNamedtuplestorescan.c#L164-L178)
 
 ## Overview
 Resets a named tuple store scan to the beginning, clearing any cached results and repositioning the read pointer for a fresh scan of the tuple store.

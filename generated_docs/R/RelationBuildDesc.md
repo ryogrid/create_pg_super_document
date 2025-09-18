@@ -1,7 +1,7 @@
 # RelationBuildDesc
 
 ## Location
-src/backend/utils/cache/relcache.c: 1040 - 1319
+[src/backend/utils/cache/relcache.c:1040-1319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1040-L1319)
 
 ## Overview
 Builds a complete relation descriptor from scratch by reading system catalogs and initializing all necessary components of the relation cache entry.

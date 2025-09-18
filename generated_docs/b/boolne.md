@@ -1,7 +1,7 @@
 # boolne
 
 ## Location
-src/backend/utils/adt/bool.c: 232 - 240
+[src/backend/utils/adt/bool.c:232-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L232-L240)
 
 ## Overview
 Implements the inequality operator for PostgreSQL boolean data type, comparing two boolean values for inequality.

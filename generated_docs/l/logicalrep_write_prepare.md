@@ -1,7 +1,7 @@
 # logicalrep_write_prepare
 
 ## Location
-src/backend/replication/logical/proto.c: 198 - 209
+[src/backend/replication/logical/proto.c:198-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L198-L209)
 
 ## Overview
 Writes a PREPARE message to the logical replication output stream to signal the completion of a prepared transaction.

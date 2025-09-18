@@ -1,7 +1,7 @@
 # ExecJustInnerVarVirt
 
 ## Location
-src/backend/executor/execExprInterp.c: 2305 - 2311
+[src/backend/executor/execExprInterp.c:2305-2311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2305-L2311)
 
 ## Overview
 ExecJustInnerVarVirt is a specialized function for efficiently accessing variables from the inner relation tuple in join operations when using virtual tuple slots.

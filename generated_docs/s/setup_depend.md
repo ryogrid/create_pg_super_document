@@ -1,7 +1,7 @@
 # setup_depend
 
 ## Location
-src/bin/initdb/initdb.c: 1698 - 1710
+[src/bin/initdb/initdb.c:1698-1710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1698-L1710)
 
 ## Overview
 The  function configures the PostgreSQL dependency system by stopping the creation of pinned objects during database initialization.

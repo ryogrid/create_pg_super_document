@@ -1,7 +1,7 @@
 # dumpTableComment
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10262 - 10359
+[src/bin/pg_dump/pg_dump.c:10262-10359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10262-L10359)
 
 ## Overview
 Dumps comments for tables/views and their columns by searching for associated pg_description entries and generating COMMENT ON statements for both the table and its individual columns.

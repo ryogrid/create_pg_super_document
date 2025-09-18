@@ -1,7 +1,7 @@
 # getQuadrantArea
 
 ## Location
-src/backend/access/spgist/spgquadtreeproc.c: 83 - 114
+[src/backend/access/spgist/spgquadtreeproc.c:83-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgquadtreeproc.c#L83-L114)
 
 ## Overview
 Computes the bounding box area for a specific quadrant within a given bounding box, relative to a centroid point.

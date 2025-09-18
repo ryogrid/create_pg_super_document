@@ -1,7 +1,7 @@
 # pg_encoding_max_length_sql
 
 ## Location
-src/backend/utils/mb/mbutils.c: 644 - 659
+[src/backend/utils/mb/mbutils.c:644-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L644-L659)
 
 ## Overview
 A PostgreSQL SQL function that returns the maximum number of bytes that can be used to represent a single character in the specified character encoding.

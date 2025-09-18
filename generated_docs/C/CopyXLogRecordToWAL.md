@@ -1,7 +1,7 @@
 # CopyXLogRecordToWAL
 
 ## Location
-src/backend/access/transam/xlog.c: 1227 - 1372
+[src/backend/access/transam/xlog.c:1227-1372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L1227-L1372)
 
 ## Overview
 CopyXLogRecordToWAL is responsible for copying WAL record data from the provided XLogRecData chain to the already-reserved space in the WAL buffers, handling page boundaries and special xlog-switch padding.

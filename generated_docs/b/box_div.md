@@ -1,7 +1,7 @@
 # box_div
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4280 - 4301
+[src/backend/utils/adt/geo_ops.c:4280-4301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4280-L4301)
 
 ## Overview
 Divides a box by a point, scaling down the box dimensions by dividing each corner coordinate by the corresponding point coordinate.

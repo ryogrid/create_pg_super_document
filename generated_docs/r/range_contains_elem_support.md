@@ -1,7 +1,7 @@
 # range_contains_elem_support
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2213 - 2246
+[src/backend/utils/adt/rangetypes.c:2213-2246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2213-L2246)
 
 ## Overview
 Planner support function for the range_contains_elem operator (@>), which determines if a range contains a specific element. This function provides query optimization support by simplifying expressions involving range containment checks.

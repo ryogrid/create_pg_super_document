@@ -1,7 +1,7 @@
 # test_opclass_options_func
 
 ## Location
-src/test/regress/regress.c: 1103 - 1110
+[src/test/regress/regress.c:1103-1110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L1103-L1110)
 
 ## Overview
 A minimal PostgreSQL test function that serves as a placeholder for testing operator class options functionality, currently returning NULL without implementation.

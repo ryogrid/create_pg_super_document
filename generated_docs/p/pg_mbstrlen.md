@@ -1,7 +1,7 @@
 # pg_mbstrlen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1037 - 1056
+[src/backend/utils/mb/mbutils.c:1037-1056](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1037-L1056)
 
 ## Overview
 Returns the length of a multibyte string counted in characters (not bytes).

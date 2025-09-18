@@ -1,7 +1,7 @@
 # pq_reset_sigpipe
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 569 - 596
+[src/interfaces/libpq/fe-secure.c:569-596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L569-L596)
 
 ## Overview
 This function handles the cleanup of SIGPIPE signals and restores the original signal mask after socket operations in PostgreSQL's libpq client library.

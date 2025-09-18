@@ -1,7 +1,7 @@
 # hash_choose_num_partitions
 
 ## Location
-src/backend/executor/nodeAgg.c: 1991 - 2044
+[src/backend/executor/nodeAgg.c:1991-2044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1991-L2044)
 
 ## Overview
 Determines the optimal number of partitions to create when spilling hash aggregation data to disk, ensuring each partition can fit in memory while respecting system limits and hash bit constraints.

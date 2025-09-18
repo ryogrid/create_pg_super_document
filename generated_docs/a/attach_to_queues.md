@@ -1,7 +1,7 @@
 # attach_to_queues
 
 ## Location
-src/test/modules/test_shm_mq/worker.c: 154 - 175
+[src/test/modules/test_shm_mq/worker.c:154-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/worker.c#L154-L175)
 
 ## Overview
 Sets up input and output shared memory message queue handles for a worker process based on its worker number in a parallel processing pipeline.

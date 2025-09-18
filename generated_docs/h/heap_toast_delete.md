@@ -1,7 +1,7 @@
 # heap_toast_delete
 
 ## Location
-src/backend/access/heap/heaptoast.c: 43 - 95
+[src/backend/access/heap/heaptoast.c:43-95](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heaptoast.c#L43-L95)
 
 ## Overview
 A cascaded delete function that removes TOAST entries when a heap tuple is deleted from a relation.

@@ -1,7 +1,7 @@
 # point_ne
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1964 - 1976
+[src/backend/utils/adt/geo_ops.c:1964-1976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1964-L1976)
 
 ## Overview
 Tests whether two points are not equal by comparing both their x and y coordinates using floating-point tolerance.

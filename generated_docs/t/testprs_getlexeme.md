@@ -1,7 +1,7 @@
 # testprs_getlexeme
 
 ## Location
-src/test/modules/test_parser/test_parser.c: 59 - 98
+[src/test/modules/test_parser/test_parser.c:59-98](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_parser/test_parser.c#L59-L98)
 
 ## Overview
 Extract the next lexeme (token) from the input buffer during text parsing in PostgreSQL test parser module.

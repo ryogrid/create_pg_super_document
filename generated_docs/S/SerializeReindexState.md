@@ -1,7 +1,7 @@
 # SerializeReindexState
 
 ## Location
-src/backend/catalog/index.c: 4192 - 4209
+[src/backend/catalog/index.c:4192-4209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L4192-L4209)
 
 ## Overview
 Serializes the current reindex state into shared memory for parallel worker processes during parallel reindex operations.

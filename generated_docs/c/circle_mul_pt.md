@@ -1,7 +1,7 @@
 # circle_mul_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4999 - 5013
+[src/backend/utils/adt/geo_ops.c:4999-5013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4999-L5013)
 
 ## Overview
 Implements the multiplication operator for a circle with a point, performing rotation and scaling transformations on the circle.

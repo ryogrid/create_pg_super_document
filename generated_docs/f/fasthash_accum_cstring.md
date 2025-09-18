@@ -1,7 +1,7 @@
 # fasthash_accum_cstring
 
 ## Location
-src/include/common/hashfn_unstable.h: 289 - 324
+[src/include/common/hashfn_unstable.h:289-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L289-L324)
 
 ## Overview
 An optimized inline function that accumulates a C string into a fast hash state, automatically choosing between aligned and unaligned processing paths for optimal performance on 64-bit platforms.

@@ -1,7 +1,7 @@
 # ProcArrayGetReplicationSlotXmin
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3967 - 3989
+[src/backend/storage/ipc/procarray.c:3967-3989](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3967-L3989)
 
 ## Overview
 Retrieves the current replication slot xmin limits to determine what data can be safely removed by vacuum and other cleanup operations.

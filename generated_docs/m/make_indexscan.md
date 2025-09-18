@@ -1,7 +1,7 @@
 # make_indexscan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5545 - 5575
+[src/backend/optimizer/plan/createplan.c:5545-5575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5545-L5575)
 
 ## Overview
 A plan node building function that creates and initializes an IndexScan plan node for index-based table access operations.

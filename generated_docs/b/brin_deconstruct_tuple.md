@@ -1,7 +1,7 @@
 # brin_deconstruct_tuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 645 - 720
+[src/backend/access/brin/brin_tuple.c:645-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L645-L720)
 
 ## Overview
 Extracts attribute values and null flags from the raw data area of an on-disk BRIN tuple, handling the complex parsing of compressed tuple format.

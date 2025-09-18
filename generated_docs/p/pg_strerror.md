@@ -1,7 +1,7 @@
 # pg_strerror
 
 ## Location
-src/port/strerror.c: 35 - 45
+[src/port/strerror.c:35-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strerror.c#L35-L45)
 
 ## Overview
 A slightly cleaned-up version of the standard strerror() function that provides thread-safe error message strings for PostgreSQL.

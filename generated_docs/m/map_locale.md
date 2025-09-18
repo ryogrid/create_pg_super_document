@@ -1,7 +1,7 @@
 # map_locale
 
 ## Location
-src/port/win32setlocale.c: 111 - 171
+[src/port/win32setlocale.c:111-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32setlocale.c#L111-L171)
 
 ## Overview
 A static helper function that maps problematic locale names on Windows to their correct equivalents using a locale mapping table.

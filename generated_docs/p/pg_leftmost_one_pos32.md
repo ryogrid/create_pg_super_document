@@ -1,7 +1,7 @@
 # pg_leftmost_one_pos32
 
 ## Location
-src/include/port/pg_bitutils.h: 41 - 71
+[src/include/port/pg_bitutils.h:41-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_bitutils.h#L41-L71)
 
 ## Overview
 Returns the position of the most significant set bit in a 32-bit word, providing efficient bit position finding for various PostgreSQL operations.

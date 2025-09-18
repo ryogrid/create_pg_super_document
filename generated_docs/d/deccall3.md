@@ -1,7 +1,7 @@
 # deccall3
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 86 - 150
+[src/interfaces/ecpg/compatlib/informix.c:86-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L86-L150)
 
 ## Overview  
 A static utility function that wraps numeric functions taking two input parameters and producing one output result, with comprehensive null handling and memory management for decimal-to-numeric conversions.

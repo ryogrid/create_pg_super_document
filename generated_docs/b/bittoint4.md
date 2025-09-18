@@ -1,7 +1,7 @@
 # bittoint4
 
 ## Location
-src/backend/utils/adt/varbit.c: 1586 - 1610
+[src/backend/utils/adt/varbit.c:1586-1610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1586-L1610)
 
 ## Overview
 Converts a variable-length bit string to a 32-bit unsigned integer, with range validation.

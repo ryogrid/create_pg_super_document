@@ -1,7 +1,7 @@
 # vac_cleanup_one_index
 
 ## Location
-src/backend/commands/vacuum.c: 2558 - 2583
+[src/backend/commands/vacuum.c:2558-2583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2558-L2583)
 
 ## Overview
 Performs post-vacuum cleanup operations on a single index relation, handling the finalization phase of index vacuum processing and reporting statistics about the cleanup results.

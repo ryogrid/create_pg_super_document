@@ -1,7 +1,7 @@
 # Float4GetDatum
 
 ## Location
-src/include/postgres.h: 475 - 493
+[src/include/postgres.h:475-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L475-L493)
 
 ## Overview
 Converts a 4-byte floating point value to a PostgreSQL Datum representation, using union manipulation to preserve the exact bit pattern of the float value.

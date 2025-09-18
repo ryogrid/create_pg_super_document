@@ -1,7 +1,7 @@
 # array_create_iterator
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4585 - 4663
+[src/backend/utils/adt/arrayfuncs.c:4585-4663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4585-L4663)
 
 ## Overview
 This function creates and initializes an ArrayIterator structure for efficiently traversing through PostgreSQL arrays, supporting both element-by-element and slice-based iteration modes.

@@ -1,7 +1,7 @@
 # gistcheckpage
 
 ## Location
-src/backend/access/gist/gistutil.c: 784 - 822
+[src/backend/access/gist/gistutil.c:784-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L784-L822)
 
 ## Overview
 gistcheckpage is a validation function that verifies the integrity and consistency of a freshly-read GiST index page to detect corruption.

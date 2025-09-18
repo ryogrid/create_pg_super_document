@@ -1,7 +1,7 @@
 # r_R1plus3
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c: 736 - 740
+[src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:736-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c#L736-L740)
 
 ## Overview
 The r_R1plus3 function tests whether the current cursor position plus 3 characters (encoded as 6 bytes in UTF-8) is within the R1 region boundary, used specifically in Yiddish stemming rules.

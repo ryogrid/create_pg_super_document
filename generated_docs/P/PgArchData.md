@@ -1,7 +1,7 @@
 # PgArchData
 
 ## Location
-src/backend/postmaster/pgarch.c: 84 - 92
+[src/backend/postmaster/pgarch.c:84-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L84-L92)
 
 ## Overview
 PgArchData is a shared memory structure that stores essential data for the PostgreSQL archiver process, including the process number and synchronization flags for directory scanning.

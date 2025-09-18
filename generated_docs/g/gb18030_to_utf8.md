@@ -1,7 +1,7 @@
 # gb18030_to_utf8
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 194 - 214
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:194-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L194-L214)
 
 ## Overview
 PostgreSQL function that converts text from GB18030 encoding to UTF-8 encoding, serving as a character conversion entry point for the database system.

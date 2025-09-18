@@ -1,7 +1,7 @@
 # setup_schema
 
 ## Location
-src/bin/initdb/initdb.c: 1954 - 1973
+[src/bin/initdb/initdb.c:1954-1973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L1954-L1973)
 
 ## Overview
 Loads the information schema and populates it with PostgreSQL version and SQL standard feature support information during database initialization.

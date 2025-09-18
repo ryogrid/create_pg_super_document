@@ -1,7 +1,7 @@
 # ExecStoreHeapTupleDatum
 
 ## Location
-src/backend/executor/execTuples.c: 1693 - 1730
+[src/backend/executor/execTuples.c:1693-1730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1693-L1730)
 
 ## Overview
 Stores a HeapTuple in datum form into a TupleTableSlot by deforming it and storing it in virtual form, allowing access to the tuple's individual column values.

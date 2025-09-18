@@ -1,7 +1,7 @@
 # make_ruledef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5160 - 5351
+[src/backend/utils/adt/ruleutils.c:5160-5351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5160-L5351)
 
 ## Overview
 A static function that reconstructs the CREATE RULE command text for a given pg_rewrite tuple.

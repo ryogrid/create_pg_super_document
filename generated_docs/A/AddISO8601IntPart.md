@@ -1,7 +1,7 @@
 # AddISO8601IntPart
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 723 - 732
+[src/interfaces/ecpg/pgtypeslib/interval.c:723-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L723-L732)
 
 ## Overview
 Appends an ISO 8601-style interval field component to an output string, but only if the value is non-zero, following the ISO 8601 interval format with single-character unit designators.

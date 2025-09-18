@@ -1,7 +1,7 @@
 # index_getbitmap
 
 ## Location
-src/backend/access/index/indexam.c: 718 - 747
+[src/backend/access/index/indexam.c:718-747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L718-L747)
 
 ## Overview
 Retrieves all tuples at once from an index scan by adding the TIDs of all heap tuples satisfying the scan keys to a bitmap data structure.

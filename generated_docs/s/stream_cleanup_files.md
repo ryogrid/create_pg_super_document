@@ -1,7 +1,7 @@
 # stream_cleanup_files
 
 ## Location
-src/backend/replication/logical/worker.c: 4218 - 4241
+[src/backend/replication/logical/worker.c:4218-4241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4218-L4241)
 
 ## Overview
 Removes temporary files containing serialized changes and subxact information for a specific subscription and toplevel transaction in PostgreSQL logical replication streaming.

@@ -1,7 +1,7 @@
 # lockTableForWorker
 
 ## Location
-src/bin/pg_dump/parallel.c: 1301 - 1335
+[src/bin/pg_dump/parallel.c:1301-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L1301-L1335)
 
 ## Overview
 Acquires an ACCESS SHARE lock on a table that will be dumped by a worker process, with deadlock prevention using NOWAIT semantics.

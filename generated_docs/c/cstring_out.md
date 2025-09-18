@@ -1,7 +1,7 @@
 # cstring_out
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 115 - 122
+[src/backend/utils/adt/pseudotypes.c:115-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L115-L122)
 
 ## Overview
 The `cstring_out` function is an output conversion function for the `cstring` pseudo-type in PostgreSQL, converting PostgreSQL's internal cstring representation into a C-style null-terminated string for external use.

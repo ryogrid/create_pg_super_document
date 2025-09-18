@@ -1,7 +1,7 @@
 # LogRecoveryConflict
 
 ## Location
-src/backend/storage/ipc/standby.c: 273 - 358
+[src/backend/storage/ipc/standby.c:273-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L273-L358)
 
 ## Overview
 Logs detailed information about recovery conflicts, including wait duration, conflict type, and list of conflicting processes, for both ongoing and resolved conflicts.

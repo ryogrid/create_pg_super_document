@@ -1,7 +1,7 @@
 # subxact_info_add
 
 ## Location
-src/backend/replication/logical/worker.c: 4119 - 4196
+[src/backend/replication/logical/worker.c:4119-4196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4119-L4196)
 
 ## Overview
 Adds information about a subtransaction, specifically its offset in the main stream file, to the in-memory subtransaction tracking structure.

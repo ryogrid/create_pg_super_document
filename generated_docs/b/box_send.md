@@ -1,7 +1,7 @@
 # box_send
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 501 - 517
+[src/backend/utils/adt/geo_ops.c:501-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L501-L517)
 
 ## Overview
 Converts a PostgreSQL BOX data type to its binary representation for transmission over the network protocol.

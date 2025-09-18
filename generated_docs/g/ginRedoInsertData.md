@@ -1,7 +1,7 @@
 # ginRedoInsertData
 
 ## Location
-src/backend/access/gin/ginxlog.c: 319 - 346
+[src/backend/access/gin/ginxlog.c:319-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L319-L346)
 
 ## Overview
 Replays data insertion operations in GIN index pages during WAL recovery, handling both leaf and internal data page modifications with different strategies.

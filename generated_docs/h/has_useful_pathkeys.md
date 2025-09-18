@@ -1,7 +1,7 @@
 # has_useful_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 2258 - 2267
+[src/backend/optimizer/path/pathkeys.c:2258-2267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L2258-L2267)
 
 ## Overview
 Detects whether the specified relation could have any pathkeys that are useful for query optimization, serving as a cheap early test to skip expensive pathkey building in simple queries.

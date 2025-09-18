@@ -1,7 +1,7 @@
 # test_integerset
 
 ## Location
-src/test/modules/test_integerset/test_integerset.c: 107 - 134
+[src/test/modules/test_integerset/test_integerset.c:107-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_integerset/test_integerset.c#L107-L134)
 
 ## Overview
 SQL-callable entry point function that performs comprehensive testing of the PostgreSQL IntegerSet data structure through various test cases and patterns.

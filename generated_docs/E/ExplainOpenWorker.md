@@ -1,7 +1,7 @@
 # ExplainOpenWorker
 
 ## Location
-src/backend/commands/explain.c: 4498 - 4559
+[src/backend/commands/explain.c:4498-4559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4498-L4559)
 
 ## Overview
 ExplainOpenWorker is a static function in PostgreSQL's explain module that begins or resumes output redirection to a separate buffer for collecting per-worker statistics during parallel query execution explanation.

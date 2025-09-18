@@ -1,7 +1,7 @@
 # check_old_cluster_for_valid_slots
 
 ## Location
-src/bin/pg_upgrade/check.c: 1928 - 2002
+[src/bin/pg_upgrade/check.c:1928-2002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L1928-L2002)
 
 ## Overview
 Verifies that all logical replication slots in the old PostgreSQL cluster are valid and have consumed all WAL before shutdown, ensuring safe cluster upgrade.

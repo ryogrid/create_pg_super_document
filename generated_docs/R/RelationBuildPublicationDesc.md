@@ -1,7 +1,7 @@
 # RelationBuildPublicationDesc
 
 ## Location
-src/backend/utils/cache/relcache.c: 5728 - 5875
+[src/backend/utils/cache/relcache.c:5728-5875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5728-L5875)
 
 ## Overview
 Builds and caches publication information for a relation, including publication actions (insert/update/delete/truncate) and validation status for row filters and column lists in logical replication.

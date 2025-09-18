@@ -1,7 +1,7 @@
 # shortest
 
 ## Location
-src/backend/regex/rege_dfa.c: 204 - 370
+[src/backend/regex/rege_dfa.c:204-370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L204-L370)
 
 ## Overview
 Implements the shortest-preferred matching engine for DFA-based regular expression matching in PostgreSQL.

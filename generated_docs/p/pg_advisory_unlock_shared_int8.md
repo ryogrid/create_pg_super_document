@@ -1,7 +1,7 @@
 # pg_advisory_unlock_shared_int8
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 791 - 807
+[src/backend/utils/adt/lockfuncs.c:791-807](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L791-L807)
 
 ## Overview
 This function releases a shared advisory lock on a 64-bit integer key, returning whether the unlock operation was successful.

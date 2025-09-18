@@ -1,7 +1,7 @@
 # ExtensibleNode
 
 ## Location
-src/include/nodes/extensible.h: 32 - 38
+[src/include/nodes/extensible.h:32-38](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/extensible.h#L32-L38)
 
 ## Overview
 ExtensibleNode is a base structure that allows PostgreSQL extensions to define new types of nodes within the query tree while integrating seamlessly with PostgreSQL's node system.

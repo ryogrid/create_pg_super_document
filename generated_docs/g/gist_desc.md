@@ -1,7 +1,7 @@
 # gist_desc
 
 ## Location
-src/backend/access/rmgrdesc/gistdesc.c: 61 - 89
+[src/backend/access/rmgrdesc/gistdesc.c:61-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gistdesc.c#L61-L89)
 
 ## Overview
 The gist_desc function provides human-readable descriptions of GiST (Generalized Search Tree) WAL (Write-Ahead Log) records for debugging and monitoring purposes.

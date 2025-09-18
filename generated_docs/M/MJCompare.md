@@ -1,7 +1,7 @@
 # MJCompare
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 391 - 451
+[src/backend/executor/nodeMergejoin.c:391-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L391-L451)
 
 ## Overview
 Compares the mergejoinable values of the current outer and inner tuples, returning an integer indicating their relative ordering for merge join processing.

@@ -1,7 +1,7 @@
 # int8larger
 
 ## Location
-src/backend/utils/adt/int8.c: 866 - 877
+[src/backend/utils/adt/int8.c:866-877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L866-L877)
 
 ## Overview
 Returns the larger of two 64-bit signed integers, implementing the maximum function for bigint data types.

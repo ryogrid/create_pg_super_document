@@ -1,7 +1,7 @@
 # dumpRoleMembership
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 995 - 1244
+[src/bin/pg_dump/pg_dumpall.c:995-1244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L995-L1244)
 
 ## Overview
 The dumpRoleMembership function generates SQL GRANT statements for role memberships, ensuring proper ordering to maintain grantor-member relationships and handle version-specific features like grant options.

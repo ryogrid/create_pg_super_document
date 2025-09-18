@@ -1,7 +1,7 @@
 # tbm_create_pagetable
 
 ## Location
-src/backend/nodes/tidbitmap.c: 292 - 321
+[src/backend/nodes/tidbitmap.c:292-321](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L292-L321)
 
 ## Overview
 Creates the internal hash table structure for a TID bitmap when it transitions from storing a single page entry to needing multiple page entries.

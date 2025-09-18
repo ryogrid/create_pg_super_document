@@ -1,7 +1,7 @@
 # _foreignServerInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 575 - 583
+[src/bin/pg_dump/pg_dump.h:575-583](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L575-L583)
 
 ## Overview
 The  structure represents metadata about a foreign server object in pg_dump, used for storing and managing foreign server information during database dump operations.

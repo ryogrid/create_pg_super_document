@@ -1,7 +1,7 @@
 # pipe_read_line
 
 ## Location
-src/common/exec.c: 371 - 409
+[src/common/exec.c:371-409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L371-L409)
 
 ## Overview
 Executes a shell command in a pipe and reads the first line of output from it, returning the result as a dynamically allocated string.

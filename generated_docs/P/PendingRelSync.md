@@ -1,7 +1,7 @@
 # PendingRelSync
 
 ## Location
-src/backend/catalog/storage.c: 70 - 74
+[src/backend/catalog/storage.c:70-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L70-L74)
 
 ## Overview
 PendingRelSync is a structure used to track relations that need to be fsyncd at transaction commit, serving as the hash table entry for PostgreSQLs deferred fsync mechanism.

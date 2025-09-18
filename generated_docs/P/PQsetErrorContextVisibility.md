@@ -1,7 +1,7 @@
 # PQsetErrorContextVisibility
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7309 - 7320
+[src/interfaces/libpq/fe-connect.c:7309-7320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7309-L7320)
 
 ## Overview
 Controls the visibility of context information in error messages, allowing applications to specify when context details should be included in error reports.

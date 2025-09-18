@@ -1,7 +1,7 @@
 # dutch_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_dutch.c: 610 - 611
+[src/backend/snowball/libstemmer/stem_UTF_8_dutch.c:610-611](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_dutch.c#L610-L611)
 
 ## Overview
 Creates a new Snowball stemming environment specifically configured for Dutch language text processing with UTF-8 encoding.

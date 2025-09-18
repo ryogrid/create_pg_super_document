@@ -1,7 +1,7 @@
 # ecpg_type_name
 
 ## Location
-src/interfaces/ecpg/ecpglib/typename.c: 17 - 72
+[src/interfaces/ecpg/ecpglib/typename.c:17-72](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/typename.c#L17-L72)
 
 ## Overview
 This function generates the correct type names for PostgreSQL's Embedded SQL (ECPG) preprocessor, converting internal ECPG type enumeration values to their corresponding C type name strings.

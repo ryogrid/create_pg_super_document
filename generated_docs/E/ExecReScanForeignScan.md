@@ -1,7 +1,7 @@
 # ExecReScanForeignScan
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 323 - 355
+[src/backend/executor/nodeForeignscan.c:323-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L323-L355)
 
 ## Overview
 ExecReScanForeignScan rescans a foreign table relation by reinitializing the foreign scan state and restarting the scan from the beginning.

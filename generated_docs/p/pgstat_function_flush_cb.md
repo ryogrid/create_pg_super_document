@@ -1,7 +1,7 @@
 # pgstat_function_flush_cb
 
 ## Location
-src/backend/utils/activity/pgstat_function.c: 193 - 222
+[src/backend/utils/activity/pgstat_function.c:193-222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_function.c#L193-L222)
 
 ## Overview
 Callback function that flushes pending function statistics from local backend storage to shared memory statistics, aggregating call counts and timing data.

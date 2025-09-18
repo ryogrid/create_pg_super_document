@@ -1,7 +1,7 @@
 # cost_bitmap_tree_node
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1114 - 1156
+[src/backend/optimizer/path/costsize.c:1114-1156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1114-L1156)
 
 ## Overview
 Extracts cost and selectivity values from bitmap tree nodes, handling different node types (IndexPath, BitmapAndPath, BitmapOrPath) in a unified interface.

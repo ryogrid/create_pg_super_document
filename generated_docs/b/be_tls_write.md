@@ -1,7 +1,7 @@
 # be_tls_write
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 820 - 907
+[src/backend/libpq/be-secure-openssl.c:820-907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L820-L907)
 
 ## Overview
 The  function provides secure data transmission over TLS/SSL connections in PostgreSQL's backend, handling SSL write operations with appropriate error handling and wait state management.

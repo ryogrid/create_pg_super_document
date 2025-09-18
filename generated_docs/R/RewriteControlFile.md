@@ -1,7 +1,7 @@
 # RewriteControlFile
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 861 - 906
+[src/bin/pg_resetwal/pg_resetwal.c:861-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L861-L906)
 
 ## Overview
 RewriteControlFile modifies the PostgreSQL control file to reflect the new state after a WAL reset operation, setting up the database for a fresh start with an empty transaction log.

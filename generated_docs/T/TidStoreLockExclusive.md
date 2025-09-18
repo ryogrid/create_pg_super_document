@@ -1,7 +1,7 @@
 # TidStoreLockExclusive
 
 ## Location
-src/backend/access/common/tidstore.c: 298 - 304
+[src/backend/access/common/tidstore.c:298-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L298-L304)
 
 ## Overview
 Acquires an exclusive lock on a shared TidStore to ensure thread-safe access during write operations to the shared radix tree structure.

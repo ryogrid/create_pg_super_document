@@ -1,7 +1,7 @@
 # get_rels_with_domain
 
 ## Location
-src/backend/commands/typecmds.c: 3321 - 3489
+[src/backend/commands/typecmds.c:3321-3489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3321-L3489)
 
 ## Overview
 Discovers and returns all relations and their specific attribute numbers that use a given domain type, including relations that use derived domain types based on the target domain.

@@ -1,7 +1,7 @@
 # format_type_extended
 
 ## Location
-src/backend/utils/adt/format_type.c: 112 - 342
+[src/backend/utils/adt/format_type.c:112-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L112-L342)
 
 ## Overview
 Core internal function that generates possibly-qualified PostgreSQL type names with extensive formatting control through flag-based options.

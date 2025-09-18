@@ -1,7 +1,7 @@
 # setup_pct_info
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 662 - 730
+[src/backend/utils/adt/orderedsetaggs.c:662-730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L662-L730)
 
 ## Overview
 A static function that constructs an array of pct_info structures showing which rows to sample for percentile calculations in ordered set aggregates.

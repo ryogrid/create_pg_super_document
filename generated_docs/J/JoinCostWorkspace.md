@@ -1,7 +1,7 @@
 # JoinCostWorkspace
 
 ## Location
-src/include/nodes/pathnodes.h: 3335 - 3358
+[src/include/nodes/pathnodes.h:3335-3358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/pathnodes.h#L3335-L3358)
 
 ## Overview
 JoinCostWorkspace is a workspace structure used for efficient two-phase cost estimation of join paths, storing preliminary cost estimates and intermediate values to avoid redundant calculations.

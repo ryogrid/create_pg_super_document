@@ -1,7 +1,7 @@
 # ExecInitWindowAgg
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 2374 - 2680
+[src/backend/executor/nodeWindowAgg.c:2374-2680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L2374-L2680)
 
 ## Overview
 Initialization function for WindowAgg execution nodes that creates the runtime state structure, sets up window function processing infrastructure, and prepares all necessary components for window aggregation execution.

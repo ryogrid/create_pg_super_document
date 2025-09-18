@@ -1,7 +1,7 @@
 # free_db_and_rel_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 763 - 778
+[src/bin/pg_upgrade/info.c:763-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L763-L778)
 
 ## Overview
 Frees all database and relation information stored in a DbInfoArr structure, including nested relation arrays and database names.

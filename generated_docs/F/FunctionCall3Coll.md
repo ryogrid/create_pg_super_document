@@ -1,7 +1,7 @@
 # FunctionCall3Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1171 - 1195
+[src/backend/utils/fmgr/fmgr.c:1171-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1171-L1195)
 
 ## Overview
 FunctionCall3Coll is a utility function that invokes a previously-looked-up PostgreSQL function with three parameters and an explicit collation setting.

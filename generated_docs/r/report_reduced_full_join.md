@@ -1,7 +1,7 @@
 # report_reduced_full_join
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 3358 - 3426
+[src/backend/optimizer/prep/prepjointree.c:3358-3426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L3358-L3426)
 
 ## Overview
 Helper function that records information about partially reduced FULL JOINs for later processing in the outer join reduction optimization.

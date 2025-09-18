@@ -1,7 +1,7 @@
 # exec_command_t
 
 ## Location
-src/bin/psql/command.c: 2605 - 2626
+[src/bin/psql/command.c:2605-2626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2605-L2626)
 
 ## Overview
 Implements the `\t` psql command that toggles the display of table headers and row count in query output.

@@ -1,7 +1,7 @@
 # create_functionscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 3761 - 3803
+[src/backend/optimizer/plan/createplan.c:3761-3803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L3761-L3803)
 
 ## Overview
 Creates a function scan plan for scanning the results of function calls that appear in the FROM clause, treating functions as data sources.

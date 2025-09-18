@@ -1,7 +1,7 @@
 # injection_point_init_state
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 103 - 116
+[src/test/modules/injection_points/injection_points.c:103-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L103-L116)
 
 ## Overview
 A static callback function that initializes the shared memory state for injection points in PostgreSQL's testing framework.

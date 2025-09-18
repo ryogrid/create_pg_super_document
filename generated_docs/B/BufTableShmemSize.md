@@ -1,7 +1,7 @@
 # BufTableShmemSize
 
 ## Location
-src/backend/storage/buffer/buf_table.c: 41 - 50
+[src/backend/storage/buffer/buf_table.c:41-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_table.c#L41-L50)
 
 ## Overview
 Estimates the shared memory size needed for the buffer mapping hashtable based on the desired hashtable size.

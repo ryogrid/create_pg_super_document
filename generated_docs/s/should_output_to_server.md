@@ -1,7 +1,7 @@
 # should_output_to_server
 
 ## Location
-src/backend/utils/error/elog.c: 239 - 247
+[src/backend/utils/error/elog.c:239-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L239-L247)
 
 ## Overview
 Determines whether a message of a given error level should be output to the server log based on the current log_min_messages setting.

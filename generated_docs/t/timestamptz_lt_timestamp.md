@@ -1,7 +1,7 @@
 # timestamptz_lt_timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2427 - 2435
+[src/backend/utils/adt/timestamp.c:2427-2435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2427-L2435)
 
 ## Overview
 A PostgreSQL function that tests whether a timestamptz (with timezone) value is less than a timestamp (without timezone) value, returning a boolean result.

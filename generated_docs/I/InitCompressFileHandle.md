@@ -1,7 +1,7 @@
 # InitCompressFileHandle
 
 ## Location
-src/bin/pg_dump/compress_io.c: 195 - 219
+[src/bin/pg_dump/compress_io.c:195-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L195-L219)
 
 ## Overview
 Initializes a compress file handle for the specified compression algorithm, serving as a factory function that creates and configures compression handlers based on the requested algorithm type.

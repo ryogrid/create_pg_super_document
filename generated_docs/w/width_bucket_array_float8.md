@@ -1,7 +1,7 @@
 # width_bucket_array_float8
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6741 - 6784
+[src/backend/utils/adt/arrayfuncs.c:6741-6784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6741-L6784)
 
 ## Overview
 A specialized implementation of width_bucket for float8 (double precision) data types, providing optimized performance for numeric threshold arrays.

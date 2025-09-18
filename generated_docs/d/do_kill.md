@@ -1,7 +1,7 @@
 # do_kill
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1393 - 1405
+[src/bin/pg_ctl/pg_ctl.c:1393-1405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1393-L1405)
 
 ## Overview
 Sends a signal to a PostgreSQL process with error handling and proper exit status management.

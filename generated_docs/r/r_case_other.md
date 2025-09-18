@@ -1,7 +1,7 @@
 # r_case_other
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 623 - 652
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:623-652](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L623-L652)
 
 ## Overview
 The r_case_other function handles Hungarian sublative case endings ending in 'l', specifically processing 'stul', 'astul', 'ástul', 'stül', 'estül', and 'éstül' suffixes with different transformation rules.

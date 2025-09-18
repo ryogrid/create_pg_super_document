@@ -1,7 +1,7 @@
 # binary_decode
 
 ## Location
-src/backend/utils/adt/encode.c: 96 - 161
+[src/backend/utils/adt/encode.c:96-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/encode.c#L96-L161)
 
 ## Overview
 PostgreSQL SQL function that decodes text-encoded data back into binary format (bytea) using a specified decoding method.

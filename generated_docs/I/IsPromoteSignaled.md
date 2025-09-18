@@ -1,7 +1,7 @@
 # IsPromoteSignaled
 
 ## Location
-src/backend/postmaster/startup.c: 288 - 293
+[src/backend/postmaster/startup.c:288-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L288-L293)
 
 ## Overview
 IsPromoteSignaled is a simple accessor function that returns the current state of the promote signal flag, indicating whether a promotion from standby to primary server has been requested.

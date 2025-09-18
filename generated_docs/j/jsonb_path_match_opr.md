@@ -1,7 +1,7 @@
 # jsonb_path_match_opr
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 514 - 525
+[src/backend/utils/adt/jsonpath_exec.c:514-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L514-L525)
 
 ## Overview
 Implementation of the PostgreSQL operator "jsonb @@ jsonpath" that evaluates a JSONPath predicate expression against a JSONB value using operator syntax.

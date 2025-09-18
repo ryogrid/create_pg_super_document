@@ -1,7 +1,7 @@
 # filter_init
 
 ## Location
-src/bin/pg_dump/filter.c: 37 - 60
+[src/bin/pg_dump/filter.c:37-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/filter.c#L37-L60)
 
 ## Overview
 Initializes a filter state structure for reading filter files used by pg_dump, pg_dumpall, and pg_restore utilities.

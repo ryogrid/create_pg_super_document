@@ -1,7 +1,7 @@
 # multirange_overlaps_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1948 - 1959
+[src/backend/utils/adt/multirangetypes.c:1948-1959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1948-L1959)
 
 ## Overview
 Implements the overlap operator (&& operator) that tests whether any range in a multirange overlaps with a single range, providing the commutative counterpart to range_overlaps_multirange.

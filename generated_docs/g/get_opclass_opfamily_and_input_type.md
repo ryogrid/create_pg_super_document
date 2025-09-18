@@ -1,7 +1,7 @@
 # get_opclass_opfamily_and_input_type
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1235 - 1259
+[src/backend/utils/cache/lsyscache.c:1235-1259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1235-L1259)
 
 ## Overview
 Retrieves the operator family OID and input data type OID for a given operator class, providing essential metadata about the operator class structure.

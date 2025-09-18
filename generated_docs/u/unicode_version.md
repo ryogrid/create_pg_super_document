@@ -1,7 +1,7 @@
 # unicode_version
 
 ## Location
-src/backend/utils/adt/varlena.c: 6293 - 6301
+[src/backend/utils/adt/varlena.c:6293-6301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6293-L6301)
 
 ## Overview
 Returns the version of Unicode used by PostgreSQL in "major.minor" format as a PostgreSQL text value.

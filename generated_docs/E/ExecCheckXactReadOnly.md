@@ -1,7 +1,7 @@
 # ExecCheckXactReadOnly
 
 ## Location
-src/backend/executor/execMain.c: 792 - 825
+[src/backend/executor/execMain.c:792-825](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L792-L825)
 
 ## Overview
 Verifies that a planned statement does not imply any writes to non-temporary tables, and enforces additional restrictions in parallel execution mode.

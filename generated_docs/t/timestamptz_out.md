@@ -1,7 +1,7 @@
 # timestamptz_out
 
 ## Location
-src/backend/utils/adt/timestamp.c: 785 - 812
+[src/backend/utils/adt/timestamp.c:785-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L785-L812)
 
 ## Overview
 Converts a timestamptz (timestamp with time zone) value to its external string representation for output purposes.

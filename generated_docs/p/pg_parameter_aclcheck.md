@@ -1,7 +1,7 @@
 # pg_parameter_aclcheck
 
 ## Location
-src/backend/catalog/aclchk.c: 4121 - 4132
+[src/backend/catalog/aclchk.c:4121-4132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4121-L4132)
 
 ## Overview
 Checks a user's access privileges to a configuration parameter (GUC) identified by name, providing a simple interface for parameter access control validation.

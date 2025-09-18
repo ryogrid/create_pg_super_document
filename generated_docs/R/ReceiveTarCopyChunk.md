@@ -1,7 +1,7 @@
 # ReceiveTarCopyChunk
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1662 - 1677
+[src/bin/pg_basebackup/pg_basebackup.c:1662-1677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1662-L1677)
 
 ## Overview
 ReceiveTarCopyChunk is a callback function used by ReceiveTarFile to process individual chunks of tar-format data received from the PostgreSQL server during base backup operations.

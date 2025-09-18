@@ -1,7 +1,7 @@
 # percentile_disc_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 427 - 502
+[src/backend/utils/adt/orderedsetaggs.c:427-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L427-L502)
 
 ## Overview
 Final function for the  ordered-set aggregate that calculates discrete percentiles by returning the first value whose position is at or above the specified percentile.

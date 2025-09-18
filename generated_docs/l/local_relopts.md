@@ -1,7 +1,7 @@
 # local_relopts
 
 ## Location
-src/include/access/reloptions.h: 165 - 170
+[src/include/access/reloptions.h:165-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/reloptions.h#L165-L170)
 
 ## Overview
 A structure that holds local relation option data used by build_local_reloptions() to manage extension-specific relation options and their validation.

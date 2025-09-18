@@ -1,7 +1,7 @@
 # toast_decompress_datum
 
 ## Location
-src/backend/access/common/detoast.c: 471 - 502
+[src/backend/access/common/detoast.c:471-502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L471-L502)
 
 ## Overview
 Decompresses a compressed varlena datum by determining the compression method used and delegating to the appropriate decompression routine.

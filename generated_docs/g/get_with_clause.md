@@ -1,7 +1,7 @@
 # get_with_clause
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5563 - 5701
+[src/backend/utils/adt/ruleutils.c:5563-5701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5563-L5701)
 
 ## Overview
 Reconstructs the WITH clause (Common Table Expressions/CTEs) from internal representation back to readable SQL text, including support for recursive CTEs and advanced features like SEARCH and CYCLE clauses.

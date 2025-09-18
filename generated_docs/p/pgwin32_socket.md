@@ -1,7 +1,7 @@
 # pgwin32_socket
 
 ## Location
-src/backend/port/win32/socket.c: 291 - 314
+[src/backend/port/win32/socket.c:291-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/socket.c#L291-L314)
 
 ## Overview
 pgwin32_socket is a Windows-specific socket creation function that creates sockets configured for overlapped I/O operations and non-blocking mode, providing the foundation for PostgreSQLs asynchronous socket operations on Windows.

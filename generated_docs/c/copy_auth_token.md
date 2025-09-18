@@ -1,7 +1,7 @@
 # copy_auth_token
 
 ## Location
-src/backend/libpq/hba.c: 288 - 300
+[src/backend/libpq/hba.c:288-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L288-L300)
 
 ## Overview
 A copy constructor function that creates a deep copy of an AuthToken structure by allocating new memory and duplicating the string content and metadata.

@@ -1,7 +1,7 @@
 # get_rel_relispartition
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2027 - 2053
+[src/backend/utils/cache/lsyscache.c:2027-2053](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2027-L2053)
 
 ## Overview
 Returns the relispartition flag associated with a given relation, indicating whether the relation is a partition of a partitioned table.

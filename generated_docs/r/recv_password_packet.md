@@ -1,7 +1,7 @@
 # recv_password_packet
 
 ## Location
-src/backend/libpq/auth.c: 714 - 794
+[src/backend/libpq/auth.c:714-794](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L714-L794)
 
 ## Overview
 Receives and validates password response packets from the frontend client during password-based authentication methods.

@@ -1,7 +1,7 @@
 # rewind_source
 
 ## Location
-src/bin/pg_rewind/rewind_source.h: 23 - 78
+[src/bin/pg_rewind/rewind_source.h:23-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/rewind_source.h#L23-L78)
 
 ## Overview
 The rewind_source struct defines an abstract interface for data sources used by pg_rewind utility, providing a unified API for accessing files and WAL data from both local and remote PostgreSQL servers.

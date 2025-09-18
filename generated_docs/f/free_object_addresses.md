@@ -1,7 +1,7 @@
 # free_object_addresses
 
 ## Location
-src/backend/catalog/dependency.c: 2773 - 2784
+[src/backend/catalog/dependency.c:2773-2784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2773-L2784)
 
 ## Overview
 A cleanup function that properly deallocates memory used by an ObjectAddresses structure, including both the array of object references and optional extras array.

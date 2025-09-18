@@ -1,7 +1,7 @@
 # Lock_AF_UNIX
 
 ## Location
-src/backend/libpq/pqcomm.c: 684 - 718
+[src/backend/libpq/pqcomm.c:684-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L684-L718)
 
 ## Overview
 Secures exclusive access to Unix domain socket paths by creating an interlock file, removing any existing socket file, and tracking the socket path for maintenance.

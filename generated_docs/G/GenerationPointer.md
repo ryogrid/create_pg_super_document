@@ -1,7 +1,7 @@
 # GenerationPointer
 
 ## Location
-src/backend/utils/mmgr/generation.c: 53 - 58
+[src/backend/utils/mmgr/generation.c:53-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/generation.c#L53-L58)
 
 ## Overview
 GenerationPointer is a simple typedef that defines a generic pointer type used within the generation memory context system.

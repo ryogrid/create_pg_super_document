@@ -1,7 +1,7 @@
 # main
 
 ## Location
-src/bin/scripts/vacuumdb.c: 97 - 427
+[src/bin/scripts/vacuumdb.c:97-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/scripts/vacuumdb.c#L97-L427)
 
 ## Overview
 The main entry point for any PostgreSQL server process, responsible for initializing essential subsystems and dispatching to appropriate subprograms based on command-line arguments.

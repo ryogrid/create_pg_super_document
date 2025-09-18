@@ -1,7 +1,7 @@
 # output_line_number
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 10 - 18
+[src/interfaces/ecpg/preproc/output.c:10-18](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L10-L18)
 
 ## Overview
 Outputs a line number directive to the preprocessor output stream for debugging and error tracking purposes in ECPG-generated code.

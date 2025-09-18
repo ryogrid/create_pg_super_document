@@ -1,7 +1,7 @@
 # to_bin32
 
 ## Location
-src/backend/utils/adt/varlena.c: 4956 - 4962
+[src/backend/utils/adt/varlena.c:4956-4962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4956-L4962)
 
 ## Overview
 Converts a 32-bit integer value to its binary (base-2) string representation.

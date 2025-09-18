@@ -1,7 +1,7 @@
 # appendStringLiteral
 
 ## Location
-src/fe_utils/string_utils.c: 351 - 445
+[src/fe_utils/string_utils.c:351-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L351-L445)
 
 ## Overview
 Converts a string value to a properly escaped SQL string literal and appends it to a PQExpBuffer, handling character encoding and SQL standard compliance without requiring a database connection.

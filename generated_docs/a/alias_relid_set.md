@@ -1,7 +1,7 @@
 # alias_relid_set
 
 ## Location
-src/backend/optimizer/util/var.c: 1098 - 1114
+[src/backend/optimizer/util/var.c:1098-1114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L1098-L1114)
 
 ## Overview
 A utility function that processes a set of range table indexes and expands any join relations to their underlying base and outer join relation IDs.

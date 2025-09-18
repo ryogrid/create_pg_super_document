@@ -1,7 +1,7 @@
 # bbsink_server_manifest_contents
 
 ## Location
-src/backend/backup/basebackup_server.c: 253 - 286
+[src/backend/backup/basebackup_server.c:253-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L253-L286)
 
 ## Overview
 Writes manifest data chunks to a file during a base backup operation as part of the server-side base backup sink implementation.

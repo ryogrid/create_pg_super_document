@@ -1,7 +1,7 @@
 # descriptor_destructor
 
 ## Location
-src/interfaces/ecpg/ecpglib/descriptor.c: 28 - 33
+[src/interfaces/ecpg/ecpglib/descriptor.c:28-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/descriptor.c#L28-L33)
 
 ## Overview
 A static destructor function that serves as a cleanup callback for PostgreSQL descriptor objects in the ECPG library.

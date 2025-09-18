@@ -1,7 +1,7 @@
 # ginarrayconsistent
 
 ## Location
-src/backend/access/gin/ginarrayproc.c: 142 - 225
+[src/backend/access/gin/ginarrayproc.c:142-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginarrayproc.c#L142-L225)
 
 ## Overview
 This is a PostgreSQL GIN consistent support function that determines whether indexed array data satisfies query conditions for different array search strategies.

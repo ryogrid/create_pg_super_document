@@ -1,7 +1,7 @@
 # heap_create_with_catalog
 
 ## Location
-src/backend/catalog/heap.c: 1105 - 1525
+[src/backend/catalog/heap.c:1105-1525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1105-L1525)
 
 ## Overview
 Creates a new relation with a complete catalog entry in PostgreSQL's system catalogs, handling both the physical storage creation and all associated metadata registration.

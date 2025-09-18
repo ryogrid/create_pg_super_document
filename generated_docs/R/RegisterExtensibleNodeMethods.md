@@ -1,7 +1,7 @@
 # RegisterExtensibleNodeMethods
 
 ## Location
-src/backend/nodes/extensible.c: 76 - 87
+[src/backend/nodes/extensible.c:76-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/extensible.c#L76-L87)
 
 ## Overview
 Registers a new type of extensible node in PostgreSQL's extensible node system, making it available for use throughout the system.

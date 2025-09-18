@@ -1,7 +1,7 @@
 # transform_string_values_object_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5862 - 5871
+[src/backend/utils/adt/jsonfuncs.c:5862-5871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5862-L5871)
 
 ## Overview
 This auxiliary function handles the start of JSON objects during JSON string value transformation by appending the opening brace character to the output.

@@ -1,7 +1,7 @@
 # GetNonHistoricCatalogSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 374 - 421
+[src/backend/utils/time/snapmgr.c:374-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L374-L421)
 
 ## Overview
 Provides a current (non-historic) snapshot for system catalog scans with intelligent caching and invalidation logic based on relation characteristics.

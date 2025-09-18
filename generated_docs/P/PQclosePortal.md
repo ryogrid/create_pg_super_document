@@ -1,7 +1,7 @@
 # PQclosePortal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2539 - 2555
+[src/interfaces/libpq/fe-exec.c:2539-2555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2539-L2555)
 
 ## Overview
 PQclosePortal closes a previously created portal in PostgreSQL, similar to PQclosePrepared but specifically for portals created through SQL DECLARE CURSOR commands.

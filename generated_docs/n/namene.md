@@ -1,7 +1,7 @@
 # namene
 
 ## Location
-src/backend/utils/adt/name.c: 157 - 165
+[src/backend/utils/adt/name.c:157-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L157-L165)
 
 ## Overview
 The `namene` function compares two PostgreSQL Name values for inequality, returning true if they are not equal according to the specified collation.

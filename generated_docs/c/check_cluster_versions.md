@@ -1,7 +1,7 @@
 # check_cluster_versions
 
 ## Location
-src/bin/pg_upgrade/check.c: 796 - 838
+[src/bin/pg_upgrade/check.c:796-838](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L796-L838)
 
 ## Overview
 Validates that the old and new PostgreSQL cluster versions are compatible for upgrade and enforces version upgrade constraints.

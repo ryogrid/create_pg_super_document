@@ -1,7 +1,7 @@
 # MatViewIncrementalMaintenanceIsEnabled
 
 ## Location
-src/backend/commands/matview.c: 952 - 957
+[src/backend/commands/matview.c:952-957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L952-L957)
 
 ## Overview
 Tests whether the backend is currently in a context where DML statements are allowed to modify materialized views for internal maintenance operations.

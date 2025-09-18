@@ -1,7 +1,7 @@
 # BTreeTupleGetDownLink
 
 ## Location
-src/include/access/nbtree.h: 556 - 561
+[src/include/access/nbtree.h:556-561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L556-L561)
 
 ## Overview
 Retrieves the downlink block number from a pivot tuple in a B-tree structure, extracting the block pointer that references a child page.

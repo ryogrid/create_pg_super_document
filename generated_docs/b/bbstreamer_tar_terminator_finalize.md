@@ -1,7 +1,7 @@
 # bbstreamer_tar_terminator_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 496 - 509
+[src/bin/pg_basebackup/bbstreamer_tar.c:496-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L496-L509)
 
 ## Overview
 A static function that finalizes a TAR archive by adding two required NUL byte blocks that the server fails to supply, ensuring proper TAR format compliance.

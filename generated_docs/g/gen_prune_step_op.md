@@ -1,7 +1,7 @@
 # gen_prune_step_op
 
 ## Location
-src/backend/partitioning/partprune.c: 1313 - 1345
+[src/backend/partitioning/partprune.c:1313-1345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L1313-L1345)
 
 ## Overview
 Generates a pruning step for a specific operator by creating a PartitionPruneStepOp node with operator strategy, expressions, comparison functions, and null key information.

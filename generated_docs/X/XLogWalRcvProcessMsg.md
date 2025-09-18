@@ -1,7 +1,7 @@
 # XLogWalRcvProcessMsg
 
 ## Location
-src/backend/replication/walreceiver.c: 839 - 909
+[src/backend/replication/walreceiver.c:839-909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L839-L909)
 
 ## Overview
 Processes incoming replication messages from the XLOG stream, handling WAL records and keepalive messages from the primary server during streaming replication.

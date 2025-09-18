@@ -1,7 +1,7 @@
 # multirange_intersect_agg_transfn
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1465 - 1506
+[src/backend/utils/adt/multirangetypes.c:1465-1506](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1465-L1506)
 
 ## Overview
 A PostgreSQL aggregate transition function that computes the intersection of multirange values during aggregation. It maintains the running intersection result by combining the current state with the next input multirange.

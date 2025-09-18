@@ -1,7 +1,7 @@
 # int48gt
 
 ## Location
-src/backend/utils/adt/int8.c: 254 - 262
+[src/backend/utils/adt/int8.c:254-262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L254-L262)
 
 ## Overview
 This function compares a 4-byte (int32) integer with an 8-byte (int64) integer and returns true if the 4-byte integer is greater than the 8-byte integer.

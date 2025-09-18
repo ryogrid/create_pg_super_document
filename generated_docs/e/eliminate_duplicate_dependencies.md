@@ -1,7 +1,7 @@
 # eliminate_duplicate_dependencies
 
 ## Location
-src/backend/catalog/dependency.c: 2383 - 2442
+[src/backend/catalog/dependency.c:2383-2442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2383-L2442)
 
 ## Overview
 Optimizes dependency collections by removing duplicate object references and applying intelligent merging rules for whole-object versus partial-object dependencies.

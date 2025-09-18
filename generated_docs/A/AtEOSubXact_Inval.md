@@ -1,7 +1,7 @@
 # AtEOSubXact_Inval
 
 ## Location
-src/backend/utils/cache/inval.c: 1085 - 1172
+[src/backend/utils/cache/inval.c:1085-1172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1085-L1172)
 
 ## Overview
 Processes queued invalidation messages at the end of a subtransaction, handling message propagation to parent transactions on commit or local processing on abort.

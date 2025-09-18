@@ -1,7 +1,7 @@
 # log10Pow5
 
 ## Location
-src/common/ryu_common.h: 83 - 94
+[src/common/ryu_common.h:83-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/ryu_common.h#L83-L94)
 
 ## Overview
 Returns the floor of the base-10 logarithm of 5^e, specifically computing floor(log_10(5^e)).

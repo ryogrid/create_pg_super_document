@@ -1,7 +1,7 @@
 # libpqrcv_alter_slot
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 1123 - 1149
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1123-1149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L1123-L1149)
 
 ## Overview
 libpqrcv_alter_slot modifies the properties of an existing replication slot on the primary server, specifically changing the failover setting to enable or disable the slot's eligibility for failover scenarios.

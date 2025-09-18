@@ -1,7 +1,7 @@
 # ItemPointerDec
 
 ## Location
-src/backend/storage/page/itemptr.c: 114 - 131
+[src/backend/storage/page/itemptr.c:114-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/itemptr.c#L114-L131)
 
 ## Overview
 ItemPointerDec decrements an ItemPointer to the previous logical position, handling underflow from offset 0 to the maximum offset of the previous block, while respecting the type's range limits.

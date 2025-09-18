@@ -1,7 +1,7 @@
 # AdjustIntervalForTypmod
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1359 - 1538
+[src/backend/utils/adt/timestamp.c:1359-1538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1359-L1538)
 
 ## Overview
 Adjusts an interval value for specified precision constraints in both YEAR to SECOND range and sub-second precision, supporting PostgreSQL's interval type modifier functionality.

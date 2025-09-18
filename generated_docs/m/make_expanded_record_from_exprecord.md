@@ -1,7 +1,7 @@
 # make_expanded_record_from_exprecord
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 329 - 439
+[src/backend/utils/adt/expandedrecord.c:329-439](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L329-L439)
 
 ## Overview
 Creates a new expanded record with the same rowtype as an existing expanded record, optimized by bypassing type cache lookups and copying only type metadata.

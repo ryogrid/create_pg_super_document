@@ -1,7 +1,7 @@
 # smgrunpin
 
 ## Location
-src/backend/storage/smgr/smgr.c: 265 - 276
+[src/backend/storage/smgr/smgr.c:265-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L265-L276)
 
 ## Overview
 Allows an SMgrRelation object to be destroyed at the end of a transaction by decrementing its reference count.

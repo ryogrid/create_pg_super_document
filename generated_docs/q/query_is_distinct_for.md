@@ -1,7 +1,7 @@
 # query_is_distinct_for
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 995 - 1143
+[src/backend/optimizer/plan/analyzejoins.c:995-1143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L995-L1143)
 
 ## Overview
 Determines whether a query is guaranteed to never return duplicate rows for a specified set of output columns, considering various SQL constructs that can ensure distinctness.

@@ -1,7 +1,7 @@
 # apply_handle_delete_internal
 
 ## Location
-src/backend/replication/logical/worker.c: 2804 - 2860
+[src/backend/replication/logical/worker.c:2804-2860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2804-L2860)
 
 ## Overview
 Internal workhorse function that performs the actual DELETE operation for logical replication, including tuple lookup and execution within the proper concurrency control framework.

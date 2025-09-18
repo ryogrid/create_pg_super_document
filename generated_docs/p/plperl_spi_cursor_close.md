@@ -1,7 +1,7 @@
 # plperl_spi_cursor_close
 
 ## Location
-src/pl/plperl/plperl.c: 3551 - 3566
+[src/pl/plperl/plperl.c:3551-3566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L3551-L3566)
 
 ## Overview
 Explicitly closes an SPI cursor and releases its resources, allowing manual cleanup of cursors before they reach end-of-data.

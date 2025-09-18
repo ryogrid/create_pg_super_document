@@ -1,7 +1,7 @@
 # pqsecure_initialize
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 138 - 152
+[src/interfaces/libpq/fe-secure.c:138-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L138-L152)
 
 ## Overview
 Initializes the global SSL context for a PostgreSQL connection with configurable SSL and crypto library initialization options.

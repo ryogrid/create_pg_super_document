@@ -1,7 +1,7 @@
 # numeric_gt
 
 ## Location
-src/backend/utils/adt/numeric.c: 2461 - 2475
+[src/backend/utils/adt/numeric.c:2461-2475](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2461-L2475)
 
 ## Overview
 PostgreSQL function that compares two numeric values and returns true if the first value is greater than the second.

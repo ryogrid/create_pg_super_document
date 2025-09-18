@@ -1,7 +1,7 @@
 # executeQueryOrDie
 
 ## Location
-src/bin/pg_upgrade/server.c: 122 - 158
+[src/bin/pg_upgrade/server.c:122-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/server.c#L122-L158)
 
 ## Overview
 Executes SQL queries with formatted string support and automatic program termination on query failure.

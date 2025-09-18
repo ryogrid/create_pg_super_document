@@ -1,7 +1,7 @@
 # expand_function_arguments
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4175 - 4255
+[src/backend/optimizer/util/clauses.c:4175-4255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4175-L4255)
 
 ## Overview
 Converts named-notation function arguments to positional notation and inserts default argument values as needed during function call processing.

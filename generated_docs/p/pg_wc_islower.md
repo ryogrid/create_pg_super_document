@@ -1,7 +1,7 @@
 # pg_wc_islower
 
 ## Location
-src/backend/regex/regc_pg_locale.c: 439 - 472
+[src/backend/regex/regc_pg_locale.c:439-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_pg_locale.c#L439-L472)
 
 ## Overview
 Determines whether a given wide character is a lowercase letter, handling multiple locale and encoding strategies for PostgreSQL's regex engine.

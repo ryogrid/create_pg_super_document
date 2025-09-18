@@ -1,7 +1,7 @@
 # exec_command_C
 
 ## Location
-src/bin/psql/command.c: 521 - 553
+[src/bin/psql/command.c:521-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L521-L553)
 
 ## Overview
 exec_command_C implements the \C backslash command that overrides the table title in PostgreSQL psql output formatting (formerly used to change HTML caption).

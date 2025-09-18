@@ -1,7 +1,7 @@
 # CheckPointGuts
 
 ## Location
-src/backend/access/transam/xlog.c: 7504 - 7543
+[src/backend/access/transam/xlog.c:7504-7543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L7504-L7543)
 
 ## Overview
 Performs the core checkpoint work by systematically flushing all dirty data from shared memory to disk across multiple PostgreSQL subsystems.

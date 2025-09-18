@@ -1,7 +1,7 @@
 # xl_btree_unlink_page
 
 ## Location
-src/include/access/nbtxlog.h: 310 - 329
+[src/include/access/nbtxlog.h:310-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L310-L329)
 
 ## Overview
 WAL record structure for the second stage of B-tree page deletion, permanently unlinking a page from its siblings and marking it as deleted tombstone for safe reclamation.

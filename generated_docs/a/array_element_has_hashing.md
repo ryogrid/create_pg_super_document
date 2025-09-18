@@ -1,7 +1,7 @@
 # array_element_has_hashing
 
 ## Location
-src/backend/utils/cache/typcache.c: 1443 - 1450
+[src/backend/utils/cache/typcache.c:1443-1450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1443-L1450)
 
 ## Overview
 Determines whether an array type has a hash function available for its element type.

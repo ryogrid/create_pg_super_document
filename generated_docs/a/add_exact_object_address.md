@@ -1,7 +1,7 @@
 # add_exact_object_address
 
 ## Location
-src/backend/catalog/dependency.c: 2533 - 2557
+[src/backend/catalog/dependency.c:2533-2557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2533-L2557)
 
 ## Overview
 A public utility function that adds a complete ObjectAddress structure to an ObjectAddresses array, providing a convenient interface for adding pre-constructed object references.

@@ -1,7 +1,7 @@
 # ReorderBufferCanStream
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4150 - 4158
+[src/backend/replication/logical/reorderbuffer.c:4150-4158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4150-L4158)
 
 ## Overview
 Determines whether the current logical decoding output plugin supports streaming of in-progress transactions.

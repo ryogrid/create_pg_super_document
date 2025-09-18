@@ -1,7 +1,7 @@
 # ShmemBackendArrayRemove
 
 ## Location
-src/backend/postmaster/postmaster.c: 4576 - 4593
+[src/backend/postmaster/postmaster.c:4576-4593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4576-L4593)
 
 ## Overview
 Removes a backend process entry from the shared memory backend array by marking its slot as empty.

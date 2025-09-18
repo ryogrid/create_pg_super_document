@@ -1,7 +1,7 @@
 # icnlikejoinsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 957 - 991
+[src/backend/utils/adt/like_support.c:957-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L957-L991)
 
 ## Overview
 Computes join selectivity estimates for case-insensitive LIKE pattern non-match operations (NOT ILIKE) between two tables.

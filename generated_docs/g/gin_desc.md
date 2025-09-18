@@ -1,7 +1,7 @@
 # gin_desc
 
 ## Location
-src/backend/access/rmgrdesc/gindesc.c: 72 - 179
+[src/backend/access/rmgrdesc/gindesc.c:72-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gindesc.c#L72-L179)
 
 ## Overview
 Generates human-readable descriptions of GIN (Generalized Inverted Index) WAL (Write-Ahead Log) records for debugging and analysis purposes.

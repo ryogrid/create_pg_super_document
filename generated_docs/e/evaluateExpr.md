@@ -1,7 +1,7 @@
 # evaluateExpr
 
 ## Location
-src/bin/pgbench/pgbench.c: 2837 - 2879
+[src/bin/pgbench/pgbench.c:2837-2879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2837-L2879)
 
 ## Overview
 Performs recursive evaluation of an expression in a pgbench script using the current state of variables and returns the computed value.

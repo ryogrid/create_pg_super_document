@@ -1,7 +1,7 @@
 # xl_multixact_create
 
 ## Location
-src/include/access/multixact.h: 73 - 79
+[src/include/access/multixact.h:73-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/multixact.h#L73-L79)
 
 ## Overview
 xl_multixact_create is a WAL (Write-Ahead Log) record structure used to log the creation of new multi-transaction IDs in PostgreSQL's transaction system.

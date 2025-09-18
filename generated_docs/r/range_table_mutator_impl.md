@@ -1,7 +1,7 @@
 # range_table_mutator_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 3841 - 3909
+[src/backend/nodes/nodeFuncs.c:3841-3909](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L3841-L3909)
 
 ## Overview
 A core PostgreSQL function that performs tree mutation operations specifically on a query's range table, supporting the broader query tree mutation infrastructure.

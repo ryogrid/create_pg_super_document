@@ -1,7 +1,7 @@
 # heapam_relation_copy_data
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 633 - 685
+[src/backend/access/heap/heapam_handler.c:633-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L633-L685)
 
 ## Overview
 This function creates a complete physical copy of a heap relation to a new file location, including all forks, while properly handling WAL logging and buffer management.

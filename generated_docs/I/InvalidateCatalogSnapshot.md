@@ -1,7 +1,7 @@
 # InvalidateCatalogSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 422 - 442
+[src/backend/utils/time/snapmgr.c:422-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L422-L442)
 
 ## Overview
 Marks the current catalog snapshot as invalid and removes it from the registered snapshots, forcing creation of a fresh snapshot on next catalog access.

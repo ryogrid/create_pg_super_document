@@ -1,7 +1,7 @@
 # findchar
 
 ## Location
-src/backend/tsearch/spell.c: 229 - 241
+[src/backend/tsearch/spell.c:229-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L229-L241)
 
 ## Overview
 A multibyte-aware character search function that locates the first occurrence of a specified ASCII character in a string, used in PostgreSQL's dictionary file parsing.

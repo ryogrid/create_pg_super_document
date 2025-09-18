@@ -1,7 +1,7 @@
 # mask_page_lsn_and_checksum
 
 ## Location
-src/backend/access/common/bufmask.c: 31 - 45
+[src/backend/access/common/bufmask.c:31-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/bufmask.c#L31-L45)
 
 ## Overview
 Masks out the LSN and checksum fields in a page header to facilitate consistency checks between pages that may have different LSNs due to concurrent operations.

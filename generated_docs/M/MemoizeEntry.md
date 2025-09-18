@@ -1,7 +1,7 @@
 # MemoizeEntry
 
 ## Location
-src/backend/executor/nodeMemoize.c: 115 - 123
+[src/backend/executor/nodeMemoize.c:115-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L115-L123)
 
 ## Overview
 MemoizeEntry is the main data structure stored in PostgreSQL's memoization hash table, containing cached results and metadata for a specific set of input parameters.

@@ -1,7 +1,7 @@
 # dsm_control_segment_sane
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1237 - 1254
+[src/backend/storage/ipc/dsm.c:1237-1254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1237-L1254)
 
 ## Overview
 Performs sanity checks on a DSM control segment to verify its basic integrity and ensure safe iteration over its contents without memory access violations.

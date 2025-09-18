@@ -1,7 +1,7 @@
 # bms_member_index
 
 ## Location
-src/backend/nodes/bitmapset.c: 539 - 581
+[src/backend/nodes/bitmapset.c:539-581](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L539-L581)
 
 ## Overview
 Determines the 0-based index position of a specific member within a bitmap set, counting only the set bits that precede the target member.

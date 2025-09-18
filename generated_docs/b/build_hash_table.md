@@ -1,7 +1,7 @@
 # build_hash_table
 
 ## Location
-src/backend/executor/nodeMemoize.c: 283 - 301
+[src/backend/executor/nodeMemoize.c:283-301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L283-L301)
 
 ## Overview
 Constructs a single hash table for a specific grouping set in the aggregation executor node, used for hash-based grouping operations.

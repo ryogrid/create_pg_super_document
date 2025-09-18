@@ -1,7 +1,7 @@
 # pg_dsplen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1030 - 1036
+[src/backend/utils/mb/mbutils.c:1030-1036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1030-L1036)
 
 ## Overview
 Returns the display length (width) of a multibyte character in terms of screen columns.

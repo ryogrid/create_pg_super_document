@@ -1,7 +1,7 @@
 # PerformRadiusTransaction
 
 ## Location
-src/backend/libpq/auth.c: 2942 - 3261
+[src/backend/libpq/auth.c:2942-3261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2942-L3261)
 
 ## Overview
 Executes the complete RADIUS authentication protocol transaction including packet construction, network communication, and response validation.

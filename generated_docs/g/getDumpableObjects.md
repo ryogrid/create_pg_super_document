@@ -1,7 +1,7 @@
 # getDumpableObjects
 
 ## Location
-src/bin/pg_dump/common.c: 786 - 806
+[src/bin/pg_dump/common.c:786-806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L786-L806)
 
 ## Overview
 Builds an array of pointers to all known dumpable objects by creating a modifiable copy of the internal object mapping.

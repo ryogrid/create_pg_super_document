@@ -1,7 +1,7 @@
 # pqTraceOutput_Parse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 407 - 420
+[src/interfaces/libpq/fe-trace.c:407-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L407-L420)
 
 ## Overview
 Outputs formatted trace information for PostgreSQL Parse messages, displaying the prepared statement name, SQL query, and parameter type specifications for statement preparation.

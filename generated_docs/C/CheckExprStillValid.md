@@ -1,7 +1,7 @@
 # CheckExprStillValid
 
 ## Location
-src/backend/executor/execExprInterp.c: 1935 - 1985
+[src/backend/executor/execExprInterp.c:1935-1985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L1935-L1985)
 
 ## Overview
 Validates that variable references in an expression remain compatible with the current schema by checking each variable operation against its corresponding tuple slot.

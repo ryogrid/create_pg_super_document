@@ -1,7 +1,7 @@
 # ValuesRecheck
 
 ## Location
-src/backend/executor/nodeValuesscan.c: 180 - 195
+[src/backend/executor/nodeValuesscan.c:180-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeValuesscan.c#L180-L195)
 
 ## Overview
 ValuesRecheck is a static function that serves as the access method routine to recheck a tuple during EvalPlanQual operations for VALUES scans.

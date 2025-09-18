@@ -1,7 +1,7 @@
 # inet_net_pton_ipv4
 
 ## Location
-src/backend/utils/adt/inet_net_pton.c: 260 - 348
+[src/backend/utils/adt/inet_net_pton.c:260-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/inet_net_pton.c#L260-L348)
 
 ## Overview
 Converts IPv4 network addresses from presentation format to network format, accepting standard dotted decimal notation with optional CIDR suffix and allowing host addresses with netmasks.

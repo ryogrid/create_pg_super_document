@@ -1,7 +1,7 @@
 # range_intersect_agg_transfn
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1219 - 1248
+[src/backend/utils/adt/rangetypes.c:1219-1248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1219-L1248)
 
 ## Overview
 Transition function for a range intersection aggregate that progressively computes the intersection of multiple ranges in an aggregate operation.

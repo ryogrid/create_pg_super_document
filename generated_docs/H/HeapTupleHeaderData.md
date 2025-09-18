@@ -1,7 +1,7 @@
 # HeapTupleHeaderData
 
 ## Location
-src/include/access/htup_details.h: 153 - 165
+[src/include/access/htup_details.h:153-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/htup_details.h#L153-L165)
 
 ## Overview
 HeapTupleHeaderData is the fundamental header structure for heap tuples in PostgreSQL, containing all metadata necessary for transaction visibility, tuple identification, and data layout information.

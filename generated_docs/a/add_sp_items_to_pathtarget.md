@@ -1,7 +1,7 @@
 # add_sp_items_to_pathtarget
 
 ## Location
-src/backend/optimizer/util/tlist.c: 1248 - 1258
+[src/backend/optimizer/util/tlist.c:1248-1258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L1248-L1258)
 
 ## Overview
 Applies add_sp_item_to_pathtarget to each element of a list, efficiently adding multiple split_pathtarget_items to a PathTarget.

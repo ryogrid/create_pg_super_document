@@ -1,7 +1,7 @@
 # RT_DETACH
 
 ## Location
-src/include/lib/radixtree.h: 1926 - 1933
+[src/include/lib/radixtree.h:1926-1933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1926-L1933)
 
 ## Overview
 RT_DETACH detaches from a shared memory radix tree by cleaning up the local tree structure and associated memory contexts.

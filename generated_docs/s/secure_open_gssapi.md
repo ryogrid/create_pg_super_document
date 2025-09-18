@@ -1,7 +1,7 @@
 # secure_open_gssapi
 
 ## Location
-src/backend/libpq/be-secure-gssapi.c: 502 - 740
+[src/backend/libpq/be-secure-gssapi.c:502-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-gssapi.c#L502-L740)
 
 ## Overview
 Establishes a GSSAPI-encrypted connection by performing the complete GSSAPI authentication handshake with the client.

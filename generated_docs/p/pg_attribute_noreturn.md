@@ -1,7 +1,7 @@
 # pg_attribute_noreturn
 
 ## Location
-src/backend/replication/logical/tablesync.c: 143 - 183
+[src/backend/replication/logical/tablesync.c:143-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L143-L183)
 
 ## Overview
 A preprocessor macro that applies the noreturn attribute to functions, indicating that the function never returns control to its caller.

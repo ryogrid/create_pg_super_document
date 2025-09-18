@@ -1,7 +1,7 @@
 # agg_retrieve_hash_table
 
 ## Location
-src/backend/executor/nodeAgg.c: 2746 - 2770
+[src/backend/executor/nodeAgg.c:2746-2770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2746-L2770)
 
 ## Overview
 agg_retrieve_hash_table manages the retrieval phase of hash aggregation by coordinating between in-memory hash table retrieval and processing of spilled batches until all aggregated groups are returned.

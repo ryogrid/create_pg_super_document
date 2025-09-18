@@ -1,7 +1,7 @@
 # GetLockStatusData
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3621 - 3812
+[src/backend/storage/lmgr/lock.c:3621-3812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3621-L3812)
 
 ## Overview
 GetLockStatusData returns a summary of the lock manager's internal status for use in user-level reporting functions, providing a snapshot of all currently held and waiting locks in the system.

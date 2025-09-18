@@ -1,7 +1,7 @@
 # SendTablespaceList
 
 ## Location
-src/backend/backup/basebackup_copy.c: 378 - 422
+[src/backend/backup/basebackup_copy.c:378-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L378-L422)
 
 ## Overview
 SendTablespaceList is a static function that sends a result set describing the tablespace list via the PostgreSQL libpq protocol during base backup operations.

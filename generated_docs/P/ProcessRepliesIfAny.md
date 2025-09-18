@@ -1,7 +1,7 @@
 # ProcessRepliesIfAny
 
 ## Location
-src/backend/replication/walsender.c: 2225 - 2337
+[src/backend/replication/walsender.c:2225-2337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2225-L2337)
 
 ## Overview
 ProcessRepliesIfAny handles incoming messages from standby connections during WAL streaming, processing client replies and managing connection state in a non-blocking manner.

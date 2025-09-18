@@ -1,7 +1,7 @@
 # grow_memtuples
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 578 - 707
+[src/backend/utils/sort/tuplestore.c:578-707](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L578-L707)
 
 ## Overview
 Attempts to grow the memory tuple array in a tuplesort state within memory constraints, using adaptive sizing strategies to maximize memory utilization.

@@ -1,7 +1,7 @@
 # xmlconcat2
 
 ## Location
-src/backend/utils/adt/xml.c: 619 - 636
+[src/backend/utils/adt/xml.c:619-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L619-L636)
 
 ## Overview
 A two-argument wrapper function for xmlconcat that handles NULL values and supports the XMLAGG aggregate function.

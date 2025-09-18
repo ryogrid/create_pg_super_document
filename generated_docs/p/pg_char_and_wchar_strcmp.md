@@ -1,7 +1,7 @@
 # pg_char_and_wchar_strcmp
 
 ## Location
-src/backend/utils/mb/wstrcmp.c: 41 - 47
+[src/backend/utils/mb/wstrcmp.c:41-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/wstrcmp.c#L41-L47)
 
 ## Overview
 Compares a null-terminated char string with a null-terminated wide character (pg_wchar) string, character by character.

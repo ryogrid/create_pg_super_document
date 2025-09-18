@@ -1,7 +1,7 @@
 # trim_mergeclauses_for_inner_pathkeys
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 1938 - 2032
+[src/backend/optimizer/path/pathkeys.c:1938-2032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L1938-L2032)
 
 ## Overview
 This function trims a list of mergeclauses to include only those that work with a specified ordering for the join's inner relation.

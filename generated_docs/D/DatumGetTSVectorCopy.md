@@ -1,7 +1,7 @@
 # DatumGetTSVectorCopy
 
 ## Location
-src/include/tsearch/ts_type.h: 124 - 129
+[src/include/tsearch/ts_type.h:124-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/tsearch/ts_type.h#L124-L129)
 
 ## Overview
 Converts a PostgreSQL Datum value to a TSVector pointer, creating a modifiable copy through detoasting if the data is compressed or stored externally.

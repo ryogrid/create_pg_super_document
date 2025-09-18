@@ -1,7 +1,7 @@
 # pg_relation_is_publishable
 
 ## Location
-src/backend/catalog/pg_publication.c: 163 - 181
+[src/backend/catalog/pg_publication.c:163-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L163-L181)
 
 ## Overview
 A SQL-callable function that determines if a relation is publishable based on its OID, designed to be safe for use in tools like psql where concurrent catalog changes may occur.

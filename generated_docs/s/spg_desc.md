@@ -1,7 +1,7 @@
 # spg_desc
 
 ## Location
-src/backend/access/rmgrdesc/spgdesc.c: 20 - 131
+[src/backend/access/rmgrdesc/spgdesc.c:20-131](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/spgdesc.c#L20-L131)
 
 ## Overview
 A function that formats SP-GiST (Space-Partitioned Generalized Search Tree) WAL record descriptions into human-readable strings for debugging and logging purposes.

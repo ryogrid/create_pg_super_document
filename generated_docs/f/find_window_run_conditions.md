@@ -1,7 +1,7 @@
 # find_window_run_conditions
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 2214 - 2406
+[src/backend/optimizer/path/allpaths.c:2214-2406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L2214-L2406)
 
 ## Overview
 Analyzes window functions to determine if their monotonic properties can be used to create run conditions that short-circuit window execution based on comparison operators.

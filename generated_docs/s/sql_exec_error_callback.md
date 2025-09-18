@@ -1,7 +1,7 @@
 # sql_exec_error_callback
 
 ## Location
-src/backend/executor/functions.c: 1406 - 1487
+[src/backend/executor/functions.c:1406-1487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L1406-L1487)
 
 ## Overview
 An error context callback function that provides enhanced error reporting for SQL functions by adding call-stack traceback information and identifying the specific statement or phase where an error occurred.

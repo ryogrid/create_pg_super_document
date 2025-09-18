@@ -1,7 +1,7 @@
 # is_space
 
 ## Location
-src/timezone/zic.c: 3468 - 3485
+[src/timezone/zic.c:3468-3485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3468-L3485)
 
 ## Overview
 The is_space function determines whether a character is a whitespace character according to C locale standards, providing a portable whitespace detection utility.

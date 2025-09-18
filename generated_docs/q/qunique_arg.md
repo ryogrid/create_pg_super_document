@@ -1,7 +1,7 @@
 # qunique_arg
 
 ## Location
-src/include/lib/qunique.h: 46 - 67
+[src/include/lib/qunique.h:46-67](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/qunique.h#L46-L67)
 
 ## Overview
 A variant of qunique that removes duplicates from a pre-sorted array using a user-supplied comparator function that accepts an additional user data argument, providing compatibility with qsort_arg().

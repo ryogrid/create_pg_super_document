@@ -1,7 +1,7 @@
 # AlterDatabaseRefreshColl
 
 ## Location
-src/backend/commands/dbcommands.c: 2501 - 2597
+[src/backend/commands/dbcommands.c:2501-2597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2501-L2597)
 
 ## Overview
 AlterDatabaseRefreshColl implements the ALTER DATABASE name REFRESH COLLATION VERSION command, which updates the stored collation version information for a database to match the current system collation version.

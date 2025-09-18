@@ -1,7 +1,7 @@
 # appendConnStrVal
 
 ## Location
-src/fe_utils/string_utils.c: 698 - 742
+[src/fe_utils/string_utils.c:698-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L698-L742)
 
 ## Overview
 Appends a string value to a PostgreSQL libpq connection string with appropriate quoting and escaping for keyword/value pair syntax.

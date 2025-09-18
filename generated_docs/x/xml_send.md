@@ -1,7 +1,7 @@
 # xml_send
 
 ## Location
-src/backend/utils/adt/xml.c: 438 - 458
+[src/backend/utils/adt/xml.c:438-458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L438-L458)
 
 ## Overview
 Converts an XML value to its binary representation for transmission over the network using PostgreSQL's binary protocol.

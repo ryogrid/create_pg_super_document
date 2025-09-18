@@ -1,7 +1,7 @@
 # be_tls_get_peer_subject_name
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1516 - 1524
+[src/backend/libpq/be-secure-openssl.c:1516-1524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1516-L1524)
 
 ## Overview
 Retrieves the subject name from the peer's X.509 certificate and copies it to a provided buffer.

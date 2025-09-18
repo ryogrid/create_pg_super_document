@@ -1,7 +1,7 @@
 # heap_pre_freeze_checks
 
 ## Location
-src/backend/access/heap/heapam.c: 7306 - 7358
+[src/backend/access/heap/heapam.c:7306-7358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7306-L7358)
 
 ## Overview
 Performs expensive transaction status validation checks on tuples before executing freeze plans, ensuring that transaction IDs are in the expected committed/aborted state before freezing proceeds.

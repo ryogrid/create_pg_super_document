@@ -1,7 +1,7 @@
 # gistPopItupFromNodeBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 406 - 467
+[src/backend/access/gist/gistbuildbuffers.c:406-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L406-L467)
 
 ## Overview
 Removes one index tuple from a GiST node buffer during index construction, managing buffer pages and memory allocation in the process.

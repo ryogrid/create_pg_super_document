@@ -1,7 +1,7 @@
 # show_sort_keys
 
 ## Location
-src/backend/commands/explain.c: 2559 - 2573
+[src/backend/commands/explain.c:2559-2573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2559-L2573)
 
 ## Overview
 A specialized function for displaying the sort keys and ordering information for Sort plan nodes in PostgreSQL EXPLAIN output.

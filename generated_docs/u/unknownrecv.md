@@ -1,7 +1,7 @@
 # unknownrecv
 
 ## Location
-src/backend/utils/adt/varlena.c: 658 - 672
+[src/backend/utils/adt/varlena.c:658-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L658-L672)
 
 ## Overview
 Converts external binary format data received over the network into PostgreSQL's internal representation for the unknown data type.

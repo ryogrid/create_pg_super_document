@@ -1,7 +1,7 @@
 # ReorderBufferReturnChange
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 518 - 587
+[src/backend/replication/logical/reorderbuffer.c:518-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L518-L587)
 
 ## Overview
 Frees a ReorderBufferChange object and updates memory accounting, releasing all contained data structures and associated memory allocations.

@@ -1,7 +1,7 @@
 # PostPrepare_PgStat_Relations
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 714 - 732
+[src/backend/utils/activity/pgstat_relation.c:714-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L714-L732)
 
 ## Overview
 Unlinks transaction statistics state from nontransactional state after a transaction has been prepared for two-phase commit.

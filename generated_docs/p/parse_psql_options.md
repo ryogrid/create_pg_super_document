@@ -1,7 +1,7 @@
 # parse_psql_options
 
 ## Location
-src/bin/psql/startup.c: 483 - 747
+[src/bin/psql/startup.c:483-747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L483-L747)
 
 ## Overview
 A comprehensive command-line argument parser for psql that processes all supported options and configures the psql environment accordingly.

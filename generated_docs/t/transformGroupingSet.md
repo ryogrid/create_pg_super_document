@@ -1,7 +1,7 @@
 # transformGroupingSet
 
 ## Location
-src/backend/parser/parse_clause.c: 2528 - 2631
+[src/backend/parser/parse_clause.c:2528-2631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2528-L2631)
 
 ## Overview
 Recursively transforms a grouping set and its content, converting expression lists into lists of ressortgrouprefs and handling nested grouping sets.

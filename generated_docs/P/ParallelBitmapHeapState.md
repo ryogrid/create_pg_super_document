@@ -1,7 +1,7 @@
 # ParallelBitmapHeapState
 
 ## Location
-src/include/nodes/execnodes.h: 1784 - 1793
+[src/include/nodes/execnodes.h:1784-1793](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1784-L1793)
 
 ## Overview
 ParallelBitmapHeapState is a shared state structure that coordinates parallel bitmap heap scan operations across multiple worker processes, managing synchronized access to TID bitmap iterators and prefetching coordination.

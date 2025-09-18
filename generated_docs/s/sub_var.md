@@ -1,7 +1,7 @@
 # sub_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 8564 - 8684
+[src/backend/utils/adt/numeric.c:8564-8684](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8564-L8684)
 
 ## Overview
 Performs subtraction of two NumericVar values, handling signs and delegating to appropriate absolute value operations.

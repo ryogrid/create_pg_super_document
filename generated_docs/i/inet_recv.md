@@ -1,7 +1,7 @@
 # inet_recv
 
 ## Location
-src/backend/utils/adt/network.c: 250 - 257
+[src/backend/utils/adt/network.c:250-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L250-L257)
 
 ## Overview
 PostgreSQL type input function that deserializes inet network addresses from external binary format.

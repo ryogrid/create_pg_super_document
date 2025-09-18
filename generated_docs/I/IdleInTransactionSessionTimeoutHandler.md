@@ -1,7 +1,7 @@
 # IdleInTransactionSessionTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1418 - 1425
+[src/backend/utils/init/postinit.c:1418-1425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1418-L1425)
 
 ## Overview
 IdleInTransactionSessionTimeoutHandler is a signal handler function that responds to idle-in-transaction session timeout events by setting flags for graceful session termination when transactions remain idle for too long.

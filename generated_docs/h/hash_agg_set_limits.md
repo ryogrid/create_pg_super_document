@@ -1,7 +1,7 @@
 # hash_agg_set_limits
 
 ## Location
-src/backend/executor/nodeAgg.c: 1798 - 1855
+[src/backend/executor/nodeAgg.c:1798-1855](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1798-L1855)
 
 ## Overview
 Calculates and sets memory and group count limits for hash aggregation operations to prevent exceeding the hash_mem work_mem limit, considering the expected number of partitions required for spilling.

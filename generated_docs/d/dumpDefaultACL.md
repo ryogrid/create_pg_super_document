@@ -1,7 +1,7 @@
 # dumpDefaultACL
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15173 - 15261
+[src/bin/pg_dump/pg_dump.c:15173-15261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15173-L15261)
 
 ## Overview
 Generates ALTER DEFAULT PRIVILEGES statements to recreate default access control lists for various database object types during database restoration.

@@ -1,7 +1,7 @@
 # WalRcvShmemInit
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 54 - 74
+[src/backend/replication/walreceiverfuncs.c:54-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L54-L74)
 
 ## Overview
 Allocates and initializes the shared memory structures required for WAL receiver operations.

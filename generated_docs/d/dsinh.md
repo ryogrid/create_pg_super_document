@@ -1,7 +1,7 @@
 # dsinh
 
 ## Location
-src/backend/utils/adt/float.c: 2591 - 2619
+[src/backend/utils/adt/float.c:2591-2619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2591-L2619)
 
 ## Overview
 The  function computes the hyperbolic sine of a given floating-point argument, with robust error handling for overflow conditions.

@@ -1,7 +1,7 @@
 # _bt_binsrch_insert
 
 ## Location
-src/backend/access/nbtree/nbtsearch.c: 468 - 595
+[src/backend/access/nbtree/nbtsearch.c:468-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsearch.c#L468-L595)
 
 ## Overview
 This function performs cacheable, incremental binary search on leaf pages during insertion operations, supporting bound caching for improved performance on repeated searches.

@@ -1,7 +1,7 @@
 # texteq
 
 ## Location
-src/backend/utils/adt/varlena.c: 1619 - 1677
+[src/backend/utils/adt/varlena.c:1619-1677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1619-L1677)
 
 ## Overview
 PostgreSQL function implementing text equality comparison with optimizations for C locale and deterministic collations, supporting both bitwise and collation-aware equality testing.

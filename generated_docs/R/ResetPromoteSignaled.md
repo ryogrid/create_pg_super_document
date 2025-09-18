@@ -1,7 +1,7 @@
 # ResetPromoteSignaled
 
 ## Location
-src/backend/postmaster/startup.c: 294 - 302
+[src/backend/postmaster/startup.c:294-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L294-L302)
 
 ## Overview
 Resets the promote_signaled flag to false, clearing the promotion signal state in the startup process.

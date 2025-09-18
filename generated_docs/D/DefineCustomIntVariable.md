@@ -1,7 +1,7 @@
 # DefineCustomIntVariable
 
 ## Location
-src/backend/utils/misc/guc.c: 5166 - 5195
+[src/backend/utils/misc/guc.c:5166-5195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L5166-L5195)
 
 ## Overview
 Public API function that allows PostgreSQL extensions to define custom integer GUC variables with range validation and callback hooks.

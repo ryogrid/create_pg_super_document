@@ -1,7 +1,7 @@
 # PQisBusy
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2031 - 2061
+[src/interfaces/libpq/fe-exec.c:2031-2061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2031-L2061)
 
 ## Overview
 Public libpq function that determines whether PQgetResult would block waiting for input from the server.

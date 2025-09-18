@@ -1,7 +1,7 @@
 # HandleParallelMessages
 
 ## Location
-src/backend/access/transam/parallel.c: 1044 - 1132
+[src/backend/access/transam/parallel.c:1044-1132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1044-L1132)
 
 ## Overview
 Processes all queued protocol messages received from parallel workers, handling communication between the main backend and its parallel worker processes.

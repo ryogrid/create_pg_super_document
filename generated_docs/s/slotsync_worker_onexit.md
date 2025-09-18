@@ -1,7 +1,7 @@
 # slotsync_worker_onexit
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1190 - 1235
+[src/backend/replication/logical/slotsync.c:1190-1235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1190-L1235)
 
 ## Overview
 slotsync_worker_onexit is a comprehensive cleanup function that handles replication slot cleanup and shared memory state management when the slot synchronization worker exits.

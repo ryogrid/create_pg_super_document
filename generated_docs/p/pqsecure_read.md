@@ -1,7 +1,7 @@
 # pqsecure_read
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 182 - 207
+[src/interfaces/libpq/fe-secure.c:182-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L182-L207)
 
 ## Overview
 Reads data from a secure PostgreSQL connection, automatically selecting the appropriate reading method based on the connection's security configuration (SSL, GSS, or raw).

@@ -1,7 +1,7 @@
 # btrescan
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 359 - 416
+[src/backend/access/nbtree/nbtree.c:359-416](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L359-L416)
 
 ## Overview
 Resets and prepares a B-tree index scan with new scan keys, handling cleanup of previous scan state and initializing workspace for index-only scans when needed.

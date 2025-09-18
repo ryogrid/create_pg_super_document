@@ -1,7 +1,7 @@
 # psql_init
 
 ## Location
-src/test/regress/pg_regress_main.c: 104 - 110
+[src/test/regress/pg_regress_main.c:104-110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress_main.c#L104-L110)
 
 ## Overview
 Initializes the PostgreSQL regression test framework by setting up the default database configuration for test execution.

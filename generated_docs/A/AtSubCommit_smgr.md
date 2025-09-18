@@ -1,7 +1,7 @@
 # AtSubCommit_smgr
 
 ## Location
-src/backend/catalog/storage.c: 939 - 958
+[src/backend/catalog/storage.c:939-958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L939-L958)
 
 ## Overview
 AtSubCommit_smgr handles subtransaction commit by reassigning all pending relation deletions from the committing subtransaction to its parent transaction, ensuring proper cleanup ownership transfer.

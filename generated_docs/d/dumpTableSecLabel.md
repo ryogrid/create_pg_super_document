@@ -1,7 +1,7 @@
 # dumpTableSecLabel
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15470 - 15551
+[src/bin/pg_dump/pg_dump.c:15470-15551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15470-L15551)
 
 ## Overview
 Dumps security labels for both a specified table (or view) and its columns to the archive, generating SECURITY LABEL statements as part of the pg_dump output.

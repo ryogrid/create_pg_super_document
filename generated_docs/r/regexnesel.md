@@ -1,7 +1,7 @@
 # regexnesel
 
 ## Location
-src/backend/utils/adt/like_support.c: 839 - 847
+[src/backend/utils/adt/like_support.c:839-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L839-L847)
 
 ## Overview
 A PostgreSQL selectivity estimation function that calculates the selectivity of regular expression pattern non-match operations for query optimization purposes.

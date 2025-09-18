@@ -1,7 +1,7 @@
 # r_case_ending
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 410 - 481
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:410-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L410-L481)
 
 ## Overview
 The r_case_ending function identifies and removes various Finnish case endings from words as part of the stemming process.

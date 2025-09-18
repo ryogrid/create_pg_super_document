@@ -1,7 +1,7 @@
 # pg_current_wal_insert_lsn
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 294 - 314
+[src/backend/access/transam/xlogfuncs.c:294-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L294-L314)
 
 ## Overview
 Returns the current WAL insert location, which represents the position where new WAL records are being inserted in the Write-Ahead Log.

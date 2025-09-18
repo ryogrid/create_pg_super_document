@@ -1,7 +1,7 @@
 # pg_node_tree_send
 
 ## Location
-src/backend/utils/adt/pseudotypes.c: 344 - 377
+[src/backend/utils/adt/pseudotypes.c:344-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pseudotypes.c#L344-L377)
 
 ## Overview
 A binary output function for the pg_node_tree pseudo-type that serializes pg_node_tree values to binary format by delegating to the textsend function.

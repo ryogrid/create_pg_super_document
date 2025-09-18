@@ -1,7 +1,7 @@
 # ResetBackgroundWorkerCrashTimes
 
 ## Location
-src/backend/postmaster/bgworker.c: 585 - 636
+[src/backend/postmaster/bgworker.c:585-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L585-L636)
 
 ## Overview
 Resets background worker crash state after a crash-and-restart cycle, allowing restartable workers to restart immediately while removing non-restartable workers from the system.

@@ -1,7 +1,7 @@
 # timestamptz_trunc_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4826 - 4969
+[src/backend/utils/adt/timestamp.c:4826-4969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4826-L4969)
 
 ## Overview
 Internal implementation function that provides timezone-aware timestamp truncation functionality, shared by both `timestamptz_trunc` and `timestamptz_trunc_zone`.

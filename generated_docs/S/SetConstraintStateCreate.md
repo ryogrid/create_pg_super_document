@@ -1,7 +1,7 @@
 # SetConstraintStateCreate
 
 ## Location
-src/backend/commands/trigger.c: 5671 - 5695
+[src/backend/commands/trigger.c:5671-5695](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5671-L5695)
 
 ## Overview
 SetConstraintStateCreate creates an empty SetConstraintState structure with allocated space for a specified number of trigger states.

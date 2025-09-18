@@ -1,7 +1,7 @@
 # range_lt
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1295 - 1302
+[src/backend/utils/adt/rangetypes.c:1295-1302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1295-L1302)
 
 ## Overview
 PostgreSQL function that implements the "less than" comparison operator for range data types, returning true if the first range is less than the second range according to the B-tree ordering.

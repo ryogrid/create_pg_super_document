@@ -1,7 +1,7 @@
 # socket_comm_reset
 
 ## Location
-src/backend/libpq/pqcomm.c: 333 - 347
+[src/backend/libpq/pqcomm.c:333-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L333-L347)
 
 ## Overview
 Resets the libpq communication state during error recovery, clearing the busy flag to allow communication to resume after an error condition.

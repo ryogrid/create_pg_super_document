@@ -1,7 +1,7 @@
 # pgstat_update_heap_dead_tuples
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 439 - 455
+[src/backend/utils/activity/pgstat_relation.c:439-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L439-L455)
 
 ## Overview
 Updates the count of dead tuples for a heap table in PostgreSQL statistics, typically used during tuple recovery operations like heap pruning.

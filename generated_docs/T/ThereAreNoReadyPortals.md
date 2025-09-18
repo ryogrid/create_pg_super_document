@@ -1,7 +1,7 @@
 # ThereAreNoReadyPortals
 
 ## Location
-src/backend/utils/mmgr/portalmem.c: 1171 - 1206
+[src/backend/utils/mmgr/portalmem.c:1171-1206](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/portalmem.c#L1171-L1206)
 
 ## Overview
 Utility function that checks whether there are any portals in PORTAL_READY status in the current session.

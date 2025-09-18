@@ -1,7 +1,7 @@
 # index_parallelscan_initialize
 
 ## Location
-src/backend/access/index/indexam.c: 490 - 522
+[src/backend/access/index/indexam.c:490-522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L490-L522)
 
 ## Overview
 The index_parallelscan_initialize function sets up and initializes a parallel index scan descriptor in shared memory, preparing it for use by multiple worker processes in parallel query execution.

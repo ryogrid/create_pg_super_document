@@ -1,7 +1,7 @@
 # SPI_cursor_open_with_args
 
 ## Location
-src/backend/executor/spi.c: 1472 - 1524
+[src/backend/executor/spi.c:1472-1524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1472-L1524)
 
 ## Overview
 SPI_cursor_open_with_args parses, plans, and opens a SQL query as a portal (cursor) in a single operation, providing a convenient interface for executing parameterized queries without pre-preparation.

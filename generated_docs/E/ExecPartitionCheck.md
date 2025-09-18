@@ -1,7 +1,7 @@
 # ExecPartitionCheck
 
 ## Location
-src/backend/executor/execMain.c: 1794 - 1846
+[src/backend/executor/execMain.c:1794-1846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1794-L1846)
 
 ## Overview
 Validates that a tuple meets the partition constraint for a given result relation, optionally emitting an error if the constraint fails.

@@ -1,7 +1,7 @@
 # shm_mq_receive
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 572 - 819
+[src/backend/storage/ipc/shm_mq.c:572-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L572-L819)
 
 ## Overview
 Receives a complete message from a shared memory message queue, handling both contiguous and fragmented data efficiently.

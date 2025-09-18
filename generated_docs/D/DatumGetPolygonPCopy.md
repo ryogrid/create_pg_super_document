@@ -1,7 +1,7 @@
 # DatumGetPolygonPCopy
 
 ## Location
-src/include/utils/geo_decls.h: 252 - 256
+[src/include/utils/geo_decls.h:252-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L252-L256)
 
 ## Overview
 DatumGetPolygonPCopy is a static inline function that extracts a POLYGON pointer from a PostgreSQL Datum value and ensures a writable copy is returned, using TOAST decompression with copy semantics for safe modification operations.

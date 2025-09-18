@@ -1,7 +1,7 @@
 # date_test_strdate
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c: 27 - 51
+[src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c:27-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_informix-rfmtdate.c#L27-L51)
 
 ## Overview
 Tests the string-to-date parsing functionality by converting a string input to a date structure and then back to a string format for validation.

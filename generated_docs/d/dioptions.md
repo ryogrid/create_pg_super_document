@@ -1,7 +1,7 @@
 # dioptions
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 224 - 235
+[src/test/modules/dummy_index_am/dummy_index_am.c:224-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L224-L235)
 
 ## Overview
 A function that parses and validates relation options for the dummy index access method, returning a DummyIndexOptions structure containing the parsed option values.

@@ -1,7 +1,7 @@
 # brenext
 
 ## Location
-src/backend/regex/regc_lex.c: 861 - 981
+[src/backend/regex/regc_lex.c:861-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_lex.c#L861-L981)
 
 ## Overview
 The  function is a lexical analyzer component that tokenizes Basic Regular Expression (BRE) syntax, handling the context-dependent interpretation of special characters and backslash escapes.

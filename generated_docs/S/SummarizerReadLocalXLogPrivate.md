@@ -1,7 +1,7 @@
 # SummarizerReadLocalXLogPrivate
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 104 - 124
+[src/backend/postmaster/walsummarizer.c:104-124](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L104-L124)
 
 ## Overview
 SummarizerReadLocalXLogPrivate is a private data structure used as context for the xlogreader's page read callback function in the WAL summarizer process.

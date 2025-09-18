@@ -1,7 +1,7 @@
 # substitute_actual_parameters_mutator
 
 ## Location
-src/backend/optimizer/util/clauses.c: 4920 - 4948
+[src/backend/optimizer/util/clauses.c:4920-4948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L4920-L4948)
 
 ## Overview
 Performs the actual tree traversal and node substitution to replace Param nodes with their corresponding actual argument expressions during function inlining.

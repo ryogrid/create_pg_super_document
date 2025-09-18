@@ -1,7 +1,7 @@
 # calc_arraycontsel
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 337 - 427
+[src/backend/utils/adt/array_selfuncs.c:337-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L337-L427)
 
 ## Overview
 Core calculation function for array containment selectivity estimation that extracts statistical data and delegates to mcelem_array_selec for the actual probability computation.

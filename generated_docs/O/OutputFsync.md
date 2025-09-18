@@ -1,7 +1,7 @@
 # OutputFsync
 
 ## Location
-src/bin/pg_basebackup/pg_recvlogical.c: 185 - 212
+[src/bin/pg_basebackup/pg_recvlogical.c:185-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_recvlogical.c#L185-L212)
 
 ## Overview
 The OutputFsync function performs synchronized writes to disk for logical replication output files, ensuring data durability at configurable intervals.

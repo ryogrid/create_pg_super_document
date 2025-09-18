@@ -1,7 +1,7 @@
 # btint2cmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 82 - 90
+[src/backend/access/nbtree/nbtcompare.c:82-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L82-L90)
 
 ## Overview
 This function provides a comparison function for 16-bit signed integer (smallint) values in PostgreSQL's B-tree index operations, returning the standard comparison result for ordering int16 values.

@@ -1,7 +1,7 @@
 # ExecIndexOnlyScanEstimate
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 706 - 725
+[src/backend/executor/nodeIndexonlyscan.c:706-725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L706-L725)
 
 ## Overview
 ExecIndexOnlyScanEstimate computes the shared memory space required for parallel index-only scan operations and registers these requirements with the parallel query dynamic shared memory (DSM) estimator.

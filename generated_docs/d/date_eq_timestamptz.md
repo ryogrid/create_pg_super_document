@@ -1,7 +1,7 @@
 # date_eq_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 844 - 852
+[src/backend/utils/adt/date.c:844-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L844-L852)
 
 ## Overview
 Compares a DATE value with a TIMESTAMPTZ value for equality, returning true if they represent the same date.

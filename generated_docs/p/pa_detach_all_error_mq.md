@@ -1,7 +1,7 @@
 # pa_detach_all_error_mq
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 622 - 641
+[src/backend/replication/logical/applyparallelworker.c:622-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L622-L641)
 
 ## Overview
 Detaches error message queues from all parallel apply workers in the worker pool, ensuring proper cleanup during worker shutdown.

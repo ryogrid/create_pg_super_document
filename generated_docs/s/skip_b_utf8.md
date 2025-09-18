@@ -1,7 +1,7 @@
 # skip_b_utf8
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 52 - 70
+[src/backend/snowball/libstemmer/utilities.c:52-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L52-L70)
 
 ## Overview
 Advances a position pointer backward by n UTF-8 characters within a symbol buffer, properly handling multi-byte UTF-8 character sequences in reverse direction.

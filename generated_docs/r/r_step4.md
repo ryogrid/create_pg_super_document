@@ -1,7 +1,7 @@
 # r_step4
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2975 - 3004
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2975-3004](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2975-L3004)
 
 ## Overview
 A complex step function in the Greek Snowball stemmer that performs multi-phase suffix transformations with conditional vowel-based replacements and word-boundary validation.

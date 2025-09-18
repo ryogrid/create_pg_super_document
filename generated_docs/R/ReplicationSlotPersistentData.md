@@ -1,7 +1,7 @@
 # ReplicationSlotPersistentData
 
 ## Location
-src/include/replication/slot.h: 63 - 130
+[src/include/replication/slot.h:63-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/slot.h#L63-L130)
 
 ## Overview
 ReplicationSlotPersistentData is a structure that represents the on-disk data of a replication slot that persists across PostgreSQL server restarts, containing all the essential information needed to maintain replication state continuity.

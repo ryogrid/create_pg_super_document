@@ -1,7 +1,7 @@
 # _ReopenArchive
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 784 - 828
+[src/bin/pg_dump/pg_backup_custom.c:784-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L784-L828)
 
 ## Overview
 A specialized function that reopens the archive file handle for parallel restore operations, maintaining the current file position while creating a new file handle.

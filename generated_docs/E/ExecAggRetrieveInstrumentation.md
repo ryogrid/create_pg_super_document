@@ -1,7 +1,7 @@
 # ExecAggRetrieveInstrumentation
 
 ## Location
-src/backend/executor/nodeAgg.c: 4742 - 4755
+[src/backend/executor/nodeAgg.c:4742-4755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L4742-L4755)
 
 ## Overview
 This function transfers aggregate statistics from DSM (Dynamic Shared Memory) to private memory, ensuring instrumentation data persists after parallel execution completes.

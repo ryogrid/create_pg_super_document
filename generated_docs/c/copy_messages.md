@@ -1,7 +1,7 @@
 # copy_messages
 
 ## Location
-src/test/modules/test_shm_mq/worker.c: 176 - 197
+[src/test/modules/test_shm_mq/worker.c:176-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/worker.c#L176-L197)
 
 ## Overview
 The core message processing loop that receives messages from an input queue and forwards them to an output queue until the connection is broken.

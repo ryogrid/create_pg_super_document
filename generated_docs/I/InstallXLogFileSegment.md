@@ -1,7 +1,7 @@
 # InstallXLogFileSegment
 
 ## Location
-src/backend/access/transam/xlog.c: 3540 - 3594
+[src/backend/access/transam/xlog.c:3540-3594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L3540-L3594)
 
 ## Overview
 Atomically installs a new XLOG segment file as a current or future log segment, supporting both newly-created segments and recycled old segments with optional free slot finding.

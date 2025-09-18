@@ -1,7 +1,7 @@
 # inline_cte_walker
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1151 - 1253
+[src/backend/optimizer/plan/subselect.c:1151-1253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1151-L1253)
 
 ## Overview
 A recursive tree walker function that traverses query nodes to locate and replace RTE_CTE references with RTE_SUBQUERY entries, performing the actual CTE inlining by substituting CTE references with their corresponding query definitions.

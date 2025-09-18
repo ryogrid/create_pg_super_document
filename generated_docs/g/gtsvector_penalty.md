@@ -1,7 +1,7 @@
 # gtsvector_penalty
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 533 - 572
+[src/backend/utils/adt/tsgistidx.c:533-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L533-L572)
 
 ## Overview
 Calculates the penalty cost for inserting a new tsvector entry into a GiST index node, used to determine the optimal insertion point that minimizes index tree expansion.

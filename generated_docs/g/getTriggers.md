@@ -1,7 +1,7 @@
 # getTriggers
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 8225 - 8420
+[src/bin/pg_dump/pg_dump.c:8225-8420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L8225-L8420)
 
 ## Overview
 Retrieves comprehensive trigger information for all dumpable tables from the PostgreSQL system catalog, handling version-specific logic and partitioned table triggers.

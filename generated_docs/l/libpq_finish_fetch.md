@@ -1,7 +1,7 @@
 # libpq_finish_fetch
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 421 - 426
+[src/bin/pg_rewind/libpq_source.c:421-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L421-L426)
 
 ## Overview
 Completes all queued file fetch operations by processing any remaining requests in the queue, ensuring all data transfers are finalized.

@@ -1,7 +1,7 @@
 # numrange_subdiff
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1639 - 1654
+[src/backend/utils/adt/rangetypes.c:1639-1654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1639-L1654)
 
 ## Overview
 Computes the difference between two numeric values for use in numeric range type operations, returning the result as a float8 value.

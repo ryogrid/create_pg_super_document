@@ -1,7 +1,7 @@
 # SlabRealloc
 
 ## Location
-src/backend/utils/mmgr/slab.c: 826 - 862
+[src/backend/utils/mmgr/slab.c:826-862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L826-L862)
 
 ## Overview
 SlabRealloc is a limited reallocation function that only allows reallocation to the same size, as slab allocators are designed for fixed-size chunks.

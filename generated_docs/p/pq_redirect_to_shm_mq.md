@@ -1,7 +1,7 @@
 # pq_redirect_to_shm_mq
 
 ## Location
-src/backend/libpq/pqmq.c: 53 - 66
+[src/backend/libpq/pqmq.c:53-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqmq.c#L53-L66)
 
 ## Overview
 Redirects frontend/backend protocol messages to a shared-memory message queue, enabling PostgreSQL parallel workers to communicate via shared memory instead of traditional sockets.

@@ -1,7 +1,7 @@
 # ProjectSet
 
 ## Location
-src/include/nodes/plannodes.h: 208 - 211
+[src/include/nodes/plannodes.h:208-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L208-L211)
 
 ## Overview
 ProjectSet is a plan node that applies projection operations involving set-returning functions (SRFs) to output tuples from an outer plan, handling the expansion of single input rows into multiple output rows.

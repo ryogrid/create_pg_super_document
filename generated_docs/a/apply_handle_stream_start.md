@@ -1,7 +1,7 @@
 # apply_handle_stream_start
 
 ## Location
-src/backend/replication/logical/worker.c: 1469 - 1604
+[src/backend/replication/logical/worker.c:1469-1604](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L1469-L1604)
 
 ## Overview
 Handles the STREAM START message in logical replication, initiating the processing of a streaming transaction and determining the appropriate handling strategy (serialize, parallel apply, or send to parallel worker).

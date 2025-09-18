@@ -1,7 +1,7 @@
 # AtEOXact_Inval
 
 ## Location
-src/backend/utils/cache/inval.c: 1026 - 1084
+[src/backend/utils/cache/inval.c:1026-1084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1026-L1084)
 
 ## Overview
 Processes queued invalidation messages at the end of a main transaction, handling both commit and abort scenarios with appropriate message distribution.

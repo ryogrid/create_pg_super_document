@@ -1,7 +1,7 @@
 # pg_collation_for
 
 ## Location
-src/backend/utils/adt/misc.c: 619 - 647
+[src/backend/utils/adt/misc.c:619-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L619-L647)
 
 ## Overview
 pg_collation_for is a SQL-callable function that implements the COLLATION FOR expression, returning the name of the collation associated with its argument.

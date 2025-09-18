@@ -1,7 +1,7 @@
 # _hash_first
 
 ## Location
-src/backend/access/hash/hashsearch.c: 288 - 445
+[src/backend/access/hash/hashsearch.c:288-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L288-L445)
 
 ## Overview
 Initiates a hash index scan by finding the first (or last for backward scans) qualifying tuple in the appropriate bucket.

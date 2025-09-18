@@ -1,7 +1,7 @@
 # bootstrap_signals
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 381 - 407
+[src/backend/bootstrap/bootstrap.c:381-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L381-L407)
 
 ## Overview
 bootstrap_signals configures signal handling for PostgreSQL bootstrap processes by setting all signals to their default behavior for simplified error handling.

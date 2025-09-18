@@ -1,7 +1,7 @@
 # pg_has_role_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4824 - 4853
+[src/backend/utils/adt/acl.c:4824-4853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4824-L4853)
 
 ## Overview
 This function checks whether a given user (roleid) has specific privileges on a target role (roleoid) by converting a text privilege string into an access control mode and performing an ACL check.

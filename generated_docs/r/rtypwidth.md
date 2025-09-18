@@ -1,7 +1,7 @@
 # rtypwidth
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 1011 - 1018
+[src/interfaces/ecpg/compatlib/informix.c:1011-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L1011-L1018)
 
 ## Overview
 rtypwidth is a stub function in PostgreSQL's ECPG Informix compatibility library that returns the display width for a given SQL type.

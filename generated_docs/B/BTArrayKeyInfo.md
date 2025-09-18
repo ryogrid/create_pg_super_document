@@ -1,7 +1,7 @@
 # BTArrayKeyInfo
 
 ## Location
-src/include/access/nbtree.h: 1032 - 1038
+[src/include/access/nbtree.h:1032-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L1032-L1038)
 
 ## Overview
 BTArrayKeyInfo manages array scan keys in B-tree index scans, tracking the current position and elements within equality-type SK_SEARCHARRAY scan keys.

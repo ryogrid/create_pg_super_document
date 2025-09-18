@@ -1,7 +1,7 @@
 # pushState
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 728 - 742
+[src/backend/utils/adt/jsonb_util.c:728-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L728-L742)
 
 ## Overview
 Creates and initializes a new parse state level for the JSONB construction stack, enabling hierarchical parsing of nested containers.

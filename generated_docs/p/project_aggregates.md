@@ -1,7 +1,7 @@
 # project_aggregates
 
 ## Location
-src/backend/executor/nodeAgg.c: 1371 - 1396
+[src/backend/executor/nodeAgg.c:1371-1396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1371-L1396)
 
 ## Overview
 Projects the result of a group whose aggregates have already been calculated, applying the HAVING clause and forming the final output tuple.

@@ -1,7 +1,7 @@
 # dlist_is_empty
 
 ## Location
-src/include/lib/ilist.h: 336 - 346
+[src/include/lib/ilist.h:336-346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L336-L346)
 
 ## Overview
 Checks whether a doubly-linked list is empty by examining the head node's next pointer for NULL or self-reference conditions.

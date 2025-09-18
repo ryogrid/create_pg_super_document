@@ -1,7 +1,7 @@
 # TidStoreUnlock
 
 ## Location
-src/backend/access/common/tidstore.c: 312 - 327
+[src/backend/access/common/tidstore.c:312-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L312-L327)
 
 ## Overview
 Releases a previously acquired lock on a TidStore, allowing other processes to acquire locks on the shared data structure.

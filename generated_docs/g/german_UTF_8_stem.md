@@ -1,7 +1,7 @@
 # german_UTF_8_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_german.c: 468 - 496
+[src/backend/snowball/libstemmer/stem_UTF_8_german.c:468-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_german.c#L468-L496)
 
 ## Overview
 The german_UTF_8_stem function is the main entry point for German language stemming using UTF-8 encoding in PostgreSQL's Snowball stemming library.

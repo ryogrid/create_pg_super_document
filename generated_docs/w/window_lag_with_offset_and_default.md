@@ -1,7 +1,7 @@
 # window_lag_with_offset_and_default
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 603 - 614
+[src/backend/utils/adt/windowfuncs.c:603-614](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L603-L614)
 
 ## Overview
 The window_lag_with_offset_and_default function implements the LAG window function with both an offset parameter and a default value, returning the value of a column from a row that is a specified number of positions before the current row, or a default value if no such row exists.

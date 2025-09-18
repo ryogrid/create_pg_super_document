@@ -1,7 +1,7 @@
 # OutputFunctionCall
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1683 - 1696
+[src/backend/utils/fmgr/fmgr.c:1683-1696](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1683-L1696)
 
 ## Overview
 OutputFunctionCall is a convenience wrapper that calls a previously-looked-up datatype output function to convert a Datum to its string representation.

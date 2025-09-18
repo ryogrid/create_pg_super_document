@@ -1,7 +1,7 @@
 # WalkInnerWith
 
 ## Location
-src/backend/parser/parse_cte.c: 812 - 862
+[src/backend/parser/parse_cte.c:812-862](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L812-L862)
 
 ## Overview
 WalkInnerWith is a static helper function that handles the recursive traversal of statements containing WITH clauses, managing the visibility rules for Common Table Expression (CTE) names based on whether the WITH clause is recursive or non-recursive.

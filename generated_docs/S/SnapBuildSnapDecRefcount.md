@@ -1,7 +1,7 @@
 # SnapBuildSnapDecRefcount
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 467 - 498
+[src/backend/replication/logical/snapbuild.c:467-498](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L467-L498)
 
 ## Overview
 Decrements the reference count of a snapshot and automatically frees the snapshot when the reference count reaches zero, providing safe memory management for shared snapshots.

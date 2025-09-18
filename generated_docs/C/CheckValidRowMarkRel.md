@@ -1,7 +1,7 @@
 # CheckValidRowMarkRel
 
 ## Location
-src/backend/executor/execMain.c: 1131 - 1195
+[src/backend/executor/execMain.c:1131-1195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1131-L1195)
 
 ## Overview
 Validates that a proposed rowmark target relation is a legal target for row locking operations, checking relation types and FDW capabilities to ensure proper access control.

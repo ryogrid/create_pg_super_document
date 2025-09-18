@@ -1,7 +1,7 @@
 # heap_expand_tuple
 
 ## Location
-src/backend/access/common/heaptuple.c: 1065 - 1079
+[src/backend/access/common/heaptuple.c:1065-1079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1065-L1079)
 
 ## Overview
 Public wrapper function that creates an expanded HeapTuple from a source tuple with fewer attributes, using default values for missing attributes.

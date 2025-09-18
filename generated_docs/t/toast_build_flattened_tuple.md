@@ -1,7 +1,7 @@
 # toast_build_flattened_tuple
 
 ## Location
-src/backend/access/heap/heaptoast.c: 563 - 625
+[src/backend/access/heap/heaptoast.c:563-625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heaptoast.c#L563-L625)
 
 ## Overview
 Builds a heap tuple from Datum arrays while expanding any external TOAST pointers to create a tuple with no out-of-line references.

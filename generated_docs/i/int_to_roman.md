@@ -1,7 +1,7 @@
 # int_to_roman
 
 ## Location
-src/backend/utils/adt/formatting.c: 5238 - 5286
+[src/backend/utils/adt/formatting.c:5238-5286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5238-L5286)
 
 ## Overview
 Converts an integer number to its Roman numeral representation as a string.

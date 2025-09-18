@@ -1,7 +1,7 @@
 # get_base_conninfo
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 271 - 314
+[src/bin/pg_basebackup/pg_createsubscriber.c:271-314](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L271-L314)
 
 ## Overview
 Parses and validates a PostgreSQL connection string, returning a base connection string with the database name removed, optionally extracting the database name separately.

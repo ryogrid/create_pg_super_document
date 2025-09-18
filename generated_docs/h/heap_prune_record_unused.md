@@ -1,7 +1,7 @@
 # heap_prune_record_unused
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1297 - 1318
+[src/backend/access/heap/pruneheap.c:1297-1318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1297-L1318)
 
 ## Overview
 Records a line pointer that should be marked as unused (LP_UNUSED) during heap pruning, enabling immediate reclamation of space occupied by dead tuples.

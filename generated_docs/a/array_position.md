@@ -1,7 +1,7 @@
 # array_position
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1225 - 1230
+[src/backend/utils/adt/array_userfuncs.c:1225-1230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1225-L1230)
 
 ## Overview
 Returns the position (index) of a specified value within a PostgreSQL array using IS NOT DISTINCT FROM semantics for comparison.

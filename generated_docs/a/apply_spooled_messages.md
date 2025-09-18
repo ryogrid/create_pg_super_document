@@ -1,7 +1,7 @@
 # apply_spooled_messages
 
 ## Location
-src/backend/replication/logical/worker.c: 2003 - 2132
+[src/backend/replication/logical/worker.c:2003-2132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L2003-L2132)
 
 ## Overview
 apply_spooled_messages processes spooled replication messages from a file for a committed or prepared streaming transaction in PostgreSQL logical replication, replaying all changes sequentially.

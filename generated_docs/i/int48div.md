@@ -1,7 +1,7 @@
 # int48div
 
 ## Location
-src/backend/utils/adt/int8.c: 1013 - 1031
+[src/backend/utils/adt/int8.c:1013-1031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1013-L1031)
 
 ## Overview
 Divides a 32-bit integer (int4) by a 64-bit integer (int8) and returns a 64-bit integer result with division by zero checking.

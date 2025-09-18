@@ -1,7 +1,7 @@
 # json_array_elements
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2294 - 2299
+[src/backend/utils/adt/jsonfuncs.c:2294-2299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2294-L2299)
 
 ## Overview
 A PostgreSQL SQL-callable function that extracts elements from a JSON array and returns them as a set of JSON values.

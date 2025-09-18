@@ -1,7 +1,7 @@
 # writetup_cluster
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 1355 - 1369
+[src/backend/utils/sort/tuplesortvariants.c:1355-1369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L1355-L1369)
 
 ## Overview
 Writes a heap tuple to a logical tape during the CLUSTER sort operation, storing the tuple data along with its physical location information for later retrieval.

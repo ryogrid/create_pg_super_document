@@ -1,7 +1,7 @@
 # partition_rbound_datum_cmp
 
 ## Location
-src/backend/partitioning/partbounds.c: 3556 - 3586
+[src/backend/partitioning/partbounds.c:3556-3586](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3556-L3586)
 
 ## Overview
 Compares a range partition bound against a tuple's partitioning key values to determine the relative ordering for tuple routing and partition pruning operations.

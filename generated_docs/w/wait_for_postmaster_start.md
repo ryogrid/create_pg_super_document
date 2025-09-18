@@ -1,7 +1,7 @@
 # wait_for_postmaster_start
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 592 - 708
+[src/bin/pg_ctl/pg_ctl.c:592-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L592-L708)
 
 ## Overview
 Waits for the PostgreSQL postmaster to complete its startup process and become ready to accept connections, monitoring the postmaster.pid file and process status.

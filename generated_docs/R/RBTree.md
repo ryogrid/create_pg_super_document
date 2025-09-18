@@ -1,7 +1,7 @@
 # RBTree
 
 ## Location
-src/backend/lib/rbtree.c: 41 - 60
+[src/backend/lib/rbtree.c:41-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/rbtree.c#L41-L60)
 
 ## Overview
 RBTree is a control structure that represents a generic Red-Black binary tree implementation in PostgreSQL, providing a balanced binary search tree with guaranteed O(log n) performance for search, insert, and delete operations.

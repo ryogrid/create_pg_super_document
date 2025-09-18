@@ -1,7 +1,7 @@
 # LookupGXact
 
 ## Location
-src/backend/access/transam/twophase.c: 2624 - 2674
+[src/backend/access/transam/twophase.c:2624-2674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/twophase.c#L2624-L2674)
 
 ## Overview
 LookupGXact checks if a prepared transaction with the given Global Transaction ID (GID), LSN, and timestamp exists in the current PostgreSQL instance's prepared transaction list.

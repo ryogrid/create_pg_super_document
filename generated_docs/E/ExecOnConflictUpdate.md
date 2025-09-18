@@ -1,7 +1,7 @@
 # ExecOnConflictUpdate
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 2544 - 2763
+[src/backend/executor/nodeModifyTable.c:2544-2763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L2544-L2763)
 
 ## Overview
 ExecOnConflictUpdate handles the UPDATE portion of INSERT ON CONFLICT DO UPDATE commands by attempting to lock and update the conflicting tuple if the ON CONFLICT condition is satisfied.

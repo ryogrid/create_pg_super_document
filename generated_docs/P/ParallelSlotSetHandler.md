@@ -1,7 +1,7 @@
 # ParallelSlotSetHandler
 
 ## Location
-src/include/fe_utils/parallel_slot.h: 47 - 54
+[src/include/fe_utils/parallel_slot.h:47-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/parallel_slot.h#L47-L54)
 
 ## Overview
 Sets a result handler callback function and its context for a parallel slot, enabling custom processing of query results when the slot completes its operation.

@@ -1,7 +1,7 @@
 # get_float4_nan
 
 ## Location
-src/include/utils/float.h: 111 - 122
+[src/include/utils/float.h:111-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L111-L122)
 
 ## Overview
 Returns a single-precision floating-point Not-a-Number (NaN) value using platform-appropriate methods.

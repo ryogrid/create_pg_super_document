@@ -1,7 +1,7 @@
 # ri_PlanCheck
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2269 - 2311
+[src/backend/utils/adt/ri_triggers.c:2269-2311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2269-L2311)
 
 ## Overview
 Prepares and caches execution plans for referential integrity constraint checking queries with proper security context switching.

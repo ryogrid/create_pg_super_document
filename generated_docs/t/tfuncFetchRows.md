@@ -1,7 +1,7 @@
 # tfuncFetchRows
 
 ## Location
-src/backend/executor/nodeTableFuncscan.c: 268 - 339
+[src/backend/executor/nodeTableFuncscan.c:268-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTableFuncscan.c#L268-L339)
 
 ## Overview
 This static function reads rows from a TableFunc producer by initializing the table function, evaluating the document expression, and loading all resulting rows into a tuplestore.

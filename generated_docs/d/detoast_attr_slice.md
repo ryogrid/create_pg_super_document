@@ -1,7 +1,7 @@
 # detoast_attr_slice
 
 ## Location
-src/backend/access/common/detoast.c: 205 - 342
+[src/backend/access/common/detoast.c:205-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L205-L342)
 
 ## Overview
 A public entry point function that retrieves a specific slice (substring) of a toasted value from compression or external storage, providing efficient partial data access.

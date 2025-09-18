@@ -1,7 +1,7 @@
 # AtEOXact_Enum
 
 ## Location
-src/backend/catalog/pg_enum.c: 726 - 760
+[src/backend/catalog/pg_enum.c:726-760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_enum.c#L726-L760)
 
 ## Overview
 Performs cleanup of enum-related data structures at the end of a top-level transaction, resetting the tables that track uncommitted enum types and values.

@@ -1,7 +1,7 @@
 # ReorderBufferChangeSize
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4302 - 4386
+[src/backend/replication/logical/reorderbuffer.c:4302-4386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4302-L4386)
 
 ## Overview
 ReorderBufferChangeSize calculates the memory size of a ReorderBufferChange structure, accounting for the variable-sized data associated with different types of logical replication changes.

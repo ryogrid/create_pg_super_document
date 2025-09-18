@@ -1,7 +1,7 @@
 # dumpTableAttach
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 16808 - 16875
+[src/bin/pg_dump/pg_dump.c:16808-16875](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L16808-L16875)
 
 ## Overview
 Generates SQL commands to attach a child partition to its parent partitioned table using the ATTACH PARTITION statement.

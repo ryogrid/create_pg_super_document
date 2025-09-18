@@ -1,7 +1,7 @@
 # find_duplicate_ors
 
 ## Location
-src/backend/optimizer/prep/prepqual.c: 406 - 516
+[src/backend/optimizer/prep/prepqual.c:406-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepqual.c#L406-L516)
 
 ## Overview
 Searches for OR clauses where the inverse OR distributive law can be applied to extract common terms, and removes NULL constants from top-level AND/OR structures during qualification processing.

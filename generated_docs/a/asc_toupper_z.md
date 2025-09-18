@@ -1,7 +1,7 @@
 # asc_toupper_z
 
 ## Location
-src/backend/utils/adt/formatting.c: 2259 - 2272
+[src/backend/utils/adt/formatting.c:2259-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2259-L2272)
 
 ## Overview
 A convenience wrapper function that converts a null-terminated string to uppercase using ASCII-only character transformation.

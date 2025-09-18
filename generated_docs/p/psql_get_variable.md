@@ -1,7 +1,7 @@
 # psql_get_variable
 
 ## Location
-src/bin/psql/common.c: 176 - 266
+[src/bin/psql/common.c:176-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L176-L266)
 
 ## Overview
 Variable-fetching callback function for the flex lexer that retrieves psql variables with optional quoting and escaping for different contexts.

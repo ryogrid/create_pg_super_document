@@ -1,7 +1,7 @@
 # CreateEventTrigger
 
 ## Location
-src/backend/commands/event_trigger.c: 120 - 211
+[src/backend/commands/event_trigger.c:120-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L120-L211)
 
 ## Overview
 Creates a new event trigger in the PostgreSQL database, handling validation, permission checks, and catalog insertion for triggers that fire on specific database events.

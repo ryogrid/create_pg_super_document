@@ -1,7 +1,7 @@
 # pg_stat_get_db_checksum_failures
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1112 - 1129
+[src/backend/utils/adt/pgstatfuncs.c:1112-1129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1112-L1129)
 
 ## Overview
 Returns the number of data page checksum failures that have been detected in a specific database, indicating potential data corruption.

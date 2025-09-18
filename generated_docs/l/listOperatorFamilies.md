@@ -1,7 +1,7 @@
 # listOperatorFamilies
 
 ## Location
-src/bin/psql/describe.c: 6778 - 6866
+[src/bin/psql/describe.c:6778-6866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L6778-L6866)
 
 ## Overview
 The  function implements the  psql command to display a formatted list of operator families, with optional filtering by index access method and applicable data types.

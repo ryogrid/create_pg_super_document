@@ -1,7 +1,7 @@
 # RememberConstraintForRebuilding
 
 ## Location
-src/backend/commands/tablecmds.c: 13720 - 13759
+[src/backend/commands/tablecmds.c:13720-13759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13720-L13759)
 
 ## Overview
 RememberConstraintForRebuilding records constraint information that needs to be preserved and recreated when a constraint requires rebuilding during table alterations.

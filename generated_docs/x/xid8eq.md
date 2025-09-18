@@ -1,7 +1,7 @@
 # xid8eq
 
 ## Location
-src/backend/utils/adt/xid.c: 223 - 231
+[src/backend/utils/adt/xid.c:223-231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L223-L231)
 
 ## Overview
 The xid8eq function is a PostgreSQL built-in function that compares two 8-byte transaction IDs (xid8) for equality.

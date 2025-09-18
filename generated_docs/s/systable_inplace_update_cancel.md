@@ -1,7 +1,7 @@
 # systable_inplace_update_cancel
 
 ## Location
-src/backend/access/index/genam.c: 892 - 903
+[src/backend/access/index/genam.c:892-903](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L892-L903)
 
 ## Overview
 Cancels an in-place update operation that was initiated but not completed, releasing locks and cleaning up scan state without modifying the tuple.

@@ -1,7 +1,7 @@
 # sqrt_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 10078 - 10557
+[src/backend/utils/adt/numeric.c:10078-10557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L10078-L10557)
 
 ## Overview
 The `sqrt_var` function computes the square root of a numeric value using the Karatsuba Square Root algorithm, providing high-precision square root calculation for PostgreSQL's `NumericVar` data type.

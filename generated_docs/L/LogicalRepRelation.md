@@ -1,7 +1,7 @@
 # LogicalRepRelation
 
 ## Location
-src/include/replication/logicalproto.h: 104 - 116
+[src/include/replication/logicalproto.h:104-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L104-L116)
 
 ## Overview
 LogicalRepRelation is a structure that contains comprehensive metadata about a relation (table) in logical replication, storing information from the remote side to enable proper replication handling.

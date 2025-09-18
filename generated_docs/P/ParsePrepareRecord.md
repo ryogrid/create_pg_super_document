@@ -1,7 +1,7 @@
 # ParsePrepareRecord
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 239 - 281
+[src/backend/access/rmgrdesc/xactdesc.c:239-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L239-L281)
 
 ## Overview
 ParsePrepareRecord parses the WAL format of a two-phase commit prepare record into a structured format for easier processing by both backend and frontend code.

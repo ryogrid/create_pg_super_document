@@ -1,7 +1,7 @@
 # debug
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 489 - 508
+[src/backend/snowball/libstemmer/utilities.c:489-508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L489-L508)
 
 ## Overview
 A debugging utility function that prints the internal state of a Snowball stemmer environment, displaying cursor positions and string content with visual markers.

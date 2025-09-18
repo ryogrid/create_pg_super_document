@@ -1,7 +1,7 @@
 # _bt_deltasortsplits
 
 ## Location
-src/backend/access/nbtree/nbtsplitloc.c: 566 - 593
+[src/backend/access/nbtree/nbtsplitloc.c:566-593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsplitloc.c#L566-L593)
 
 ## Overview
 Calculates space utilization deltas for all candidate split points based on the current fill factor and sorts the splits by these delta values to prioritize balanced splits.

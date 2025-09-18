@@ -1,7 +1,7 @@
 # cash_div_flt8
 
 ## Location
-src/backend/utils/adt/cash.c: 760 - 772
+[src/backend/utils/adt/cash.c:760-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L760-L772)
 
 ## Overview
 Divides a PostgreSQL Cash value by a double precision floating-point number (float8), returning the result as a Cash value.

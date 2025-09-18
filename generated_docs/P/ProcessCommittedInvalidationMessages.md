@@ -1,7 +1,7 @@
 # ProcessCommittedInvalidationMessages
 
 ## Location
-src/backend/utils/cache/inval.c: 962 - 1025
+[src/backend/utils/cache/inval.c:962-1025](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L962-L1025)
 
 ## Overview
 Processes invalidation messages during transaction replay in recovery mode, handling both shared invalidation messages and relation cache initialization file invalidation.

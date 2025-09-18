@@ -1,7 +1,7 @@
 # UnregisterXactCallback
 
 ## Location
-src/backend/access/transam/xact.c: 3766 - 3786
+[src/backend/access/transam/xact.c:3766-3786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3766-L3786)
 
 ## Overview
 Removes a previously registered transaction callback function from the callback list.

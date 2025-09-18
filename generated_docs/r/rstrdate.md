@@ -1,7 +1,7 @@
 # rstrdate
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 529 - 534
+[src/interfaces/ecpg/compatlib/informix.c:529-534](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L529-L534)
 
 ## Overview
 Converts a string in mm/dd/yyyy format to a date value, providing Informix compatibility functionality in PostgreSQL's ECPG interface.

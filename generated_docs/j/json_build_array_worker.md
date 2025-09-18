@@ -1,7 +1,7 @@
 # json_build_array_worker
 
 ## Location
-src/backend/utils/adt/json.c: 1335 - 1364
+[src/backend/utils/adt/json.c:1335-1364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1335-L1364)
 
 ## Overview
 The json_build_array_worker function is the core implementation that constructs a JSON array from an array of PostgreSQL Datum values with their corresponding type and null information.

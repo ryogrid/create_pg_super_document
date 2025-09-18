@@ -1,7 +1,7 @@
 # numeric_add_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 2883 - 2940
+[src/backend/utils/adt/numeric.c:2883-2940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2883-L2940)
 
 ## Overview
 Internal implementation of numeric addition with optional error handling, providing the core arbitrary precision arithmetic logic for PostgreSQL's numeric addition operations.

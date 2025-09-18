@@ -1,7 +1,7 @@
 # init_execution_state
 
 ## Location
-src/backend/executor/functions.c: 464 - 582
+[src/backend/executor/functions.c:464-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L464-L582)
 
 ## Overview
 Sets up per-query execution state records for a SQL function by processing parsed query trees, planning them, and creating execution state structures for each command.

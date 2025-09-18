@@ -1,7 +1,7 @@
 # PQresultVerboseErrorMessage
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3435 - 3465
+[src/interfaces/libpq/fe-exec.c:3435-3465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3435-L3465)
 
 ## Overview
 PQresultVerboseErrorMessage retrieves a formatted error message from a PGresult with configurable verbosity and context visibility levels.

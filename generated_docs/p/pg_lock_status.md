@@ -1,7 +1,7 @@
 # pg_lock_status
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 93 - 465
+[src/backend/utils/adt/lockfuncs.c:93-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L93-L465)
 
 ## Overview
 pg_lock_status is a PostgreSQL system function that produces a comprehensive view of all held and awaited locks in the database, returning detailed information about each lock mode as a set-returning function.

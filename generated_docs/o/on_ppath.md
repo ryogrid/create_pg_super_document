@@ -1,7 +1,7 @@
 # on_ppath
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3166 - 3200
+[src/backend/utils/adt/geo_ops.c:3166-3200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3166-L3200)
 
 ## Overview
 This function determines whether a point lies on a path (polyline), using different algorithms depending on whether the path is open or closed.

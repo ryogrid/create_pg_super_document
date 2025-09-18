@@ -1,7 +1,7 @@
 # print_function_arguments
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3252 - 3399
+[src/backend/utils/adt/ruleutils.c:3252-3399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3252-L3399)
 
 ## Overview
 A comprehensive static helper function that formats and appends function arguments to a StringInfo buffer, supporting various argument modes, defaults, and special handling for table functions and ordered-set aggregates.

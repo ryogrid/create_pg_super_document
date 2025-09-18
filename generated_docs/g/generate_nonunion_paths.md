@@ -1,7 +1,7 @@
 # generate_nonunion_paths
 
 ## Location
-src/backend/optimizer/prep/prepunion.c: 1018 - 1207
+[src/backend/optimizer/prep/prepunion.c:1018-1207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepunion.c#L1018-L1207)
 
 ## Overview
 Generates execution paths for INTERSECT, INTERSECT ALL, EXCEPT, and EXCEPT ALL operations by recursively processing left and right operands and choosing optimal hash or sort-based strategies.

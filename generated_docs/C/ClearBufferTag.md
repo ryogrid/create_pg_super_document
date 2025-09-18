@@ -1,7 +1,7 @@
 # ClearBufferTag
 
 ## Location
-src/include/storage/buf_internals.h: 135 - 143
+[src/include/storage/buf_internals.h:135-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L135-L143)
 
 ## Overview
 Initializes a BufferTag structure by setting all its fields to invalid values, effectively clearing the tag.

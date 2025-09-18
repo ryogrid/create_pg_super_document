@@ -1,7 +1,7 @@
 # ECPGset_noind_null
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 290 - 348
+[src/interfaces/ecpg/ecpglib/misc.c:290-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L290-L348)
 
 ## Overview
 Sets variables to appropriate NULL indicator values for different ECPG data types when no indicator variable is present.

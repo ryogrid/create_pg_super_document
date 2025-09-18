@@ -1,7 +1,7 @@
 # heap_prune_chain
 
 ## Location
-src/backend/access/heap/pruneheap.c: 999 - 1200
+[src/backend/access/heap/pruneheap.c:999-1200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L999-L1200)
 
 ## Overview
 heap_prune_chain processes a HOT (Heap-Only Tuple) chain by determining the fate of each tuple in the chain and planning the appropriate pruning actions based on tuple visibility status.

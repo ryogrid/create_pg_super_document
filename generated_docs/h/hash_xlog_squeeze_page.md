@@ -1,7 +1,7 @@
 # hash_xlog_squeeze_page
 
 ## Location
-src/backend/access/hash/hash_xlog.c: 627 - 860
+[src/backend/access/hash/hash_xlog.c:627-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash_xlog.c#L627-L860)
 
 ## Overview
 Replays a hash index squeeze operation during WAL recovery, consolidating overflow pages and updating multiple related pages including bucket, overflow, bitmap, and meta pages.

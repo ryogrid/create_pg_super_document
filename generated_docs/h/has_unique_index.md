@@ -1,7 +1,7 @@
 # has_unique_index
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2208 - 2239
+[src/backend/optimizer/util/plancat.c:2208-2239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2208-L2239)
 
 ## Overview
 Detects whether a unique index exists on a specified attribute of a relation, allowing the optimizer to conclude that all non-null values of the attribute are distinct.

@@ -1,7 +1,7 @@
 # pg_atomic_uint32
 
 ## Location
-src/include/port/atomics/arch-x86.h: 63 - 66
+[src/include/port/atomics/arch-x86.h:63-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/arch-x86.h#L63-L66)
 
 ## Overview
 An atomic 32-bit unsigned integer structure that provides lock-free operations for concurrent access to integer values in PostgreSQL's multi-threaded environment.

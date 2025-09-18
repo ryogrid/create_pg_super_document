@@ -1,7 +1,7 @@
 # CheckForSerializableConflictOut
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 4013 - 4155
+[src/backend/storage/lmgr/predicate.c:4013-4155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L4013-L4155)
 
 ## Overview
 Detects and handles read-write conflicts in serializable snapshot isolation by checking if a read operation conflicts with a concurrent transaction's write operation.

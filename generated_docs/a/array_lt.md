@@ -1,7 +1,7 @@
 # array_lt
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3937 - 3942
+[src/backend/utils/adt/arrayfuncs.c:3937-3942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3937-L3942)
 
 ## Overview
 array_lt is a PostgreSQL function that determines whether one array is less than another array based on lexicographic comparison.

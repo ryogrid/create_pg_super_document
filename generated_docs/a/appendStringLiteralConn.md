@@ -1,7 +1,7 @@
 # appendStringLiteralConn
 
 ## Location
-src/fe_utils/string_utils.c: 446 - 483
+[src/fe_utils/string_utils.c:446-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L446-L483)
 
 ## Overview
 Converts a string value to a properly escaped SQL string literal using connection-specific encoding and syntax rules, with special handling for escape sequences.

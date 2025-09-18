@@ -1,7 +1,7 @@
 # ExecInitExpr
 
 ## Location
-src/backend/executor/execExpr.c: 135 - 171
+[src/backend/executor/execExpr.c:135-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L135-L171)
 
 ## Overview
 ExecInitExpr prepares an expression tree for execution by building and returning an ExprState that implements the given expression node tree for subsequent evaluation.

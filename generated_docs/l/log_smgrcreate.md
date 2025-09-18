@@ -1,7 +1,7 @@
 # log_smgrcreate
 
 ## Location
-src/backend/catalog/storage.c: 186 - 205
+[src/backend/catalog/storage.c:186-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L186-L205)
 
 ## Overview
 log_smgrcreate writes a WAL record documenting the creation of a storage manager file, ensuring crash recovery can recreate the physical file if needed.

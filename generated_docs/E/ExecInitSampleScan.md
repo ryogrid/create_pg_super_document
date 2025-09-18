@@ -1,7 +1,7 @@
 # ExecInitSampleScan
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 93 - 178
+[src/backend/executor/nodeSamplescan.c:93-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L93-L178)
 
 ## Overview
 ExecInitSampleScan initializes a sample scan executor node, setting up all necessary state, expressions, and table sampling infrastructure required for executing TABLESAMPLE operations.

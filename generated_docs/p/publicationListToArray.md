@@ -1,7 +1,7 @@
 # publicationListToArray
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 549 - 578
+[src/backend/commands/subscriptioncmds.c:549-578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L549-L578)
 
 ## Overview
 Converts a List of publication name strings into a PostgreSQL text array suitable for storage in system catalogs or passing to SQL functions.

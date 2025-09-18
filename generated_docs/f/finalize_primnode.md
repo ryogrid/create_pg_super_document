@@ -1,7 +1,7 @@
 # finalize_primnode
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 2890 - 2973
+[src/backend/optimizer/plan/subselect.c:2890-2973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L2890-L2973)
 
 ## Overview
 Recursively traverses an expression tree to identify and collect all PARAM_EXEC parameter IDs that appear or will appear during plan execution.

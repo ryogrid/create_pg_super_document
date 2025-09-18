@@ -1,7 +1,7 @@
 # ListComparatorForWalSummaryFiles
 
 ## Location
-src/backend/backup/walsummary.c: 347 - 353
+[src/backend/backup/walsummary.c:347-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L347-L353)
 
 ## Overview
 A static comparator function used to sort lists of WalSummaryFile objects in ascending order by their start_lsn values.

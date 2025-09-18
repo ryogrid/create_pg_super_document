@@ -1,7 +1,7 @@
 # build_simple_rel
 
 ## Location
-src/backend/optimizer/util/relnode.c: 192 - 413
+[src/backend/optimizer/util/relnode.c:192-413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L192-L413)
 
 ## Overview
 Constructs a new RelOptInfo structure for a base relation or other member relation, initializing all necessary fields and handling inheritance hierarchies.

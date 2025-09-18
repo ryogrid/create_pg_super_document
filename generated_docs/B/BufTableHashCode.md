@@ -1,7 +1,7 @@
 # BufTableHashCode
 
 ## Location
-src/backend/storage/buffer/buf_table.c: 78 - 89
+[src/backend/storage/buffer/buf_table.c:78-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_table.c#L78-L89)
 
 ## Overview
 Computes the hash code for a BufferTag, which is used to determine the appropriate hash bucket and buffer partition for efficient buffer management operations.

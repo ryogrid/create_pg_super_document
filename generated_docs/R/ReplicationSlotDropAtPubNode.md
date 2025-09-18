@@ -1,7 +1,7 @@
 # ReplicationSlotDropAtPubNode
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 1844 - 1898
+[src/backend/commands/subscriptioncmds.c:1844-1898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L1844-L1898)
 
 ## Overview
 ReplicationSlotDropAtPubNode drops a replication slot on the publisher node through an established replication connection, with support for graceful error handling.

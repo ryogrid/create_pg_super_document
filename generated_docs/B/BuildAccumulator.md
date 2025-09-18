@@ -1,7 +1,7 @@
 # BuildAccumulator
 
 ## Location
-src/include/access/gin_private.h: 439 - 452
+[src/include/access/gin_private.h:439-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L439-L452)
 
 ## Overview
 BuildAccumulator is a structure used during GIN index bulk loading operations to efficiently accumulate and organize entry data before inserting it into the index structure.

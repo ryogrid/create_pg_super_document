@@ -1,7 +1,7 @@
 # MemoryChunkIsExternal
 
 ## Location
-src/include/utils/memutils_memorychunk.h: 204 - 221
+[src/include/utils/memutils_memorychunk.h:204-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memutils_memorychunk.h#L204-L221)
 
 ## Overview
 Determines whether a MemoryChunk is marked as externally managed by checking the external flag in its header mask.

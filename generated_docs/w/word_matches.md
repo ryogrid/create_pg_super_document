@@ -1,7 +1,7 @@
 # word_matches
 
 ## Location
-src/bin/psql/tab-complete.c: 1468 - 1473
+[src/bin/psql/tab-complete.c:1468-1473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1468-L1473)
 
 ## Overview
 A pattern matching function used in PostgreSQL's psql tab completion system to determine if a word matches a given pattern with support for wildcards, alternatives, and case sensitivity control.

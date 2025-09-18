@@ -1,7 +1,7 @@
 # pqSaveErrorResult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 803 - 819
+[src/interfaces/libpq/fe-exec.c:803-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L803-L819)
 
 ## Overview
 pqSaveErrorResult is an internal libpq function that marks a connection as having an error condition when returning a failure code is impractical, ensuring error state is properly tracked for later reporting.

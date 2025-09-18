@@ -1,7 +1,7 @@
 # InitDiscoverCompressFileHandle
 
 ## Location
-src/bin/pg_dump/compress_io.c: 241 - 289
+[src/bin/pg_dump/compress_io.c:241-289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L241-L289)
 
 ## Overview
 Opens a file for reading while automatically detecting and handling compression format based on file extension or by testing multiple compression formats when the extension is ambiguous.

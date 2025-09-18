@@ -1,7 +1,7 @@
 # PQconsumeInput
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 1984 - 2019
+[src/interfaces/libpq/fe-exec.c:1984-2019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L1984-L2019)
 
 ## Overview
 PQconsumeInput is a public libpq function that consumes any available input data from the backend server without blocking, making it available for subsequent parsing and processing.

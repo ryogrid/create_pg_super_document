@@ -1,7 +1,7 @@
 # standby_desc
 
 ## Location
-src/backend/access/rmgrdesc/standbydesc.c: 47 - 78
+[src/backend/access/rmgrdesc/standbydesc.c:47-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/standbydesc.c#L47-L78)
 
 ## Overview
 Main entry point function for formatting standby-related WAL record descriptions into human-readable strings for debugging and monitoring purposes.

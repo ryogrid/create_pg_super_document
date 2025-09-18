@@ -1,7 +1,7 @@
 # PLy_init_interp
 
 ## Location
-src/pl/plpython/plpy_main.c: 138 - 157
+[src/pl/plpython/plpy_main.c:138-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L138-L157)
 
 ## Overview
 Initializes the Python interpreter environment and global data structures specifically for PL/Python execution within PostgreSQL.

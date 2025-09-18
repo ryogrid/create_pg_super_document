@@ -1,7 +1,7 @@
 # ExecReScanUnique
 
 ## Location
-src/backend/executor/nodeUnique.c: 175 - 188
+[src/backend/executor/nodeUnique.c:175-188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeUnique.c#L175-L188)
 
 ## Overview
 ExecReScanUnique resets the UNIQUE plan node to restart execution from the beginning, clearing its result tuple state and conditionally rescanning its outer subplan.

@@ -1,7 +1,7 @@
 # checkNameSpaceConflicts
 
 ## Location
-src/backend/parser/parse_relation.c: 434 - 482
+[src/backend/parser/parse_relation.c:434-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L434-L482)
 
 ## Overview
 Checks for relation-name conflicts between two namespace lists and raises an error if any conflicts are found.

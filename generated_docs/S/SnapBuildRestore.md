@@ -1,7 +1,7 @@
 # SnapBuildRestore
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 1909 - 2080
+[src/backend/replication/logical/snapbuild.c:1909-2080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L1909-L2080)
 
 ## Overview
 SnapBuildRestore loads and validates a previously serialized snapshot from disk, restoring the snapshot builder's state to enable continuation of logical replication decoding.

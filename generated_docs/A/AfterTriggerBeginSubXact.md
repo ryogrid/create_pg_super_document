@@ -1,7 +1,7 @@
 # AfterTriggerBeginSubXact
 
 ## Location
-src/backend/commands/trigger.c: 5388 - 5435
+[src/backend/commands/trigger.c:5388-5435](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5388-L5435)
 
 ## Overview
 Initializes the after-trigger subsystem state for a new subtransaction by saving the current trigger state to a transaction stack.

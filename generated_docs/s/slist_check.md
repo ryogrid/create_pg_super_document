@@ -1,7 +1,7 @@
 # slist_check
 
 ## Location
-src/backend/lib/ilist.c: 114 - 129
+[src/backend/lib/ilist.c:114-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/ilist.c#L114-L129)
 
 ## Overview
 Performs basic integrity validation of a singly-linked list by verifying the list terminates properly without infinite loops.

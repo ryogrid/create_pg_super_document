@@ -1,7 +1,7 @@
 # pg_strxfrm_libc
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2176 - 2193
+[src/backend/utils/adt/pg_locale.c:2176-2193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2176-L2193)
 
 ## Overview
 This static function performs string transformation using libc's strxfrm() or strxfrm_l() functions to generate sort keys for locale-aware string comparison.

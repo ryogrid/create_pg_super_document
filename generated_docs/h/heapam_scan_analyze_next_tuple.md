@@ -1,7 +1,7 @@
 # heapam_scan_analyze_next_tuple
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 1030 - 1172
+[src/backend/access/heap/heapam_handler.c:1030-1172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L1030-L1172)
 
 ## Overview
 This function retrieves and evaluates the next tuple during ANALYZE operations, determining its visibility status and maintaining statistical counters for live and dead tuples.

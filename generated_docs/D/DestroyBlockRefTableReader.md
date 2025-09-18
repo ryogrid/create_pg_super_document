@@ -1,7 +1,7 @@
 # DestroyBlockRefTableReader
 
 ## Location
-src/common/blkreftable.c: 773 - 789
+[src/common/blkreftable.c:773-789](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/blkreftable.c#L773-L789)
 
 ## Overview
 Releases all memory allocated for a BlockRefTableReader structure, performing proper cleanup of dynamic allocations.

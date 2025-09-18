@@ -1,7 +1,7 @@
 # findoprnd
 
 ## Location
-src/backend/utils/adt/tsquery.c: 784 - 816
+[src/backend/utils/adt/tsquery.c:784-816](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L784-L816)
 
 ## Overview
 A wrapper function that initiates the process of filling in left-offset fields for tsquery operators and detecting stop words that require cleanup.

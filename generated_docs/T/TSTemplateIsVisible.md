@@ -1,7 +1,7 @@
 # TSTemplateIsVisible
 
 ## Location
-src/backend/catalog/namespace.c: 3065 - 3076
+[src/backend/catalog/namespace.c:3065-3076](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3065-L3076)
 
 ## Overview
 TSTemplateIsVisible determines whether a text search template is visible in the current search path by checking if it would be found by an unqualified name search.

@@ -1,7 +1,7 @@
 # AlterPublicationOwner
 
 ## Location
-src/backend/commands/publicationcmds.c: 1946 - 1980
+[src/backend/commands/publicationcmds.c:1946-1980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1946-L1980)
 
 ## Overview
 Changes the ownership of a PostgreSQL publication identified by name, serving as the public interface for publication ownership changes.

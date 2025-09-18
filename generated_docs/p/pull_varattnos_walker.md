@@ -1,7 +1,7 @@
 # pull_varattnos_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 304 - 334
+[src/backend/optimizer/util/var.c:304-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L304-L334)
 
 ## Overview
 The core walker function that traverses expression trees to collect attribute numbers from Var nodes matching a specific varno at level zero.

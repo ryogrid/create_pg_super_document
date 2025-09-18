@@ -1,7 +1,7 @@
 # searchChar
 
 ## Location
-src/test/modules/spgist_name_ops/spgist_name_ops.c: 97 - 123
+[src/test/modules/spgist_name_ops/spgist_name_ops.c:97-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/spgist_name_ops/spgist_name_ops.c#L97-L123)
 
 ## Overview
 A binary search function that searches an array of int16 datums for a specific character value, returning both the search result and the insertion position.

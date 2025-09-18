@@ -1,7 +1,7 @@
 # ReindexPartitions
 
 ## Location
-src/backend/commands/indexcmds.c: 3217 - 3310
+[src/backend/commands/indexcmds.c:3217-3310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/indexcmds.c#L3217-L3310)
 
 ## Overview
 ReindexPartitions reindexes a set of partitions belonging to a partitioned table or partitioned index by processing each physical partition in separate transactions.

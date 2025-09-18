@@ -1,7 +1,7 @@
 # CopyMultiInsertInfoInit
 
 ## Location
-src/backend/commands/copyfrom.c: 258 - 282
+[src/backend/commands/copyfrom.c:258-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L258-L282)
 
 ## Overview
 CopyMultiInsertInfoInit initializes a pre-allocated CopyMultiInsertInfo structure with the necessary state and parameters for multi-insert operations, optionally setting up a buffer for non-partitioned tables.

@@ -1,7 +1,7 @@
 # Int8TransTypeData
 
 ## Location
-src/backend/utils/adt/numeric.c: 6666 - 6670
+[src/backend/utils/adt/numeric.c:6666-6670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6666-L6670)
 
 ## Overview
 Int8TransTypeData is a simple two-element structure used as the transition datatype for integer average and sum aggregates, storing both count and sum values for efficient computation.

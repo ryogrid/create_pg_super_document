@@ -1,7 +1,7 @@
 # cash_ge
 
 ## Location
-src/backend/utils/adt/cash.c: 661 - 669
+[src/backend/utils/adt/cash.c:661-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L661-L669)
 
 ## Overview
 The cash_ge function implements the greater-than-or-equal-to comparison operator for PostgreSQL's cash (money) data type, returning true if the first cash value is greater than or equal to the second.

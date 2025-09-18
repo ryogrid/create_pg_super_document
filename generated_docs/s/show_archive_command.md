@@ -1,7 +1,7 @@
 # show_archive_command
 
 ## Location
-src/backend/access/transam/xlog.c: 4765 - 4776
+[src/backend/access/transam/xlog.c:4765-4776](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L4765-L4776)
 
 ## Overview
 A GUC show hook function that displays the current archive_command value, showing "(disabled)" when archiving is inactive.

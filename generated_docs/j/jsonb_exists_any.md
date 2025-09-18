@@ -1,7 +1,7 @@
 # jsonb_exists_any
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 46 - 78
+[src/backend/utils/adt/jsonb_op.c:46-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L46-L78)
 
 ## Overview
 Tests whether any of the specified keys exist in a JSONB object or any of the specified string values exist as array elements.

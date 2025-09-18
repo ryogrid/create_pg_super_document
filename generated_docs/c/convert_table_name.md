@@ -1,7 +1,7 @@
 # convert_table_name
 
 ## Location
-src/backend/utils/adt/acl.c: 2049 - 2063
+[src/backend/utils/adt/acl.c:2049-2063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2049-L2063)
 
 ## Overview
 Converts a table name expressed as a text string to its corresponding object identifier (OID) by performing name resolution and lookup.

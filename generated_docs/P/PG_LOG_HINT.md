@@ -1,7 +1,7 @@
 # PG_LOG_HINT
 
 ## Location
-src/include/common/logging.h: 79 - 85
+[src/include/common/logging.h:79-85](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/logging.h#L79-L85)
 
 ## Overview
 PG_LOG_HINT is an enum value in the pg_log_part enumeration that represents hint messages in PostgreSQL's logging framework, providing suggestions about how to fix problems.

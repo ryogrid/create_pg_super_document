@@ -1,7 +1,7 @@
 # gistPushItupToNodeBuffer
 
 ## Location
-src/backend/access/gist/gistbuildbuffers.c: 336 - 405
+[src/backend/access/gist/gistbuildbuffers.c:336-405](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuildbuffers.c#L336-L405)
 
 ## Overview
 Adds an index tuple to a node buffer, managing page allocation, disk I/O, and buffer overflow handling during GiST index construction.

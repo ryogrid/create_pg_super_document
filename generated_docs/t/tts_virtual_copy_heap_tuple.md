@@ -1,7 +1,7 @@
 # tts_virtual_copy_heap_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 291 - 300
+[src/backend/executor/execTuples.c:291-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L291-L300)
 
 ## Overview
 Creates a HeapTuple from a VirtualTupleTableSlot by forming a tuple from the slot's values and null indicators using the slot's tuple descriptor.

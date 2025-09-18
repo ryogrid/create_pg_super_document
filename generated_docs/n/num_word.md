@@ -1,7 +1,7 @@
 # num_word
 
 ## Location
-src/backend/utils/adt/cash.c: 39 - 90
+[src/backend/utils/adt/cash.c:39-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L39-L90)
 
 ## Overview
 A private utility function that converts a Cash value (integer) to its English word representation for amounts up to 999.

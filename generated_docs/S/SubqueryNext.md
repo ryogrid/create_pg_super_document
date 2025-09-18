@@ -1,7 +1,7 @@
 # SubqueryNext
 
 ## Location
-src/backend/executor/nodeSubqueryscan.c: 46 - 66
+[src/backend/executor/nodeSubqueryscan.c:46-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSubqueryscan.c#L46-L66)
 
 ## Overview
 SubqueryNext is a static function that retrieves the next tuple from a subquery execution, serving as a workhorse function for ExecSubqueryScan.

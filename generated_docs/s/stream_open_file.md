@@ -1,7 +1,7 @@
 # stream_open_file
 
 ## Location
-src/backend/replication/logical/worker.c: 4242 - 4286
+[src/backend/replication/logical/worker.c:4242-4286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4242-L4286)
 
 ## Overview  
 Opens a file for serializing changes during logical replication streaming, creating a new file for the first segment or reopening an existing file for subsequent segments.

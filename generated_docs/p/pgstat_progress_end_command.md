@@ -1,7 +1,7 @@
 # pgstat_progress_end_command
 
 ## Location
-src/backend/utils/activity/backend_progress.c: 151 - 165
+[src/backend/utils/activity/backend_progress.c:151-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_progress.c#L151-L165)
 
 ## Overview
 Resets the progress command tracking in the current backend's status entry, signaling the end of a long-running command that was being monitored.

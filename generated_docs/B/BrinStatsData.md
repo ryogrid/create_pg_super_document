@@ -1,7 +1,7 @@
 # BrinStatsData
 
 ## Location
-src/include/access/brin.h: 32 - 36
+[src/include/access/brin.h:32-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin.h#L32-L36)
 
 ## Overview
 BrinStatsData is a PostgreSQL data structure that holds statistical information about BRIN indexes for use by the query planner in cost estimation and optimization decisions.

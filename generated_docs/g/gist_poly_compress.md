@@ -1,7 +1,7 @@
 # gist_poly_compress
 
 ## Location
-src/backend/access/gist/gistproc.c: 1035 - 1061
+[src/backend/access/gist/gistproc.c:1035-1061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L1035-L1061)
 
 ## Overview
 Compresses polygon data for GiST index storage by extracting and storing only the bounding box representation of the polygon.

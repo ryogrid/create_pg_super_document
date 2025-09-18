@@ -1,7 +1,7 @@
 # PLyLong_FromOid
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 622 - 627
+[src/pl/plpython/plpy_typeio.c:622-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L622-L627)
 
 ## Overview
 Converts a PostgreSQL Oid (Object Identifier) datum to a Python long integer object.

@@ -1,7 +1,7 @@
 # assign_ordered_set_collations
 
 ## Location
-src/backend/parser/parse_collate.c: 919 - 954
+[src/backend/parser/parse_collate.c:919-954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_collate.c#L919-L954)
 
 ## Overview
 Handles collation assignment for ordered-set aggregate functions, using a sophisticated approach to balance collation determination between direct arguments and aggregated sort columns.

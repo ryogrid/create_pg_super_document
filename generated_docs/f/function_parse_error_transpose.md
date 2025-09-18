@@ -1,7 +1,7 @@
 # function_parse_error_transpose
 
 ## Location
-src/backend/catalog/pg_proc.c: 1002 - 1068
+[src/backend/catalog/pg_proc.c:1002-1068](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_proc.c#L1002-L1068)
 
 ## Overview
 Adjusts syntax error positions occurring inside function bodies of CREATE FUNCTION or DO commands to reference the original command text or set up internal query error reporting.

@@ -1,7 +1,7 @@
 # ri_ReportViolation
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2478 - 2635
+[src/backend/utils/adt/ri_triggers.c:2478-2635](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2478-L2635)
 
 ## Overview
 Generates and reports detailed error messages for referential integrity constraint violations, with appropriate permission checking and data formatting.

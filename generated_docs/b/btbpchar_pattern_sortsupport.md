@@ -1,7 +1,7 @@
 # btbpchar_pattern_sortsupport
 
 ## Location
-src/backend/utils/adt/varchar.c: 1221 - 1234
+[src/backend/utils/adt/varchar.c:1221-1234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L1221-L1234)
 
 ## Overview
 Provides sort support functionality for BPCHAR (CHAR(n)) data type when using pattern-based comparisons with "C" collation semantics.

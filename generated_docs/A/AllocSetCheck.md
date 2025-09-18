@@ -1,7 +1,7 @@
 # AllocSetCheck
 
 ## Location
-src/backend/utils/mmgr/aset.c: 1599 - 1724
+[src/backend/utils/mmgr/aset.c:1599-1724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/aset.c#L1599-L1724)
 
 ## Overview
 Performs comprehensive consistency checking of an AllocSet memory context by walking through all chunks and validating memory integrity.

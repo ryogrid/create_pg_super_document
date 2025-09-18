@@ -1,7 +1,7 @@
 # inet_mcv_join_sel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 673 - 704
+[src/backend/utils/adt/network_selfuncs.c:673-704](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L673-L704)
 
 ## Overview
 Estimates join selectivity between two Most Common Values (MCV) lists for inet network operations by computing the exact fraction of populations that satisfy the join clause.

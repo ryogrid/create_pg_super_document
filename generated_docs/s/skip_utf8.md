@@ -1,7 +1,7 @@
 # skip_utf8
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 27 - 51
+[src/backend/snowball/libstemmer/utilities.c:27-51](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L27-L51)
 
 ## Overview
 Advances a position pointer forward by n UTF-8 characters within a symbol buffer, properly handling multi-byte UTF-8 character sequences.

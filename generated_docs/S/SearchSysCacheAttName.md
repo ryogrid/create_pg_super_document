@@ -1,7 +1,7 @@
 # SearchSysCacheAttName
 
 ## Location
-src/backend/utils/cache/syscache.c: 481 - 503
+[src/backend/utils/cache/syscache.c:481-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/syscache.c#L481-L503)
 
 ## Overview
 SearchSysCacheAttName is a specialized function that searches for an attribute by relation OID and attribute name, but excludes dropped attributes from the results.

@@ -1,7 +1,7 @@
 # ri_FetchConstraintInfo
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2058 - 2111
+[src/backend/utils/adt/ri_triggers.c:2058-2111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2058-L2111)
 
 ## Overview
 Fetches the RI_ConstraintInfo struct for a trigger's foreign key constraint, performing validation checks to ensure the constraint is properly configured.

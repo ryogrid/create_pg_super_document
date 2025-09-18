@@ -1,7 +1,7 @@
 # check_param_number
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3548 - 3566
+[src/interfaces/libpq/fe-exec.c:3548-3566](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3548-L3566)
 
 ## Overview
 A static helper function in libpq that validates whether a given parameter number is within the valid range for a prepared statement's parameter list.

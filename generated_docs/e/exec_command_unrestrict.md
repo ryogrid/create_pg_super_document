@@ -1,7 +1,7 @@
 # exec_command_unrestrict
 
 ## Location
-src/bin/psql/command.c: 2681 - 2720
+[src/bin/psql/command.c:2681-2720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2681-L2720)
 
 ## Overview
 Implements the `\unrestrict` psql command that exits restricted mode when provided with the correct key.

@@ -1,7 +1,7 @@
 # pg_encoding_dsplen
 
 ## Location
-src/common/wchar.c: 2176 - 2188
+[src/common/wchar.c:2176-2188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2176-L2188)
 
 ## Overview
 Returns the display length (visual width) of a multibyte character for proper text formatting and alignment in the specified encoding.

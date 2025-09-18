@@ -1,7 +1,7 @@
 # ExecParallelHashIncreaseNumBatches
 
 ## Location
-src/backend/executor/nodeHash.c: 1080 - 1311
+[src/backend/executor/nodeHash.c:1080-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1080-L1311)
 
 ## Overview
 ExecParallelHashIncreaseNumBatches coordinates the dynamic expansion of batch count across all parallel participants in a hash join operation when memory pressure requires repartitioning of data into more batches.

@@ -1,7 +1,7 @@
 # ReplicationSlotDropPtr
 
 ## Location
-src/backend/replication/slot.c: 885 - 991
+[src/backend/replication/slot.c:885-991](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L885-L991)
 
 ## Overview
 Permanently drops a replication slot, removing all associated files and metadata from disk and memory.

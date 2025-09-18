@@ -1,7 +1,7 @@
 # internal_load_library
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 184 - 305
+[src/backend/utils/fmgr/dfmgr.c:184-305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L184-L305)
 
 ## Overview
 This function is the core library loading mechanism that handles dynamic library loading with duplicate detection, compatibility checking, and initialization for PostgreSQL's dynamic function management system.

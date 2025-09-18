@@ -1,7 +1,7 @@
 # pg_ltoa
 
 ## Location
-src/backend/utils/adt/numutils.c: 1122 - 1141
+[src/backend/utils/adt/numutils.c:1122-1141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L1122-L1141)
 
 ## Overview
 Converts a signed 32-bit integer to its null-terminated string representation and returns the length of the resulting string.

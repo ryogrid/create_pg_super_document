@@ -1,7 +1,7 @@
 # test_multi_pipelines
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 469 - 613
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:469-613](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L469-L613)
 
 ## Overview
 Tests the execution and processing of multiple consecutive pipelines within a single pipeline mode session, validating proper synchronization and result handling.

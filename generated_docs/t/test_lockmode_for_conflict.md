@@ -1,7 +1,7 @@
 # test_lockmode_for_conflict
 
 ## Location
-src/backend/access/heap/heapam.c: 5561 - 5651
+[src/backend/access/heap/heapam.c:5561-5651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L5561-L5651)
 
 ## Overview
 test_lockmode_for_conflict determines whether the current transaction can acquire a desired lock or must wait/fail, given a hypothetical lock status held by another transaction on a tuple.

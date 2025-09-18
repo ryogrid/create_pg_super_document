@@ -1,7 +1,7 @@
 # match_network_subset
 
 ## Location
-src/backend/utils/adt/network.c: 1076 - 1172
+[src/backend/utils/adt/network.c:1076-1172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1076-L1172)
 
 ## Overview
 Generates index qualification conditions for network subset operations by creating range constraints using network_scan_first and network_scan_last functions.

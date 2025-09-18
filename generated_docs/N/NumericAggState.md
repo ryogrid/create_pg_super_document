@@ -1,7 +1,7 @@
 # NumericAggState
 
 ## Location
-src/backend/utils/adt/numeric.c: 4810 - 4823
+[src/backend/utils/adt/numeric.c:4810-4823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4810-L4823)
 
 ## Overview
 NumericAggState is a structure used to maintain state information during numeric aggregate operations in PostgreSQL, storing intermediate calculation results for functions like SUM, AVG, and statistical aggregates.

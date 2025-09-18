@@ -1,7 +1,7 @@
 # numeric_avg_deserialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5272 - 5329
+[src/backend/utils/adt/numeric.c:5272-5329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5272-L5329)
 
 ## Overview
 Deserializes a bytea back into NumericAggState for numeric aggregates that don't require sumX2, reconstructing the aggregate state from binary format.

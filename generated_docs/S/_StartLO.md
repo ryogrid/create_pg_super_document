@@ -1,7 +1,7 @@
 # _StartLO
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 371 - 390
+[src/bin/pg_dump/pg_backup_custom.c:371-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L371-L390)
 
 ## Overview
 Initializes the processing of an individual Binary Large Object (BLOB) by recording its OID and setting up compression for the large object data that will follow.

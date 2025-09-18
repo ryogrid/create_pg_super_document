@@ -1,7 +1,7 @@
 # get_restriction_qual_cost
 
 ## Location
-src/backend/optimizer/path/costsize.c: 4965 - 5006
+[src/backend/optimizer/path/costsize.c:4965-5006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L4965-L5006)
 
 ## Overview
 Computes the combined evaluation costs of a base relation's restriction qualifiers and any movable join quals pushed down to the scan.

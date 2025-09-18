@@ -1,7 +1,7 @@
 # fill_ident_view
 
 ## Location
-src/backend/utils/adt/hbafuncs.c: 521 - 573
+[src/backend/utils/adt/hbafuncs.c:521-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/hbafuncs.c#L521-L573)
 
 ## Overview
 Reads the pg_ident.conf file and fills a tuplestore with view records for the pg_ident_file_mappings system view.

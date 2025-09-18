@@ -1,7 +1,7 @@
 # bbstreamer_gzip_decompressor_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_gzip.c: 261 - 315
+[src/bin/pg_basebackup/bbstreamer_gzip.c:261-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_gzip.c#L261-L315)
 
 ## Overview
 Decompresses input gzip data in chunks and forwards the decompressed output to the next streamer in the chain when the output buffer becomes full.

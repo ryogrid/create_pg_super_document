@@ -1,7 +1,7 @@
 # get_relnatts
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1899 - 1927
+[src/backend/utils/cache/lsyscache.c:1899-1927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1899-L1927)
 
 ## Overview
 Returns the number of attributes (columns) for a given relation, or InvalidAttrNumber if the relation is not found.

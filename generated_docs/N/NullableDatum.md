@@ -1,7 +1,7 @@
 # NullableDatum
 
 ## Location
-src/include/postgres.h: 72 - 79
+[src/include/postgres.h:72-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L72-L79)
 
 ## Overview
 NullableDatum is a PostgreSQL structure that efficiently combines a Datum value with its nullness indicator in a single data structure to improve spatial locality and performance.

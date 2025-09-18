@@ -1,7 +1,7 @@
 # quote_nullable
 
 ## Location
-src/backend/utils/adt/quote.c: 125 - 132
+[src/backend/utils/adt/quote.c:125-132](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/quote.c#L125-L132)
 
 ## Overview
 A PostgreSQL built-in function that handles both NULL values and regular text by returning the string 'NULL' for null inputs or a properly quoted literal for non-null text inputs.

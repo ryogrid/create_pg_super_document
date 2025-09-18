@@ -1,7 +1,7 @@
 # makeParamList
 
 ## Location
-src/backend/nodes/params.c: 44 - 77
+[src/backend/nodes/params.c:44-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/params.c#L44-L77)
 
 ## Overview
 Allocates and initializes a new ParamListInfo structure for managing query parameters in PostgreSQL's parameter framework.

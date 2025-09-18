@@ -1,7 +1,7 @@
 # contain_volatile_functions_not_nextval_checker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 679 - 685
+[src/backend/optimizer/util/clauses.c:679-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L679-L685)
 
 ## Overview
 A static helper function that checks whether a given function is volatile while specifically excluding nextval() from being considered volatile.

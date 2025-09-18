@@ -1,7 +1,7 @@
 # xl_brin_createidx
 
 ## Location
-src/include/access/brin_xlog.h: 50 - 54
+[src/include/access/brin_xlog.h:50-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_xlog.h#L50-L54)
 
 ## Overview
 A WAL (Write-Ahead Logging) record structure that stores the necessary information for logging BRIN (Block Range Index) index creation operations.

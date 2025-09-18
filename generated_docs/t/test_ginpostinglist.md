@@ -1,7 +1,7 @@
 # test_ginpostinglist
 
 ## Location
-src/test/modules/test_ginpostinglist/test_ginpostinglist.c: 88 - 96
+[src/test/modules/test_ginpostinglist/test_ginpostinglist.c:88-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_ginpostinglist/test_ginpostinglist.c#L88-L96)
 
 ## Overview
 A SQL-callable entry point function that performs comprehensive testing of GIN posting list encoding and decoding functionality through multiple test scenarios.

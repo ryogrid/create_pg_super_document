@@ -1,7 +1,7 @@
 # SortState
 
 ## Location
-src/include/nodes/execnodes.h: 2332 - 2345
+[src/include/nodes/execnodes.h:2332-2345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2332-L2345)
 
 ## Overview
 SortState represents the execution state information for PostgreSQL's Sort node, which performs sorting operations on input tuples during query execution.

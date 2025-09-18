@@ -1,7 +1,7 @@
 # shm_mq_sendv
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 361 - 571
+[src/backend/storage/ipc/shm_mq.c:361-571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L361-L571)
 
 ## Overview
 Writes a message into a shared memory queue from multiple non-contiguous memory buffers using vectorized I/O.

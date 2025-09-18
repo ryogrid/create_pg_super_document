@@ -1,7 +1,7 @@
 # PQescapeStringInternal
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4071 - 4176
+[src/interfaces/libpq/fe-exec.c:4071-4176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4071-L4176)
 
 ## Overview
 PQescapeStringInternal is a static internal function that escapes arbitrary strings to create valid SQL literal strings, handling both single-byte and multibyte character encodings safely.

@@ -1,7 +1,7 @@
 # ATExecSetTableSpaceNoStorage
 
 ## Location
-src/backend/commands/tablecmds.c: 15346 - 15384
+[src/backend/commands/tablecmds.c:15346-15384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15346-L15384)
 
 ## Overview
 ATExecSetTableSpaceNoStorage handles ALTER TABLE SET TABLESPACE operations for relations that have no physical storage, performing metadata-only updates to change the tablespace assignment.

@@ -1,7 +1,7 @@
 # relmap_redo
 
 ## Location
-src/backend/utils/cache/relmapper.c: 1096 - 1141
+[src/backend/utils/cache/relmapper.c:1096-1141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L1096-L1141)
 
 ## Overview
 Handles replay of write-ahead log (WAL) records for relation mapping changes during PostgreSQL recovery, reconstructing relation-to-filenode mappings from logged updates.

@@ -1,7 +1,7 @@
 # transformSortClause
 
 ## Location
-src/backend/parser/parse_clause.c: 2732 - 2764
+[src/backend/parser/parse_clause.c:2732-2764](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L2732-L2764)
 
 ## Overview
 Transforms an ORDER BY clause into a list of SortGroupClause nodes, adding sort expressions to the targetlist as resjunk columns if needed.

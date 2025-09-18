@@ -1,7 +1,7 @@
 # GrantTargetType
 
 ## Location
-src/include/nodes/parsenodes.h: 2489 - 2490
+[src/include/nodes/parsenodes.h:2489-2490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L2489-L2490)
 
 ## Overview
 GrantTargetType is an enumeration that defines the different types of targets that can be specified in PostgreSQL GRANT and REVOKE statements.

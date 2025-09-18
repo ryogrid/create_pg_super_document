@@ -1,7 +1,7 @@
 # outDouble
 
 ## Location
-src/backend/nodes/outfuncs.c: 211 - 226
+[src/backend/nodes/outfuncs.c:211-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L211-L226)
 
 ## Overview
 Converts a double-precision floating-point value to its shortest decimal representation for PostgreSQL node serialization, ensuring exact value preservation.

@@ -1,7 +1,7 @@
 # lseg_intersect
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2188 - 2197
+[src/backend/utils/adt/geo_ops.c:2188-2197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2188-L2197)
 
 ## Overview
 Determines whether two line segments intersect and returns a boolean result as a PostgreSQL function.

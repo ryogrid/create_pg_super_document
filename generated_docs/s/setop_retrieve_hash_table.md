@@ -1,7 +1,7 @@
 # setop_retrieve_hash_table
 
 ## Location
-src/backend/executor/nodeSetOp.c: 425 - 480
+[src/backend/executor/nodeSetOp.c:425-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSetOp.c#L425-L480)
 
 ## Overview
 setop_retrieve_hash_table implements the second phase of the hashed strategy for set operations, retrieving and returning result tuples from the previously built hash table.

@@ -1,7 +1,7 @@
 # SPI_freetuple
 
 ## Location
-src/backend/executor/spi.c: 1379 - 1385
+[src/backend/executor/spi.c:1379-1385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L1379-L1385)
 
 ## Overview
 Frees a HeapTuple structure previously allocated or returned by SPI operations, providing tuple memory management for SPI-connected procedures.

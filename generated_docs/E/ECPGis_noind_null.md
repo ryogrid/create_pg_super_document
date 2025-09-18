@@ -1,7 +1,7 @@
 # ECPGis_noind_null
 
 ## Location
-src/interfaces/ecpg/ecpglib/misc.c: 359 - 427
+[src/interfaces/ecpg/ecpglib/misc.c:359-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/misc.c#L359-L427)
 
 ## Overview
 A function that determines if a given variable contains a null value based on its ECPG type, using type-specific null detection logic for PostgreSQL's Embedded SQL in C interface.

@@ -1,7 +1,7 @@
 # string_agg_deserialize
 
 ## Location
-src/backend/utils/adt/varlena.c: 5322 - 5357
+[src/backend/utils/adt/varlena.c:5322-5357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5322-L5357)
 
 ## Overview
 The deserialize function for PostgreSQL's string_agg() aggregate that converts a bytea representation back into a StringInfo state for parallel worker communication.

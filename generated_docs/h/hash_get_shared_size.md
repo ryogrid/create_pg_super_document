@@ -1,7 +1,7 @@
 # hash_get_shared_size
 
 ## Location
-src/backend/utils/hash/dynahash.c: 855 - 865
+[src/backend/utils/hash/dynahash.c:855-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L855-L865)
 
 ## Overview
 Computes the required initial memory allocation for a shared-memory hashtable's control structures.

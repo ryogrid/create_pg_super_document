@@ -1,7 +1,7 @@
 # bbstreamer_tar_archiver_free
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 451 - 461
+[src/bin/pg_basebackup/bbstreamer_tar.c:451-461](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L451-L461)
 
 ## Overview
 Frees memory associated with a tar archiver bbstreamer, including cleanup of the next streamer in the chain.

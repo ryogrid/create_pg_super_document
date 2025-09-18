@@ -1,7 +1,7 @@
 # make_subplan
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 162 - 318
+[src/backend/optimizer/plan/subselect.c:162-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L162-L318)
 
 ## Overview
 Converts a SubLink node (as created by the parser) into a SubPlan, handling the planning process for subqueries and determining whether to implement them as regular SubPlans or InitPlans.

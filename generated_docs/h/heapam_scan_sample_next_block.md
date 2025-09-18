@@ -1,7 +1,7 @@
 # heapam_scan_sample_next_block
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 2306 - 2395
+[src/backend/access/heap/heapam_handler.c:2306-2395](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L2306-L2395)
 
 ## Overview
 Advances to the next block in a heap sample scan, supporting both custom sampling methods and sequential scanning with wraparound.

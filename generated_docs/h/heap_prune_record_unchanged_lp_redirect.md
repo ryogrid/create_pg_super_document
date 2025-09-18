@@ -1,7 +1,7 @@
 # heap_prune_record_unchanged_lp_redirect
 
 ## Location
-src/backend/access/heap/pruneheap.c: 1536 - 1560
+[src/backend/access/heap/pruneheap.c:1536-1560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L1536-L1560)
 
 ## Overview
 Records a redirect line pointer (LP_REDIRECT) that remains unchanged during heap page pruning, marking it as processed without additional bookkeeping.

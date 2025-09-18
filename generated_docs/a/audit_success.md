@@ -1,7 +1,7 @@
 # audit_success
 
 ## Location
-src/test/modules/test_oat_hooks/test_oat_hooks.c: 265 - 270
+[src/test/modules/test_oat_hooks/test_oat_hooks.c:265-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_oat_hooks/test_oat_hooks.c#L265-L270)
 
 ## Overview
 A static wrapper function in the test_oat_hooks module that logs successful completion events for testing object access control hooks.

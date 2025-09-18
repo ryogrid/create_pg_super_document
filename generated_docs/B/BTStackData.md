@@ -1,7 +1,7 @@
 # BTStackData
 
 ## Location
-src/include/access/nbtree.h: 732 - 737
+[src/include/access/nbtree.h:732-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L732-L737)
 
 ## Overview
 BTStackData is a structure used to maintain a private stack during B-tree traversal, storing the locations of pivot tuples whose downlinks are followed during tree descent.

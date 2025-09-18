@@ -1,7 +1,7 @@
 # SummarizeXlogRecord
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 1424 - 1496
+[src/backend/postmaster/walsummarizer.c:1424-1496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L1424-L1496)
 
 ## Overview
 Handles special processing of XLOG control records (RM_XLOG_ID) during WAL summarization to determine when to stop summarization and whether to enter fast-forward mode based on WAL level settings.

@@ -1,7 +1,7 @@
 # make_restrictinfo
 
 ## Location
-src/backend/optimizer/util/restrictinfo.c: 63 - 111
+[src/backend/optimizer/util/restrictinfo.c:63-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/restrictinfo.c#L63-L111)
 
 ## Overview
 Creates a RestrictInfo node containing a given subexpression, with proper handling of OR clauses and delegation to make_restrictinfo_internal for standard processing.

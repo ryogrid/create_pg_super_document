@@ -1,7 +1,7 @@
 # patternjoinsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 875 - 884
+[src/backend/utils/adt/like_support.c:875-884](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L875-L884)
 
 ## Overview
 A generic function for estimating selectivity of pattern-match join operations in PostgreSQL's query planner.

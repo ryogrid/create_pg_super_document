@@ -1,7 +1,7 @@
 # shm_mq_detach_callback
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 1323 - 1328
+[src/backend/storage/ipc/shm_mq.c:1323-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L1323-L1328)
 
 ## Overview
 A static callback function that serves as a shim for dynamic shared memory (DSM) segment detachment, automatically detaching a shared message queue when its associated DSM segment is detached.

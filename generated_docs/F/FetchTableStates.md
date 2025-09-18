@@ -1,7 +1,7 @@
 # FetchTableStates
 
 ## Location
-src/backend/replication/logical/tablesync.c: 1598 - 1668
+[src/backend/replication/logical/tablesync.c:1598-1668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L1598-L1668)
 
 ## Overview
 FetchTableStates retrieves and caches the current synchronization state information for all tables in a subscription, maintaining an up-to-date view of tables requiring synchronization work.

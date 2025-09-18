@@ -1,7 +1,7 @@
 # pg_cmp_s64
 
 ## Location
-src/include/common/int.h: 495 - 500
+[src/include/common/int.h:495-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L495-L500)
 
 ## Overview
 A fast inline comparison function for 64-bit signed integers that returns a standardized comparison result (-1, 0, or 1) without using conditional branches.

@@ -1,7 +1,7 @@
 # XLogFileNameById
 
 ## Location
-src/include/access/xlog_internal.h: 174 - 179
+[src/include/access/xlog_internal.h:174-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L174-L179)
 
 ## Overview
 XLogFileNameById generates a WAL segment file name directly from timeline ID, log file number, and segment number components.

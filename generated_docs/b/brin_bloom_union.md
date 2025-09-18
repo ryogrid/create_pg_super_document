@@ -1,7 +1,7 @@
 # brin_bloom_union
 
 ## Location
-src/backend/access/brin/brin_bloom.c: 666 - 716
+[src/backend/access/brin/brin_bloom.c:666-716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_bloom.c#L666-L716)
 
 ## Overview
 Combines two BRIN bloom filter summaries by performing a bitwise union operation, updating the first bloom filter to represent the union of both filters.

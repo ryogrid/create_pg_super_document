@@ -1,7 +1,7 @@
 # emit_audit_message
 
 ## Location
-src/test/modules/test_oat_hooks/test_oat_hooks.c: 231 - 258
+[src/test/modules/test_oat_hooks/test_oat_hooks.c:231-258](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_oat_hooks/test_oat_hooks.c#L231-L258)
 
 ## Overview
 A static utility function in the test_oat_hooks module that emits audit messages for testing object access control hooks, providing deterministic logging for regression tests.

@@ -1,7 +1,7 @@
 # errorMissingRTE
 
 ## Location
-src/backend/parser/parse_relation.c: 3594 - 3664
+[src/backend/parser/parse_relation.c:3594-3664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_relation.c#L3594-L3664)
 
 ## Overview
 Generates detailed error messages when a referenced table or relation is missing from the FROM clause, providing context-specific hints to help users identify and correct the issue.

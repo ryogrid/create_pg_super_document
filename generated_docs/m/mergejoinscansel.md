@@ -1,7 +1,7 @@
 # mergejoinscansel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 2956 - 3260
+[src/backend/utils/adt/selfuncs.c:2956-3260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L2956-L3260)
 
 ## Overview
 Estimates scan selectivity for merge joins by calculating how much of each input stream will be read before the join terminates, which is critical for accurate cost estimation of indexed merge joins.

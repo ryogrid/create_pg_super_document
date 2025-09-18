@@ -1,7 +1,7 @@
 # spcache_init
 
 ## Location
-src/backend/catalog/namespace.c: 306 - 343
+[src/backend/catalog/namespace.c:306-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L306-L343)
 
 ## Overview
 Initializes or resets the search path cache used by PostgreSQL's namespace system to optimize repeated search path computations and validations.

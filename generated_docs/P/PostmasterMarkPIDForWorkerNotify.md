@@ -1,7 +1,7 @@
 # PostmasterMarkPIDForWorkerNotify
 
 ## Location
-src/backend/postmaster/postmaster.c: 4530 - 4549
+[src/backend/postmaster/postmaster.c:4530-4549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L4530-L4549)
 
 ## Overview
 Marks a backend process as requiring notification about background worker state changes by setting the bgworker_notify flag in its Backend entry.

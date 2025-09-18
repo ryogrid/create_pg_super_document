@@ -1,7 +1,7 @@
 # has_type_privilege_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4537 - 4565
+[src/backend/utils/adt/acl.c:4537-4565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4537-L4565)
 
 ## Overview
 Checks user privileges on a type given a role ID, type OID, and privilege name (as text).

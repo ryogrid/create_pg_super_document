@@ -1,7 +1,7 @@
 # dibuild
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 139 - 156
+[src/test/modules/dummy_index_am/dummy_index_am.c:139-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L139-L156)
 
 ## Overview
 A dummy index build function that simulates building a new index without actually performing any index construction.

@@ -1,7 +1,7 @@
 # on_sb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3224 - 3237
+[src/backend/utils/adt/geo_ops.c:3224-3237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3224-L3237)
 
 ## Overview
 Tests whether a line segment lies on or within a box boundary.

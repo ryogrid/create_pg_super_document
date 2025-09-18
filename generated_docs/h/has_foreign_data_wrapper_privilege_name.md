@@ -1,7 +1,7 @@
 # has_foreign_data_wrapper_privilege_name
 
 ## Location
-src/backend/utils/adt/acl.c: 3222 - 3245
+[src/backend/utils/adt/acl.c:3222-3245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L3222-L3245)
 
 ## Overview
 Checks if the current user has a specified privilege on a foreign data wrapper identified by name.

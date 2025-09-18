@@ -1,7 +1,7 @@
 # pg_indexes_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 505 - 527
+[src/backend/utils/adt/dbsize.c:505-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L505-L527)
 
 ## Overview
 SQL-callable function that returns the total disk space used by all indexes on the specified table, including all index storage components.

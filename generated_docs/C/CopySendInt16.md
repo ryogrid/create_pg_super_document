@@ -1,7 +1,7 @@
 # CopySendInt16
 
 ## Location
-src/backend/commands/copyto.c: 277 - 288
+[src/backend/commands/copyto.c:277-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L277-L288)
 
 ## Overview
 Sends a 16-bit integer value in network byte order as part of PostgreSQL's binary COPY format operations.

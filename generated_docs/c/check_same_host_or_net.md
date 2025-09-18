@@ -1,7 +1,7 @@
 # check_same_host_or_net
 
 ## Location
-src/backend/libpq/hba.c: 1204 - 1237
+[src/backend/libpq/hba.c:1204-1237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1204-L1237)
 
 ## Overview
 Determines whether a client's IP address matches the server's network interfaces using 'samehost' or 'samenet' matching methods.

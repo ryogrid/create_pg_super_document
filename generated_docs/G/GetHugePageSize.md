@@ -1,7 +1,7 @@
 # GetHugePageSize
 
 ## Location
-src/backend/port/sysv_shmem.c: 479 - 577
+[src/backend/port/sysv_shmem.c:479-577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L479-L577)
 
 ## Overview
 Determines the system's huge page size and computes the appropriate mmap flags for huge page allocation, with platform-specific handling for Linux systems.

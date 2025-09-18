@@ -1,7 +1,7 @@
 # SetNextObjectId
 
 ## Location
-src/backend/access/transam/varsup.c: 623 - 651
+[src/backend/access/transam/varsup.c:623-651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/varsup.c#L623-L651)
 
 ## Overview
 Sets the next Object Identifier (OID) counter to a specified value, exclusively used during database initialization (initdb) to establish the starting point for OID allocation.

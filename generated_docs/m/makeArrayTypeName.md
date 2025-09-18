@@ -1,7 +1,7 @@
 # makeArrayTypeName
 
 ## Location
-src/backend/catalog/pg_type.c: 840 - 904
+[src/backend/catalog/pg_type.c:840-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_type.c#L840-L904)
 
 ## Overview
 makeArrayTypeName generates a unique array type name for a given base type by following PostgreSQL's naming convention of prepending an underscore while handling name length limits and conflicts.

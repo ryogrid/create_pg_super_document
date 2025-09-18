@@ -1,7 +1,7 @@
 # oidvectorrecv
 
 ## Location
-src/backend/utils/adt/oid.c: 184 - 225
+[src/backend/utils/adt/oid.c:184-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L184-L225)
 
 ## Overview
 Binary receive function that converts external binary format data into PostgreSQL's internal oidvector format.

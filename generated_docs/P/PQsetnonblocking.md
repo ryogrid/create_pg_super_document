@@ -1,7 +1,7 @@
 # PQsetnonblocking
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3944 - 3982
+[src/interfaces/libpq/fe-exec.c:3944-3982](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3944-L3982)
 
 ## Overview
 Sets the PostgreSQL connection to non-blocking mode if the argument is true, or to blocking mode if the argument is false. This function provides control over the blocking behavior of database operations.

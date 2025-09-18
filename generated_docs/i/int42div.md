@@ -1,7 +1,7 @@
 # int42div
 
 ## Location
-src/backend/utils/adt/int.c: 1091 - 1129
+[src/backend/utils/adt/int.c:1091-1129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1091-L1129)
 
 ## Overview
 Divides a 32-bit integer by a 16-bit integer, returning a 32-bit result with division-by-zero and overflow checking.

@@ -1,7 +1,7 @@
 # deccvlong
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 290 - 311
+[src/interfaces/ecpg/compatlib/informix.c:290-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L290-L311)
 
 ## Overview
 Converts a long integer value to a decimal data type, providing Informix-compatible decimal conversion functionality in PostgreSQL ECPG.

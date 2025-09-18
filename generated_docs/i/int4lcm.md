@@ -1,7 +1,7 @@
 # int4lcm
 
 ## Location
-src/backend/utils/adt/int.c: 1309 - 1345
+[src/backend/utils/adt/int.c:1309-1345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1309-L1345)
 
 ## Overview
 PostgreSQL SQL-callable function that computes the least common multiple (LCM) of two 32-bit integers with overflow protection.

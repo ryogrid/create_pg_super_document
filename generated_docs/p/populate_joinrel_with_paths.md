@@ -1,7 +1,7 @@
 # populate_joinrel_with_paths
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 894 - 1071
+[src/backend/optimizer/path/joinrels.c:894-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L894-L1071)
 
 ## Overview
 Adds execution paths to a join relation by considering all possible join types and optimizations, handling dummy relations and constant-false restrictions.

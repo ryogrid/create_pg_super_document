@@ -1,7 +1,7 @@
 # VersionedQuery
 
 ## Location
-src/bin/psql/tab-complete.c: 100 - 104
+[src/bin/psql/tab-complete.c:100-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L100-L104)
 
 ## Overview
 VersionedQuery is a struct used in PostgreSQL's psql tab completion system to handle server version-dependent query variations, allowing different SQL queries to be used based on the minimum PostgreSQL server version required.

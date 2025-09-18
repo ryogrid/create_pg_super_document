@@ -1,7 +1,7 @@
 # standard_ExecutorRun
 
 ## Location
-src/backend/executor/execMain.c: 310 - 399
+[src/backend/executor/execMain.c:310-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L310-L399)
 
 ## Overview
 standard_ExecutorRun is the default implementation that performs the actual query plan execution, coordinating tuple retrieval and destination receiver management while tracking execution statistics.

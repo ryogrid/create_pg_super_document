@@ -1,7 +1,7 @@
 # r_steps10
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2862 - 2879
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2862-2879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2862-L2879)
 
 ## Overview
 A static function that implements step 10 of the Greek language stemming algorithm, performing a two-stage suffix removal and replacement process.

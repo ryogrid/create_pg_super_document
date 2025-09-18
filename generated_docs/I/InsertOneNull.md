@@ -1,7 +1,7 @@
 # InsertOneNull
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 664 - 681
+[src/backend/bootstrap/bootstrap.c:664-681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L664-L681)
 
 ## Overview
 InsertOneNull marks a specific column position as NULL during bootstrap tuple construction, with validation against NOT NULL constraints.

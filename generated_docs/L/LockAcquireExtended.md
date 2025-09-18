@@ -1,7 +1,7 @@
 # LockAcquireExtended
 
 ## Location
-src/backend/storage/lmgr/lock.c: 780 - 1182
+[src/backend/storage/lmgr/lock.c:780-1182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L780-L1182)
 
 ## Overview
 LockAcquireExtended is the core lock acquisition implementation in PostgreSQL that handles all aspects of acquiring locks including fast-path optimization, conflict detection, waiting, and error handling with extended configuration options.

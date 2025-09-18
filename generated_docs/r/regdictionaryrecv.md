@@ -1,7 +1,7 @@
 # regdictionaryrecv
 
 ## Location
-src/backend/utils/adt/regproc.c: 1516 - 1525
+[src/backend/utils/adt/regproc.c:1516-1525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1516-L1525)
 
 ## Overview
 Converts external binary format to regdictionary type, handling binary input/output operations for dictionary registry OIDs.

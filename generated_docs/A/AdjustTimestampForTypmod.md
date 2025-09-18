@@ -1,7 +1,7 @@
 # AdjustTimestampForTypmod
 
 ## Location
-src/backend/utils/adt/timestamp.c: 366 - 415
+[src/backend/utils/adt/timestamp.c:366-415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L366-L415)
 
 ## Overview
 Rounds off a timestamp value to match a specified type modifier precision, working for both timestamp and timestamptz types.

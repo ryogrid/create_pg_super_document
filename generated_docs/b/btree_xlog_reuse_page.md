@@ -1,7 +1,7 @@
 # btree_xlog_reuse_page
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 1003 - 1013
+[src/backend/access/nbtree/nbtxlog.c:1003-1013](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L1003-L1013)
 
 ## Overview
 Handles snapshot conflicts during Hot Standby when a previously deleted B-tree page is being reused for a new page.

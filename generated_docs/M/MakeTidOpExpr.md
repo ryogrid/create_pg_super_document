@@ -1,7 +1,7 @@
 # MakeTidOpExpr
 
 ## Location
-src/backend/executor/nodeTidrangescan.c: 57 - 105
+[src/backend/executor/nodeTidrangescan.c:57-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidrangescan.c#L57-L105)
 
 ## Overview
 MakeTidOpExpr creates a TidOpExpr structure from an OpExpr for TID range scan operations, determining the appropriate boundary type and inclusiveness based on the operator and operand order.

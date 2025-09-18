@@ -1,7 +1,7 @@
 # transformOptionalSelectInto
 
 ## Location
-src/backend/parser/analyze.c: 272 - 310
+[src/backend/parser/analyze.c:272-310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L272-L310)
 
 ## Overview
 Converts SELECT statements with INTO clauses to CREATE TABLE AS statements, handling the transformation before entering recursive statement processing.

@@ -1,7 +1,7 @@
 # GetVictimBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1938 - 2103
+[src/backend/storage/buffer/bufmgr.c:1938-2103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1938-L2103)
 
 ## Overview
 GetVictimBuffer finds and prepares a buffer to be reused by evicting its current contents, handling dirty buffers, and ensuring proper cleanup for PostgreSQL's buffer pool management.

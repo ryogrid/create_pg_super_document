@@ -1,7 +1,7 @@
 # ExecFindMatchingSubPlans
 
 ## Location
-src/backend/executor/execPartition.c: 2303 - 2365
+[src/backend/executor/execPartition.c:2303-2365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L2303-L2365)
 
 ## Overview
 Determines which subplans match the partition pruning steps for the current comparison expression values, returning a bitmap of valid subplan indexes.

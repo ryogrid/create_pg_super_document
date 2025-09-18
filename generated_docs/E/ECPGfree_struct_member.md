@@ -1,7 +1,7 @@
 # ECPGfree_struct_member
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 641 - 654
+[src/interfaces/ecpg/preproc/type.c:641-654](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L641-L654)
 
 ## Overview
 ECPGfree_struct_member is a utility function that recursively frees a linked list of ECPGstruct_member structures, properly deallocating all associated memory including member names and types.

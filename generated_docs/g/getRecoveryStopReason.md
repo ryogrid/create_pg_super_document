@@ -1,7 +1,7 @@
 # getRecoveryStopReason
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2886 - 2924
+[src/backend/access/transam/xlogrecovery.c:2886-2924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2886-L2924)
 
 ## Overview
 Creates a human-readable comment explaining why and where recovery stopped for inclusion in the timeline history file.

@@ -1,7 +1,7 @@
 # restore_toc_entry
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 834 - 1089
+[src/bin/pg_dump/pg_backup_archiver.c:834-1089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L834-L1089)
 
 ## Overview
 The restore_toc_entry function is the core function responsible for restoring a single TOC (Table of Contents) item during PostgreSQL backup restoration, supporting both parallel and non-parallel restore modes.

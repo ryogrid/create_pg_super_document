@@ -1,7 +1,7 @@
 # heapam_relation_copy_for_cluster
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 686 - 1005
+[src/backend/access/heap/heapam_handler.c:686-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L686-L1005)
 
 ## Overview
 This function performs a comprehensive relation copy operation for CLUSTER command, including tuple rewriting, optional sorting, visibility checking, and progress reporting.

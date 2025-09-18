@@ -1,7 +1,7 @@
 # SpGistGetBuffer
 
 ## Location
-src/backend/access/spgist/spgutils.c: 561 - 664
+[src/backend/access/spgist/spgutils.c:561-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L561-L664)
 
 ## Overview
 Retrieves a buffer page for SP-GiST index operations with specified type, parity, and minimum free space requirements, utilizing a cache-first strategy for efficiency.

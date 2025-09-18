@@ -1,7 +1,7 @@
 # SS_replace_correlation_vars
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 1868 - 1874
+[src/backend/optimizer/plan/subselect.c:1868-1874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L1868-L1874)
 
 ## Overview
 Replaces correlation variables (uplevel variables) with Params in expressions, enabling proper parameter passing between parent and child query levels during subquery execution.

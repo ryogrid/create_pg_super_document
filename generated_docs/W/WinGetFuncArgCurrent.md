@@ -1,7 +1,7 @@
 # WinGetFuncArgCurrent
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 3593 - 3606
+[src/backend/executor/nodeWindowAgg.c:3593-3606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L3593-L3606)
 
 ## Overview
 Evaluates a window function's argument expression on the current row, providing a simple and efficient way to access argument values from the row being processed.

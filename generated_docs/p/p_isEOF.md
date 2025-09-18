@@ -1,7 +1,7 @@
 # p_isEOF
 
 ## Location
-src/backend/tsearch/wparser_def.c: 474 - 480
+[src/backend/tsearch/wparser_def.c:474-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L474-L480)
 
 ## Overview
 A static utility function that checks whether the text search parser has reached the end of the input string during parsing operations.

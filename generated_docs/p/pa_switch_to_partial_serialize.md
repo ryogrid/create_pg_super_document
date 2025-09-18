@@ -1,7 +1,7 @@
 # pa_switch_to_partial_serialize
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1211 - 1243
+[src/backend/replication/logical/applyparallelworker.c:1211-1243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1211-L1243)
 
 ## Overview
 Switches a parallel apply worker transaction to partial serialize mode, where remaining transaction data is serialized to a file to prevent deadlocks between parallel workers.

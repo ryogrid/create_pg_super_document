@@ -1,7 +1,7 @@
 # AssertHasSnapshotForToast
 
 ## Location
-src/backend/access/heap/heapam.c: 238 - 275
+[src/backend/access/heap/heapam.c:238-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L238-L275)
 
 ## Overview
 A debug assertion function that verifies a valid snapshot exists before performing operations that might require TOAST table access.

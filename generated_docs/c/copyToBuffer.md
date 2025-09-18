@@ -1,7 +1,7 @@
 # copyToBuffer
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1510 - 1518
+[src/backend/utils/adt/jsonb_util.c:1510-1518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1510-L1518)
 
 ## Overview
 A static utility function that copies a specified number of bytes from a source data pointer to a previously reserved area within a StringInfo buffer at a given offset.

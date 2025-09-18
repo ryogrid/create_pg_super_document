@@ -1,7 +1,7 @@
 # add_role_attribute
 
 ## Location
-src/bin/psql/describe.c: 3749 - 3760
+[src/bin/psql/describe.c:3749-3760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L3749-L3760)
 
 ## Overview
 A static utility function in psql that appends a role attribute string to a PQExpBuffer, handling proper comma separation for building role attribute lists.

@@ -1,7 +1,7 @@
 # setQFout
 
 ## Location
-src/bin/psql/common.c: 132 - 175
+[src/bin/psql/common.c:132-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L132-L175)
 
 ## Overview
 Sets the query output destination for psql, handling both the -o command line option and the \o command for redirecting query results to files or pipes.

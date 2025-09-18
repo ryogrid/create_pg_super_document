@@ -1,7 +1,7 @@
 # cluster
 
 ## Location
-src/backend/commands/cluster.c: 108 - 265
+[src/backend/commands/cluster.c:108-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L108-L265)
 
 ## Overview
 The cluster function is the main entry point for the PostgreSQL CLUSTER command, which reorganizes tables according to the physical order of their clustered index for improved performance.

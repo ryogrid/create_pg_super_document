@@ -1,7 +1,7 @@
 # _hash_squeezebucket
 
 ## Location
-src/backend/access/hash/hashovfl.c: 842 - 1125
+[src/backend/access/hash/hashovfl.c:842-1125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashovfl.c#L842-L1125)
 
 ## Overview
 Compacts tuples within a hash bucket chain by moving tuples from later pages to earlier pages to maximize space utilization and free unnecessary overflow pages.

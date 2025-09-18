@@ -1,7 +1,7 @@
 # create_foreign_upper_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2333 - 2377
+[src/backend/optimizer/util/pathnode.c:2333-2377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2333-L2377)
 
 ## Overview
 Creates a path node corresponding to an upper relation (e.g., aggregate, window functions, grouping) that is computed directly by a foreign data wrapper on the remote server.

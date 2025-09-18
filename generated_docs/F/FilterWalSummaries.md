@@ -1,7 +1,7 @@
 # FilterWalSummaries
 
 ## Location
-src/backend/backup/walsummary.c: 100 - 137
+[src/backend/backup/walsummary.c:100-137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummary.c#L100-L137)
 
 ## Overview
 Filters an existing list of WAL summaries to create a new list containing only summaries that match specified timeline and LSN range criteria.

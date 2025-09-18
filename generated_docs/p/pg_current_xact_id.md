@@ -1,7 +1,7 @@
 # pg_current_xact_id
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 334 - 351
+[src/backend/utils/adt/xid8funcs.c:334-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L334-L351)
 
 ## Overview
 A PostgreSQL built-in function that returns the current toplevel full transaction ID (xid8), assigning one if the current transaction doesn't already have one.

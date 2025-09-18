@@ -1,7 +1,7 @@
 # setup_regexp_matches
 
 ## Location
-src/backend/utils/adt/regexp.c: 1442 - 1645
+[src/backend/utils/adt/regexp.c:1442-1645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1442-L1645)
 
 ## Overview
 Performs the initial pattern matching setup for regexp_match, regexp_matches, regexp_split, and related functions by compiling the regex pattern and finding all matches in the input string.

@@ -1,7 +1,7 @@
 # be_lowrite
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 375 - 397
+[src/backend/libpq/be-fsstubs.c:375-397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L375-L397)
 
 ## Overview
 Writes binary data from a bytea value to a large object and returns the number of bytes written.

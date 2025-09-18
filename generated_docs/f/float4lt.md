@@ -1,7 +1,7 @@
 # float4lt
 
 ## Location
-src/backend/utils/adt/float.c: 837 - 845
+[src/backend/utils/adt/float.c:837-845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L837-L845)
 
 ## Overview
 PostgreSQL SQL-callable function that tests whether one single-precision floating-point number is less than another, handling NaN values according to IEEE floating-point standards.

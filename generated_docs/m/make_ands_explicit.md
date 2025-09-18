@@ -1,7 +1,7 @@
 # make_ands_explicit
 
 ## Location
-src/backend/nodes/makefuncs.c: 773 - 783
+[src/backend/nodes/makefuncs.c:773-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L773-L783)
 
 ## Overview
 Converts a list of boolean expressions with implicit AND semantics into an explicit boolean expression, handling edge cases like empty lists and single expressions.

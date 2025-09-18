@@ -1,7 +1,7 @@
 # _outExtensibleNode
 
 ## Location
-src/backend/nodes/outfuncs.c: 481 - 495
+[src/backend/nodes/outfuncs.c:481-495](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L481-L495)
 
 ## Overview
 Serializes an ExtensibleNode structure to a string format for output operations, handling both the standard node metadata and custom private fields through extensible node methods.

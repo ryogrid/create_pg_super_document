@@ -1,7 +1,7 @@
 # GucInfoMain
 
 ## Location
-src/backend/utils/misc/help_config.c: 46 - 73
+[src/backend/utils/misc/help_config.c:46-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/help_config.c#L46-L73)
 
 ## Overview
 The main entry point function that displays all PostgreSQL GUC (Grand Unified Configuration) parameters that are available to users, filtering out internal or hidden configuration options.

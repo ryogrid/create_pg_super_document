@@ -1,7 +1,7 @@
 # MultiXactMemberFreezeThreshold
 
 ## Location
-src/backend/access/transam/multixact.c: 2970 - 3006
+[src/backend/access/transam/multixact.c:2970-3006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2970-L3006)
 
 ## Overview
 Calculates an effective freeze threshold for multixacts based on member space utilization to prevent exhaustion of the multixact members area.

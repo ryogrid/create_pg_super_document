@@ -1,7 +1,7 @@
 # SnapBuildGetTwoPhaseAt
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 425 - 433
+[src/backend/replication/logical/snapbuild.c:425-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L425-L433)
 
 ## Overview
 SnapBuildGetTwoPhaseAt returns the LSN at which two-phase commit decoding was first enabled for the snapshot builder, providing information about when two-phase transaction support became active.

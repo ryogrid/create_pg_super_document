@@ -1,7 +1,7 @@
 # IsIndexUsableForReplicaIdentityFull
 
 ## Location
-src/backend/replication/logical/relation.c: 804 - 850
+[src/backend/replication/logical/relation.c:804-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/relation.c#L804-L850)
 
 ## Overview
 Determines whether a specific index can be used for replica identity full operations in logical replication by evaluating access method, structure, and attribute mapping requirements.

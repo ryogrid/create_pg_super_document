@@ -1,7 +1,7 @@
 # PredicateLockPage
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2589 - 2610
+[src/backend/storage/lmgr/predicate.c:2589-2610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2589-L2610)
 
 ## Overview
 Acquires a predicate lock at the page level for serializable transactions, providing medium-grained locking for specific database pages.

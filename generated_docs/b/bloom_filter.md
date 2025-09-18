@@ -1,7 +1,7 @@
 # bloom_filter
 
 ## Location
-src/backend/lib/bloomfilter.c: 44 - 86
+[src/backend/lib/bloomfilter.c:44-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bloomfilter.c#L44-L86)
 
 ## Overview
 The `bloom_filter` struct is the core data structure for implementing Bloom filters in PostgreSQL, providing space-efficient probabilistic membership testing with configurable false positive rates.

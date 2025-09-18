@@ -1,7 +1,7 @@
 # pg_u_prop_hex_digit
 
 ## Location
-src/common/unicode_category.c: 181 - 191
+[src/common/unicode_category.c:181-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L181-L191)
 
 ## Overview
 Determines whether a Unicode code point has the Hex_Digit property, identifying characters that can be used as hexadecimal digits.

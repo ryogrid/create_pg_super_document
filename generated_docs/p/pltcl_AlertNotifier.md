@@ -1,7 +1,7 @@
 # pltcl_AlertNotifier
 
 ## Location
-src/pl/tcl/pltcl.c: 368 - 372
+[src/pl/tcl/pltcl.c:368-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L368-L372)
 
 ## Overview
 A stub implementation of Tcl's notifier alert function that intentionally does nothing to prevent multithreading issues in PostgreSQL's PL/Tcl environment.

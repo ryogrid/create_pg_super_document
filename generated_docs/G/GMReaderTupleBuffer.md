@@ -1,7 +1,7 @@
 # GMReaderTupleBuffer
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 41 - 47
+[src/backend/executor/nodeGatherMerge.c:41-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L41-L47)
 
 ## Overview
 GMReaderTupleBuffer is a struct that manages pending tuples fetched from worker processes in PostgreSQL's Gather Merge parallel query execution, providing efficient buffering and tracking of tuple processing state for each worker.

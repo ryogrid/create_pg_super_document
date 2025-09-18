@@ -1,7 +1,7 @@
 # check_default_partition_contents
 
 ## Location
-src/backend/partitioning/partbounds.c: 3251 - 3413
+[src/backend/partitioning/partbounds.c:3251-3413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3251-L3413)
 
 ## Overview
 This function validates that adding a new partition will not violate constraints by checking if any rows in the default partition would properly belong to the new partition being added.

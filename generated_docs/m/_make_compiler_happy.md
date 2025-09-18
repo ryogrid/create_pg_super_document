@@ -1,7 +1,7 @@
 # _make_compiler_happy
 
 ## Location
-src/backend/tsearch/wparser_def.c: 537 - 563
+[src/backend/tsearch/wparser_def.c:537-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L537-L563)
 
 ## Overview
 A utility function designed to prevent compiler warnings about unused static functions by calling all predicate functions with NULL parameters.

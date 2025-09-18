@@ -1,7 +1,7 @@
 # RetrieveWalSegSize
 
 ## Location
-src/bin/pg_basebackup/streamutil.c: 347 - 425
+[src/bin/pg_basebackup/streamutil.c:347-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/streamutil.c#L347-L425)
 
 ## Overview
 Retrieves and validates the WAL segment size from the PostgreSQL server, handling version-specific differences.

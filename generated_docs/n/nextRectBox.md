@@ -1,7 +1,7 @@
 # nextRectBox
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 205 - 235
+[src/backend/utils/adt/geo_spgist.c:205-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L205-L235)
 
 ## Overview
 Calculates the next traversal value by refining a RectBox's boundaries based on a centroid and quadrant during SP-GiST index tree traversal.

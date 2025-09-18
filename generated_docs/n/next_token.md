@@ -1,7 +1,7 @@
 # next_token
 
 ## Location
-src/backend/libpq/hba.c: 185 - 256
+[src/backend/libpq/hba.c:185-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L185-L256)
 
 ## Overview
 A tokenizer function that extracts the next token from a configuration line, handling quoted strings, comments, and delimiters for HBA (Host-Based Authentication) file parsing.

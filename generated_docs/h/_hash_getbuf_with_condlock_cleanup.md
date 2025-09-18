@@ -1,7 +1,7 @@
 # _hash_getbuf_with_condlock_cleanup
 
 ## Location
-src/backend/access/hash/hashpage.c: 96 - 134
+[src/backend/access/hash/hashpage.c:96-134](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L96-L134)
 
 ## Overview
 Attempts to get a buffer for cleanup operations by trying to acquire a conditional cleanup lock, returning InvalidBuffer if the lock cannot be obtained immediately.

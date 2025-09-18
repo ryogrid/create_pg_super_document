@@ -1,7 +1,7 @@
 # replace_s
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 374 - 404
+[src/backend/snowball/libstemmer/utilities.c:374-404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L374-L404)
 
 ## Overview
 Replaces a segment of symbols in a Snowball environment's string buffer with a new sequence of symbols, handling memory reallocation and cursor position adjustments as needed.

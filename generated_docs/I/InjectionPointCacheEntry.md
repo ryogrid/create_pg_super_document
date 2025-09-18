@@ -1,7 +1,7 @@
 # InjectionPointCacheEntry
 
 ## Location
-src/backend/utils/misc/injection_point.c: 94 - 107
+[src/backend/utils/misc/injection_point.c:94-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L94-L107)
 
 ## Overview
 InjectionPointCacheEntry represents a backend-local cache entry for injection point callbacks that have been loaded, stored in TopMemoryContext for efficient access.

@@ -1,7 +1,7 @@
 # pg_stat_file_1arg
 
 ## Location
-src/backend/utils/adt/genfile.c: 489 - 497
+[src/backend/utils/adt/genfile.c:489-497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/genfile.c#L489-L497)
 
 ## Overview
 A PostgreSQL wrapper function that provides a single-argument interface to the pg_stat_file function for system consistency requirements.

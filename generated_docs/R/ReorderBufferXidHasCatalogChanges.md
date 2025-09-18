@@ -1,7 +1,7 @@
 # ReorderBufferXidHasCatalogChanges
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3603 - 3619
+[src/backend/replication/logical/reorderbuffer.c:3603-3619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3603-L3619)
 
 ## Overview
 Queries whether a specific transaction is known to contain catalog changes, used for logical replication decision-making.

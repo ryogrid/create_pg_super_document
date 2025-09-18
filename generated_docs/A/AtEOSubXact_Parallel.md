@@ -1,7 +1,7 @@
 # AtEOSubXact_Parallel
 
 ## Location
-src/backend/access/transam/parallel.c: 1250 - 1270
+[src/backend/access/transam/parallel.c:1250-1270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1250-L1270)
 
 ## Overview
 Performs end-of-subtransaction cleanup for parallel contexts by destroying any parallel contexts that were initiated within the current subtransaction.

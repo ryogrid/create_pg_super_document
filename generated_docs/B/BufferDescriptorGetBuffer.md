@@ -1,7 +1,7 @@
 # BufferDescriptorGetBuffer
 
 ## Location
-src/include/storage/buf_internals.h: 331 - 336
+[src/include/storage/buf_internals.h:331-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L331-L336)
 
 ## Overview
 Converts a buffer descriptor pointer back to its corresponding Buffer identifier by extracting the buffer ID and adding 1 to account for PostgreSQL's 1-based buffer numbering scheme.

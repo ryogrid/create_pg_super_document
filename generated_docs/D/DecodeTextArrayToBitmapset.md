@@ -1,7 +1,7 @@
 # DecodeTextArrayToBitmapset
 
 ## Location
-src/backend/utils/cache/evtcache.c: 222 - 254
+[src/backend/utils/cache/evtcache.c:222-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/evtcache.c#L222-L254)
 
 ## Overview
 Converts a PostgreSQL text array containing command tag names into a Bitmapset representation for efficient command tag matching in event triggers.

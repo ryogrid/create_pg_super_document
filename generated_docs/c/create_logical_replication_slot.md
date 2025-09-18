@@ -1,7 +1,7 @@
 # create_logical_replication_slot
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1324 - 1372
+[src/bin/pg_basebackup/pg_createsubscriber.c:1324-1372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1324-L1372)
 
 ## Overview
 A static helper function that creates a new logical replication slot with specified parameters, handling the initialization of the logical decoding context and optionally finding the decoding start point.

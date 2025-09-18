@@ -1,7 +1,7 @@
 # create_namedtuplestorescan_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 2150 - 2175
+[src/backend/optimizer/util/pathnode.c:2150-2175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L2150-L2175)
 
 ## Overview
 Creates a path node for scanning a named tuplestore, which represents an in-memory storage mechanism used for temporary data during query execution.

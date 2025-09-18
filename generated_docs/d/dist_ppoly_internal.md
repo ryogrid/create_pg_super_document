@@ -1,7 +1,7 @@
 # dist_ppoly_internal
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2630 - 2674
+[src/backend/utils/adt/geo_ops.c:2630-2674](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2630-L2674)
 
 ## Overview
 An internal static function that calculates the shortest distance between a point and a polygon, implementing the core distance computation logic.

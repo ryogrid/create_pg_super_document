@@ -1,7 +1,7 @@
 # hash_record
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1794 - 1913
+[src/backend/utils/adt/rowtypes.c:1794-1913](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1794-L1913)
 
 ## Overview
 The hash_record function computes a hash value for a composite type (record) by combining hash values of all its non-dropped columns.

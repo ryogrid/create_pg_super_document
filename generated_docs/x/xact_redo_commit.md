@@ -1,7 +1,7 @@
 # xact_redo_commit
 
 ## Location
-src/backend/access/transam/xact.c: 6068 - 6221
+[src/backend/access/transam/xact.c:6068-6221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L6068-L6221)
 
 ## Overview
 Replays transaction commit records during WAL recovery, handling both regular commits and prepared transaction commits with proper ordering of operations for crash recovery.

@@ -1,7 +1,7 @@
 # ConditionalMultiXactIdWait
 
 ## Location
-src/backend/access/heap/heapam.c: 7773 - 7786
+[src/backend/access/heap/heapam.c:7773-7786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7773-L7786)
 
 ## Overview
 ConditionalMultiXactIdWait provides a non-blocking interface to conditionally wait for conflicting members of a multixact, returning immediately if locks cannot be acquired.

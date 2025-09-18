@@ -1,7 +1,7 @@
 # RevmapContents
 
 ## Location
-src/include/access/brin_page.h: 78 - 86
+[src/include/access/brin_page.h:78-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/brin_page.h#L78-L86)
 
 ## Overview
 RevmapContents is a structure that defines the contents of BRIN reverse map pages, containing an array of item pointers that map heap block ranges to their corresponding BRIN index tuples.

@@ -1,7 +1,7 @@
 # GetOldestRestartPoint
 
 ## Location
-src/backend/access/transam/xlog.c: 9479 - 9488
+[src/backend/access/transam/xlog.c:9479-9488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L9479-L9488)
 
 ## Overview
 Returns the redo pointer and timeline ID of the last checkpoint or restartpoint, representing the oldest point in WAL that would be needed if recovery were to restart.

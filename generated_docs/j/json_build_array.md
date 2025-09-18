@@ -1,7 +1,7 @@
 # json_build_array
 
 ## Location
-src/backend/utils/adt/json.c: 1365 - 1384
+[src/backend/utils/adt/json.c:1365-1384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1365-L1384)
 
 ## Overview
 The json_build_array function is a SQL function that creates a JSON array from a variadic list of arguments of any type.

@@ -1,7 +1,7 @@
 # preprocess_qual_conditions
 
 ## Location
-src/backend/optimizer/plan/planner.c: 1258 - 1301
+[src/backend/optimizer/plan/planner.c:1258-1301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L1258-L1301)
 
 ## Overview
 The preprocess_qual_conditions function recursively traverses the query's join tree structure to locate and preprocess all qualification conditions (WHERE and JOIN/ON clauses) using preprocess_expression.

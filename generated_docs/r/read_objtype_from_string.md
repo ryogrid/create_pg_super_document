@@ -1,7 +1,7 @@
 # read_objtype_from_string
 
 ## Location
-src/backend/catalog/objectaddress.c: 2600 - 2619
+[src/backend/catalog/objectaddress.c:2600-2619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2600-L2619)
 
 ## Overview
 Converts a string representation of an object type into PostgreSQL's internal ObjectType enumeration value, providing validation and error handling for unrecognized types.

@@ -1,7 +1,7 @@
 # output_simple_statement
 
 ## Location
-src/interfaces/ecpg/preproc/output.c: 19 - 36
+[src/interfaces/ecpg/preproc/output.c:19-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/output.c#L19-L36)
 
 ## Overview
 Outputs a simple SQL statement to the preprocessor output stream with optional error handling and line number tracking.

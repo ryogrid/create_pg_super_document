@@ -1,7 +1,7 @@
 # deccopy
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 173 - 178
+[src/interfaces/ecpg/compatlib/informix.c:173-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L173-L178)
 
 ## Overview
 Copies the contents of one decimal variable to another, providing a simple and efficient way to duplicate decimal values in Informix compatibility mode.

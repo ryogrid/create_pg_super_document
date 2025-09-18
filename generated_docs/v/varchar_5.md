@@ -1,7 +1,7 @@
 # varchar_5
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-array_of_struct.c: 117 - 288
+[src/interfaces/ecpg/test/expected/preproc-array_of_struct.c:117-288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-array_of_struct.c#L117-L288)
 
 ## Overview
 varchar_5 is a struct type definition in PostgreSQL's ECPG (Embedded SQL in C) test framework that represents a variable-length character string structure with a maximum capacity of 50 characters.

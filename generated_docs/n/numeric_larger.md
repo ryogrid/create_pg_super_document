@@ -1,7 +1,7 @@
 # numeric_larger
 
 ## Location
-src/backend/utils/adt/numeric.c: 3508 - 3536
+[src/backend/utils/adt/numeric.c:3508-3536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3508-L3536)
 
 ## Overview
 Returns the larger of two numeric values, handling NaN comparisons consistently with PostgreSQL comparison operators.

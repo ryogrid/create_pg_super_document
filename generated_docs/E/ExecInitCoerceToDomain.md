@@ -1,7 +1,7 @@
 # ExecInitCoerceToDomain
 
 ## Location
-src/backend/executor/execExpr.c: 3346 - 3500
+[src/backend/executor/execExpr.c:3346-3500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L3346-L3500)
 
 ## Overview
 Prepares evaluation of a CoerceToDomain expression by setting up domain constraint validation including NOT NULL and CHECK constraints.

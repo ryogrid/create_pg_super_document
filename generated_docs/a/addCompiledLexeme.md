@@ -1,7 +1,7 @@
 # addCompiledLexeme
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 303 - 333
+[src/backend/tsearch/dict_thesaurus.c:303-333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L303-L333)
 
 ## Overview
 Adds a compiled lexeme entry to the processed thesaurus word array, expanding storage capacity as needed during dictionary compilation.

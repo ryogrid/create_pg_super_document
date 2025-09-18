@@ -1,7 +1,7 @@
 # pg_GSS_error_int
 
 ## Location
-src/interfaces/libpq/fe-gssapi-common.c: 26 - 46
+[src/interfaces/libpq/fe-gssapi-common.c:26-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-gssapi-common.c#L26-L46)
 
 ## Overview
 Internal helper function that fetches all GSS-API error messages of a specific type and appends them to a string buffer.

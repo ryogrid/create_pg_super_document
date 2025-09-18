@@ -1,7 +1,7 @@
 # ExecEvalScalarArrayOp
 
 ## Location
-src/backend/executor/execExprInterp.c: 3467 - 3619
+[src/backend/executor/execExprInterp.c:3467-3619](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3467-L3619)
 
 ## Overview
 ExecEvalScalarArrayOp evaluates "scalar op ANY/ALL (array)" expressions by applying a comparison operator between a scalar value and each element of an array, combining results using OR (ANY) or AND (ALL) semantics.

@@ -1,7 +1,7 @@
 # cleanup_rel_sync_cache
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 2294 - 2328
+[src/backend/replication/pgoutput/pgoutput.c:2294-2328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L2294-L2328)
 
 ## Overview
 Cleans up the relation sync cache by removing completed transaction IDs and updating schema state flags when streamed transactions commit or abort.

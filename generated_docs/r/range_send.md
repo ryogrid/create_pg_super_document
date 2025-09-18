@@ -1,7 +1,7 @@
 # range_send
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 261 - 316
+[src/backend/utils/adt/rangetypes.c:261-316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L261-L316)
 
 ## Overview
 The range_send function is the binary send function for PostgreSQL range types, responsible for serializing internal RangeType structures into binary wire format for transmission.

@@ -1,7 +1,7 @@
 # ParseTzFile
 
 ## Location
-src/backend/utils/misc/tzparser.c: 276 - 446
+[src/backend/utils/misc/tzparser.c:276-446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/tzparser.c#L276-L446)
 
 ## Overview
 Parses a single timezone abbreviation file with support for recursion to handle @INCLUDE directives and builds an array of timezone entries.

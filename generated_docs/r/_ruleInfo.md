@@ -1,7 +1,7 @@
 # _ruleInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 442 - 450
+[src/bin/pg_dump/pg_dump.h:442-450](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L442-L450)
 
 ## Overview
 The  structure represents PostgreSQL rules that need to be dumped and restored by pg_dump, including view rules and custom table rules.

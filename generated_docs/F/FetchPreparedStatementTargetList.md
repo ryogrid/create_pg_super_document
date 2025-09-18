@@ -1,7 +1,7 @@
 # FetchPreparedStatementTargetList
 
 ## Location
-src/backend/commands/prepare.c: 486 - 501
+[src/backend/commands/prepare.c:486-501](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/prepare.c#L486-L501)
 
 ## Overview
 Extracts the query target list from a prepared statement that returns tuples, providing access to the column structure and expressions.

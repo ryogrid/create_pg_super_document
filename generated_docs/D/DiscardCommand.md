@@ -1,7 +1,7 @@
 # DiscardCommand
 
 ## Location
-src/backend/commands/discard.c: 31 - 56
+[src/backend/commands/discard.c:31-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/discard.c#L31-L56)
 
 ## Overview
 Implements the SQL DISCARD statement functionality, handling different discard targets including ALL, PLANS, SEQUENCES, and TEMP objects.

@@ -1,7 +1,7 @@
 # dt2local
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2134 - 2146
+[src/backend/utils/adt/timestamp.c:2134-2146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2134-L2146)
 
 ## Overview
 A static helper function that converts a timestamp from UTC to local time by subtracting the specified timezone offset.

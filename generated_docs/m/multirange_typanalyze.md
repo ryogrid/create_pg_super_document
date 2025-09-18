@@ -1,7 +1,7 @@
 # multirange_typanalyze
 
 ## Location
-src/backend/utils/adt/rangetypes_typanalyze.c: 72 - 94
+[src/backend/utils/adt/rangetypes_typanalyze.c:72-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_typanalyze.c#L72-L94)
 
 ## Overview
 The  function is a specialized type analysis function for multirange columns in PostgreSQL, used during the ANALYZE command to set up statistics collection for multirange data types.

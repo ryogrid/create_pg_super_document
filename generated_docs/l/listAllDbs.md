@@ -1,7 +1,7 @@
 # listAllDbs
 
 ## Location
-src/bin/psql/describe.c: 911 - 1010
+[src/bin/psql/describe.c:911-1010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L911-L1010)
 
 ## Overview
 Implements the \l, \list psql commands and the -l command-line switch to display a comprehensive list of all databases in the PostgreSQL cluster with their properties and metadata.

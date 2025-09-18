@@ -1,7 +1,7 @@
 # interval_eq
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2523 - 2531
+[src/backend/utils/adt/timestamp.c:2523-2531](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2523-L2531)
 
 ## Overview
 Compares two interval values for equality, returning true if they represent the same time span.

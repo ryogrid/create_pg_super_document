@@ -1,7 +1,7 @@
 # WalSndSegmentOpen
 
 ## Location
-src/backend/replication/walsender.c: 3022 - 3099
+[src/backend/replication/walsender.c:3022-3099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L3022-L3099)
 
 ## Overview
 WalSndSegmentOpen is a callback function used by XLogReader to open WAL segments during WAL streaming replication, handling timeline switches and file access errors appropriately.

@@ -1,7 +1,7 @@
 # is_ancestor_member_tableinfos
 
 ## Location
-src/backend/catalog/pg_publication.c: 182 - 200
+[src/backend/catalog/pg_publication.c:182-200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L182-L200)
 
 ## Overview
 A static helper function that checks whether a given ancestor table OID exists in a list of published relation information structures.

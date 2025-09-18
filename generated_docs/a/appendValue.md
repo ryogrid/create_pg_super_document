@@ -1,7 +1,7 @@
 # appendValue
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 772 - 784
+[src/backend/utils/adt/jsonb_util.c:772-784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L772-L784)
 
 ## Overview
 Completes a key-value pair by appending the value part to a JSONB object, incrementing the pair count in the process.

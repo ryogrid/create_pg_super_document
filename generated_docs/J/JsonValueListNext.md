@@ -1,7 +1,7 @@
 # JsonValueListNext
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3580 - 3600
+[src/backend/utils/adt/jsonpath_exec.c:3580-3600](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3580-L3600)
 
 ## Overview
 JsonValueListNext is a static function that advances an iterator through a JsonValueList sequence and returns the next JsonbValue item.

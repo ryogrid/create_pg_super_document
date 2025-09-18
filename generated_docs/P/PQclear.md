@@ -1,7 +1,7 @@
 # PQclear
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 721 - 778
+[src/interfaces/libpq/fe-exec.c:721-778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L721-L778)
 
 ## Overview
 PQclear is a PostgreSQL libpq library function that frees the memory associated with a PGresult structure, providing proper cleanup and resource management for query results.

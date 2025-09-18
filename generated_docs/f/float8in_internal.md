@@ -1,7 +1,7 @@
 # float8in_internal
 
 ## Location
-src/backend/utils/adt/float.c: 388 - 514
+[src/backend/utils/adt/float.c:388-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L388-L514)
 
 ## Overview
 Internal implementation function for converting string input to float8 (double precision) values, providing platform-independent parsing with advanced error handling and support for special floating-point values.

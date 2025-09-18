@@ -1,7 +1,7 @@
 # StoreConstraints
 
 ## Location
-src/backend/catalog/heap.c: 2240 - 2313
+[src/backend/catalog/heap.c:2240-2313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2240-L2313)
 
 ## Overview
 StoreConstraints processes a list of pre-cooked constraints and defaults, storing them in the appropriate system catalogs for a relation.

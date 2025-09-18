@@ -1,7 +1,7 @@
 # ox1
 
 ## Location
-src/backend/optimizer/geqo/geqo_ox1.c: 49 - 96
+[src/backend/optimizer/geqo/geqo_ox1.c:49-96](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_ox1.c#L49-L96)
 
 ## Overview
 The ox1 function implements the Order Crossover 1 (OX1) genetic algorithm crossover operator used in PostgreSQL's GEQO (Genetic Query Optimizer) for generating offspring from two parent gene sequences.

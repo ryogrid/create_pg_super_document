@@ -1,7 +1,7 @@
 # int28
 
 ## Location
-src/backend/utils/adt/int8.c: 1262 - 1269
+[src/backend/utils/adt/int8.c:1262-1269](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1262-L1269)
 
 ## Overview
 Converts a 16-bit integer (int2) to a 64-bit integer (int8) with sign extension.

@@ -1,7 +1,7 @@
 # XmlTableBuilderData
 
 ## Location
-src/backend/utils/adt/xml.c: 196 - 208
+[src/backend/utils/adt/xml.c:196-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xml.c#L196-L208)
 
 ## Overview
 A builder structure that maintains state and context for constructing result sets from XML data using XPath expressions in PostgreSQL's XMLTABLE functionality.

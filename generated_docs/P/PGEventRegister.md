@@ -1,7 +1,7 @@
 # PGEventRegister
 
 ## Location
-src/interfaces/libpq/libpq-events.h: 40 - 44
+[src/interfaces/libpq/libpq-events.h:40-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-events.h#L40-L44)
 
 ## Overview
 PGEventRegister is a structure that contains event information passed to event callback functions when a PGEVT_REGISTER event is fired during event processor registration.

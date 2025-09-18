@@ -1,7 +1,7 @@
 # CacheInvalidateRelmap
 
 ## Location
-src/backend/utils/cache/inval.c: 1492 - 1518
+[src/backend/utils/cache/inval.c:1492-1518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L1492-L1518)
 
 ## Overview
 Registers invalidation of the relation mapping for a database or shared catalogs, forcing other backends to re-read the relation mapping file.

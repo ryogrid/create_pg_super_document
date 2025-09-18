@@ -1,7 +1,7 @@
 # QTW_DONT_COPY_QUERY
 
 ## Location
-src/include/nodes/nodeFuncs.h: 31 - 31
+[src/include/nodes/nodeFuncs.h:31-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L31-L31)
 
 ## Overview
 A flag bit constant used to control the behavior of query_tree_mutator functions, instructing them to avoid copying the top-level Query node during tree mutation operations.

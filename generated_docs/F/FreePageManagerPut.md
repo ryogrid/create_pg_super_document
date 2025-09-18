@@ -1,7 +1,7 @@
 # FreePageManagerPut
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 379 - 423
+[src/backend/utils/mmgr/freepage.c:379-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L379-L423)
 
 ## Overview
 Transfers a contiguous run of pages to the free page manager, making them available for future allocation.

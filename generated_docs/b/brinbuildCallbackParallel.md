@@ -1,7 +1,7 @@
 # brinbuildCallbackParallel
 
 ## Location
-src/backend/access/brin/brin.c: 1036 - 1094
+[src/backend/access/brin/brin.c:1036-1094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L1036-L1094)
 
 ## Overview
 Per-heap-tuple callback function for parallel BRIN index builds that processes tuples and writes summary data to shared tuplesort instead of directly inserting into the index.

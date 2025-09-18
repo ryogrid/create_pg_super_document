@@ -1,7 +1,7 @@
 # xid8_larger
 
 ## Location
-src/backend/utils/adt/xid.c: 291 - 302
+[src/backend/utils/adt/xid.c:291-302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid.c#L291-L302)
 
 ## Overview
 Returns the larger of two full transaction IDs (xid8), implementing the larger() function for PostgreSQL's xid8 data type.

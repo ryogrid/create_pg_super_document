@@ -1,7 +1,7 @@
 # get_func_result_type
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 410 - 429
+[src/backend/utils/fmgr/funcapi.c:410-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L410-L429)
 
 ## Overview
 Determines the datatype that a PostgreSQL function returns based solely on the function's OID, providing a simpler interface than other result type functions but with limitations in resolving complex types.

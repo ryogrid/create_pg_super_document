@@ -1,7 +1,7 @@
 # pg_lsn_larger
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 172 - 180
+[src/backend/utils/adt/pg_lsn.c:172-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L172-L180)
 
 ## Overview
 The pg_lsn_larger function returns the larger (more recent) of two PostgreSQL Log Sequence Numbers (LSNs).

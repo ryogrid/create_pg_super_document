@@ -1,7 +1,7 @@
 # json_strip_nulls
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4492 - 4524
+[src/backend/utils/adt/jsonfuncs.c:4492-4524](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4492-L4524)
 
 ## Overview
 A PostgreSQL SQL function that removes null-valued fields from JSON objects, returning a new JSON value with null fields stripped out.

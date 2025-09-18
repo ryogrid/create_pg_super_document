@@ -1,7 +1,7 @@
 # pltcl_trigger_handler
 
 ## Location
-src/pl/tcl/pltcl.c: 1056 - 1315
+[src/pl/tcl/pltcl.c:1056-1315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L1056-L1315)
 
 ## Overview
 Handles trigger calls for PL/Tcl, managing trigger context setup, argument conversion, Tcl trigger function execution, and result processing for both row and statement-level triggers.

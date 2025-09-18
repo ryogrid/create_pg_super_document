@@ -1,7 +1,7 @@
 # ExecIndexRestrPos
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 850 - 885
+[src/backend/executor/nodeIndexscan.c:850-885](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L850-L885)
 
 ## Overview
 ExecIndexRestrPos restores an index scan to a previously marked position, serving as the counterpart to ExecIndexMarkPos for implementing position-based scan restoration in PostgreSQL's index scanning execution.

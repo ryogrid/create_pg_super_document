@@ -1,7 +1,7 @@
 # resolve_special_varno
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7624 - 7731
+[src/backend/utils/adt/ruleutils.c:7624-7731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7624-L7731)
 
 ## Overview
 Recursively resolves special variable numbers (OUTER_VAR, INNER_VAR, INDEX_VAR) in plan trees by traversing through nested subplans until finding a concrete expression, then invokes a callback to handle the resolved node.

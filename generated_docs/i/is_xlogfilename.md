@@ -1,7 +1,7 @@
 # is_xlogfilename
 
 ## Location
-src/bin/pg_basebackup/pg_receivewal.c: 116 - 183
+[src/bin/pg_basebackup/pg_receivewal.c:116-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_receivewal.c#L116-L183)
 
 ## Overview
 A utility function that validates whether a given filename matches the expected format of a PostgreSQL Write-Ahead Log (WAL) file and determines its compression and completion status.

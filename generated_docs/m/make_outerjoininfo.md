@@ -1,7 +1,7 @@
 # make_outerjoininfo
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 1360 - 1699
+[src/backend/optimizer/plan/initsplan.c:1360-1699](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L1360-L1699)
 
 ## Overview
 Builds a SpecialJoinInfo structure for the current outer join, determining ordering constraints and commutability relationships with other joins in the query tree.

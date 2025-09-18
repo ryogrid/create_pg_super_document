@@ -1,7 +1,7 @@
 # AcquireDeletionLock
 
 ## Location
-src/backend/catalog/dependency.c: 1496 - 1527
+[src/backend/catalog/dependency.c:1496-1527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L1496-L1527)
 
 ## Overview
 AcquireDeletionLock acquires appropriate locks for object deletion operations, with specialized handling for different object types and concurrent deletion modes.

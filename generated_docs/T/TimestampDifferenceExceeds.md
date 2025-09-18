@@ -1,7 +1,7 @@
 # TimestampDifferenceExceeds
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1790 - 1810
+[src/backend/utils/adt/timestamp.c:1790-1810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1790-L1810)
 
 ## Overview
 TimestampDifferenceExceeds is a utility function that checks whether the difference between two timestamps exceeds a specified threshold expressed in milliseconds.

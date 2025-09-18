@@ -1,7 +1,7 @@
 # init_tablespaces
 
 ## Location
-src/bin/pg_upgrade/tablespace.c: 19 - 39
+[src/bin/pg_upgrade/tablespace.c:19-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/tablespace.c#L19-L39)
 
 ## Overview
 Initializes tablespace configuration for the pg_upgrade utility by gathering tablespace paths and setting directory suffixes for both old and new clusters.

@@ -1,7 +1,7 @@
 # extract_jsp_path_expr_nodes
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 504 - 563
+[src/backend/utils/adt/jsonb_gin.c:504-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L504-L563)
 
 ## Overview
 Extracts a list of expression nodes from a JSON path expression that need to be AND-ed together, processing path items and filter expressions for GIN index queries.

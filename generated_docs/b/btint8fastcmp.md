@@ -1,7 +1,7 @@
 # btint8fastcmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 147 - 161
+[src/backend/access/nbtree/nbtcompare.c:147-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L147-L161)
 
 ## Overview
 A static fast comparison function for 64-bit integers optimized for use within PostgreSQL's sort support infrastructure for B-tree operations.

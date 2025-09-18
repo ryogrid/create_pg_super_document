@@ -1,7 +1,7 @@
 # bitoctetlength
 
 ## Location
-src/backend/utils/adt/varbit.c: 1231 - 1242
+[src/backend/utils/adt/varbit.c:1231-1242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1231-L1242)
 
 ## Overview
 Returns the length in bytes (octets) of a bit string, effectively calculating the storage space required for the variable-length bit string.

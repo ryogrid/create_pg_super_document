@@ -1,7 +1,7 @@
 # has_server_privilege_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4033 - 4056
+[src/backend/utils/adt/acl.c:4033-4056](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4033-L4056)
 
 ## Overview
 Checks whether the current user has specified privileges on a named foreign server, using the currently authenticated user identity.

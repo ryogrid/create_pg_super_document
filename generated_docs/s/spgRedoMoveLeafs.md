@@ -1,7 +1,7 @@
 # spgRedoMoveLeafs
 
 ## Location
-src/backend/access/spgist/spgxlog.c: 171 - 283
+[src/backend/access/spgist/spgxlog.c:171-283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgxlog.c#L171-L283)
 
 ## Overview
 Replays the movement of leaf tuples from one SP-GiST page to another during WAL recovery, handling tuple deletion, insertion, redirection pointers, and parent link updates.

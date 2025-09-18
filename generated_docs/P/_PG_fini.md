@@ -1,7 +1,7 @@
 # _PG_fini
 
 ## Location
-src/test/modules/ldap_password_func/ldap_password_func.c: 41 - 46
+[src/test/modules/ldap_password_func/ldap_password_func.c:41-46](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/ldap_password_func/ldap_password_func.c#L41-L46)
 
 ## Overview
 Module cleanup function for PostgreSQL extensions that is called when the module is unloaded from the server.

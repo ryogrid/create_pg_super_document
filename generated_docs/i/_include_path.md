@@ -1,7 +1,7 @@
 # _include_path
 
 ## Location
-src/interfaces/ecpg/preproc/type.h: 130 - 135
+[src/interfaces/ecpg/preproc/type.h:130-135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.h#L130-L135)
 
 ## Overview
 The  structure implements a linked list data structure used in the ECPG (Embedded SQL in C) preprocessor to manage and store directory paths for header file inclusion during preprocessing.

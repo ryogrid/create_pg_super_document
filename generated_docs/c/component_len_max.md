@@ -1,7 +1,7 @@
 # component_len_max
 
 ## Location
-src/timezone/zic.c: 864 - 902
+[src/timezone/zic.c:864-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L864-L902)
 
 ## Overview
 An enumerated constant that defines the maximum recommended length for a single component (directory or file name part) within a timezone file path in the PostgreSQL timezone compiler.

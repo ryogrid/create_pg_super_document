@@ -1,7 +1,7 @@
 # read_chunk
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1479 - 1483
+[src/backend/utils/activity/pgstat.c:1479-1483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1479-L1483)
 
 ## Overview
 A static helper function that reads a chunk of data from a file stream, used primarily for reading PostgreSQL statistics data from disk during startup.

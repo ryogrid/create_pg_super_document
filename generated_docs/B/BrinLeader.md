@@ -1,7 +1,7 @@
 # BrinLeader
 
 ## Location
-src/backend/access/brin/brin.c: 119 - 146
+[src/backend/access/brin/brin.c:119-146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L119-L146)
 
 ## Overview
 BrinLeader is a structure that manages the leader process state during parallel BRIN index builds, providing convenience pointers to shared state and coordinating worker processes.

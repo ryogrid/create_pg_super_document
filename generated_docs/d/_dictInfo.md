@@ -1,7 +1,7 @@
 # _dictInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 543 - 548
+[src/bin/pg_dump/pg_dump.h:543-548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L543-L548)
 
 ## Overview
 The  structure represents text search dictionary information in the PostgreSQL dump utility, storing metadata about text search dictionaries for database export operations.

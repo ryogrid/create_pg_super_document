@@ -1,7 +1,7 @@
 # check_object_ownership
 
 ## Location
-src/backend/catalog/objectaddress.c: 2382 - 2563
+[src/backend/catalog/objectaddress.c:2382-2563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2382-L2563)
 
 ## Overview
 Validates that a specified role has ownership privileges on a database object, implementing PostgreSQL's object ownership security model with type-specific permission checks.

@@ -1,7 +1,7 @@
 # gin_tsquery_consistent_6args
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 328 - 339
+[src/backend/utils/adt/tsginidx.c:328-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L328-L339)
 
 ## Overview
 The gin_tsquery_consistent_6args function serves as a compatibility wrapper for the older six-argument version of gin_tsquery_consistent, maintaining backward compatibility with older opclass declarations.

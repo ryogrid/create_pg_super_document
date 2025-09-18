@@ -1,7 +1,7 @@
 # cost_append
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2231 - 2403
+[src/backend/optimizer/path/costsize.c:2231-2403](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2231-L2403)
 
 ## Overview
 Determines and returns the cost of an Append node, which combines results from multiple child paths either sequentially or in parallel.

@@ -1,7 +1,7 @@
 # InhInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 531 - 532
+[src/bin/pg_dump/pg_dump.h:531-532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L531-L532)
 
 ## Overview
 InhInfo is a simple structure used by pg_dump to temporarily store table inheritance relationships during the dump process.

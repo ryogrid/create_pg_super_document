@@ -1,7 +1,7 @@
 # partition_bounds_merge
 
 ## Location
-src/backend/partitioning/partbounds.c: 1118 - 1197
+[src/backend/partitioning/partbounds.c:1118-1197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1118-L1197)
 
 ## Overview
 Determines if two relations can be joined partitionwise by checking if every partition matches/overlaps at most one partition on the other side, and builds merged partition bounds if possible.

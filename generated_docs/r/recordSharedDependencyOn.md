@@ -1,7 +1,7 @@
 # recordSharedDependencyOn
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 125 - 167
+[src/backend/catalog/pg_shdepend.c:125-167](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L125-L167)
 
 ## Overview
 Records a dependency relationship between two objects where the referenced object is a shared object (accessible across multiple databases) in the PostgreSQL system catalog.

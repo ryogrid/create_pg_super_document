@@ -1,7 +1,7 @@
 # lengthCompareJsonbPair
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1925 - 1948
+[src/backend/utils/adt/jsonb_util.c:1925-1948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1925-L1948)
 
 ## Overview
 A qsort_arg() comparator function that compares JsonbPair values based on their key lengths, used for sorting JSON object key-value pairs in PostgreSQL's JSONB implementation.

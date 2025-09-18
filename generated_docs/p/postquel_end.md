@@ -1,7 +1,7 @@
 # postquel_end
 
 ## Location
-src/backend/executor/functions.c: 911 - 930
+[src/backend/executor/functions.c:911-930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L911-L930)
 
 ## Overview
 Shuts down execution of a single execution_state node, performing cleanup operations and freeing resources associated with query execution.

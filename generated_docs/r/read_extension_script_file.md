@@ -1,7 +1,7 @@
 # read_extension_script_file
 
 ## Location
-src/backend/commands/extension.c: 700 - 740
+[src/backend/commands/extension.c:700-740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L700-L740)
 
 ## Overview
 Reads an SQL script file into a string and converts it to the database encoding for execution during extension installation.

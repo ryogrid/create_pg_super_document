@@ -1,7 +1,7 @@
 # StartTransaction
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 529 - 536
+[src/bin/pg_dump/pg_backup_db.c:529-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L529-L536)
 
 ## Overview
 A simple wrapper function that initiates a database transaction by executing a BEGIN statement during pg_dump restore operations.

@@ -1,7 +1,7 @@
 # ApplySetting
 
 ## Location
-src/backend/catalog/pg_db_role_setting.c: 220 - 261
+[src/backend/catalog/pg_db_role_setting.c:220-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_db_role_setting.c#L220-L261)
 
 ## Overview
 ApplySetting loads and applies database and role-specific configuration parameter settings from the pg_db_role_setting catalog into the current PostgreSQL process.

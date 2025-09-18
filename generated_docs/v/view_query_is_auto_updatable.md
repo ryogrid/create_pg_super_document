@@ -1,7 +1,7 @@
 # view_query_is_auto_updatable
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2623 - 2770
+[src/backend/rewrite/rewriteHandler.c:2623-2770](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2623-L2770)
 
 ## Overview
 Tests whether a view definition represents an auto-updatable view according to SQL standards, returning NULL if updatable or an error message explaining why it cannot be automatically updated.

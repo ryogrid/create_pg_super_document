@@ -1,7 +1,7 @@
 # get_dependent_generated_columns
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2371 - 2418
+[src/backend/optimizer/util/plancat.c:2371-2418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2371-L2418)
 
 ## Overview
 Identifies stored generated columns that depend on any of the specified target columns, returning a bitmapset of dependent column numbers for use in query planning and execution.

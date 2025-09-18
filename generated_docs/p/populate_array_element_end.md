@@ -1,7 +1,7 @@
 # populate_array_element_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2708 - 2750
+[src/backend/utils/adt/jsonfuncs.c:2708-2750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2708-L2750)
 
 ## Overview
 A JSON parsing callback function that handles the end of array elements during JSON array population, specifically for the populate_array_json() function.

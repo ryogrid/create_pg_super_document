@@ -1,7 +1,7 @@
 # DatumGetInt32
 
 ## Location
-src/include/postgres.h: 202 - 211
+[src/include/postgres.h:202-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L202-L211)
 
 ## Overview
 Extracts a 32-bit signed integer value from PostgreSQL's internal Datum representation, providing type-safe conversion from Datum to int32.

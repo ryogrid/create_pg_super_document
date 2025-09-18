@@ -1,7 +1,7 @@
 # quote_postgres
 
 ## Location
-src/interfaces/ecpg/ecpglib/execute.c: 40 - 82
+[src/interfaces/ecpg/ecpglib/execute.c:40-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/execute.c#L40-L82)
 
 ## Overview
 A static utility function in ECPG that escapes and quotes strings for safe inclusion in PostgreSQL SQL statements.

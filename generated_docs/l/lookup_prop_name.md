@@ -1,7 +1,7 @@
 # lookup_prop_name
 
 ## Location
-src/backend/utils/adt/amutils.c: 90 - 116
+[src/backend/utils/adt/amutils.c:90-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L90-L116)
 
 ## Overview
 Converts a string property name to its corresponding IndexAMProperty enum value for efficient access method property lookup.

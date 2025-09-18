@@ -1,7 +1,7 @@
 # acosd_q1
 
 ## Location
-src/backend/utils/adt/float.c: 2074 - 2100
+[src/backend/utils/adt/float.c:2074-2100](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2074-L2100)
 
 ## Overview
 A static helper function that computes the inverse cosine of a value in degrees, specifically for inputs in the range [0, 1] with results in the first quadrant [0, 90] degrees.

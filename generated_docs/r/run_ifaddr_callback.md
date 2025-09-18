@@ -1,7 +1,7 @@
 # run_ifaddr_callback
 
 ## Location
-src/backend/libpq/ifaddr.c: 181 - 229
+[src/backend/libpq/ifaddr.c:181-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/ifaddr.c#L181-L229)
 
 ## Overview
 Validates network interface address and mask parameters before executing a callback function for network interface processing.

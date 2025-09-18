@@ -1,7 +1,7 @@
 # cost_agg
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2650 - 2853
+[src/backend/optimizer/path/costsize.c:2650-2853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2650-L2853)
 
 ## Overview
 Calculates the startup and total costs for performing an Agg plan node, considering different aggregation strategies (plain, sorted, hashed, mixed) and accounting for spilling to disk when memory limits are exceeded.

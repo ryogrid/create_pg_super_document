@@ -1,7 +1,7 @@
 # SlruInternalDeleteSegment
 
 ## Location
-src/backend/access/transam/slru.c: 1500 - 1522
+[src/backend/access/transam/slru.c:1500-1522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L1500-L1522)
 
 ## Overview
 Internal function to delete an individual SLRU segment file from disk without touching the SLRU buffers.

@@ -1,7 +1,7 @@
 # non_negative
 
 ## Location
-src/backend/access/gist/gistproc.c: 339 - 350
+[src/backend/access/gist/gistproc.c:339-350](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistproc.c#L339-L350)
 
 ## Overview
 A static inline utility function that ensures a floating-point value is non-negative by replacing negative values or NaN with zero.

@@ -1,7 +1,7 @@
 # inet_hist_value_sel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 604 - 672
+[src/backend/utils/adt/network_selfuncs.c:604-672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L604-L672)
 
 ## Overview
 Estimates the selectivity of histogram values against a single constant value for inet subnet inclusion/overlap operators, calculating the fraction of histogram population that satisfies "value OPR CONST".

@@ -1,7 +1,7 @@
 # bitle
 
 ## Location
-src/backend/utils/adt/varbit.c: 904 - 918
+[src/backend/utils/adt/varbit.c:904-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L904-L918)
 
 ## Overview
 Implements the "less than or equal to" comparison operator for PostgreSQL bit string data types, returning true if the first bit string is lexicographically smaller than or equal to the second.

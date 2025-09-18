@@ -1,7 +1,7 @@
 # CopyMultiInsertInfoCleanup
 
 ## Location
-src/backend/commands/copyfrom.c: 567 - 585
+[src/backend/commands/copyfrom.c:567-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfrom.c#L567-L585)
 
 ## Overview
 Performs final cleanup of a CopyMultiInsertInfo structure by cleaning up all remaining buffers and freeing the buffer list.

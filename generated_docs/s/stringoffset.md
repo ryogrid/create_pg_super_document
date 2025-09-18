@@ -1,7 +1,7 @@
 # stringoffset
 
 ## Location
-src/timezone/zic.c: 2682 - 2715
+[src/timezone/zic.c:2682-2715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2682-L2715)
 
 ## Overview
 The stringoffset function converts a timezone offset value (in seconds) into a human-readable string format suitable for POSIX timezone strings and display purposes.

@@ -1,7 +1,7 @@
 # SeqScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1576 - 1580
+[src/include/nodes/execnodes.h:1576-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1576-L1580)
 
 ## Overview
 SeqScanState represents the execution state for sequential scan operations in PostgreSQL's executor, extending ScanState to support both regular and parallel heap scans.

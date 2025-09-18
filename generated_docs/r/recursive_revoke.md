@@ -1,7 +1,7 @@
 # recursive_revoke
 
 ## Location
-src/backend/utils/adt/acl.c: 1302 - 1387
+[src/backend/utils/adt/acl.c:1302-1387](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1302-L1387)
 
 ## Overview
 Ensures that no privileges become "abandoned" by recursively revoking privileges that were granted through a broken chain of grant options.

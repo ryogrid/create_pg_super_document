@@ -1,7 +1,7 @@
 # expandTableLikeClause
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 1169 - 1460
+[src/backend/parser/parse_utilcmd.c:1169-1460](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L1169-L1460)
 
 ## Overview
 Processes LIKE clause options that require knowing the final column assignments in a newly created table, generating utility commands for indexes, constraints, defaults, and statistics after table creation.

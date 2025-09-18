@@ -1,7 +1,7 @@
 # pgstat_report_deadlock
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 125 - 139
+[src/backend/utils/activity/pgstat_database.c:125-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L125-L139)
 
 ## Overview
 Records the occurrence of a deadlock in PostgreSQL's database statistics system.

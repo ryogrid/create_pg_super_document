@@ -1,7 +1,7 @@
 # XLogPrefetchIncrement
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 351 - 361
+[src/backend/access/transam/xlogprefetcher.c:351-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L351-L361)
 
 ## Overview
 A thread-safe utility function that atomically increments a counter in shared memory for WAL prefetch statistics tracking.

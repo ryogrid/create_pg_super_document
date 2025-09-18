@@ -1,7 +1,7 @@
 # matchuntil
 
 ## Location
-src/backend/regex/rege_dfa.c: 371 - 505
+[src/backend/regex/rege_dfa.c:371-505](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/rege_dfa.c#L371-L505)
 
 ## Overview
 Implements an incremental matching engine for search-style NFAs that determines match existence with O(N) time complexity across multiple calls.

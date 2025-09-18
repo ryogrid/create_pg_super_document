@@ -1,7 +1,7 @@
 # GetVirtualXIDsDelayingChkpt
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3042 - 3087
+[src/backend/storage/ipc/procarray.c:3042-3087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3042-L3087)
 
 ## Overview
 GetVirtualXIDsDelayingChkpt returns an array of virtual transaction IDs for transactions that are currently in critical sections and delaying checkpoint completion.

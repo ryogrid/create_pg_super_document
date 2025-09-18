@@ -1,7 +1,7 @@
 # pg_control_init
 
 ## Location
-src/backend/utils/misc/pg_controldata.c: 204 - 260
+[src/backend/utils/misc/pg_controldata.c:204-260](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_controldata.c#L204-L260)
 
 ## Overview
 A PostgreSQL SQL function that retrieves initialization-time configuration parameters from the control file, providing access to compile-time and cluster-initialization settings.

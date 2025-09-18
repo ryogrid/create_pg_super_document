@@ -1,7 +1,7 @@
 # numeric_power
 
 ## Location
-src/backend/utils/adt/numeric.c: 3951 - 4137
+[src/backend/utils/adt/numeric.c:3951-4137](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L3951-L4137)
 
 ## Overview
 Computes x raised to the power of y (x^y) with extensive special value handling following POSIX pow(3) specifications and SQL standards.

@@ -1,7 +1,7 @@
 # SimpleOidList
 
 ## Location
-src/include/fe_utils/simple_list.h: 26 - 30
+[src/include/fe_utils/simple_list.h:26-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/simple_list.h#L26-L30)
 
 ## Overview
 SimpleOidList is a singly-linked list container that manages a collection of PostgreSQL Object Identifier (Oid) values, providing efficient head and tail access for frontend utility operations.

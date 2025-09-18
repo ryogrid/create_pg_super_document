@@ -1,7 +1,7 @@
 # importFile
 
 ## Location
-src/test/examples/testlo64.c: 34 - 77
+[src/test/examples/testlo64.c:34-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlo64.c#L34-L77)
 
 ## Overview
 A static function that imports a file from the Unix filesystem into the PostgreSQL database as a large object.

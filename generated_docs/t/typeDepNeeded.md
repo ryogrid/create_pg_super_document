@@ -1,7 +1,7 @@
 # typeDepNeeded
 
 ## Location
-src/backend/commands/opclasscmds.c: 1675 - 1724
+[src/backend/commands/opclasscmds.c:1675-1724](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1675-L1724)
 
 ## Overview
 Determines whether a pg_amop or pg_amproc catalog entry requires an explicit dependency on its lefttype or righttype to maintain proper referential integrity.

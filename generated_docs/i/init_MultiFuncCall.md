@@ -1,7 +1,7 @@
 # init_MultiFuncCall
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 133 - 207
+[src/backend/utils/fmgr/funcapi.c:133-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L133-L207)
 
 ## Overview
 init_MultiFuncCall creates and initializes a FuncCallContext data structure for set-returning functions, providing the foundational setup for multi-call function execution.

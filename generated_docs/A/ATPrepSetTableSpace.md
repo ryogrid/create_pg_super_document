@@ -1,7 +1,7 @@
 # ATPrepSetTableSpace
 
 ## Location
-src/backend/commands/tablecmds.c: 15019 - 15048
+[src/backend/commands/tablecmds.c:15019-15048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15019-L15048)
 
 ## Overview
 ATPrepSetTableSpace is a preparation function for the ALTER TABLE SET TABLESPACE command that validates the target tablespace and stores the tablespace change information for later execution during the ALTER TABLE operation.

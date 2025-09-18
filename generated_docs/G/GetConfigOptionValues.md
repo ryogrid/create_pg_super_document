@@ -1,7 +1,7 @@
 # GetConfigOptionValues
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 594 - 806
+[src/backend/utils/misc/guc_funcs.c:594-806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L594-L806)
 
 ## Overview
 Extracts and formats field values for a configuration parameter to display in the pg_settings system view.

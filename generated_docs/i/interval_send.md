@@ -1,7 +1,7 @@
 # interval_send
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1031 - 1055
+[src/backend/utils/adt/timestamp.c:1031-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1031-L1055)
 
 ## Overview
 Converts PostgreSQL's internal Interval data type to its external binary format for efficient client-server communication using the binary protocol.

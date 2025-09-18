@@ -1,7 +1,7 @@
 # create_append_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1244 - 1374
+[src/backend/optimizer/util/pathnode.c:1244-1374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1244-L1374)
 
 ## Overview
 Creates a path node corresponding to an Append plan, which combines results from multiple child paths either sequentially or in parallel.

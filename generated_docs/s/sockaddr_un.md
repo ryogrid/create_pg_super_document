@@ -1,7 +1,7 @@
 # sockaddr_un
 
 ## Location
-src/include/port/win32/sys/un.h: 11 - 17
+[src/include/port/win32/sys/un.h:11-17](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/win32/sys/un.h#L11-L17)
 
 ## Overview
 The `sockaddr_un` structure represents a Unix domain socket address in PostgreSQL on Windows platforms. It provides a Windows-specific definition for Unix domain socket addressing when the system's `<afunix.h>` header is not available.

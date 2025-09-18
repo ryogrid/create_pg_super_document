@@ -1,7 +1,7 @@
 # DecodeCommit
 
 ## Location
-src/backend/replication/logical/decode.c: 679 - 774
+[src/backend/replication/logical/decode.c:679-774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L679-L774)
 
 ## Overview
 The `DecodeCommit` function provides consolidated handling for commit records in logical decoding, processing both regular commits and two-phase commits with support for subtransactions and origin tracking.

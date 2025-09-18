@@ -1,7 +1,7 @@
 # PageGetHeapFreeSpace
 
 ## Location
-src/backend/storage/page/bufpage.c: 991 - 1051
+[src/backend/storage/page/bufpage.c:991-1051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/page/bufpage.c#L991-L1051)
 
 ## Overview
 Returns the size of the free (allocatable) space on a heap page, reduced by the space needed for a new line pointer, while enforcing heap-specific line pointer limits.

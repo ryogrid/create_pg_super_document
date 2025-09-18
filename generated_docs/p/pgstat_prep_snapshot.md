@@ -1,7 +1,7 @@
 # pgstat_prep_snapshot
 
 ## Location
-src/backend/utils/activity/pgstat.c: 957 - 977
+[src/backend/utils/activity/pgstat.c:957-977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L957-L977)
 
 ## Overview
 Prepares the statistics snapshot infrastructure by creating the memory context and hash table needed for snapshot operations if they don't already exist.

@@ -1,7 +1,7 @@
 # ProcArrayGroupClearXid
 
 ## Location
-src/backend/storage/ipc/procarray.c: 792 - 906
+[src/backend/storage/ipc/procarray.c:792-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L792-L906)
 
 ## Overview
 ProcArrayGroupClearXid implements a group-based optimization for clearing transaction IDs during commit to reduce contention on ProcArrayLock when many processes are committing simultaneously.

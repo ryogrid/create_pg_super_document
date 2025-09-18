@@ -1,7 +1,7 @@
 # uint64in_subr
 
 ## Location
-src/backend/utils/adt/numutils.c: 987 - 1043
+[src/backend/utils/adt/numutils.c:987-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L987-L1043)
 
 ## Overview
 Converts a string to an unsigned 64-bit integer using PostgreSQL's strtou64() function with error handling and optional partial parsing support.

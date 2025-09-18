@@ -1,7 +1,7 @@
 # plperl_init_interp
 
 ## Location
-src/pl/plperl/plperl.c: 705 - 753
+[src/pl/plperl/plperl.c:705-753](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L705-L753)
 
 ## Overview
 Creates and initializes a new Perl interpreter instance for PL/Perl execution, handling platform-specific locale issues and setting up the basic Perl environment.

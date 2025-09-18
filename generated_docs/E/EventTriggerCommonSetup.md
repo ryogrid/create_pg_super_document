@@ -1,7 +1,7 @@
 # EventTriggerCommonSetup
 
 ## Location
-src/backend/commands/event_trigger.c: 634 - 720
+[src/backend/commands/event_trigger.c:634-720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L634-L720)
 
 ## Overview
 Core setup function that prepares event triggers for execution by filtering applicable triggers and building the execution list for a given event and command.

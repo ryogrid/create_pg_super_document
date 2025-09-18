@@ -1,7 +1,7 @@
 # IsBinaryTidClause
 
 ## Location
-src/backend/optimizer/path/tidpath.c: 76 - 129
+[src/backend/optimizer/path/tidpath.c:76-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/tidpath.c#L76-L129)
 
 ## Overview
 IsBinaryTidClause is a static function that determines whether a RestrictInfo represents a binary operation involving a CTID variable and a pseudoconstant.

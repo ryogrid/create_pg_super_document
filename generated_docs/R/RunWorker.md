@@ -1,7 +1,7 @@
 # RunWorker
 
 ## Location
-src/bin/pg_dump/parallel.c: 829 - 873
+[src/bin/pg_dump/parallel.c:829-873](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L829-L873)
 
 ## Overview
 Sets up and executes the main worker process/thread loop for parallel backup operations in pg_dump, managing the worker's lifecycle from initialization to cleanup.

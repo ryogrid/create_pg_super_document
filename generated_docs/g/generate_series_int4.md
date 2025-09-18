@@ -1,7 +1,7 @@
 # generate_series_int4
 
 ## Location
-src/backend/utils/adt/int.c: 1503 - 1508
+[src/backend/utils/adt/int.c:1503-1508](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1503-L1508)
 
 ## Overview
 A wrapper function that generates a series of 32-bit integers, delegating to the step-based implementation with default step value.

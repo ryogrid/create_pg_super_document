@@ -1,7 +1,7 @@
 # CheckAffix
 
 ## Location
-src/backend/tsearch/spell.c: 2071 - 2160
+[src/backend/tsearch/spell.c:2071-2160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L2071-L2160)
 
 ## Overview
 Validates and applies an affix transformation to a word, checking compound word flags and performing pattern matching to generate the base word form.

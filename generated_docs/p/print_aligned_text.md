@@ -1,7 +1,7 @@
 # print_aligned_text
 
 ## Location
-src/fe_utils/print.c: 635 - 1224
+[src/fe_utils/print.c:635-1224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L635-L1224)
 
 ## Overview
 Renders tabular data in aligned text format with proper column borders, spacing, and text wrapping support for creating professional-looking table output.

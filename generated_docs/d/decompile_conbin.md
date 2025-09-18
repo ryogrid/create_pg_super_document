@@ -1,7 +1,7 @@
 # decompile_conbin
 
 ## Location
-src/backend/commands/tablecmds.c: 15842 - 15866
+[src/backend/commands/tablecmds.c:15842-15866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15842-L15866)
 
 ## Overview
 decompile_conbin is a static utility function that converts the binary representation of a check constraint expression back into its source text form.

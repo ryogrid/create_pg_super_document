@@ -1,7 +1,7 @@
 # tts_heap_getsysattr
 
 ## Location
-src/backend/executor/execTuples.c: 355 - 374
+[src/backend/executor/execTuples.c:355-374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L355-L374)
 
 ## Overview
 tts_heap_getsysattr retrieves system attribute values from a HeapTupleTableSlot by delegating to heap_getsysattr after validating the slot contains a materialized tuple.

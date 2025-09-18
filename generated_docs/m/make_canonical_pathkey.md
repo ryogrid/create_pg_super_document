@@ -1,7 +1,7 @@
 # make_canonical_pathkey
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 55 - 105
+[src/backend/optimizer/path/pathkeys.c:55-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L55-L105)
 
 ## Overview
 Creates or retrieves a canonical PathKey from the planner's cache, ensuring that PathKeys with identical characteristics are reused rather than duplicated.

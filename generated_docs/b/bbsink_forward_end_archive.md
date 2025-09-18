@@ -1,7 +1,7 @@
 # bbsink_forward_end_archive
 
 ## Location
-src/backend/backup/basebackup_sink.c: 66 - 75
+[src/backend/backup/basebackup_sink.c:66-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_sink.c#L66-L75)
 
 ## Overview
 Forwards the end_archive callback to the next bbsink in a chain, enabling proper finalization of archive processing in a cascaded bbsink architecture.

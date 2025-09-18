@@ -1,7 +1,7 @@
 # FSMPageData
 
 ## Location
-src/include/storage/fsm_internals.h: 43 - 44
+[src/include/storage/fsm_internals.h:43-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/fsm_internals.h#L43-L44)
 
 ## Overview
 FSMPageData is a structure representing the layout of a Free Space Map (FSM) page, which stores information about available free space in heap pages using a binary tree structure for efficient search and update operations.

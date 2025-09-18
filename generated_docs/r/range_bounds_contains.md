@@ -1,7 +1,7 @@
 # range_bounds_contains
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 878 - 897
+[src/backend/utils/adt/multirangetypes.c:878-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L878-L897)
 
 ## Overview
 Determines whether the first range completely contains the second range by comparing their boundary values directly.

@@ -1,7 +1,7 @@
 # show_tcp_user_timeout
 
 ## Location
-src/backend/libpq/pqcomm.c: 2040 - 2052
+[src/backend/libpq/pqcomm.c:2040-2052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L2040-L2052)
 
 ## Overview
 GUC show hook function that retrieves and displays the current TCP_USER_TIMEOUT value for the active database connection as a string.

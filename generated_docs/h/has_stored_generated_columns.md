@@ -1,7 +1,7 @@
 # has_stored_generated_columns
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2344 - 2370
+[src/backend/optimizer/util/plancat.c:2344-2370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2344-L2370)
 
 ## Overview
 Determines whether a relation identified by a range table index has any stored generated columns, which is used during query planning to handle generated column requirements.

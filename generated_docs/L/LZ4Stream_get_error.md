@@ -1,7 +1,7 @@
 # LZ4Stream_get_error
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 330 - 353
+[src/bin/pg_dump/compress_lz4.c:330-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L330-L353)
 
 ## Overview
 Retrieves a human-readable error message from the last error that occurred in an LZ4 compression/decompression stream operation.

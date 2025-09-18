@@ -1,7 +1,7 @@
 # InsertOneTuple
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 598 - 625
+[src/backend/bootstrap/bootstrap.c:598-625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L598-L625)
 
 ## Overview
 InsertOneTuple creates and inserts a single tuple (row) into the currently open bootstrap relation using the accumulated attribute values and null markers.

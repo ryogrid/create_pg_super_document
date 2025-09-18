@@ -1,7 +1,7 @@
 # setTCPUserTimeout
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2353 - 2391
+[src/interfaces/libpq/fe-connect.c:2353-2391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2353-L2391)
 
 ## Overview
 Configures the TCP user timeout parameter for a PostgreSQL connection socket, controlling the maximum time for unacknowledged data transmission.

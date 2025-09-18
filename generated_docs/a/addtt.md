@@ -1,7 +1,7 @@
 # addtt
 
 ## Location
-src/timezone/zic.c: 3348 - 3357
+[src/timezone/zic.c:3348-3357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3348-L3357)
 
 ## Overview
 The addtt function adds a new time transition entry to the global attypes array, recording a timezone transition at a specific time with its associated type.

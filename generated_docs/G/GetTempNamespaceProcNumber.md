@@ -1,7 +1,7 @@
 # GetTempNamespaceProcNumber
 
 ## Location
-src/backend/catalog/namespace.c: 3766 - 3790
+[src/backend/catalog/namespace.c:3766-3790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3766-L3790)
 
 ## Overview
 This function extracts the process number from a temporary namespace name by parsing the numeric suffix in temporary table or temporary toast table namespace names.

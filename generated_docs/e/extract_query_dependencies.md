@@ -1,7 +1,7 @@
 # extract_query_dependencies
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3553 - 3588
+[src/backend/optimizer/plan/setrefs.c:3553-3588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3553-L3588)
 
 ## Overview
 Extracts dependencies from a rewritten but unplanned query tree, identifying relation OIDs, invalidation items, and row security status for plan cache invalidation purposes.

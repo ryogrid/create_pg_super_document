@@ -1,7 +1,7 @@
 # RangeVarCallbackMaintainsTable
 
 ## Location
-src/backend/commands/tablecmds.c: 17755 - 17790
+[src/backend/commands/tablecmds.c:17755-17790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17755-L17790)
 
 ## Overview
 RangeVarCallbackMaintainsTable is a callback function for RangeVarGetRelidExtended() that validates relation types and checks MAINTAIN permissions for maintenance operations.

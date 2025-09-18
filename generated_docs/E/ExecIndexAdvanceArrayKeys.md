@@ -1,7 +1,7 @@
 # ExecIndexAdvanceArrayKeys
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 740 - 784
+[src/backend/executor/nodeIndexscan.c:740-784](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L740-L784)
 
 ## Overview
 Advances to the next combination of array key values for multi-dimensional array-based index scans.

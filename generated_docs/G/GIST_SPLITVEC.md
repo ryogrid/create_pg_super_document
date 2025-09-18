@@ -1,7 +1,7 @@
 # GIST_SPLITVEC
 
 ## Location
-src/include/access/gist.h: 140 - 151
+[src/include/access/gist.h:140-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist.h#L140-L151)
 
 ## Overview
 GIST_SPLITVEC is a structure returned by the PickSplit method in GiST indexes, defining how tuples should be divided between left and right pages during a page split operation.

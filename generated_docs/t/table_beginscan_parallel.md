@@ -1,7 +1,7 @@
 # table_beginscan_parallel
 
 ## Location
-src/backend/access/table/tableam.c: 166 - 208
+[src/backend/access/table/tableam.c:166-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L166-L208)
 
 ## Overview
 Initiates a parallel table scan using a shared ParallelTableScanDesc structure, enabling coordinated scanning across multiple worker processes.

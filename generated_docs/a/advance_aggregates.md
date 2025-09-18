@@ -1,7 +1,7 @@
 # advance_aggregates
 
 ## Location
-src/backend/executor/nodeAgg.c: 816 - 847
+[src/backend/executor/nodeAgg.c:816-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L816-L847)
 
 ## Overview
 Advances all aggregate transition states for one input tuple by evaluating transition expressions for both sorted and hashed aggregation modes.

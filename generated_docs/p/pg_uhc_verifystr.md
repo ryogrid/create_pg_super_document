@@ -1,7 +1,7 @@
 # pg_uhc_verifystr
 
 ## Location
-src/common/wchar.c: 1612 - 1640
+[src/common/wchar.c:1612-1640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L1612-L1640)
 
 ## Overview
 Validates a string of characters in UHC (Unified Hangul Code) encoding format, checking each character in the string for proper formatting and encoding compliance.

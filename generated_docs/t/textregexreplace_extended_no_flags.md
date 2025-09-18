@@ -1,7 +1,7 @@
 # textregexreplace_extended_no_flags
 
 ## Location
-src/backend/utils/adt/regexp.c: 751 - 766
+[src/backend/utils/adt/regexp.c:751-766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L751-L766)
 
 ## Overview
 A wrapper function that delegates to textregexreplace_extended, created specifically to satisfy PostgreSQL's operator sanity regression tests for function signatures without flags parameter.

@@ -1,7 +1,7 @@
 # array_unnest_fctx
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6252 - 6332
+[src/backend/utils/adt/arrayfuncs.c:6252-6332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6252-L6332)
 
 ## Overview
 A local structure type used within the array_unnest function to maintain state across multiple calls when unnesting an array into individual elements using PostgreSQL's Set Returning Function (SRF) framework.

@@ -1,7 +1,7 @@
 # TerminateBackgroundWorker
 
 ## Location
-src/backend/postmaster/bgworker.c: 1221 - 1261
+[src/backend/postmaster/bgworker.c:1221-1261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L1221-L1261)
 
 ## Overview
 Instructs the postmaster to terminate a background worker by setting a termination flag in shared memory and signaling the postmaster.

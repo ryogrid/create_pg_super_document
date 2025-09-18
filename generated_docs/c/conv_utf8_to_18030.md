@@ -1,7 +1,7 @@
 # conv_utf8_to_18030
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 155 - 158
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:155-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L155-L158)
 
 ## Overview
 A static helper function that converts UTF-8 encoded 4-byte sequences to GB18030 character encoding by mapping specific Unicode ranges to GB18030 linear code points.

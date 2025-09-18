@@ -1,7 +1,7 @@
 # get_hash_partition_greatest_modulus
 
 ## Location
-src/backend/partitioning/partbounds.c: 3414 - 3427
+[src/backend/partitioning/partbounds.c:3414-3427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L3414-L3427)
 
 ## Overview
 Returns the greatest modulus value among all hash partitions in a hash-partitioned table, which represents the total number of hash partitions.

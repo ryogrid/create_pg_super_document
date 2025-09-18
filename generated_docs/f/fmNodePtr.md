@@ -1,7 +1,7 @@
 # fmNodePtr
 
 ## Location
-src/include/fmgr.h: 22 - 22
+[src/include/fmgr.h:22-22](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fmgr.h#L22-L22)
 
 ## Overview
 fmNodePtr is a typedef that represents a pointer to a Node structure, used as a stub reference in the function manager system to avoid including primnodes.h.

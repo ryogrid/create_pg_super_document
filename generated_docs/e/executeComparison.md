@@ -1,7 +1,7 @@
 # executeComparison
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3242 - 3252
+[src/backend/utils/adt/jsonpath_exec.c:3242-3252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3242-L3252)
 
 ## Overview
 A static callback function that performs comparison predicates for JSON path evaluation by delegating to compareItems.

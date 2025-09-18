@@ -1,7 +1,7 @@
 # regex_fixed_prefix
 
 ## Location
-src/backend/utils/adt/like_support.c: 1099 - 1166
+[src/backend/utils/adt/like_support.c:1099-1166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1099-L1166)
 
 ## Overview
 Extracts the fixed prefix portion from a regular expression pattern to support query optimization by identifying literal characters at the beginning of the regex.

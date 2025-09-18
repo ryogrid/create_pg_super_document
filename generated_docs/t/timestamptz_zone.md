@@ -1,7 +1,7 @@
 # timestamptz_zone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 6402 - 6465
+[src/backend/utils/adt/timestamp.c:6402-6465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L6402-L6465)
 
 ## Overview
 This function evaluates a timestamp with time zone at a specified time zone and returns the corresponding timestamp without time zone, effectively converting a timestamptz to local time in the target timezone.

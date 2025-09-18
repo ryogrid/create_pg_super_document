@@ -1,7 +1,7 @@
 # log_invalid_page
 
 ## Location
-src/backend/access/transam/xlogutils.c: 102 - 165
+[src/backend/access/transam/xlogutils.c:102-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L102-L165)
 
 ## Overview
 Logs references to invalid pages during WAL replay and maintains a hash table to track these invalid page references for later verification.

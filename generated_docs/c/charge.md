@@ -1,7 +1,7 @@
 # charge
 
 ## Location
-src/backend/utils/adt/char.c: 172 - 181
+[src/backend/utils/adt/char.c:172-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L172-L181)
 
 ## Overview
 The `charge` function implements the "greater than or equal" comparison operation for PostgreSQL's single-byte character (`char`) data type.

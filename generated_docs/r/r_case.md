@@ -1,7 +1,7 @@
 # r_case
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 582 - 597
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:582-597](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L582-L597)
 
 ## Overview
 The r_case function handles Hungarian case endings by removing various grammatical case suffixes from words when morphological conditions are satisfied.

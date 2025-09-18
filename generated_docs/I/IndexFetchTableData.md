@@ -1,7 +1,7 @@
 # IndexFetchTableData
 
 ## Location
-src/include/access/relscan.h: 104 - 107
+[src/include/access/relscan.h:104-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L104-L107)
 
 ## Overview
 A base class structure for fetching tuples from a table via an index, designed to be embedded in access method-specific structures for index-based table access operations.

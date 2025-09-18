@@ -1,7 +1,7 @@
 # GetIndexAmRoutineByAmId
 
 ## Location
-src/backend/access/index/amapi.c: 56 - 113
+[src/backend/access/index/amapi.c:56-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amapi.c#L56-L113)
 
 ## Overview
 GetIndexAmRoutineByAmId looks up an index access method handler by its OID and retrieves the IndexAmRoutine struct containing the method's function pointers and capabilities.

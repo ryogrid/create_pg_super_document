@@ -1,7 +1,7 @@
 # record_fields_have_compare
 
 ## Location
-src/backend/utils/cache/typcache.c: 1497 - 1504
+[src/backend/utils/cache/typcache.c:1497-1504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1497-L1504)
 
 ## Overview
 This function checks whether all fields of a record type support comparison operations, ensuring that record comparison operations can be performed safely.

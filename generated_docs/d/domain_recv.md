@@ -1,7 +1,7 @@
 # domain_recv
 
 ## Location
-src/backend/utils/adt/domains.c: 287 - 345
+[src/backend/utils/adt/domains.c:287-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L287-L345)
 
 ## Overview
 Binary input routine for any domain type that converts binary data to the domain's internal representation and validates domain constraints.

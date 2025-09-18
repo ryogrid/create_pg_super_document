@@ -1,7 +1,7 @@
 # entryIndexByFrequencyCmp
 
 ## Location
-src/backend/access/gin/ginget.c: 488 - 504
+[src/backend/access/gin/ginget.c:488-504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L488-L504)
 
 ## Overview
 This is a comparison function used for sorting scan entry indexes by their predicted result frequency, prioritizing least frequent items first to optimize GIN index scan performance.

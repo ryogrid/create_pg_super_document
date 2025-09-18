@@ -1,7 +1,7 @@
 # _hash_getbucketbuf_from_hashkey
 
 ## Location
-src/backend/access/hash/hashpage.c: 1559 - 1617
+[src/backend/access/hash/hashpage.c:1559-1617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L1559-L1617)
 
 ## Overview
 Retrieves the appropriate bucket buffer for a given hash key, using cached metapage data to optimize performance and handling bucket splits.

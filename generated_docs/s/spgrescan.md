@@ -1,7 +1,7 @@
 # spgrescan
 
 ## Location
-src/backend/access/spgist/spgscan.c: 380 - 428
+[src/backend/access/spgist/spgscan.c:380-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L380-L428)
 
 ## Overview
 Resets and restarts an SP-GiST index scan with new scan keys and order-by conditions, preparing the scan state for a fresh traversal.

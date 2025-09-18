@@ -1,7 +1,7 @@
 # ExecEvalWholeRowVar
 
 ## Location
-src/backend/executor/execExprInterp.c: 4770 - 4996
+[src/backend/executor/execExprInterp.c:4770-4996](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L4770-L4996)
 
 ## Overview
 ExecEvalWholeRowVar evaluates whole-row variable expressions, constructing composite datum values that represent entire table rows or tuple slots in PostgreSQL's expression evaluation system.

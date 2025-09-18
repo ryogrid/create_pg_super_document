@@ -1,7 +1,7 @@
 # brin_getinsertbuffer
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 690 - 883
+[src/backend/access/brin/brin_pageops.c:690-883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L690-L883)
 
 ## Overview
 Returns a pinned and exclusively locked buffer suitable for inserting a BRIN index item, handling page allocation, extension, and locking coordination with existing buffers.

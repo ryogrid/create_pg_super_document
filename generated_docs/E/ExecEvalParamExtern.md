@@ -1,7 +1,7 @@
 # ExecEvalParamExtern
 
 ## Location
-src/backend/executor/execExprInterp.c: 2532 - 2578
+[src/backend/executor/execExprInterp.c:2532-2578](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2532-L2578)
 
 ## Overview
 ExecEvalParamExtern evaluates PARAM_EXTERN parameters (external parameters provided by the client) by retrieving their values from the parameter list info, with support for dynamic parameter fetching and type validation.

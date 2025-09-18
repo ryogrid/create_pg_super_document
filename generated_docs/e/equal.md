@@ -1,7 +1,7 @@
 # equal
 
 ## Location
-src/backend/nodes/equalfuncs.c: 223 - 264
+[src/backend/nodes/equalfuncs.c:223-264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/equalfuncs.c#L223-L264)
 
 ## Overview
 The  function is PostgreSQL's primary node comparison function that determines whether two parse tree nodes are structurally equivalent in all their significant attributes.

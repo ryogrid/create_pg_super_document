@@ -1,7 +1,7 @@
 # heapgettup_advance_block
 
 ## Location
-src/backend/access/heap/heapam.c: 798 - 881
+[src/backend/access/heap/heapam.c:798-881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L798-L881)
 
 ## Overview
 A helper function that calculates the next block number to scan during heap table scanning operations, handling both forward and backward scan directions with proper wraparound logic.

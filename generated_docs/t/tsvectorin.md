@@ -1,7 +1,7 @@
 # tsvectorin
 
 ## Location
-src/backend/utils/adt/tsvector.c: 175 - 313
+[src/backend/utils/adt/tsvector.c:175-313](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector.c#L175-L313)
 
 ## Overview
 PostgreSQL input function that parses a string representation of a tsvector and converts it into the internal TSVector data structure.

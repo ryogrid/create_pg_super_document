@@ -1,7 +1,7 @@
 # lrq_prefetch
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 245 - 271
+[src/backend/access/transam/xlogprefetcher.c:245-271](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L245-L271)
 
 ## Overview
 Initiates new I/O operations in an LSN read queue by calling the next function and managing the queue state within configured limits.

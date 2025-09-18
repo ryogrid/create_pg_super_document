@@ -1,7 +1,7 @@
 # populate_recordset_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 4305 - 4327
+[src/backend/utils/adt/jsonfuncs.c:4305-4327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L4305-L4327)
 
 ## Overview
 This function handles the start of JSON object field processing during JSON-to-recordset conversion, managing the parser state and token tracking for nested JSON structures.

@@ -1,7 +1,7 @@
 # A_Expr_Kind
 
 ## Location
-src/include/nodes/parsenodes.h: 327 - 328
+[src/include/nodes/parsenodes.h:327-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L327-L328)
 
 ## Overview
 A_Expr_Kind is an enumeration that defines the various types of expressions that can be represented by A_Expr nodes in PostgreSQL's parser tree, including operators, comparisons, and special SQL constructs.

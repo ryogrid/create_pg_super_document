@@ -1,7 +1,7 @@
 # make_bound_box
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3376 - 3414
+[src/backend/utils/adt/geo_ops.c:3376-3414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3376-L3414)
 
 ## Overview
 The `make_bound_box` function creates the smallest bounding box for a given polygon by calculating the minimum and maximum x and y coordinates from all vertices.

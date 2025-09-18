@@ -1,7 +1,7 @@
 # make_oper_cache_entry
 
 ## Location
-src/backend/parser/parse_oper.c: 1020 - 1035
+[src/backend/parser/parse_oper.c:1020-1035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L1020-L1035)
 
 ## Overview
 Creates and inserts a new cache entry into the operator lookup cache with the specified key and operator OID.

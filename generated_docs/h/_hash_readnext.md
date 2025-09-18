@@ -1,7 +1,7 @@
 # _hash_readnext
 
 ## Location
-src/backend/access/hash/hashsearch.c: 131 - 196
+[src/backend/access/hash/hashsearch.c:131-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashsearch.c#L131-L196)
 
 ## Overview
 Advances to the next page in a hash bucket during scanning, with special handling for bucket splits and buffer management.

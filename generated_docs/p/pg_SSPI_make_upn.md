@@ -1,7 +1,7 @@
 # pg_SSPI_make_upn
 
 ## Location
-src/backend/libpq/auth.c: 1493 - 1596
+[src/backend/libpq/auth.c:1493-1596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1493-L1596)
 
 ## Overview
 Converts Windows SAM-compatible domain and account names to Kerberos User Principal Name (UPN) format for SSPI authentication in PostgreSQL.

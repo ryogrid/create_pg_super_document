@@ -1,7 +1,7 @@
 # PredicateLockRelation
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 2566 - 2588
+[src/backend/storage/lmgr/predicate.c:2566-2588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L2566-L2588)
 
 ## Overview
 Acquires a predicate lock at the relation level for serializable transactions, providing coarse-grained locking for entire tables.

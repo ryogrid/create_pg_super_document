@@ -1,7 +1,7 @@
 # change_plan_targetlist
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2153 - 2180
+[src/backend/optimizer/plan/createplan.c:2153-2180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2153-L2180)
 
 ## Overview
 A wrapper function that modifies a plan's target list, optimizing the process by either directly updating the target list or injecting a Result node when projection capabilities are limited.

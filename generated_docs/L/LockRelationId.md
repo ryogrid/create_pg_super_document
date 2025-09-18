@@ -1,7 +1,7 @@
 # LockRelationId
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 184 - 211
+[src/backend/storage/lmgr/lmgr.c:184-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L184-L211)
 
 ## Overview
 LockRelationId acquires a lock on a relation using a LockRelId structure instead of just the relation OID, providing more direct control over the database and relation identification.

@@ -1,7 +1,7 @@
 # libpq_append_error
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1351 - 1379
+[src/interfaces/libpq/fe-misc.c:1351-1379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1351-L1379)
 
 ## Overview
 Appends a formatted, translated error message to a PQExpBuffer with automatic newline termination and proper error handling.

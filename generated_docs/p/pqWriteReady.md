@@ -1,7 +1,7 @@
 # pqWriteReady
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1053 - 1066
+[src/interfaces/libpq/fe-misc.c:1053-1066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1053-L1066)
 
 ## Overview
 pqWriteReady is a PostgreSQL libpq function that checks if the connection socket is immediately ready for writing without blocking.

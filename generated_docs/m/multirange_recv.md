@@ -1,7 +1,7 @@
 # multirange_recv
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 337 - 376
+[src/backend/utils/adt/multirangetypes.c:337-376](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L337-L376)
 
 ## Overview
 Deserializes a PostgreSQL multirange value from its binary representation, reconstructing the multirange from a count and sequence of binary-encoded ranges.

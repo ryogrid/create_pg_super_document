@@ -1,7 +1,7 @@
 # multirange_contained_by_multirange
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 2251 - 2265
+[src/backend/utils/adt/multirangetypes.c:2251-2265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L2251-L2265)
 
 ## Overview
 Tests whether one multirange is completely contained by another multirange by reversing the argument order and calling the internal containment function.

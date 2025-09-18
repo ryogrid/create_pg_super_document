@@ -1,7 +1,7 @@
 # MaterialState
 
 ## Location
-src/include/nodes/execnodes.h: 2226 - 2232
+[src/include/nodes/execnodes.h:2226-2232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2226-L2232)
 
 ## Overview
 MaterialState is the execution state structure for materialization nodes in PostgreSQL, which store the results of a subplan into a temporary file for repeated access.

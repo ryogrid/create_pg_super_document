@@ -1,7 +1,7 @@
 # PrintNewControlValues
 
 ## Location
-src/bin/pg_resetwal/pg_resetwal.c: 789 - 860
+[src/bin/pg_resetwal/pg_resetwal.c:789-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_resetwal/pg_resetwal.c#L789-L860)
 
 ## Overview
 PrintNewControlValues displays the control file values that will be modified when pg_resetwal performs its reset operation.

@@ -1,7 +1,7 @@
 # SetPGVariable
 
 ## Location
-src/backend/utils/misc/guc_funcs.c: 315 - 331
+[src/backend/utils/misc/guc_funcs.c:315-331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc_funcs.c#L315-L331)
 
 ## Overview
 Provides a C-callable interface for setting PostgreSQL configuration variables, serving as a simplified wrapper around the SET command functionality.

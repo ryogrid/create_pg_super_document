@@ -1,7 +1,7 @@
 # print_db_infos
 
 ## Location
-src/bin/pg_upgrade/info.c: 797 - 812
+[src/bin/pg_upgrade/info.c:797-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/info.c#L797-L812)
 
 ## Overview
 Prints debugging information for all databases in a DbInfoArr structure, including their relations and replication slots.

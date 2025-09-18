@@ -1,7 +1,7 @@
 # table_relation_needs_toast_table
 
 ## Location
-src/include/access/tableam.h: 1878 - 1887
+[src/include/access/tableam.h:1878-1887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1878-L1887)
 
 ## Overview
 Determines whether a table relation requires a TOAST (The Oversized-Attribute Storage Technique) table for storing large values.

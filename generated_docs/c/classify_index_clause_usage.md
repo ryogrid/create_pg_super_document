@@ -1,7 +1,7 @@
 # classify_index_clause_usage
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1589 - 1656
+[src/backend/optimizer/path/indxpath.c:1589-1656](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1589-L1656)
 
 ## Overview
 Constructs a PathClauseUsage structure that describes the WHERE clauses and index predicate clauses used by a given index scan path, classifying clauses for comparison purposes.

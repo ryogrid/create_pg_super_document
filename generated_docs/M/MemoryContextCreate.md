@@ -1,7 +1,7 @@
 # MemoryContextCreate
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1100 - 1146
+[src/backend/utils/mmgr/mcxt.c:1100-1146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1100-L1146)
 
 ## Overview
 MemoryContextCreate is the context-type-independent core function for creating memory contexts in PostgreSQL, responsible for initializing the generic header fields and linking new contexts into the context tree.

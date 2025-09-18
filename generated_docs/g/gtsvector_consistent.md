@@ -1,7 +1,7 @@
 # gtsvector_consistent
 
 ## Location
-src/backend/utils/adt/tsgistidx.c: 334 - 373
+[src/backend/utils/adt/tsgistidx.c:334-373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsgistidx.c#L334-L373)
 
 ## Overview
 The main consistency checking function for TSVector GiST indexing that determines whether an index entry matches a given TSQuery by delegating to appropriate sub-functions based on data type.

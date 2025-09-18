@@ -1,7 +1,7 @@
 # spgPageIndexMultiDelete
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 131 - 185
+[src/backend/access/spgist/spgdoinsert.c:131-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L131-L185)
 
 ## Overview
 Efficiently deletes multiple tuples from an SP-GiST index page while preserving tuple offset numbers by replacing them with dead tuples of specified types.

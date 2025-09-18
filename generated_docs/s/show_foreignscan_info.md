@@ -1,7 +1,7 @@
 # show_foreignscan_info
 
 ## Location
-src/backend/commands/explain.c: 3651 - 3678
+[src/backend/commands/explain.c:3651-3678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3651-L3678)
 
 ## Overview
 Delegates to foreign data wrapper (FDW) routines to display additional explain information specific to ForeignScan nodes.

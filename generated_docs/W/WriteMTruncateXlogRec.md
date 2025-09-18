@@ -1,7 +1,7 @@
 # WriteMTruncateXlogRec
 
 ## Location
-src/backend/access/transam/multixact.c: 3361 - 3385
+[src/backend/access/transam/multixact.c:3361-3385](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3361-L3385)
 
 ## Overview
 WriteMTruncateXlogRec is a static function that writes a TRUNCATE xlog record for multixact operations, ensuring the record is flushed to disk before returning.

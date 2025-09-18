@@ -1,7 +1,7 @@
 # bitgetbit
 
 ## Location
-src/backend/utils/adt/varbit.c: 1869 - 1894
+[src/backend/utils/adt/varbit.c:1869-1894](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1869-L1894)
 
 ## Overview
 Retrieves the value (0 or 1) of a specific bit at a given position in a PostgreSQL variable-length bit string.

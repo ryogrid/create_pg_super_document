@@ -1,7 +1,7 @@
 # trivial_subqueryscan
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1464 - 1533
+[src/backend/optimizer/plan/setrefs.c:1464-1533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1464-L1533)
 
 ## Overview
 Determines whether a SubqueryScan node can be safely eliminated from the plan tree by checking if it adds no meaningful processing beyond passing through its subplan's output.

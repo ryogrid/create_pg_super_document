@@ -1,7 +1,7 @@
 # db_encoding_convert
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 517 - 546
+[src/backend/utils/adt/pg_locale.c:517-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L517-L546)
 
 ## Overview
 This static function converts a malloc'd string from a specified source encoding to the PostgreSQL database encoding, handling memory management and encoding conversion for locale-related strings.

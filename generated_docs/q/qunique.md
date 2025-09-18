@@ -1,7 +1,7 @@
 # qunique
 
 ## Location
-src/include/lib/qunique.h: 21 - 45
+[src/include/lib/qunique.h:21-45](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/qunique.h#L21-L45)
 
 ## Overview
 A utility function that removes duplicates from a pre-sorted array using a user-supplied comparator function, typically used with arrays that have been sorted with qsort().

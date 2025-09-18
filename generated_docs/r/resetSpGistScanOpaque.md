@@ -1,7 +1,7 @@
 # resetSpGistScanOpaque
 
 ## Location
-src/backend/access/spgist/spgscan.c: 154 - 207
+[src/backend/access/spgist/spgscan.c:154-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L154-L207)
 
 ## Overview
 Resets the SP-GiST scan opaque structure and initializes the search queue to start scanning from the root page, clearing any previously active scan state.

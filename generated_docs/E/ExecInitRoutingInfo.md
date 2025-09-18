@@ -1,7 +1,7 @@
 # ExecInitRoutingInfo
 
 ## Location
-src/backend/executor/execPartition.c: 986 - 1093
+[src/backend/executor/execPartition.c:986-1093](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L986-L1093)
 
 ## Overview
 Sets up information needed for translating tuples between root partitioned table format and partition format, managing the storage and tracking of partition-specific tuple routing information.

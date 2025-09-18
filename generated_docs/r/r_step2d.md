@@ -1,7 +1,7 @@
 # r_step2d
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2939 - 2957
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2939-2957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2939-L2957)
 
 ## Overview
 A step function in the Greek Snowball stemmer that performs suffix transformations during the second phase of stemming, with special handling for word-beginning patterns and state variable manipulation.

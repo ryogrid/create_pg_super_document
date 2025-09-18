@@ -1,7 +1,7 @@
 # ResOwnerReleaseCryptoHash
 
 ## Location
-src/common/cryptohash_openssl.c: 383 - 390
+[src/common/cryptohash_openssl.c:383-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L383-L390)
 
 ## Overview
 A resource owner callback function that handles automatic cleanup of cryptographic hash contexts when PostgreSQL's resource management system releases resources.

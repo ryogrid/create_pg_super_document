@@ -1,7 +1,7 @@
 # brin_new_memtuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 482 - 510
+[src/backend/access/brin/brin_tuple.c:482-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L482-L510)
 
 ## Overview
 Creates a new BrinMemTuple from scratch and initializes it to an empty state, allocating all necessary memory structures for in-memory BRIN tuple manipulation.

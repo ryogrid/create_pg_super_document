@@ -1,7 +1,7 @@
 # PreventCommandIfParallelMode
 
 ## Location
-src/backend/tcop/utility.c: 422 - 440
+[src/backend/tcop/utility.c:422-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/utility.c#L422-L440)
 
 ## Overview
 PreventCommandIfParallelMode throws an error if the current subtransaction is in parallel mode, ensuring commands incompatible with parallel execution are properly rejected.

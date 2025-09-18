@@ -1,7 +1,7 @@
 # convert_column_name
 
 ## Location
-src/backend/utils/adt/acl.c: 2898 - 2955
+[src/backend/utils/adt/acl.c:2898-2955](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2898-L2955)
 
 ## Overview
 A static helper function that converts a column name (as text) to its corresponding attribute number for a given table, with special handling for dropped columns and error cases.

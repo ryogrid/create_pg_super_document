@@ -1,7 +1,7 @@
 # BeginInternalSubTransaction
 
 ## Location
-src/backend/access/transam/xact.c: 4643 - 4716
+[src/backend/access/transam/xact.c:4643-4716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L4643-L4716)
 
 ## Overview
 BeginInternalSubTransaction creates an internal subtransaction that can be safely called from various transaction states, automatically handling transaction command cycling and providing more flexible usage than regular savepoints.

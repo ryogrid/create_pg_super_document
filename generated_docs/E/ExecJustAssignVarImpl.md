@@ -1,7 +1,7 @@
 # ExecJustAssignVarImpl
 
 ## Location
-src/backend/executor/execExprInterp.c: 2188 - 2213
+[src/backend/executor/execExprInterp.c:2188-2213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2188-L2213)
 
 ## Overview
 ExecJustAssignVarImpl is the core implementation function for fast-path variable assignment operations in PostgreSQL's expression evaluation system, handling the assignment of variable values to result tuple slots.

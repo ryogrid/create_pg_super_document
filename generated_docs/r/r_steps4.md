@@ -1,7 +1,7 @@
 # r_steps4
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2628 - 2646
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2628-2646](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2628-L2646)
 
 ## Overview
 The r_steps4 function is part of the Greek stemming algorithm in PostgreSQL's snowball stemmer library, implementing step 4 of the stemming process with specific pattern matching and suffix transformation.

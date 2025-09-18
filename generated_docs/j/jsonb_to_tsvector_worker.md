@@ -1,7 +1,7 @@
 # jsonb_to_tsvector_worker
 
 ## Location
-src/backend/tsearch/to_tsany.c: 285 - 300
+[src/backend/tsearch/to_tsany.c:285-300](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L285-L300)
 
 ## Overview
 Internal worker function that converts JSONB data to a text search vector (TSVector) using the specified text search configuration and flags.

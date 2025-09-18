@@ -1,7 +1,7 @@
 # IsThereCollationInNamespace
 
 ## Location
-src/backend/commands/collationcmds.c: 400 - 427
+[src/backend/commands/collationcmds.c:400-427](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/collationcmds.c#L400-L427)
 
 ## Overview
 IsThereCollationInNamespace checks for name conflicts when renaming or moving collations, ensuring no duplicate collation names exist in the target namespace.

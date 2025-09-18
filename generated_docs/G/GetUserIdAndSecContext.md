@@ -1,7 +1,7 @@
 # GetUserIdAndSecContext
 
 ## Location
-src/backend/utils/init/miscinit.c: 658 - 664
+[src/backend/utils/init/miscinit.c:658-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L658-L664)
 
 ## Overview
 Retrieves both the current effective user ID and the security restriction context flags, providing a complete snapshot of the current security state for transaction and operation management.

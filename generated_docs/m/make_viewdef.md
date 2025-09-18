@@ -1,7 +1,7 @@
 # make_viewdef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 5352 - 5436
+[src/backend/utils/adt/ruleutils.c:5352-5436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L5352-L5436)
 
 ## Overview
 Reconstructs the SELECT part of a view rewrite rule by extracting rule tuple information and converting it back into readable SQL query text.

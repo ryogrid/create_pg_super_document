@@ -1,7 +1,7 @@
 # heapam_relation_set_new_filelocator
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 581 - 626
+[src/backend/access/heap/heapam_handler.c:581-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L581-L626)
 
 ## Overview
 Implements the heap table access method interface for setting up new file storage for relations, handling storage creation and initialization of transaction ID bounds for new heap relations.

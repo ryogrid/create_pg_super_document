@@ -1,7 +1,7 @@
 # RelationGetPartitionKey
 
 ## Location
-src/backend/utils/cache/partcache.c: 51 - 77
+[src/backend/utils/cache/partcache.c:51-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/partcache.c#L51-L77)
 
 ## Overview
 Retrieves the partition key of a relation if it is a partitioned table, ensuring the partition key is built and cached for efficient access.

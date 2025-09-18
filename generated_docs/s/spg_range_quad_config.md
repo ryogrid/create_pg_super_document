@@ -1,7 +1,7 @@
 # spg_range_quad_config
 
 ## Location
-src/backend/utils/adt/rangetypes_spgist.c: 60 - 94
+[src/backend/utils/adt/rangetypes_spgist.c:60-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes_spgist.c#L60-L94)
 
 ## Overview
 SP-GiST configuration function for range type quadtree indexing that defines the structural parameters and capabilities of the index.

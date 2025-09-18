@@ -1,7 +1,7 @@
 # brinRevmapExtend
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 112 - 133
+[src/backend/access/brin/brin_revmap.c:112-133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L112-L133)
 
 ## Overview
 Extends the BRIN revmap to ensure coverage for a given heap block number, allocating new revmap pages if necessary.

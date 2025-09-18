@@ -1,7 +1,7 @@
 # int28pl
 
 ## Location
-src/backend/utils/adt/int8.c: 1113 - 1126
+[src/backend/utils/adt/int8.c:1113-1126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1113-L1126)
 
 ## Overview
 Adds a 16-bit integer (smallint) to a 64-bit integer (bigint) and returns the result as a 64-bit integer.

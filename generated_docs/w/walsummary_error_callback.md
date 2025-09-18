@@ -1,7 +1,7 @@
 # walsummary_error_callback
 
 ## Location
-src/bin/pg_walsummary/pg_walsummary.c: 231 - 245
+[src/bin/pg_walsummary/pg_walsummary.c:231-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_walsummary/pg_walsummary.c#L231-L245)
 
 ## Overview
 Error callback function for WAL summary operations that logs formatted error messages and terminates the program.

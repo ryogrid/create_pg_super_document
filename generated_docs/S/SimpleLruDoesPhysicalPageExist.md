@@ -1,7 +1,7 @@
 # SimpleLruDoesPhysicalPageExist
 
 ## Location
-src/backend/access/transam/slru.c: 743 - 800
+[src/backend/access/transam/slru.c:743-800](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/slru.c#L743-L800)
 
 ## Overview
 Determines whether a specific SLRU page exists on disk by checking file existence and size, used for validation before attempting read operations.

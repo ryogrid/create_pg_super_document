@@ -1,7 +1,7 @@
 # transformJsonBehavior
 
 ## Location
-src/backend/parser/parse_expr.c: 4696 - 4834
+[src/backend/parser/parse_expr.c:4696-4834](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4696-L4834)
 
 ## Overview
 Transforms a JSON BEHAVIOR clause during SQL parsing, handling type coercion and validation for JSON function expressions.

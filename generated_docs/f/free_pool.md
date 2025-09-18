@@ -1,7 +1,7 @@
 # free_pool
 
 ## Location
-src/backend/optimizer/geqo/geqo_pool.c: 69 - 90
+[src/backend/optimizer/geqo/geqo_pool.c:69-90](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_pool.c#L69-L90)
 
 ## Overview
 Deallocates memory for a genetic algorithm pool structure used in PostgreSQL's GEQO, properly freeing all allocated memory including chromosomes and their gene strings.

@@ -1,7 +1,7 @@
 # libpqrcv_endstreaming
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 655 - 731
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:655-731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L655-L731)
 
 ## Overview
 Terminates an active WAL streaming session with the primary server, handling the proper protocol shutdown sequence and optionally retrieving the next timeline ID.

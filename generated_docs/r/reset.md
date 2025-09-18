@@ -1,7 +1,7 @@
 # reset
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-declare.c: 600 - 606
+[src/interfaces/ecpg/test/expected/sql-declare.c:600-606](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-declare.c#L600-L606)
 
 ## Overview
 The reset function clears all output variables used in ECPG test cases by zeroing out the global arrays f1, f2, and f3.

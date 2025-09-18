@@ -1,7 +1,7 @@
 # get_typbyval
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2222 - 2250
+[src/backend/utils/cache/lsyscache.c:2222-2250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2222-L2250)
 
 ## Overview
 Determines whether a PostgreSQL data type is passed by value or by reference, returning a boolean flag that controls how the type's data is handled in function calls and storage operations.

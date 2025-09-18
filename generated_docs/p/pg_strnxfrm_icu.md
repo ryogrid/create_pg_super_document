@@ -1,7 +1,7 @@
 # pg_strnxfrm_icu
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2226 - 2272
+[src/backend/utils/adt/pg_locale.c:2226-2272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2226-L2272)
 
 ## Overview
 This static function transforms strings into ICU-based sort keys by converting to Unicode and using ICU collation services.

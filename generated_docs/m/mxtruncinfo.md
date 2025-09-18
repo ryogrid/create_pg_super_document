@@ -1,7 +1,7 @@
 # mxtruncinfo
 
 ## Location
-src/backend/access/transam/multixact.c: 3007 - 3010
+[src/backend/access/transam/multixact.c:3007-3010](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L3007-L3010)
 
 ## Overview
 mxtruncinfo is a simple data structure used during MultiXact SLRU truncation operations to track the earliest existing page number when scanning directories.

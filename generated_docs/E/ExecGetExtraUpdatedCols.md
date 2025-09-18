@@ -1,7 +1,7 @@
 # ExecGetExtraUpdatedCols
 
 ## Location
-src/backend/executor/execUtils.c: 1309 - 1323
+[src/backend/executor/execUtils.c:1309-1323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1309-L1323)
 
 ## Overview
 Returns a bitmap representing generated columns that need to be updated as a consequence of an UPDATE operation on other columns.

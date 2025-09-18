@@ -1,7 +1,7 @@
 # fill_buffer
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 346 - 467
+[src/tools/pg_bsd_indent/io.c:346-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L346-L467)
 
 ## Overview
 Reads one line of input into the input buffer and sets up buffer pointers to manage the input stream for the PostgreSQL BSD indent tool.

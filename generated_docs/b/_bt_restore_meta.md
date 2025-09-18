@@ -1,7 +1,7 @@
 # _bt_restore_meta
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 82 - 138
+[src/backend/access/nbtree/nbtxlog.c:82-138](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L82-L138)
 
 ## Overview
 Restores the B-tree metapage from WAL record data during recovery operations.

@@ -1,7 +1,7 @@
 # tuplestore_end
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 453 - 472
+[src/backend/utils/sort/tuplestore.c:453-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L453-L472)
 
 ## Overview
 Releases resources and cleans up a tuplestore state structure, freeing all allocated memory and closing any associated files.

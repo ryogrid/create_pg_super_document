@@ -1,7 +1,7 @@
 # get_sort_group_operators
 
 ## Location
-src/backend/parser/parse_oper.c: 180 - 237
+[src/backend/parser/parse_oper.c:180-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_oper.c#L180-L237)
 
 ## Overview
 Retrieves the default sorting and grouping operators (<, =, >) for a given datatype, with efficient bulk lookup and hashability detection.

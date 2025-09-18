@@ -1,7 +1,7 @@
 # check_bin_dir
 
 ## Location
-src/bin/pg_upgrade/exec.c: 383 - 428
+[src/bin/pg_upgrade/exec.c:383-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L383-L428)
 
 ## Overview
 Validates a PostgreSQL cluster's binary directory by verifying the presence and accessibility of required executable files needed for the pg_upgrade process.

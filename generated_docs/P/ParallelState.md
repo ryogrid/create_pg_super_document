@@ -1,7 +1,7 @@
 # ParallelState
 
 ## Location
-src/bin/pg_dump/parallel.h: 55 - 61
+[src/bin/pg_dump/parallel.h:55-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.h#L55-L61)
 
 ## Overview
 ParallelState is a struct that manages the overall state for parallel backup and restore operations in pg_dump, coordinating multiple worker processes/threads to perform database dump and restore tasks concurrently.

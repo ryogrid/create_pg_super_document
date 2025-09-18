@@ -1,7 +1,7 @@
 # pg_range_sockaddr
 
 ## Location
-src/backend/libpq/ifaddr.c: 49 - 65
+[src/backend/libpq/ifaddr.c:49-65](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/ifaddr.c#L49-L65)
 
 ## Overview
 Determines if a given address falls within the subnet specified by a network address and netmask.

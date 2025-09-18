@@ -1,7 +1,7 @@
 # gbk_to_utf8
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gbk/utf8_and_gbk.c: 39 - 59
+[src/backend/utils/mb/conversion_procs/utf8_and_gbk/utf8_and_gbk.c:39-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gbk/utf8_and_gbk.c#L39-L59)
 
 ## Overview
 Converts a GBK-encoded string to UTF-8 encoding as part of PostgreSQL's multibyte character conversion system.

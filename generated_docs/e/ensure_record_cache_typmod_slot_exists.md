@@ -1,7 +1,7 @@
 # ensure_record_cache_typmod_slot_exists
 
 ## Location
-src/backend/utils/cache/typcache.c: 1710 - 1738
+[src/backend/utils/cache/typcache.c:1710-1738](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1710-L1738)
 
 ## Overview
 Ensures that the RecordCacheArray and RecordIdentifierArray are large enough to accommodate a specified typmod value by dynamically expanding these arrays as needed.

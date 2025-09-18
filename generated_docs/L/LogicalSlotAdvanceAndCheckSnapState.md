@@ -1,7 +1,7 @@
 # LogicalSlotAdvanceAndCheckSnapState
 
 ## Location
-src/backend/replication/logical/logical.c: 2108 - 2223
+[src/backend/replication/logical/logical.c:2108-2223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logical.c#L2108-L2223)
 
 ## Overview
 Helper function that advances a logical replication slot forward to a specified LSN position while maintaining proper snapshot state and allowing WAL recycling.

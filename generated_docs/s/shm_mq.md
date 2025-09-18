@@ -1,7 +1,7 @@
 # shm_mq
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 71 - 136
+[src/backend/storage/ipc/shm_mq.c:71-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L71-L136)
 
 ## Overview
 A shared memory message queue structure that enables efficient inter-process communication in PostgreSQL's parallel processing infrastructure. It provides a lock-free ring buffer for asynchronous message passing between sender and receiver processes.

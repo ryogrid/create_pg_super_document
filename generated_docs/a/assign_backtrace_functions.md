@@ -1,7 +1,7 @@
 # assign_backtrace_functions
 
 ## Location
-src/backend/utils/error/elog.c: 2223 - 2231
+[src/backend/utils/error/elog.c:2223-2231](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2223-L2231)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that sets the backtrace function list when the PostgreSQL configuration parameter is updated.

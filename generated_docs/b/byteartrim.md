@@ -1,7 +1,7 @@
 # byteartrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 671 - 697
+[src/backend/utils/adt/oracle_compat.c:671-697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L671-L697)
 
 ## Overview
 The  function removes bytes from the end (right side) of a bytea string, trimming all trailing bytes that match any byte in the specified set.

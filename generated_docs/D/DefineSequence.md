@@ -1,7 +1,7 @@
 # DefineSequence
 
 ## Location
-src/backend/commands/sequence.c: 121 - 261
+[src/backend/commands/sequence.c:121-261](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L121-L261)
 
 ## Overview
 DefineSequence creates a new sequence relation in PostgreSQL, handling all aspects of sequence creation including relation setup, initial data population, and catalog registration.

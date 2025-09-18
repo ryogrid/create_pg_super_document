@@ -1,7 +1,7 @@
 # pgstat_hash_hash_key
 
 ## Location
-src/include/utils/pgstat_internal.h: 796 - 808
+[src/include/utils/pgstat_internal.h:796-808](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L796-L808)
 
 ## Overview
 A static inline hash function that generates hash values for PgStat_HashKey entries used in PostgreSQL's statistics system hash tables.

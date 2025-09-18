@@ -1,7 +1,7 @@
 # logical_begin_heap_rewrite
 
 ## Location
-src/backend/access/heap/rewriteheap.c: 759 - 806
+[src/backend/access/heap/rewriteheap.c:759-806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/rewriteheap.c#L759-L806)
 
 ## Overview
 Initializes logical rewrite support during heap rewriting operations, setting up the necessary infrastructure to track tuple mappings for logical decoding when the table is accessible during logical replication.

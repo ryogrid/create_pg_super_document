@@ -1,7 +1,7 @@
 # varatt_expanded
 
 ## Location
-src/include/varatt.h: 74 - 77
+[src/include/varatt.h:74-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/varatt.h#L74-L77)
 
 ## Overview
 A structure representing a TOAST pointer to an expanded object, containing a direct reference to an ExpandedObjectHeader.

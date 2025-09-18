@@ -1,7 +1,7 @@
 # CopyGetData
 
 ## Location
-src/backend/commands/copyfromparse.c: 245 - 361
+[src/backend/commands/copyfromparse.c:245-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L245-L361)
 
 ## Overview
 Reads raw data from various COPY sources (file, frontend, or callback) with support for minimum and maximum read requirements, handling different protocol messages and EOF conditions appropriately.

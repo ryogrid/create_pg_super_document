@@ -1,7 +1,7 @@
 # box_contain
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 692 - 703
+[src/backend/utils/adt/geo_ops.c:692-703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L692-L703)
 
 ## Overview
 Tests whether the first box completely contains the second box in PostgreSQL's geometric box operations.

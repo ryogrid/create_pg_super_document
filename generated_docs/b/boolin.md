@@ -1,7 +1,7 @@
 # boolin
 
 ## Location
-src/backend/utils/adt/bool.c: 126 - 156
+[src/backend/utils/adt/bool.c:126-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L126-L156)
 
 ## Overview
 PostgreSQL input function for the boolean data type that converts string representations to internal boolean values with proper error handling and whitespace trimming.

@@ -1,7 +1,7 @@
 # expand_all_col_privileges
 
 ## Location
-src/backend/catalog/aclchk.c: 1634 - 1679
+[src/backend/catalog/aclchk.c:1634-1679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L1634-L1679)
 
 ## Overview
 Expands specified privileges into per-column array entries for all valid attributes of a relation.

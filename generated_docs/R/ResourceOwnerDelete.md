@@ -1,7 +1,7 @@
 # ResourceOwnerDelete
 
 ## Location
-src/backend/utils/resowner/resowner.c: 854 - 887
+[src/backend/utils/resowner/resowner.c:854-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L854-L887)
 
 ## Overview
 Safely deletes a resource owner and its entire descendant tree after ensuring all resources have been properly released.

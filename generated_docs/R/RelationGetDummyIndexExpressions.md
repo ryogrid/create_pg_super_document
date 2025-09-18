@@ -1,7 +1,7 @@
 # RelationGetDummyIndexExpressions
 
 ## Location
-src/backend/utils/cache/relcache.c: 5102 - 5155
+[src/backend/utils/cache/relcache.c:5102-5155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5102-L5155)
 
 ## Overview
 RelationGetDummyIndexExpressions creates dummy expressions (NULL constants) that match the types, type modifiers, and collations of an index's real expressions, avoiding execution of user-defined code.

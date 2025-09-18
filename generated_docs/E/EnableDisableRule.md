@@ -1,7 +1,7 @@
 # EnableDisableRule
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 691 - 755
+[src/backend/rewrite/rewriteDefine.c:691-755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L691-L755)
 
 ## Overview
 Changes the firing semantics of an existing rewrite rule by modifying its enabled/disabled state in the system catalog.

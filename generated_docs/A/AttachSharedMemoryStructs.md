@@ -1,7 +1,7 @@
 # AttachSharedMemoryStructs
 
 ## Location
-src/backend/storage/ipc/ipci.c: 178 - 198
+[src/backend/storage/ipc/ipci.c:178-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipci.c#L178-L198)
 
 ## Overview
 Initializes a child process's access to existing shared memory structures in EXEC_BACKEND mode.

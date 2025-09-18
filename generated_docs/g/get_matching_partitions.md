@@ -1,7 +1,7 @@
 # get_matching_partitions
 
 ## Location
-src/backend/partitioning/partprune.c: 817 - 960
+[src/backend/partitioning/partprune.c:817-960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L817-L960)
 
 ## Overview
 Determines which partitions survive partition pruning by executing a list of pruning steps and returning a bitmapset of the surviving partition indexes.

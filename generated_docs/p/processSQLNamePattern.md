@@ -1,7 +1,7 @@
 # processSQLNamePattern
 
 ## Location
-src/fe_utils/string_utils.c: 1053 - 1063
+[src/fe_utils/string_utils.c:1053-1063](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/string_utils.c#L1053-L1063)
 
 ## Overview
 Processes wildcard-pattern strings and generates appropriate WHERE clauses to limit database object queries, supporting schema-qualified names with visibility constraints.

@@ -1,7 +1,7 @@
 # int24ne
 
 ## Location
-src/backend/utils/adt/int.c: 513 - 521
+[src/backend/utils/adt/int.c:513-521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L513-L521)
 
 ## Overview
 Compares a 16-bit signed integer (int2) with a 32-bit signed integer (int4) for inequality, returning true if the values are not equal.

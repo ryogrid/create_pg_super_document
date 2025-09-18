@@ -1,7 +1,7 @@
 # stdump
 
 ## Location
-src/backend/regex/regcomp.c: 2572 - 2629
+[src/backend/regex/regcomp.c:2572-2629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regcomp.c#L2572-L2629)
 
 ## Overview
 A recursive helper function that dumps the syntax tree structure of a compiled regular expression subexpression in human-readable form.

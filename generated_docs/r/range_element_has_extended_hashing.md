@@ -1,7 +1,7 @@
 # range_element_has_extended_hashing
 
 ## Location
-src/backend/utils/cache/typcache.c: 1634 - 1641
+[src/backend/utils/cache/typcache.c:1634-1641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1634-L1641)
 
 ## Overview
 Checks whether the element type of a range type supports extended hashing (hash functions for hash partitioning and hash joins).

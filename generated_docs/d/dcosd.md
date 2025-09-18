@@ -1,7 +1,7 @@
 # dcosd
 
 ## Location
-src/backend/utils/adt/float.c: 2311 - 2365
+[src/backend/utils/adt/float.c:2311-2365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2311-L2365)
 
 ## Overview
 The `dcosd` function is a PostgreSQL built-in function that returns the cosine of an angle specified in degrees, handling input validation and range reduction.

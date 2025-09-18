@@ -1,7 +1,7 @@
 # systable_inplace_update_begin
 
 ## Location
-src/backend/access/index/genam.c: 795 - 872
+[src/backend/access/index/genam.c:795-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L795-L872)
 
 ## Overview
 Initiates an in-place tuple update operation by locating the target tuple and acquiring exclusive locks, preparing for safe overwriting while bypassing normal MVCC and transactional protections.

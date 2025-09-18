@@ -1,7 +1,7 @@
 # geqo_selection
 
 ## Location
-src/backend/optimizer/geqo/geqo_selection.c: 54 - 87
+[src/backend/optimizer/geqo/geqo_selection.c:54-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_selection.c#L54-L87)
 
 ## Overview
 Selects two parent chromosomes from a genetic algorithm pool for breeding purposes, using a linear bias distribution to favor higher-quality individuals.

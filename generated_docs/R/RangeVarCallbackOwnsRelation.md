@@ -1,7 +1,7 @@
 # RangeVarCallbackOwnsRelation
 
 ## Location
-src/backend/commands/tablecmds.c: 17815 - 17846
+[src/backend/commands/tablecmds.c:17815-17846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L17815-L17846)
 
 ## Overview
 A callback function for RangeVarGetRelidExtended() that verifies the current user is the owner of the relation or is a superuser, ensuring proper authorization before operations on relations.

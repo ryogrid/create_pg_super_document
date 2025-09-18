@@ -1,7 +1,7 @@
 # float8recv
 
 ## Location
-src/backend/utils/adt/float.c: 549 - 559
+[src/backend/utils/adt/float.c:549-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L549-L559)
 
 ## Overview
 PostgreSQL system function that converts float8 values from external binary format to internal representation for use in binary protocol communication.

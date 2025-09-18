@@ -1,7 +1,7 @@
 # contain_volatile_functions_not_nextval_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 686 - 733
+[src/backend/optimizer/util/clauses.c:686-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L686-L733)
 
 ## Overview
 A static tree walker function that recursively traverses expression trees to detect volatile functions while specifically ignoring nextval() calls.

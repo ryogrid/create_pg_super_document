@@ -1,7 +1,7 @@
 # heap_compute_data_size
 
 ## Location
-src/backend/access/common/heaptuple.c: 215 - 270
+[src/backend/access/common/heaptuple.c:215-270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L215-L270)
 
 ## Overview
 The `heap_compute_data_size` function calculates the total size of the data area needed to construct a heap tuple from an array of Datum values, considering alignment requirements and various storage optimizations.

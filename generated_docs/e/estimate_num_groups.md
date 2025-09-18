@@ -1,7 +1,7 @@
 # estimate_num_groups
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 3429 - 3810
+[src/backend/utils/adt/selfuncs.c:3429-3810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L3429-L3810)
 
 ## Overview
 Estimates the number of distinct groups that will result from a GROUP BY clause or DISTINCT operation, accounting for correlation between variables and using statistical data to provide accurate cardinality estimates for query planning.

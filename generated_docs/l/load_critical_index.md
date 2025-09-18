@@ -1,7 +1,7 @@
 # load_critical_index
 
 ## Location
-src/backend/utils/cache/relcache.c: 4387 - 4424
+[src/backend/utils/cache/relcache.c:4387-4424](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4387-L4424)
 
 ## Overview
 load_critical_index loads one critical system index into the relation cache and marks it as permanently nailed to ensure it remains available for system operations.

@@ -1,7 +1,7 @@
 # array_recv
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1271 - 1453
+[src/backend/utils/adt/arrayfuncs.c:1271-1453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1271-L1453)
 
 ## Overview
 Converts PostgreSQL arrays from external binary format to their internal ArrayType representation, handling deserialization with comprehensive validation and type checking.

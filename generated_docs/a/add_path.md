@@ -1,7 +1,7 @@
 # add_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 420 - 641
+[src/backend/optimizer/util/pathnode.c:420-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L420-L641)
 
 ## Overview
 Evaluates a potential execution path for a relation and adds it to the relation's pathlist if it offers better cost, ordering, or row count than existing paths with similar parameterization.

@@ -1,7 +1,7 @@
 # ri_InitHashTables
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 2673 - 2708
+[src/backend/utils/adt/ri_triggers.c:2673-2708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L2673-L2708)
 
 ## Overview
 Initializes the internal hash tables used for caching referential integrity constraint information, prepared query plans, and comparison operators.

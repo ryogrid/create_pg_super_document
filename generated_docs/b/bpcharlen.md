@@ -1,7 +1,7 @@
 # bpcharlen
 
 ## Location
-src/backend/utils/adt/varchar.c: 693 - 708
+[src/backend/utils/adt/varchar.c:693-708](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varchar.c#L693-L708)
 
 ## Overview
 Returns the character length of a CHAR (BpChar) value, excluding trailing spaces and properly handling multibyte character encodings.

@@ -1,7 +1,7 @@
 # load_backup_manifest
 
 ## Location
-src/bin/pg_combinebackup/load_manifest.c: 105 - 227
+[src/bin/pg_combinebackup/load_manifest.c:105-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/load_manifest.c#L105-L227)
 
 ## Overview
 Parses the backup_manifest file in the named backup directory and constructs a hash table with information about all the files it mentions, along with a linked list of all the WAL ranges it mentions.

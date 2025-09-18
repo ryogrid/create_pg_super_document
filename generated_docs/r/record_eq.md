@@ -1,7 +1,7 @@
 # record_eq
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1067 - 1282
+[src/backend/utils/adt/rowtypes.c:1067-1282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1067-L1282)
 
 ## Overview
 Compares two records (row types) for equality, returning true if all corresponding column values are equal.

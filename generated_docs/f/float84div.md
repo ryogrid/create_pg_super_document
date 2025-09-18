@@ -1,7 +1,7 @@
 # float84div
 
 ## Location
-src/backend/utils/adt/float.c: 3846 - 3863
+[src/backend/utils/adt/float.c:3846-3863](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3846-L3863)
 
 ## Overview
 Divides a float8 (double precision) value by a float4 (single precision) value, returning the result as a float8.

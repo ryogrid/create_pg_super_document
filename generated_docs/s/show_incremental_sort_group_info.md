@@ -1,7 +1,7 @@
 # show_incremental_sort_group_info
 
 ## Location
-src/backend/commands/explain.c: 3036 - 3149
+[src/backend/commands/explain.c:3036-3149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3036-L3149)
 
 ## Overview
 Formats and displays incremental sort group statistics for EXPLAIN ANALYZE output, providing a comprehensive summary of sort methods, memory usage, and disk usage across all batches within an incremental sort group.

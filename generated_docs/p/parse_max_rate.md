@@ -1,7 +1,7 @@
 # parse_max_rate
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 901 - 985
+[src/bin/pg_basebackup/pg_basebackup.c:901-985](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L901-L985)
 
 ## Overview
 A utility function that parses and validates a string representation of a transfer rate value, converting it to an integer value in kilobytes per second for use with the --max-rate option in pg_basebackup.

@@ -1,7 +1,7 @@
 # unicode_assigned
 
 ## Location
-src/backend/utils/adt/varlena.c: 6316 - 6343
+[src/backend/utils/adt/varlena.c:6316-6343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6316-L6343)
 
 ## Overview
 Checks whether a UTF-8 encoded string contains only assigned Unicode code points, returning false if any unassigned code points are found.

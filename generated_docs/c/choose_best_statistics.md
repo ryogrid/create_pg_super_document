@@ -1,7 +1,7 @@
 # choose_best_statistics
 
 ## Location
-src/backend/statistics/extended_stats.c: 1209 - 1330
+[src/backend/statistics/extended_stats.c:1209-1330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/extended_stats.c#L1209-L1330)
 
 ## Overview
 Selects the best statistics object from a list based on specified criteria, prioritizing statistics that cover the most attributes and expressions while minimizing the total number of keys.

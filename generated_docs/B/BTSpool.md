@@ -1,7 +1,7 @@
 # BTSpool
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 80 - 87
+[src/backend/access/nbtree/nbtsort.c:80-87](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L80-L87)
 
 ## Overview
 BTSpool is a status record structure used during the spooling and sorting phase of B-tree index construction in PostgreSQL. It maintains the necessary state information for sorting tuples during index builds, with special considerations for uniqueness constraints and dead tuple handling.

@@ -1,7 +1,7 @@
 # build_coercion_expression
 
 ## Location
-src/backend/parser/parse_coerce.c: 839 - 1011
+[src/backend/parser/parse_coerce.c:839-1011](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L839-L1011)
 
 ## Overview
 This function constructs an expression tree for applying a pg_cast entry, supporting both type coercion and length coercion operations.

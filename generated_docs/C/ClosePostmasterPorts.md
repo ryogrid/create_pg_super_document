@@ -1,7 +1,7 @@
 # ClosePostmasterPorts
 
 ## Location
-src/backend/postmaster/postmaster.c: 1957 - 2033
+[src/backend/postmaster/postmaster.c:1957-2033](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L1957-L2033)
 
 ## Overview
 Closes all the postmaster's open sockets and file descriptors that are not needed by a child process during startup.

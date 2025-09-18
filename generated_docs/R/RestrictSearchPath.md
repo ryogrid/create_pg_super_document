@@ -1,7 +1,7 @@
 # RestrictSearchPath
 
 ## Location
-src/backend/utils/misc/guc.c: 2248 - 2263
+[src/backend/utils/misc/guc.c:2248-2263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L2248-L2263)
 
 ## Overview
 RestrictSearchPath sets the search_path to a predefined safe value during maintenance operations to prevent potential security issues and ensure predictable behavior.

@@ -1,7 +1,7 @@
 # describeOperators
 
 ## Location
-src/bin/psql/describe.c: 770 - 910
+[src/bin/psql/describe.c:770-910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L770-L910)
 
 ## Overview
 Implements the \do psql command to describe PostgreSQL operators, displaying their names, argument types, result types, and optionally their underlying functions and descriptions.

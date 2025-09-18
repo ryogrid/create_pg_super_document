@@ -1,7 +1,7 @@
 # desirable_join
 
 ## Location
-src/backend/optimizer/geqo/geqo_eval.c: 325 - 338
+[src/backend/optimizer/geqo/geqo_eval.c:325-338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_eval.c#L325-L338)
 
 ## Overview
 A heuristic function that determines whether two relations should be joined immediately or postponed during GEQO tree construction.

@@ -1,7 +1,7 @@
 # find_end_token
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 2352 - 2456
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:2352-2456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L2352-L2456)
 
 ## Overview
 A static helper function that locates the end position of a token in a string during date/time format string parsing in ECPG (Embedded SQL in C for PostgreSQL).

@@ -1,7 +1,7 @@
 # PLy_rollback
 
 ## Location
-src/pl/plpython/plpy_spi.c: 497 - 568
+[src/pl/plpython/plpy_spi.c:497-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L497-L568)
 
 ## Overview
 PLy_rollback is a Python-callable function that rolls back the current transaction within PL/Python stored procedures, providing Python code access to PostgreSQL's transaction abort functionality.

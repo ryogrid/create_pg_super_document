@@ -1,7 +1,7 @@
 # ginDataFillRoot
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1349 - 1369
+[src/backend/access/gin/gindatapage.c:1349-1369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1349-L1369)
 
 ## Overview
 ginDataFillRoot fills a new root page with right bound values from left and right child pages in PostgreSQL's GIN (Generalized Inverted Index) data page management system.

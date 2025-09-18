@@ -1,7 +1,7 @@
 # uniqueWORD
 
 ## Location
-src/backend/tsearch/to_tsany.c: 77 - 164
+[src/backend/tsearch/to_tsany.c:77-164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L77-L164)
 
 ## Overview
 A static function that sorts an array of ParsedWord structures, removes duplicates, and consolidates position information for identical words into position arrays.

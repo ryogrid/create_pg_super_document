@@ -1,7 +1,7 @@
 # XLogReaderState
 
 ## Location
-src/include/access/xlogreader.h: 59 - 71
+[src/include/access/xlogreader.h:59-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogreader.h#L59-L71)
 
 ## Overview
 XLogReaderState is the central state management structure for PostgreSQL's WAL (Write Ahead Log) reading infrastructure, providing a comprehensive context for sequentially reading and decoding WAL records.

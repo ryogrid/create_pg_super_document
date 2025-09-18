@@ -1,7 +1,7 @@
 # InitLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 394 - 429
+[src/backend/storage/ipc/latch.c:394-429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L394-L429)
 
 ## Overview
 Initializes a process-local latch structure, setting up the necessary platform-specific mechanisms for inter-process synchronization within a single process.

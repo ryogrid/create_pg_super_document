@@ -1,7 +1,7 @@
 # LWLock
 
 ## Location
-src/include/storage/lwlock.h: 41 - 50
+[src/include/storage/lwlock.h:41-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/lwlock.h#L41-L50)
 
 ## Overview
 LWLock (Lightweight Lock) is the fundamental locking structure in PostgreSQL used for protecting shared memory resources with minimal overhead and high performance.

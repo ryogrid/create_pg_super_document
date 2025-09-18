@@ -1,7 +1,7 @@
 # extract_time
 
 ## Location
-src/backend/utils/adt/date.c: 2249 - 2262
+[src/backend/utils/adt/date.c:2249-2262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2249-L2262)
 
 ## Overview
 The extract_time function is a PostgreSQL SQL function wrapper that extracts date/time components from TimeADT values using the EXTRACT operator.

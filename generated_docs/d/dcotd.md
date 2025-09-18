@@ -1,7 +1,7 @@
 # dcotd
 
 ## Location
-src/backend/utils/adt/float.c: 2366 - 2431
+[src/backend/utils/adt/float.c:2366-2431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2366-L2431)
 
 ## Overview
 The `dcotd` function is a PostgreSQL built-in function that returns the cotangent of an angle specified in degrees, handling input validation, range reduction, and special cotangent calculations.

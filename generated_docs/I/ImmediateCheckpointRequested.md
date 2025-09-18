@@ -1,7 +1,7 @@
 # ImmediateCheckpointRequested
 
 ## Location
-src/backend/postmaster/checkpointer.c: 687 - 713
+[src/backend/postmaster/checkpointer.c:687-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/checkpointer.c#L687-L713)
 
 ## Overview
 Checks whether an immediate checkpoint request is pending in the checkpointer's shared memory flags.

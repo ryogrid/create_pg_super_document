@@ -1,7 +1,7 @@
 # reorderqueue_cmp
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 441 - 457
+[src/backend/executor/nodeIndexscan.c:441-457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L441-L457)
 
 ## Overview
 A comparison function used by the pairing heap to order tuples in a reorder queue during K-nearest neighbor (KNN) index scans, inverting the sort order to achieve ascending results.

@@ -1,7 +1,7 @@
 # array_unnest_support
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 6333 - 6368
+[src/backend/utils/adt/arrayfuncs.c:6333-6368](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L6333-L6368)
 
 ## Overview
 A planner support function that provides row count estimates for the array_unnest() function to help the PostgreSQL query planner make better optimization decisions.

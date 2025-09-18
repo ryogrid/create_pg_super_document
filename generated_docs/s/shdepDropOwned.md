@@ -1,7 +1,7 @@
 # shdepDropOwned
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1342 - 1529
+[src/backend/catalog/pg_shdepend.c:1342-1529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1342-L1529)
 
 ## Overview
 Drops all objects owned by the specified role(s) and removes any access grants the role(s) have on other objects. This function is used during role deletion to clean up all dependencies.

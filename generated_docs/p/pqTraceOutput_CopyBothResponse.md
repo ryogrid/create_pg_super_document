@@ -1,7 +1,7 @@
 # pqTraceOutput_CopyBothResponse
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 494 - 503
+[src/interfaces/libpq/fe-trace.c:494-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L494-L503)
 
 ## Overview
 Outputs a formatted trace message for PostgreSQL's CopyBothResponse backend message, displaying the copy format type and column format codes for bidirectional copy operations.

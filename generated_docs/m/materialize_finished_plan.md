@@ -1,7 +1,7 @@
 # materialize_finished_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 6528 - 6568
+[src/backend/optimizer/plan/createplan.c:6528-6568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L6528-L6568)
 
 ## Overview
 Adds a Material node on top of a completed plan, handling cost calculations and initPlan transfers that occur after the main planning phase.

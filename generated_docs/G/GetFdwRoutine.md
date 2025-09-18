@@ -1,7 +1,7 @@
 # GetFdwRoutine
 
 ## Location
-src/backend/foreign/foreign.c: 325 - 354
+[src/backend/foreign/foreign.c:325-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L325-L354)
 
 ## Overview
 Calls a foreign data wrapper handler function to retrieve its FdwRoutine structure containing the FDW's callback functions.

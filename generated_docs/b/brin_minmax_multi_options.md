@@ -1,7 +1,7 @@
 # brin_minmax_multi_options
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2954 - 2975
+[src/backend/access/brin/brin_minmax_multi.c:2954-2975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2954-L2975)
 
 ## Overview
 Define and register reloptions (relation options) for the BRIN minmax-multi operator class.

@@ -1,7 +1,7 @@
 # ExecParallelPrepHashTableForUnmatched
 
 ## Location
-src/backend/executor/nodeHash.c: 2104 - 2168
+[src/backend/executor/nodeHash.c:2104-2168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2104-L2168)
 
 ## Overview
 Prepares for scanning unmatched tuples in a parallel hash join by coordinating between worker processes to ensure only one worker performs the unmatched scan for each batch.

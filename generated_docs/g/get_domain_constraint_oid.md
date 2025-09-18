@@ -1,7 +1,7 @@
 # get_domain_constraint_oid
 
 ## Location
-src/backend/catalog/pg_constraint.c: 1090 - 1148
+[src/backend/catalog/pg_constraint.c:1090-1148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L1090-L1148)
 
 ## Overview
 Finds a constraint on a specified domain by name and returns the constraint's OID.

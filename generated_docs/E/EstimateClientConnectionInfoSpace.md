@@ -1,7 +1,7 @@
 # EstimateClientConnectionInfoSpace
 
 ## Location
-src/backend/utils/init/miscinit.c: 1081 - 1096
+[src/backend/utils/init/miscinit.c:1081-1096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1081-L1096)
 
 ## Overview
 Calculates the space needed to serialize MyClientConnectionInfo for parallel worker processes or other contexts requiring serialization.

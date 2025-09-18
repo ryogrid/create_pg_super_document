@@ -1,7 +1,7 @@
 # BeginTransactionBlock
 
 ## Location
-src/backend/access/transam/xact.c: 3873 - 3940
+[src/backend/access/transam/xact.c:3873-3940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3873-L3940)
 
 ## Overview
 BeginTransactionBlock implements the SQL BEGIN command by transitioning the current transaction state to begin an explicit transaction block, with validation to prevent invalid state transitions.

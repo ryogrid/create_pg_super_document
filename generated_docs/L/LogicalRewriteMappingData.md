@@ -1,7 +1,7 @@
 # LogicalRewriteMappingData
 
 ## Location
-src/include/access/rewriteheap.h: 35 - 41
+[src/include/access/rewriteheap.h:35-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/rewriteheap.h#L35-L41)
 
 ## Overview
 LogicalRewriteMappingData is a structure that represents the on-disk data format for individual logical rewrite mappings, storing the relationship between old and new tuple locations during table rewrite operations.

@@ -1,7 +1,7 @@
 # SerializationNeededForRead
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 516 - 559
+[src/backend/storage/lmgr/predicate.c:516-559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L516-L559)
 
 ## Overview
 Determines whether serialization conflict detection is needed for read operations in a serializable transaction, with optimizations to quickly skip predicate locking when unnecessary.

@@ -1,7 +1,7 @@
 # transientrel_receive
 
 ## Location
-src/backend/commands/matview.c: 492 - 519
+[src/backend/commands/matview.c:492-519](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L492-L519)
 
 ## Overview
 transientrel_receive is a tuple reception callback function that inserts individual tuples into a transient relation using bulk insert optimizations.

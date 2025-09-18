@@ -1,7 +1,7 @@
 # simple_string_list_destroy
 
 ## Location
-src/fe_utils/simple_list.c: 125 - 143
+[src/fe_utils/simple_list.c:125-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L125-L143)
 
 ## Overview
 Destroys a SimpleStringList by deallocating all memory associated with the list cells.

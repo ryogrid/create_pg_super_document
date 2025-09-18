@@ -1,7 +1,7 @@
 # findDependentObjects
 
 ## Location
-src/backend/catalog/dependency.c: 432 - 979
+[src/backend/catalog/dependency.c:432-979](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L432-L979)
 
 ## Overview
 Core recursive function that builds a complete dependency tree for object deletion, ensuring safe deletion order and handling complex dependency relationships including ownership, extensions, and partitioning.

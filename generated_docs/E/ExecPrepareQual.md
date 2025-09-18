@@ -1,7 +1,7 @@
 # ExecPrepareQual
 
 ## Location
-src/backend/executor/execExpr.c: 768 - 790
+[src/backend/executor/execExpr.c:768-790](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L768-L790)
 
 ## Overview
 Initializes qualifier (WHERE clause) expressions for execution outside a normal Plan tree context by applying planning transformations and creating an executable ExprState.

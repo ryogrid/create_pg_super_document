@@ -1,7 +1,7 @@
 # SwitchToUntrustedUser
 
 ## Location
-src/backend/utils/init/usercontext.c: 33 - 86
+[src/backend/utils/init/usercontext.c:33-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/usercontext.c#L33-L86)
 
 ## Overview
 Temporarily switches to a different user ID with security restrictions, ensuring the current user has sufficient privileges to assume the target role while preventing privilege escalation vulnerabilities.

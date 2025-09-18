@@ -1,7 +1,7 @@
 # PQpass
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 7019 - 7035
+[src/interfaces/libpq/fe-connect.c:7019-7035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L7019-L7035)
 
 ## Overview
 PQpass returns the password associated with a PostgreSQL database connection, implementing a priority-based lookup across multiple password sources.

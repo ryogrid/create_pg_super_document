@@ -1,7 +1,7 @@
 # sql_fn_post_column_ref
 
 ## Location
-src/backend/executor/functions.c: 278 - 393
+[src/backend/executor/functions.c:278-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/functions.c#L278-L393)
 
 ## Overview
 Parser callback function for handling ColumnRef nodes in SQL function bodies, resolving parameter names and field references.

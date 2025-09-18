@@ -1,7 +1,7 @@
 # MXOffsetToMemberSegment
 
 ## Location
-src/backend/access/transam/multixact.c: 178 - 184
+[src/backend/access/transam/multixact.c:178-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L178-L184)
 
 ## Overview
 Converts a MultiXact offset to the corresponding segment number in the MultiXact members SLRU file system.

@@ -1,7 +1,7 @@
 # unicode_category_abbrev
 
 ## Location
-src/common/unicode_category.c: 406 - 480
+[src/common/unicode_category.c:406-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L406-L480)
 
 ## Overview
 Converts a Unicode general category enumeration value into its corresponding two-character abbreviation code as defined by the Unicode standard.

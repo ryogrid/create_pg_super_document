@@ -1,7 +1,7 @@
 # AlterTableInternal
 
 ## Location
-src/backend/commands/tablecmds.c: 4428 - 4472
+[src/backend/commands/tablecmds.c:4428-4472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4428-L4472)
 
 ## Overview
 AlterTableInternal is an internal function that performs ALTER TABLE operations on a relation specified by its OID, handling the core logic without requiring parse transformation or utility command context.

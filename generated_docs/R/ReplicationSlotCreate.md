@@ -1,7 +1,7 @@
 # ReplicationSlotCreate
 
 ## Location
-src/backend/replication/slot.c: 309 - 463
+[src/backend/replication/slot.c:309-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L309-L463)
 
 ## Overview
 Creates a new replication slot and marks it as used by the current backend, handling both physical and logical replication slots with various configuration options.

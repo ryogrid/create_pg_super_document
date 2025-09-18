@@ -1,7 +1,7 @@
 # jsonb_populate_recordset
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3972 - 3978
+[src/backend/utils/adt/jsonfuncs.c:3972-3978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3972-L3978)
 
 ## Overview
 A PostgreSQL SQL function that creates a set of records from a JSONB array, where each array element is a JSON object used to populate the fields of the target record type.

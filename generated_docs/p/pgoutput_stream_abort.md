@@ -1,7 +1,7 @@
 # pgoutput_stream_abort
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1836 - 1868
+[src/backend/replication/pgoutput/pgoutput.c:1836-1868](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1836-L1868)
 
 ## Overview
 pgoutput_stream_abort handles the abortion of streamed transactions in PostgreSQL logical replication, notifying downstream subscribers to discard the streamed transaction and all its subtransactions.

@@ -1,7 +1,7 @@
 # ATPostAlterTypeParse
 
 ## Location
-src/backend/commands/tablecmds.c: 14031 - 14246
+[src/backend/commands/tablecmds.c:14031-14246](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L14031-L14246)
 
 ## Overview
 ATPostAlterTypeParse re-parses previously saved definition strings for constraints, indexes, or statistics objects against new column data types and queues the resulting commands for execution.

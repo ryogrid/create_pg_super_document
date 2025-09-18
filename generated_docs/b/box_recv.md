@@ -1,7 +1,7 @@
 # box_recv
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 466 - 500
+[src/backend/utils/adt/geo_ops.c:466-500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L466-L500)
 
 ## Overview
 Converts external binary format data to the internal PostgreSQL BOX data type structure.

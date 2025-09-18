@@ -1,7 +1,7 @@
 # pg_vsprintf
 
 ## Location
-src/port/snprintf.c: 214 - 229
+[src/port/snprintf.c:214-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/snprintf.c#L214-L229)
 
 ## Overview
 pg_vsprintf is PostgreSQL's portable implementation of vsprintf that formats a string into an unbounded buffer using a va_list argument.

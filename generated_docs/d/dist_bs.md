@@ -1,7 +1,7 @@
 # dist_bs
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2562 - 2570
+[src/backend/utils/adt/geo_ops.c:2562-2570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2562-L2570)
 
 ## Overview
 Calculates the distance from a box geometric object to a line segment (lseg).

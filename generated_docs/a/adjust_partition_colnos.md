@@ -1,7 +1,7 @@
 # adjust_partition_colnos
 
 ## Location
-src/backend/executor/execPartition.c: 1699 - 1715
+[src/backend/executor/execPartition.c:1699-1715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1699-L1715)
 
 ## Overview
 Adjusts a list of UPDATE target column numbers to account for attribute differences between a parent partitioned table and its child partition.

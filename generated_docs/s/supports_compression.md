@@ -1,7 +1,7 @@
 # supports_compression
 
 ## Location
-src/bin/pg_dump/compress_io.c: 88 - 123
+[src/bin/pg_dump/compress_io.c:88-123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_io.c#L88-L123)
 
 ## Overview
 This function checks whether support for a specific compression algorithm is implemented in pg_dump/restore tools and returns an error message if the algorithm is not supported.

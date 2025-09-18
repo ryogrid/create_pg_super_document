@@ -1,7 +1,7 @@
 # IndexSupportsBackwardScan
 
 ## Location
-src/backend/executor/execAmi.c: 602 - 634
+[src/backend/executor/execAmi.c:602-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execAmi.c#L602-L634)
 
 ## Overview
 IndexSupportsBackwardScan is a static function that determines whether a specific index supports backward scanning by checking the index access method's capabilities.

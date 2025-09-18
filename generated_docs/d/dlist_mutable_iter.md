@@ -1,7 +1,7 @@
 # dlist_mutable_iter
 
 ## Location
-src/include/lib/ilist.h: 198 - 203
+[src/include/lib/ilist.h:198-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/ilist.h#L198-L203)
 
 ## Overview
 The  structure provides iterator state for safely traversing doubly-linked lists while allowing limited modifications during iteration.

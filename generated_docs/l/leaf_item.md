@@ -1,7 +1,7 @@
 # leaf_item
 
 ## Location
-src/backend/lib/integerset.c: 165 - 166
+[src/backend/lib/integerset.c:165-166](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/integerset.c#L165-L166)
 
 ## Overview
 The leaf_item structure is a fundamental storage unit in PostgreSQL's IntegerSet implementation that holds a cluster of compressed 64-bit integers in leaf nodes of the B-tree data structure.

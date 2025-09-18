@@ -1,7 +1,7 @@
 # find_install_path
 
 ## Location
-src/backend/commands/extension.c: 1403 - 1457
+[src/backend/commands/extension.c:1403-1457](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1403-L1457)
 
 ## Overview
 Finds the optimal installation path to reach a target extension version that is not directly installable by evaluating all possible starting points from installable versions.

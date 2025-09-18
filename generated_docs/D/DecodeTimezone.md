@@ -1,7 +1,7 @@
 # DecodeTimezone
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1500 - 1544
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1500-1544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1500-L1544)
 
 ## Overview
 DecodeTimezone parses numeric timezone offset strings and converts them into seconds offset values for timezone processing.

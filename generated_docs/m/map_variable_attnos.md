@@ -1,7 +1,7 @@
 # map_variable_attnos
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 1615 - 1665
+[src/backend/rewrite/rewriteManip.c:1615-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L1615-L1665)
 
 ## Overview
 Maps column attribute numbers in Var nodes throughout an expression tree from one relation's schema to another using a provided attribute mapping table.

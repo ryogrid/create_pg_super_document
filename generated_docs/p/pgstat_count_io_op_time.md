@@ -1,7 +1,7 @@
 # pgstat_count_io_op_time
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 122 - 156
+[src/backend/utils/activity/pgstat_io.c:122-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L122-L156)
 
 ## Overview
 Records IO operations with timing information, accumulating both operation counts and elapsed time for comprehensive PostgreSQL IO performance monitoring.

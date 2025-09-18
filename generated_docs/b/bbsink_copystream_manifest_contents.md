@@ -1,7 +1,7 @@
 # bbsink_copystream_manifest_contents
 
 ## Location
-src/backend/backup/basebackup_copy.c: 273 - 287
+[src/backend/backup/basebackup_copy.c:273-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L273-L287)
 
 ## Overview
 Sends chunks of backup manifest data to the client using CopyData protocol messages in a copystream-based backup sink.

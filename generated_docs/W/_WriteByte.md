@@ -1,7 +1,7 @@
 # _WriteByte
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 669 - 685
+[src/bin/pg_dump/pg_backup_custom.c:669-685](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L669-L685)
 
 ## Overview
 Writes a single byte of data to the PostgreSQL custom format archive file.

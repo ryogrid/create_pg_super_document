@@ -1,7 +1,7 @@
 # tidge
 
 ## Location
-src/backend/utils/adt/tid.c: 221 - 229
+[src/backend/utils/adt/tid.c:221-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tid.c#L221-L229)
 
 ## Overview
 tidge is a PostgreSQL function that performs greater-than-or-equal comparison between two tuple identifiers (ItemPointer), returning true if the first is greater than or equal to the second.

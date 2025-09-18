@@ -1,7 +1,7 @@
 # check_autovacuum_max_workers
 
 ## Location
-src/backend/utils/init/postinit.c: 606 - 617
+[src/backend/utils/init/postinit.c:606-617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L606-L617)
 
 ## Overview
 check_autovacuum_max_workers is a GUC check hook function that validates proposed values for the autovacuum_max_workers configuration parameter to ensure the total backend count doesn't exceed system limits.

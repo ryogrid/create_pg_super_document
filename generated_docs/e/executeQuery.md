@@ -1,7 +1,7 @@
 # executeQuery
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1977 - 1999
+[src/bin/pg_dump/pg_dumpall.c:1977-1999](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1977-L1999)
 
 ## Overview
 Executes a SQL query on a PostgreSQL connection, returning the results or terminating the program on failure.

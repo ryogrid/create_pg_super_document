@@ -1,7 +1,7 @@
 # hexval
 
 ## Location
-src/backend/utils/adt/varlena.c: 6472 - 6487
+[src/backend/utils/adt/varlena.c:6472-6487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6472-L6487)
 
 ## Overview
 Converts a single hexadecimal digit character to its corresponding numeric value (0-15).

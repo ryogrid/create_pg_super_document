@@ -1,7 +1,7 @@
 # PLyMapping_ToComposite
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1342 - 1406
+[src/pl/plpython/plpy_typeio.c:1342-1406](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1342-L1406)
 
 ## Overview
 Converts a Python mapping object (dictionary) to a PostgreSQL composite type by extracting values for each column based on matching keys.

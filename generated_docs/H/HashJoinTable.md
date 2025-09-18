@@ -1,7 +1,7 @@
 # HashJoinTable
 
 ## Location
-src/include/nodes/execnodes.h: 2187 - 2188
+[src/include/nodes/execnodes.h:2187-2188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2187-L2188)
 
 ## Overview
 HashJoinTable is a typedef for a pointer to HashJoinTableData structure that represents the in-memory hash table used during hash join operations in PostgreSQL.

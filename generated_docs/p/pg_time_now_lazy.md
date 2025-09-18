@@ -1,7 +1,7 @@
 # pg_time_now_lazy
 
 ## Location
-src/bin/pgbench/pgbench.c: 861 - 866
+[src/bin/pgbench/pgbench.c:861-866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L861-L866)
 
 ## Overview
 A static inline function that implements lazy evaluation for time retrieval, only calling pg_time_now() if the provided timestamp is zero (uninitialized).

@@ -1,7 +1,7 @@
 # pgtls_close
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 1644 - 1720
+[src/interfaces/libpq/fe-secure-openssl.c:1644-1720](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L1644-L1720)
 
 ## Overview
 Closes and cleans up SSL/TLS connection resources, including SSL objects, certificates, engines, and cryptographic callbacks for a PostgreSQL connection.

@@ -1,7 +1,7 @@
 # LookupPathOrColumnName
 
 ## Location
-src/backend/parser/parse_jsontable.c: 216 - 230
+[src/backend/parser/parse_jsontable.c:216-230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L216-L230)
 
 ## Overview
 A simple utility function that searches for a given name in the context's path names list to detect duplicate column or path names.

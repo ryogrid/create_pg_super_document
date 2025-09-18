@@ -1,7 +1,7 @@
 # chr
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 1006 - 1120
+[src/backend/utils/adt/oracle_compat.c:1006-1120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L1006-L1120)
 
 ## Overview
 Converts an integer value to its corresponding character representation, supporting both ASCII and Unicode character sets depending on database encoding.

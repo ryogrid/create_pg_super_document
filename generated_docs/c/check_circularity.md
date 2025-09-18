@@ -1,7 +1,7 @@
 # check_circularity
 
 ## Location
-src/backend/utils/adt/acl.c: 1222 - 1301
+[src/backend/utils/adt/acl.c:1222-1301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1222-L1301)
 
 ## Overview
 Prevents circular chains of grant options by verifying that granting grant options would not create a situation where privileges cannot be effectively revoked.

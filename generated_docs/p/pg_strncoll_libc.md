@@ -1,7 +1,7 @@
 # pg_strncoll_libc
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1968 - 2019
+[src/backend/utils/adt/pg_locale.c:1968-2019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1968-L2019)
 
 ## Overview
 Performs locale-aware string collation for non-null-terminated strings by creating null-terminated copies and delegating to pg_strcoll_libc.

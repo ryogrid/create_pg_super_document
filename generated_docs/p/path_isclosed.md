@@ -1,7 +1,7 @@
 # path_isclosed
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1602 - 1609
+[src/backend/utils/adt/geo_ops.c:1602-1609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1602-L1609)
 
 ## Overview
 A PostgreSQL function that determines whether a given PATH object represents a closed path or an open path.

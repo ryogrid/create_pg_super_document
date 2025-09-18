@@ -1,7 +1,7 @@
 # list_member_oid
 
 ## Location
-src/backend/nodes/list.c: 722 - 741
+[src/backend/nodes/list.c:722-741](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L722-L741)
 
 ## Overview
 Tests whether a given OID (Object Identifier) value is a member of an OID list using direct OID comparison for equality determination.

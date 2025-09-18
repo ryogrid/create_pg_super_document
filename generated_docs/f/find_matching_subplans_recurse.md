@@ -1,7 +1,7 @@
 # find_matching_subplans_recurse
 
 ## Location
-src/backend/executor/execPartition.c: 2366 - 2418
+[src/backend/executor/execPartition.c:2366-2418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L2366-L2418)
 
 ## Overview
 A recursive worker function for ExecFindMatchingSubPlans that processes partition hierarchies to identify valid (non-prunable) subplans.

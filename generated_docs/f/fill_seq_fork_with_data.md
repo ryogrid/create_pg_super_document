@@ -1,7 +1,7 @@
 # fill_seq_fork_with_data
 
 ## Location
-src/backend/commands/sequence.c: 359 - 436
+[src/backend/commands/sequence.c:359-436](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L359-L436)
 
 ## Overview
 fill_seq_fork_with_data initializes a specific fork of a sequence relation with tuple data, handling page initialization, tuple insertion, and WAL logging.

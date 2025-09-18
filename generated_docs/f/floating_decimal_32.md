@@ -1,7 +1,7 @@
 # floating_decimal_32
 
 ## Location
-src/common/f2s.c: 215 - 219
+[src/common/f2s.c:215-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/f2s.c#L215-L219)
 
 ## Overview
 A structure representing a floating-point number in decimal format as mantissa * 10^exponent, used in the Ryu algorithm for fast floating-point to string conversion.

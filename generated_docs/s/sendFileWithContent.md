@@ -1,7 +1,7 @@
 # sendFileWithContent
 
 ## Location
-src/backend/backup/basebackup.c: 1073 - 1133
+[src/backend/backup/basebackup.c:1073-1133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L1073-L1133)
 
 ## Overview
  injects a file with specified name and content directly into the output tar stream during base backup operations.

@@ -1,7 +1,7 @@
 # float84ge
 
 ## Location
-src/backend/utils/adt/float.c: 3966 - 3988
+[src/backend/utils/adt/float.c:3966-3988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3966-L3988)
 
 ## Overview
 Function that compares a float8 (double precision) value with a float4 (single precision) value to determine if the first is greater than or equal to the second.

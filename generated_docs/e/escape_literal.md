@@ -1,7 +1,7 @@
 # escape_literal
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 251 - 274
+[src/test/modules/test_escape/test_escape.c:251-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L251-L274)
 
 ## Overview
 A static helper function in PostgreSQL's test_escape module that wraps the PQescapeLiteral function to escape string literals for SQL queries with proper error handling and buffer management.

@@ -1,7 +1,7 @@
 # pg_indexam_has_property
 
 ## Location
-src/backend/utils/adt/amutils.c: 409 - 420
+[src/backend/utils/adt/amutils.c:409-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/amutils.c#L409-L420)
 
 ## Overview
 SQL-callable function that tests whether a specific index access method supports a given property.

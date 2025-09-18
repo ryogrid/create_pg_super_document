@@ -1,7 +1,7 @@
 # AlterStatistics
 
 ## Location
-src/backend/commands/statscmds.c: 599 - 721
+[src/backend/commands/statscmds.c:599-721](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L599-L721)
 
 ## Overview
 Modifies the statistics target of an existing PostgreSQL extended statistics object, controlling how much sample data is collected during ANALYZE operations.

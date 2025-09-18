@@ -1,7 +1,7 @@
 # _inhInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 527 - 530
+[src/bin/pg_dump/pg_dump.h:527-530](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L527-L530)
 
 ## Overview
 The  structure represents temporary inheritance information in PostgreSQL's pg_dump utility, used to track table inheritance relationships during dump operations.

@@ -1,7 +1,7 @@
 # remove_useless_joins
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 64 - 127
+[src/backend/optimizer/plan/analyzejoins.c:64-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L64-L127)
 
 ## Overview
 Identifies and removes relations that don't actually need to be joined in a query, optimizing the query plan by eliminating unnecessary left joins.

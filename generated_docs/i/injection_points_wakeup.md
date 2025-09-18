@@ -1,7 +1,7 @@
 # injection_points_wakeup
 
 ## Location
-src/test/modules/injection_points/injection_points.c: 324 - 363
+[src/test/modules/injection_points/injection_points.c:324-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/injection_points/injection_points.c#L324-L363)
 
 ## Overview
 A SQL-callable function that awakens processes waiting on a named injection point, providing the coordination mechanism for synchronization-based testing scenarios.

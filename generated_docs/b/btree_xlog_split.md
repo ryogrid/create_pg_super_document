@@ -1,7 +1,7 @@
 # btree_xlog_split
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 251 - 463
+[src/backend/access/nbtree/nbtxlog.c:251-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L251-L463)
 
 ## Overview
 Handles B-tree page split WAL record replay during recovery, reconstructing both left and right pages from the split operation.

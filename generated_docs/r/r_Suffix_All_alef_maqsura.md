@@ -1,7 +1,7 @@
 # r_Suffix_All_alef_maqsura
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_arabic.c: 1403 - 1413
+[src/backend/snowball/libstemmer/stem_UTF_8_arabic.c:1403-1413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_arabic.c#L1403-L1413)
 
 ## Overview
 Handles the normalization of Arabic "alef maqsura" character during the suffix processing stage of Arabic text stemming.

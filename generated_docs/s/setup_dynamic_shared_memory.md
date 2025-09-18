@@ -1,7 +1,7 @@
 # setup_dynamic_shared_memory
 
 ## Location
-src/test/modules/test_shm_mq/setup.c: 92 - 174
+[src/test/modules/test_shm_mq/setup.c:92-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_shm_mq/setup.c#L92-L174)
 
 ## Overview
 This static function creates and configures a dynamic shared memory segment containing a control header and multiple message queues for shared memory message queue testing.

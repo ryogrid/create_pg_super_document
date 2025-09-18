@@ -1,7 +1,7 @@
 # HashScanOpaqueData
 
 ## Location
-src/include/access/hash.h: 158 - 190
+[src/include/access/hash.h:158-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash.h#L158-L190)
 
 ## Overview
 HashScanOpaqueData is the private state structure for hash index scans, containing scan position, bucket information, and split operation handling data.

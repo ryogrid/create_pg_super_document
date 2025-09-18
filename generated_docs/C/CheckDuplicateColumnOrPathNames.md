@@ -1,7 +1,7 @@
 # CheckDuplicateColumnOrPathNames
 
 ## Location
-src/backend/parser/parse_jsontable.c: 173 - 215
+[src/backend/parser/parse_jsontable.c:173-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L173-L215)
 
 ## Overview
 Recursively validates that column and path names within a JSON_TABLE specification are unique, preventing naming conflicts in the JSON table structure.

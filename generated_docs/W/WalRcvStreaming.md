@@ -1,7 +1,7 @@
 # WalRcvStreaming
 
 ## Location
-src/backend/replication/walreceiverfuncs.c: 126 - 177
+[src/backend/replication/walreceiverfuncs.c:126-177](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiverfuncs.c#L126-L177)
 
 ## Overview
 Determines whether the WAL receiver is actively streaming WAL data or in a state where streaming is expected (starting, restarting, or streaming).

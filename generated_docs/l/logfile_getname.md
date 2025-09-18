@@ -1,7 +1,7 @@
 # logfile_getname
 
 ## Location
-src/backend/postmaster/syslogger.c: 1411 - 1440
+[src/backend/postmaster/syslogger.c:1411-1440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1411-L1440)
 
 ## Overview
 Constructs log file names using timestamp information and PostgreSQL's configurable filename pattern, with optional suffix support for different log file types.

@@ -1,7 +1,7 @@
 # calculate_indexes_size
 
 ## Location
-src/backend/utils/adt/dbsize.c: 451 - 485
+[src/backend/utils/adt/dbsize.c:451-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/dbsize.c#L451-L485)
 
 ## Overview
 Calculates the total on-disk size of all indexes attached to a given table relation, iterating through each index and summing their storage across all forks.

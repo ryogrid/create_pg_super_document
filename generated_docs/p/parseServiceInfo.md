@@ -1,7 +1,7 @@
 # parseServiceInfo
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5492 - 5559
+[src/interfaces/libpq/fe-connect.c:5492-5559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5492-L5559)
 
 ## Overview
 Looks up and parses PostgreSQL service configuration from service files, loading connection options from the specified service definition into the options array.

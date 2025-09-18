@@ -1,7 +1,7 @@
 # BipartiteMatch
 
 ## Location
-src/backend/lib/bipartite_match.c: 39 - 77
+[src/backend/lib/bipartite_match.c:39-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bipartite_match.c#L39-L77)
 
 ## Overview
 BipartiteMatch implements the Hopcroft-Karp algorithm to find maximum matching in a bipartite graph, returning a state object containing the matching results and intermediate data structures.

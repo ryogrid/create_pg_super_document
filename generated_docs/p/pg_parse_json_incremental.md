@@ -1,7 +1,7 @@
 # pg_parse_json_incremental
 
 ## Location
-src/common/jsonapi.c: 650 - 1007
+[src/common/jsonapi.c:650-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/jsonapi.c#L650-L1007)
 
 ## Overview
 A non-recursive top-down parser for incremental JSON processing that uses the Dragon Book Algorithm 4.3, allowing JSON to be parsed in chunks rather than requiring the complete input at once.

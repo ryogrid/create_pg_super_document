@@ -1,7 +1,7 @@
 # pg_atomic_read_membarrier_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 424 - 430
+[src/include/port/atomics/generic.h:424-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L424-L430)
 
 ## Overview
 Performs an atomic read operation on a 64-bit unsigned integer with memory barrier semantics, ensuring proper memory ordering and visibility across threads.

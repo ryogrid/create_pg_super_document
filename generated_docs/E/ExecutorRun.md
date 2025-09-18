@@ -1,7 +1,7 @@
 # ExecutorRun
 
 ## Location
-src/backend/executor/execMain.c: 299 - 309
+[src/backend/executor/execMain.c:299-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L299-L309)
 
 ## Overview
 ExecutorRun is the main routine of the executor module that accepts a query descriptor and executes the query plan, providing a hook mechanism for plugins while delegating to the standard implementation.

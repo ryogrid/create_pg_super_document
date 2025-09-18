@@ -1,7 +1,7 @@
 # PLy_spi_execute_fetch_result
 
 ## Location
-src/pl/plpython/plpy_spi.c: 340 - 449
+[src/pl/plpython/plpy_spi.c:340-449](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L340-L449)
 
 ## Overview
 PLy_spi_execute_fetch_result processes SPI execution results and converts them into a Python-accessible PLyResultObject containing status information, row count, and converted tuple data.

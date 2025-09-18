@@ -1,7 +1,7 @@
 # set_indexonlyscan_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1321 - 1394
+[src/backend/optimizer/plan/setrefs.c:1321-1394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1321-L1394)
 
 ## Overview
 Specialized function that adjusts variable references in IndexOnlyScan plan nodes, converting heap-referencing variables to index-referencing variables for index-only scan operations.

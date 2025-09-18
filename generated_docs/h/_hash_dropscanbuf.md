@@ -1,7 +1,7 @@
 # _hash_dropscanbuf
 
 ## Location
-src/backend/access/hash/hashpage.c: 289 - 326
+[src/backend/access/hash/hashpage.c:289-326](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L289-L326)
 
 ## Overview
 This function releases all buffers held during a hash index scan operation, properly cleaning up buffer references and resetting scan state to prevent resource leaks.

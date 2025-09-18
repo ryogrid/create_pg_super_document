@@ -1,7 +1,7 @@
 # polymorphic_actuals
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 35 - 41
+[src/backend/utils/fmgr/funcapi.c:35-41](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L35-L41)
 
 ## Overview
 A structure that stores the resolved actual types for PostgreSQL's polymorphic pseudo-types during function argument resolution.

@@ -1,7 +1,7 @@
 # ExecASInsertTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2447 - 2459
+[src/backend/commands/trigger.c:2447-2459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2447-L2459)
 
 ## Overview
 Schedules AFTER STATEMENT INSERT triggers for deferred execution, capturing transition table data if required for trigger functions that reference OLD TABLE or NEW TABLE.

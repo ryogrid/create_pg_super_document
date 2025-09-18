@@ -1,7 +1,7 @@
 # insert_s
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 435 - 443
+[src/backend/snowball/libstemmer/utilities.c:435-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L435-L443)
 
 ## Overview
 A function in the Snowball stemming library that inserts a string at a specific position in the working buffer and adjusts the bra/ket cursors accordingly.

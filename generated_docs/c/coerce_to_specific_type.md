@@ -1,7 +1,7 @@
 # coerce_to_specific_type
 
 ## Location
-src/backend/parser/parse_coerce.c: 1257 - 1272
+[src/backend/parser/parse_coerce.c:1257-1272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L1257-L1272)
 
 ## Overview
 A convenience function that coerces an expression node to a specific data type for SQL constructs that require a particular type, ensuring the input is not a set-returning expression.

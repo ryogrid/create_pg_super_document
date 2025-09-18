@@ -1,7 +1,7 @@
 # pg_advisory_unlock_all
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 1000 - 1005
+[src/backend/utils/adt/lockfuncs.c:1000-1005](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L1000-L1005)
 
 ## Overview
 Releases all advisory locks currently held by the current session.

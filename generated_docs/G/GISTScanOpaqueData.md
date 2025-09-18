@@ -1,7 +1,7 @@
 # GISTScanOpaqueData
 
 ## Location
-src/include/access/gist_private.h: 154 - 179
+[src/include/access/gist_private.h:154-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L154-L179)
 
 ## Overview
 GISTScanOpaqueData maintains the complete private state for a GiST index scan operation, including the search queue, workspace areas, and buffers for efficient tuple retrieval.

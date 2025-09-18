@@ -1,7 +1,7 @@
 # lazy_truncate_heap
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 2550 - 2680
+[src/backend/access/heap/vacuumlazy.c:2550-2680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L2550-L2680)
 
 ## Overview
 Attempts to truncate empty pages at the end of a heap relation during vacuum operations, requiring AccessExclusiveLock and careful validation.

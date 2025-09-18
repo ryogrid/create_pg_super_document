@@ -1,7 +1,7 @@
 # JsonPathExists
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3888 - 3910
+[src/backend/utils/adt/jsonpath_exec.c:3888-3910](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3888-L3910)
 
 ## Overview
 An executor-callable function that implements JSON_EXISTS functionality, determining whether a JSON path expression matches any elements in a JSON document.

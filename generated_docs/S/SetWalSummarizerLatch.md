@@ -1,7 +1,7 @@
 # SetWalSummarizerLatch
 
 ## Location
-src/backend/postmaster/walsummarizer.c: 637 - 659
+[src/backend/postmaster/walsummarizer.c:637-659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/walsummarizer.c#L637-L659)
 
 ## Overview
 Sets the latch for the WAL summarizer process to wake it up for processing, providing a mechanism to signal the summarizer when new work is available.

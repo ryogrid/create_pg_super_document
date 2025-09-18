@@ -1,7 +1,7 @@
 # pgtypes_strdup
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/common.c: 20 - 29
+[src/interfaces/ecpg/pgtypeslib/common.c:20-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/common.c#L20-L29)
 
 ## Overview
 A string duplication wrapper function in the PostgreSQL ECPG pgtypeslib that duplicates strings and provides consistent error handling by setting errno on failure.

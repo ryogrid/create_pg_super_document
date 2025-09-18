@@ -1,7 +1,7 @@
 # _bt_dedup_pass
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 58 - 306
+[src/backend/access/nbtree/nbtdedup.c:58-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L58-L306)
 
 ## Overview
 Performs a B-tree deduplication pass to merge duplicate index tuples into posting list tuples, freeing up page space to potentially avoid page splits.

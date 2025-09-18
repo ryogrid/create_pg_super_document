@@ -1,7 +1,7 @@
 # PQescapeByteaConn
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 4514 - 4529
+[src/interfaces/libpq/fe-exec.c:4514-4529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L4514-L4529)
 
 ## Overview
 PQescapeByteaConn is a connection-aware wrapper function that escapes binary data for safe inclusion in SQL bytea literals, automatically selecting the appropriate encoding format based on server capabilities.

@@ -1,7 +1,7 @@
 # get_object_namensp_unique
 
 ## Location
-src/backend/catalog/objectaddress.c: 2717 - 2728
+[src/backend/catalog/objectaddress.c:2717-2728](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2717-L2728)
 
 ## Overview
 Determines whether objects of a given class have unique names within their namespace, providing information about naming constraints for object identification and management operations.

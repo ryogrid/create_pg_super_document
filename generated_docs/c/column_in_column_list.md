@@ -1,7 +1,7 @@
 # column_in_column_list
 
 ## Location
-src/backend/replication/logical/proto.c: 50 - 59
+[src/backend/replication/logical/proto.c:50-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L50-L59)
 
 ## Overview
 A static utility function that checks if a specified column is covered by a column list, used in PostgreSQL's logical replication protocol implementation.

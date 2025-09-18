@@ -1,7 +1,7 @@
 # parse_sane_timezone
 
 ## Location
-src/backend/utils/adt/timestamp.c: 489 - 557
+[src/backend/utils/adt/timestamp.c:489-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L489-L557)
 
 ## Overview
 Parses a timezone specification string and returns its timezone offset value, with comprehensive validation and error handling.

@@ -1,7 +1,7 @@
 # get_eclass_indexes_for_relids
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 3328 - 3357
+[src/backend/optimizer/path/equivclass.c:3328-3357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L3328-L3357)
 
 ## Overview
 Builds and returns a Bitmapset containing the indexes into the eq_classes list for all equivalence classes that mention any of the specified relation IDs.

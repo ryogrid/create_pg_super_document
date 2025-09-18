@@ -1,7 +1,7 @@
 # gistformdownlink
 
 ## Location
-src/backend/access/gist/gist.c: 1135 - 1194
+[src/backend/access/gist/gist.c:1135-1194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1135-L1194)
 
 ## Overview
 Creates a downlink index tuple that represents all entries on a given page, used when inserting references to child pages in internal nodes of the GiST tree.

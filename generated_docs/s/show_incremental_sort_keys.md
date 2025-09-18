@@ -1,7 +1,7 @@
 # show_incremental_sort_keys
 
 ## Location
-src/backend/commands/explain.c: 2574 - 2590
+[src/backend/commands/explain.c:2574-2590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2574-L2590)
 
 ## Overview
 Displays the sort keys for an IncrementalSort node during query execution plan explanation.

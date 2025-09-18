@@ -1,7 +1,7 @@
 # r_is_reserved_word
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 2005 - 2015
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2005-2015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L2005-L2015)
 
 ## Overview
 Checks if the current word is a Turkish reserved word that should not be stemmed, specifically detecting the words "ad" and "soyad" (name and surname).

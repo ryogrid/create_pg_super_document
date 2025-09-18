@@ -1,7 +1,7 @@
 # set_joinrel_partition_key_exprs
 
 ## Location
-src/backend/optimizer/util/relnode.c: 2285 - 2428
+[src/backend/optimizer/util/relnode.c:2285-2428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L2285-L2428)
 
 ## Overview
 Initializes partition key expressions for a partitioned join relation by determining which partition keys remain valid and nullable based on the specific join type being performed.

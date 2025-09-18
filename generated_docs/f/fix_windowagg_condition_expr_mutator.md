@@ -1,7 +1,7 @@
 # fix_windowagg_condition_expr_mutator
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3361 - 3390
+[src/backend/optimizer/plan/setrefs.c:3361-3390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3361-L3390)
 
 ## Overview
 A specialized expression tree mutator that replaces WindowFunc nodes with corresponding variable references from the subplan's target list, specifically designed for window aggregation condition expressions.

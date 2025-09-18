@@ -1,7 +1,7 @@
 # time_scale
 
 ## Location
-src/backend/utils/adt/date.c: 1625 - 1644
+[src/backend/utils/adt/date.c:1625-1644](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1625-L1644)
 
 ## Overview
 A PostgreSQL function that adjusts TIME data type values for specified scale factors, used by the type system to handle column precision constraints.

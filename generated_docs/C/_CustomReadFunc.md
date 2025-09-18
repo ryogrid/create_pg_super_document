@@ -1,7 +1,7 @@
 # _CustomReadFunc
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 1003 - 1024
+[src/bin/pg_dump/pg_backup_custom.c:1003-1024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L1003-L1024)
 
 ## Overview
 A callback function used by the PostgreSQL pg_dump custom format archive reader to read compressed data blocks from archive files.

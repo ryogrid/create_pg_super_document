@@ -1,7 +1,7 @@
 # add_local_string_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 1118 - 1155
+[src/backend/access/common/reloptions.c:1118-1155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1118-L1155)
 
 ## Overview
 Adds a new local string-type reloption to a specific local reloption set, used for defining string configuration parameters that are local to particular access methods or extensions.

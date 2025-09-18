@@ -1,7 +1,7 @@
 # singlestep_hook
 
 ## Location
-src/bin/psql/startup.c: 899 - 904
+[src/bin/psql/startup.c:899-904](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L899-L904)
 
 ## Overview
 A hook function used in PostgreSQL's psql client to validate and set the SINGLESTEP variable, which controls whether psql should prompt the user before executing each command in interactive single-step debugging mode.

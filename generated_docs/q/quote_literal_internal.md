@@ -1,7 +1,7 @@
 # quote_literal_internal
 
 ## Location
-src/backend/utils/adt/quote.c: 47 - 77
+[src/backend/utils/adt/quote.c:47-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/quote.c#L47-L77)
 
 ## Overview
 A static helper function that performs the core logic for quoting string literals in PostgreSQL, handling escape characters and proper quote formatting for SQL strings.

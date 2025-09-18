@@ -1,7 +1,7 @@
 # reduce_unique_semijoins
 
 ## Location
-src/backend/optimizer/plan/analyzejoins.c: 730 - 805
+[src/backend/optimizer/plan/analyzejoins.c:730-805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/analyzejoins.c#L730-L805)
 
 ## Overview
 Optimizes semijoins by converting them to plain inner joins when the inner relation is provably unique for the join clauses, eliminating unnecessary semijoin overhead.

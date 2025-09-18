@@ -1,7 +1,7 @@
 # NewPrivateRefCountEntry
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 315 - 340
+[src/backend/storage/buffer/bufmgr.c:315-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L315-L340)
 
 ## Overview
 NewPrivateRefCountEntry fills a previously reserved refcount entry with buffer information, initializing tracking for a buffer's reference count.

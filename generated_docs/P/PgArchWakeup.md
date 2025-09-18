@@ -1,7 +1,7 @@
 # PgArchWakeup
 
 ## Location
-src/backend/postmaster/pgarch.c: 280 - 296
+[src/backend/postmaster/pgarch.c:280-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L280-L296)
 
 ## Overview
 PgArchWakeup wakes up the PostgreSQL archiver process by setting its process latch, signaling it to check for new WAL files to archive.

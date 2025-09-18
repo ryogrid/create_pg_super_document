@@ -1,7 +1,7 @@
 # tstoreReceiveSlot_detoast
 
 ## Location
-src/backend/executor/tstoreReceiver.c: 136 - 191
+[src/backend/executor/tstoreReceiver.c:136-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tstoreReceiver.c#L136-L191)
 
 ## Overview
 A specialized callback function that receives tuples from the executor, detoasts any externally-stored variable-length attributes, and stores the processed tuples in a tuplestore.

@@ -1,7 +1,7 @@
 # TriggerEnabled
 
 ## Location
-src/backend/commands/trigger.c: 3509 - 3631
+[src/backend/commands/trigger.c:3509-3631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3509-L3631)
 
 ## Overview
 Determines whether a trigger should fire based on replication role, column modifications, and WHEN clause conditions.

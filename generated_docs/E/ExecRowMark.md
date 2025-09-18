@@ -1,7 +1,7 @@
 # ExecRowMark
 
 ## Location
-src/include/nodes/execnodes.h: 750 - 763
+[src/include/nodes/execnodes.h:750-763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L750-L763)
 
 ## Overview
 ExecRowMark is the runtime representation of FOR [KEY] UPDATE/SHARE clauses, managing row locking information during query execution.

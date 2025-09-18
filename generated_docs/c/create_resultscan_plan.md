@@ -1,7 +1,7 @@
 # create_resultscan_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4025 - 4061
+[src/backend/optimizer/plan/createplan.c:4025-4061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4025-L4061)
 
 ## Overview
 Creates a Result plan node for scanning an RTE_RESULT base relation that represents a constant result or expression evaluation.

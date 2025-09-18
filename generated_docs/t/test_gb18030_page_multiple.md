@@ -1,7 +1,7 @@
 # test_gb18030_page_multiple
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 180 - 212
+[src/test/modules/test_escape/test_escape.c:180-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L180-L212)
 
 ## Overview
 A specialized test function that verifies memory boundary safety when PostgreSQL's PQescapeLiteral function processes invalid GB18030-encoded input at memory allocation boundaries.

@@ -1,7 +1,7 @@
 # find_expr_references_walker
 
 ## Location
-src/backend/catalog/dependency.c: 1698 - 2320
+[src/backend/catalog/dependency.c:1698-2320](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L1698-L2320)
 
 ## Overview
 Recursively traverses an expression tree to identify and collect all database object references, serving as the core dependency discovery engine for PostgreSQL's dependency tracking system.

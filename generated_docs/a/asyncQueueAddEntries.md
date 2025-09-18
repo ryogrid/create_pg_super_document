@@ -1,7 +1,7 @@
 # asyncQueueAddEntries
 
 ## Location
-src/backend/commands/async.c: 1356 - 1480
+[src/backend/commands/async.c:1356-1480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1356-L1480)
 
 ## Overview
 Adds pending notification messages to the shared memory notification queue, processing them page by page and handling page boundaries correctly.

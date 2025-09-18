@@ -1,7 +1,7 @@
 # add_base_clause_to_rel
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 2629 - 2703
+[src/backend/optimizer/plan/initsplan.c:2629-2703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L2629-L2703)
 
 ## Overview
 Adds a RestrictInfo as a base restriction to a relation, with optimizations to handle trivially true/false qualifications and special inheritance table considerations.

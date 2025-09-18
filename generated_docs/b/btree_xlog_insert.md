@@ -1,7 +1,7 @@
 # btree_xlog_insert
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 160 - 250
+[src/backend/access/nbtree/nbtxlog.c:160-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L160-L250)
 
 ## Overview
 Handles B-tree insertion WAL record replay during recovery, supporting both simple insertions and posting list splits.

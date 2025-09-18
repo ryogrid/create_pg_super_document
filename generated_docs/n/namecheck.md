@@ -1,7 +1,7 @@
 # namecheck
 
 ## Location
-src/timezone/zic.c: 903 - 950
+[src/timezone/zic.c:903-950](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L903-L950)
 
 ## Overview
 Validates timezone file names for portability and compliance with safe naming conventions in the PostgreSQL timezone compiler, checking for problematic characters and path components.

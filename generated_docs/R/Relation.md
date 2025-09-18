@@ -1,7 +1,7 @@
 # Relation
 
 ## Location
-src/include/utils/relcache.h: 27 - 34
+[src/include/utils/relcache.h:27-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/relcache.h#L27-L34)
 
 ## Overview
 Relation is a typedef that represents a pointer to a RelationData struct, serving as the primary data structure for representing database relations (tables, indexes, sequences, etc.) in PostgreSQL's relation cache system.

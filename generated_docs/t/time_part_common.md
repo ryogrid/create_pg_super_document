@@ -1,7 +1,7 @@
 # time_part_common
 
 ## Location
-src/backend/utils/adt/date.c: 2140 - 2242
+[src/backend/utils/adt/date.c:2140-2242](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2140-L2242)
 
 ## Overview
 The  function extracts specified time components (hour, minute, second, etc.) from a TimeADT value, with support for both numeric and floating-point return formats.

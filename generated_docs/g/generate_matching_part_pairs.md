@@ -1,7 +1,7 @@
 # generate_matching_part_pairs
 
 ## Location
-src/backend/partitioning/partbounds.c: 2439 - 2517
+[src/backend/partitioning/partbounds.c:2439-2517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2439-L2517)
 
 ## Overview
 Generates a pair of lists of partitions that produce merged partitions, organizing them in the order of merged partition indexes for subsequent partition processing operations.

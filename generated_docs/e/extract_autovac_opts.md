@@ -1,7 +1,7 @@
 # extract_autovac_opts
 
 ## Location
-src/backend/postmaster/autovacuum.c: 2702 - 2731
+[src/backend/postmaster/autovacuum.c:2702-2731](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L2702-L2731)
 
 ## Overview
 extract_autovac_opts extracts and returns a copy of the AutoVacOpts portion of a relation's reloptions from its pg_class tuple.

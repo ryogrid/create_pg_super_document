@@ -1,7 +1,7 @@
 # PageHasFreeLinePointers
 
 ## Location
-src/include/storage/bufpage.h: 395 - 399
+[src/include/storage/bufpage.h:395-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L395-L399)
 
 ## Overview
 Checks whether a page has free line pointers available for reuse by examining the PD_HAS_FREE_LINES flag in the page header.

@@ -1,7 +1,7 @@
 # _bt_truncate
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4657 - 4801
+[src/backend/access/nbtree/nbtutils.c:4657-4801](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4657-L4801)
 
 ## Overview
 The _bt_truncate function creates a truncated pivot index tuple by removing unneeded suffix attributes, optimizing B-tree internal node storage efficiency while maintaining correct ordering semantics.

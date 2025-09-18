@@ -1,7 +1,7 @@
 # partition_bounds_copy
 
 ## Location
-src/backend/partitioning/partbounds.c: 1002 - 1117
+[src/backend/partitioning/partbounds.c:1002-1117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1002-L1117)
 
 ## Overview
 Creates a deep copy of a PartitionBoundInfo structure, duplicating all data elements while respecting memory management constraints for long-lived contexts.

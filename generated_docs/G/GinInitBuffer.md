@@ -1,7 +1,7 @@
 # GinInitBuffer
 
 ## Location
-src/backend/access/gin/ginutil.c: 350 - 355
+[src/backend/access/gin/ginutil.c:350-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L350-L355)
 
 ## Overview
 Initializes a GIN page within a buffer by calling GinInitPage with the appropriate page and size parameters extracted from the buffer.

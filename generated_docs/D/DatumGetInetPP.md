@@ -1,7 +1,7 @@
 # DatumGetInetPP
 
 ## Location
-src/include/utils/inet.h: 123 - 128
+[src/include/utils/inet.h:123-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L123-L128)
 
 ## Overview
 Converts a Datum value to a pointer to an inet structure, handling detoasting of packed data for network address operations.

@@ -1,7 +1,7 @@
 # reset_formatted_start_time
 
 ## Location
-src/backend/utils/error/elog.c: 2692 - 2703
+[src/backend/utils/error/elog.c:2692-2703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2692-L2703)
 
 ## Overview
 Resets the formatted start time buffer by clearing its contents, used in PostgreSQL's logging system to ensure fresh timestamp formatting.

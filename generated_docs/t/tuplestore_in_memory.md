@@ -1,7 +1,7 @@
 # tuplestore_in_memory
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1455 - 1465
+[src/backend/utils/sort/tuplestore.c:1455-1465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1455-L1465)
 
 ## Overview
 A simple utility function that checks whether a tuplestore is currently operating in memory-only mode and has not spilled to disk.

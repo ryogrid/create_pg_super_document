@@ -1,7 +1,7 @@
 # freecolor
 
 ## Location
-src/backend/regex/regc_color.c: 257 - 311
+[src/backend/regex/regc_color.c:257-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L257-L311)
 
 ## Overview
 Frees a color in a colormap structure, ensuring the color has no associated arcs or subcolors before deallocating it and managing the freelist.

@@ -1,7 +1,7 @@
 # ginbuildempty
 
 ## Location
-src/backend/access/gin/gininsert.c: 434 - 464
+[src/backend/access/gin/gininsert.c:434-464](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L434-L464)
 
 ## Overview
 The ginbuildempty function creates a minimal empty GIN index structure in the initialization fork, consisting of just the essential meta page and root page.

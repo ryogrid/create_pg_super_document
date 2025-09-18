@@ -1,7 +1,7 @@
 # ExecForeignScanInitializeWorker
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 418 - 440
+[src/backend/executor/nodeForeignscan.c:418-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L418-L440)
 
 ## Overview
 ExecForeignScanInitializeWorker initializes a parallel worker process for foreign scan operations using coordination information from dynamic shared memory.

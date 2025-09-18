@@ -1,7 +1,7 @@
 # GinBtreeData
 
 ## Location
-src/include/access/gin_private.h: 150 - 180
+[src/include/access/gin_private.h:150-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gin_private.h#L150-L180)
 
 ## Overview
 GinBtreeData is a comprehensive structure that provides the operational interface for GIN B-tree manipulation through function pointers and maintains context information for both entry trees and data trees.

@@ -1,7 +1,7 @@
 # _CloseArchive
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 740 - 783
+[src/bin/pg_dump/pg_backup_custom.c:740-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L740-L783)
 
 ## Overview
 A mandatory function that finalizes and closes the archive during pg_dump operations, handling the complete archive writing process including header, TOC, and data chunks.

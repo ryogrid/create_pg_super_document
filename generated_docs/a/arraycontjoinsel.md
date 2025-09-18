@@ -1,7 +1,7 @@
 # arraycontjoinsel
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 321 - 336
+[src/backend/utils/adt/array_selfuncs.c:321-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L321-L336)
 
 ## Overview
 Join selectivity function for array containment operators (@>, &&, <@) that currently provides only default selectivity estimates.

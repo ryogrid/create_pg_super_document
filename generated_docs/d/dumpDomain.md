@@ -1,7 +1,7 @@
 # dumpDomain
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 11562 - 11786
+[src/bin/pg_dump/pg_dump.c:11562-11786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L11562-L11786)
 
 ## Overview
 Generates SQL commands to recreate a user-defined domain type with constraints, defaults, and collations during PostgreSQL database dump operations.

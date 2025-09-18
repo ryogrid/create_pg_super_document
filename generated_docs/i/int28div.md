@@ -1,7 +1,7 @@
 # int28div
 
 ## Location
-src/backend/utils/adt/int8.c: 1155 - 1183
+[src/backend/utils/adt/int8.c:1155-1183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1155-L1183)
 
 ## Overview
 Divides a 16-bit integer (smallint) by a 64-bit integer (bigint) and returns the result as a 64-bit integer.

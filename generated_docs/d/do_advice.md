@@ -1,7 +1,7 @@
 # do_advice
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1953 - 1960
+[src/bin/pg_ctl/pg_ctl.c:1953-1960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1953-L1960)
 
 ## Overview
 Displays a helpful message directing users to use the --help option for more information about pg_ctl usage.

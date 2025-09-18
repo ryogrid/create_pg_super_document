@@ -1,7 +1,7 @@
 # IsManifestEnabled
 
 ## Location
-src/backend/backup/backup_manifest.c: 33 - 40
+[src/backend/backup/backup_manifest.c:33-40](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L33-L40)
 
 ## Overview
 Determines whether backup manifest generation is enabled for a given backup operation by checking if the manifest buffer file is initialized.

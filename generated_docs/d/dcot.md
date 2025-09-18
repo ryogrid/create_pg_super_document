@@ -1,7 +1,7 @@
 # dcot
 
 ## Location
-src/backend/utils/adt/float.c: 1903 - 1930
+[src/backend/utils/adt/float.c:1903-1930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1903-L1930)
 
 ## Overview
 The dcot function computes the cotangent of a floating-point argument given in radians, returning the reciprocal of the tangent value.

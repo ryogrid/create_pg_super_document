@@ -1,7 +1,7 @@
 # readCommandResponse
 
 ## Location
-src/bin/pgbench/pgbench.c: 3241 - 3382
+[src/bin/pgbench/pgbench.c:3241-3382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3241-L3382)
 
 ## Overview
 Processes query responses from PostgreSQL backend, handling various result types and implementing error retry logic with optional variable assignment capabilities.

@@ -1,7 +1,7 @@
 # mask_unused_space
 
 ## Location
-src/backend/access/common/bufmask.c: 71 - 94
+[src/backend/access/common/bufmask.c:71-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/bufmask.c#L71-L94)
 
 ## Overview
 Masks the unused space in a page between pd_lower and pd_upper boundaries to ensure consistent page comparisons during WAL verification.

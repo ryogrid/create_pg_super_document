@@ -1,7 +1,7 @@
 # divacuumcleanup
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 194 - 203
+[src/test/modules/dummy_index_am/dummy_index_am.c:194-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L194-L203)
 
 ## Overview
 A stub implementation of post-VACUUM cleanup for the dummy index access method used in PostgreSQL testing. This function provides the cleanup interface but performs no actual operations.

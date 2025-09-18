@@ -1,7 +1,7 @@
 # remove_target
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 130 - 155
+[src/bin/pg_rewind/file_ops.c:130-155](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L130-L155)
 
 ## Overview
 Removes a target file, directory, or symbolic link based on the file entry's type during pg_rewind operations.

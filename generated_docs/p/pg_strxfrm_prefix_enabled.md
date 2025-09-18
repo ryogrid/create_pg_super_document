@@ -1,7 +1,7 @@
 # pg_strxfrm_prefix_enabled
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2463 - 2489
+[src/backend/utils/adt/pg_locale.c:2463-2489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2463-L2489)
 
 ## Overview
 Determines whether the given locale provider supports PostgreSQL's prefix-based string transformation functions (pg_strxfrm_prefix and pg_strnxfrm_prefix).

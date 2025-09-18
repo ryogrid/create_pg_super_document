@@ -1,7 +1,7 @@
 # dttofmtasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 666 - 671
+[src/interfaces/ecpg/compatlib/informix.c:666-671](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L666-L671)
 
 ## Overview
 A compatibility wrapper function that formats a timestamp into an ASCII string using a specified format string, providing Informix-style datetime formatting functionality.

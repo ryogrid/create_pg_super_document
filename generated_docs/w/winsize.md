@@ -1,7 +1,7 @@
 # winsize
 
 ## Location
-src/interfaces/libpq/fe-print.c: 100 - 329
+[src/interfaces/libpq/fe-print.c:100-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-print.c#L100-L329)
 
 ## Overview
 A local struct definition that provides a fallback implementation for terminal window size information when the system's TIOCGWINSZ ioctl support is not available.

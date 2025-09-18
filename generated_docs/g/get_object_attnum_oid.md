@@ -1,7 +1,7 @@
 # get_object_attnum_oid
 
 ## Location
-src/backend/catalog/objectaddress.c: 2652 - 2659
+[src/backend/catalog/objectaddress.c:2652-2659](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2652-L2659)
 
 ## Overview
 Retrieves the attribute number (column number) that stores the object OID in the catalog table for a given object class.

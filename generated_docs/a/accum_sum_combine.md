@@ -1,7 +1,7 @@
 # accum_sum_combine
 
 ## Location
-src/backend/utils/adt/numeric.c: 12270 - 12280
+[src/backend/utils/adt/numeric.c:12270-12280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L12270-L12280)
 
 ## Overview
 A static utility function that combines one NumericSumAccum accumulator into another, used for merging partial sum results in PostgreSQL's numeric aggregation operations.

@@ -1,7 +1,7 @@
 # ExecuteTruncateGuts
 
 ## Location
-src/backend/commands/tablecmds.c: 1915 - 2301
+[src/backend/commands/tablecmds.c:1915-2301](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L1915-L2301)
 
 ## Overview
 ExecuteTruncateGuts implements the core TRUNCATE logic, handling the actual data deletion, foreign key cascade processing, sequence restarting, trigger execution, and WAL logging for both direct TRUNCATE commands and logical replication.

@@ -1,7 +1,7 @@
 # SerialSetActiveSerXmin
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 990 - 1040
+[src/backend/storage/lmgr/predicate.c:990-1040](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L990-L1040)
 
 ## Overview
 SerialSetActiveSerXmin updates the minimum transaction ID for active serializable transactions, allowing the system to discard information about older transactions that are no longer relevant for conflict detection.

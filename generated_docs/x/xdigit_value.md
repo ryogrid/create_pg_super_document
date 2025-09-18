@@ -1,7 +1,7 @@
 # xdigit_value
 
 ## Location
-src/backend/utils/adt/numeric.c: 7231 - 7257
+[src/backend/utils/adt/numeric.c:7231-7257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7231-L7257)
 
 ## Overview
 A static inline utility function that converts a single hexadecimal digit character to its numeric value.

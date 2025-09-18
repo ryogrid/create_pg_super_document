@@ -1,7 +1,7 @@
 # pg_dependencies_in
 
 ## Location
-src/backend/statistics/dependencies.c: 653 - 669
+[src/backend/statistics/dependencies.c:653-669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L653-L669)
 
 ## Overview
 This function serves as the input routine for the pg_dependencies data type but deliberately prevents text input by throwing an error, as this type is designed for internal binary storage only.

@@ -1,7 +1,7 @@
 # tokenize_expand_file
 
 ## Location
-src/backend/libpq/hba.c: 493 - 569
+[src/backend/libpq/hba.c:493-569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L493-L569)
 
 ## Overview
 Expands a file referenced by '@' directive within an HBA configuration field into a flat list of tokens that are appended to the existing token list.

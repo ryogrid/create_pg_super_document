@@ -1,7 +1,7 @@
 # brininsertcleanup
 
 ## Location
-src/backend/access/brin/brin.c: 503 - 529
+[src/backend/access/brin/brin.c:503-529](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L503-L529)
 
 ## Overview
 The `brininsertcleanup` function serves as a callback to clean up the `BrinInsertState` structure and release associated resources once all tuple insertions for a command are completed.

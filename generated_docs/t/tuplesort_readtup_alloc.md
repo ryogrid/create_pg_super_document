@@ -1,7 +1,7 @@
 # tuplesort_readtup_alloc
 
 ## Location
-src/backend/utils/sort/tuplesort.c: 2921 - 2954
+[src/backend/utils/sort/tuplesort.c:2921-2954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesort.c#L2921-L2954)
 
 ## Overview
 Allocates memory for tuple storage during tuple reading operations, using either a slab allocator for efficiency or standard palloc() for larger tuples.

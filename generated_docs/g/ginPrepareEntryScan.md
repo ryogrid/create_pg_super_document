@@ -1,7 +1,7 @@
 # ginPrepareEntryScan
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 747 - 774
+[src/backend/access/gin/ginentrypage.c:747-774](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L747-L774)
 
 ## Overview
 Initializes a GinBtree structure for entry page access by setting up all necessary function pointers and parameters for GIN entry tree operations.

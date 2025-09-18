@@ -1,7 +1,7 @@
 # enforce_generic_type_consistency
 
 ## Location
-src/backend/parser/parse_coerce.c: 2133 - 2876
+[src/backend/parser/parse_coerce.c:2133-2876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L2133-L2876)
 
 ## Overview
 Enforces type consistency rules for polymorphic functions and deduces actual argument and result types from polymorphic pseudotypes.

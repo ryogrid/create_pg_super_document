@@ -1,7 +1,7 @@
 # findchar2
 
 ## Location
-src/backend/tsearch/spell.c: 242 - 256
+[src/backend/tsearch/spell.c:242-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L242-L256)
 
 ## Overview
 A multibyte-aware character search function that locates the first occurrence of either of two specified ASCII characters in a string, used in PostgreSQL's affix file parsing for case-insensitive searches.

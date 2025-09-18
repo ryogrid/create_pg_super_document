@@ -1,7 +1,7 @@
 # saop_hash_element_match
 
 ## Location
-src/backend/executor/execExprInterp.c: 3639 - 3669
+[src/backend/executor/execExprInterp.c:3639-3669](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L3639-L3669)
 
 ## Overview
 saop_hash_element_match is a matching function used in scalar array operation hash tables to determine if two array elements are equal using the appropriate comparison operator.

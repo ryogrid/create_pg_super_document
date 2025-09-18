@@ -1,7 +1,7 @@
 # RegisterCatalogInvalidation
 
 ## Location
-src/backend/utils/cache/inval.c: 559 - 570
+[src/backend/utils/cache/inval.c:559-570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L559-L570)
 
 ## Overview
 Registers an invalidation event for all catcache entries from a specific catalog, marking them for invalidation during the current command.

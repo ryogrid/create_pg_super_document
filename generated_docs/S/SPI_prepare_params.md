@@ -1,7 +1,7 @@
 # SPI_prepare_params
 
 ## Location
-src/backend/executor/spi.c: 938 - 975
+[src/backend/executor/spi.c:938-975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L938-L975)
 
 ## Overview
 Prepares an SQL statement for execution with custom parameter parsing options and cursor options, returning an execution plan that can be reused for multiple executions.

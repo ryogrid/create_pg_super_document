@@ -1,7 +1,7 @@
 # inv_drop
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 349 - 377
+[src/backend/storage/large_object/inv_api.c:349-377](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L349-L377)
 
 ## Overview
 Destroys an existing large object permanently, removing it and all associated metadata from the database.

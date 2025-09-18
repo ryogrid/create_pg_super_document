@@ -1,7 +1,7 @@
 # write_relmap_file
 
 ## Location
-src/backend/utils/cache/relmapper.c: 889 - 1038
+[src/backend/utils/cache/relmapper.c:889-1038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relmapper.c#L889-L1038)
 
 ## Overview
 write_relmap_file safely writes relation mapping data to disk with full transactional support, including WAL logging, crash safety, and proper invalidation signaling.

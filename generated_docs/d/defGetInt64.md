@@ -1,7 +1,7 @@
 # defGetInt64
 
 ## Location
-src/backend/commands/define.c: 186 - 218
+[src/backend/commands/define.c:186-218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L186-L218)
 
 ## Overview
 Extracts a 64-bit signed integer value from a DefElem, accepting both T_Integer and T_Float node types, with special handling for large numeric values.

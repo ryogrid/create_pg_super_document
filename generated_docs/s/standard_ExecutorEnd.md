@@ -1,7 +1,7 @@
 # standard_ExecutorEnd
 
 ## Location
-src/backend/executor/execMain.c: 469 - 525
+[src/backend/executor/execMain.c:469-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L469-L525)
 
 ## Overview
 Performs comprehensive cleanup and resource deallocation at the end of query execution, including plan termination, snapshot cleanup, and memory context destruction.

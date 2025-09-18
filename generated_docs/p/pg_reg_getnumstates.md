@@ -1,7 +1,7 @@
 # pg_reg_getnumstates
 
 ## Location
-src/backend/regex/regexport.c: 36 - 49
+[src/backend/regex/regexport.c:36-49](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L36-L49)
 
 ## Overview
 Returns the total number of NFA (Non-deterministic Finite Automaton) states in a compiled regular expression.

@@ -1,7 +1,7 @@
 # LsnReadQueue
 
 ## Location
-src/backend/access/transam/xlogprefetcher.c: 103 - 118
+[src/backend/access/transam/xlogprefetcher.c:103-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogprefetcher.c#L103-L118)
 
 ## Overview
 LsnReadQueue is a simple circular queue data structure used to control the number of potentially inflight WAL prefetch I/O operations in PostgreSQL's transaction log prefetcher.

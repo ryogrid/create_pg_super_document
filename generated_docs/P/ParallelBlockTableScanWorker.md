@@ -1,7 +1,7 @@
 # ParallelBlockTableScanWorker
 
 ## Location
-src/include/access/relscan.h: 97 - 103
+[src/include/access/relscan.h:97-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L97-L103)
 
 ## Overview
 A typedef for a pointer to ParallelBlockTableScanWorkerData, representing per-worker state management for parallel table scans in block-oriented storage systems.

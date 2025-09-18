@@ -1,7 +1,7 @@
 # ReleaseAuxProcessResources
 
 ## Location
-src/backend/utils/resowner/resowner.c: 1002 - 1026
+[src/backend/utils/resowner/resowner.c:1002-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/resowner/resowner.c#L1002-L1026)
 
 ## Overview
 Releases all resources tracked in the auxiliary process resource owner through the complete three-phase release protocol while preserving the resource owner for potential reuse.

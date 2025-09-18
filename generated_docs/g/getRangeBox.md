@@ -1,7 +1,7 @@
 # getRangeBox
 
 ## Location
-src/backend/utils/adt/geo_spgist.c: 157 - 176
+[src/backend/utils/adt/geo_spgist.c:157-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_spgist.c#L157-L176)
 
 ## Overview
 Converts a PostgreSQL BOX geometric type into a RangeBox structure to represent the box as points in 4D space for SP-GiST indexing operations.

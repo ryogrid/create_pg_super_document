@@ -1,7 +1,7 @@
 # NUM_cache_getnew
 
 ## Location
-src/backend/utils/adt/formatting.c: 5072 - 5130
+[src/backend/utils/adt/formatting.c:5072-5130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5072-L5130)
 
 ## Overview
 Allocates or recycles a NUMCacheEntry to hold a numeric format picture string, managing cache overflow through LRU replacement strategy.

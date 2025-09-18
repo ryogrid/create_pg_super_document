@@ -1,7 +1,7 @@
 # libpqrcv_send
 
 ## Location
-src/backend/replication/libpqwalreceiver/libpqwalreceiver.c: 994 - 1009
+[src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:994-1009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/libpqwalreceiver/libpqwalreceiver.c#L994-L1009)
 
 ## Overview
 libpqrcv_send is a static function that sends data to a PostgreSQL WAL (Write-Ahead Log) stream using the libpq connection API, providing error handling for stream communication failures.

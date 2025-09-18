@@ -1,7 +1,7 @@
 # KnownAssignedXidsCompress
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4664 - 4677
+[src/backend/storage/ipc/procarray.c:4664-4677](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4664-L4677)
 
 ## Overview
 KnownAssignedXidsCompress compresses the KnownAssignedXids array by removing gaps and shifting valid transaction IDs to the beginning of the array, optimizing memory usage and search performance during Hot Standby operations.

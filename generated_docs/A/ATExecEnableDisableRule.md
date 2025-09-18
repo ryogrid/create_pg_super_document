@@ -1,7 +1,7 @@
 # ATExecEnableDisableRule
 
 ## Location
-src/backend/commands/tablecmds.c: 15622 - 15638
+[src/backend/commands/tablecmds.c:15622-15638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L15622-L15638)
 
 ## Overview
 Executes ALTER TABLE ENABLE/DISABLE RULE commands by delegating to the rewrite rule subsystem and invoking post-alter hooks.

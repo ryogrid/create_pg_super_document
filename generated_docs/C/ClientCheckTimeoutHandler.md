@@ -1,7 +1,7 @@
 # ClientCheckTimeoutHandler
 
 ## Location
-src/backend/utils/init/postinit.c: 1442 - 1452
+[src/backend/utils/init/postinit.c:1442-1452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1442-L1452)
 
 ## Overview
 A timeout handler function that triggers periodic checks of client connection status by setting appropriate flags to schedule the check through PostgreSQL's interrupt processing mechanism.

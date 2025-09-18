@@ -1,7 +1,7 @@
 # ExecInitWholeRowVar
 
 ## Location
-src/backend/executor/execExpr.c: 2994 - 3066
+[src/backend/executor/execExpr.c:2994-3066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L2994-L3066)
 
 ## Overview
 Prepares a step for the evaluation of a whole-row variable by initializing the necessary data structures to retrieve complete tuple rows during expression evaluation.

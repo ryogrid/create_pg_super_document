@@ -1,7 +1,7 @@
 # mxactMemberComparator
 
 ## Location
-src/backend/access/transam/multixact.c: 1581 - 1610
+[src/backend/access/transam/multixact.c:1581-1610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L1581-L1610)
 
 ## Overview
 A qsort comparison function used to sort MultiXactMember structures, providing a stable ordering based on transaction ID and status without using wraparound comparison.

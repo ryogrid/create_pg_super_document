@@ -1,7 +1,7 @@
 # transformIndexConstraints
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 2058 - 2160
+[src/backend/parser/parse_utilcmd.c:2058-2160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L2058-L2160)
 
 ## Overview
 Handles UNIQUE, PRIMARY KEY, and EXCLUDE constraints that create indexes, merging in any index definitions from LIKE ... INCLUDING INDEXES clauses and removing redundant index specifications.

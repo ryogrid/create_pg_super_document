@@ -1,7 +1,7 @@
 # DirectInputFunctionCallSafe
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1640 - 1682
+[src/backend/utils/fmgr/fmgr.c:1640-1682](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1640-L1682)
 
 ## Overview
 DirectInputFunctionCallSafe is a variant of InputFunctionCallSafe that calls a directly-named C function pointer rather than using the function manager lookup system.

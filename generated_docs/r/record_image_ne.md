@@ -1,7 +1,7 @@
 # record_image_ne
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1753 - 1758
+[src/backend/utils/adt/rowtypes.c:1753-1758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1753-L1758)
 
 ## Overview
 The `record_image_ne` function implements the "not equal" comparison operator for PostgreSQL record types based on byte-level image comparison.

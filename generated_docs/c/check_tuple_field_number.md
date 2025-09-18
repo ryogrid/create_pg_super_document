@@ -1,7 +1,7 @@
 # check_tuple_field_number
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3525 - 3547
+[src/interfaces/libpq/fe-exec.c:3525-3547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3525-L3547)
 
 ## Overview
 A static helper function in libpq that validates both tuple (row) and field (column) numbers to ensure they are within valid ranges for a query result set.

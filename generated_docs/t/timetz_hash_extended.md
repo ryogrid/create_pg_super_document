@@ -1,7 +1,7 @@
 # timetz_hash_extended
 
 ## Location
-src/backend/utils/adt/date.c: 2549 - 2564
+[src/backend/utils/adt/date.c:2549-2564](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2549-L2564)
 
 ## Overview
 The timetz_hash_extended function computes an extended 64-bit hash value for a TimeTzADT (time with time zone) value using an additional seed parameter for enhanced hash distribution.

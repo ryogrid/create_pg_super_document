@@ -1,7 +1,7 @@
 # pull_varnos_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 155 - 290
+[src/backend/optimizer/util/var.c:155-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L155-L290)
 
 ## Overview
 The core walker function that traverses expression trees to collect variable range table numbers (varnos), handling different node types including Vars, PlaceHolderVars, and CurrentOfExpr nodes.

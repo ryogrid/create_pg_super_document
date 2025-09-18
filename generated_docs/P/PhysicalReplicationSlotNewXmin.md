@@ -1,7 +1,7 @@
 # PhysicalReplicationSlotNewXmin
 
 ## Location
-src/backend/replication/walsender.c: 2511 - 2559
+[src/backend/replication/walsender.c:2511-2559](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2511-L2559)
 
 ## Overview
 Updates the xmin horizon for a physical replication slot based on hot standby feedback, ensuring proper coordination between primary and standby servers for transaction visibility and VACUUM operations.

@@ -1,7 +1,7 @@
 # get_object_attnum_name
 
 ## Location
-src/backend/catalog/objectaddress.c: 2660 - 2667
+[src/backend/catalog/objectaddress.c:2660-2667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2660-L2667)
 
 ## Overview
 Retrieves the attribute number (column number) that stores the object name in the catalog table for a given object class.

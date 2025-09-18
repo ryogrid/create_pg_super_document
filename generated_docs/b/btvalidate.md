@@ -1,7 +1,7 @@
 # btvalidate
 
 ## Location
-src/backend/access/nbtree/nbtvalidate.c: 41 - 292
+[src/backend/access/nbtree/nbtvalidate.c:41-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtvalidate.c#L41-L292)
 
 ## Overview
 Validates a btree operator class by checking the consistency and completeness of its operators and support functions within the broader operator family.

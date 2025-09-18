@@ -1,7 +1,7 @@
 # extract_not_arg
 
 ## Location
-src/backend/optimizer/util/predtest.c: 1386 - 1413
+[src/backend/optimizer/util/predtest.c:1386-1413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/predtest.c#L1386-L1413)
 
 ## Overview
 Extracts the argument from clauses that assert the non-truth of a subclause, used in PostgreSQL's predicate testing for handling negated expressions.

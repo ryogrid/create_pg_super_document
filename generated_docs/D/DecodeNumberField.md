@@ -1,7 +1,7 @@
 # DecodeNumberField
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 1087 - 1196
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:1087-1196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L1087-L1196)
 
 ## Overview
 DecodeNumberField interprets a numeric string as a concatenated date or time field, using the context of previously decoded fields to determine the appropriate interpretation.

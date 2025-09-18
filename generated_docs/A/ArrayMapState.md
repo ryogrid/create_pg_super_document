@@ -1,7 +1,7 @@
 # ArrayMapState
 
 ## Location
-src/include/utils/array.h: 251 - 255
+[src/include/utils/array.h:251-255](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/array.h#L251-L255)
 
 ## Overview
 ArrayMapState is a workspace structure that provides private state needed by the array_map() function to cache type metadata for efficient array element transformations.

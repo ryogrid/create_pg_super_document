@@ -1,7 +1,7 @@
 # has_server_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4007 - 4032
+[src/backend/utils/adt/acl.c:4007-4032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4007-L4032)
 
 ## Overview
 Checks whether a named user has specified privileges on a named foreign server in PostgreSQL's foreign data wrapper system.

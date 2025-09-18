@@ -1,7 +1,7 @@
 # get_merge_query_def
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 7122 - 7284
+[src/backend/utils/adt/ruleutils.c:7122-7284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L7122-L7284)
 
 ## Overview
 Generates the text representation of a MERGE SQL statement from a parsed Query structure, reconstructing the complete MERGE command with all its clauses and actions.

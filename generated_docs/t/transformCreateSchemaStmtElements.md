@@ -1,7 +1,7 @@
 # transformCreateSchemaStmtElements
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 3809 - 3911
+[src/backend/parser/parse_utilcmd.c:3809-3911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L3809-L3911)
 
 ## Overview
 Analyzes and organizes the elements of a CREATE SCHEMA statement into individual commands, arranging them in dependency order to avoid forward references.

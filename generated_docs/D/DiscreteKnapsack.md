@@ -1,7 +1,7 @@
 # DiscreteKnapsack
 
 ## Location
-src/backend/lib/knapsack.c: 52 - 106
+[src/backend/lib/knapsack.c:52-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/knapsack.c#L52-L106)
 
 ## Overview
 Solves the discrete knapsack problem by selecting a subset of items that maximizes total value while staying within a weight constraint.

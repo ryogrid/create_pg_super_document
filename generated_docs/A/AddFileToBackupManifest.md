@@ -1,7 +1,7 @@
 # AddFileToBackupManifest
 
 ## Location
-src/backend/backup/backup_manifest.c: 101 - 211
+[src/backend/backup/backup_manifest.c:101-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L101-L211)
 
 ## Overview
 Adds a file entry to the backup manifest with metadata including path, size, modification time, and checksum information formatted as JSON.

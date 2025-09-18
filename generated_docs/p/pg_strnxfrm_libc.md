@@ -1,7 +1,7 @@
 # pg_strnxfrm_libc
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 2194 - 2225
+[src/backend/utils/adt/pg_locale.c:2194-2225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L2194-L2225)
 
 ## Overview
 This static function transforms strings of specified length into sort keys using libc functions, handling null-termination requirements internally.

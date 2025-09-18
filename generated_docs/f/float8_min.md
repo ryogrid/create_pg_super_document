@@ -1,7 +1,7 @@
 # float8_min
 
 ## Location
-src/include/utils/float.h: 340 - 345
+[src/include/utils/float.h:340-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L340-L345)
 
 ## Overview
 Returns the smaller of two double-precision floating-point numbers, with PostgreSQL's NaN handling semantics applied.

@@ -1,7 +1,7 @@
 # _bt_end_parallel
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 1607 - 1632
+[src/backend/access/nbtree/nbtsort.c:1607-1632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L1607-L1632)
 
 ## Overview
 Cleanly terminates parallel B-tree index construction by shutting down worker processes, accumulating performance statistics, and cleaning up parallel context resources.

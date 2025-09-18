@@ -1,7 +1,7 @@
 # StandbyReleaseXidEntryLocks
 
 ## Location
-src/backend/storage/ipc/standby.c: 1034 - 1066
+[src/backend/storage/ipc/standby.c:1034-1066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/standby.c#L1034-L1066)
 
 ## Overview
 StandbyReleaseXidEntryLocks is a static helper function that releases all AccessExclusive locks associated with a specific transaction during recovery cleanup in hot standby mode.

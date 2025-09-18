@@ -1,7 +1,7 @@
 # appendJSONKeyValueFmt
 
 ## Location
-src/backend/utils/error/jsonlog.c: 31 - 70
+[src/backend/utils/error/jsonlog.c:31-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/jsonlog.c#L31-L70)
 
 ## Overview
 A static helper function that formats a value using printf-style formatting and appends it as a JSON key-value pair to a StringInfo buffer.

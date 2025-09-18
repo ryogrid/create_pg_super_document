@@ -1,7 +1,7 @@
 # consume_xids_common
 
 ## Location
-src/test/modules/xid_wraparound/xid_wraparound.c: 71 - 77
+[src/test/modules/xid_wraparound/xid_wraparound.c:71-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/xid_wraparound/xid_wraparound.c#L71-L77)
 
 ## Overview
 A static helper function that provides common XID consumption functionality for testing XID wraparound scenarios in PostgreSQL's test modules.

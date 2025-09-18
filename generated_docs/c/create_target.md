@@ -1,7 +1,7 @@
 # create_target
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 156 - 186
+[src/bin/pg_rewind/file_ops.c:156-186](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L156-L186)
 
 ## Overview
 Creates target directories or symbolic links based on the source file type during pg_rewind operations.

@@ -1,7 +1,7 @@
 # namele
 
 ## Location
-src/backend/utils/adt/name.c: 175 - 183
+[src/backend/utils/adt/name.c:175-183](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L175-L183)
 
 ## Overview
 The `namele` function compares two PostgreSQL Name values to determine if the first is less than or equal to the second according to the specified collation.

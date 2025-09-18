@@ -1,7 +1,7 @@
 # findTypeTypmodinFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2140 - 2173
+[src/backend/commands/typecmds.c:2140-2173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2140-L2173)
 
 ## Overview
 Validates and retrieves the OID of a type's typmod input function, which converts string representations of type modifiers to internal integer format.

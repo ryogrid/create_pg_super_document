@@ -1,7 +1,7 @@
 # ExpandAllTables
 
 ## Location
-src/backend/parser/parse_target.c: 1293 - 1344
+[src/backend/parser/parse_target.c:1293-1344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1293-L1344)
 
 ## Overview
 Transforms a bare "*" in the target list into a list of target list entries by expanding all relations visible for unqualified column name access.

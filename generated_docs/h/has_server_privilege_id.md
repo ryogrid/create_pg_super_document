@@ -1,7 +1,7 @@
 # has_server_privilege_id
 
 ## Location
-src/backend/utils/adt/acl.c: 4087 - 4114
+[src/backend/utils/adt/acl.c:4087-4114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4087-L4114)
 
 ## Overview
 Checks whether the current user has specified privileges on a foreign server identified by its OID, with support for missing object detection.

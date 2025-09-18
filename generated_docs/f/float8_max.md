@@ -1,7 +1,7 @@
 # float8_max
 
 ## Location
-src/include/utils/float.h: 352 - 357
+[src/include/utils/float.h:352-357](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L352-L357)
 
 ## Overview
 Returns the larger of two double-precision floating-point numbers, with PostgreSQL's NaN handling semantics applied.

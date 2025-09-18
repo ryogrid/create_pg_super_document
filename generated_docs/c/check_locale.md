@@ -1,7 +1,7 @@
 # check_locale
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 316 - 380
+[src/backend/utils/adt/pg_locale.c:316-380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L316-L380)
 
 ## Overview
 Validates whether a locale name is valid for a specific locale category and optionally returns the canonical name of the locale.

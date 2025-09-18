@@ -1,7 +1,7 @@
 # radius_add_attribute
 
 ## Location
-src/backend/libpq/auth.c: 2821 - 2846
+[src/backend/libpq/auth.c:2821-2846](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2821-L2846)
 
 ## Overview
 Adds a RADIUS attribute to a RADIUS packet structure, ensuring the packet doesn't exceed buffer size limits.

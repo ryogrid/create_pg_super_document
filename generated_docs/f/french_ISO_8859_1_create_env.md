@@ -1,7 +1,7 @@
 # french_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c: 1249 - 1250
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c:1249-1250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_french.c#L1249-L1250)
 
 ## Overview
 The french_ISO_8859_1_create_env function creates and initializes a Snowball environment structure specifically configured for French text processing with ISO-8859-1 encoding.

@@ -1,7 +1,7 @@
 # pg_replication_origin_session_setup
 
 ## Location
-src/backend/replication/logical/origin.c: 1350 - 1371
+[src/backend/replication/logical/origin.c:1350-1371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1350-L1371)
 
 ## Overview
 SQL-callable function that sets up a replication origin for the current session, enabling the session to track and manage replication progress for a specific origin.

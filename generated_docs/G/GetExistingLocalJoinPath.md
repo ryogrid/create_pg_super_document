@@ -1,7 +1,7 @@
 # GetExistingLocalJoinPath
 
 ## Location
-src/backend/foreign/foreign.c: 741 - 826
+[src/backend/foreign/foreign.c:741-826](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L741-L826)
 
 ## Overview
 Returns a shallow copy of an existing local join path for a given join relation, primarily used to obtain an alternative local path for EPQ (Executor Per-Query) checks when dealing with foreign joins.

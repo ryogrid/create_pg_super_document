@@ -1,7 +1,7 @@
 # _tarWriteHeader
 
 ## Location
-src/bin/pg_dump/pg_backup_tar.c: 1212 - 1222
+[src/bin/pg_dump/pg_backup_tar.c:1212-1222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_tar.c#L1212-L1222)
 
 ## Overview
 Creates and writes a TAR format header block during PostgreSQL base backup operations, formatting file metadata according to POSIX TAR specifications.

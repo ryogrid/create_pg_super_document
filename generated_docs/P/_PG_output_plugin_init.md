@@ -1,7 +1,7 @@
 # _PG_output_plugin_init
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 254 - 282
+[src/backend/replication/pgoutput/pgoutput.c:254-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L254-L282)
 
 ## Overview
 The main initialization function for the pgoutput logical replication output plugin that registers all callback functions required for PostgreSQL logical replication.

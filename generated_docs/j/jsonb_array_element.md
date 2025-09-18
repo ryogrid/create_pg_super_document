@@ -1,7 +1,7 @@
 # jsonb_array_element
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 935 - 962
+[src/backend/utils/adt/jsonfuncs.c:935-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L935-L962)
 
 ## Overview
 Extracts an element from a JSONB array by index (supporting both positive and negative indices) and returns the element value as a JSONB value, or NULL if the index is out of bounds or the input is not an array.

@@ -1,7 +1,7 @@
 # ApplyInt32SortComparator
 
 ## Location
-src/include/utils/sortsupport.h: 302 - 340
+[src/include/utils/sortsupport.h:302-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/sortsupport.h#L302-L340)
 
 ## Overview
 ApplyInt32SortComparator is an inline function that performs comparison of two Datum values as 32-bit signed integers, handling NULL values and sort direction according to sort support configuration.

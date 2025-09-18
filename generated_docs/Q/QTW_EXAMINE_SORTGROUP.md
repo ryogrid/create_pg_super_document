@@ -1,7 +1,7 @@
 # QTW_EXAMINE_SORTGROUP
 
 ## Location
-src/include/nodes/nodeFuncs.h: 32 - 68
+[src/include/nodes/nodeFuncs.h:32-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L32-L68)
 
 ## Overview
 A flag bit constant used to control the behavior of query_tree_walker and query_tree_mutator functions, instructing them to include SortGroupClause lists during tree traversal operations.

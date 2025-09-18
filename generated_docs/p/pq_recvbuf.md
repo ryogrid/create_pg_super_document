@@ -1,7 +1,7 @@
 # pq_recvbuf
 
 ## Location
-src/backend/libpq/pqcomm.c: 897 - 962
+[src/backend/libpq/pqcomm.c:897-962](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L897-L962)
 
 ## Overview
 Loads bytes from the client connection into the input buffer for subsequent processing by higher-level message parsing functions.

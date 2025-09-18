@@ -1,7 +1,7 @@
 # get_type_category_preferred
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2710 - 2730
+[src/backend/utils/cache/lsyscache.c:2710-2730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2710-L2730)
 
 ## Overview
 A system cache utility function that retrieves both the category and preferred-type status for a given PostgreSQL type OID.

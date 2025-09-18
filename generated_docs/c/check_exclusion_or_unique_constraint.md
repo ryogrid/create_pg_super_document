@@ -1,7 +1,7 @@
 # check_exclusion_or_unique_constraint
 
 ## Location
-src/backend/executor/execIndexing.c: 689 - 914
+[src/backend/executor/execIndexing.c:689-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L689-L914)
 
 ## Overview
 Performs comprehensive checking for violations of unique or exclusion constraints by scanning index entries and handling concurrent transaction interactions, with support for different waiting behaviors and conflict resolution modes.

@@ -1,7 +1,7 @@
 # _bt_parallel_seize
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 604 - 712
+[src/backend/access/nbtree/nbtree.c:604-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L604-L712)
 
 ## Overview
 Attempts to seize control of a parallel btree scan to advance it to the next page, coordinating with other worker processes.

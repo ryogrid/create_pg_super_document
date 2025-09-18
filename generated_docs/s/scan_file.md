@@ -1,7 +1,7 @@
 # scan_file
 
 ## Location
-src/bin/pg_checksums/pg_checksums.c: 176 - 299
+[src/bin/pg_checksums/pg_checksums.c:176-299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_checksums/pg_checksums.c#L176-L299)
 
 ## Overview
 The `scan_file` function processes individual PostgreSQL data files to either verify existing page checksums or enable checksums by calculating and writing them to each page header.

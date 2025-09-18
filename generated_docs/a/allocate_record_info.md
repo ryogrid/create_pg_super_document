@@ -1,7 +1,7 @@
 # allocate_record_info
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3474 - 3489
+[src/backend/utils/adt/jsonfuncs.c:3474-3489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3474-L3489)
 
 ## Overview
 Allocates and initializes a RecordIOData structure for handling record (composite type) I/O operations with a specified number of columns.

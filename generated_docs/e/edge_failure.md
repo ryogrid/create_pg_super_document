@@ -1,7 +1,7 @@
 # edge_failure
 
 ## Location
-src/backend/optimizer/geqo/geqo_erx.c: 372 - 470
+[src/backend/optimizer/geqo/geqo_erx.c:372-470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_erx.c#L372-L470)
 
 ## Overview
 The edge_failure function handles the situation when no suitable gene can be selected through normal ERX algorithm rules, providing fallback strategies to continue tour construction.

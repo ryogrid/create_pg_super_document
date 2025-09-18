@@ -1,7 +1,7 @@
 # RangeCreate
 
 ## Location
-src/backend/catalog/pg_range.c: 36 - 112
+[src/backend/catalog/pg_range.c:36-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_range.c#L36-L112)
 
 ## Overview
 Creates an entry in the pg_range catalog table to register metadata for a range type in PostgreSQL's system catalogs.

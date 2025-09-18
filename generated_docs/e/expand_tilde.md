@@ -1,7 +1,7 @@
 # expand_tilde
 
 ## Location
-src/bin/psql/common.c: 2173 - 2230
+[src/bin/psql/common.c:2173-2230](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L2173-L2230)
 
 ## Overview
 This function expands tilde (~) characters in file paths to their corresponding home directory paths, supporting both current user (~) and specific user (~username) expansions.

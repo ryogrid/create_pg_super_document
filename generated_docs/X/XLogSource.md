@@ -1,7 +1,7 @@
 # XLogSource
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 215 - 303
+[src/backend/access/transam/xlogrecovery.c:215-303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L215-L303)
 
 ## Overview
 XLogSource is an enumeration that defines the various sources from which Write-Ahead Log (WAL) data can be read during PostgreSQL recovery operations.

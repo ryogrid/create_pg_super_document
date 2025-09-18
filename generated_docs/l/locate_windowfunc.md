@@ -1,7 +1,7 @@
 # locate_windowfunc
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 254 - 272
+[src/backend/rewrite/rewriteManip.c:254-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L254-L272)
 
 ## Overview
 Finds the parse location of any window function call at the current query level, primarily used for error reporting purposes.

@@ -1,7 +1,7 @@
 # do_int128_accum
 
 ## Location
-src/backend/utils/adt/numeric.c: 5534 - 5546
+[src/backend/utils/adt/numeric.c:5534-5546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5534-L5546)
 
 ## Overview
 Accumulates a new input value into the state structure for 128-bit aggregate functions, updating sum, count, and optionally sum of squares.

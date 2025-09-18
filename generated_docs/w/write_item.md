@@ -1,7 +1,7 @@
 # write_item
 
 ## Location
-src/backend/utils/cache/relcache.c: 6703 - 6725
+[src/backend/utils/cache/relcache.c:6703-6725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L6703-L6725)
 
 ## Overview
 A utility function that writes a data chunk to a binary file, preceded by its length, for the relation cache initialization file format.

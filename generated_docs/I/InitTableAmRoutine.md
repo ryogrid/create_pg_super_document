@@ -1,7 +1,7 @@
 # InitTableAmRoutine
 
 ## Location
-src/backend/utils/cache/relcache.c: 1801 - 1809
+[src/backend/utils/cache/relcache.c:1801-1809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1801-L1809)
 
 ## Overview
 InitTableAmRoutine fills in the TableAmRoutine structure for a table relation by calling the table access method handler to obtain the access method interface.

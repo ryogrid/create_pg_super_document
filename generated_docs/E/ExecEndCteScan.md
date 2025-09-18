@@ -1,7 +1,7 @@
 # ExecEndCteScan
 
 ## Location
-src/backend/executor/nodeCtescan.c: 288 - 306
+[src/backend/executor/nodeCtescan.c:288-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeCtescan.c#L288-L306)
 
 ## Overview
 ExecEndCteScan performs cleanup for a CteScanState node, specifically freeing the shared tuplestore if this node is the leader among multiple CTE scan instances.

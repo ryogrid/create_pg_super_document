@@ -1,7 +1,7 @@
 # MdfdVec
 
 ## Location
-src/backend/storage/smgr/md.c: 84 - 89
+[src/backend/storage/smgr/md.c:84-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L84-L89)
 
 ## Overview
 MdfdVec is a structure that represents a single segment file descriptor in PostgreSQL's magnetic disk (md) storage manager, containing the virtual file descriptor and segment number information for efficient file operations.

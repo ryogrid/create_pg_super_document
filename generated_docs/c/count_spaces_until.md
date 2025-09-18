@@ -1,7 +1,7 @@
 # count_spaces_until
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 517 - 549
+[src/tools/pg_bsd_indent/io.c:517-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L517-L549)
 
 ## Overview
 Calculates where the character position will be after printing text from a buffer starting at a given column position, with support for bounded string processing.

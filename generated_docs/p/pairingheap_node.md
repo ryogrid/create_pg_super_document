@@ -1,7 +1,7 @@
 # pairingheap_node
 
 ## Location
-src/include/lib/pairingheap.h: 30 - 35
+[src/include/lib/pairingheap.h:30-35](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/pairingheap.h#L30-L35)
 
 ## Overview
 A fundamental data structure node that represents an element in a pairing heap, designed to be embedded within larger structs containing the actual data being stored.

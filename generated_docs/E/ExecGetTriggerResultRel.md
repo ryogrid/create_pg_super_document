@@ -1,7 +1,7 @@
 # ExecGetTriggerResultRel
 
 ## Location
-src/backend/executor/execMain.c: 1295 - 1370
+[src/backend/executor/execMain.c:1295-1370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execMain.c#L1295-L1370)
 
 ## Overview
 Retrieves or creates a ResultRelInfo for a trigger target relation, providing efficient reuse of relation metadata for trigger execution while supporting triggers on relations not directly involved in the main query.

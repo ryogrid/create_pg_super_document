@@ -1,7 +1,7 @@
 # multirange_size_estimate
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 569 - 595
+[src/backend/utils/adt/multirangetypes.c:569-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L569-L595)
 
 ## Overview
 Estimates the total size in bytes required to serialize a multirange structure containing a specified number of ranges.

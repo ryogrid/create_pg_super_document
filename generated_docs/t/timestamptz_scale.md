@@ -1,7 +1,7 @@
 # timestamptz_scale
 
 ## Location
-src/backend/utils/adt/timestamp.c: 879 - 899
+[src/backend/utils/adt/timestamp.c:879-899](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L879-L899)
 
 ## Overview
 Adjusts a timestamptz value for a specified scale factor (precision), used by PostgreSQL's type system to format timestamp columns according to their declared precision.

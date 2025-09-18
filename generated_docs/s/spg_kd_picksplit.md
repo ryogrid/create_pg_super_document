@@ -1,7 +1,7 @@
 # spg_kd_picksplit
 
 ## Location
-src/backend/access/spgist/spgkdtreeproc.c: 108 - 159
+[src/backend/access/spgist/spgkdtreeproc.c:108-159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgkdtreeproc.c#L108-L159)
 
 ## Overview
 A SP-GiST picksplit function that splits a node in a k-d tree by choosing a coordinate value as the splitting criterion and partitioning tuples into two child nodes based on that coordinate.

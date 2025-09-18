@@ -1,7 +1,7 @@
 # multixact_identify
 
 ## Location
-src/backend/access/rmgrdesc/mxactdesc.c: 84 - 105
+[src/backend/access/rmgrdesc/mxactdesc.c:84-105](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/mxactdesc.c#L84-L105)
 
 ## Overview
 A WAL record identification function that returns human-readable string names for different types of multixact-related transaction log operations.

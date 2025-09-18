@@ -1,7 +1,7 @@
 # _CustomWriteFunc
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 988 - 1002
+[src/bin/pg_dump/pg_backup_custom.c:988-1002](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L988-L1002)
 
 ## Overview
 This function serves as a callback for the compression subsystem to write compressed data blocks to the custom-format archive file.

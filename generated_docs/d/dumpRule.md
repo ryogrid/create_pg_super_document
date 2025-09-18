@@ -1,7 +1,7 @@
 # dumpRule
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 18104 - 18270
+[src/bin/pg_dump/pg_dump.c:18104-18270](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L18104-L18270)
 
 ## Overview
 Dumps PostgreSQL rules, with special handling for view-defining ON SELECT rules that are treated as CREATE VIEW statements rather than separate rule objects.

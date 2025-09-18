@@ -1,7 +1,7 @@
 # GetUserId
 
 ## Location
-src/backend/utils/init/miscinit.c: 515 - 525
+[src/backend/utils/init/miscinit.c:515-525](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L515-L525)
 
 ## Overview
 GetUserId returns the current effective user ID for permissions checking and security operations in PostgreSQL.

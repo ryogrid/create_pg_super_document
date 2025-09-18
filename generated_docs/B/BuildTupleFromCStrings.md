@@ -1,7 +1,7 @@
 # BuildTupleFromCStrings
 
 ## Location
-src/backend/executor/execTuples.c: 2222 - 2310
+[src/backend/executor/execTuples.c:2222-2310](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2222-L2310)
 
 ## Overview
 BuildTupleFromCStrings constructs a HeapTuple from an array of C string values, converting each string to its appropriate PostgreSQL internal representation using the metadata provided by an AttInMetadata structure.

@@ -1,7 +1,7 @@
 # FunctionScanPerFuncState
 
 ## Location
-src/backend/executor/nodeFunctionscan.c: 35 - 43
+[src/backend/executor/nodeFunctionscan.c:35-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeFunctionscan.c#L35-L43)
 
 ## Overview
 FunctionScanPerFuncState is a structure that holds runtime data for each function being scanned in PostgreSQL's function scan executor node, managing the state and result data for individual functions during query execution.

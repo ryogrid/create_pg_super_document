@@ -1,7 +1,7 @@
 # errdetail_abort
 
 ## Location
-src/backend/tcop/postgres.c: 2523 - 2536
+[src/backend/tcop/postgres.c:2523-2536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L2523-L2536)
 
 ## Overview
 Adds error detail information about the reason for transaction abort, specifically checking for recovery conflicts.

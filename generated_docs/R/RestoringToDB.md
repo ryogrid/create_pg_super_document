@@ -1,7 +1,7 @@
 # RestoringToDB
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1773 - 1783
+[src/bin/pg_dump/pg_backup_archiver.c:1773-1783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1773-L1783)
 
 ## Overview
 A utility function that determines whether the current archive restoration operation is being performed directly to a database connection.

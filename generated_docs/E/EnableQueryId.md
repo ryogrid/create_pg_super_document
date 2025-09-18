@@ -1,7 +1,7 @@
 # EnableQueryId
 
 ## Location
-src/backend/nodes/queryjumblefuncs.c: 150 - 160
+[src/backend/nodes/queryjumblefuncs.c:150-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/queryjumblefuncs.c#L150-L160)
 
 ## Overview
 EnableQueryId is a function that allows third-party plugins to request that PostgreSQL enable query identifier computation.

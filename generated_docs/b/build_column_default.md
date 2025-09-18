@@ -1,7 +1,7 @@
 # build_column_default
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 1218 - 1288
+[src/backend/rewrite/rewriteHandler.c:1218-1288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L1218-L1288)
 
 ## Overview
 Creates an expression tree for the default value of a column, handling identity columns, column-specific defaults, and type defaults with proper type coercion.

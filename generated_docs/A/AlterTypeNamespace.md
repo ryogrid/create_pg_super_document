@@ -1,7 +1,7 @@
 # AlterTypeNamespace
 
 ## Location
-src/backend/commands/typecmds.c: 4055 - 4103
+[src/backend/commands/typecmds.c:4055-4103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L4055-L4103)
 
 ## Overview
 Executes ALTER TYPE SET SCHEMA command to move a PostgreSQL type from one schema (namespace) to another, with proper validation and dependency tracking.

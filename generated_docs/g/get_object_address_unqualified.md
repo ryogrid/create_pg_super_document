@@ -1,7 +1,7 @@
 # get_object_address_unqualified
 
 ## Location
-src/backend/catalog/objectaddress.c: 1242 - 1332
+[src/backend/catalog/objectaddress.c:1242-1332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L1242-L1332)
 
 ## Overview
 Finds an ObjectAddress for database objects that are identified by a simple unqualified name, handling various system-level PostgreSQL objects.

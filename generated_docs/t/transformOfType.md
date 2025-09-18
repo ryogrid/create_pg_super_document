@@ -1,7 +1,7 @@
 # transformOfType
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 1461 - 1513
+[src/backend/parser/parse_utilcmd.c:1461-1513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L1461-L1513)
 
 ## Overview
 Transforms a CREATE TABLE OF type_name statement by extracting column definitions from the specified composite type and adding them to the table creation context.

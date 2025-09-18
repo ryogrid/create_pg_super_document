@@ -1,7 +1,7 @@
 # HandleParallelMessage
 
 ## Location
-src/backend/access/transam/parallel.c: 1133 - 1249
+[src/backend/access/transam/parallel.c:1133-1249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L1133-L1249)
 
 ## Overview
 Processes a single protocol message received from a specific parallel worker, handling various message types including errors, notices, notifications, progress updates, and termination signals.

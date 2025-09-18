@@ -1,7 +1,7 @@
 # ResetRelRewrite
 
 ## Location
-src/backend/commands/tablecmds.c: 4228 - 4280
+[src/backend/commands/tablecmds.c:4228-4280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L4228-L4280)
 
 ## Overview
 Resets the relrewrite field in the pg_class system catalog to InvalidOid for a specified relation, effectively clearing any active table rewrite operation association.

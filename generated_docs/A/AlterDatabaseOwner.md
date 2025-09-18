@@ -1,7 +1,7 @@
 # AlterDatabaseOwner
 
 ## Location
-src/backend/commands/dbcommands.c: 2624 - 2736
+[src/backend/commands/dbcommands.c:2624-2736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L2624-L2736)
 
 ## Overview
 AlterDatabaseOwner implements the ALTER DATABASE name OWNER TO newowner command, which changes the ownership of a database to a new user while handling all necessary permission checks and dependency updates.

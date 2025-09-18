@@ -1,7 +1,7 @@
 # build_attrmap_by_position
 
 ## Location
-src/backend/access/common/attmap.c: 75 - 176
+[src/backend/access/common/attmap.c:75-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/attmap.c#L75-L176)
 
 ## Overview
 Builds an attribute map for tuple conversion by matching input and output columns by their physical positions, validating type compatibility and handling dropped columns appropriately.

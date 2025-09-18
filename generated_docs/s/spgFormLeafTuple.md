@@ -1,7 +1,7 @@
 # spgFormLeafTuple
 
 ## Location
-src/backend/access/spgist/spgutils.c: 863 - 951
+[src/backend/access/spgist/spgutils.c:863-951](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L863-L951)
 
 ## Overview
 Constructs a complete SP-GiST leaf tuple containing a heap TID reference and attribute data values, with proper memory layout and null value handling.

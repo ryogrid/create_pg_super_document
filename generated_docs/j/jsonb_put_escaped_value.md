@@ -1,7 +1,7 @@
 # jsonb_put_escaped_value
 
 ## Location
-src/backend/utils/adt/jsonb.c: 349 - 378
+[src/backend/utils/adt/jsonb.c:349-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L349-L378)
 
 ## Overview
 A static utility function that converts a JSONB scalar value to its properly escaped string representation and appends it to a StringInfo buffer.

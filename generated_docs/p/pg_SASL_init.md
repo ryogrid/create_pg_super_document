@@ -1,7 +1,7 @@
 # pg_SASL_init
 
 ## Location
-src/interfaces/libpq/fe-auth.c: 422 - 627
+[src/interfaces/libpq/fe-auth.c:422-627](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-auth.c#L422-L627)
 
 ## Overview
 Initializes SASL authentication exchange between the PostgreSQL client and server, selecting the appropriate SASL mechanism and preparing the initial authentication response.

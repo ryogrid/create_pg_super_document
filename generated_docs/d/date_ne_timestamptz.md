@@ -1,7 +1,7 @@
 # date_ne_timestamptz
 
 ## Location
-src/backend/utils/adt/date.c: 853 - 861
+[src/backend/utils/adt/date.c:853-861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L853-L861)
 
 ## Overview
 Compares a DATE value with a TIMESTAMPTZ value for inequality, returning true if they represent different dates.

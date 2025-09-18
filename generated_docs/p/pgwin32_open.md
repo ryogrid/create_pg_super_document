@@ -1,7 +1,7 @@
 # pgwin32_open
 
 ## Location
-src/port/open.c: 158 - 194
+[src/port/open.c:158-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/open.c#L158-L194)
 
 ## Overview
 Provides a POSIX-compatible open() function replacement for Windows, converting Windows handles to standard file descriptors.

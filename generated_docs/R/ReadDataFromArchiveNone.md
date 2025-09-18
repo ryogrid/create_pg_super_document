@@ -1,7 +1,7 @@
 # ReadDataFromArchiveNone
 
 ## Location
-src/bin/pg_dump/compress_none.c: 30 - 48
+[src/bin/pg_dump/compress_none.c:30-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L30-L48)
 
 ## Overview
 Reads data from an archive when no compression is used, implementing the compressor API for uncompressed data streams in pg_dump.

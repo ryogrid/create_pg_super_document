@@ -1,7 +1,7 @@
 # RelationSyncEntry
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 132 - 185
+[src/backend/replication/pgoutput/pgoutput.c:132-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L132-L185)
 
 ## Overview
 RelationSyncEntry is a struct used in PostgreSQL's logical replication pgoutput plugin to cache schema information and publication metadata for relations being replicated to subscribers.

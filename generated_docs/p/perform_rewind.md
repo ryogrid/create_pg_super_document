@@ -1,7 +1,7 @@
 # perform_rewind
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 553 - 732
+[src/bin/pg_rewind/pg_rewind.c:553-732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L553-L732)
 
 ## Overview
 The  function executes the core rewind operation by applying all file changes identified during analysis and updating the target database's control file to ensure proper WAL replay.

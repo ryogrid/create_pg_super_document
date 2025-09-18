@@ -1,7 +1,7 @@
 # decdiv
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 312 - 336
+[src/interfaces/ecpg/compatlib/informix.c:312-336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L312-L336)
 
 ## Overview
 Performs division operation on two decimal numbers using ECPG Informix compatibility library.

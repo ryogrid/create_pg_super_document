@@ -1,7 +1,7 @@
 # contain_var_clause_walker
 
 ## Location
-src/backend/optimizer/util/var.c: 409 - 440
+[src/backend/optimizer/util/var.c:409-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/var.c#L409-L440)
 
 ## Overview
 A tree walker callback function that searches for Var, CurrentOfExpr, or PlaceHolderVar nodes at the current query level and returns true if any are found.

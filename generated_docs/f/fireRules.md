@@ -1,7 +1,7 @@
 # fireRules
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2381 - 2471
+[src/backend/rewrite/rewriteHandler.c:2381-2471](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2381-L2471)
 
 ## Overview
 Iterates through rule locks applying rules, handling both qualified and unqualified INSTEAD rules while generating appropriate rule actions and modified original queries.

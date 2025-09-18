@@ -1,7 +1,7 @@
 # LinePGetDatum
 
 ## Location
-src/include/utils/geo_decls.h: 226 - 229
+[src/include/utils/geo_decls.h:226-229](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L226-L229)
 
 ## Overview
 LinePGetDatum is an inline function that converts a LINE pointer to a PostgreSQL Datum value for returning from functions or storing in the database.

@@ -1,7 +1,7 @@
 # ginVacuumPostingTreeLeaves
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 346 - 408
+[src/backend/access/gin/ginvacuum.c:346-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L346-L408)
 
 ## Overview
 Traverses all leaf pages of a GIN posting tree from left to right, vacuuming each leaf page and determining if any empty pages exist.

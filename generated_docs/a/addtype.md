@@ -1,7 +1,7 @@
 # addtype
 
 ## Location
-src/timezone/zic.c: 3358 - 3402
+[src/timezone/zic.c:3358-3402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3358-L3402)
 
 ## Overview
 The addtype function creates or retrieves timezone type entries, managing the global timezone type registry with deduplication to ensure each unique timezone configuration has a single type identifier.

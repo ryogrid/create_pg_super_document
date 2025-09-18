@@ -1,7 +1,7 @@
 # ExplainCloseWorker
 
 ## Location
-src/backend/commands/explain.c: 4560 - 4595
+[src/backend/commands/explain.c:4560-4595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L4560-L4595)
 
 ## Overview
 ExplainCloseWorker is a static function in PostgreSQL's explain module that ends output redirection for a specific worker's buffer and restores the previous output context during parallel query execution explanation.

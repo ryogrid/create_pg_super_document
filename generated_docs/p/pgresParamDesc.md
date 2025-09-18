@@ -1,7 +1,7 @@
 # pgresParamDesc
 
 ## Location
-src/interfaces/libpq/libpq-int.h: 113 - 115
+[src/interfaces/libpq/libpq-int.h:113-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/libpq-int.h#L113-L115)
 
 ## Overview
 A structure that holds metadata about a single parameter of a prepared statement in PostgreSQL's libpq client library.

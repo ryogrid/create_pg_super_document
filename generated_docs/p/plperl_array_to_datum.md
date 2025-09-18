@@ -1,7 +1,7 @@
 # plperl_array_to_datum
 
 ## Location
-src/pl/plperl/plperl.c: 1257 - 1299
+[src/pl/plperl/plperl.c:1257-1299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L1257-L1299)
 
 ## Overview
 Converts a Perl array reference to a PostgreSQL array Datum, serving as the main entry point for array conversion in PL/Perl.

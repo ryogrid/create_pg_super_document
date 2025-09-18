@@ -1,7 +1,7 @@
 # ExecTypeFromTL
 
 ## Location
-src/backend/executor/execTuples.c: 2025 - 2036
+[src/backend/executor/execTuples.c:2025-2036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2025-L2036)
 
 ## Overview
 Generates a tuple descriptor for the result tuple of a target list, including resjunk columns in the result.

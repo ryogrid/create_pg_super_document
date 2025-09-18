@@ -1,7 +1,7 @@
 # cash_div_int8
 
 ## Location
-src/backend/utils/adt/cash.c: 838 - 850
+[src/backend/utils/adt/cash.c:838-850](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/cash.c#L838-L850)
 
 ## Overview
 A PostgreSQL function that performs division of a Cash value by a 64-bit integer (int8), returning the result as a Cash type.

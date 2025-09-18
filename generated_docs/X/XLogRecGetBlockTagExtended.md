@@ -1,7 +1,7 @@
 # XLogRecGetBlockTagExtended
 
 ## Location
-src/backend/access/transam/xlogreader.c: 2007 - 2034
+[src/backend/access/transam/xlogreader.c:2007-2034](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L2007-L2034)
 
 ## Overview
 XLogRecGetBlockTagExtended retrieves block identification information and optional prefetch buffer details from a WAL record's block reference, with graceful handling of missing references.

@@ -1,7 +1,7 @@
 # SockAddr
 
 ## Location
-src/include/libpq/pqcomm.h: 34 - 39
+[src/include/libpq/pqcomm.h:34-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/pqcomm.h#L34-L39)
 
 ## Overview
 A structure that wraps BSD socket address information with its length, providing a platform-independent way to handle network addresses in PostgreSQL's communication layer.

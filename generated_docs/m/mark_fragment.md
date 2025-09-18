@@ -1,7 +1,7 @@
 # mark_fragment
 
 ## Location
-src/backend/tsearch/wparser_def.c: 2184 - 2219
+[src/backend/tsearch/wparser_def.c:2184-2219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L2184-L2219)
 
 ## Overview
 Applies appropriate highlight marking to a range of words selected by the headline selector for PostgreSQL text search result highlighting.

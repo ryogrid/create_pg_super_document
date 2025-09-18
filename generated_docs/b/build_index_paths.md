@@ -1,7 +1,7 @@
 # build_index_paths
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 804 - 1085
+[src/backend/optimizer/path/indxpath.c:804-1085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L804-L1085)
 
 ## Overview
  constructs zero or more IndexPaths (and partial IndexPaths) for a given index and set of index clauses, supporting both forward and backward scans when beneficial.

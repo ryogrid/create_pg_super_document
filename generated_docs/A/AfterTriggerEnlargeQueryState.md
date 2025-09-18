@@ -1,7 +1,7 @@
 # AfterTriggerEnlargeQueryState
 
 ## Location
-src/backend/commands/trigger.c: 5624 - 5670
+[src/backend/commands/trigger.c:5624-5670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L5624-L5670)
 
 ## Overview
 AfterTriggerEnlargeQueryState prepares the necessary state to record AFTER trigger events queued by a query, managing separate state for each query nesting level within a transaction.

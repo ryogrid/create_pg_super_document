@@ -1,7 +1,7 @@
 # LDAP_TIMEVAL
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 68 - 74
+[src/interfaces/libpq/fe-connect.c:68-74](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L68-L74)
 
 ## Overview
 A typedef that aliases the standard POSIX  to  for use in LDAP operations within PostgreSQL's libpq connection library.

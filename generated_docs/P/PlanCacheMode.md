@@ -1,7 +1,7 @@
 # PlanCacheMode
 
 ## Location
-src/include/utils/plancache.h: 35 - 39
+[src/include/utils/plancache.h:35-39](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/plancache.h#L35-L39)
 
 ## Overview
 PlanCacheMode is an enumeration that defines the available modes for controlling PostgreSQL's plan cache behavior, specifically determining when to use custom or generic plans for prepared statements.

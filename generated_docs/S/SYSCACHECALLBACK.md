@@ -1,7 +1,7 @@
 # SYSCACHECALLBACK
 
 ## Location
-src/backend/utils/cache/inval.c: 256 - 267
+[src/backend/utils/cache/inval.c:256-267](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L256-L267)
 
 ## Overview
 SYSCACHECALLBACK is a structure that defines an entry in the system cache callback list, used to register callback functions that are invoked when system caches are invalidated.

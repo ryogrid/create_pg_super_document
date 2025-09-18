@@ -1,7 +1,7 @@
 # freenfa
 
 ## Location
-src/backend/regex/regc_nfa.c: 107 - 136
+[src/backend/regex/regc_nfa.c:107-136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L107-L136)
 
 ## Overview
 Deallocates and frees an entire NFA structure and all its associated memory, including state batches and arc batches.

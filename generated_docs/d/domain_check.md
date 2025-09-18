@@ -1,7 +1,7 @@
 # domain_check
 
 ## Location
-src/backend/utils/adt/domains.c: 346 - 354
+[src/backend/utils/adt/domains.c:346-354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/domains.c#L346-L354)
 
 ## Overview
 Public API function to check that a datum satisfies the constraints of a domain type.

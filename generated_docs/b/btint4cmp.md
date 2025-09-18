@@ -1,7 +1,7 @@
 # btint4cmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 109 - 122
+[src/backend/access/nbtree/nbtcompare.c:109-122](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L109-L122)
 
 ## Overview
 This function provides a comparison function for 32-bit signed integer (integer) values in PostgreSQL's B-tree index operations, using explicit conditional logic to return standard comparison results.

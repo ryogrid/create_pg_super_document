@@ -1,7 +1,7 @@
 # bbstreamer_plain_writer_content
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_file.c: 104 - 130
+[src/bin/pg_basebackup/bbstreamer_file.c:104-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_file.c#L104-L130)
 
 ## Overview
 Handles the content processing phase of the plain writer base backup streamer by writing received data directly to the output file.

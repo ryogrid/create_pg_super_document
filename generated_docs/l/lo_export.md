@@ -1,7 +1,7 @@
 # lo_export
 
 ## Location
-src/interfaces/libpq/fe-lobj.c: 748 - 842
+[src/interfaces/libpq/fe-lobj.c:748-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-lobj.c#L748-L842)
 
 ## Overview
 Client-side function that exports a PostgreSQL large object to a file on the client filesystem, providing complete error handling and cleanup during the transfer process.

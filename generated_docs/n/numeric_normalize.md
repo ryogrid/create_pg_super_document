@@ -1,7 +1,7 @@
 # numeric_normalize
 
 ## Location
-src/backend/utils/adt/numeric.c: 1024 - 1075
+[src/backend/utils/adt/numeric.c:1024-1075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L1024-L1075)
 
 ## Overview
 This function converts a PostgreSQL Numeric value to a normalized string representation by removing trailing zeros and unnecessary decimal points to ensure that equal numeric values produce identical string representations.

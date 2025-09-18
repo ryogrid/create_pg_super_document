@@ -1,7 +1,7 @@
 # NUM_prevent_counter_overflow
 
 ## Location
-src/backend/utils/adt/formatting.c: 5060 - 5071
+[src/backend/utils/adt/formatting.c:5060-5071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5060-L5071)
 
 ## Overview
 Prevents integer overflow in the NUMCounter aging mechanism by resetting cache entry ages when the counter approaches INT_MAX.

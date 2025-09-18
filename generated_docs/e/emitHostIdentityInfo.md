@@ -1,7 +1,7 @@
 # emitHostIdentityInfo
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 2093 - 2148
+[src/interfaces/libpq/fe-connect.c:2093-2148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L2093-L2148)
 
 ## Overview
 Speculatively appends connection failure context information to the connection's error message buffer to ensure subsequent error messages are properly attributed to the specific server connection target.

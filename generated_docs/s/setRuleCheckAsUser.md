@@ -1,7 +1,7 @@
 # setRuleCheckAsUser
 
 ## Location
-src/backend/rewrite/rewriteDefine.c: 631 - 636
+[src/backend/rewrite/rewriteDefine.c:631-636](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteDefine.c#L631-L636)
 
 ## Overview
 setRuleCheckAsUser recursively traverses a query or expression tree to set the checkAsUser field in all RTEPermissionInfos to a specified user ID for permission checking purposes.

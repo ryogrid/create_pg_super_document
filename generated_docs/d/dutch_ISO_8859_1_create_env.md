@@ -1,7 +1,7 @@
 # dutch_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c: 600 - 601
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c:600-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c#L600-L601)
 
 ## Overview
 Creates a new Snowball stemmer environment instance specifically configured for Dutch language text processing using ISO 8859-1 character encoding.

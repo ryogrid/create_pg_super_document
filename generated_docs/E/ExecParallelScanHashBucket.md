@@ -1,7 +1,7 @@
 # ExecParallelScanHashBucket
 
 ## Location
-src/backend/executor/nodeHash.c: 2032 - 2082
+[src/backend/executor/nodeHash.c:2032-2082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L2032-L2082)
 
 ## Overview
 Scans a hash bucket for tuples that match the current outer tuple in a parallel hash join operation, using specialized parallel-safe tuple navigation functions.

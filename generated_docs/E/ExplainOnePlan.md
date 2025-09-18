@@ -1,7 +1,7 @@
 # ExplainOnePlan
 
 ## Location
-src/backend/commands/explain.c: 617 - 806
+[src/backend/commands/explain.c:617-806](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L617-L806)
 
 ## Overview
 ExplainOnePlan executes a planned query (if analysis is requested) and generates comprehensive EXPLAIN output including execution statistics, buffer usage, memory counters, and timing information.

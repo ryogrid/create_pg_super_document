@@ -1,7 +1,7 @@
 # btree_xlog_delete
 
 ## Location
-src/backend/access/nbtree/nbtxlog.c: 651 - 712
+[src/backend/access/nbtree/nbtxlog.c:651-712](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtxlog.c#L651-L712)
 
 ## Overview
 Replays WAL records for B-tree delete operations, handling both posting list updates and tuple deletions with hot standby conflict resolution.

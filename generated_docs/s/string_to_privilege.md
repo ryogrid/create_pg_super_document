@@ -1,7 +1,7 @@
 # string_to_privilege
 
 ## Location
-src/backend/catalog/aclchk.c: 2615 - 2657
+[src/backend/catalog/aclchk.c:2615-2657](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L2615-L2657)
 
 ## Overview
 Converts a string representation of a privilege name into the corresponding AclMode bitmask value used internally by PostgreSQL's access control system.

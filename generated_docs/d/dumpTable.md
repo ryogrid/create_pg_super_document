@@ -1,7 +1,7 @@
 # dumpTable
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 15717 - 15856
+[src/bin/pg_dump/pg_dump.c:15717-15856](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L15717-L15856)
 
 ## Overview
 Writes the schema declarations (not data) of a user-defined table, including table definition, ACLs, and column-level ACLs to the archive output.

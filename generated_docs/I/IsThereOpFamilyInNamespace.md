@@ -1,7 +1,7 @@
 # IsThereOpFamilyInNamespace
 
 ## Location
-src/backend/commands/opclasscmds.c: 1828 - 1842
+[src/backend/commands/opclasscmds.c:1828-1842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1828-L1842)
 
 ## Overview
 Validates that an operator family with the specified name and access method does not already exist in a given namespace, raising an error if a duplicate is found.

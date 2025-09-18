@@ -1,7 +1,7 @@
 # sanitize_char
 
 ## Location
-src/backend/libpq/auth-scram.c: 793 - 812
+[src/backend/libpq/auth-scram.c:793-812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L793-L812)
 
 ## Overview
 Converts an arbitrary byte to a safe printable representation for use in error messages.

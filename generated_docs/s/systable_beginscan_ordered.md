@@ -1,7 +1,7 @@
 # systable_beginscan_ordered
 
 ## Location
-src/backend/access/index/genam.c: 645 - 719
+[src/backend/access/index/genam.c:645-719](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/genam.c#L645-L719)
 
 ## Overview
 systable_beginscan_ordered is a specialized system catalog scanning function that guarantees to return matching tuples in index order, providing ordered access to catalog data.

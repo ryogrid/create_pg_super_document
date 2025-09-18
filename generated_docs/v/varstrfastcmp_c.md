@@ -1,7 +1,7 @@
 # varstrfastcmp_c
 
 ## Location
-src/backend/utils/adt/varlena.c: 2012 - 2048
+[src/backend/utils/adt/varlena.c:2012-2048](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2012-L2048)
 
 ## Overview
 A fast comparison function for variable-length string types optimized for C locale sorting using memcmp() for maximum performance.

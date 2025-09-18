@@ -1,7 +1,7 @@
 # genericcostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 6610 - 6832
+[src/backend/utils/adt/selfuncs.c:6610-6832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L6610-L6832)
 
 ## Overview
 A general-purpose cost estimation function for index access paths that provides basic cost calculations for startup, total cost, selectivity, and correlation that can be used by specific index access methods.

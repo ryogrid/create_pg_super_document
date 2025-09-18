@@ -1,7 +1,7 @@
 # pg_reg_getnumcharacters
 
 ## Location
-src/backend/regex/regexport.c: 230 - 265
+[src/backend/regex/regexport.c:230-265](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L230-L265)
 
 ## Overview
 Returns the number of characters that belong to a specified color (character equivalence class) in a compiled regular expression's colormap.

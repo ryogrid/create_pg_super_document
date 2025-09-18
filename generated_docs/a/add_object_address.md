@@ -1,7 +1,7 @@
 # add_object_address
 
 ## Location
-src/backend/catalog/dependency.c: 2506 - 2532
+[src/backend/catalog/dependency.c:2506-2532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2506-L2532)
 
 ## Overview
 A static utility function that adds a new ObjectAddress entry to an ObjectAddresses array, automatically expanding the array capacity when needed.

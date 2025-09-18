@@ -1,7 +1,7 @@
 # r_check_vowel_harmony
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 459 - 511
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:459-511](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L459-L511)
 
 ## Overview
 This function implements vowel harmony checking for Turkish text processing in the PostgreSQL Snowball stemmer, ensuring that vowels in a word follow Turkish phonological rules.

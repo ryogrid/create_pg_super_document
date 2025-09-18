@@ -1,7 +1,7 @@
 # RBTNode
 
 ## Location
-src/include/lib/rbtree.h: 23 - 29
+[src/include/lib/rbtree.h:23-29](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/rbtree.h#L23-L29)
 
 ## Overview
 RBTNode is the fundamental node structure for PostgreSQL's red-black tree implementation, designed to be embedded as the first field of larger structs that carry application-specific payload data.

@@ -1,7 +1,7 @@
 # UUIDPGetDatum
 
 ## Location
-src/include/utils/uuid.h: 27 - 31
+[src/include/utils/uuid.h:27-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/uuid.h#L27-L31)
 
 ## Overview
 Converts a pg_uuid_t pointer to a PostgreSQL Datum for use in the function manager (fmgr) interface system.

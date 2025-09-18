@@ -1,7 +1,7 @@
 # pullup_replace_vars_callback
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2484 - 2786
+[src/backend/optimizer/prep/prepjointree.c:2484-2786](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2484-L2786)
 
 ## Overview
 The callback function used by replace_rte_variables to perform actual variable substitution during subquery pullup, handling complex cases like whole-tuple references and PlaceHolderVar wrapping.

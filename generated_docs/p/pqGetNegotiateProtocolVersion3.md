@@ -1,7 +1,7 @@
 # pqGetNegotiateProtocolVersion3
 
 ## Location
-src/interfaces/libpq/fe-protocol3.c: 1412 - 1468
+[src/interfaces/libpq/fe-protocol3.c:1412-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-protocol3.c#L1412-L1468)
 
 ## Overview
 Processes a NegotiateProtocolVersion message from the PostgreSQL server during connection negotiation to handle protocol version mismatches and unsupported extensions.

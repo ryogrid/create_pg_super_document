@@ -1,7 +1,7 @@
 # tsquery_numnode
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 23 - 32
+[src/backend/utils/adt/tsquery_op.c:23-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L23-L32)
 
 ## Overview
 Returns the number of lexemes and operators in a text search query (TSQuery), providing a count of all nodes in the query tree structure.

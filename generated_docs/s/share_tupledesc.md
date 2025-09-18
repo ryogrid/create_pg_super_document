@@ -1,7 +1,7 @@
 # share_tupledesc
 
 ## Location
-src/backend/utils/cache/typcache.c: 2735 - 2755
+[src/backend/utils/cache/typcache.c:2735-2755](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2735-L2755)
 
 ## Overview
 Copies a tuple descriptor into shared memory with a specified typmod value and returns a pointer to the shared copy.

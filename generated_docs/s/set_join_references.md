@@ -1,7 +1,7 @@
 # set_join_references
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2282 - 2430
+[src/backend/optimizer/plan/setrefs.c:2282-2430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2282-L2430)
 
 ## Overview
 Modifies the target list and quals of join nodes to reference their subplans by adjusting variable references to use OUTER_VAR/INNER_VAR and mapping attributes to result domain numbers.

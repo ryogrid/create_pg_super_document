@@ -1,7 +1,7 @@
 # pg_available_wal_summaries
 
 ## Location
-src/backend/backup/walsummaryfuncs.c: 32 - 68
+[src/backend/backup/walsummaryfuncs.c:32-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/walsummaryfuncs.c#L32-L68)
 
 ## Overview
 A PostgreSQL system function that returns information about available WAL summary files in the pg_wal/summaries directory as a set-returning function.

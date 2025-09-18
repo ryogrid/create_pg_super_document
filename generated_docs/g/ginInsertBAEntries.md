@@ -1,7 +1,7 @@
 # ginInsertBAEntries
 
 ## Location
-src/backend/access/gin/ginbulk.c: 210 - 245
+[src/backend/access/gin/ginbulk.c:210-245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginbulk.c#L210-L245)
 
 ## Overview
 Inserts multiple entries for a single heap pointer into the BuildAccumulator's red-black tree using an optimized insertion order to maintain tree balance during GIN index construction.

@@ -1,7 +1,7 @@
 # close_walfile
 
 ## Location
-src/bin/pg_basebackup/receivelog.c: 192 - 257
+[src/bin/pg_basebackup/receivelog.c:192-257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/receivelog.c#L192-L257)
 
 ## Overview
 Closes the currently open WAL file, handles renaming for complete segments, and optionally marks files as archived during PostgreSQL base backup operations.

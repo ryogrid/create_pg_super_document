@@ -1,7 +1,7 @@
 # find_base_rel_ignore_join
 
 ## Location
-src/backend/optimizer/util/relnode.c: 454 - 485
+[src/backend/optimizer/util/relnode.c:454-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L454-L485)
 
 ## Overview
 Finds a base or otherrel relation entry that must already exist, but returns NULL instead of raising an error if the relid references an outer join.

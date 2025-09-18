@@ -1,7 +1,7 @@
 # findTypeReceiveFunction
 
 ## Location
-src/backend/commands/typecmds.c: 2051 - 2104
+[src/backend/commands/typecmds.c:2051-2104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L2051-L2104)
 
 ## Overview
 Validates and retrieves the OID of a type's receive function, which converts external binary representation to internal format, supporting both single-argument and three-argument function signatures.

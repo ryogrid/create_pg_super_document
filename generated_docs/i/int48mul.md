@@ -1,7 +1,7 @@
 # int48mul
 
 ## Location
-src/backend/utils/adt/int8.c: 999 - 1012
+[src/backend/utils/adt/int8.c:999-1012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L999-L1012)
 
 ## Overview
 Multiplies a 32-bit integer (int4) with a 64-bit integer (int8) and returns a 64-bit integer result with overflow checking.

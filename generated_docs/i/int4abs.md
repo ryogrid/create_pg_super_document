@@ -1,7 +1,7 @@
 # int4abs
 
 ## Location
-src/backend/utils/adt/int.c: 1191 - 1204
+[src/backend/utils/adt/int.c:1191-1204](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1191-L1204)
 
 ## Overview
 Computes the absolute value of a 32-bit integer (int4) with overflow protection.

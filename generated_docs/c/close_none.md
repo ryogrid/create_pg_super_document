@@ -1,7 +1,7 @@
 # close_none
 
 ## Location
-src/bin/pg_dump/compress_none.c: 144 - 162
+[src/bin/pg_dump/compress_none.c:144-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_none.c#L144-L162)
 
 ## Overview
 The `close_none` function provides file closing functionality with error handling for uncompressed files in PostgreSQL's pg_dump utility compression framework.

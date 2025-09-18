@@ -1,7 +1,7 @@
 # OpfamilyInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 280 - 281
+[src/bin/pg_dump/pg_dump.h:280-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L280-L281)
 
 ## Overview
 OpfamilyInfo is a structure used in pg_dump to represent operator family metadata during database dump operations, containing essential information about PostgreSQL operator families and their associated access methods.

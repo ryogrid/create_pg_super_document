@@ -1,7 +1,7 @@
 # geterrcode
 
 ## Location
-src/backend/utils/error/elog.c: 1561 - 1577
+[src/backend/utils/error/elog.c:1561-1577](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1561-L1577)
 
 ## Overview
 A function that returns the currently set SQLSTATE error code from the active error context, intended specifically for use in error callback subroutines.

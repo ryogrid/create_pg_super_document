@@ -1,7 +1,7 @@
 # pq_check_connection
 
 ## Location
-src/backend/libpq/pqcomm.c: 2053 - 2084
+[src/backend/libpq/pqcomm.c:2053-2084](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqcomm.c#L2053-L2084)
 
 ## Overview
 Checks if the client connection is still active by polling for socket closure events without blocking, returning false if the connection has been lost.

@@ -1,7 +1,7 @@
 # GetUserMapping
 
 ## Location
-src/backend/foreign/foreign.c: 200 - 253
+[src/backend/foreign/foreign.c:200-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/foreign/foreign.c#L200-L253)
 
 ## Overview
 Retrieves a user mapping for a specific user and foreign server, with fallback to PUBLIC mappings if user-specific mapping is not found.

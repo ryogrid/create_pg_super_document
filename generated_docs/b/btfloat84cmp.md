@@ -1,7 +1,7 @@
 # btfloat84cmp
 
 ## Location
-src/backend/utils/adt/float.c: 1004 - 1019
+[src/backend/utils/adt/float.c:1004-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1004-L1019)
 
 ## Overview
 PostgreSQL function that compares a double-precision floating-point number (float8) with a single-precision floating-point number (float4) for B-tree indexing operations.

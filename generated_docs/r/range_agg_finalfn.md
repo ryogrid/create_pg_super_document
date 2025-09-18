@@ -1,7 +1,7 @@
 # range_agg_finalfn
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1372 - 1411
+[src/backend/utils/adt/multirangetypes.c:1372-1411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1372-L1411)
 
 ## Overview
 The finalize function for the range_agg aggregate that converts the collected range values into a multirange result.

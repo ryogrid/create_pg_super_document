@@ -1,7 +1,7 @@
 # gistRedoPageSplitRecord
 
 ## Location
-src/backend/access/gist/gistxlog.c: 247 - 341
+[src/backend/access/gist/gistxlog.c:247-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L247-L341)
 
 ## Overview
 Replays GiST page split operations during WAL recovery, reconstructing multiple pages created during an index page split with proper linking and metadata management.

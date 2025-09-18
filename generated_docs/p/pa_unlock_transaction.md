@@ -1,7 +1,7 @@
 # pa_unlock_transaction
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1580 - 1590
+[src/backend/replication/logical/applyparallelworker.c:1580-1590](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1580-L1590)
 
 ## Overview
 Releases a transaction-level lock for parallel apply operations in logical replication, allowing other parallel apply workers to proceed with related operations.

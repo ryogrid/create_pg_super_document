@@ -1,7 +1,7 @@
 # ginxlogDeleteListPages
 
 ## Location
-src/include/access/ginxlog.h: 203 - 207
+[src/include/access/ginxlog.h:203-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginxlog.h#L203-L207)
 
 ## Overview
 A WAL (Write-Ahead Logging) record structure used to log the deletion of multiple pages from a GIN index pending list during cleanup operations for crash recovery purposes.

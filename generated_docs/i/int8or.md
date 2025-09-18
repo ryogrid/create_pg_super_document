@@ -1,7 +1,7 @@
 # int8or
 
 ## Location
-src/backend/utils/adt/int8.c: 1193 - 1201
+[src/backend/utils/adt/int8.c:1193-1201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1193-L1201)
 
 ## Overview
 The int8or function performs bitwise OR operation on two 64-bit integers, returning the result as a 64-bit integer.

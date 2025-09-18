@@ -1,7 +1,7 @@
 # pa_get_xact_state
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1319 - 1333
+[src/backend/replication/logical/applyparallelworker.c:1319-1333](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1319-L1333)
 
 ## Overview
 pa_get_xact_state is a thread-safe accessor function that retrieves the current transaction state of a parallel apply worker in PostgreSQL's logical replication system.

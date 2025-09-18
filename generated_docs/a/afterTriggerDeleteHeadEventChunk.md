@@ -1,7 +1,7 @@
 # afterTriggerDeleteHeadEventChunk
 
 ## Location
-src/backend/commands/trigger.c: 4293 - 4354
+[src/backend/commands/trigger.c:4293-4354](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L4293-L4354)
 
 ## Overview
 Removes the first chunk of events from a query level's event list while maintaining synchronization of any dependent data structure pointers.

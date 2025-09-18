@@ -1,7 +1,7 @@
 # LZ4Stream_open
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 734 - 752
+[src/bin/pg_dump/compress_lz4.c:734-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L734-L752)
 
 ## Overview
 Opens a file handle for LZ4 compressed stream operations, supporting both file path and file descriptor based access.

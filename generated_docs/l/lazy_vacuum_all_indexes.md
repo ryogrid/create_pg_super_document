@@ -1,7 +1,7 @@
 # lazy_vacuum_all_indexes
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 1990 - 2106
+[src/backend/access/heap/vacuumlazy.c:1990-2106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L1990-L2106)
 
 ## Overview
 Main entry point for index vacuuming that coordinates the removal of dead tuple references from all indexes, supporting both serial and parallel execution modes.

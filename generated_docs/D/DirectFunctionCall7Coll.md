@@ -1,7 +1,7 @@
 # DirectFunctionCall7Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 947 - 980
+[src/backend/utils/fmgr/fmgr.c:947-980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L947-L980)
 
 ## Overview
 DirectFunctionCall7Coll is a utility function that directly calls a PostgreSQL function with 7 arguments and a specified collation, handling function call setup and result validation.

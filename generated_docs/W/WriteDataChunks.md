@@ -1,7 +1,7 @@
 # WriteDataChunks
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2475 - 2540
+[src/bin/pg_dump/pg_backup_archiver.c:2475-2540](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2475-L2540)
 
 ## Overview
 WriteDataChunks is a function that orchestrates the writing of all data chunks (tables and large objects) during a PostgreSQL dump operation, supporting both parallel and sequential execution modes.

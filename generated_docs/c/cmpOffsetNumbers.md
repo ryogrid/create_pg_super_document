@@ -1,7 +1,7 @@
 # cmpOffsetNumbers
 
 ## Location
-src/backend/access/spgist/spgdoinsert.c: 112 - 130
+[src/backend/access/spgist/spgdoinsert.c:112-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgdoinsert.c#L112-L130)
 
 ## Overview
 A qsort comparator function used for sorting arrays of OffsetNumber values in ascending order.

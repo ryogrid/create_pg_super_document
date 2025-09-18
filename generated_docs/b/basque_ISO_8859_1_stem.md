@@ -1,7 +1,7 @@
 # basque_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c: 1140 - 1178
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c:1140-1178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_basque.c#L1140-L1178)
 
 ## Overview
 The main stemming function for Basque language text using ISO-8859-1 character encoding that orchestrates the complete stemming process.

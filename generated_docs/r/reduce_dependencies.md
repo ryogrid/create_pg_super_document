@@ -1,7 +1,7 @@
 # reduce_dependencies
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4903 - 4942
+[src/bin/pg_dump/pg_backup_archiver.c:4903-4942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4903-L4942)
 
 ## Overview
 This function decrements the dependency counts of items that depend on a completed TOC entry, potentially making them ready for execution, and moves newly ready items to the ready heap for processing.

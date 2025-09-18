@@ -1,7 +1,7 @@
 # print_msg
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 235 - 244
+[src/bin/pg_ctl/pg_ctl.c:235-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L235-L244)
 
 ## Overview
 A utility function in pg_ctl that conditionally prints localized messages to stdout based on the silent mode setting.

@@ -1,7 +1,7 @@
 # JsonbPGetDatum
 
 ## Location
-src/include/utils/jsonb.h: 386 - 390
+[src/include/utils/jsonb.h:386-390](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/jsonb.h#L386-L390)
 
 ## Overview
 JsonbPGetDatum is a convenience macro function that converts a Jsonb pointer to a Datum value for use in PostgreSQL's type system.

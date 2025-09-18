@@ -1,7 +1,7 @@
 # calc_rank_and
 
 ## Location
-src/backend/utils/adt/tsrank.c: 200 - 282
+[src/backend/utils/adt/tsrank.c:200-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L200-L282)
 
 ## Overview
 Calculates text search ranking for AND operations between query terms, considering positional proximity of matching words to determine relevance scores.

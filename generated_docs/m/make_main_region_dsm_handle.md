@@ -1,7 +1,7 @@
 # make_main_region_dsm_handle
 
 ## Location
-src/backend/storage/ipc/dsm.c: 1262 - 1280
+[src/backend/storage/ipc/dsm.c:1262-1280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L1262-L1280)
 
 ## Overview
 Generates a unique DSM handle for main region pseudo-segments, ensuring no collisions with existing segments while incorporating randomness and slot identification.

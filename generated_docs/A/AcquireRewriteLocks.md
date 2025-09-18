@@ -1,7 +1,7 @@
 # AcquireRewriteLocks
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 146 - 307
+[src/backend/rewrite/rewriteHandler.c:146-307](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L146-L307)
 
 ## Overview
 Acquires suitable locks on all relations mentioned in a Query to ensure that relation schemas don't change during rewriting, planning, and executing the query.

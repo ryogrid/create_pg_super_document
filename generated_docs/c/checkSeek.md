@@ -1,7 +1,7 @@
 # checkSeek
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4111 - 4135
+[src/bin/pg_dump/pg_backup_archiver.c:4111-4135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4111-L4135)
 
 ## Overview
 Tests whether a file pointer supports seek operations (ftello/fseeko) to determine if random access is possible on the given file stream.

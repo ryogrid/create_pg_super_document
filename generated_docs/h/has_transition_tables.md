@@ -1,7 +1,7 @@
 # has_transition_tables
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2290 - 2343
+[src/backend/optimizer/util/plancat.c:2290-2343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2290-L2343)
 
 ## Overview
 Detects whether a specified relation has any transition tables for a given DML event type, which is used during query planning to determine if transition tables need to be managed for triggers.

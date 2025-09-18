@@ -1,7 +1,7 @@
 # check_cluster_compatibility
 
 ## Location
-src/bin/pg_upgrade/check.c: 839 - 852
+[src/bin/pg_upgrade/check.c:839-852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/check.c#L839-L852)
 
 ## Overview
 Retrieves and validates pg_control data from both clusters and ensures port configuration is appropriate for live server checks.

@@ -1,7 +1,7 @@
 # NotNullImpliedByRelConstraints
 
 ## Location
-src/backend/commands/tablecmds.c: 7871 - 7907
+[src/backend/commands/tablecmds.c:7871-7907](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L7871-L7907)
 
 ## Overview
 NotNullImpliedByRelConstraints determines whether existing constraints on a relation already imply that a specific column cannot contain NULL values, eliminating the need for explicit NOT NULL validation.

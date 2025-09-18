@@ -1,7 +1,7 @@
 # PGSharedMemoryNoReAttach
 
 ## Location
-src/backend/port/sysv_shmem.c: 939 - 969
+[src/backend/port/sysv_shmem.c:939-969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L939-L969)
 
 ## Overview
 Cleans up shared memory state when a postmaster child process chooses not to re-attach to the existing shared memory segment in EXEC_BACKEND configurations.

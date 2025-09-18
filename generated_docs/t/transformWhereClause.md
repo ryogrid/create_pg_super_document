@@ -1,7 +1,7 @@
 # transformWhereClause
 
 ## Location
-src/backend/parser/parse_clause.c: 1854 - 1880
+[src/backend/parser/parse_clause.c:1854-1880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1854-L1880)
 
 ## Overview
 Transforms SQL qualification expressions (WHERE clauses and similar constructs) into internal expression trees and ensures they evaluate to boolean type.

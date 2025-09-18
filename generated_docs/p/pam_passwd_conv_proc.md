@@ -1,7 +1,7 @@
 # pam_passwd_conv_proc
 
 ## Location
-src/backend/libpq/auth.c: 1930 - 2030
+[src/backend/libpq/auth.c:1930-2030](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1930-L2030)
 
 ## Overview
 The pam_passwd_conv_proc function serves as a PAM (Pluggable Authentication Modules) conversation callback function that handles authentication prompts and responses during the PAM authentication process in PostgreSQL.

@@ -1,7 +1,7 @@
 # UnlockSharedObjectForSession
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 1177 - 1198
+[src/backend/storage/lmgr/lmgr.c:1177-1198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L1177-L1198)
 
 ## Overview
 UnlockSharedObjectForSession releases a session-level lock that was previously acquired on a shared database object using LockSharedObjectForSession.

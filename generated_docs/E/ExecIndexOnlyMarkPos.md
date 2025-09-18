@@ -1,7 +1,7 @@
 # ExecIndexOnlyMarkPos
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 433 - 469
+[src/backend/executor/nodeIndexonlyscan.c:433-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L433-L469)
 
 ## Overview
 ExecIndexOnlyMarkPos marks the current position within an index-only scan, enabling the scan to later restore to this marked position, with special handling for EvalPlanQual (EPQ) recheck scenarios.

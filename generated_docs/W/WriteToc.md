@@ -1,7 +1,7 @@
 # WriteToc
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2589 - 2648
+[src/bin/pg_dump/pg_backup_archiver.c:2589-2648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2589-L2648)
 
 ## Overview
 Writes the Table of Contents (TOC) to the archive, serializing metadata for all database objects that will be included in the dump.

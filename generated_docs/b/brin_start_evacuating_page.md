@@ -1,7 +1,7 @@
 # brin_start_evacuating_page
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 524 - 563
+[src/backend/access/brin/brin_pageops.c:524-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L524-L563)
 
 ## Overview
 Initiates the page evacuation protocol for a BRIN index page by marking it as unsuitable for new tuple insertions when it contains existing tuples.

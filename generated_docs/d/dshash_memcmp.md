@@ -1,7 +1,7 @@
 # dshash_memcmp
 
 ## Location
-src/backend/lib/dshash.c: 572 - 580
+[src/backend/lib/dshash.c:572-580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L572-L580)
 
 ## Overview
 A utility function that provides a standardized interface for memory comparison in the dshash (dynamic shared hash) system by forwarding calls to the standard memcmp function.

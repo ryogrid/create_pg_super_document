@@ -1,7 +1,7 @@
 # ExecMemoizeRetrieveInstrumentation
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1249 - 1262
+[src/backend/executor/nodeMemoize.c:1249-1262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1249-L1262)
 
 ## Overview
 Transfers memoize execution statistics from shared memory to private memory, consolidating instrumentation data collected from parallel worker processes.

@@ -1,7 +1,7 @@
 # FreePageBtreeCleanup
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 580 - 694
+[src/backend/utils/mmgr/freepage.c:580-694](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L580-L694)
 
 ## Overview
 Attempts to reclaim space from the free-page B-tree by reducing tree depth and recycling unused B-tree pages, returning the size of the largest contiguous range created.

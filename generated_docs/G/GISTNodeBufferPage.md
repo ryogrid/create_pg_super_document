@@ -1,7 +1,7 @@
 # GISTNodeBufferPage
 
 ## Location
-src/include/access/gist_private.h: 51 - 52
+[src/include/access/gist_private.h:51-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L51-L52)
 
 ## Overview
 GISTNodeBufferPage represents the structure of a buffer page used during GiST index construction to temporarily store tuples before they are written to disk pages.

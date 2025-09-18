@@ -1,7 +1,7 @@
 # generate_mergejoin_paths
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 1469 - 1716
+[src/backend/optimizer/path/joinpath.c:1469-1716](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L1469-L1716)
 
 ## Overview
 Creates possible mergejoin paths for a given outer path by finding suitable inner paths and considering truncations of mergeclause lists to optimize join performance.

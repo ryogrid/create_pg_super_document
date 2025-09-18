@@ -1,7 +1,7 @@
 # DropCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 526 - 554
+[src/backend/utils/cache/plancache.c:526-554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L526-L554)
 
 ## Overview
 DropCachedPlan destroys a cached plan by cleaning up the CachedPlanSource and removing it from global tracking structures while safely handling reference counting for any active plans.

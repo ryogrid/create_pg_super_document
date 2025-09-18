@@ -1,7 +1,7 @@
 # pg_reg_getnumcolors
 
 ## Location
-src/backend/regex/regexport.c: 174 - 190
+[src/backend/regex/regexport.c:174-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regexport.c#L174-L190)
 
 ## Overview
 Returns the total number of colors defined in a compiled regular expression's character colormap.

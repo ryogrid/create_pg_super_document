@@ -1,7 +1,7 @@
 # verify_client_proof
 
 ## Location
-src/backend/libpq/auth-scram.c: 1135 - 1188
+[src/backend/libpq/auth-scram.c:1135-1188](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth-scram.c#L1135-L1188)
 
 ## Overview
 A cryptographic verification function that validates the client's proof in SCRAM authentication by computing and comparing the client's key derivation against the stored authentication data.

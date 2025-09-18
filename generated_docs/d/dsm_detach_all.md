@@ -1,7 +1,7 @@
 # dsm_detach_all
 
 ## Location
-src/backend/storage/ipc/dsm.c: 775 - 802
+[src/backend/storage/ipc/dsm.c:775-802](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/dsm.c#L775-L802)
 
 ## Overview
 Detaches all DSM segments including the control segment, typically used in child processes that inherit mappings but should not maintain DSM connections.

@@ -1,7 +1,7 @@
 # timestamp_bin
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4547 - 4617
+[src/backend/utils/adt/timestamp.c:4547-4617](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4547-L4617)
 
 ## Overview
 Bins a timestamp into a specified interval by calculating the start of the interval bin that contains the given timestamp.

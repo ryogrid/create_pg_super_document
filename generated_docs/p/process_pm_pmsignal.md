@@ -1,7 +1,7 @@
 # process_pm_pmsignal
 
 ## Location
-src/backend/postmaster/postmaster.c: 3704 - 3861
+[src/backend/postmaster/postmaster.c:3704-3861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3704-L3861)
 
 ## Overview
 process_pm_pmsignal handles pmsignal conditions representing requests from backends and checks for promote and logrotate requests from pg_ctl in the PostgreSQL postmaster process.

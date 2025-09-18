@@ -1,7 +1,7 @@
 # hash_inner_and_outer
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 2093 - 2346
+[src/backend/optimizer/path/joinpath.c:2093-2346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L2093-L2346)
 
 ## Overview
 Creates hash join paths by explicitly hashing both outer and inner keys of available hash clauses, exploring various combinations of outer and inner paths to find optimal hash join strategies.

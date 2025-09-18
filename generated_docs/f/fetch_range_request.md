@@ -1,7 +1,7 @@
 # fetch_range_request
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 35 - 53
+[src/bin/pg_rewind/libpq_source.c:35-53](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L35-L53)
 
 ## Overview
 A struct that represents a request to fetch a specific piece of a file from the source in PostgreSQL's pg_rewind utility, used for efficiently queuing file data retrieval operations.

@@ -1,7 +1,7 @@
 # shell_archive_configured
 
 ## Location
-src/backend/archive/shell_archive.c: 46 - 56
+[src/backend/archive/shell_archive.c:46-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/archive/shell_archive.c#L46-L56)
 
 ## Overview
 This function checks whether the shell-based WAL archiving module is properly configured by verifying that the archive_command GUC parameter has been set.

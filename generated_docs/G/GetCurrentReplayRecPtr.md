@@ -1,7 +1,7 @@
 # GetCurrentReplayRecPtr
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4563 - 4585
+[src/backend/access/transam/xlogrecovery.c:4563-4585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4563-L4585)
 
 ## Overview
 Retrieves the position of the last applied WAL record or the record currently being applied, providing real-time recovery position including in-progress records.

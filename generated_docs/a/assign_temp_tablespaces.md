@@ -1,7 +1,7 @@
 # assign_temp_tablespaces
 
 ## Location
-src/backend/commands/tablespace.c: 1306 - 1330
+[src/backend/commands/tablespace.c:1306-1330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1306-L1330)
 
 ## Overview
 Applies validated temp_tablespaces GUC settings by passing the list of tablespace OIDs to the storage manager's temporary file handling subsystem.

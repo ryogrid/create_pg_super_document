@@ -1,7 +1,7 @@
 # pg_relation_is_updatable
 
 ## Location
-src/backend/utils/adt/misc.c: 648 - 664
+[src/backend/utils/adt/misc.c:648-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/misc.c#L648-L664)
 
 ## Overview
 pg_relation_is_updatable is a SQL-callable function that determines which update operations (INSERT, UPDATE, DELETE) are supported by a specified relation.

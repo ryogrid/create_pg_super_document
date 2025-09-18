@@ -1,7 +1,7 @@
 # bms_prev_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 1367 - 1415
+[src/backend/nodes/bitmapset.c:1367-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1367-L1415)
 
 ## Overview
 The `bms_prev_member` function finds the previous (largest) member less than a specified bit position in a Bitmapset, supporting reverse iteration through set members.

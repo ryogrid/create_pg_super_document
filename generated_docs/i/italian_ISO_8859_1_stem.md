@@ -1,7 +1,7 @@
 # italian_ISO_8859_1_stem
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c: 966 - 1018
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c:966-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_italian.c#L966-L1018)
 
 ## Overview
 The main stemming function that implements the complete Italian word stemming algorithm using the Snowball stemming algorithm for ISO-8859-1 encoded text.

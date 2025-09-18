@@ -1,7 +1,7 @@
 # func_match_argtypes
 
 ## Location
-src/backend/parser/parse_func.c: 923 - 1007
+[src/backend/parser/parse_func.c:923-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L923-L1007)
 
 ## Overview
 Filters a list of function candidates to those that accept the given input data types either exactly or through implicit coercion.

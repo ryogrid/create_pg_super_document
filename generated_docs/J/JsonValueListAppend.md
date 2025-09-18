@@ -1,7 +1,7 @@
 # JsonValueListAppend
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3513 - 3526
+[src/backend/utils/adt/jsonpath_exec.c:3513-3526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3513-L3526)
 
 ## Overview
 Appends a JsonbValue to a JsonValueList, efficiently managing the transition from empty to singleton to multi-element list storage.

@@ -1,7 +1,7 @@
 # pg_replication_origin_drop
 
 ## Location
-src/backend/replication/logical/origin.c: 1310 - 1328
+[src/backend/replication/logical/origin.c:1310-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/origin.c#L1310-L1328)
 
 ## Overview
 SQL-callable function that drops a replication origin by name, providing a user interface to remove replication origin entries from the system catalog.

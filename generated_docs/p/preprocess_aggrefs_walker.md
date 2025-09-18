@@ -1,7 +1,7 @@
 # preprocess_aggrefs_walker
 
 ## Location
-src/backend/optimizer/prep/prepagg.c: 344 - 379
+[src/backend/optimizer/prep/prepagg.c:344-379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepagg.c#L344-L379)
 
 ## Overview
 A recursive tree walker function that traverses expression trees to find and preprocess all Aggref (aggregate function reference) nodes.

@@ -1,7 +1,7 @@
 # permute
 
 ## Location
-src/bin/pgbench/pgbench.c: 1303 - 1393
+[src/bin/pgbench/pgbench.c:1303-1393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1303-L1393)
 
 ## Overview
 Generates pseudorandom permutations of integers in the range [0, size) for pgbench workload generation, providing roughly uniform distribution across all possible permutations for small sizes.

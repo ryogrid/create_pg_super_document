@@ -1,7 +1,7 @@
 # get_destination_dir
 
 ## Location
-src/bin/pg_basebackup/pg_receivewal.c: 235 - 251
+[src/bin/pg_basebackup/pg_receivewal.c:235-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_receivewal.c#L235-L251)
 
 ## Overview
 A utility function that opens and validates the destination directory for WAL file storage, providing error handling for directory access issues.

@@ -1,7 +1,7 @@
 # RT_FREE_RECURSE
 
 ## Location
-src/include/lib/radixtree.h: 1965 - 2060
+[src/include/lib/radixtree.h:1965-2060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1965-L2060)
 
 ## Overview
 RT_FREE_RECURSE is a macro that generates a function name for recursively freeing all nodes in a radix tree structure, including memory allocated in the DSA (Dynamic Shared Area).

@@ -1,7 +1,7 @@
 # SetOutput
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1675 - 1714
+[src/bin/pg_dump/pg_backup_archiver.c:1675-1714](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1675-L1714)
 
 ## Overview
 A private function that configures and initializes the output stream for PostgreSQL archive operations, handling file opening, compression settings, and output mode selection.

@@ -1,7 +1,7 @@
 # _bt_check_natts
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4923 - 5082
+[src/backend/access/nbtree/nbtutils.c:4923-5082](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4923-L5082)
 
 ## Overview
 Verifies that a tuple at a specific offset on a B-tree page has the expected number of attributes, serving as a comprehensive sanity check for various B-tree tuple types and index configurations.

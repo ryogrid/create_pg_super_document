@@ -1,7 +1,7 @@
 # DecodeTimezoneNameToTz
 
 ## Location
-src/backend/utils/adt/datetime.c: 3245 - 3272
+[src/backend/utils/adt/datetime.c:3245-3272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L3245-L3272)
 
 ## Overview
 Interprets a string as a timezone abbreviation or name and returns a pg_tz pointer, throwing an error if the name is not recognized.

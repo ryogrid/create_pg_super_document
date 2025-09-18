@@ -1,7 +1,7 @@
 # ecpg_finish
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 108 - 157
+[src/interfaces/ecpg/ecpglib/connect.c:108-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L108-L157)
 
 ## Overview
 Performs complete cleanup and termination of an ECPG database connection, including deallocating prepared statements, closing the PostgreSQL connection, and updating connection tracking structures.

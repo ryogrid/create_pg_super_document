@@ -1,7 +1,7 @@
 # split_path
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 161 - 187
+[src/bin/pg_waldump/pg_waldump.c:161-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L161-L187)
 
 ## Overview
 A utility function that splits a file path into directory and filename components, similar to the Unix dirname(1) and basename(1) commands.

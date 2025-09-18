@@ -1,7 +1,7 @@
 # line_decode
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 950 - 978
+[src/backend/utils/adt/geo_ops.c:950-978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L950-L978)
 
 ## Overview
 Parses a string representation of a 2D line and decodes it into a LINE structure with coefficients A, B, and C.

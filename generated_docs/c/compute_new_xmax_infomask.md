@@ -1,7 +1,7 @@
 # compute_new_xmax_infomask
 
 ## Location
-src/backend/access/heap/heapam.c: 5280 - 5560
+[src/backend/access/heap/heapam.c:5280-5560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L5280-L5560)
 
 ## Overview
 compute_new_xmax_infomask computes new Xmax and corresponding infomask values when a transaction acquires a new lock on a tuple, handling complex scenarios involving existing locks, MultiXactIds, and transaction states.

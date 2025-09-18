@@ -1,7 +1,7 @@
 # ValidateOperatorReference
 
 ## Location
-src/backend/commands/operatorcmds.c: 372 - 412
+[src/backend/commands/operatorcmds.c:372-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/operatorcmds.c#L372-L412)
 
 ## Overview
 ValidateOperatorReference looks up an operator by name and type signature, verifying it exists as a complete operator and that the current user owns it for use in operator alterations.

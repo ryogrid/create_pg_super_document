@@ -1,7 +1,7 @@
 # add_placeholder_variable
 
 ## Location
-src/backend/utils/misc/guc.c: 1179 - 1236
+[src/backend/utils/misc/guc.c:1179-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/guc.c#L1179-L1236)
 
 ## Overview
 Creates and registers a placeholder variable for a custom configuration variable name that hasn't been formally defined yet.

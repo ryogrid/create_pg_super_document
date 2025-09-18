@@ -1,7 +1,7 @@
 # interval_cmp_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2505 - 2513
+[src/backend/utils/adt/timestamp.c:2505-2513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2505-L2513)
 
 ## Overview
 Internal function that compares two Interval structures and returns an integer indicating their relative ordering (-1, 0, or 1).

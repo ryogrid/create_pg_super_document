@@ -1,7 +1,7 @@
 # PGOutputData
 
 ## Location
-src/include/replication/pgoutput.h: 18 - 36
+[src/include/replication/pgoutput.h:18-36](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/pgoutput.h#L18-L36)
 
 ## Overview
 PGOutputData is a context structure used by PostgreSQL's logical replication pgoutput plugin to maintain state information during the replication process, storing both client configuration parameters and runtime state.

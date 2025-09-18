@@ -1,7 +1,7 @@
 # fasthash_accum
 
 ## Location
-src/include/common/hashfn_unstable.h: 136 - 216
+[src/include/common/hashfn_unstable.h:136-216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L136-L216)
 
 ## Overview
 Accumulates up to 8 bytes of input data into the hash state's accumulator and combines it into the running hash, handling endianness and partial byte sequences correctly.

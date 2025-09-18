@@ -1,7 +1,7 @@
 # pg_lsn_mi
 
 ## Location
-src/backend/utils/adt/pg_lsn.c: 224 - 250
+[src/backend/utils/adt/pg_lsn.c:224-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_lsn.c#L224-L250)
 
 ## Overview
 The pg_lsn_mi function computes the signed difference between two PostgreSQL Log Sequence Numbers (LSNs), returning the result as a numeric value.

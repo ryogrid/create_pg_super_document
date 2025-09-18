@@ -1,7 +1,7 @@
 # GinPageIsRecyclable
 
 ## Location
-src/backend/access/gin/ginvacuum.c: 802 - 822
+[src/backend/access/gin/ginvacuum.c:802-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginvacuum.c#L802-L822)
 
 ## Overview
 A utility function that determines whether a GIN index page can be safely recycled by checking if the page deletion transaction is visible to all active transactions.

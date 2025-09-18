@@ -1,7 +1,7 @@
 # SearchCatCache
 
 ## Location
-src/backend/utils/cache/catcache.c: 1312 - 1328
+[src/backend/utils/cache/catcache.c:1312-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1312-L1328)
 
 ## Overview
 SearchCatCache is a core function in PostgreSQL's catalog cache system that searches for a tuple in a system cache, providing efficient access to system catalog information.

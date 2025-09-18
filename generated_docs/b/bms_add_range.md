@@ -1,7 +1,7 @@
 # bms_add_range
 
 ## Location
-src/backend/nodes/bitmapset.c: 1019 - 1108
+[src/backend/nodes/bitmapset.c:1019-1108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1019-L1108)
 
 ## Overview
 Efficiently adds a contiguous range of members from 'lower' to 'upper' (inclusive) to a bitmap set, working at the bitmapword level for performance.

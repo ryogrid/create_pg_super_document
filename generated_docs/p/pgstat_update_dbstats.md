@@ -1,7 +1,7 @@
 # pgstat_update_dbstats
 
 ## Location
-src/backend/utils/activity/pgstat_database.c: 270 - 323
+[src/backend/utils/activity/pgstat_database.c:270-323](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_database.c#L270-L323)
 
 ## Overview
 pgstat_update_dbstats is a subroutine that accumulates and reports database-level statistics including transaction counts, I/O timings, and session timing information.

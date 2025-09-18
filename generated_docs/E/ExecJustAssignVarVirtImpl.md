@@ -1,7 +1,7 @@
 # ExecJustAssignVarVirtImpl
 
 ## Location
-src/backend/executor/execExprInterp.c: 2326 - 2347
+[src/backend/executor/execExprInterp.c:2326-2347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2326-L2347)
 
 ## Overview
 A core implementation function for efficiently assigning variables from virtual tuple slots to result slots in PostgreSQL's expression evaluation system.

@@ -1,7 +1,7 @@
 # get_fn_expr_variadic
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 2044 - 2069
+[src/backend/utils/fmgr/fmgr.c:2044-2069](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L2044-L2069)
 
 ## Overview
 Retrieves the VARIADIC flag from a function invocation to determine if the function was called with variadic argument syntax, primarily useful for VARIADIC ANY functions.

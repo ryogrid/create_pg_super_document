@@ -1,7 +1,7 @@
 # bms_make_singleton
 
 ## Location
-src/backend/nodes/bitmapset.c: 216 - 238
+[src/backend/nodes/bitmapset.c:216-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L216-L238)
 
 ## Overview
 Creates a Bitmapset containing exactly one member at the specified bit position.

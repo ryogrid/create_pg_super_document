@@ -1,7 +1,7 @@
 # TerminateChildren
 
 ## Location
-src/backend/postmaster/postmaster.c: 3510 - 3544
+[src/backend/postmaster/postmaster.c:3510-3544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3510-L3544)
 
 ## Overview
 Sends a termination signal to all PostgreSQL child processes except the syslogger and dead_end backends, including both regular backends and special auxiliary processes.

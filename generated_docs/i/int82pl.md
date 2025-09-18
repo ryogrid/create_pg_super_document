@@ -1,7 +1,7 @@
 # int82pl
 
 ## Location
-src/backend/utils/adt/int8.c: 1032 - 1045
+[src/backend/utils/adt/int8.c:1032-1045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1032-L1045)
 
 ## Overview
 Adds a 64-bit integer (int8) and a 16-bit integer (int2) and returns a 64-bit integer result with overflow checking.

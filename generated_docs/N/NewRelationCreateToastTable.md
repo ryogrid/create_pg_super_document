@@ -1,7 +1,7 @@
 # NewRelationCreateToastTable
 
 ## Location
-src/backend/catalog/toasting.c: 71 - 77
+[src/backend/catalog/toasting.c:71-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/toasting.c#L71-L77)
 
 ## Overview
 NewRelationCreateToastTable is a function that creates a TOAST table for a newly created relation with default locking behavior and simplified parameter interface.

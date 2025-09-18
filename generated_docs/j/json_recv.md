@@ -1,7 +1,7 @@
 # json_recv
 
 ## Location
-src/backend/utils/adt/json.c: 150 - 176
+[src/backend/utils/adt/json.c:150-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L150-L176)
 
 ## Overview
 Deserializes binary-formatted JSON data received from PostgreSQL's binary protocol back into the internal JSON text representation with validation.

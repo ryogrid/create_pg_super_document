@@ -1,7 +1,7 @@
 # get_op_btree_interpretation
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 601 - 697
+[src/backend/utils/cache/lsyscache.c:601-697](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L601-L697)
 
 ## Overview
 Finds all btree operator families that contain a given operator and returns the operator's properties within each family, including strategy number and operand types.

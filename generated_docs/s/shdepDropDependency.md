@@ -1,7 +1,7 @@
 # shdepDropDependency
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1124 - 1189
+[src/backend/catalog/pg_shdepend.c:1124-1189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1124-L1189)
 
 ## Overview
 Internal workhorse function for deleting shared dependency entries from the pg_shdepend catalog table, with flexible filtering options to target specific dependency relationships.

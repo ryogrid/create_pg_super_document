@@ -1,7 +1,7 @@
 # pgrename
 
 ## Location
-src/port/dirmod.c: 52 - 103
+[src/port/dirmod.c:52-103](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/dirmod.c#L52-L103)
 
 ## Overview
 A cross-platform file rename function that handles platform-specific file locking issues and retries operations when files are temporarily unavailable due to sharing violations.

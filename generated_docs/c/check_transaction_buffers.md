@@ -1,7 +1,7 @@
 # check_transaction_buffers
 
 ## Location
-src/backend/access/transam/clog.c: 821 - 832
+[src/backend/access/transam/clog.c:821-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L821-L832)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the transaction_buffers configuration parameter value.

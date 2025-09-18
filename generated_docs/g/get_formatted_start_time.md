@@ -1,7 +1,7 @@
 # get_formatted_start_time
 
 ## Location
-src/backend/utils/error/elog.c: 2704 - 2727
+[src/backend/utils/error/elog.c:2704-2727](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L2704-L2727)
 
 ## Overview
 Computes and returns a formatted timestamp string representing the backend start time, using a cached approach for efficiency in PostgreSQL's logging system.

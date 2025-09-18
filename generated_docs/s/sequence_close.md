@@ -1,7 +1,7 @@
 # sequence_close
 
 ## Location
-src/backend/access/sequence/sequence.c: 58 - 69
+[src/backend/access/sequence/sequence.c:58-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/sequence/sequence.c#L58-L69)
 
 ## Overview
 Closes a sequence relation and optionally releases the specified lock held on it.

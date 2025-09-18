@@ -1,7 +1,7 @@
 # AllocateRelationDesc
 
 ## Location
-src/backend/utils/cache/relcache.c: 409 - 463
+[src/backend/utils/cache/relcache.c:409-463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L409-L463)
 
 ## Overview
 AllocateRelationDesc allocates memory for a new relation descriptor and initializes its basic structure from a pg_class tuple, serving as the foundation for relation cache entries.

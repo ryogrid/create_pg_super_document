@@ -1,7 +1,7 @@
 # PQcopyResult
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 318 - 407
+[src/interfaces/libpq/fe-exec.c:318-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L318-L407)
 
 ## Overview
 Creates a deep copy of a PGresult with configurable copying options for attributes, tuples, events, and notice hooks, always setting the result status to PGRES_TUPLES_OK.

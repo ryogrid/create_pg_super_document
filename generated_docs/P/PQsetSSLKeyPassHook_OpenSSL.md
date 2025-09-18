@@ -1,7 +1,7 @@
 # PQsetSSLKeyPassHook_OpenSSL
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 482 - 487
+[src/interfaces/libpq/fe-secure.c:482-487](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L482-L487)
 
 ## Overview
 Sets a custom callback hook function for handling SSL private key password prompting in OpenSSL-enabled PostgreSQL client connections.

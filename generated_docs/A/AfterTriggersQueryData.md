@@ -1,7 +1,7 @@
 # AfterTriggersQueryData
 
 ## Location
-src/backend/commands/trigger.c: 3920 - 3926
+[src/backend/commands/trigger.c:3920-3926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L3920-L3926)
 
 ## Overview
 AfterTriggersQueryData tracks trigger events and related state for a single query execution level, supporting nested query handling and foreign data wrapper integration.

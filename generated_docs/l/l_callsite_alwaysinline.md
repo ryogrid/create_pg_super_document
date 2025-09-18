@@ -1,7 +1,7 @@
 # l_callsite_alwaysinline
 
 ## Location
-src/include/jit/llvmjit_emit.h: 235 - 250
+[src/include/jit/llvmjit_emit.h:235-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/jit/llvmjit_emit.h#L235-L250)
 
 ## Overview
 A utility function that marks an LLVM function call site with the "alwaysinline" attribute to force the LLVM compiler to inline the function call.

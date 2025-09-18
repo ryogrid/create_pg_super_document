@@ -1,7 +1,7 @@
 # get_index_ref_constraints
 
 ## Location
-src/backend/catalog/pg_depend.c: 1045 - 1092
+[src/backend/catalog/pg_depend.c:1045-1092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L1045-L1092)
 
 ## Overview
 Retrieves a list of OIDs for all foreign key constraints that reference a given index, used to identify dependencies that must be considered when modifying or dropping indexes.

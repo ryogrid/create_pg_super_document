@@ -1,7 +1,7 @@
 # pg_atomic_read_u32
 
 ## Location
-src/include/port/atomics.h: 234 - 252
+[src/include/port/atomics.h:234-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L234-L252)
 
 ## Overview
 An atomic read function that provides an unlocked read from a 32-bit atomic variable, returning a value as it has been written by this or another process at some point in the past.

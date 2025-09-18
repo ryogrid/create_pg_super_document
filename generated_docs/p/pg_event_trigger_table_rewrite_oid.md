@@ -1,7 +1,7 @@
 # pg_event_trigger_table_rewrite_oid
 
 ## Location
-src/backend/commands/event_trigger.c: 1493 - 1513
+[src/backend/commands/event_trigger.c:1493-1513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1493-L1513)
 
 ## Overview
 A PostgreSQL built-in function that returns the OID of the table being rewritten, available only within table_rewrite event trigger functions.

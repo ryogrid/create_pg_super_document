@@ -1,7 +1,7 @@
 # simple_string_list_not_touched
 
 ## Location
-src/fe_utils/simple_list.c: 144 - 161
+[src/fe_utils/simple_list.c:144-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L144-L161)
 
 ## Overview
 Finds and returns the first untouched entry in a SimpleStringList, used for validation and error checking.

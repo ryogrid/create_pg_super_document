@@ -1,7 +1,7 @@
 # forget_invalid_pages_db
 
 ## Location
-src/backend/access/transam/xlogutils.c: 202 - 234
+[src/backend/access/transam/xlogutils.c:202-234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L202-L234)
 
 ## Overview
 Removes all invalid page entries from the hash table for a specific database, typically used when an entire database is being dropped.

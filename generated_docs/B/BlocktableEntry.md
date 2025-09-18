@@ -1,7 +1,7 @@
 # BlocktableEntry
 
 ## Location
-src/backend/access/common/tidstore.c: 44 - 77
+[src/backend/access/common/tidstore.c:44-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L44-L77)
 
 ## Overview
 BlocktableEntry is a data structure that represents entries in the block table of PostgreSQL's TidStore, designed to efficiently store tuple identifiers (TIDs) for a specific block, with optimizations for both sparse and dense offset distributions.

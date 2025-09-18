@@ -1,7 +1,7 @@
 # oidgt
 
 ## Location
-src/backend/utils/adt/oid.c: 317 - 325
+[src/backend/utils/adt/oid.c:317-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oid.c#L317-L325)
 
 ## Overview
 The  function implements the greater-than comparison operator for PostgreSQL's OID (Object Identifier) data type.

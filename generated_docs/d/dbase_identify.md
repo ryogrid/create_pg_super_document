@@ -1,7 +1,7 @@
 # dbase_identify
 
 ## Location
-src/backend/access/rmgrdesc/dbasedesc.c: 57 - 75
+[src/backend/access/rmgrdesc/dbasedesc.c:57-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/dbasedesc.c#L57-L75)
 
 ## Overview
 Returns human-readable string identifiers for database-related WAL record operation types.

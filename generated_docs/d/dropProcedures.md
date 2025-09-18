@@ -1,7 +1,7 @@
 # dropProcedures
 
 ## Location
-src/backend/commands/opclasscmds.c: 1765 - 1804
+[src/backend/commands/opclasscmds.c:1765-1804](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/opclasscmds.c#L1765-L1804)
 
 ## Overview
 Removes support procedure entries from an operator family by deleting their corresponding pg_amproc catalog entries using restrictive deletion behavior.

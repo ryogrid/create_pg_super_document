@@ -1,7 +1,7 @@
 # timestamptz_mi_interval_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 3324 - 3338
+[src/backend/utils/adt/timestamp.c:3324-3338](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L3324-L3338)
 
 ## Overview
 Internal function that subtracts an interval from a timestamp with timezone (timestamptz) by negating the interval and delegating to the addition function.

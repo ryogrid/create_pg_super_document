@@ -1,7 +1,7 @@
 # regnamespacerecv
 
 ## Location
-src/backend/utils/adt/regproc.c: 1750 - 1759
+[src/backend/utils/adt/regproc.c:1750-1759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1750-L1759)
 
 ## Overview
 Converts external binary format data to the regnamespace PostgreSQL data type, which represents namespace (schema) object identifiers.

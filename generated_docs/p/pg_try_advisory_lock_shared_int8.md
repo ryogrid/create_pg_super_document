@@ -1,7 +1,7 @@
 # pg_try_advisory_lock_shared_int8
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 733 - 752
+[src/backend/utils/adt/lockfuncs.c:733-752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L733-L752)
 
 ## Overview
 This function attempts to acquire a shared advisory lock on a 64-bit integer key without waiting, returning immediately with success or failure status.

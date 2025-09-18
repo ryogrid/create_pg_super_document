@@ -1,7 +1,7 @@
 # group_by_has_partkey
 
 ## Location
-src/backend/optimizer/plan/planner.c: 8084 - 8170
+[src/backend/optimizer/plan/planner.c:8084-8170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L8084-L8170)
 
 ## Overview
 Determines whether all partition keys of a given relation are included in the GROUP BY clause with matching collation, enabling partitionwise aggregation optimization.

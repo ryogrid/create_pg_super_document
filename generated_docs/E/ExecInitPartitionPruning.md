@@ -1,7 +1,7 @@
 # ExecInitPartitionPruning
 
 ## Location
-src/backend/executor/execPartition.c: 1801 - 1866
+[src/backend/executor/execPartition.c:1801-1866](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L1801-L1866)
 
 ## Overview
 Initializes the data structure needed for run-time partition pruning and performs initial pruning if needed during executor startup.

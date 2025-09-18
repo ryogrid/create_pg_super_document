@@ -1,7 +1,7 @@
 # hypothetical_cume_dist_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1278 - 1294
+[src/backend/utils/adt/orderedsetaggs.c:1278-1294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1278-L1294)
 
 ## Overview
 Implements the SQL cumulative distribution function for hypothetical rows in ordered-set aggregates, calculating the cumulative distribution value for where a hypothetical row would appear in a dataset.

@@ -1,7 +1,7 @@
 # _readConst
 
 ## Location
-src/backend/nodes/readfuncs.c: 259 - 280
+[src/backend/nodes/readfuncs.c:259-280](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/readfuncs.c#L259-L280)
 
 ## Overview
 A static function that deserializes Const nodes from their textual representation, handling constant values used in PostgreSQL expression trees including their type information, nullability, and actual data values.

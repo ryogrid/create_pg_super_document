@@ -1,7 +1,7 @@
 # pg_ultostr_zeropad
 
 ## Location
-src/backend/utils/adt/numutils.c: 1269 - 1308
+[src/backend/utils/adt/numutils.c:1269-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L1269-L1308)
 
 ## Overview
 Converts an unsigned 32-bit integer to its decimal string representation with zero-padding to ensure minimum width, optimized for building multi-component strings without NUL termination.

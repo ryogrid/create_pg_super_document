@@ -1,7 +1,7 @@
 # CheckTablespaceDirectory
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 2143 - 2174
+[src/backend/access/transam/xlogrecovery.c:2143-2174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L2143-L2174)
 
 ## Overview
 CheckTablespaceDirectory verifies that the pg_tblspc directory contains only symbolic links and no real directories during recovery consistency checks.

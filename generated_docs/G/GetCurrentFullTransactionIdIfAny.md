@@ -1,7 +1,7 @@
 # GetCurrentFullTransactionIdIfAny
 
 ## Location
-src/backend/access/transam/xact.c: 527 - 537
+[src/backend/access/transam/xact.c:527-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L527-L537)
 
 ## Overview
 Returns the full transaction ID of the current sub-transaction if one is assigned, or InvalidFullTransactionId if not inside a transaction or the transaction hasn't been assigned an ID yet.

@@ -1,7 +1,7 @@
 # contain_mutable_or_user_functions_checker
 
 ## Location
-src/backend/commands/publicationcmds.c: 438 - 482
+[src/backend/commands/publicationcmds.c:438-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L438-L482)
 
 ## Overview
 A callback function that checks whether a given function is mutable or user-defined, used to validate expressions in publication WHERE clauses.

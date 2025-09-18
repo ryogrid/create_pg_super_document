@@ -1,7 +1,7 @@
 # fork_process
 
 ## Location
-src/backend/postmaster/fork_process.c: 33 - 128
+[src/backend/postmaster/fork_process.c:33-128](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/fork_process.c#L33-L128)
 
 ## Overview
 A wrapper function for the Unix fork() system call that safely handles signal masking and process-specific initialization for PostgreSQL child processes.

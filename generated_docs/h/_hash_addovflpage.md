@@ -1,7 +1,7 @@
 # _hash_addovflpage
 
 ## Location
-src/backend/access/hash/hashovfl.c: 112 - 447
+[src/backend/access/hash/hashovfl.c:112-447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashovfl.c#L112-L447)
 
 ## Overview
 Adds a new overflow page to a hash bucket chain, handling both recycling of previously freed pages and allocation of new pages when needed.

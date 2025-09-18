@@ -1,7 +1,7 @@
 # AdvanceOldestCommitTsXid
 
 ## Location
-src/backend/access/transam/commit_ts.c: 943 - 976
+[src/backend/access/transam/commit_ts.c:943-976](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L943-L976)
 
 ## Overview
 Advances the oldest commit timestamp transaction ID that can be consulted, ensuring that commit timestamp tracking maintains consistency by moving the boundary forward.

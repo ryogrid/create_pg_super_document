@@ -1,7 +1,7 @@
 # set_var_from_str
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/numeric.c: 78 - 225
+[src/interfaces/ecpg/pgtypeslib/numeric.c:78-225](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/numeric.c#L78-L225)
 
 ## Overview
 A comprehensive string-to-numeric parsing function that converts textual numeric representations into PostgreSQL's internal NumericVar format, handling various formats including scientific notation and digit separators.

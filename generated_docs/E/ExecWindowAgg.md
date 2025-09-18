@@ -1,7 +1,7 @@
 # ExecWindowAgg
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 2046 - 2373
+[src/backend/executor/nodeWindowAgg.c:2046-2373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L2046-L2373)
 
 ## Overview
 The main execution function for window aggregation nodes, processing tuples from the outer subplan through a tuplestore and evaluating window functions to produce exactly the same number of output rows as the input.

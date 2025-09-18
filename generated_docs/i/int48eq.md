@@ -1,7 +1,7 @@
 # int48eq
 
 ## Location
-src/backend/utils/adt/int8.c: 227 - 235
+[src/backend/utils/adt/int8.c:227-235](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L227-L235)
 
 ## Overview
 This function compares a 4-byte (int32) integer with an 8-byte (int64) integer for equality and returns true if they are equal.

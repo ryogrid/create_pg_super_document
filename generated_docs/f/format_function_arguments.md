@@ -1,7 +1,7 @@
 # format_function_arguments
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 12260 - 12282
+[src/bin/pg_dump/pg_dump.c:12260-12282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L12260-L12282)
 
 ## Overview
 The format_function_arguments function generates a properly formatted function name and argument list string for use in SQL dump output.

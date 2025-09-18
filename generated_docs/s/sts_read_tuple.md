@@ -1,7 +1,7 @@
 # sts_read_tuple
 
 ## Location
-src/backend/utils/sort/sharedtuplestore.c: 415 - 494
+[src/backend/utils/sort/sharedtuplestore.c:415-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/sharedtuplestore.c#L415-L494)
 
 ## Overview
 A static function that reads a tuple and its metadata from a shared tuplestore file, handling both normal-sized and oversized tuples that span multiple chunks.

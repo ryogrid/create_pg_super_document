@@ -1,7 +1,7 @@
 # exec_command_endif
 
 ## Location
-src/bin/psql/command.c: 1930 - 1969
+[src/bin/psql/command.c:1930-1969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1930-L1969)
 
 ## Overview
 Handles the \\endif command in psql, which terminates an \\if...\\endif conditional block and manages the final cleanup of query text and conditional stack state.

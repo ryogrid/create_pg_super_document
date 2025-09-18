@@ -1,7 +1,7 @@
 # pg_listening_channels
 
 ## Location
-src/backend/commands/async.c: 790 - 822
+[src/backend/commands/async.c:790-822](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L790-L822)
 
 ## Overview
 A SQL function that returns a set of channel names that the current backend process is actively listening to via LISTEN commands.

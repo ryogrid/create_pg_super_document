@@ -1,7 +1,7 @@
 # PipeProtoChunk
 
 ## Location
-src/include/postmaster/syslogger.h: 57 - 58
+[src/include/postmaster/syslogger.h:57-58](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postmaster/syslogger.h#L57-L58)
 
 ## Overview
 PipeProtoChunk is a union type that provides a memory layout for pipe protocol chunks in PostgreSQL's system logger, combining the protocol header with a fixed-size buffer for efficient memory management.

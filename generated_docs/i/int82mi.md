@@ -1,7 +1,7 @@
 # int82mi
 
 ## Location
-src/backend/utils/adt/int8.c: 1046 - 1059
+[src/backend/utils/adt/int8.c:1046-1059](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1046-L1059)
 
 ## Overview
 Subtracts a 16-bit integer (int2) from a 64-bit integer (int8) and returns a 64-bit integer result with overflow checking.

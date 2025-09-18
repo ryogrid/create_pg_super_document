@@ -1,7 +1,7 @@
 # int42ne
 
 ## Location
-src/backend/utils/adt/int.c: 567 - 575
+[src/backend/utils/adt/int.c:567-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L567-L575)
 
 ## Overview
 Compares a 32-bit integer with a 16-bit integer for inequality, returning a boolean result.

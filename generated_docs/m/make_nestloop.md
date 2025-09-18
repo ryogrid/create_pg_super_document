@@ -1,7 +1,7 @@
 # make_nestloop
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5949 - 5973
+[src/backend/optimizer/plan/createplan.c:5949-5973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5949-L5973)
 
 ## Overview
 Creates a NestLoop plan node that represents a nested loop join operation in PostgreSQL's query execution plan tree.

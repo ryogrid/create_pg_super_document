@@ -1,7 +1,7 @@
 # range_table_entry_walker_impl
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 2810 - 2932
+[src/backend/nodes/nodeFuncs.c:2810-2932](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L2810-L2932)
 
 ## Overview
 This function walks through expressions contained within a single RangeTblEntry, handling different types of range table entries and their associated expression nodes.

@@ -1,7 +1,7 @@
 # libpqsrv_connect
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 66 - 83
+[src/include/libpq/libpq-be-fe-helpers.h:66-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L66-L83)
 
 ## Overview
 A convenience wrapper around PQconnectdb() that handles file descriptor reservation and processes interrupts during connection establishment to PostgreSQL databases.

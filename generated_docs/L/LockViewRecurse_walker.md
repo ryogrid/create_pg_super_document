@@ -1,7 +1,7 @@
 # LockViewRecurse_walker
 
 ## Location
-src/backend/commands/lockcmds.c: 177 - 244
+[src/backend/commands/lockcmds.c:177-244](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/lockcmds.c#L177-L244)
 
 ## Overview
 A tree walker function that recursively traverses view query trees to lock all underlying base tables and nested views referenced by a view definition.

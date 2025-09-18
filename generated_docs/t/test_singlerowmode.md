@@ -1,7 +1,7 @@
 # test_singlerowmode
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 1577 - 1772
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:1577-1772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L1577-L1772)
 
 ## Overview
 Tests single-row mode and chunked row mode functionality within PostgreSQL pipeline mode, ensuring proper result handling and mode switching behavior.

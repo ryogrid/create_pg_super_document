@@ -1,7 +1,7 @@
 # namelttext
 
 ## Location
-src/backend/utils/adt/varlena.c: 2738 - 2743
+[src/backend/utils/adt/varlena.c:2738-2743](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2738-L2743)
 
 ## Overview
 The  function implements the less-than comparison operator between a name type and a text type in PostgreSQL.

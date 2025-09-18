@@ -1,7 +1,7 @@
 # Async_Listen
 
 ## Location
-src/backend/commands/async.c: 738 - 751
+[src/backend/commands/async.c:738-751](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L738-L751)
 
 ## Overview
 Executes the SQL LISTEN command by queueing a listen action for the specified channel to be processed during transaction commit.

@@ -1,7 +1,7 @@
 # spg_quad_choose
 
 ## Location
-src/backend/access/spgist/spgquadtreeproc.c: 115 - 145
+[src/backend/access/spgist/spgquadtreeproc.c:115-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgquadtreeproc.c#L115-L145)
 
 ## Overview
 SP-GiST quadtree choose function that determines which child node a new point should be inserted into during index operations.

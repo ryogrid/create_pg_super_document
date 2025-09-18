@@ -1,7 +1,7 @@
 # GrantLockLocal
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1692 - 1723
+[src/backend/storage/lmgr/lock.c:1692-1723](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1692-L1723)
 
 ## Overview
 GrantLockLocal updates the local lock data structures to record that a lock request has been granted, managing both total lock counts and per-owner reference counts.

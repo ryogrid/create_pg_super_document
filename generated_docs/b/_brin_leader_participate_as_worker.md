@@ -1,7 +1,7 @@
 # _brin_leader_participate_as_worker
 
 ## Location
-src/backend/access/brin/brin.c: 2768 - 2795
+[src/backend/access/brin/brin.c:2768-2795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2768-L2795)
 
 ## Overview
 This function allows the parallel build leader process to participate as a worker in the parallel BRIN index construction, performing the same scanning and building work as other worker processes.

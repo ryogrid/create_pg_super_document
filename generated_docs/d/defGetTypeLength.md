@@ -1,7 +1,7 @@
 # defGetTypeLength
 
 ## Location
-src/backend/commands/define.c: 312 - 355
+[src/backend/commands/define.c:312-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/define.c#L312-L355)
 
 ## Overview
 Extracts a type length indicator from a DefElem, returning either absolute byte length or -1 for variable-length types.

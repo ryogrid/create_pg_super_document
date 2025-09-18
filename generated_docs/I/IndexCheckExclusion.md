@@ -1,7 +1,7 @@
 # IndexCheckExclusion
 
 ## Location
-src/backend/catalog/index.c: 3133 - 3288
+[src/backend/catalog/index.c:3133-3288](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L3133-L3288)
 
 ## Overview
 Verifies that a new exclusion constraint is satisfied by scanning the heap relation and checking for conflicts with the newly created exclusion index.

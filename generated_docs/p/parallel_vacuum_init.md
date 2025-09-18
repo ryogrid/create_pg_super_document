@@ -1,7 +1,7 @@
 # parallel_vacuum_init
 
 ## Location
-src/backend/commands/vacuumparallel.c: 242 - 433
+[src/backend/commands/vacuumparallel.c:242-433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuumparallel.c#L242-L433)
 
 ## Overview
 Initializes parallel vacuum execution by creating a parallel context, setting up shared memory state, and preparing coordination structures for workers to process vacuum operations on indexes concurrently.

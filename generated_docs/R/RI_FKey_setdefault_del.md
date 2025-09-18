@@ -1,7 +1,7 @@
 # RI_FKey_setdefault_del
 
 ## Location
-src/backend/utils/adt/ri_triggers.c: 1000 - 1014
+[src/backend/utils/adt/ri_triggers.c:1000-1014](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ri_triggers.c#L1000-L1014)
 
 ## Overview
 This function implements a PostgreSQL referential integrity trigger that sets foreign key column values to their default values when the referenced primary key record is deleted.

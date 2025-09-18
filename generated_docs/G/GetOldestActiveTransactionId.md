@@ -1,7 +1,7 @@
 # GetOldestActiveTransactionId
 
 ## Location
-src/backend/storage/ipc/procarray.c: 2879 - 2943
+[src/backend/storage/ipc/procarray.c:2879-2943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L2879-L2943)
 
 ## Overview
 GetOldestActiveTransactionId returns the oldest currently active transaction ID across all databases, used primarily for checkpoint operations and transaction visibility management.

@@ -1,7 +1,7 @@
 # commandFailed
 
 ## Location
-src/bin/pgbench/pgbench.c: 3028 - 3037
+[src/bin/pgbench/pgbench.c:3028-3037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3028-L3037)
 
 ## Overview
 Reports the abortion of a pgbench client when processing SQL commands, providing detailed error context for debugging.

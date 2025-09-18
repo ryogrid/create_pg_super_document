@@ -1,7 +1,7 @@
 # PLy_procedure_valid
 
 ## Location
-src/pl/plpython/plpy_procedure.c: 415 - 428
+[src/pl/plpython/plpy_procedure.c:415-428](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_procedure.c#L415-L428)
 
 ## Overview
 PLy_procedure_valid is a static validation function that determines whether a cached PLyProcedure struct is still valid by comparing it against the current pg_proc catalog tuple.

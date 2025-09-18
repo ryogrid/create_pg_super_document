@@ -1,7 +1,7 @@
 # error_duplicate_filter_variable
 
 ## Location
-src/backend/commands/event_trigger.c: 261 - 272
+[src/backend/commands/event_trigger.c:261-272](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L261-L272)
 
 ## Overview
 Reports a syntax error when a filter variable is specified more than once in an event trigger definition.

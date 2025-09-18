@@ -1,7 +1,7 @@
 # toast_compress_datum
 
 ## Location
-src/backend/access/common/toast_internals.c: 46 - 118
+[src/backend/access/common/toast_internals.c:46-118](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/toast_internals.c#L46-L118)
 
 ## Overview
 Creates a compressed version of a varlena datum using either PGLZ or LZ4 compression algorithms, returning NULL if compression would not provide sufficient space savings.

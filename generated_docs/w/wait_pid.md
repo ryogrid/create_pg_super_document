@@ -1,7 +1,7 @@
 # wait_pid
 
 ## Location
-src/test/regress/regress.c: 692 - 711
+[src/test/regress/regress.c:692-711](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L692-L711)
 
 ## Overview
 A PostgreSQL regression test function that waits for a specified process to terminate by continuously checking its liveness, restricted to superusers only for security purposes.

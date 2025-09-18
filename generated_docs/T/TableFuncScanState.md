@@ -1,7 +1,7 @@
 # TableFuncScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1956 - 1975
+[src/include/nodes/execnodes.h:1956-1975](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1956-L1975)
 
 ## Overview
 TableFuncScanState is a runtime state structure for PostgreSQL's table function scan executor node, primarily used for table-expression functions like XMLTABLE and JSON_TABLE that generate tabular data from structured documents.

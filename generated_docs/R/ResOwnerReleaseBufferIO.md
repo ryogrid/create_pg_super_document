@@ -1,7 +1,7 @@
 # ResOwnerReleaseBufferIO
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 6017 - 6024
+[src/backend/storage/buffer/bufmgr.c:6017-6024](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L6017-L6024)
 
 ## Overview
 A ResourceOwner callback function that releases buffer IO operations by aborting ongoing buffer operations when resource cleanup is required.

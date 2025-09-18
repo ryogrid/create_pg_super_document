@@ -1,7 +1,7 @@
 # Zstd_get_error
 
 ## Location
-src/bin/pg_dump/compress_zstd.c: 551 - 558
+[src/bin/pg_dump/compress_zstd.c:551-558](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_zstd.c#L551-L558)
 
 ## Overview
 Retrieves the last error message from a zstd compression file handle by accessing the error string stored in the compression state.

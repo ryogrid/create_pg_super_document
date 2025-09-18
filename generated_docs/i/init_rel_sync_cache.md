@@ -1,7 +1,7 @@
 # init_rel_sync_cache
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1917 - 1970
+[src/backend/replication/pgoutput/pgoutput.c:1917-1970](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1917-L1970)
 
 ## Overview
 This function initializes the relation schema synchronization cache for a logical decoding session, creating a hash table to track relation metadata and registering necessary callbacks for cache invalidation.

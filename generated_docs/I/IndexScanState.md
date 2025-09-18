@@ -1,7 +1,7 @@
 # IndexScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1651 - 1676
+[src/include/nodes/execnodes.h:1651-1676](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1651-L1676)
 
 ## Overview
 IndexScanState represents the comprehensive execution state for index scan operations in PostgreSQL's executor, managing scan keys, runtime evaluation, ordering, and parallel execution coordination.

@@ -1,7 +1,7 @@
 # AppendStringToManifest
 
 ## Location
-src/backend/backup/backup_manifest.c: 383 - 396
+[src/backend/backup/backup_manifest.c:383-396](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/backup_manifest.c#L383-L396)
 
 ## Overview
 Appends a C string to the backup manifest while updating the running checksum if still in the checksumming phase.

@@ -1,7 +1,7 @@
 # itm2interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2077 - 2114
+[src/backend/utils/adt/timestamp.c:2077-2114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2077-L2114)
 
 ## Overview
 Converts a human-readable interval time structure (struct pg_itm) back to a PostgreSQL Interval data type, with comprehensive overflow checking to ensure finite results.

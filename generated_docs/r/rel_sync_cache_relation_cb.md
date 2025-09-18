@@ -1,7 +1,7 @@
 # rel_sync_cache_relation_cb
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 2329 - 2379
+[src/backend/replication/pgoutput/pgoutput.c:2329-2379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L2329-L2379)
 
 ## Overview
 A relcache invalidation callback function that marks relation sync cache entries as invalid when PostgreSQL's relation cache is invalidated.

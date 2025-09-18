@@ -1,7 +1,7 @@
 # prsd_end
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1918 - 1931
+[src/backend/tsearch/wparser_def.c:1918-1931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1918-L1931)
 
 ## Overview
 PostgreSQL text search parser function that finalizes and cleans up a parser session by closing the TParser instance.

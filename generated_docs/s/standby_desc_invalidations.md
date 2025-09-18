@@ -1,7 +1,7 @@
 # standby_desc_invalidations
 
 ## Location
-src/backend/access/rmgrdesc/standbydesc.c: 105 - 142
+[src/backend/access/rmgrdesc/standbydesc.c:105-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/standbydesc.c#L105-L142)
 
 ## Overview
 A shared utility function that formats cache invalidation messages from WAL records into human-readable descriptions for debugging and monitoring purposes.

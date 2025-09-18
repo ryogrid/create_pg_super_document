@@ -1,7 +1,7 @@
 # heapam_index_fetch_tuple
 
 ## Location
-src/backend/access/heap/heapam_handler.c: 113 - 180
+[src/backend/access/heap/heapam_handler.c:113-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam_handler.c#L113-L180)
 
 ## Overview
 Fetches a tuple from a heap relation using an item pointer (TID) obtained from an index, handling HOT (Heap-Only Tuples) chain traversal and visibility checking according to the provided snapshot.

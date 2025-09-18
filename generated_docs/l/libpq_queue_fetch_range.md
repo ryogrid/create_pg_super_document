@@ -1,7 +1,7 @@
 # libpq_queue_fetch_range
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 356 - 420
+[src/bin/pg_rewind/libpq_source.c:356-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L356-L420)
 
 ## Overview
 Queues a request to fetch a specific byte range from a file on the remote PostgreSQL system, with intelligent request merging and chunking capabilities.

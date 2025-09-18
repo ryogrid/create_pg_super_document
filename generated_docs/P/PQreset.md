@@ -1,7 +1,7 @@
 # PQreset
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4892 - 4924
+[src/interfaces/libpq/fe-connect.c:4892-4924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4892-L4924)
 
 ## Overview
 Resets the connection to the PostgreSQL backend by closing the existing connection and creating a new one with the same parameters.

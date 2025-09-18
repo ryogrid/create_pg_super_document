@@ -1,7 +1,7 @@
 # CreateDirAndVersionFile
 
 ## Location
-src/backend/commands/dbcommands.c: 456 - 549
+[src/backend/commands/dbcommands.c:456-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L456-L549)
 
 ## Overview
 CreateDirAndVersionFile creates a database directory and writes the PG_VERSION file, handling both normal operations and WAL replay scenarios during database creation.

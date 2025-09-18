@@ -1,7 +1,7 @@
 # bbsink_copystream_begin_archive
 
 ## Location
-src/backend/backup/basebackup_copy.c: 165 - 182
+[src/backend/backup/basebackup_copy.c:165-182](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_copy.c#L165-L182)
 
 ## Overview
 Sends a CopyData protocol message to announce the beginning of a new archive in the backup stream.

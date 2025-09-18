@@ -1,7 +1,7 @@
 # GetRecoveryPauseState
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 3070 - 3089
+[src/backend/access/transam/xlogrecovery.c:3070-3089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L3070-L3089)
 
 ## Overview
 Returns the current state of the recovery pause mechanism, providing thread-safe access to the shared recovery pause state.

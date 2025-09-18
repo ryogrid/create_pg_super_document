@@ -1,7 +1,7 @@
 # DoesMultiXactIdConflict
 
 ## Location
-src/backend/access/heap/heapam.c: 7574 - 7672
+[src/backend/access/heap/heapam.c:7574-7672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L7574-L7672)
 
 ## Overview
 DoesMultiXactIdConflict determines whether a given multixact conflicts with the current transaction attempting to acquire a tuple lock of specified strength.

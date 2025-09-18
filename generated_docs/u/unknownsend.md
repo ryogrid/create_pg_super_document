@@ -1,7 +1,7 @@
 # unknownsend
 
 ## Location
-src/backend/utils/adt/varlena.c: 673 - 692
+[src/backend/utils/adt/varlena.c:673-692](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L673-L692)
 
 ## Overview
 Converts PostgreSQL's internal representation of an unknown data type to external binary format for network transmission.

@@ -1,7 +1,7 @@
 # PLy_spi_prepare
 
 ## Location
-src/pl/plpython/plpy_spi.c: 39 - 153
+[src/pl/plpython/plpy_spi.c:39-153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L39-L153)
 
 ## Overview
 PLy_spi_prepare is a PL/Python function that prepares a SQL query for later execution, allowing for parameterized queries with type-safe parameter binding.

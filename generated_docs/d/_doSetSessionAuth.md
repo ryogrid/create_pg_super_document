@@ -1,7 +1,7 @@
 # _doSetSessionAuth
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 3322 - 3364
+[src/bin/pg_dump/pg_backup_archiver.c:3322-3364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L3322-L3364)
 
 ## Overview
 A static function that executes a SET SESSION AUTHORIZATION command to change the session user during PostgreSQL database restoration operations.

@@ -1,7 +1,7 @@
 # RemoveUserMapping
 
 ## Location
-src/backend/commands/foreigncmds.c: 1335 - 1414
+[src/backend/commands/foreigncmds.c:1335-1414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1335-L1414)
 
 ## Overview
 Removes an existing user mapping from the system catalog, effectively deleting the authentication and connection information for a specific user's access to a foreign server.

@@ -1,7 +1,7 @@
 # object_aclcheck
 
 ## Location
-src/backend/catalog/aclchk.c: 3893 - 3902
+[src/backend/catalog/aclchk.c:3893-3902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3893-L3902)
 
 ## Overview
 This is a public wrapper function that provides a simplified interface for checking a user's access privileges to any PostgreSQL database object.

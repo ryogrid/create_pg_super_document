@@ -1,7 +1,7 @@
 # free_command
 
 ## Location
-src/bin/pgbench/pgbench.c: 5614 - 5633
+[src/bin/pgbench/pgbench.c:5614-5633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5614-L5633)
 
 ## Overview
 Deallocates a Command structure and all its associated dynamically allocated memory to prevent memory leaks.

@@ -1,7 +1,7 @@
 # utf8_to_gb18030
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c: 215 - 233
+[src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c:215-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_gb18030/utf8_and_gb18030.c#L215-L233)
 
 ## Overview
 PostgreSQL conversion function that converts UTF-8 encoded text to GB18030 encoding, a Chinese character encoding standard.

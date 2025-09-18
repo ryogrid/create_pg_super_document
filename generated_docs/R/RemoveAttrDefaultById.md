@@ -1,7 +1,7 @@
 # RemoveAttrDefaultById
 
 ## Location
-src/backend/catalog/pg_attrdef.c: 274 - 344
+[src/backend/catalog/pg_attrdef.c:274-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_attrdef.c#L274-L344)
 
 ## Overview
 RemoveAttrDefaultById removes a pg_attrdef entry specified by its OID and updates the corresponding pg_attribute entry to reflect that no default exists, serving as the core implementation for attribute default removal.

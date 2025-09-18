@@ -1,7 +1,7 @@
 # CatalogIndexInsert
 
 ## Location
-src/backend/catalog/indexing.c: 75 - 194
+[src/backend/catalog/indexing.c:75-194](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/indexing.c#L75-L194)
 
 ## Overview
 CatalogIndexInsert creates and inserts index entries for a single catalog tuple across all indexes of a system catalog relation, serving as a simplified version of ExecInsertIndexTuples optimized for system catalog operations.

@@ -1,7 +1,7 @@
 # AmcheckOptions
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 54 - 109
+[src/bin/pg_amcheck/pg_amcheck.c:54-109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L54-L109)
 
 ## Overview
 AmcheckOptions is a comprehensive configuration structure used in PostgreSQL's pg_amcheck utility to store all command-line options and settings that control the behavior of data integrity checking operations.

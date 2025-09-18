@@ -1,7 +1,7 @@
 # ExecInitIndexOnlyScan
 
 ## Location
-src/backend/executor/nodeIndexonlyscan.c: 506 - 705
+[src/backend/executor/nodeIndexonlyscan.c:506-705](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexonlyscan.c#L506-L705)
 
 ## Overview
 ExecInitIndexOnlyScan initializes the execution state for an index-only scan node, setting up scan keys, opening relations, and configuring all necessary data structures for index-only scan operations.

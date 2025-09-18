@@ -1,7 +1,7 @@
 # DirectFunctionCall5Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 886 - 914
+[src/backend/utils/fmgr/fmgr.c:886-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L886-L914)
 
 ## Overview
 DirectFunctionCall5Coll is a utility function that provides a simplified interface for calling PostgreSQL functions with 5 arguments while specifying a collation, without requiring explicit setup of function call information structures.

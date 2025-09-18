@@ -1,7 +1,7 @@
 # stringify_grant_objtype
 
 ## Location
-src/backend/commands/event_trigger.c: 2121 - 2205
+[src/backend/commands/event_trigger.c:2121-2205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L2121-L2205)
 
 ## Overview
 Converts PostgreSQL ObjectType enumeration values to their corresponding string representations as they appear in GRANT and REVOKE commands.

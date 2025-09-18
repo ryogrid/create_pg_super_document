@@ -1,7 +1,7 @@
 # finnish_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c: 717 - 718
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c:717-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_finnish.c#L717-L718)
 
 ## Overview
 The finnish_ISO_8859_1_close_env function properly deallocates and cleans up a Snowball environment structure that was created for Finnish text stemming with ISO-8859-1 character encoding.

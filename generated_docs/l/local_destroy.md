@@ -1,7 +1,7 @@
 # local_destroy
 
 ## Location
-src/bin/pg_rewind/local_source.c: 184 - 187
+[src/bin/pg_rewind/local_source.c:184-187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/local_source.c#L184-L187)
 
 ## Overview
 Destroys and deallocates a local rewind source object by freeing its memory in pg_rewind.

@@ -1,7 +1,7 @@
 # valgrind_report_error_query
 
 ## Location
-src/backend/tcop/postgres.c: 216 - 228
+[src/backend/tcop/postgres.c:216-228](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L216-L228)
 
 ## Overview
 This is a debugging function that reports Valgrind memory errors associated with a specific SQL query during PostgreSQL execution.

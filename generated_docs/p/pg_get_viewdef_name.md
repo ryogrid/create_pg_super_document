@@ -1,7 +1,7 @@
 # pg_get_viewdef_name
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 715 - 739
+[src/backend/utils/adt/ruleutils.c:715-739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L715-L739)
 
 ## Overview
 Provides a PostgreSQL function interface to retrieve the SQL definition of a view using the view's qualified name instead of its OID.

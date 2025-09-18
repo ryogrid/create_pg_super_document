@@ -1,7 +1,7 @@
 # RelationFindReplTupleByIndex
 
 ## Location
-src/backend/executor/execReplication.c: 176 - 304
+[src/backend/executor/execReplication.c:176-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L176-L304)
 
 ## Overview
 Searches for a specific tuple in a relation using an index scan, locks the tuple if found, and returns the tuple data in the output slot, designed specifically for replication scenarios.

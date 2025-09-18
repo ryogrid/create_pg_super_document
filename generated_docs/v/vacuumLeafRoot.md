@@ -1,7 +1,7 @@
 # vacuumLeafRoot
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 408 - 492
+[src/backend/access/spgist/spgvacuum.c:408-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L408-L492)
 
 ## Overview
 Vacuums the root page of an SP-GiST index when it also serves as a leaf page, using a simplified deletion approach without chain management complexity.

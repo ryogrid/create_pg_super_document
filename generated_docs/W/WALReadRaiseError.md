@@ -1,7 +1,7 @@
 # WALReadRaiseError
 
 ## Location
-src/backend/access/transam/xlogutils.c: 1020 - 1043
+[src/backend/access/transam/xlogutils.c:1020-1043](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L1020-L1043)
 
 ## Overview
 Backend-specific error handling function that converts WAL read failures into PostgreSQL ERROR messages with appropriate error codes and context information.

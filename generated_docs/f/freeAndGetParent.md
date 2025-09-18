@@ -1,7 +1,7 @@
 # freeAndGetParent
 
 ## Location
-src/backend/utils/adt/jsonb_util.c: 1047 - 1067
+[src/backend/utils/adt/jsonb_util.c:1047-1067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_util.c#L1047-L1067)
 
 ## Overview
 Helper function that frees the memory of a child JsonbIterator and returns its parent iterator, enabling proper cleanup during iterator traversal.

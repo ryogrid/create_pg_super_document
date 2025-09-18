@@ -1,7 +1,7 @@
 # transformJsonScalarExpr
 
 ## Location
-src/backend/parser/parse_expr.c: 4202 - 4224
+[src/backend/parser/parse_expr.c:4202-4224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L4202-L4224)
 
 ## Overview
 Transforms a JSON_SCALAR() expression into a JsonConstructorExpr node that converts SQL scalar values into json[b] values.

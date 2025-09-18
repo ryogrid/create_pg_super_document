@@ -1,7 +1,7 @@
 # PQgetCopyData
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 2816 - 2853
+[src/interfaces/libpq/fe-exec.c:2816-2853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L2816-L2853)
 
 ## Overview
 Retrieves a row of data from the PostgreSQL backend during COPY OUT or COPY BOTH operations, providing the client-side interface for reading bulk data from the server.

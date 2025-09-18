@@ -1,7 +1,7 @@
 # hashint2extended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 65 - 70
+[src/backend/access/hash/hashfunc.c:65-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L65-L70)
 
 ## Overview
 hashint2extended is an extended hash function for the int2 (16-bit integer) data type in PostgreSQL that accepts an additional seed parameter for enhanced hash computation.

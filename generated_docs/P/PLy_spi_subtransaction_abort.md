@@ -1,7 +1,7 @@
 # PLy_spi_subtransaction_abort
 
 ## Location
-src/pl/plpython/plpy_spi.c: 586 - 620
+[src/pl/plpython/plpy_spi.c:586-620](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L586-L620)
 
 ## Overview
 PLy_spi_subtransaction_abort handles the error recovery path for subtransactions within PL/Python by rolling back the subtransaction and converting PostgreSQL errors into appropriate Python exceptions.

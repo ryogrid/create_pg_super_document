@@ -1,7 +1,7 @@
 # dumpAttrDef
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 16876 - 16936
+[src/bin/pg_dump/pg_dump.c:16876-16936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L16876-L16936)
 
 ## Overview
 Generates SQL commands to create column default value declarations using ALTER TABLE statements for columns that require separate default handling.

@@ -1,7 +1,7 @@
 # poly_path
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4564 - 4610
+[src/backend/utils/adt/geo_ops.c:4564-4610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4564-L4610)
 
 ## Overview
 Converts a POLYGON geometric type to a PATH geometric type, preserving all the vertices and maintaining the closed path property.

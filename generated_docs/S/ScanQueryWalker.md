@@ -1,7 +1,7 @@
 # ScanQueryWalker
 
 ## Location
-src/backend/utils/cache/plancache.c: 1920 - 1948
+[src/backend/utils/cache/plancache.c:1920-1948](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1920-L1948)
 
 ## Overview
 A tree walker function that finds SubLink subqueries within expression trees and delegates their lock processing to ScanQueryForLocks.

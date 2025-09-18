@@ -1,7 +1,7 @@
 # gin_extract_tsquery_oldsig
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 340 - 349
+[src/backend/utils/adt/tsginidx.c:340-349](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L340-L349)
 
 ## Overview
 A legacy stub function that maintains backward compatibility for the old signature of the GIN text search query extraction function.

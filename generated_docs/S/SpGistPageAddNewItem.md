@@ -1,7 +1,7 @@
 # SpGistPageAddNewItem
 
 ## Location
-src/backend/access/spgist/spgutils.c: 1195 - 1289
+[src/backend/access/spgist/spgutils.c:1195-1289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L1195-L1289)
 
 ## Overview
 Adds a new item to an SP-GiST page, with optimization to replace placeholder items when possible, helping to maintain efficient space utilization.

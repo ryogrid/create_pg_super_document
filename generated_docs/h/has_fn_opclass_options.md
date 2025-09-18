@@ -1,7 +1,7 @@
 # has_fn_opclass_options
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 2081 - 2096
+[src/backend/utils/fmgr/fmgr.c:2081-2096](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L2081-L2096)
 
 ## Overview
 Checks if options are defined for an operator class support function in PostgreSQL's function manager.

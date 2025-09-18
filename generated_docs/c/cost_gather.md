@@ -1,7 +1,7 @@
 # cost_gather
 
 ## Location
-src/backend/optimizer/path/costsize.c: 436 - 473
+[src/backend/optimizer/path/costsize.c:436-473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L436-L473)
 
 ## Overview
 Calculates the cost estimate for a gather path, which is used in PostgreSQL's parallel query execution to combine results from multiple parallel worker processes.

@@ -1,7 +1,7 @@
 # check_agg_arguments_walker
 
 ## Location
-src/backend/parser/parse_agg.c: 717 - 819
+[src/backend/parser/parse_agg.c:717-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_agg.c#L717-L819)
 
 ## Overview
 A tree-walking function that recursively traverses expression nodes to find variables and aggregates, tracking their nesting levels and validating that prohibited constructs are not nested within aggregate arguments.

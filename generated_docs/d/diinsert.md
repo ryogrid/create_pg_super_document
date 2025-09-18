@@ -1,7 +1,7 @@
 # diinsert
 
 ## Location
-src/test/modules/dummy_index_am/dummy_index_am.c: 166 - 179
+[src/test/modules/dummy_index_am/dummy_index_am.c:166-179](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/dummy_index_am/dummy_index_am.c#L166-L179)
 
 ## Overview
 A dummy tuple insertion function that simulates inserting a new tuple into an index without performing any actual insertion.

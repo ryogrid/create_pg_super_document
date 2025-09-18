@@ -1,7 +1,7 @@
 # find_partition_scheme
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2449 - 2555
+[src/backend/optimizer/util/plancat.c:2449-2555](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2449-L2555)
 
 ## Overview
 Finds an existing PartitionScheme that matches a relation's partitioning characteristics, or creates a new one if no match is found, for use in partition-aware query planning.

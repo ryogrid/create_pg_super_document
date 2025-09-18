@@ -1,7 +1,7 @@
 # networksel
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 79 - 195
+[src/backend/utils/adt/network_selfuncs.c:79-195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L79-L195)
 
 ## Overview
 Calculates selectivity estimation for network subnet inclusion/overlap operators, used by the PostgreSQL query planner to estimate how many rows will match network-based WHERE clauses.

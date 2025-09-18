@@ -1,7 +1,7 @@
 # HandleParallelApplyMessageInterrupt
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 989 - 1000
+[src/backend/replication/logical/applyparallelworker.c:989-1000](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L989-L1000)
 
 ## Overview
 HandleParallelApplyMessageInterrupt is a signal-safe interrupt handler that sets flags to indicate a parallel apply worker message is pending processing.

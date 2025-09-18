@@ -1,7 +1,7 @@
 # exprInputCollation
 
 ## Location
-src/backend/nodes/nodeFuncs.c: 1068 - 1115
+[src/backend/nodes/nodeFuncs.c:1068-1115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/nodeFuncs.c#L1068-L1115)
 
 ## Overview
 Returns the OID of the collation that should be used for function input parameters, specifically for expressions that can invoke functions and operators.

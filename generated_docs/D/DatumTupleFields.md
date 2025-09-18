@@ -1,7 +1,7 @@
 # DatumTupleFields
 
 ## Location
-src/include/access/htup_details.h: 134 - 151
+[src/include/access/htup_details.h:134-151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/htup_details.h#L134-L151)
 
 ## Overview
 DatumTupleFields is a structure that represents the metadata fields for tuple datums in PostgreSQL, containing type identification and length information for composite type values.

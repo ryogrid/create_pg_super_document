@@ -1,7 +1,7 @@
 # ScanKeyData
 
 ## Location
-src/include/access/skey.h: 64 - 73
+[src/include/access/skey.h:64-73](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/skey.h#L64-L73)
 
 ## Overview
 ScanKeyData is a fundamental data structure in PostgreSQL that represents the application of a comparison operator between a table or index column and a constant value for use in scans and searches.

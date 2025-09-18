@@ -1,7 +1,7 @@
 # _bt_pendingfsm_add
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 3062 - 3114
+[src/backend/access/nbtree/nbtpage.c:3062-3114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L3062-L3114)
 
 ## Overview
 _bt_pendingfsm_add maintains an array of pages deleted during the current vacuum operation, storing their metadata for later processing by _bt_pendingfsm_finalize.

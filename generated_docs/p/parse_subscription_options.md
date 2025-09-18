@@ -1,7 +1,7 @@
 # parse_subscription_options
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 121 - 454
+[src/backend/commands/subscriptioncmds.c:121-454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L121-L454)
 
 ## Overview
 Parses and validates subscription options for CREATE and ALTER SUBSCRIPTION commands, handling option conflicts and setting appropriate defaults based on supported option flags.

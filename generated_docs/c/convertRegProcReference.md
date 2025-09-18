@@ -1,7 +1,7 @@
 # convertRegProcReference
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 13181 - 13221
+[src/bin/pg_dump/pg_dump.c:13181-13221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L13181-L13221)
 
 ## Overview
 Converts a function reference obtained from pg_operator by stripping the argument-types part from a REGPROCEDURE display string.

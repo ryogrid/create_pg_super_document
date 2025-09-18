@@ -1,7 +1,7 @@
 # XLogNextRecord
 
 ## Location
-src/backend/access/transam/xlogreader.c: 325 - 388
+[src/backend/access/transam/xlogreader.c:325-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L325-L388)
 
 ## Overview
 Retrieves the next available decoded WAL record from the internal queue, managing record lifecycle and maintaining compatibility with legacy XLogRec macros.

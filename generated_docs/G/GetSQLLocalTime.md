@@ -1,7 +1,7 @@
 # GetSQLLocalTime
 
 ## Location
-src/backend/utils/adt/date.c: 362 - 382
+[src/backend/utils/adt/date.c:362-382](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L362-L382)
 
 ## Overview
 GetSQLLocalTime implements the SQL LOCALTIME and LOCALTIME(n) functions, returning the current local time without timezone information.

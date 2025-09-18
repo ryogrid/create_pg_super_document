@@ -1,7 +1,7 @@
 # pg_strtoint64
 
 ## Location
-src/backend/utils/adt/numutils.c: 645 - 650
+[src/backend/utils/adt/numutils.c:645-650](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numutils.c#L645-L650)
 
 ## Overview
 A wrapper function that converts a string representation to a signed 64-bit integer by calling the safe version with NULL error context.

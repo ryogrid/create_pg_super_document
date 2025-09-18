@@ -1,7 +1,7 @@
 # BufferGetTag
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 3734 - 3772
+[src/backend/storage/buffer/bufmgr.c:3734-3772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L3734-L3772)
 
 ## Overview
 BufferGetTag extracts the complete tag information from a buffer, including the relation file locator, fork number, and block number, providing comprehensive buffer identification metadata.

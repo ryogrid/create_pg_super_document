@@ -1,7 +1,7 @@
 # makeAlterConfigCommand
 
 ## Location
-src/bin/pg_dump/dumputils.c: 861 - 930
+[src/bin/pg_dump/dumputils.c:861-930](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/dumputils.c#L861-L930)
 
 ## Overview
 makeAlterConfigCommand is a helper function for generating ALTER DATABASE/ROLE SET configuration commands during PostgreSQL database dumps.

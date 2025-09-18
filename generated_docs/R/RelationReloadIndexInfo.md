@@ -1,7 +1,7 @@
 # RelationReloadIndexInfo
 
 ## Location
-src/backend/utils/cache/relcache.c: 2257 - 2370
+[src/backend/utils/cache/relcache.c:2257-2370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2257-L2370)
 
 ## Overview
 Reloads minimal information for an invalidated index relation without performing a complete cache rebuild, supporting only specific schema changes allowed for existing indexes.

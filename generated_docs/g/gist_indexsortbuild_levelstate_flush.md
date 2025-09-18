@@ -1,7 +1,7 @@
 # gist_indexsortbuild_levelstate_flush
 
 ## Location
-src/backend/access/gist/gistbuild.c: 493 - 625
+[src/backend/access/gist/gistbuild.c:493-625](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L493-L625)
 
 ## Overview
 Flushes completed pages from a level state during sorted GiST index construction, writing pages to storage and propagating union tuples to parent levels to maintain the tree structure.

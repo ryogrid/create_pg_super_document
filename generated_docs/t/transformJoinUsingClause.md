@@ -1,7 +1,7 @@
 # transformJoinUsingClause
 
 ## Location
-src/backend/parser/parse_clause.c: 308 - 366
+[src/backend/parser/parse_clause.c:308-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L308-L366)
 
 ## Overview
 Builds a complete ON clause from partially-transformed USING lists by creating equality conditions between corresponding left and right join columns.

@@ -1,7 +1,7 @@
 # box_height
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 820 - 831
+[src/backend/utils/adt/geo_ops.c:820-831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L820-L831)
 
 ## Overview
 Returns the height (vertical magnitude) of a geometric box data type in PostgreSQL.

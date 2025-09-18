@@ -1,7 +1,7 @@
 # networkjoinsel_semi
 
 ## Location
-src/backend/utils/adt/network_selfuncs.c: 390 - 538
+[src/backend/utils/adt/network_selfuncs.c:390-538](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network_selfuncs.c#L390-L538)
 
 ## Overview
 Calculates semi/anti join selectivity estimation for network subnet inclusion/overlap operators by evaluating match probabilities between left-hand side values and right-hand side statistics.

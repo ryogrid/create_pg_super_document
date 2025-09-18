@@ -1,7 +1,7 @@
 # BackendStatusShmemSize
 
 ## Location
-src/backend/utils/activity/backend_status.c: 83 - 115
+[src/backend/utils/activity/backend_status.c:83-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L83-L115)
 
 ## Overview
 Calculates the total shared memory space required for the backend status tracking infrastructure during PostgreSQL initialization.

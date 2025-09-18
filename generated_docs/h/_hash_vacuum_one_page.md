@@ -1,7 +1,7 @@
 # _hash_vacuum_one_page
 
 ## Location
-src/backend/access/hash/hashinsert.c: 370 - 465
+[src/backend/access/hash/hashinsert.c:370-465](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashinsert.c#L370-L465)
 
 ## Overview
 The  function removes dead tuples (LP_DEAD items) from a single hash index page to reclaim space, used opportunistically during insertions when cleanup locks are available.

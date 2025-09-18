@@ -1,7 +1,7 @@
 # fix_indexqual_operand
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5164 - 5238
+[src/backend/optimizer/plan/createplan.c:5164-5238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5164-L5238)
 
 ## Overview
 Converts an indexqual expression to a Var node referencing the index column, representing index keys with varno == INDEX_VAR and varattno equal to the index's attribute number.

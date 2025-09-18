@@ -1,7 +1,7 @@
 # SearchNamedReplicationSlot
 
 ## Location
-src/backend/replication/slot.c: 464 - 496
+[src/backend/replication/slot.c:464-496](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L464-L496)
 
 ## Overview
 Searches for a replication slot by name in the shared memory array and returns a pointer to it if found.

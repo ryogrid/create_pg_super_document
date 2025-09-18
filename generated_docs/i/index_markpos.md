@@ -1,7 +1,7 @@
 # index_markpos
 
 ## Location
-src/backend/access/index/indexam.c: 408 - 431
+[src/backend/access/index/indexam.c:408-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/indexam.c#L408-L431)
 
 ## Overview
 The index_markpos function marks the current position within an index scan, allowing the scan to be restored to this position later using index_restrpos.

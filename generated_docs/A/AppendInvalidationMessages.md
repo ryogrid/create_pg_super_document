@@ -1,7 +1,7 @@
 # AppendInvalidationMessages
 
 ## Location
-src/backend/utils/cache/inval.c: 501 - 514
+[src/backend/utils/cache/inval.c:501-514](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L501-L514)
 
 ## Overview
 Appends all invalidation messages from a source group to a destination group, resetting the source group to empty.

@@ -1,7 +1,7 @@
 # dumptuples
 
 ## Location
-src/backend/utils/sort/tuplestore.c: 1206 - 1232
+[src/backend/utils/sort/tuplestore.c:1206-1232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplestore.c#L1206-L1232)
 
 ## Overview
 Static function that removes tuples from memory and writes them as an initial run to tape during external sorting operations in PostgreSQL's tuplesort implementation.

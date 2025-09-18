@@ -1,7 +1,7 @@
 # ReorderBufferSerializedPath
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 4767 - 4783
+[src/backend/replication/logical/reorderbuffer.c:4767-4783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L4767-L4783)
 
 ## Overview
 Generates the file path for a replication slot's serialized (spilled) transaction data file based on the slot name, transaction ID, and segment number.

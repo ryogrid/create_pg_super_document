@@ -1,7 +1,7 @@
 # shdepReassignOwned_InitAcl
 
 ## Location
-src/backend/catalog/pg_shdepend.c: 1734 - 1759
+[src/backend/catalog/pg_shdepend.c:1734-1759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_shdepend.c#L1734-L1759)
 
 ## Overview
 A static helper function that handles reassignment of role references in pg_init_privs entries during ownership reassignment operations for SHARED_DEPENDENCY_INITACL dependencies.

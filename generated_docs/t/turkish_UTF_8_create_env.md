@@ -1,7 +1,7 @@
 # turkish_UTF_8_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 2093 - 2094
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2093-2094](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L2093-L2094)
 
 ## Overview
 Factory function that creates and initializes a new Snowball environment structure specifically configured for Turkish UTF-8 text processing.

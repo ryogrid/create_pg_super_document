@@ -1,7 +1,7 @@
 # repalloc_huge
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1671 - 1681
+[src/backend/utils/mmgr/mcxt.c:1671-1681](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1671-L1681)
 
 ## Overview
 repalloc_huge is a PostgreSQL memory management function that adjusts the size of a previously allocated memory chunk, allowing for potentially very large allocations.

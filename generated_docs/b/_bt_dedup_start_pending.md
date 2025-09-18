@@ -1,7 +1,7 @@
 # _bt_dedup_start_pending
 
 ## Location
-src/backend/access/nbtree/nbtdedup.c: 433 - 483
+[src/backend/access/nbtree/nbtdedup.c:433-483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtdedup.c#L433-L483)
 
 ## Overview
 Initializes a new pending posting list tuple based on a base tuple, setting up the deduplication state for collecting duplicate tuples.

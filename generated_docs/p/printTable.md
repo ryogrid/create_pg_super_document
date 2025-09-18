@@ -1,7 +1,7 @@
 # printTable
 
 ## Location
-src/fe_utils/print.c: 3443 - 3548
+[src/fe_utils/print.c:3443-3548](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3443-L3548)
 
 ## Overview
 The printTable function is the main entry point for printing tabular data in various supported output formats within PostgreSQL client utilities, handling format selection, pager management, and output redirection.

@@ -1,7 +1,7 @@
 # copyVar
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 1956 - 1977
+[src/backend/optimizer/plan/setrefs.c:1956-1977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L1956-L1977)
 
 ## Overview
 A specialized utility function that creates a shallow copy of a Var node, optimized for performance in expression tree manipulation during query planning.

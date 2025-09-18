@@ -1,7 +1,7 @@
 # EventTriggerCacheStateType
 
 ## Location
-src/backend/utils/cache/evtcache.c: 38 - 43
+[src/backend/utils/cache/evtcache.c:38-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/evtcache.c#L38-L43)
 
 ## Overview
 An enumeration type that represents the current state of the event trigger cache, tracking whether it needs rebuilding, is in the process of being rebuilt, or is currently valid and ready for use.

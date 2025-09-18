@@ -1,7 +1,7 @@
 # PQconnectdbParams
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 689 - 706
+[src/interfaces/libpq/fe-connect.c:689-706](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L689-L706)
 
 ## Overview
 Establishes a synchronous (blocking) connection to a PostgreSQL backend using connection parameters provided in two parallel arrays of keywords and values.

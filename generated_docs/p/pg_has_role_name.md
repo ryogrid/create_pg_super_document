@@ -1,7 +1,7 @@
 # pg_has_role_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4731 - 4754
+[src/backend/utils/adt/acl.c:4731-4754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4731-L4754)
 
 ## Overview
 Checks if the current user has specific privileges on a role specified by name, using the current user as the default subject.

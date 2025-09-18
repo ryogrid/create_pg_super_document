@@ -1,7 +1,7 @@
 # DoCopy
 
 ## Location
-src/backend/commands/copy.c: 62 - 328
+[src/backend/commands/copy.c:62-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copy.c#L62-L328)
 
 ## Overview
 DoCopy executes the SQL COPY statement, handling both copying data from files/programs/stdin into tables (COPY FROM) and copying table data or query results to files/programs/stdout (COPY TO).

@@ -1,7 +1,7 @@
 # Int128AggState
 
 ## Location
-src/backend/utils/adt/numeric.c: 5483 - 5489
+[src/backend/utils/adt/numeric.c:5483-5489](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5483-L5489)
 
 ## Overview
 Int128AggState is a high-performance structure used for numeric aggregate operations on platforms supporting 128-bit integers, providing faster calculations compared to NumericAggState for compatible aggregate functions.

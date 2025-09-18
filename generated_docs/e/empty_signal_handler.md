@@ -1,7 +1,7 @@
 # empty_signal_handler
 
 ## Location
-src/bin/psql/startup.c: 115 - 125
+[src/bin/psql/startup.c:115-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L115-L125)
 
 ## Overview
 A static signal handler function in psql that provides an empty signal handling mechanism for specific signal management scenarios.

@@ -1,7 +1,7 @@
 # BTScanOpaqueData
 
 ## Location
-src/include/access/nbtree.h: 1040 - 1079
+[src/include/access/nbtree.h:1040-1079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L1040-L1079)
 
 ## Overview
 BTScanOpaqueData is the comprehensive btree-private state structure that manages all aspects of an index scan, including preprocessed keys, array support, position tracking, and tuple storage.

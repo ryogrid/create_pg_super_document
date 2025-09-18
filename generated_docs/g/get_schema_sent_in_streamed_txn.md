@@ -1,7 +1,7 @@
 # get_schema_sent_in_streamed_txn
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 1971 - 1980
+[src/backend/replication/pgoutput/pgoutput.c:1971-1980](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L1971-L1980)
 
 ## Overview
 This function checks whether schema information has already been sent for a specific relation within a given streamed transaction.

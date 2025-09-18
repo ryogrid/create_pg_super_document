@@ -1,7 +1,7 @@
 # SerializedTransactionState
 
 ## Location
-src/backend/access/transam/xact.c: 224 - 233
+[src/backend/access/transam/xact.c:224-233](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L224-L233)
 
 ## Overview
 SerializedTransactionState is a compact structure used to transmit essential transaction state information to parallel workers through shared memory.

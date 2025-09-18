@@ -1,7 +1,7 @@
 # CloneForeignKeyConstraints
 
 ## Location
-src/backend/commands/tablecmds.c: 10604 - 10632
+[src/backend/commands/tablecmds.c:10604-10632](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L10604-L10632)
 
 ## Overview
 Clones foreign key constraints from a partitioned table to a newly acquired partition, handling both referencing-side and referenced-side constraints appropriately.

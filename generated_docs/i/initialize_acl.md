@@ -1,7 +1,7 @@
 # initialize_acl
 
 ## Location
-src/backend/utils/adt/acl.c: 4907 - 4936
+[src/backend/utils/adt/acl.c:4907-4936](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4907-L4936)
 
 ## Overview
 This function initializes the ACL (Access Control List) subsystem during PostgreSQL startup by setting up caching mechanisms and registering callback functions for role membership cache invalidation.

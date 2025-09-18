@@ -1,7 +1,7 @@
 # db_comparator
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1055 - 1072
+[src/backend/postmaster/autovacuum.c:1055-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1055-L1072)
 
 ## Overview
 A qsort comparison function that orders autovacuum database entries by their scheduling score for proper priority-based sorting.

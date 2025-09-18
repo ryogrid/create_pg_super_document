@@ -1,7 +1,7 @@
 # array_agg_serialize
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 622 - 710
+[src/backend/utils/adt/array_userfuncs.c:622-710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L622-L710)
 
 ## Overview
 Serializes an ArrayBuildState structure into a bytea format for transmission during parallel aggregate processing in array_agg().

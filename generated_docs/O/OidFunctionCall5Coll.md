@@ -1,7 +1,7 @@
 # OidFunctionCall5Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1453 - 1463
+[src/backend/utils/fmgr/fmgr.c:1453-1463](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1453-L1463)
 
 ## Overview
 OidFunctionCall5Coll is a utility function that invokes a PostgreSQL function by its OID (Object Identifier) with five arguments and explicit collation support.

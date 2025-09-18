@@ -1,7 +1,7 @@
 # pg_sequence_last_value
 
 ## Location
-src/backend/commands/sequence.c: 1785 - 1833
+[src/backend/commands/sequence.c:1785-1833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/sequence.c#L1785-L1833)
 
 ## Overview
 A SQL-callable function that returns the last generated value from a sequence, with special handling for temporary sequences and standby servers.

@@ -1,7 +1,7 @@
 # ExecInitParallelPlan
 
 ## Location
-src/backend/executor/execParallel.c: 587 - 877
+[src/backend/executor/execParallel.c:587-877](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execParallel.c#L587-L877)
 
 ## Overview
 ExecInitParallelPlan is the comprehensive initialization function that sets up all infrastructure required for parallel query execution, including shared memory allocation, tuple queues, instrumentation, and plan state preparation for worker processes.

@@ -1,7 +1,7 @@
 # overlaps_time
 
 ## Location
-src/backend/utils/adt/date.c: 1783 - 1797
+[src/backend/utils/adt/date.c:1783-1797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1783-L1797)
 
 ## Overview
 Implements the SQL OVERLAPS operator for time data types, determining whether two time intervals overlap according to the SQL specification.

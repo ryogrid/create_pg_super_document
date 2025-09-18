@@ -1,7 +1,7 @@
 # hashint4extended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 77 - 82
+[src/backend/access/hash/hashfunc.c:77-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L77-L82)
 
 ## Overview
 The hashint4extended function is a PostgreSQL hash function that computes an extended hash value for a 32-bit signed integer (int4) using an additional 64-bit seed value.

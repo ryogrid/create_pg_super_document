@@ -1,7 +1,7 @@
 # findCollationByOid
 
 ## Location
-src/bin/pg_dump/common.c: 961 - 978
+[src/bin/pg_dump/common.c:961-978](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L961-L978)
 
 ## Overview
 Finds and returns the DumpableObject for a PostgreSQL collation with the given OID, used in pg_dump operations for collation lookup during database dumping.

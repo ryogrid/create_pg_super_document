@@ -1,7 +1,7 @@
 # range_bound_escape
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 2537 - 2585
+[src/backend/utils/adt/rangetypes.c:2537-2585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L2537-L2585)
 
 ## Overview
 Quotes and escapes a range bound value string as needed for safe inclusion in range text output, handling special characters that have meaning in range syntax.

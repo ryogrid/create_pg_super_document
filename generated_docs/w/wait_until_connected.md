@@ -1,7 +1,7 @@
 # wait_until_connected
 
 ## Location
-src/bin/psql/command.c: 3850 - 3911
+[src/bin/psql/command.c:3850-3911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3850-L3911)
 
 ## Overview
 Processes the asynchronous connection sequence initiated by PQconnectStartParams(), polling the connection until completion while handling user cancellation requests.

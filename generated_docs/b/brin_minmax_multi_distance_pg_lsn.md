@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_pg_lsn
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2191 - 2211
+[src/backend/access/brin/brin_minmax_multi.c:2191-2211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2191-L2211)
 
 ## Overview
 Computes the distance between two PostgreSQL Log Sequence Number (LSN) values by directly subtracting their underlying int64 representations, used by BRIN minmax multi operator classes for pg_lsn data types.

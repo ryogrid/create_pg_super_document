@@ -1,7 +1,7 @@
 # ginRedoDeletePage
 
 ## Location
-src/backend/access/gin/ginxlog.c: 477 - 527
+[src/backend/access/gin/ginxlog.c:477-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginxlog.c#L477-L527)
 
 ## Overview
 Replays GIN data page deletion operations during WAL recovery, updating sibling links and marking pages as deleted.

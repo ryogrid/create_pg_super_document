@@ -1,7 +1,7 @@
 # XLogWalRcvClose
 
 ## Location
-src/backend/replication/walreceiver.c: 1048 - 1099
+[src/backend/replication/walreceiver.c:1048-1099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1048-L1099)
 
 ## Overview
 Closes the currently open WAL segment file after ensuring data persistence through flushing and sets up appropriate archive notifications for the completed segment.

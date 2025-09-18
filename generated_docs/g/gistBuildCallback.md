@@ -1,7 +1,7 @@
 # gistBuildCallback
 
 ## Location
-src/backend/access/gist/gistbuild.c: 820 - 906
+[src/backend/access/gist/gistbuild.c:820-906](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L820-L906)
 
 ## Overview
 Per-tuple callback function used during GiST index construction that processes each heap tuple, converts it to an index tuple, and inserts it into the index using the appropriate insertion method.

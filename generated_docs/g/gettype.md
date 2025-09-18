@@ -1,7 +1,7 @@
 # gettype
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 735 - 805
+[src/backend/bootstrap/bootstrap.c:735-805](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L735-L805)
 
 ## Overview
 A static function that looks up type information by name, returning either an index into the TypInfo array or a real OID depending on the current state of the type cache.

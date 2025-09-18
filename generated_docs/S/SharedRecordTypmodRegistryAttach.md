@@ -1,7 +1,7 @@
 # SharedRecordTypmodRegistryAttach
 
 ## Location
-src/backend/utils/cache/typcache.c: 2207 - 2289
+[src/backend/utils/cache/typcache.c:2207-2289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2207-L2289)
 
 ## Overview
 Attaches a parallel worker process to an existing SharedRecordTypmodRegistry that was previously initialized by the leader process, enabling the worker to participate in shared record type management.

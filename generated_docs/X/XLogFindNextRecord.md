@@ -1,7 +1,7 @@
 # XLogFindNextRecord
 
 ## Location
-src/backend/access/transam/xlogreader.c: 1393 - 1512
+[src/backend/access/transam/xlogreader.c:1393-1512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogreader.c#L1393-L1512)
 
 ## Overview
 XLogFindNextRecord locates the first valid XLOG record at or after a given LSN position, handling cases where the starting position may not align with record boundaries.

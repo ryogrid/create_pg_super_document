@@ -1,7 +1,7 @@
 # percentile_cont_interval_multi_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 1019 - 1032
+[src/backend/utils/adt/orderedsetaggs.c:1019-1032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L1019-L1032)
 
 ## Overview
 Implements the final phase of the PostgreSQL aggregate function , which computes continuous percentiles for interval data types.

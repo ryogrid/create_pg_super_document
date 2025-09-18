@@ -1,7 +1,7 @@
 # ExecInitHash
 
 ## Location
-src/backend/executor/nodeHash.c: 360 - 412
+[src/backend/executor/nodeHash.c:360-412](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L360-L412)
 
 ## Overview
 ExecInitHash is the initialization function for Hash plan nodes that sets up the HashState structure, initializes child nodes, and prepares expression contexts and hash key expressions for hash table construction.

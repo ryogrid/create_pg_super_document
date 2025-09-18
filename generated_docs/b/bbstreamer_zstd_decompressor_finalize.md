@@ -1,7 +1,7 @@
 # bbstreamer_zstd_decompressor_finalize
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_zstd.c: 338 - 358
+[src/bin/pg_basebackup/bbstreamer_zstd.c:338-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_zstd.c#L338-L358)
 
 ## Overview
 Performs end-of-stream processing for ZSTD decompression by forwarding any remaining buffered data to the next streamer and finalizing the downstream pipeline.

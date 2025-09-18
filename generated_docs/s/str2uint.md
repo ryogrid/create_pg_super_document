@@ -1,7 +1,7 @@
 # str2uint
 
 ## Location
-src/bin/pg_upgrade/util.c: 352 - 355
+[src/bin/pg_upgrade/util.c:352-355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/util.c#L352-L355)
 
 ## Overview
 Converts a string representation of a number to an unsigned integer, specifically used in pg_upgrade utility for parsing configuration data.

@@ -1,7 +1,7 @@
 # RestoreClientConnectionInfo
 
 ## Location
-src/backend/utils/init/miscinit.c: 1130 - 1169
+[src/backend/utils/init/miscinit.c:1130-1169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L1130-L1169)
 
 ## Overview
 Restores MyClientConnectionInfo from its serialized binary representation, typically used by parallel worker processes to inherit client connection information.

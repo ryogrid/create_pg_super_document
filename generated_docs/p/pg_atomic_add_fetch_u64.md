@@ -1,7 +1,7 @@
 # pg_atomic_add_fetch_u64
 
 ## Location
-src/include/port/atomics.h: 554 - 562
+[src/include/port/atomics.h:554-562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L554-L562)
 
 ## Overview
 Atomically adds a value to a 64-bit unsigned integer and returns the result after the addition.

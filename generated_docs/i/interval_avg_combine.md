@@ -1,7 +1,7 @@
 # interval_avg_combine
 
 ## Location
-src/backend/utils/adt/timestamp.c: 4025 - 4067
+[src/backend/utils/adt/timestamp.c:4025-4067](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L4025-L4067)
 
 ## Overview
 Combine function for sum() and avg() interval aggregates that merges two internal aggregate states into the first argument for parallel aggregation.

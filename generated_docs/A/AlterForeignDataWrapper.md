@@ -1,7 +1,7 @@
 # AlterForeignDataWrapper
 
 ## Location
-src/backend/commands/foreigncmds.c: 685 - 848
+[src/backend/commands/foreigncmds.c:685-848](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L685-L848)
 
 ## Overview
 Modifies an existing foreign-data wrapper (FDW) by updating its handler function, validator function, and/or options in the PostgreSQL system catalog.

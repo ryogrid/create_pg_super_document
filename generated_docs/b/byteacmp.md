@@ -1,7 +1,7 @@
 # byteacmp
 
 ## Location
-src/backend/utils/adt/varlena.c: 3938 - 3959
+[src/backend/utils/adt/varlena.c:3938-3959](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3938-L3959)
 
 ## Overview
 The byteacmp function implements a three-way comparison function for bytea (binary string) data types, returning -1, 0, or 1 to indicate less-than, equal, or greater-than relationships.

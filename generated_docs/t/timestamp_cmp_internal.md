@@ -1,7 +1,7 @@
 # timestamp_cmp_internal
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2210 - 2215
+[src/backend/utils/adt/timestamp.c:2210-2215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2210-L2215)
 
 ## Overview
 Internal comparison function that compares two Timestamp values and returns a three-way comparison result (-1, 0, or 1).

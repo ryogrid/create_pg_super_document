@@ -1,7 +1,7 @@
 # gin_tsquery_consistent_oldsig
 
 ## Location
-src/backend/utils/adt/tsginidx.c: 350 - 353
+[src/backend/utils/adt/tsginidx.c:350-353](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsginidx.c#L350-L353)
 
 ## Overview
 A legacy stub function that maintains backward compatibility for the old signature of the GIN text search query consistency checking function.

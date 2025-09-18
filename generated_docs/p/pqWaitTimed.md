@@ -1,7 +1,7 @@
 # pqWaitTimed
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1020 - 1042
+[src/interfaces/libpq/fe-misc.c:1020-1042](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1020-L1042)
 
 ## Overview
 pqWaitTimed is a PostgreSQL libpq function that waits for socket readiness with a specified timeout limit.

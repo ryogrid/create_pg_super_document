@@ -1,7 +1,7 @@
 # smgrimmedsync
 
 ## Location
-src/backend/storage/smgr/smgr.c: 815 - 832
+[src/backend/storage/smgr/smgr.c:815-832](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/smgr.c#L815-L832)
 
 ## Overview
 Forces the specified relation to stable storage by synchronously forcing all previous writes down to disk, primarily used for building new relations like indexes where WAL logging is bypassed.

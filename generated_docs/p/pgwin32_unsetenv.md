@@ -1,7 +1,7 @@
 # pgwin32_unsetenv
 
 ## Location
-src/port/win32env.c: 150 - 163
+[src/port/win32env.c:150-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/win32env.c#L150-L163)
 
 ## Overview
 Windows-specific replacement for POSIX unsetenv() that removes environment variables by setting them to an empty value, ensuring cross-CRT compatibility through pgwin32_putenv().

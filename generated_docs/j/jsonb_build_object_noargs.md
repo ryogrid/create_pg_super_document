@@ -1,7 +1,7 @@
 # jsonb_build_object_noargs
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1197 - 1209
+[src/backend/utils/adt/jsonb.c:1197-1209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1197-L1209)
 
 ## Overview
 A PostgreSQL function that handles the degenerate case of  when called with zero arguments, returning an empty JSONB object.

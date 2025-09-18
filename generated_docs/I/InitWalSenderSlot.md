@@ -1,7 +1,7 @@
 # InitWalSenderSlot
 
 ## Location
-src/backend/replication/walsender.c: 2927 - 3003
+[src/backend/replication/walsender.c:2927-3003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L2927-L3003)
 
 ## Overview
 Initializes and reserves a WAL sender slot in shared memory for the current WAL sender process.

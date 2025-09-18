@@ -1,7 +1,7 @@
 # macaddr_eq
 
 ## Location
-src/backend/utils/adt/mac.c: 228 - 236
+[src/backend/utils/adt/mac.c:228-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L228-L236)
 
 ## Overview
 PostgreSQL function that determines if two MAC addresses are equal, returning a boolean result.

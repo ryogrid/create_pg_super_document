@@ -1,7 +1,7 @@
 # bms_next_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 1306 - 1366
+[src/backend/nodes/bitmapset.c:1306-1366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L1306-L1366)
 
 ## Overview
 Finds the next member in a bitmap set that is greater than a specified previous bit position, enabling efficient iteration through set members.

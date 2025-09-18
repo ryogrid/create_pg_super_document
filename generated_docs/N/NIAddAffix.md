@@ -1,7 +1,7 @@
 # NIAddAffix
 
 ## Location
-src/backend/tsearch/spell.c: 678 - 771
+[src/backend/tsearch/spell.c:678-771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L678-L771)
 
 ## Overview
 Adds a new affix rule to the dictionary's Affix array, handling pattern compilation and memory management for prefix/suffix transformation rules.

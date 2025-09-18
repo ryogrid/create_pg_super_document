@@ -1,7 +1,7 @@
 # ReadCheckpointRecord
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4050 - 4104
+[src/backend/access/transam/xlogrecovery.c:4050-4104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4050-L4104)
 
 ## Overview
 ReadCheckpointRecord is a specialized function that safely fetches and validates checkpoint records from the WAL during PostgreSQL recovery initialization, performing comprehensive validation to ensure checkpoint integrity.

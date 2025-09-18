@@ -1,7 +1,7 @@
 # check_recovery_target_time
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4895 - 4949
+[src/backend/access/transam/xlogrecovery.c:4895-4949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4895-L4949)
 
 ## Overview
 A GUC (Grand Unified Configuration) check hook function that validates the `recovery_target_time` parameter, performing syntax validation on timestamp strings while rejecting special relative time values.

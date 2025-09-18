@@ -1,7 +1,7 @@
 # get_index_column_opclass
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 3512 - 3554
+[src/backend/utils/cache/lsyscache.c:3512-3554](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L3512-L3554)
 
 ## Overview
 Retrieves the operator class (opclass) for a specific column of an index, which defines the set of operators and support functions used for that indexed column.

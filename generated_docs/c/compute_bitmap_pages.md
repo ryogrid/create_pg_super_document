@@ -1,7 +1,7 @@
 # compute_bitmap_pages
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6406 - 6504
+[src/backend/optimizer/path/costsize.c:6406-6504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6406-L6504)
 
 ## Overview
 Estimates the number of heap pages that will be fetched during a bitmap heap scan, accounting for memory constraints and lossy page handling.

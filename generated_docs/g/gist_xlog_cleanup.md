@@ -1,7 +1,7 @@
 # gist_xlog_cleanup
 
 ## Location
-src/backend/access/gist/gistxlog.c: 444 - 452
+[src/backend/access/gist/gistxlog.c:444-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L444-L452)
 
 ## Overview
 Cleans up the GiST WAL recovery subsystem by deleting the dedicated memory context used for redo operations.

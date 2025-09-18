@@ -1,7 +1,7 @@
 # LZ4Stream_eof
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 322 - 329
+[src/bin/pg_dump/compress_lz4.c:322-329](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L322-L329)
 
 ## Overview
 LZ4 equivalent to the standard feof() function, determining if an LZ4-compressed stream has reached end-of-file by checking both the overflow buffer and the underlying file stream.

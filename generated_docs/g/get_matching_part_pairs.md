@@ -1,7 +1,7 @@
 # get_matching_part_pairs
 
 ## Location
-src/backend/optimizer/path/joinrels.c: 1881 - 1971
+[src/backend/optimizer/path/joinrels.c:1881-1971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinrels.c#L1881-L1971)
 
 ## Overview
 Generates pairs of matching partitions from input relations to be joined when their partition bounds have been merged.

@@ -1,7 +1,7 @@
 # box_poly
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4535 - 4563
+[src/backend/utils/adt/geo_ops.c:4535-4563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4535-L4563)
 
 ## Overview
 Converts a rectangular box to a polygon by creating a 4-vertex polygon representing the box's corners.

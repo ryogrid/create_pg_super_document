@@ -1,7 +1,7 @@
 # XLogFromFileName
 
 ## Location
-src/include/access/xlog_internal.h: 200 - 209
+[src/include/access/xlog_internal.h:200-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L200-L209)
 
 ## Overview
 XLogFromFileName parses a WAL segment filename to extract the timeline ID and logical segment number components.

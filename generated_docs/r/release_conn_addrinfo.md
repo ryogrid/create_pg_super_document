@@ -1,7 +1,7 @@
 # release_conn_addrinfo
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4784 - 4797
+[src/interfaces/libpq/fe-connect.c:4784-4797](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4784-L4797)
 
 ## Overview
 Frees any address information list stored in a PostgreSQL connection object, cleaning up network-related resources.

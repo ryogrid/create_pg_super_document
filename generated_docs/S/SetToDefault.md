@@ -1,7 +1,7 @@
 # SetToDefault
 
 ## Location
-src/include/nodes/primnodes.h: 2068 - 2079
+[src/include/nodes/primnodes.h:2068-2079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2068-L2079)
 
 ## Overview
 A placeholder node representing a DEFAULT marker in INSERT or UPDATE commands that must be replaced with the actual column default expression during query rewriting.

@@ -1,7 +1,7 @@
 # conninfo_storeval
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 6864 - 6927
+[src/interfaces/libpq/fe-connect.c:6864-6927](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L6864-L6927)
 
 ## Overview
 A static function that stores a new value for a connection option in the connOptions array, with support for URI decoding and backward compatibility handling for legacy SSL options.

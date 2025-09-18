@@ -1,7 +1,7 @@
 # JsonPathExecResult
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 142 - 143
+[src/backend/utils/adt/jsonpath_exec.c:142-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L142-L143)
 
 ## Overview
 JsonPathExecResult is an enumeration that represents the possible execution results when evaluating JSONPath expressions in PostgreSQL.

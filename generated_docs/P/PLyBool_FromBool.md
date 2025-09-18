@@ -1,7 +1,7 @@
 # PLyBool_FromBool
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 550 - 557
+[src/pl/plpython/plpy_typeio.c:550-557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L550-L557)
 
 ## Overview
 PLyBool_FromBool converts PostgreSQL boolean values to Python boolean objects, providing a specialized and optimized conversion path for BOOLOID types.

@@ -1,7 +1,7 @@
 # make_interval
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1539 - 1595
+[src/backend/utils/adt/timestamp.c:1539-1595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1539-L1595)
 
 ## Overview
 Creates an interval value from separate numeric components (years, months, weeks, days, hours, minutes, seconds), serving as the primary constructor function for PostgreSQL's INTERVAL type.

@@ -1,7 +1,7 @@
 # lseg_sl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2155 - 2164
+[src/backend/utils/adt/geo_ops.c:2155-2164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2155-L2164)
 
 ## Overview
 Calculates the slope of a line segment by computing the slope between its two endpoints.

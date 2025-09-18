@@ -1,7 +1,7 @@
 # plperl_util_elog
 
 ## Location
-src/pl/plperl/plperl.c: 4054 - 4092
+[src/pl/plperl/plperl.c:4054-4092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L4054-L4092)
 
 ## Overview
 Implements PostgreSQL's elog() function for PL/Perl, providing error and message logging capabilities while properly handling Perl exceptions and PostgreSQL's error handling mechanism.

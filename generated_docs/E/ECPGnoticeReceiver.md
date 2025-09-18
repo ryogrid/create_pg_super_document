@@ -1,7 +1,7 @@
 # ECPGnoticeReceiver
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 208 - 259
+[src/interfaces/ecpg/ecpglib/connect.c:208-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L208-L259)
 
 ## Overview
 ECPGnoticeReceiver is a static callback function that processes PostgreSQL notice and warning messages in ECPG, translating them into SQLCA (SQL Communications Area) format for application consumption.

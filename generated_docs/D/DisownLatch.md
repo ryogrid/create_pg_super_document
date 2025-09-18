@@ -1,7 +1,7 @@
 # DisownLatch
 
 ## Location
-src/backend/storage/ipc/latch.c: 489 - 516
+[src/backend/storage/ipc/latch.c:489-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L489-L516)
 
 ## Overview
 Releases ownership of a shared latch from the current process, making it available for other processes to own.

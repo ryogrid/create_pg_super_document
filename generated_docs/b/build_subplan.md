@@ -1,7 +1,7 @@
 # build_subplan
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 319 - 579
+[src/backend/optimizer/plan/subselect.c:319-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L319-L579)
 
 ## Overview
 Constructs a SubPlan node from raw planning inputs, determining whether to implement it as a regular SubPlan or InitPlan and handling parameter setup and optimization decisions.

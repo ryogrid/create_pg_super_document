@@ -1,7 +1,7 @@
 # relation_can_be_sorted_early
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 917 - 1027
+[src/backend/optimizer/path/equivclass.c:917-1027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L917-L1027)
 
 ## Overview
 Determines whether a relation can be sorted on a given EquivalenceClass before the final output step, during the scan/join part of the plan.

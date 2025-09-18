@@ -1,7 +1,7 @@
 # print
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-whenever.c: 27 - 32
+[src/interfaces/ecpg/test/expected/preproc-whenever.c:27-32](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-whenever.c#L27-L32)
 
 ## Overview
 The print function outputs the contents of a PostgreSQL Node structure to stdout in a human-readable format.

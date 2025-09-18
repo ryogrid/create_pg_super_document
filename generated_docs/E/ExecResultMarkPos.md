@@ -1,7 +1,7 @@
 # ExecResultMarkPos
 
 ## Location
-src/backend/executor/nodeResult.c: 146 - 160
+[src/backend/executor/nodeResult.c:146-160](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeResult.c#L146-L160)
 
 ## Overview
 ExecResultMarkPos marks the current position in a Result node for potential restoration later, delegating the mark operation to its outer plan if present.

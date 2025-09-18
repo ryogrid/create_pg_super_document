@@ -1,7 +1,7 @@
 # gnuish_strerror_r
 
 ## Location
-src/port/strerror.c: 85 - 112
+[src/port/strerror.c:85-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/strerror.c#L85-L112)
 
 ## Overview
 A platform abstraction wrapper that emulates GNU strerror_r behavior regardless of the underlying platform's strerror_r implementation (POSIX vs GNU) or availability.

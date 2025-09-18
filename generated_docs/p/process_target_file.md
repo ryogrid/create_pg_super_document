@@ -1,7 +1,7 @@
 # process_target_file
 
 ## Location
-src/bin/pg_rewind/filemap.c: 315 - 351
+[src/bin/pg_rewind/filemap.c:315-351](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L315-L351)
 
 ## Overview
 A callback function that processes each file found in the target PostgreSQL server during pg_rewind operations, recording file metadata for later comparison with corresponding source files.

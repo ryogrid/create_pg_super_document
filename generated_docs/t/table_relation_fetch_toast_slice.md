@@ -1,7 +1,7 @@
 # table_relation_fetch_toast_slice
 
 ## Location
-src/include/access/tableam.h: 1917 - 1937
+[src/include/access/tableam.h:1917-1937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/tableam.h#L1917-L1937)
 
 ## Overview
 Fetches all or part of a TOAST value from a TOAST table, providing access to large attribute data stored out-of-line.

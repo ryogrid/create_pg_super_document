@@ -1,7 +1,7 @@
 # SnapBuildDistributeSnapshotAndInval
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 870 - 966
+[src/backend/replication/logical/snapbuild.c:870-966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L870-L966)
 
 ## Overview
 Distributes new snapshots and invalidation messages to all in-progress transactions during logical decoding to ensure they see current catalog contents after a transaction commits.

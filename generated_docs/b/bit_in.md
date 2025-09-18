@@ -1,7 +1,7 @@
 # bit_in
 
 ## Location
-src/backend/utils/adt/varbit.c: 147 - 279
+[src/backend/utils/adt/varbit.c:147-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L147-L279)
 
 ## Overview
 Converts a string representation (binary, hexadecimal, or plain binary) to PostgreSQL's internal bit string representation, handling type modifier validation and various input formats.

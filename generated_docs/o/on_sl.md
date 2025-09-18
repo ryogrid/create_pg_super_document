@@ -1,7 +1,7 @@
 # on_sl
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3201 - 3216
+[src/backend/utils/adt/geo_ops.c:3201-3216](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3201-L3216)
 
 ## Overview
 This function tests whether a line segment lies on a line, by checking if both endpoints of the segment lie on the line.

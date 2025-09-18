@@ -1,7 +1,7 @@
 # NumericVar
 
 ## Location
-src/backend/utils/adt/numeric.c: 310 - 318
+[src/backend/utils/adt/numeric.c:310-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L310-L318)
 
 ## Overview
 NumericVar is the internal working format used for arithmetic operations on PostgreSQL numeric values, providing an expanded representation with separate metadata fields and flexible digit buffer management.

@@ -1,7 +1,7 @@
 # die_on_query_failure
 
 ## Location
-src/bin/pg_dump/pg_backup_db.c: 269 - 277
+[src/bin/pg_dump/pg_backup_db.c:269-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_db.c#L269-L277)
 
 ## Overview
 A static error handling function in pg_dump that logs query failure details and terminates the program execution with an error status.

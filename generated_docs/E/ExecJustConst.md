@@ -1,7 +1,7 @@
 # ExecJustConst
 
 ## Location
-src/backend/executor/execExprInterp.c: 2273 - 2282
+[src/backend/executor/execExprInterp.c:2273-2282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L2273-L2282)
 
 ## Overview
 ExecJustConst is a highly optimized function that evaluates simple constant expressions in PostgreSQL's expression evaluation system.

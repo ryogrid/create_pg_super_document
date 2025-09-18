@@ -1,7 +1,7 @@
 # gistfixsplit
 
 ## Location
-src/backend/access/gist/gist.c: 1195 - 1254
+[src/backend/access/gist/gist.c:1195-1254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L1195-L1254)
 
 ## Overview
 Completes an incomplete page split that was left unfinished by a previous backend crash, ensuring GiST tree consistency by inserting the missing downlinks to parent pages.

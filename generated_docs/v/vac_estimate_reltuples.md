@@ -1,7 +1,7 @@
 # vac_estimate_reltuples
 
 ## Location
-src/backend/commands/vacuum.c: 1313 - 1408
+[src/backend/commands/vacuum.c:1313-1408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1313-L1408)
 
 ## Overview
 Estimates the new value for pg_class.reltuples based on a partial scan of the relation, using tuple density calculations for unscanned pages.

@@ -1,7 +1,7 @@
 # get_default_partition_oid
 
 ## Location
-src/backend/catalog/partition.c: 315 - 339
+[src/backend/catalog/partition.c:315-339](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L315-L339)
 
 ## Overview
 Retrieves the OID of the default partition for a given partitioned table by looking up the partdefid field in the pg_partitioned_table system catalog.

@@ -1,7 +1,7 @@
 # xl_xact_origin
 
 ## Location
-src/include/access/xact.h: 308 - 312
+[src/include/access/xact.h:308-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xact.h#L308-L312)
 
 ## Overview
 Structure that represents transaction origin information in WAL records, containing the LSN and timestamp of the original transaction.

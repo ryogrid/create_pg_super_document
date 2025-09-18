@@ -1,7 +1,7 @@
 # poly_overright
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3602 - 3624
+[src/backend/utils/adt/geo_ops.c:3602-3624](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3602-L3624)
 
 ## Overview
 Determines if polygon A is overlapping with or positioned to the right of polygon B by comparing their leftmost bounding box coordinates.

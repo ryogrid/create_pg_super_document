@@ -1,7 +1,7 @@
 # new_variable
 
 ## Location
-src/interfaces/ecpg/preproc/variable.c: 10 - 24
+[src/interfaces/ecpg/preproc/variable.c:10-24](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/variable.c#L10-L24)
 
 ## Overview
 Creates and initializes a new variable structure in the ECPG preprocessor, adding it to the global variable list for tracking during SQL statement processing.

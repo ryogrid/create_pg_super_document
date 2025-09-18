@@ -1,7 +1,7 @@
 # pg_popcount_masked_avx512
 
 ## Location
-src/port/pg_popcount_avx512.c: 86 - 141
+[src/port/pg_popcount_avx512.c:86-141](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_popcount_avx512.c#L86-L141)
 
 ## Overview
 pg_popcount_masked_avx512 is an AVX-512 optimized function that counts the number of 1-bits in a buffer after applying a bit mask to each byte, using Intel's AVX-512 SIMD instructions for high performance.

@@ -1,7 +1,7 @@
 # AdjustTimeForTypmod
 
 ## Location
-src/backend/utils/adt/date.c: 1645 - 1679
+[src/backend/utils/adt/date.c:1645-1679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L1645-L1679)
 
 ## Overview
 A utility function that forces the precision of TIME values to a specified precision level by applying rounding and truncation based on type modifiers.

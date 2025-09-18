@@ -1,7 +1,7 @@
 # PublicationActions
 
 ## Location
-src/include/catalog/pg_publication.h: 72 - 78
+[src/include/catalog/pg_publication.h:72-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/catalog/pg_publication.h#L72-L78)
 
 ## Overview
 PublicationActions is a structure that defines which DML operations (Data Manipulation Language) are published by a PostgreSQL logical replication publication.

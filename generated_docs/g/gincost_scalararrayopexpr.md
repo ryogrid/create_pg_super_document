@@ -1,7 +1,7 @@
 # gincost_scalararrayopexpr
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7533 - 7648
+[src/backend/utils/adt/selfuncs.c:7533-7648](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7533-L7648)
 
 ## Overview
 Estimates the number of index terms that need to be searched for a GIN index clause involving a ScalarArrayOpExpr (e.g., `column = ANY(array)`).

@@ -1,7 +1,7 @@
 # compare_lexeme_textfreq
 
 ## Location
-src/backend/tsearch/ts_selfuncs.c: 434 - 452
+[src/backend/tsearch/ts_selfuncs.c:434-452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/ts_selfuncs.c#L434-L452)
 
 ## Overview
 A bsearch() comparator function that compares a lexeme (non-NULL terminated string with length) against a TextFreq structure for binary searching through text search statistics.

@@ -1,7 +1,7 @@
 # read_local_xlog_page_guts
 
 ## Location
-src/backend/access/transam/xlogutils.c: 885 - 1019
+[src/backend/access/transam/xlogutils.c:885-1019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L885-L1019)
 
 ## Overview
 Core implementation function that reads WAL (Write-Ahead Log) pages from local storage, handling both waiting and non-waiting variants for WAL data availability.

@@ -1,7 +1,7 @@
 # ATRewriteTables
 
 ## Location
-src/backend/commands/tablecmds.c: 5702 - 5987
+[src/backend/commands/tablecmds.c:5702-5987](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L5702-L5987)
 
 ## Overview
 ATRewriteTables is the third phase of ALTER TABLE processing that handles table rewrites, constraint validation, and final cleanup operations for all tables affected by the ALTER TABLE command.

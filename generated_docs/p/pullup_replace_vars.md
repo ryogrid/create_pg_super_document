@@ -1,7 +1,7 @@
 # pullup_replace_vars
 
 ## Location
-src/backend/optimizer/prep/prepjointree.c: 2474 - 2483
+[src/backend/optimizer/prep/prepjointree.c:2474-2483](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/prep/prepjointree.c#L2474-L2483)
 
 ## Overview
 Applies pullup variable replacement throughout an expression tree by delegating to the generic replace_rte_variables function with a specialized callback.

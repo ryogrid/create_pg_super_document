@@ -1,7 +1,7 @@
 # ST_SWAP
 
 ## Location
-src/include/lib/sort_template.h: 273 - 281
+[src/include/lib/sort_template.h:273-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/sort_template.h#L273-L281)
 
 ## Overview
 ST_SWAP is a macro that generates a type-specific function name for the element swapping function used in PostgreSQL's sort template system.

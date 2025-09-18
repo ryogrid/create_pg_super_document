@@ -1,7 +1,7 @@
 # PortalCleanup
 
 ## Location
-src/backend/commands/portalcmds.c: 263 - 315
+[src/backend/commands/portalcmds.c:263-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/portalcmds.c#L263-L315)
 
 ## Overview
 PortalCleanup is the standard cleanup hook for portals that properly shuts down executor resources when a portal is dropped or during error recovery.

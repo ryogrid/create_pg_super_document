@@ -1,7 +1,7 @@
 # array_agg_array_deserialize
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 1109 - 1191
+[src/backend/utils/adt/array_userfuncs.c:1109-1191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L1109-L1191)
 
 ## Overview
 Deserializes a bytea back into an ArrayBuildStateArr structure to reconstruct aggregation state received from parallel worker processes during array_agg operations.

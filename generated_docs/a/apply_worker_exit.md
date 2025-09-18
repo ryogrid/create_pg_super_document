@@ -1,7 +1,7 @@
 # apply_worker_exit
 
 ## Location
-src/backend/replication/logical/worker.c: 3844 - 3874
+[src/backend/replication/logical/worker.c:3844-3874](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3844-L3874)
 
 ## Overview
 apply_worker_exit provides a controlled exit mechanism for logical replication apply workers when subscription parameters change, handling different worker types appropriately.

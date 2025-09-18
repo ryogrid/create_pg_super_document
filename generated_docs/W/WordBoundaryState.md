@@ -1,7 +1,7 @@
 # WordBoundaryState
 
 ## Location
-src/backend/utils/adt/formatting.c: 1925 - 1938
+[src/backend/utils/adt/formatting.c:1925-1938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1925-L1938)
 
 ## Overview
 A state tracking structure used by PostgreSQL's string formatting functions to maintain context for word boundary detection during text processing operations.

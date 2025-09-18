@@ -1,7 +1,7 @@
 # MultiXactOffsetWouldWrap
 
 ## Location
-src/backend/access/transam/multixact.c: 2832 - 2879
+[src/backend/access/transam/multixact.c:2832-2879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2832-L2879)
 
 ## Overview
 Determines whether adding a distance to a start offset would move past a boundary point, accounting for wraparound in the full 32-bit unsigned integer space.

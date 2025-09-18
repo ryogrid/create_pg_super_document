@@ -1,7 +1,7 @@
 # shared_record_typmod_registry_detach
 
 ## Location
-src/backend/utils/cache/typcache.c: 2868 - 2882
+[src/backend/utils/cache/typcache.c:2868-2882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2868-L2882)
 
 ## Overview
 A cleanup function that detaches from shared record typmod infrastructure when a dynamic shared memory segment is being destroyed.

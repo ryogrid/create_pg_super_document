@@ -1,7 +1,7 @@
 # conninfo_init
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 5760 - 5798
+[src/interfaces/libpq/fe-connect.c:5760-5798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L5760-L5798)
 
 ## Overview
 Builds a working copy of the constant PQconninfoOptions array for dynamic manipulation during connection parameter parsing.

@@ -1,7 +1,7 @@
 # phraseto_tsquery
 
 ## Location
-src/backend/tsearch/to_tsany.c: 680 - 691
+[src/backend/tsearch/to_tsany.c:680-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L680-L691)
 
 ## Overview
 A user-facing function that converts plain text to a phrase TSQuery using the current default text search configuration.

@@ -1,7 +1,7 @@
 # CountOtherDBBackends
 
 ## Location
-src/backend/storage/ipc/procarray.c: 3749 - 3752
+[src/backend/storage/ipc/procarray.c:3749-3752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L3749-L3752)
 
 ## Overview
 CountOtherDBBackends checks for other active backends running in a specified database, waiting up to 5 seconds for them to exit, and is primarily used to safely interlock DROP DATABASE operations.

@@ -1,7 +1,7 @@
 # ExecEndMemoize
 
 ## Location
-src/backend/executor/nodeMemoize.c: 1080 - 1139
+[src/backend/executor/nodeMemoize.c:1080-1139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMemoize.c#L1080-L1139)
 
 ## Overview
 ExecEndMemoize performs cleanup and shutdown operations for a MemoizeState node, including memory validation, parallel worker statistics collection, and resource deallocation.

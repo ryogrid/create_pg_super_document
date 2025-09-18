@@ -1,7 +1,7 @@
 # get_object_attnum_namespace
 
 ## Location
-src/backend/catalog/objectaddress.c: 2668 - 2675
+[src/backend/catalog/objectaddress.c:2668-2675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L2668-L2675)
 
 ## Overview
 Returns the attribute number for the namespace field of a given PostgreSQL object class, enabling operations to locate the namespace identifier within catalog table structures.

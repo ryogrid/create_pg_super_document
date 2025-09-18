@@ -1,7 +1,7 @@
 # text_pattern_gt
 
 ## Location
-src/backend/utils/adt/varlena.c: 2867 - 2882
+[src/backend/utils/adt/varlena.c:2867-2882](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2867-L2882)
 
 ## Overview
 A PostgreSQL function that performs pattern-based greater-than comparison between two text values, supporting character-by-character comparison suitable for building indexes used with LIKE clauses.

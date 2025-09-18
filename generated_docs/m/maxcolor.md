@@ -1,7 +1,7 @@
 # maxcolor
 
 ## Location
-src/backend/regex/regc_color.c: 172 - 184
+[src/backend/regex/regc_color.c:172-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L172-L184)
 
 ## Overview
 Reports the highest color number currently in use within a colormap structure.

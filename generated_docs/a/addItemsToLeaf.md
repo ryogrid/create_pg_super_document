@@ -1,7 +1,7 @@
 # addItemsToLeaf
 
 ## Location
-src/backend/access/gin/gindatapage.c: 1444 - 1570
+[src/backend/access/gin/gindatapage.c:1444-1570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L1444-L1570)
 
 ## Overview
 addItemsToLeaf distributes new ItemPointer items to the appropriate segments within a disassembled GIN data leaf page, merging them with existing items and handling duplicates.

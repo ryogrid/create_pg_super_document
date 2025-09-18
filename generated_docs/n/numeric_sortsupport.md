@@ -1,7 +1,7 @@
 # numeric_sortsupport
 
 ## Location
-src/backend/utils/adt/numeric.c: 2021 - 2061
+[src/backend/utils/adt/numeric.c:2021-2061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2021-L2061)
 
 ## Overview
 Implements PostgreSQL's sort support strategy for numeric data types, providing optimized comparison operations and abbreviation support for faster sorting performance.

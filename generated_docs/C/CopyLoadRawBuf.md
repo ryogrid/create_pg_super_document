@@ -1,7 +1,7 @@
 # CopyLoadRawBuf
 
 ## Location
-src/backend/commands/copyfromparse.c: 590 - 649
+[src/backend/commands/copyfromparse.c:590-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L590-L649)
 
 ## Overview
 CopyLoadRawBuf loads new data from the data source into the raw buffer, managing unprocessed data and updating progress statistics for COPY FROM operations.

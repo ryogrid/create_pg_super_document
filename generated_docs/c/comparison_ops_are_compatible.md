@@ -1,7 +1,7 @@
 # comparison_ops_are_compatible
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 749 - 795
+[src/backend/utils/cache/lsyscache.c:749-795](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L749-L795)
 
 ## Overview
 Determines whether two comparison operators have compatible semantics by checking if they belong to the same btree operator family.

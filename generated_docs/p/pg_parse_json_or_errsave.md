@@ -1,7 +1,7 @@
 # pg_parse_json_or_errsave
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 517 - 537
+[src/backend/utils/adt/jsonfuncs.c:517-537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L517-L537)
 
 ## Overview
 This function provides error-safe JSON parsing by extending pg_parse_json with comprehensive error handling through PostgreSQL's ErrorSaveContext mechanism.

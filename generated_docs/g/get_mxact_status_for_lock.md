@@ -1,7 +1,7 @@
 # get_mxact_status_for_lock
 
 ## Location
-src/backend/access/heap/heapam.c: 4485 - 4532
+[src/backend/access/heap/heapam.c:4485-4532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4485-L4532)
 
 ## Overview
 get_mxact_status_for_lock is a static helper function that maps tuple lock modes to their corresponding MultiXactStatus values, distinguishing between update and non-update lock operations.

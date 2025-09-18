@@ -1,7 +1,7 @@
 # has_table_privilege_name_id
 
 ## Location
-src/backend/utils/adt/acl.c: 1945 - 1972
+[src/backend/utils/adt/acl.c:1945-1972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1945-L1972)
 
 ## Overview
 Checks whether a specified user has a given privilege on a table identified by OID, handling cases where the table may not exist by returning NULL.

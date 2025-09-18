@@ -1,7 +1,7 @@
 # hashoidvectorextended
 
 ## Location
-src/backend/access/hash/hashfunc.c: 240 - 249
+[src/backend/access/hash/hashfunc.c:240-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashfunc.c#L240-L249)
 
 ## Overview
 Computes a 64-bit extended hash value for an oidvector data structure using a provided seed parameter.

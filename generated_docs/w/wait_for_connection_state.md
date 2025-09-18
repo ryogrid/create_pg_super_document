@@ -1,7 +1,7 @@
 # wait_for_connection_state
 
 ## Location
-src/test/modules/libpq_pipeline/libpq_pipeline.c: 123 - 171
+[src/test/modules/libpq_pipeline/libpq_pipeline.c:123-171](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/libpq_pipeline/libpq_pipeline.c#L123-L171)
 
 ## Overview
 A test utility function that polls the pg_stat_activity system view to wait for a database connection to reach a specific state or wait event.

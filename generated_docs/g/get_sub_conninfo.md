@@ -1,7 +1,7 @@
 # get_sub_conninfo
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 315 - 340
+[src/bin/pg_basebackup/pg_createsubscriber.c:315-340](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L315-L340)
 
 ## Overview
 Builds a connection string for connecting to the subscriber (target) PostgreSQL server during pg_createsubscriber operations with restricted parameters suitable for local connections.

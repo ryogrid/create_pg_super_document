@@ -1,7 +1,7 @@
 # WaitEventSet
 
 ## Location
-src/backend/storage/ipc/latch.c: 102 - 157
+[src/backend/storage/ipc/latch.c:102-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/latch.c#L102-L157)
 
 ## Overview
 WaitEventSet is a core data structure in PostgreSQL that manages a collection of events that can be waited on simultaneously, providing a platform-independent interface for I/O multiplexing and event-driven programming.

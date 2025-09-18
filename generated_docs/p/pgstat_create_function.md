@@ -1,7 +1,7 @@
 # pgstat_create_function
 
 ## Location
-src/backend/utils/activity/pgstat_function.c: 45 - 59
+[src/backend/utils/activity/pgstat_function.c:45-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_function.c#L45-L59)
 
 ## Overview
 Registers a new function in PostgreSQL's statistics tracking system when the function is created, ensuring proper transaction-aware statistics management.

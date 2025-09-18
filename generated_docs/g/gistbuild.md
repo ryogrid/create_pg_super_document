@@ -1,7 +1,7 @@
 # gistbuild
 
 ## Location
-src/backend/access/gist/gistbuild.c: 179 - 365
+[src/backend/access/gist/gistbuild.c:179-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L179-L365)
 
 ## Overview
 Main entry point function for building GiST (Generalized Search Tree) indexes, responsible for orchestrating the entire index construction process with support for multiple build strategies including sorted builds and buffered builds.

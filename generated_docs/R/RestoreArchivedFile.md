@@ -1,7 +1,7 @@
 # RestoreArchivedFile
 
 ## Location
-src/fe_utils/archive.c: 39 - 108
+[src/fe_utils/archive.c:39-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/archive.c#L39-L108)
 
 ## Overview
 RestoreArchivedFile attempts to retrieve a specified WAL (Write-Ahead Logging) file from off-line archival storage using the configured restore_command, providing a critical mechanism for PostgreSQL's point-in-time recovery and archive recovery functionality.

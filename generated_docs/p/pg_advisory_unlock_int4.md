@@ -1,7 +1,7 @@
 # pg_advisory_unlock_int4
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 962 - 981
+[src/backend/utils/adt/lockfuncs.c:962-981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L962-L981)
 
 ## Overview
 Releases an exclusive advisory lock on two int4 keys that was previously acquired by the current session.

@@ -1,7 +1,7 @@
 # EventTriggerEndCompleteQuery
 
 ## Location
-src/backend/commands/event_trigger.c: 1228 - 1245
+[src/backend/commands/event_trigger.c:1228-1245](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1228-L1245)
 
 ## Overview
 EventTriggerEndCompleteQuery performs cleanup of event trigger state after a complete query finishes execution, restoring the previous state and freeing associated memory.

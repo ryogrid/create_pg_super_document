@@ -1,7 +1,7 @@
 # llvm_set_target
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 1072 - 1090
+[src/backend/jit/llvm/llvmjit.c:1072-1090](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L1072-L1090)
 
 ## Overview
 Initializes the LLVM target architecture and data layout information by extracting configuration from the pre-compiled types module to ensure compatibility.

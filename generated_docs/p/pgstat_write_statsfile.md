@@ -1,7 +1,7 @@
 # pgstat_write_statsfile
 
 ## Location
-src/backend/utils/activity/pgstat.c: 1310 - 1478
+[src/backend/utils/activity/pgstat.c:1310-1478](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L1310-L1478)
 
 ## Overview
 Writes all PostgreSQL statistics data to a persistent file on disk, typically called during server shutdown to preserve statistics across restarts.

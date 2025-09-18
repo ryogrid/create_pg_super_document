@@ -1,7 +1,7 @@
 # CheckPointSnapBuild
 
 ## Location
-src/backend/replication/logical/snapbuild.c: 2118 - 2205
+[src/backend/replication/logical/snapbuild.c:2118-2205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/snapbuild.c#L2118-L2205)
 
 ## Overview
 CheckPointSnapBuild performs cleanup of obsolete serialized snapshot files during database checkpoints, removing snapshots that are no longer needed by any replication slot.

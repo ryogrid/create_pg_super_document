@@ -1,7 +1,7 @@
 # WalWriteMethod
 
 ## Location
-src/bin/pg_basebackup/walmethods.h: 15 - 28
+[src/bin/pg_basebackup/walmethods.h:15-28](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.h#L15-L28)
 
 ## Overview
 WalWriteMethod is a structure that represents a way of writing streaming WAL (Write-Ahead Log) data as it's received in PostgreSQL backup utilities.

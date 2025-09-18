@@ -1,7 +1,7 @@
 # logicalrep_write_tuple
 
 ## Location
-src/backend/replication/logical/proto.c: 769 - 865
+[src/backend/replication/logical/proto.c:769-865](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/proto.c#L769-L865)
 
 ## Overview
 Serializes a PostgreSQL tuple (row) to the logical replication output stream in the most efficient format possible, supporting both binary and text representations based on column selection.

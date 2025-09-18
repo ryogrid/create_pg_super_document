@@ -1,7 +1,7 @@
 # array_subscript_handler
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 539 - 565
+[src/backend/utils/adt/arraysubs.c:539-565](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L539-L565)
 
 ## Overview
 Provides the main subscripting handler for PostgreSQL's standard varlena arrays, returning a structure of function pointers that define array subscripting behavior.

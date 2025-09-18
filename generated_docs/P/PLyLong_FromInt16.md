@@ -1,7 +1,7 @@
 # PLyLong_FromInt16
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 604 - 609
+[src/pl/plpython/plpy_typeio.c:604-609](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L604-L609)
 
 ## Overview
 Converts a PostgreSQL int2 (smallint) value to a Python long object in the PL/Python extension.

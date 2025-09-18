@@ -1,7 +1,7 @@
 # vacuum_rel
 
 ## Location
-src/backend/commands/vacuum.c: 1973 - 2318
+[src/backend/commands/vacuum.c:1973-2318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1973-L2318)
 
 ## Overview
 Vacuums a single heap relation by handling transaction management, locking, privilege checking, and dispatching to appropriate vacuum implementations (full or lazy), with support for TOAST table processing.

@@ -1,7 +1,7 @@
 # float4smaller
 
 ## Location
-src/backend/utils/adt/float.c: 627 - 649
+[src/backend/utils/adt/float.c:627-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L627-L649)
 
 ## Overview
 Returns the smaller of two single-precision floating-point numbers (float4) in PostgreSQL.

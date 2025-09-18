@@ -1,7 +1,7 @@
 # TidExpr
 
 ## Location
-src/backend/executor/nodeTidscan.c: 49 - 54
+[src/backend/executor/nodeTidscan.c:49-54](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeTidscan.c#L49-L54)
 
 ## Overview
 TidExpr is a structure used in PostgreSQL TID (Tuple Identifier) scan operations to represent one element in a list of expressions that yield TID values for direct tuple access.

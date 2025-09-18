@@ -1,7 +1,7 @@
 # ExitPostmaster
 
 ## Location
-src/backend/postmaster/postmaster.c: 3669 - 3703
+[src/backend/postmaster/postmaster.c:3669-3703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3669-L3703)
 
 ## Overview
 ExitPostmaster is a static cleanup function that provides a controlled way to exit the PostgreSQL postmaster process, ensuring proper cleanup is performed before termination.

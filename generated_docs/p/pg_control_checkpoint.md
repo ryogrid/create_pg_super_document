@@ -1,7 +1,7 @@
 # pg_control_checkpoint
 
 ## Location
-src/backend/utils/misc/pg_controldata.c: 70 - 162
+[src/backend/utils/misc/pg_controldata.c:70-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/pg_controldata.c#L70-L162)
 
 ## Overview
 A PostgreSQL SQL function that retrieves comprehensive checkpoint information from the control file, returning detailed state about the most recent checkpoint operation.

@@ -1,7 +1,7 @@
 # GlobalVisTestIsRemovableFullXid
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4221 - 4262
+[src/backend/storage/ipc/procarray.c:4221-4262](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4221-L4262)
 
 ## Overview
 Determines whether a full transaction ID is no longer considered running by any active snapshot and can be safely removed.

@@ -1,7 +1,7 @@
 # BuildHardcodedDescriptor
 
 ## Location
-src/backend/utils/cache/relcache.c: 4425 - 4454
+[src/backend/utils/cache/relcache.c:4425-4454](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4425-L4454)
 
 ## Overview
 Creates a hardcoded tuple descriptor from predefined attribute data, serving as a workaround to access non-fixed-width catalog fields before standard catalog caches are available.

@@ -1,7 +1,7 @@
 # gather_merge_init
 
 ## Location
-src/backend/executor/nodeGatherMerge.c: 436 - 518
+[src/backend/executor/nodeGatherMerge.c:436-518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeGatherMerge.c#L436-L518)
 
 ## Overview
 Initializes the GatherMerge execution by resetting data structures, pulling the first tuple from each source (leader and workers), and building the binary heap for ordered merging.

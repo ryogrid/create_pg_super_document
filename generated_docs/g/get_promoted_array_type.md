@@ -1,7 +1,7 @@
 # get_promoted_array_type
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2811 - 2831
+[src/backend/utils/cache/lsyscache.c:2811-2831](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2811-L2831)
 
 ## Overview
 Determines the "promoted" array type for a given type OID, implementing the array type promotion logic used in ARRAY(SELECT ...) constructs by returning either the corresponding array type for scalar types or the same type if already an array.

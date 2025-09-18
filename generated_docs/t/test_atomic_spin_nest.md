@@ -1,7 +1,7 @@
 # test_atomic_spin_nest
 
 ## Location
-src/test/regress/regress.c: 964 - 966
+[src/test/regress/regress.c:964-966](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/regress.c#L964-L966)
 
 ## Overview
 test_atomic_spin_nest is a static test function that verifies atomic operations can be safely performed while holding a spinlock in PostgreSQL.

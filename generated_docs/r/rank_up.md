@@ -1,7 +1,7 @@
 # rank_up
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 49 - 83
+[src/backend/utils/adt/windowfuncs.c:49-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L49-L83)
 
 ## Overview
 A utility function that determines whether the rank should increase for window ranking functions by comparing the current row with the previous row based on the ORDER BY clause.

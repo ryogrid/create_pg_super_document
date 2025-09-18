@@ -1,7 +1,7 @@
 # pgtypes_defmt_scan
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/dt_common.c: 2457 - 2518
+[src/interfaces/ecpg/pgtypeslib/dt_common.c:2457-2518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/dt_common.c#L2457-L2518)
 
 ## Overview
 A static helper function that parses and extracts typed values from string input during date/time format string processing in ECPG.

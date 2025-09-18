@@ -1,7 +1,7 @@
 # StartupProcExit
 
 ## Location
-src/backend/postmaster/startup.c: 203 - 215
+[src/backend/postmaster/startup.c:203-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/startup.c#L203-L215)
 
 ## Overview
 StartupProcExit is a signal handler function that performs cleanup operations when the startup process terminates, specifically handling the shutdown of the recovery transaction environment in standby mode.

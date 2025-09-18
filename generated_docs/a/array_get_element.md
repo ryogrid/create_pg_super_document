@@ -1,7 +1,7 @@
 # array_get_element
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 1820 - 1920
+[src/backend/utils/adt/arrayfuncs.c:1820-1920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L1820-L1920)
 
 ## Overview
 Extracts a single element from an array datum using provided subscripts, handling both ordinary varlena arrays and fixed-length arrays.

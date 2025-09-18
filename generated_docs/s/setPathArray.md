@@ -1,7 +1,7 @@
 # setPathArray
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5401 - 5571
+[src/backend/utils/adt/jsonfuncs.c:5401-5571](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5401-L5571)
 
 ## Overview
 setPathArray is a specialized array walker function that handles path-based modifications within JSON arrays, supporting index-based access, element insertion, replacement, deletion, and array expansion with gap filling.

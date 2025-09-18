@@ -1,7 +1,7 @@
 # regdictionaryout
 
 ## Location
-src/backend/utils/adt/regproc.c: 1469 - 1515
+[src/backend/utils/adt/regproc.c:1469-1515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1469-L1515)
 
 ## Overview
 Converts a text search dictionary OID to its corresponding dictionary name string for output display.

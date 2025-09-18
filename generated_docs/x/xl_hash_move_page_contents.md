@@ -1,7 +1,7 @@
 # xl_hash_move_page_contents
 
 ## Location
-src/include/access/hash_xlog.h: 136 - 142
+[src/include/access/hash_xlog.h:136-142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/hash_xlog.h#L136-L142)
 
 ## Overview
 A PostgreSQL WAL record structure that captures the information needed to replay tuple movement operations during hash index bucket squeeze operations.

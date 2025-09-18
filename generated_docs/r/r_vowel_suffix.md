@@ -1,7 +1,7 @@
 # r_vowel_suffix
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_romanian.c: 899 - 911
+[src/backend/snowball/libstemmer/stem_UTF_8_romanian.c:899-911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_romanian.c#L899-L911)
 
 ## Overview
 The r_vowel_suffix function handles the removal of vowel suffixes and specific consonant-vowel combinations at word endings in Italian and Romanian Snowball stemming algorithms.

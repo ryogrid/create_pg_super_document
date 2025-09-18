@@ -1,7 +1,7 @@
 # SetUserIdAndSecContext
 
 ## Location
-src/backend/utils/init/miscinit.c: 665 - 675
+[src/backend/utils/init/miscinit.c:665-675](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L665-L675)
 
 ## Overview
 Sets both the current effective user ID and the security restriction context flags simultaneously for PostgreSQL's user context management system.

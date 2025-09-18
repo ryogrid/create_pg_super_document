@@ -1,7 +1,7 @@
 # DatumGetItemPointer
 
 ## Location
-src/include/storage/itemptr.h: 231 - 236
+[src/include/storage/itemptr.h:231-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/itemptr.h#L231-L236)
 
 ## Overview
 Converts a PostgreSQL Datum value to an ItemPointer, used in the function call interface for extracting ItemPointer arguments.

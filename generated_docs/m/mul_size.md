@@ -1,7 +1,7 @@
 # mul_size
 
 ## Location
-src/backend/storage/ipc/shmem.c: 510 - 526
+[src/backend/storage/ipc/shmem.c:510-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shmem.c#L510-L526)
 
 ## Overview
 A utility function that safely multiplies two Size values while checking for arithmetic overflow, preventing shared memory size calculations from exceeding the limits of the size_t type.

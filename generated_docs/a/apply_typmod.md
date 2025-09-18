@@ -1,7 +1,7 @@
 # apply_typmod
 
 ## Location
-src/backend/utils/adt/numeric.c: 7923 - 8007
+[src/backend/utils/adt/numeric.c:7923-8007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L7923-L8007)
 
 ## Overview
 The `apply_typmod` function performs bounds checking and rounding on a numeric value according to the specified type modifier (typmod), ensuring the value conforms to the precision and scale constraints defined by the numeric type.

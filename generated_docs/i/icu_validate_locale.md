@@ -1,7 +1,7 @@
 # icu_validate_locale
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 3001 - 3081
+[src/backend/utils/adt/pg_locale.c:3001-3081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L3001-L3081)
 
 ## Overview
 Performs a best-effort validation check to ensure that a given locale string is valid and supported by the ICU library.

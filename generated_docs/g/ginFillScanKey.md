@@ -1,7 +1,7 @@
 # ginFillScanKey
 
 ## Location
-src/backend/access/gin/ginscan.c: 158 - 237
+[src/backend/access/gin/ginscan.c:158-237](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginscan.c#L158-L237)
 
 ## Overview
 Initializes a GinScanKey structure using output from the extractQueryFn, setting up scan entries and configuring search behavior based on the search mode.

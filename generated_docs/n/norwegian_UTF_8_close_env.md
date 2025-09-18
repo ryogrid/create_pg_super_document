@@ -1,7 +1,7 @@
 # norwegian_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_norwegian.c: 275 - 276
+[src/backend/snowball/libstemmer/stem_UTF_8_norwegian.c:275-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_norwegian.c#L275-L276)
 
 ## Overview
 Closes and deallocates a Snowball stemming environment that was created for Norwegian language text processing with UTF-8 encoding.

@@ -1,7 +1,7 @@
 # CreateIntoRelDestReceiver
 
 ## Location
-src/backend/commands/createas.c: 433 - 451
+[src/backend/commands/createas.c:433-451](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/createas.c#L433-L451)
 
 ## Overview
 CreateIntoRelDestReceiver creates and initializes a DestReceiver object specifically for CREATE TABLE AS and CREATE MATERIALIZED VIEW operations, setting up callbacks for handling tuple insertion into new relations.

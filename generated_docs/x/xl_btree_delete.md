@@ -1,7 +1,7 @@
 # xl_btree_delete
 
 ## Location
-src/include/access/nbtxlog.h: 239 - 254
+[src/include/access/nbtxlog.h:239-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtxlog.h#L239-L254)
 
 ## Overview
 WAL record structure representing deletion and update operations on B-tree index pages during single-page cleanup, used to log both complete item deletions and partial posting list updates.

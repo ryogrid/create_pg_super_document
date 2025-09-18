@@ -1,7 +1,7 @@
 # setitimer
 
 ## Location
-src/backend/port/win32/timer.c: 86 - 121
+[src/backend/port/win32/timer.c:86-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/win32/timer.c#L86-L121)
 
 ## Overview
 A Windows emulation of the POSIX setitimer() function that creates and manages timer threads for alarm signal generation.

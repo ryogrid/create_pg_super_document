@@ -1,7 +1,7 @@
 # myLargeObjectExists
 
 ## Location
-src/backend/storage/large_object/inv_api.c: 131 - 168
+[src/backend/storage/large_object/inv_api.c:131-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/large_object/inv_api.c#L131-L168)
 
 ## Overview
 Checks whether a large object with a given OID exists in the pg_largeobject_metadata catalog, using a specified snapshot for the visibility check.

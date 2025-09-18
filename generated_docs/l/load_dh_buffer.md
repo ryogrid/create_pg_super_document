@@ -1,7 +1,7 @@
 # load_dh_buffer
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1094 - 1115
+[src/backend/libpq/be-secure-openssl.c:1094-1115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1094-L1115)
 
 ## Overview
 Loads hardcoded Diffie-Hellman parameters from a memory buffer as a fallback when DH parameters cannot be loaded from a file.

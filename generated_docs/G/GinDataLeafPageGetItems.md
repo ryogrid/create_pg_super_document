@@ -1,7 +1,7 @@
 # GinDataLeafPageGetItems
 
 ## Location
-src/backend/access/gin/gindatapage.c: 135 - 181
+[src/backend/access/gin/gindatapage.c:135-181](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L135-L181)
 
 ## Overview
 Extracts and returns all TIDs (tuple identifiers) from a GIN data leaf page in ascending order, supporting both compressed and uncompressed page formats.

@@ -1,7 +1,7 @@
 # join_path_components
 
 ## Location
-src/port/path.c: 285 - 309
+[src/port/path.c:285-309](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L285-L309)
 
 ## Overview
 Joins two path components together with a forward slash separator, handling edge cases for empty components and ensuring proper path formation.

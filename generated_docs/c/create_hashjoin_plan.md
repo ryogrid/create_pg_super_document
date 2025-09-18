@@ -1,7 +1,7 @@
 # create_hashjoin_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4747 - 4935
+[src/backend/optimizer/plan/createplan.c:4747-4935](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4747-L4935)
 
 ## Overview
 Creates a HashJoin plan node from a HashPath, implementing hash joins where the inner relation is used to build a hash table that is then probed by the outer relation.

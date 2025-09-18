@@ -1,7 +1,7 @@
 # int8_avg_serialize
 
 ## Location
-src/backend/utils/adt/numeric.c: 5895 - 5943
+[src/backend/utils/adt/numeric.c:5895-5943](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L5895-L5943)
 
 ## Overview
 Serializes PolyNumAggState into bytea format using PostgreSQL's standard recv-function infrastructure for network transmission or storage.

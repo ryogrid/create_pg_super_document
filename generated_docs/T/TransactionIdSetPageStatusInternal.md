@@ -1,7 +1,7 @@
 # TransactionIdSetPageStatusInternal
 
 ## Location
-src/backend/access/transam/clog.c: 364 - 440
+[src/backend/access/transam/clog.c:364-440](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L364-L440)
 
 ## Overview
 The low-level function that actually records the final transaction state in the commit log page, handling the physical bit manipulation without any locking.

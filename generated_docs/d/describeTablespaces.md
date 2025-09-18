@@ -1,7 +1,7 @@
 # describeTablespaces
 
 ## Location
-src/bin/psql/describe.c: 215 - 287
+[src/bin/psql/describe.c:215-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/describe.c#L215-L287)
 
 ## Overview
 Implements the \db psql command to display a list of tablespaces in the database, showing their names, owners, locations, and optional detailed information.

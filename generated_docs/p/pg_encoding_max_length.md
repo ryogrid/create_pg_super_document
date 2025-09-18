@@ -1,7 +1,7 @@
 # pg_encoding_max_length
 
 ## Location
-src/common/wchar.c: 2213 - 2224
+[src/common/wchar.c:2213-2224](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/wchar.c#L2213-L2224)
 
 ## Overview
 Returns the maximum byte length that any single character can occupy in the specified encoding.

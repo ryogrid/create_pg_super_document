@@ -1,7 +1,7 @@
 # reorder_grouping_sets
 
 ## Location
-src/backend/optimizer/plan/planner.c: 3192 - 3239
+[src/backend/optimizer/plan/planner.c:3192-3239](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L3192-L3239)
 
 ## Overview
 Reorders elements of grouping sets to establish correct prefix relationships and inserts GroupingSetData annotations, optimizing for minimal sorting overhead.

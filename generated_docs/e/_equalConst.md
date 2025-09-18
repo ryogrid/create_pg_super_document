@@ -1,7 +1,7 @@
 # _equalConst
 
 ## Location
-src/backend/nodes/equalfuncs.c: 96 - 116
+[src/backend/nodes/equalfuncs.c:96-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/equalfuncs.c#L96-L116)
 
 ## Overview
 A static comparison function that determines if two Const nodes are logically equal by comparing all their structural fields and constant values.

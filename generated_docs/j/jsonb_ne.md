@@ -1,7 +1,7 @@
 # jsonb_ne
 
 ## Location
-src/backend/utils/adt/jsonb_op.c: 149 - 165
+[src/backend/utils/adt/jsonb_op.c:149-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_op.c#L149-L165)
 
 ## Overview
 The `jsonb_ne` function implements the "not equal" comparison operator (<>) for JSONB data types, returning true if two JSONB values are not equal.

@@ -1,7 +1,7 @@
 # pg_atomic_compare_exchange_u32
 
 ## Location
-src/include/port/atomics.h: 344 - 360
+[src/include/port/atomics.h:344-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics.h#L344-L360)
 
 ## Overview
 Performs an atomic compare-and-swap (CAS) operation on a 32-bit unsigned integer, comparing the current value with an expected value and conditionally storing a new value.

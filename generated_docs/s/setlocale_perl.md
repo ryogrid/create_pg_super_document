@@ -1,7 +1,7 @@
 # setlocale_perl
 
 ## Location
-src/pl/plperl/plperl.c: 4181 - 4247
+[src/pl/plperl/plperl.c:4181-4247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L4181-L4247)
 
 ## Overview
 A static function that wraps the standard setlocale() function to properly notify Perl about locale changes in PostgreSQL's PL/Perl environment.

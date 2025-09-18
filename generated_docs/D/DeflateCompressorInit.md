@@ -1,7 +1,7 @@
 # DeflateCompressorInit
 
 ## Location
-src/bin/pg_dump/compress_gzip.c: 46 - 79
+[src/bin/pg_dump/compress_gzip.c:46-79](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_gzip.c#L46-L79)
 
 ## Overview
 Initializes the deflate compression state for gzip compression in PostgreSQL's pg_dump utility.

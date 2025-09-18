@@ -1,7 +1,7 @@
 # ClearPgTm
 
 ## Location
-src/interfaces/ecpg/pgtypeslib/interval.c: 94 - 111
+[src/interfaces/ecpg/pgtypeslib/interval.c:94-111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/pgtypeslib/interval.c#L94-L111)
 
 ## Overview
 ClearPgTm initializes a time structure and fractional seconds field to zero values, providing a clean slate for time/date operations in ECPG.

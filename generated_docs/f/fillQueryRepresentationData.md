@@ -1,7 +1,7 @@
 # fillQueryRepresentationData
 
 ## Location
-src/backend/utils/adt/tsrank.c: 606 - 645
+[src/backend/utils/adt/tsrank.c:606-645](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsrank.c#L606-L645)
 
 ## Overview
 Populates a QueryRepresentation structure with positional data from a DocRepresentation entry, tracking operand existence and positions for text search ranking calculations.

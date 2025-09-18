@@ -1,7 +1,7 @@
 # makeBoolean
 
 ## Location
-src/backend/nodes/value.c: 49 - 62
+[src/backend/nodes/value.c:49-62](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/value.c#L49-L62)
 
 ## Overview
 The makeBoolean function creates a new Boolean node containing a specified boolean value, used for representing boolean literals in PostgreSQL's parse tree structure.

@@ -1,7 +1,7 @@
 # gistgettuple
 
 ## Location
-src/backend/access/gist/gistget.c: 612 - 742
+[src/backend/access/gist/gistget.c:612-742](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistget.c#L612-L742)
 
 ## Overview
 gistgettuple retrieves the next tuple in a GiST index scan, supporting both ordered (distance-based) and unordered scan modes while managing scan state and killed item tracking.

@@ -1,7 +1,7 @@
 # pgstat_count_io_op
 
 ## Location
-src/backend/utils/activity/pgstat_io.c: 77 - 82
+[src/backend/utils/activity/pgstat_io.c:77-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_io.c#L77-L82)
 
 ## Overview
 A convenience wrapper function that increments the count of a specific IO operation by 1 for PostgreSQL statistics tracking.

@@ -1,7 +1,7 @@
 # slot_fill_defaults
 
 ## Location
-src/backend/replication/logical/worker.c: 742 - 798
+[src/backend/replication/logical/worker.c:742-798](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L742-L798)
 
 ## Overview
 Evaluates and applies default values for columns in the downstream table that cannot be mapped to columns in the upstream (remote) table, enabling support for tables with more columns downstream than upstream.

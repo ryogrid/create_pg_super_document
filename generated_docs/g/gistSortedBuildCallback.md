@@ -1,7 +1,7 @@
 # gistSortedBuildCallback
 
 ## Location
-src/backend/access/gist/gistbuild.c: 366 - 399
+[src/backend/access/gist/gistbuild.c:366-399](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L366-L399)
 
 ## Overview
 Callback function used during table scanning for sorted GiST index builds, responsible for processing each heap tuple and adding it to the tuplesort for later bottom-up index construction.

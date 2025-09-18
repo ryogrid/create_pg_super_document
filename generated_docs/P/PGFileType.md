@@ -1,7 +1,7 @@
 # PGFileType
 
 ## Location
-src/include/common/file_utils.h: 25 - 26
+[src/include/common/file_utils.h:25-26](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/file_utils.h#L25-L26)
 
 ## Overview
 PGFileType is an enumeration that defines different types of file system objects that PostgreSQL can encounter when working with directories and files.

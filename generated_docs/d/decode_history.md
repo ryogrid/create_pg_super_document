@@ -1,7 +1,7 @@
 # decode_history
 
 ## Location
-src/bin/psql/input.c: 319 - 343
+[src/bin/psql/input.c:319-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/input.c#L319-L343)
 
 ## Overview
 Reverses the encoding of newline characters in readline history entries by converting the special NL_IN_HISTORY character back to actual newline characters.

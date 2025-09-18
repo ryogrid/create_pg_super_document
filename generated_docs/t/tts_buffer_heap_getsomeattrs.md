@@ -1,7 +1,7 @@
 # tts_buffer_heap_getsomeattrs
 
 ## Location
-src/backend/executor/execTuples.c: 749 - 758
+[src/backend/executor/execTuples.c:749-758](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L749-L758)
 
 ## Overview
 Deforms a specified number of attributes from a buffer-backed heap tuple table slot, extracting attribute values into the slot's datum array.

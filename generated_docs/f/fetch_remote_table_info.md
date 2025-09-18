@@ -1,7 +1,7 @@
 # fetch_remote_table_info
 
 ## Location
-src/backend/replication/logical/tablesync.c: 820 - 1140
+[src/backend/replication/logical/tablesync.c:820-1140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/tablesync.c#L820-L1140)
 
 ## Overview
 Retrieves comprehensive metadata about a remote table from the publisher database during logical replication table synchronization, including schema info, column details, and row filter qualifications.

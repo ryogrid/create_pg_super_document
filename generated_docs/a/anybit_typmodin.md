@@ -1,7 +1,7 @@
 # anybit_typmodin
 
 ## Location
-src/backend/utils/adt/varbit.c: 90 - 126
+[src/backend/utils/adt/varbit.c:90-126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L90-L126)
 
 ## Overview
 A common utility function that processes type modifier input for PostgreSQL's bit and varbit data types, validating the length parameter and converting it to an appropriate type modifier value.

@@ -1,7 +1,7 @@
 # window_ntile_support
 
 ## Location
-src/backend/utils/adt/windowfuncs.c: 483 - 527
+[src/backend/utils/adt/windowfuncs.c:483-527](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/windowfuncs.c#L483-L527)
 
 ## Overview
 This function serves as the prosupport function for the window_ntile() function, providing optimization hints and monotonicity information to PostgreSQL's query planner.

@@ -1,7 +1,7 @@
 # create_degenerate_grouping_paths
 
 ## Location
-src/backend/optimizer/plan/planner.c: 4007 - 4070
+[src/backend/optimizer/plan/planner.c:4007-4070](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L4007-L4070)
 
 ## Overview
 Creates execution paths for degenerate grouping cases where no actual grouping computation is needed and the FROM table can be discarded.

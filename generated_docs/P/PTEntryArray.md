@@ -1,7 +1,7 @@
 # PTEntryArray
 
 ## Location
-src/backend/nodes/tidbitmap.c: 112 - 116
+[src/backend/nodes/tidbitmap.c:112-116](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L112-L116)
 
 ## Overview
 PTEntryArray is a reference-counted container structure that holds an array of PagetableEntry objects, designed for shared access across multiple TIDBitmap iterators in PostgreSQL's parallel processing system.

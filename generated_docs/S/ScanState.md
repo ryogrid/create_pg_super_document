@@ -1,7 +1,7 @@
 # ScanState
 
 ## Location
-src/include/nodes/execnodes.h: 1564 - 1570
+[src/include/nodes/execnodes.h:1564-1570](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L1564-L1570)
 
 ## Overview
 ScanState is the base structure for executor nodes that perform scans, extending PlanState with scan-specific fields for managing relation access and tuple retrieval.

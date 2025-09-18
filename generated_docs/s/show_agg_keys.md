@@ -1,7 +1,7 @@
 # show_agg_keys
 
 ## Location
-src/backend/commands/explain.c: 2607 - 2629
+[src/backend/commands/explain.c:2607-2629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2607-L2629)
 
 ## Overview
 Displays the grouping keys for an Agg (aggregation) node during query execution plan explanation.

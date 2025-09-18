@@ -1,7 +1,7 @@
 # ginHeapTupleFastCollect
 
 ## Location
-src/backend/access/gin/ginfast.c: 483 - 553
+[src/backend/access/gin/ginfast.c:483-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginfast.c#L483-L553)
 
 ## Overview
 Creates temporary index tuples for a single indexable item from a heap tuple and appends them to a collector array for subsequent bulk insertion into the GIN pending list.

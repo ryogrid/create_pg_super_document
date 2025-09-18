@@ -1,7 +1,7 @@
 # free_city_table
 
 ## Location
-src/backend/optimizer/geqo/geqo_recombination.c: 87 - 92
+[src/backend/optimizer/geqo/geqo_recombination.c:87-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_recombination.c#L87-L92)
 
 ## Overview
 Deallocates memory for a city table previously allocated by alloc_city_table in PostgreSQL's genetic query optimizer (GEQO).

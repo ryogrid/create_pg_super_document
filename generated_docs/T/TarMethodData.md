@@ -1,7 +1,7 @@
 # TarMethodData
 
 ## Location
-src/bin/pg_basebackup/walmethods.c: 699 - 709
+[src/bin/pg_basebackup/walmethods.c:699-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/walmethods.c#L699-L709)
 
 ## Overview
 TarMethodData is a structure that represents the tar-based WAL writing method implementation in PostgreSQL's pg_basebackup utility, extending the base WalWriteMethod to store tar-specific archive management data.

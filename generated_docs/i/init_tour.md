@@ -1,7 +1,7 @@
 # init_tour
 
 ## Location
-src/backend/optimizer/geqo/geqo_recombination.c: 34 - 68
+[src/backend/optimizer/geqo/geqo_recombination.c:34-68](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_recombination.c#L34-L68)
 
 ## Overview
 Randomly generates a legal "traveling salesman" tour where each point is visited only once, used in PostgreSQL's genetic query optimizer (GEQO).

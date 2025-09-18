@@ -1,7 +1,7 @@
 # get_sortgroupref_clause
 
 ## Location
-src/backend/optimizer/util/tlist.c: 422 - 442
+[src/backend/optimizer/util/tlist.c:422-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L422-L442)
 
 ## Overview
 Finds the SortGroupClause matching the given SortGroupRef index and returns it.

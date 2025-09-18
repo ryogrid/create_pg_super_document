@@ -1,7 +1,7 @@
 # MultiXactGetCheckptMulti
 
 ## Location
-src/backend/access/transam/multixact.c: 2274 - 2295
+[src/backend/access/transam/multixact.c:2274-2295](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2274-L2295)
 
 ## Overview
 Retrieves the current MultiXact data that needs to be saved in a checkpoint record for recovery purposes.

@@ -1,7 +1,7 @@
 # _bt_killitems
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4171 - 4366
+[src/backend/access/nbtree/nbtutils.c:4171-4366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4171-L4366)
 
 ## Overview
 Marks index tuples as dead (LP_DEAD) based on kill list information from index scan operations, optimizing future scans by marking tuples that reference deleted heap rows.

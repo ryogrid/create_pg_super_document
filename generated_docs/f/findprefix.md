@@ -1,7 +1,7 @@
 # findprefix
 
 ## Location
-src/backend/regex/regprefix.c: 116 - 268
+[src/backend/regex/regprefix.c:116-268](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regprefix.c#L116-L268)
 
 ## Overview
 A static helper function that performs the core analysis to extract a common prefix from a compiled NFA (Non-deterministic Finite Automaton) representation of a regular expression.

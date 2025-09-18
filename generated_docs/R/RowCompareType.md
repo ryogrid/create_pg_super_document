@@ -1,7 +1,7 @@
 # RowCompareType
 
 ## Location
-src/include/nodes/primnodes.h: 1461 - 1462
+[src/include/nodes/primnodes.h:1461-1462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L1461-L1462)
 
 ## Overview
 RowCompareType is an enumeration that defines the comparison operators supported for row-wise comparisons in PostgreSQL, such as (a, b) <= (1, 2).

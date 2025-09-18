@@ -1,7 +1,7 @@
 # DependencyGenerator_next
 
 ## Location
-src/backend/statistics/dependencies.c: 204 - 220
+[src/backend/statistics/dependencies.c:204-220](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L204-L220)
 
 ## Overview
 An iterator function that returns the next pre-generated functional dependency from a DependencyGenerator, or NULL when all dependencies have been consumed.

@@ -1,7 +1,7 @@
 # makeJsonBehavior
 
 ## Location
-src/backend/nodes/makefuncs.c: 927 - 942
+[src/backend/nodes/makefuncs.c:927-942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L927-L942)
 
 ## Overview
 Creates a JsonBehavior node for specifying behavior handling in SQL/JSON operations, such as error handling and null handling behaviors.

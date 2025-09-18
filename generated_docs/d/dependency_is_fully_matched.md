@@ -1,7 +1,7 @@
 # dependency_is_fully_matched
 
 ## Location
-src/backend/statistics/dependencies.c: 595 - 618
+[src/backend/statistics/dependencies.c:595-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L595-L618)
 
 ## Overview
 Checks whether a functional dependency is fully matched by verifying that all dependency attributes are covered by the provided set of attribute numbers.

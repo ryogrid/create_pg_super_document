@@ -1,7 +1,7 @@
 # PerLockTagEntry
 
 ## Location
-src/backend/storage/lmgr/lock.c: 3223 - 3303
+[src/backend/storage/lmgr/lock.c:3223-3303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L3223-L3303)
 
 ## Overview
 PerLockTagEntry is a local structure used to track whether locks on the same lockable object are held at both session and transaction levels during PREPARE TRANSACTION validation.

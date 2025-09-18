@@ -1,7 +1,7 @@
 # json_build_object
 
 ## Location
-src/backend/utils/adt/json.c: 1309 - 1328
+[src/backend/utils/adt/json.c:1309-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L1309-L1328)
 
 ## Overview
 The json_build_object function is a SQL function that creates a JSON object from a variadic list of alternating key-value pairs.

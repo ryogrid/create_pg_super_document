@@ -1,7 +1,7 @@
 # bbsink_server_end_archive
 
 ## Location
-src/backend/backup/basebackup_server.c: 194 - 227
+[src/backend/backup/basebackup_server.c:194-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L194-L227)
 
 ## Overview
 Finalizes the current archive file by syncing it to disk, closing the file, and cleaning up the sink state.

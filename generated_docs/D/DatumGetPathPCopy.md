@@ -1,7 +1,7 @@
 # DatumGetPathPCopy
 
 ## Location
-src/include/utils/geo_decls.h: 207 - 211
+[src/include/utils/geo_decls.h:207-211](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L207-L211)
 
 ## Overview
 DatumGetPathPCopy is an inline function that converts a PostgreSQL Datum value to a PATH pointer, creating a copy during TOAST decompression to ensure the caller owns the memory.

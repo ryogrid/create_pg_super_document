@@ -1,7 +1,7 @@
 # to_oct32
 
 ## Location
-src/backend/utils/adt/varlena.c: 4975 - 4981
+[src/backend/utils/adt/varlena.c:4975-4981](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4975-L4981)
 
 ## Overview
 Converts a 32-bit integer value to its octal (base-8) string representation.

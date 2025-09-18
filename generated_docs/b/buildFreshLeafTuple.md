@@ -1,7 +1,7 @@
 # buildFreshLeafTuple
 
 ## Location
-src/backend/access/gin/gininsert.c: 126 - 175
+[src/backend/access/gin/gininsert.c:126-175](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gininsert.c#L126-L175)
 
 ## Overview
 Builds a fresh GIN index leaf tuple from scratch, choosing between posting-list or posting-tree format based on the size of the item pointers array.

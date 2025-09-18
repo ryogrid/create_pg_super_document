@@ -1,7 +1,7 @@
 # tqueueShutdownReceiver
 
 ## Location
-src/backend/executor/tqueue.c: 92 - 104
+[src/backend/executor/tqueue.c:92-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/tqueue.c#L92-L104)
 
 ## Overview
 Cleans up shared memory queue resources at the end of an executor run by detaching from the queue and resetting the connection.

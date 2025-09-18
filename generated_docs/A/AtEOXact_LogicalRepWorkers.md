@@ -1,7 +1,7 @@
 # AtEOXact_LogicalRepWorkers
 
 ## Location
-src/backend/replication/logical/worker.c: 5079 - 5110
+[src/backend/replication/logical/worker.c:5079-5110](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L5079-L5110)
 
 ## Overview
 This function wakes up logical replication workers for subscriptions that were changed during the current transaction, but only if the transaction commits successfully.

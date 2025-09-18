@@ -1,7 +1,7 @@
 # GetStartupBufferPinWaitBufId
 
 ## Location
-src/backend/storage/lmgr/proc.c: 676 - 691
+[src/backend/storage/lmgr/proc.c:676-691](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/proc.c#L676-L691)
 
 ## Overview
 Retrieves the buffer ID that the Startup process is currently waiting on for buffer pin operations, used by backends to check for recovery conflicts.

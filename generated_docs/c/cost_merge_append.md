@@ -1,7 +1,7 @@
 # cost_merge_append
 
 ## Location
-src/backend/optimizer/path/costsize.c: 2404 - 2452
+[src/backend/optimizer/path/costsize.c:2404-2452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L2404-L2452)
 
 ## Overview
 Calculates the startup and total costs for a MergeAppend node, which merges multiple pre-sorted input streams using a heap-based approach to maintain sorted output.

@@ -1,7 +1,7 @@
 # jsonb_object_two_arg
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1379 - 1470
+[src/backend/utils/adt/jsonb.c:1379-1470](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1379-L1470)
 
 ## Overview
 SQL function that constructs a JSONB object from two separate text arrays - one containing keys and another containing values.

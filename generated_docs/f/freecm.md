@@ -1,7 +1,7 @@
 # freecm
 
 ## Location
-src/backend/regex/regc_color.c: 103 - 119
+[src/backend/regex/regc_color.c:103-119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L103-L119)
 
 ## Overview
 Frees all dynamically allocated memory associated with a colormap structure during regular expression cleanup.

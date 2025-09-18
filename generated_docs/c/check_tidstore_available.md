@@ -1,7 +1,7 @@
 # check_tidstore_available
 
 ## Location
-src/test/modules/test_tidstore/test_tidstore.c: 150 - 156
+[src/test/modules/test_tidstore/test_tidstore.c:150-156](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_tidstore/test_tidstore.c#L150-L156)
 
 ## Overview
 A static utility function that verifies the tidstore has been properly initialized before performing any operations on it.

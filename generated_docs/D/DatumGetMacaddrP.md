@@ -1,7 +1,7 @@
 # DatumGetMacaddrP
 
 ## Location
-src/include/utils/inet.h: 147 - 152
+[src/include/utils/inet.h:147-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/inet.h#L147-L152)
 
 ## Overview
 Converts a Datum value to a pointer to a macaddr structure for MAC address operations.

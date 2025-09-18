@@ -1,7 +1,7 @@
 # bms_free
 
 ## Location
-src/backend/nodes/bitmapset.c: 239 - 250
+[src/backend/nodes/bitmapset.c:239-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L239-L250)
 
 ## Overview
 Safely deallocates memory used by a Bitmapset, with NULL pointer protection.

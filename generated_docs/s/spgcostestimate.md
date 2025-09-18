@@ -1,7 +1,7 @@
 # spgcostestimate
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 7294 - 7360
+[src/backend/utils/adt/selfuncs.c:7294-7360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L7294-L7360)
 
 ## Overview
 Estimates the cost of scanning a SP-GiST (Space-Partitioned Generalized Search Tree) index for query planning in PostgreSQL's optimizer.

@@ -1,7 +1,7 @@
 # AlterPublicationOwner_internal
 
 ## Location
-src/backend/commands/publicationcmds.c: 1888 - 1945
+[src/backend/commands/publicationcmds.c:1888-1945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1888-L1945)
 
 ## Overview
 Internal function that performs the core logic for changing a PostgreSQL publication's owner, including permission checks and catalog updates.

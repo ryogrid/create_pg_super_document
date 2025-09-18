@@ -1,7 +1,7 @@
 # btbeginscan
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 312 - 358
+[src/backend/access/nbtree/nbtree.c:312-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L312-L358)
 
 ## Overview
 Initializes and starts a scan on a B-tree index, setting up the necessary data structures and workspace for index scanning operations.

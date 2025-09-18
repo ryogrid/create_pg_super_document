@@ -1,7 +1,7 @@
 # xact_identify
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 486 - 516
+[src/backend/access/rmgrdesc/xactdesc.c:486-516](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L486-L516)
 
 ## Overview
 Returns a string identifier for transaction WAL record operation types, providing human-readable names for different transaction operations.

@@ -1,7 +1,7 @@
 # compileTheSubstitute
 
 ## Location
-src/backend/tsearch/dict_thesaurus.c: 502 - 595
+[src/backend/tsearch/dict_thesaurus.c:502-595](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_thesaurus.c#L502-L595)
 
 ## Overview
 Processes and compiles substitute phrase entries in a thesaurus dictionary by normalizing them through a subdictionary and preparing them for runtime substitution operations.

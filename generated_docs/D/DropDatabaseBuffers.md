@@ -1,7 +1,7 @@
 # DropDatabaseBuffers
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4376 - 4413
+[src/backend/storage/buffer/bufmgr.c:4376-4413](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4376-L4413)
 
 ## Overview
 Removes all buffers in the buffer cache for a particular database, dropping dirty pages without writing them to disk when a database is being destroyed.

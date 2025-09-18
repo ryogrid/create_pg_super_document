@@ -1,7 +1,7 @@
 # cost_incremental_sort
 
 ## Location
-src/backend/optimizer/path/costsize.c: 1986 - 2123
+[src/backend/optimizer/path/costsize.c:1986-2123](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L1986-L2123)
 
 ## Overview
 Determines and returns the cost of sorting a relation incrementally when the input path is presorted by a prefix of the pathkeys.

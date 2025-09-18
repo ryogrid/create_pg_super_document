@@ -1,7 +1,7 @@
 # subcolorhi
 
 ## Location
-src/backend/regex/regc_color.c: 366 - 388
+[src/backend/regex/regc_color.c:366-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_color.c#L366-L388)
 
 ## Overview
 Allocates a new subcolor for a high colormap entry if necessary, performing the same processing as subcolor() but for entries that may represent multiple character codes.

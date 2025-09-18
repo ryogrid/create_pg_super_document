@@ -1,7 +1,7 @@
 # pg_get_partition_constraintdef
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2076 - 2107
+[src/backend/utils/adt/ruleutils.c:2076-2107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2076-L2107)
 
 ## Overview
 PostgreSQL function that returns the partition constraint expression as a formatted string for a given partitioned relation.

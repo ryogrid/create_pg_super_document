@@ -1,7 +1,7 @@
 # tsquery_or
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 84 - 113
+[src/backend/utils/adt/tsquery_op.c:84-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L84-L113)
 
 ## Overview
 Implements the logical OR operation between two TSQuery objects, combining them to create a new TSQuery that matches documents containing terms from either input query.

@@ -1,7 +1,7 @@
 # poly_above
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3671 - 3693
+[src/backend/utils/adt/geo_ops.c:3671-3693](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3671-L3693)
 
 ## Overview
 Tests whether polygon A is strictly above polygon B by ensuring there is no vertical overlap between them.

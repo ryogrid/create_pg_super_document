@@ -1,7 +1,7 @@
 # RelationCacheInvalidateEntry
 
 ## Location
-src/backend/utils/cache/relcache.c: 2957 - 3012
+[src/backend/utils/cache/relcache.c:2957-3012](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2957-L3012)
 
 ## Overview
 Invalidates a specific relation cache entry in response to shared invalidation (SI) cache flush messages, ensuring cache consistency across database backends.

@@ -1,7 +1,7 @@
 # log_var
 
 ## Location
-src/backend/utils/adt/numeric.c: 10887 - 10946
+[src/backend/utils/adt/numeric.c:10887-10946](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L10887-L10946)
 
 ## Overview
 Computes the logarithm of a number in a given base by calculating the ratio of natural logarithms (ln(num)/ln(base)) with intelligent precision management.

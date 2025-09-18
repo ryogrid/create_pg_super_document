@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_uuid
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2047 - 2079
+[src/backend/access/brin/brin_minmax_multi.c:2047-2079](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2047-L2079)
 
 ## Overview
 Computes an approximate distance between two UUID values for BRIN minmax multi indexes using a 64-bit float approximation.

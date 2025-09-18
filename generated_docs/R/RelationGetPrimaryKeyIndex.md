@@ -1,7 +1,7 @@
 # RelationGetPrimaryKeyIndex
 
 ## Location
-src/backend/utils/cache/relcache.c: 4997 - 5017
+[src/backend/utils/cache/relcache.c:4997-5017](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4997-L5017)
 
 ## Overview
 RelationGetPrimaryKeyIndex retrieves the OID of a relation's primary key index, returning InvalidOid if no such index exists or if the primary key is deferrable.

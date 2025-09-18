@@ -1,7 +1,7 @@
 # get_rel_persistence
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 2078 - 2099
+[src/backend/utils/cache/lsyscache.c:2078-2099](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L2078-L2099)
 
 ## Overview
 Returns the persistence attribute (relpersistence) of a given relation, indicating whether the relation is permanent, temporary, or unlogged.

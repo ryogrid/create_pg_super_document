@@ -1,7 +1,7 @@
 # RelationInitIndexAccessInfo
 
 ## Location
-src/backend/utils/cache/relcache.c: 1426 - 1596
+[src/backend/utils/cache/relcache.c:1426-1596](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L1426-L1596)
 
 ## Overview
 RelationInitIndexAccessInfo initializes comprehensive index access method support data for an index relation, including access method routines, operator classes, support functions, and index metadata.

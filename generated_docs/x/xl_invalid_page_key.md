@@ -1,7 +1,7 @@
 # xl_invalid_page_key
 
 ## Location
-src/backend/access/transam/xlogutils.c: 65 - 70
+[src/backend/access/transam/xlogutils.c:65-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogutils.c#L65-L70)
 
 ## Overview
 A structure that serves as a hash key for tracking references to invalid pages during PostgreSQL WAL (Write-Ahead Log) replay operations.

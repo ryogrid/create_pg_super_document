@@ -1,7 +1,7 @@
 # WindowStatePerFuncData
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 78 - 101
+[src/backend/executor/nodeWindowAgg.c:78-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L78-L101)
 
 ## Overview
 WindowStatePerFuncData maintains per-function working state for each window function and window aggregate handled by a WindowAgg executor node.

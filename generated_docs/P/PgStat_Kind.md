@@ -1,7 +1,7 @@
 # PgStat_Kind
 
 ## Location
-src/include/pgstat.h: 54 - 55
+[src/include/pgstat.h:54-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L54-L55)
 
 ## Overview
 PgStat_Kind is an enumeration that defines the different types of statistics entries in PostgreSQL's statistics collection system.

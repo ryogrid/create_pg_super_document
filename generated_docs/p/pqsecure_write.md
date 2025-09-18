@@ -1,7 +1,7 @@
 # pqsecure_write
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 282 - 330
+[src/interfaces/libpq/fe-secure.c:282-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L282-L330)
 
 ## Overview
 Writes data to a secure PostgreSQL connection, automatically selecting the appropriate writing method based on the connection's security configuration (SSL, GSS, or raw).

@@ -1,7 +1,7 @@
 # Plan
 
 ## Location
-src/include/nodes/plannodes.h: 119 - 172
+[src/include/nodes/plannodes.h:119-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L119-L172)
 
 ## Overview
 Plan is the abstract base structure for all PostgreSQL execution plan nodes, containing common fields used by all plan node types including cost estimates, parallelization info, and structural data.

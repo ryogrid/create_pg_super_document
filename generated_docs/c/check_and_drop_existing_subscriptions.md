@@ -1,7 +1,7 @@
 # check_and_drop_existing_subscriptions
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1103 - 1142
+[src/bin/pg_basebackup/pg_createsubscriber.c:1103-1142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1103-L1142)
 
 ## Overview
 Retrieves and drops all pre-existing subscriptions for a specified database in PostgreSQL's logical replication setup.

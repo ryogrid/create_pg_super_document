@@ -1,7 +1,7 @@
 # AutoVacWorkerMain
 
 ## Location
-src/backend/postmaster/autovacuum.c: 1359 - 1588
+[src/backend/postmaster/autovacuum.c:1359-1588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L1359-L1588)
 
 ## Overview
 The main entry point for autovacuum worker processes that initializes the worker environment, connects to a database, and performs autovacuum operations.

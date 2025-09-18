@@ -1,7 +1,7 @@
 # array_subscript_fetch
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 236 - 263
+[src/backend/utils/adt/arraysubs.c:236-263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L236-L263)
 
 ## Overview
 Evaluates a SubscriptingRef fetch operation for a single array element, extracting the specified element from the source array using pre-computed integer subscripts.

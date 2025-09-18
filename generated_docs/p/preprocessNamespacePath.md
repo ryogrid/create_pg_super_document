@@ -1,7 +1,7 @@
 # preprocessNamespacePath
 
 ## Location
-src/backend/catalog/namespace.c: 4107 - 4197
+[src/backend/catalog/namespace.c:4107-4197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L4107-L4197)
 
 ## Overview
 Converts a comma-separated namespace search path string into a list of namespace OIDs, performing access control checks and resolving special namespace references.

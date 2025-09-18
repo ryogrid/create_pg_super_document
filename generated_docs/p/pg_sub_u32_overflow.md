@@ -1,7 +1,7 @@
 # pg_sub_u32_overflow
 
 ## Location
-src/include/common/int.h: 343 - 358
+[src/include/common/int.h:343-358](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/int.h#L343-L358)
 
 ## Overview
 A safe 32-bit unsigned integer subtraction function that detects overflow conditions and prevents undefined behavior.

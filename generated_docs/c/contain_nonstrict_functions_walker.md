@@ -1,7 +1,7 @@
 # contain_nonstrict_functions_walker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 1005 - 1136
+[src/backend/optimizer/util/clauses.c:1005-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L1005-L1136)
 
 ## Overview
 A recursive tree walker function that traverses expression nodes to detect any non-strict constructs that could produce non-NULL output with NULL input.

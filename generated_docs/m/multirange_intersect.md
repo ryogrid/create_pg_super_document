@@ -1,7 +1,7 @@
 # multirange_intersect
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1230 - 1259
+[src/backend/utils/adt/multirangetypes.c:1230-1259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1230-L1259)
 
 ## Overview
 Computes the intersection of two multirange values, returning a new multirange containing only the overlapping portions of the input multiranges.

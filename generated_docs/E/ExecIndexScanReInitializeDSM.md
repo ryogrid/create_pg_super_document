@@ -1,7 +1,7 @@
 # ExecIndexScanReInitializeDSM
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 1697 - 1709
+[src/backend/executor/nodeIndexscan.c:1697-1709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L1697-L1709)
 
 ## Overview
 This function resets shared state in a parallel index scan before beginning a fresh scan, ensuring proper coordination between parallel workers.

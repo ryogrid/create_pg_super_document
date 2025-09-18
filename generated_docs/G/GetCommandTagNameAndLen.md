@@ -1,7 +1,7 @@
 # GetCommandTagNameAndLen
 
 ## Location
-src/backend/tcop/cmdtag.c: 53 - 59
+[src/backend/tcop/cmdtag.c:53-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/cmdtag.c#L53-L59)
 
 ## Overview
 Returns both the textual name string and its length for a given CommandTag enumeration value in a single function call.

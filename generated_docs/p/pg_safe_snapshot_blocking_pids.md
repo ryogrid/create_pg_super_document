@@ -1,7 +1,7 @@
 # pg_safe_snapshot_blocking_pids
 
 ## Location
-src/backend/utils/adt/lockfuncs.c: 573 - 612
+[src/backend/utils/adt/lockfuncs.c:573-612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/lockfuncs.c#L573-L612)
 
 ## Overview
 pg_safe_snapshot_blocking_pids identifies processes that are preventing a given PID from obtaining a safe snapshot for serializable transactions.

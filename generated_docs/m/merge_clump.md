@@ -1,7 +1,7 @@
 # merge_clump
 
 ## Location
-src/backend/optimizer/geqo/geqo_eval.c: 238 - 324
+[src/backend/optimizer/geqo/geqo_eval.c:238-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/geqo/geqo_eval.c#L238-L324)
 
 ## Overview
 Merges a single clump (group of joined relations) into an existing list of clumps, attempting joins with existing clumps and maintaining size-ordered list structure.

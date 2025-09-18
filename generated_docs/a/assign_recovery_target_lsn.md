@@ -1,7 +1,7 @@
 # assign_recovery_target_lsn
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4835 - 4853
+[src/backend/access/transam/xlogrecovery.c:4835-4853](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4835-L4853)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that applies the validated  parameter value, setting the recovery target type and LSN when the configuration change is committed.

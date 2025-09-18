@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_date
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2080 - 2098
+[src/backend/access/brin/brin_minmax_multi.c:2080-2098](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2080-L2098)
 
 ## Overview
 Computes the distance between two date values for BRIN minmax multi indexes using simple subtraction.

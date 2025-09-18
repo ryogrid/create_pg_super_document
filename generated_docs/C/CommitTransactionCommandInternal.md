@@ -1,7 +1,7 @@
 # CommitTransactionCommandInternal
 
 ## Location
-src/backend/access/transam/xact.c: 3111 - 3386
+[src/backend/access/transam/xact.c:3111-3386](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L3111-L3386)
 
 ## Overview
 CommitTransactionCommandInternal handles the core logic for committing transactions and subtransactions through a comprehensive state machine, processing one iteration of commit work per call and supporting transaction chaining.

@@ -1,7 +1,7 @@
 # print_rmgr_list
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 98 - 112
+[src/bin/pg_waldump/pg_waldump.c:98-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L98-L112)
 
 ## Overview
 A utility function that prints the names of all built-in PostgreSQL resource managers (RMGRs) to standard output.

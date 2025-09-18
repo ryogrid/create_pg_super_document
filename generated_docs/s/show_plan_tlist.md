@@ -1,7 +1,7 @@
 # show_plan_tlist
 
 ## Location
-src/backend/commands/explain.c: 2429 - 2486
+[src/backend/commands/explain.c:2429-2486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L2429-L2486)
 
 ## Overview
 Displays the target list (output columns) of a plan node in PostgreSQL's EXPLAIN output when verbose mode is enabled.

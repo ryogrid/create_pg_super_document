@@ -1,7 +1,7 @@
 # ExecInitForeignScan
 
 ## Location
-src/backend/executor/nodeForeignscan.c: 142 - 296
+[src/backend/executor/nodeForeignscan.c:142-296](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeForeignscan.c#L142-L296)
 
 ## Overview
 ExecInitForeignScan initializes a ForeignScanState node for executing foreign scan operations, setting up all necessary execution context, tuple descriptors, and FDW-specific state.

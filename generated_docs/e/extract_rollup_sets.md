@@ -1,7 +1,7 @@
 # extract_rollup_sets
 
 ## Location
-src/backend/optimizer/plan/planner.c: 2980 - 3191
+[src/backend/optimizer/plan/planner.c:2980-3191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L2980-L3191)
 
 ## Overview
 Extracts lists of grouping sets that can be implemented using a single rollup-type aggregate pass each, returning the minimal partition of grouping sets organized into chains.

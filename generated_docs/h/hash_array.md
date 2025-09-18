@@ -1,7 +1,7 @@
 # hash_array
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4146 - 4278
+[src/backend/utils/adt/arrayfuncs.c:4146-4278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4146-L4278)
 
 ## Overview
 PostgreSQL function that computes a hash value for an entire array by combining hash values of individual elements using a multiplicative hash algorithm.

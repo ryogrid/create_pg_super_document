@@ -1,7 +1,7 @@
 # is_strict_saop
 
 ## Location
-src/backend/optimizer/util/clauses.c: 2026 - 2087
+[src/backend/optimizer/util/clauses.c:2026-2087](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L2026-L2087)
 
 ## Overview
 Determines whether a ScalarArrayOpExpr (scalar array operator expression) can be treated as strict with respect to NULL handling.

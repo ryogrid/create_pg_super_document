@@ -1,7 +1,7 @@
 # CopyLoadInputBuf
 
 ## Location
-src/backend/commands/copyfromparse.c: 650 - 700
+[src/backend/commands/copyfromparse.c:650-700](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyfromparse.c#L650-L700)
 
 ## Overview
 CopyLoadInputBuf ensures that input_buf contains converted, ready-to-process data by orchestrating the loading of raw data, encoding conversion, and error handling for COPY FROM operations.

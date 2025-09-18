@@ -1,7 +1,7 @@
 # multirange_deserialize
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 826 - 847
+[src/backend/utils/adt/multirangetypes.c:826-847](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L826-L847)
 
 ## Overview
 This function deconstructos a multirange value into an array of individual RangeType objects, converting from the compressed multirange format to separate range instances.

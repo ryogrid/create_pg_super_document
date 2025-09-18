@@ -1,7 +1,7 @@
 # SignalHandlerForCrashExit
 
 ## Location
-src/backend/postmaster/interrupt.c: 73 - 104
+[src/backend/postmaster/interrupt.c:73-104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/interrupt.c#L73-L104)
 
 ## Overview
 SignalHandlerForCrashExit is a signal handler designed for immediate process termination in crash scenarios, typically used for handling SIGQUIT signals when shared memory corruption is suspected.

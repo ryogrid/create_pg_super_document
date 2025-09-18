@@ -1,7 +1,7 @@
 # set_stack_entry_location
 
 ## Location
-src/backend/utils/error/elog.c: 799 - 828
+[src/backend/utils/error/elog.c:799-828](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L799-L828)
 
 ## Overview
 Stores source code location information (filename, line number, and function name) in an error data stack entry, normalizing the filename path for consistency across different build environments.

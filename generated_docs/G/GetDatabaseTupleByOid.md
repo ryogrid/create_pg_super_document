@@ -1,7 +1,7 @@
 # GetDatabaseTupleByOid
 
 ## Location
-src/backend/utils/init/postinit.c: 144 - 189
+[src/backend/utils/init/postinit.c:144-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L144-L189)
 
 ## Overview
 GetDatabaseTupleByOid is a static function that fetches the pg_database row for a specified database OID during backend startup when system catalogs are not yet fully accessible.

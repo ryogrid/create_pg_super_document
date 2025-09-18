@@ -1,7 +1,7 @@
 # SyncRepGetNthLatestSyncRecPtr
 
 ## Location
-src/backend/replication/syncrep.c: 693 - 737
+[src/backend/replication/syncrep.c:693-737](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L693-L737)
 
 ## Overview
 Calculates the Nth latest Write, Flush, and Apply LSN positions among synchronous standbys for quorum-based synchronous replication.

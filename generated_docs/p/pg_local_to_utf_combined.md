@@ -1,7 +1,7 @@
 # pg_local_to_utf_combined
 
 ## Location
-src/include/mb/pg_wchar.h: 508 - 522
+[src/include/mb/pg_wchar.h:508-522](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/mb/pg_wchar.h#L508-L522)
 
 ## Overview
 pg_local_to_utf_combined is a structure that defines a mapping entry for converting local encoding combined characters to their corresponding UTF-8 representation.

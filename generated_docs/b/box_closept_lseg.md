@@ -1,7 +1,7 @@
 # box_closept_lseg
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 3013 - 3062
+[src/backend/utils/adt/geo_ops.c:3013-3062](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L3013-L3062)
 
 ## Overview
 The `box_closept_lseg` function finds the closest point on or inside a box to a line segment and returns the distance between them.

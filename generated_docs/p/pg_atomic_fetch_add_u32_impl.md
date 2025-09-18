@@ -1,7 +1,7 @@
 # pg_atomic_fetch_add_u32_impl
 
 ## Location
-src/include/port/atomics/generic.h: 183 - 193
+[src/include/port/atomics/generic.h:183-193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L183-L193)
 
 ## Overview
 Implements atomic fetch-and-add operation for 32-bit unsigned integers using spinlock-based fallback implementation, returning the original value before addition.

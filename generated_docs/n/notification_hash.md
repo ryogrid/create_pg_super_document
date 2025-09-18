@@ -1,7 +1,7 @@
 # notification_hash
 
 ## Location
-src/backend/commands/async.c: 2357 - 2370
+[src/backend/commands/async.c:2357-2370](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L2357-L2370)
 
 ## Overview
 A hash function used by PostgreSQL's notification hash table to generate hash values for Notification structures based on their channel name and payload data.

@@ -1,7 +1,7 @@
 # RangeFunction
 
 ## Location
-src/include/nodes/parsenodes.h: 637 - 647
+[src/include/nodes/parsenodes.h:637-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L637-L647)
 
 ## Overview
 RangeFunction is a parse tree node that represents function calls appearing in FROM clauses, supporting both simple function calls and complex ROWS FROM() constructs with multiple functions, optional column definitions, and ordinality columns.

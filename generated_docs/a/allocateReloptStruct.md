@@ -1,7 +1,7 @@
 # allocateReloptStruct
 
 ## Location
-src/backend/access/common/reloptions.c: 1711 - 1750
+[src/backend/access/common/reloptions.c:1711-1750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1711-L1750)
 
 ## Overview
 Static function that allocates memory for a relation options structure, calculating the required size based on a base structure size plus additional space needed for string option values.

@@ -1,7 +1,7 @@
 # resolve_anyrange_from_others
 
 ## Location
-src/backend/utils/fmgr/funcapi.c: 681 - 709
+[src/backend/utils/fmgr/funcapi.c:681-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/funcapi.c#L681-L709)
 
 ## Overview
 Resolves the actual type of ANYRANGE polymorphic type parameter from other polymorphic inputs, specifically from ANYMULTIRANGE type when available.

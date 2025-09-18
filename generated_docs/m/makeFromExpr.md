@@ -1,7 +1,7 @@
 # makeFromExpr
 
 ## Location
-src/backend/nodes/makefuncs.c: 334 - 347
+[src/backend/nodes/makefuncs.c:334-347](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/makefuncs.c#L334-L347)
 
 ## Overview
 Creates a FromExpr node representing the FROM clause of a query along with associated WHERE clause qualifications.

@@ -1,7 +1,7 @@
 # prepare_projection_slot
 
 ## Location
-src/backend/executor/nodeAgg.c: 1249 - 1293
+[src/backend/executor/nodeAgg.c:1249-1293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L1249-L1293)
 
 ## Overview
 Prepares a tuple slot for finalization and projection by nullifying attributes that should be read as null in the context of the current grouping set and setting up grouping expression context.

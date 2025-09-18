@@ -1,7 +1,7 @@
 # point_send
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1868 - 1883
+[src/backend/utils/adt/geo_ops.c:1868-1883](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1868-L1883)
 
 ## Overview
 Converts PostgreSQL's internal Point data structure into binary format for network communication.

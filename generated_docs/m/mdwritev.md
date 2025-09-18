@@ -1,7 +1,7 @@
 # mdwritev
 
 ## Location
-src/backend/storage/smgr/md.c: 928 - 1029
+[src/backend/storage/smgr/md.c:928-1029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L928-L1029)
 
 ## Overview
 mdwritev is a function that writes multiple database blocks at the appropriate locations within PostgreSQL relation files, specifically for updating already-existing blocks before the current EOF.

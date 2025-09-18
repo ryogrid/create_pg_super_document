@@ -1,7 +1,7 @@
 # ShutDownSlotSync
 
 ## Location
-src/backend/replication/logical/slotsync.c: 1562 - 1629
+[src/backend/replication/logical/slotsync.c:1562-1629](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L1562-L1629)
 
 ## Overview
 Gracefully shuts down the slot synchronization worker and waits for all slot synchronization activities to complete before updating synchronized slot timestamps.

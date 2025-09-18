@@ -1,7 +1,7 @@
 # BTVacInfo
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4373 - 4379
+[src/backend/access/nbtree/nbtutils.c:4373-4379](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4373-L4379)
 
 ## Overview
 BTVacInfo is the main shared memory structure that manages vacuum cycle coordination for B-tree indexes by tracking active vacuum operations and assigning unique cycle IDs.

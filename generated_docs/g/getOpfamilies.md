@@ -1,7 +1,7 @@
 # getOpfamilies
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 6389 - 6459
+[src/bin/pg_dump/pg_dump.c:6389-6459](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L6389-L6459)
 
 ## Overview
 The getOpfamilies function retrieves all operator families from the PostgreSQL system catalogs and returns them in an OpfamilyInfo structure array for use by pg_dump.

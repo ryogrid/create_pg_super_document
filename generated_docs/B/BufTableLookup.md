@@ -1,7 +1,7 @@
 # BufTableLookup
 
 ## Location
-src/backend/storage/buffer/buf_table.c: 90 - 117
+[src/backend/storage/buffer/buf_table.c:90-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/buf_table.c#L90-L117)
 
 ## Overview
 Searches the shared buffer hashtable for a given BufferTag and returns the corresponding buffer ID, or -1 if the buffer is not found.

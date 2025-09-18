@@ -1,7 +1,7 @@
 # heap2_decode
 
 ## Location
-src/backend/replication/logical/decode.c: 404 - 467
+[src/backend/replication/logical/decode.c:404-467](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L404-L467)
 
 ## Overview
 Handles specialized heap-related WAL records (RM_HEAP2_ID) during logical decoding, processing multi-inserts, command ID assignments, and table rewrites for logical replication consistency.

@@ -1,7 +1,7 @@
 # check_synchronized_standby_slots
 
 ## Location
-src/backend/replication/slot.c: 2488 - 2543
+[src/backend/replication/slot.c:2488-2543](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2488-L2543)
 
 ## Overview
 GUC check_hook for the synchronized_standby_slots configuration parameter that validates the slot names and prepares configuration data for use by the system.

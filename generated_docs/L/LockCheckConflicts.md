@@ -1,7 +1,7 @@
 # LockCheckConflicts
 
 ## Location
-src/backend/storage/lmgr/lock.c: 1429 - 1557
+[src/backend/storage/lmgr/lock.c:1429-1557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L1429-L1557)
 
 ## Overview
 LockCheckConflicts determines whether a requested lock conflicts with locks already granted, accounting for the fact that locks held by the same process or lock group do not conflict with each other.

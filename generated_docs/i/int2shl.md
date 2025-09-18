@@ -1,7 +1,7 @@
 # int2shl
 
 ## Location
-src/backend/utils/adt/int.c: 1482 - 1490
+[src/backend/utils/adt/int.c:1482-1490](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1482-L1490)
 
 ## Overview
 Performs bitwise left shift operation on a 16-bit signed integer (smallint type in PostgreSQL).

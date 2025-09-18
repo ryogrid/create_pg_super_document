@@ -1,7 +1,7 @@
 # shm_mq_create
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 177 - 205
+[src/backend/storage/ipc/shm_mq.c:177-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L177-L205)
 
 ## Overview
 Initializes a new shared message queue structure in shared memory, setting up the basic queue parameters and atomic counters for inter-process communication.

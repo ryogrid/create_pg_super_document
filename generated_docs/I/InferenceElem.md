@@ -1,7 +1,7 @@
 # InferenceElem
 
 ## Location
-src/include/nodes/primnodes.h: 2123 - 2129
+[src/include/nodes/primnodes.h:2123-2129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/primnodes.h#L2123-L2129)
 
 ## Overview
 A node representing an element of a unique index inference specification, used in INSERT ... ON CONFLICT statements to identify which unique index should be considered for conflict detection.

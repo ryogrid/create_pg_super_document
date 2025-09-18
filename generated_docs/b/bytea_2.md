@@ -1,7 +1,7 @@
 # bytea_2
 
 ## Location
-src/interfaces/ecpg/test/expected/sql-bytea.c: 57 - 59
+[src/interfaces/ecpg/test/expected/sql-bytea.c:57-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/sql-bytea.c#L57-L59)
 
 ## Overview
 A struct definition used in PostgreSQL's ECPG test suite for handling bytea data with a dynamic array size determined by the DATA_SIZE constant.

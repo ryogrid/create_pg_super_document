@@ -1,7 +1,7 @@
 # ExecARInsertTriggers
 
 ## Location
-src/backend/commands/trigger.c: 2536 - 2561
+[src/backend/commands/trigger.c:2536-2561](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L2536-L2561)
 
 ## Overview
 Executes AFTER ROW INSERT triggers for a given relation and handles transition table capture for inserted tuples.

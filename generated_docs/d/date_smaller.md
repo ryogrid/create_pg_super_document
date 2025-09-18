@@ -1,7 +1,7 @@
 # date_smaller
 
 ## Location
-src/backend/utils/adt/date.c: 476 - 486
+[src/backend/utils/adt/date.c:476-486](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L476-L486)
 
 ## Overview
 Returns the smaller (earlier) of two date values.

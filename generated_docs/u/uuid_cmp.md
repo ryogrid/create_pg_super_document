@@ -1,7 +1,7 @@
 # uuid_cmp
 
 ## Location
-src/backend/utils/adt/uuid.c: 229 - 240
+[src/backend/utils/adt/uuid.c:229-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/uuid.c#L229-L240)
 
 ## Overview
 Serves as the B-tree index comparison function for PostgreSQL UUID data type, returning an integer indicating the relative ordering of two UUID values.

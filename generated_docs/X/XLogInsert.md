@@ -1,7 +1,7 @@
 # XLogInsert
 
 ## Location
-src/backend/access/transam/xloginsert.c: 474 - 547
+[src/backend/access/transam/xloginsert.c:474-547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xloginsert.c#L474-L547)
 
 ## Overview
 XLogInsert is the primary function that finalizes and inserts a constructed WAL record into the Write-Ahead Log, returning the LSN for the inserted record.

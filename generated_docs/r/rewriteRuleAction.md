@@ -1,7 +1,7 @@
 # rewriteRuleAction
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 349 - 701
+[src/backend/rewrite/rewriteHandler.c:349-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L349-L701)
 
 ## Overview
 Rewrites a rule action query by merging it with the triggering query, applying appropriate qualifiers, and adjusting variable references and range table entries.

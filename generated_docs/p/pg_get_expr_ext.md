@@ -1,7 +1,7 @@
 # pg_get_expr_ext
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2646 - 2663
+[src/backend/utils/adt/ruleutils.c:2646-2663](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2646-L2663)
 
 ## Overview
 Converts a stored pg_node_tree expression back into human-readable SQL text format with optional pretty-printing support.

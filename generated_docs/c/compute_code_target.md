@@ -1,7 +1,7 @@
 # compute_code_target
 
 ## Location
-src/tools/pg_bsd_indent/io.c: 223 - 251
+[src/tools/pg_bsd_indent/io.c:223-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tools/pg_bsd_indent/io.c#L223-L251)
 
 ## Overview
 Calculates the target column position for code indentation based on nesting level, parentheses alignment, and continuation settings.

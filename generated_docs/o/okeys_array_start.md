@@ -1,7 +1,7 @@
 # okeys_array_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 807 - 821
+[src/backend/utils/adt/jsonfuncs.c:807-821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L807-L821)
 
 ## Overview
 A semantic action callback function that validates the top-level JSON structure is an object (not an array) for the json_object_keys function.

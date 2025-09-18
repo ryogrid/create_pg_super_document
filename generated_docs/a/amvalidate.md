@@ -1,7 +1,7 @@
 # amvalidate
 
 ## Location
-src/backend/access/index/amapi.c: 114 - 143
+[src/backend/access/index/amapi.c:114-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/index/amapi.c#L114-L143)
 
 ## Overview
 amvalidate is a PostgreSQL function that validates operator classes by calling the appropriate index access method's validation routine.

@@ -1,7 +1,7 @@
 # copy_table_data
 
 ## Location
-src/backend/commands/cluster.c: 814 - 1060
+[src/backend/commands/cluster.c:814-1060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L814-L1060)
 
 ## Overview
 Performs the physical copying of table data from an old heap to a new heap, handling tuple visibility, freezing, and transaction management during table reorganization operations.

@@ -1,7 +1,7 @@
 # float84ne
 
 ## Location
-src/backend/utils/adt/float.c: 3930 - 3938
+[src/backend/utils/adt/float.c:3930-3938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L3930-L3938)
 
 ## Overview
 PostgreSQL function that performs not-equal comparison between a float8 (double precision) and a float4 (single precision) value.

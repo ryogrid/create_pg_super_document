@@ -1,7 +1,7 @@
 # want_bloat
 
 ## Location
-src/timezone/zic.c: 644 - 649
+[src/timezone/zic.c:644-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L644-L649)
 
 ## Overview
 Determines whether the timezone compiler should generate "bloated" timezone data files with extra information for better compatibility and debugging purposes.

@@ -1,7 +1,7 @@
 # boolout
 
 ## Location
-src/backend/utils/adt/bool.c: 157 - 173
+[src/backend/utils/adt/bool.c:157-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L157-L173)
 
 ## Overview
 PostgreSQL output function for the boolean data type that converts internal boolean values to their string representation ("t" or "f").

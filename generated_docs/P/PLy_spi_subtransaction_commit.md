@@ -1,7 +1,7 @@
 # PLy_spi_subtransaction_commit
 
 ## Location
-src/pl/plpython/plpy_spi.c: 577 - 585
+[src/pl/plpython/plpy_spi.c:577-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_spi.c#L577-L585)
 
 ## Overview
 PLy_spi_subtransaction_commit commits an internal subtransaction within PL/Python and restores the previous execution context, completing the successful path of subtransaction-protected SPI operations.

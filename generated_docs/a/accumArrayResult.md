@@ -1,7 +1,7 @@
 # accumArrayResult
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 5338 - 5407
+[src/backend/utils/adt/arrayfuncs.c:5338-5407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L5338-L5407)
 
 ## Overview
 Accumulates one Datum element into an ArrayBuildState structure, handling automatic array growth, memory management, and proper copying of pass-by-reference values.

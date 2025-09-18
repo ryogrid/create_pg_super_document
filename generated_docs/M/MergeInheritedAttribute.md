@@ -1,7 +1,7 @@
 # MergeInheritedAttribute
 
 ## Location
-src/backend/commands/tablecmds.c: 3279 - 3388
+[src/backend/commands/tablecmds.c:3279-3388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L3279-L3388)
 
 ## Overview
 MergeInheritedAttribute merges a parent attribute definition into an existing inherited attribute from previous parents, ensuring type compatibility and resolving conflicts during table inheritance.

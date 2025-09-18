@@ -1,7 +1,7 @@
 # simple_string_list_append
 
 ## Location
-src/fe_utils/simple_list.c: 63 - 86
+[src/fe_utils/simple_list.c:63-86](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/simple_list.c#L63-L86)
 
 ## Overview
 Appends a string value to a simple linked list structure designed for frontend PostgreSQL utilities, creating a copy of the provided string.

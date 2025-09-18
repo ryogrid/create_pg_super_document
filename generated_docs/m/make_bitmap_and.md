@@ -1,7 +1,7 @@
 # make_bitmap_and
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5919 - 5933
+[src/backend/optimizer/plan/createplan.c:5919-5933](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5919-L5933)
 
 ## Overview
 Creates and initializes a BitmapAnd plan node that performs logical AND operations on bitmap index scans for efficient multi-index queries.

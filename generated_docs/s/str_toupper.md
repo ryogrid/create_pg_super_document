@@ -1,7 +1,7 @@
 # str_toupper
 
 ## Location
-src/backend/utils/adt/formatting.c: 1784 - 1924
+[src/backend/utils/adt/formatting.c:1784-1924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L1784-L1924)
 
 ## Overview
 A collation-aware, wide-character-aware function that converts a string to uppercase, supporting multiple collation providers including ICU, built-in Unicode, and libc.

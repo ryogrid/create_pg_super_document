@@ -1,7 +1,7 @@
 # WALDumpReadPage
 
 ## Location
-src/bin/pg_waldump/pg_waldump.c: 389 - 437
+[src/bin/pg_waldump/pg_waldump.c:389-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_waldump/pg_waldump.c#L389-L437)
 
 ## Overview
 WALDumpReadPage is a callback function used by the XLogReader infrastructure in pg_waldump to read WAL (Write-Ahead Log) pages from disk.

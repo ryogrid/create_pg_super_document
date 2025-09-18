@@ -1,7 +1,7 @@
 # clearcvec
 
 ## Location
-src/backend/regex/regc_cvec.c: 66 - 78
+[src/backend/regex/regc_cvec.c:66-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_cvec.c#L66-L78)
 
 ## Overview
 Resets a character vector (cvec) structure to an empty state, clearing all character data and ranges while preserving the allocated memory structure.

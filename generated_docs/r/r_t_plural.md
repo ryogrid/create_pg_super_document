@@ -1,7 +1,7 @@
 # r_t_plural
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_finnish.c: 527 - 572
+[src/backend/snowball/libstemmer/stem_UTF_8_finnish.c:527-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_finnish.c#L527-L572)
 
 ## Overview
 The r_t_plural function identifies and removes Finnish plural endings that involve the letter t followed by vowel-containing patterns in the stemming process.

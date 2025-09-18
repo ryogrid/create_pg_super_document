@@ -1,7 +1,7 @@
 # printJsonPathItem
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 521 - 835
+[src/backend/utils/adt/jsonpath.c:521-835](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L521-L835)
 
 ## Overview
 Recursively prints the text representation of a JsonPath item and all its children, converting the binary JsonPath format back to readable JsonPath syntax.

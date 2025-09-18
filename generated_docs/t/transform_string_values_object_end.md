@@ -1,7 +1,7 @@
 # transform_string_values_object_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5872 - 5881
+[src/backend/utils/adt/jsonfuncs.c:5872-5881](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5872-L5881)
 
 ## Overview
 This auxiliary function handles the end of JSON objects during JSON string value transformation by appending the closing brace character to the output.

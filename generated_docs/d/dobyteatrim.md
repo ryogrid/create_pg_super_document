@@ -1,7 +1,7 @@
 # dobyteatrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 534 - 616
+[src/backend/utils/adt/oracle_compat.c:534-616](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L534-L616)
 
 ## Overview
 The dobyteatrim function is the core implementation that provides byte-level trimming functionality for PostgreSQL's bytea (binary data) trim functions.

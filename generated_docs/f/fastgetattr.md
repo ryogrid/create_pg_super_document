@@ -1,7 +1,7 @@
 # fastgetattr
 
 ## Location
-src/include/access/htup_details.h: 754 - 796
+[src/include/access/htup_details.h:754-796](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/htup_details.h#L754-L796)
 
 ## Overview
 `fastgetattr` is an optimized inline function that extracts attribute values from heap tuples when the attribute number is known to be valid and non-system.

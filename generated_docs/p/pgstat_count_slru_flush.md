@@ -1,7 +1,7 @@
 # pgstat_count_slru_flush
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 89 - 94
+[src/backend/utils/activity/pgstat_slru.c:89-94](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L89-L94)
 
 ## Overview
 Increments the flush counter for a specific SLRU (Simple LRU) buffer cache to track statistics about flush operations.

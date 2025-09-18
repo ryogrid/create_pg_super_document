@@ -1,7 +1,7 @@
 # fmgr_internal_function
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 595 - 610
+[src/backend/utils/fmgr/fmgr.c:595-610](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L595-L610)
 
 ## Overview
 Looks up an internal PostgreSQL function by name and returns its corresponding OID, primarily used for validation purposes.

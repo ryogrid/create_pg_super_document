@@ -1,7 +1,7 @@
 # xl_end_of_recovery
 
 ## Location
-src/include/access/xlog_internal.h: 300 - 306
+[src/include/access/xlog_internal.h:300-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L300-L306)
 
 ## Overview
 A data structure that marks the end of recovery process in PostgreSQL, logging timeline information and WAL level when recovery completes without performing an END_OF_RECOVERY checkpoint.

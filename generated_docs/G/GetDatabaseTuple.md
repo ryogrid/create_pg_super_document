@@ -1,7 +1,7 @@
 # GetDatabaseTuple
 
 ## Location
-src/backend/utils/init/postinit.c: 101 - 143
+[src/backend/utils/init/postinit.c:101-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L101-L143)
 
 ## Overview
 GetDatabaseTuple is a static function that fetches the pg_database row for a specified database name during backend startup when system catalogs are not yet fully accessible.

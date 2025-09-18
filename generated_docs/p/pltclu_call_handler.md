@@ -1,7 +1,7 @@
 # pltclu_call_handler
 
 ## Location
-src/pl/tcl/pltcl.c: 712 - 722
+[src/pl/tcl/pltcl.c:712-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L712-L722)
 
 ## Overview
 Entry point function for the PL/Tcl untrusted language handler that processes function calls in the untrusted Tcl environment.

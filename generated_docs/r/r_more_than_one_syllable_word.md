@@ -1,7 +1,7 @@
 # r_more_than_one_syllable_word
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 2016 - 2038
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:2016-2038](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L2016-L2038)
 
 ## Overview
 Checks if a Turkish word contains more than one syllable by counting vowel groups, which is essential for determining if stemming operations should be applied.

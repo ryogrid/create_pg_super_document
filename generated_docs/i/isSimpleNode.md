@@ -1,7 +1,7 @@
 # isSimpleNode
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 8557 - 8785
+[src/backend/utils/adt/ruleutils.c:8557-8785](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L8557-L8785)
 
 ## Overview
 Determines whether a given expression node is simple enough to not require parentheses when displayed in the context of its parent node.

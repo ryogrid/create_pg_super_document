@@ -1,7 +1,7 @@
 # TupleDescGetDefault
 
 ## Location
-src/backend/access/common/tupdesc.c: 899 - 922
+[src/backend/access/common/tupdesc.c:899-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L899-L922)
 
 ## Overview
 Retrieves the default expression for a specified attribute in a tuple descriptor, returning NULL if no default is defined.

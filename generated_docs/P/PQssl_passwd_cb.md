@@ -1,7 +1,7 @@
 # PQssl_passwd_cb
 
 ## Location
-src/interfaces/libpq/fe-secure-openssl.c: 2106 - 2126
+[src/interfaces/libpq/fe-secure-openssl.c:2106-2126](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure-openssl.c#L2106-L2126)
 
 ## Overview
 Internal OpenSSL callback function that supplies passwords to decrypt client SSL certificates and private keys.

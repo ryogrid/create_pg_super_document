@@ -1,7 +1,7 @@
 # cmpTimestampToTimestampTz
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 3710 - 3722
+[src/backend/utils/adt/jsonpath_exec.c:3710-3722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L3710-L3722)
 
 ## Overview
 A static helper function that compares a timestamp value to a timestamptz (timestamp with timezone) value with timezone validation during JSON path execution.

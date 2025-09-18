@@ -1,7 +1,7 @@
 # set_result_size_estimates
 
 ## Location
-src/backend/optimizer/path/costsize.c: 6038 - 6066
+[src/backend/optimizer/path/costsize.c:6038-6066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L6038-L6066)
 
 ## Overview
 Sets size estimates for an RTE_RESULT base relation by establishing tuple counts and then delegating to base relation size estimation routines.

@@ -1,7 +1,7 @@
 # simple_action_list_append
 
 ## Location
-src/bin/psql/startup.c: 748 - 773
+[src/bin/psql/startup.c:748-773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L748-L773)
 
 ## Overview
 A static utility function that appends a new action item to the end of a SimpleActionList structure, used by psql's startup processing to queue command-line options and actions.

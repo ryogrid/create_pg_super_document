@@ -1,7 +1,7 @@
 # nocachegetattr
 
 ## Location
-src/backend/access/common/heaptuple.c: 519 - 722
+[src/backend/access/common/heaptuple.c:519-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L519-L722)
 
 ## Overview
 nocachegetattr extracts attribute values from heap tuples when cached offsets cannot be used, implementing an optimization strategy that caches computed attribute offsets in the tuple descriptor for future use.

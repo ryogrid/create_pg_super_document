@@ -1,7 +1,7 @@
 # check_lock_if_inplace_updateable_rel
 
 ## Location
-src/backend/access/heap/heapam.c: 4182 - 4264
+[src/backend/access/heap/heapam.c:4182-4264](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L4182-L4264)
 
 ## Overview
 check_lock_if_inplace_updateable_rel is a static validation function that confirms adequate locking is held during heap_update operations on inplace-updateable system catalog relations to prevent corruption.

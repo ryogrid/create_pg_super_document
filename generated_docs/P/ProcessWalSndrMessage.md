@@ -1,7 +1,7 @@
 # ProcessWalSndrMessage
 
 ## Location
-src/backend/replication/walreceiver.c: 1265 - 1316
+[src/backend/replication/walreceiver.c:1265-1316](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L1265-L1316)
 
 ## Overview
 Updates shared memory status information when receiving a message from the primary server during WAL replication, tracking latency and timing metrics.

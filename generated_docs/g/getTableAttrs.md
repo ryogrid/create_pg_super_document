@@ -1,7 +1,7 @@
 # getTableAttrs
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 8805 - 9361
+[src/bin/pg_dump/pg_dump.c:8805-9361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L8805-L9361)
 
 ## Overview
 Retrieves detailed information about table attributes (columns) including names, types, defaults, constraints, and metadata for all interesting tables in a pg_dump operation.

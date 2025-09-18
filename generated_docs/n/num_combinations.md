@@ -1,7 +1,7 @@
 # num_combinations
 
 ## Location
-src/backend/statistics/mvdistinct.c: 575 - 588
+[src/backend/statistics/mvdistinct.c:575-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L575-L588)
 
 ## Overview
 Calculates the number of combinations, excluding single-value combinations.

@@ -1,7 +1,7 @@
 # BaseBackupGetTargetHandle
 
 ## Location
-src/backend/backup/basebackup_target.c: 117 - 162
+[src/backend/backup/basebackup_target.c:117-162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_target.c#L117-L162)
 
 ## Overview
 Looks up a registered base backup target by name, validates the target-specific configuration details, and returns a handle for subsequent backup operations.

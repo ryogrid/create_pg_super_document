@@ -1,7 +1,7 @@
 # get_record1
 
 ## Location
-src/interfaces/ecpg/test/expected/preproc-outofscope.c: 230 - 250
+[src/interfaces/ecpg/test/expected/preproc-outofscope.c:230-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/preproc-outofscope.c#L230-L250)
 
 ## Overview
 A static function that fetches a record from a database cursor in ECPG test code, retrieving data into bound variables with proper type and null indicator handling.

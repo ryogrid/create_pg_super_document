@@ -1,7 +1,7 @@
 # newabbr
 
 ## Location
-src/timezone/zic.c: 3910 - 3947
+[src/timezone/zic.c:3910-3947](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L3910-L3947)
 
 ## Overview
 Validates and registers a new timezone abbreviation string, ensuring it meets POSIX standards and length requirements.

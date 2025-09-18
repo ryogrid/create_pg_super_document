@@ -1,7 +1,7 @@
 # text_char
 
 ## Location
-src/backend/utils/adt/char.c: 204 - 227
+[src/backend/utils/adt/char.c:204-227](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/char.c#L204-L227)
 
 ## Overview
 Converts a PostgreSQL text data type to a "char" (single byte character) with support for octal escape sequences and empty string handling.

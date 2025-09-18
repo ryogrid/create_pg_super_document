@@ -1,7 +1,7 @@
 # assign_restrict_nonsystem_relation_kind
 
 ## Location
-src/backend/tcop/postgres.c: 3752 - 3765
+[src/backend/tcop/postgres.c:3752-3765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3752-L3765)
 
 ## Overview
 A GUC assign hook function that applies the parsed flags from the  configuration parameter to the global restriction settings.

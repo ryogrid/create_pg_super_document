@@ -1,7 +1,7 @@
 # InitializeShmemGUCs
 
 ## Location
-src/backend/storage/ipc/ipci.c: 369 - 398
+[src/backend/storage/ipc/ipci.c:369-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/ipci.c#L369-L398)
 
 ## Overview
 Initializes runtime-computed GUC (Grand Unified Configuration) parameters related to shared memory requirements for the current PostgreSQL configuration.

@@ -1,7 +1,7 @@
 # ExplainXMLTag
 
 ## Location
-src/backend/commands/explain.c: 5212 - 5238
+[src/backend/commands/explain.c:5212-5238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5212-L5238)
 
 ## Overview
 Emits opening or closing XML tags for EXPLAIN output in XML format. This function handles XML tag generation with proper character validation and formatting.

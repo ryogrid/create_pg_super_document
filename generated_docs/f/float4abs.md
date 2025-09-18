@@ -1,7 +1,7 @@
 # float4abs
 
 ## Location
-src/backend/utils/adt/float.c: 584 - 594
+[src/backend/utils/adt/float.c:584-594](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L584-L594)
 
 ## Overview
 Computes the absolute value of a single-precision floating-point number (float4) in PostgreSQL.

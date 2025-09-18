@@ -1,7 +1,7 @@
 # GetLocalBufferDescriptor
 
 ## Location
-src/include/storage/buf_internals.h: 325 - 330
+[src/include/storage/buf_internals.h:325-330](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L325-L330)
 
 ## Overview
 Returns a pointer to the local buffer descriptor structure for a given local buffer ID, providing access to metadata and control information for buffers used by temporary tables and local operations.

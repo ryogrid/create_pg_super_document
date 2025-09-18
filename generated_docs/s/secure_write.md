@@ -1,7 +1,7 @@
 # secure_write
 
 ## Location
-src/backend/libpq/be-secure.c: 301 - 372
+[src/backend/libpq/be-secure.c:301-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure.c#L301-L372)
 
 ## Overview
 secure_write provides a secure, blocking write operation to client connections that handles SSL/TLS encryption, GSS-API authentication, and raw socket communications with interrupt processing and wait event management.

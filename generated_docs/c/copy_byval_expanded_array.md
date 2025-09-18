@@ -1,7 +1,7 @@
 # copy_byval_expanded_array
 
 ## Location
-src/backend/utils/adt/array_expanded.c: 185 - 232
+[src/backend/utils/adt/array_expanded.c:185-232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_expanded.c#L185-L232)
 
 ## Overview
 A helper function for expand_array() that efficiently copies the deconstructed representation from one expanded array to another for pass-by-value element types.

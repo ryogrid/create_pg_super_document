@@ -1,7 +1,7 @@
 # r_mark_regions
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c: 136 - 157
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c:136-157](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_danish.c#L136-L157)
 
 ## Overview
 This function identifies and marks vowel/consonant regions within a word to establish boundaries for suffix removal in the Snowball stemming algorithm for Basque language processing.

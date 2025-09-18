@@ -1,7 +1,7 @@
 # p_isurlchar
 
 ## Location
-src/backend/tsearch/wparser_def.c: 505 - 536
+[src/backend/tsearch/wparser_def.c:505-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L505-L536)
 
 ## Overview
 A static function that determines whether the current character in a text parser is a valid URL character according to RFC 3986 standards.

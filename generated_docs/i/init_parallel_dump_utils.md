@@ -1,7 +1,7 @@
 # init_parallel_dump_utils
 
 ## Location
-src/bin/pg_dump/parallel.c: 236 - 263
+[src/bin/pg_dump/parallel.c:236-263](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L236-L263)
 
 ## Overview
 Initializes parallel dump support functionality and should be called early in process startup, regardless of whether parallel activity is intended.

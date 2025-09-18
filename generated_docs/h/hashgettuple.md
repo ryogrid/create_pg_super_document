@@ -1,7 +1,7 @@
 # hashgettuple
 
 ## Location
-src/backend/access/hash/hash.c: 283 - 334
+[src/backend/access/hash/hash.c:283-334](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hash.c#L283-L334)
 
 ## Overview
 Retrieves the next tuple in a hash index scan, handling both the initial tuple retrieval and subsequent tuple advancement in the specified scan direction.

@@ -1,7 +1,7 @@
 # AlterForeignDataWrapperOwner_oid
 
 ## Location
-src/backend/commands/foreigncmds.c: 324 - 348
+[src/backend/commands/foreigncmds.c:324-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L324-L348)
 
 ## Overview
 Changes the owner of a foreign data wrapper identified by OID, providing an alternative interface to the name-based ownership change function.

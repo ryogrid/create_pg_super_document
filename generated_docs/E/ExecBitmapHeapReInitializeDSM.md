@@ -1,7 +1,7 @@
 # ExecBitmapHeapReInitializeDSM
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 865 - 893
+[src/backend/executor/nodeBitmapHeapscan.c:865-893](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L865-L893)
 
 ## Overview
 This function resets the shared state of a parallel bitmap heap scan to prepare for a fresh scan execution.

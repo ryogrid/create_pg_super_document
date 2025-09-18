@@ -1,7 +1,7 @@
 # record_image_eq
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 1577 - 1752
+[src/backend/utils/adt/rowtypes.c:1577-1752](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L1577-L1752)
 
 ## Overview
 The `record_image_eq` function compares two PostgreSQL records for identical byte-level content, returning true only when both records have exactly the same physical representation.

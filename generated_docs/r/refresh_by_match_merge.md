@@ -1,7 +1,7 @@
 # refresh_by_match_merge
 
 ## Location
-src/backend/commands/matview.c: 597 - 887
+[src/backend/commands/matview.c:597-887](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L597-L887)
 
 ## Overview
 Refreshes a materialized view with transactional semantics while allowing concurrent reads by performing a diff-based merge using a full outer join between the old and new data versions.

@@ -1,7 +1,7 @@
 # begin_tup_output_tupdesc
 
 ## Location
-src/backend/executor/execTuples.c: 2342 - 2361
+[src/backend/executor/execTuples.c:2342-2361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L2342-L2361)
 
 ## Overview
 Initializes a TupOutputState structure for sending tuples to a destination as SELECT results, used by utility commands that need to project tuples directly.

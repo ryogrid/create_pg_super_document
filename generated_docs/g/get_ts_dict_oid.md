@@ -1,7 +1,7 @@
 # get_ts_dict_oid
 
 ## Location
-src/backend/catalog/namespace.c: 2861 - 2918
+[src/backend/catalog/namespace.c:2861-2918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2861-L2918)
 
 ## Overview
 Finds a text search dictionary by its possibly qualified name and returns its OID, with optional error handling for missing dictionaries.

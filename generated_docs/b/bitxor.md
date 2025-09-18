@@ -1,7 +1,7 @@
 # bitxor
 
 ## Location
-src/backend/utils/adt/varbit.c: 1324 - 1364
+[src/backend/utils/adt/varbit.c:1324-1364](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varbit.c#L1324-L1364)
 
 ## Overview
 Performs a logical XOR (exclusive OR) operation on two bit strings of equal length, returning a new bit string containing the bitwise XOR result.

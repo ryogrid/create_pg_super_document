@@ -1,7 +1,7 @@
 # ExpandRowReference
 
 ## Location
-src/backend/parser/parse_target.c: 1423 - 1518
+[src/backend/parser/parse_target.c:1423-1518](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_target.c#L1423-L1518)
 
 ## Overview
 Transforms a star expression (.*) applied to an arbitrary expression of composite type into a list of individual field expressions or target list entries.

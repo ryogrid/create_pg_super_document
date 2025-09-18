@@ -1,7 +1,7 @@
 # clog_redo
 
 ## Location
-src/backend/access/transam/clog.c: 1107 - 1148
+[src/backend/access/transam/clog.c:1107-1148](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L1107-L1148)
 
 ## Overview
 clog_redo is the main redo function for the CLOG (Commit Log) resource manager that processes WAL records during crash recovery to reconstruct the commit log state.

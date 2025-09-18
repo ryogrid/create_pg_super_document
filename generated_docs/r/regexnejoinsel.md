@@ -1,7 +1,7 @@
 # regexnejoinsel
 
 ## Location
-src/backend/utils/adt/like_support.c: 930 - 938
+[src/backend/utils/adt/like_support.c:930-938](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L930-L938)
 
 ## Overview
 A selectivity estimation function for negated regular expression join operations in PostgreSQL's query planner.

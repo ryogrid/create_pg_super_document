@@ -1,7 +1,7 @@
 # gistXLogPageDelete
 
 ## Location
-src/backend/access/gist/gistxlog.c: 552 - 575
+[src/backend/access/gist/gistxlog.c:552-575](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L552-L575)
 
 ## Overview
 Writes a WAL record describing a GiST page deletion operation, including the removal of the downlink from the parent page.

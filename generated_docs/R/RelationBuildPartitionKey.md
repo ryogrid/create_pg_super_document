@@ -1,7 +1,7 @@
 # RelationBuildPartitionKey
 
 ## Location
-src/backend/utils/cache/partcache.c: 78 - 276
+[src/backend/utils/cache/partcache.c:78-276](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/partcache.c#L78-L276)
 
 ## Overview
 Constructs and caches the complete partition key data structure for a partitioned table by reading metadata from system catalogs and building all necessary type and operator information.

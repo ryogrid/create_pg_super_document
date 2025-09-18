@@ -1,7 +1,7 @@
 # prompt2_hook
 
 ## Location
-src/bin/psql/startup.c: 1105 - 1111
+[src/bin/psql/startup.c:1105-1111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1105-L1111)
 
 ## Overview
 A variable hook function that updates the PROMPT2 variable in psql, which controls the continuation prompt displayed when a multi-line command is being entered.

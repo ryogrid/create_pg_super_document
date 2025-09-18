@@ -1,7 +1,7 @@
 # format_operator_extended
 
 ## Location
-src/backend/utils/adt/regproc.c: 722 - 792
+[src/backend/utils/adt/regproc.c:722-792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L722-L792)
 
 ## Overview
 Converts an operator OID to a textual representation in the format "opr_name(args)", providing extended formatting options and error handling capabilities.

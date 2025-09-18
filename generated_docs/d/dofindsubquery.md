@@ -1,7 +1,7 @@
 # dofindsubquery
 
 ## Location
-src/backend/utils/adt/tsquery_rewrite.c: 206 - 266
+[src/backend/utils/adt/tsquery_rewrite.c:206-266](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_rewrite.c#L206-L266)
 
 ## Overview
 The `dofindsubquery` function is the recursive core of the TSQuery rewriting mechanism, responsible for traversing the query tree and applying pattern matching and replacement operations throughout the entire tree structure.

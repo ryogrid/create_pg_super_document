@@ -1,7 +1,7 @@
 # PG_char_to_encoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1285 - 1292
+[src/backend/utils/mb/mbutils.c:1285-1292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1285-L1292)
 
 ## Overview
 A PostgreSQL SQL function wrapper that converts a character encoding name to its corresponding encoding ID number.

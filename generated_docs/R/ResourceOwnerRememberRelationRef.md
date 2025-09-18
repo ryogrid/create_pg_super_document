@@ -1,7 +1,7 @@
 # ResourceOwnerRememberRelationRef
 
 ## Location
-src/backend/utils/cache/relcache.c: 2142 - 2146
+[src/backend/utils/cache/relcache.c:2142-2146](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2142-L2146)
 
 ## Overview
 A convenience wrapper function that registers a relation reference with a resource owner to track it for automatic cleanup.

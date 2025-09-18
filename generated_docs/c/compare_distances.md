@@ -1,7 +1,7 @@
 # compare_distances
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1305 - 1328
+[src/backend/access/brin/brin_minmax_multi.c:1305-1328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1305-L1328)
 
 ## Overview
 Comparison function for DistanceValue structures that sorts distances in descending order for use with qsort algorithms.

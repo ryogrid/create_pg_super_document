@@ -1,7 +1,7 @@
 # compare_block_numbers
 
 ## Location
-src/backend/backup/basebackup_incremental.c: 1040 - 1046
+[src/backend/backup/basebackup_incremental.c:1040-1046](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_incremental.c#L1040-L1046)
 
 ## Overview
 A quicksort comparator function for sorting BlockNumber values in ascending order.

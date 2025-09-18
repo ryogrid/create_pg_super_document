@@ -1,7 +1,7 @@
 # pickout
 
 ## Location
-src/test/examples/testlo64.c: 78 - 112
+[src/test/examples/testlo64.c:78-112](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlo64.c#L78-L112)
 
 ## Overview
 A static function that reads and displays a specified portion of data from a PostgreSQL large object starting at a given offset.

@@ -1,7 +1,7 @@
 # text_to_array_null
 
 ## Location
-src/backend/utils/adt/varlena.c: 4540 - 4550
+[src/backend/utils/adt/varlena.c:4540-4550](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L4540-L4550)
 
 ## Overview
 A wrapper function for text_to_array that handles null string parameters in text array splitting operations.

@@ -1,7 +1,7 @@
 # appendBoolResult
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2930 - 2957
+[src/backend/utils/adt/jsonpath_exec.c:2930-2957](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2930-L2957)
 
 ## Overview
 Converts a boolean execution status to a JSON boolean item and continues jsonpath execution with the next jsonpath item.

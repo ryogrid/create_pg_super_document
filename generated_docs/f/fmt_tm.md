@@ -1,7 +1,7 @@
 # fmt_tm
 
 ## Location
-src/backend/utils/adt/formatting.c: 469 - 481
+[src/backend/utils/adt/formatting.c:469-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L469-L481)
 
 ## Overview
 A custom time structure used by PostgreSQL's formatting functions to support both timestamps and intervals with extended hour range capability.

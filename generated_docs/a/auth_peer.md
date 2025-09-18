@@ -1,7 +1,7 @@
 # auth_peer
 
 ## Location
-src/backend/libpq/auth.c: 1863 - 1929
+[src/backend/libpq/auth.c:1863-1929](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L1863-L1929)
 
 ## Overview
 The auth_peer function implements peer authentication in PostgreSQL, verifying client connections by querying the operating system for the credentials of the connecting process and validating the user against the configured usermap.

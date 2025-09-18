@@ -1,7 +1,7 @@
 # pg_logical_emit_message_bytea
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 368 - 381
+[src/backend/replication/logical/logicalfuncs.c:368-381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L368-L381)
 
 ## Overview
 Writes a logical decoding message with binary data into the Write-Ahead Log (WAL), allowing custom application messages to be included in the logical replication stream.

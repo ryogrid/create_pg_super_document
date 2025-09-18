@@ -1,7 +1,7 @@
 # findFuncByOid
 
 ## Location
-src/bin/pg_dump/common.c: 907 - 924
+[src/bin/pg_dump/common.c:907-924](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L907-L924)
 
 ## Overview
 Finds and returns the DumpableObject for a PostgreSQL function with the given OID, used in pg_dump operations for function lookup during database dumping.

@@ -1,7 +1,7 @@
 # has_table_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 1895 - 1920
+[src/backend/utils/adt/acl.c:1895-1920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L1895-L1920)
 
 ## Overview
 Checks whether a specific user has a given privilege on a table, taking both the user name and table name as text parameters.

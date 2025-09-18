@@ -1,7 +1,7 @@
 # fmStringInfo
 
 ## Location
-src/include/fmgr.h: 29 - 37
+[src/include/fmgr.h:29-37](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fmgr.h#L29-L37)
 
 ## Overview
 fmStringInfo is a typedef that represents a pointer to a StringInfoData structure, used as a stub reference in the function manager system to avoid including stringinfo.h.

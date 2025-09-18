@@ -1,7 +1,7 @@
 # int8and
 
 ## Location
-src/backend/utils/adt/int8.c: 1184 - 1192
+[src/backend/utils/adt/int8.c:1184-1192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L1184-L1192)
 
 ## Overview
 The int8and function performs bitwise AND operation on two 64-bit integers, returning the result as a 64-bit integer.

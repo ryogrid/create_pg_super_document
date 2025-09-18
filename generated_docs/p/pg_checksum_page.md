@@ -1,7 +1,7 @@
 # pg_checksum_page
 
 ## Location
-src/include/storage/checksum_impl.h: 187 - 215
+[src/include/storage/checksum_impl.h:187-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/checksum_impl.h#L187-L215)
 
 ## Overview
 Computes a 16-bit checksum for a PostgreSQL page, incorporating the block number for transposition detection and temporarily zeroing the existing checksum field during calculation.

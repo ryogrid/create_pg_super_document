@@ -1,7 +1,7 @@
 # expanded_record_get_tuple
 
 ## Location
-src/backend/utils/adt/expandedrecord.c: 884 - 901
+[src/backend/utils/adt/expandedrecord.c:884-901](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/expandedrecord.c#L884-L901)
 
 ## Overview
 expanded_record_get_tuple returns a HeapTuple representation of an expanded records current value, using cached tuple when available or constructing one from field data.

@@ -1,7 +1,7 @@
 # CalculateCheckpointSegments
 
 ## Location
-src/backend/access/transam/xlog.c: 2164 - 2192
+[src/backend/access/transam/xlog.c:2164-2192](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L2164-L2192)
 
 ## Overview
 Calculates the number of WAL segments at which checkpoints should be triggered, based on the maximum WAL size limit and checkpoint completion target settings.

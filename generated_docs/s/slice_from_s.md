@@ -1,7 +1,7 @@
 # slice_from_s
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 422 - 426
+[src/backend/snowball/libstemmer/utilities.c:422-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L422-L426)
 
 ## Overview
 Replaces the current slice (between bra and ket positions) in a Snowball environment with a new sequence of symbols, providing a safe interface for slice replacement operations.

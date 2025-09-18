@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_index_pg_class_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 120 - 130
+[src/backend/utils/adt/pg_upgrade_support.c:120-130](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L120-L130)
 
 ## Overview
 Sets the next index relation OID to be used during binary upgrade operations for new indexes in the pg_class catalog.

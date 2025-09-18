@@ -1,7 +1,7 @@
 # vac_bulkdel_one_index
 
 ## Location
-src/backend/commands/vacuum.c: 2537 - 2557
+[src/backend/commands/vacuum.c:2537-2557](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L2537-L2557)
 
 ## Overview
 Performs bulk deletion operation on a single index relation, removing dead tuple references identified during vacuum operations.

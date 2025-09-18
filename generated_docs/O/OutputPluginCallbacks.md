@@ -1,7 +1,7 @@
 # OutputPluginCallbacks
 
 ## Location
-src/include/replication/output_plugin.h: 216 - 243
+[src/include/replication/output_plugin.h:216-243](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/output_plugin.h#L216-L243)
 
 ## Overview
 OutputPluginCallbacks is a structure that defines the complete set of callback functions that logical replication output plugins must implement to handle various events during logical decoding.

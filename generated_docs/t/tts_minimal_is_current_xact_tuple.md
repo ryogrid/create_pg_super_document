@@ -1,7 +1,7 @@
 # tts_minimal_is_current_xact_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 574 - 585
+[src/backend/executor/execTuples.c:574-585](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L574-L585)
 
 ## Overview
 A slot operation function for minimal tuple table slots that throws an error when attempting to determine transaction information, as minimal tuples do not contain transaction-related metadata.

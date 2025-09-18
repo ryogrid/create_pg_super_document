@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_heap_pg_class_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 98 - 108
+[src/backend/utils/adt/pg_upgrade_support.c:98-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L98-L108)
 
 ## Overview
 Sets the next heap relation OID to be used during binary upgrade operations for new heap tables in the pg_class catalog.

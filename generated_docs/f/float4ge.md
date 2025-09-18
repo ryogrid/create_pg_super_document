@@ -1,7 +1,7 @@
 # float4ge
 
 ## Location
-src/backend/utils/adt/float.c: 864 - 872
+[src/backend/utils/adt/float.c:864-872](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L864-L872)
 
 ## Overview
 PostgreSQL SQL-callable function that tests whether one single-precision floating-point number is greater than or equal to another, handling NaN values according to PostgreSQL's floating-point ordering conventions.

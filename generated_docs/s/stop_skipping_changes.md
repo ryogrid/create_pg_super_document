@@ -1,7 +1,7 @@
 # stop_skipping_changes
 
 ## Location
-src/backend/replication/logical/worker.c: 4858 - 4879
+[src/backend/replication/logical/worker.c:4858-4879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4858-L4879)
 
 ## Overview
 stop_skipping_changes is a static function that terminates the transaction skipping mode in logical replication by resetting the skip state and logging the completion.

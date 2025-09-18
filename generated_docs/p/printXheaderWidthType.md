@@ -1,7 +1,7 @@
 # printXheaderWidthType
 
 ## Location
-src/include/fe_utils/print.h: 79 - 80
+[src/include/fe_utils/print.h:79-80](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/fe_utils/print.h#L79-L80)
 
 ## Overview
 printXheaderWidthType is an enumeration type that defines different width handling strategies for header lines in PostgreSQL's expanded/vertical output mode.

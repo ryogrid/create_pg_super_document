@@ -1,7 +1,7 @@
 # sentinel_ok
 
 ## Location
-src/include/utils/memdebug.h: 61 - 82
+[src/include/utils/memdebug.h:61-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/memdebug.h#L61-L82)
 
 ## Overview
 A memory debugging function that verifies the integrity of a sentinel byte placed at a specific memory location to detect buffer overruns and memory corruption.

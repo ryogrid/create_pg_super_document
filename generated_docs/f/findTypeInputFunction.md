@@ -1,7 +1,7 @@
 # findTypeInputFunction
 
 ## Location
-src/backend/commands/typecmds.c: 1953 - 2015
+[src/backend/commands/typecmds.c:1953-2015](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L1953-L2015)
 
 ## Overview
 findTypeInputFunction locates and validates an appropriate input function for a PostgreSQL data type, ensuring it meets the required signature and behavioral constraints.

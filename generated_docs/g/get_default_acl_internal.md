@@ -1,7 +1,7 @@
 # get_default_acl_internal
 
 ## Location
-src/backend/catalog/aclchk.c: 4271 - 4305
+[src/backend/catalog/aclchk.c:4271-4305](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4271-L4305)
 
 ## Overview
 Fetches the default ACL (Access Control List) entry from pg_default_acl catalog for a specific role, namespace, and object type combination, returning the ACL or NULL if no entry exists.

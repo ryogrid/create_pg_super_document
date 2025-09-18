@@ -1,7 +1,7 @@
 # lookup_ts_parser_cache
 
 ## Location
-src/backend/utils/cache/ts_cache.c: 113 - 207
+[src/backend/utils/cache/ts_cache.c:113-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/ts_cache.c#L113-L207)
 
 ## Overview
 Retrieves and caches text search parser configuration information from the PostgreSQL system catalog, providing efficient access to parser function OIDs and metadata.

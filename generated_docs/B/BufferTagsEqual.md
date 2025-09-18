@@ -1,7 +1,7 @@
 # BufferTagsEqual
 
 ## Location
-src/include/storage/buf_internals.h: 154 - 163
+[src/include/storage/buf_internals.h:154-163](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L154-L163)
 
 ## Overview
 BufferTagsEqual is an inline function that performs field-by-field comparison between two BufferTag structures to determine if they refer to the same database block.

@@ -1,7 +1,7 @@
 # logicalmsg_decode
 
 ## Location
-src/backend/replication/logical/decode.c: 598 - 678
+[src/backend/replication/logical/decode.c:598-678](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L598-L678)
 
 ## Overview
 The `logicalmsg_decode` function handles resource manager LOGICALMSG_ID records for logical decoding, processing logical messages that can be sent through replication streams.

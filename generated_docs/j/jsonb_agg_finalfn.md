@@ -1,7 +1,7 @@
 # jsonb_agg_finalfn
 
 ## Location
-src/backend/utils/adt/jsonb.c: 1640 - 1672
+[src/backend/utils/adt/jsonb.c:1640-1672](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L1640-L1672)
 
 ## Overview
 Final function for JSONB array aggregation that converts the accumulated state into the final JSONB array result.

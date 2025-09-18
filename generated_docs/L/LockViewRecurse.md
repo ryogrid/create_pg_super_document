@@ -1,7 +1,7 @@
 # LockViewRecurse
 
 ## Location
-src/backend/commands/lockcmds.c: 245 - 279
+[src/backend/commands/lockcmds.c:245-279](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/lockcmds.c#L245-L279)
 
 ## Overview
 Recursively locks all underlying tables and nested views referenced by a given view, respecting security invoker semantics and preventing infinite recursion.

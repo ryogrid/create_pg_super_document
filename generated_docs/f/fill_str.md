@@ -1,7 +1,7 @@
 # fill_str
 
 ## Location
-src/backend/utils/adt/formatting.c: 5038 - 5044
+[src/backend/utils/adt/formatting.c:5038-5044](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L5038-L5044)
 
 ## Overview
 A simple utility function that fills a character buffer with a specified character and null-terminates it.

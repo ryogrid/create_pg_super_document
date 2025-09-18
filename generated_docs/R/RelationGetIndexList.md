@@ -1,7 +1,7 @@
 # RelationGetIndexList
 
 ## Location
-src/backend/utils/cache/relcache.c: 4806 - 4926
+[src/backend/utils/cache/relcache.c:4806-4926](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4806-L4926)
 
 ## Overview
 RelationGetIndexList returns a list of index OIDs associated with a relation, along with identifying primary key and replica identity indexes.

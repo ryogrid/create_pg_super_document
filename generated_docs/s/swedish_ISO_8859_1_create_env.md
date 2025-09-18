@@ -1,7 +1,7 @@
 # swedish_ISO_8859_1_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_swedish.c: 285 - 286
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_swedish.c:285-286](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_swedish.c#L285-L286)
 
 ## Overview
 Creates a new Snowball stemmer environment specifically configured for Swedish text processing using the ISO-8859-1 character encoding.

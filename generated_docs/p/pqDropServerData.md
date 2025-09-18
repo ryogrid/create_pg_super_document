@@ -1,7 +1,7 @@
 # pqDropServerData
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 584 - 688
+[src/interfaces/libpq/fe-connect.c:584-688](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L584-L688)
 
 ## Overview
 Clears all connection state data that was received from or deduced about the PostgreSQL server, essential for preparing connections between different servers.

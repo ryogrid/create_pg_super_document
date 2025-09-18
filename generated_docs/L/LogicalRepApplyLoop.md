@@ -1,7 +1,7 @@
 # LogicalRepApplyLoop
 
 ## Location
-src/backend/replication/logical/worker.c: 3491 - 3754
+[src/backend/replication/logical/worker.c:3491-3754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3491-L3754)
 
 ## Overview
 LogicalRepApplyLoop is the main event loop that handles receiving, processing, and applying logical replication messages from a publisher in PostgreSQL's logical replication system.

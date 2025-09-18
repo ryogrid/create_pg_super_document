@@ -1,7 +1,7 @@
 # array_free_iterator
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 4747 - 4768
+[src/backend/utils/adt/arrayfuncs.c:4747-4768](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L4747-L4768)
 
 ## Overview
 This function releases memory allocated for an ArrayIterator and its associated workspace, preventing memory leaks after array iteration is complete.

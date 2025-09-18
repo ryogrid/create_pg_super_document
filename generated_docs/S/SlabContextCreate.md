@@ -1,7 +1,7 @@
 # SlabContextCreate
 
 ## Location
-src/backend/utils/mmgr/slab.c: 322 - 430
+[src/backend/utils/mmgr/slab.c:322-430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/slab.c#L322-L430)
 
 ## Overview
 SlabContextCreate is the main constructor function that creates and initializes a new slab memory allocator context with specified block and chunk sizes.

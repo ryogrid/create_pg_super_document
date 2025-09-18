@@ -1,7 +1,7 @@
 # bbstreamer_tar_archiver
 
 ## Location
-src/bin/pg_basebackup/bbstreamer_tar.c: 39 - 43
+[src/bin/pg_basebackup/bbstreamer_tar.c:39-43](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer_tar.c#L39-L43)
 
 ## Overview
 A structure representing a TAR format archiver that implements the bbstreamer interface to generate and modify TAR archive streams in PostgreSQL's pg_basebackup utility.

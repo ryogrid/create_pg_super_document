@@ -1,7 +1,7 @@
 # tsquery_phrase
 
 ## Location
-src/backend/utils/adt/tsquery_op.c: 150 - 158
+[src/backend/utils/adt/tsquery_op.c:150-158](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_op.c#L150-L158)
 
 ## Overview
 Creates a phrase query by joining two tsquery operands with a default distance of 1, ensuring they appear consecutively in the searched text.

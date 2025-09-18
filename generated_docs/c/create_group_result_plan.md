@@ -1,7 +1,7 @@
 # create_group_result_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 1588 - 1612
+[src/backend/optimizer/plan/createplan.c:1588-1612](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L1588-L1612)
 
 ## Overview
 Creates a Result plan node for degenerate grouping cases where no actual grouping computation is needed, typically used when GROUP BY expressions are constants or when the query can be optimized to return a single result.

@@ -1,7 +1,7 @@
 # bool_accum_inv
 
 ## Location
-src/backend/utils/adt/bool.c: 349 - 369
+[src/backend/utils/adt/bool.c:349-369](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/bool.c#L349-L369)
 
 ## Overview
 Removes boolean values from the aggregation state, serving as the inverse transition function for window-based boolean aggregates.

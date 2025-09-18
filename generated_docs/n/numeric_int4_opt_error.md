@@ -1,7 +1,7 @@
 # numeric_int4_opt_error
 
 ## Location
-src/backend/utils/adt/numeric.c: 4413 - 4462
+[src/backend/utils/adt/numeric.c:4413-4462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4413-L4462)
 
 ## Overview
 Converts a Numeric value to a 32-bit signed integer with optional error handling instead of throwing exceptions.

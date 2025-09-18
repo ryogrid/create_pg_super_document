@@ -1,7 +1,7 @@
 # SyncRepWaitForLSN
 
 ## Location
-src/backend/replication/syncrep.c: 148 - 371
+[src/backend/replication/syncrep.c:148-371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/syncrep.c#L148-L371)
 
 ## Overview
 Waits for synchronous replication confirmation for a specific Log Sequence Number (LSN), implementing the core blocking mechanism that ensures transaction commits are replicated to standby servers before acknowledging success to the client.

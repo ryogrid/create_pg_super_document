@@ -1,7 +1,7 @@
 # lc_time_T
 
 ## Location
-src/timezone/strftime.c: 48 - 61
+[src/timezone/strftime.c:48-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/strftime.c#L48-L61)
 
 ## Overview
 A structure that holds locale-specific time formatting information used by PostgreSQL's strftime implementation for date and time string formatting.

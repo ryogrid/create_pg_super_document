@@ -1,7 +1,7 @@
 # copy_file_blocks
 
 ## Location
-src/bin/pg_combinebackup/copy_file.c: 160 - 212
+[src/bin/pg_combinebackup/copy_file.c:160-212](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/copy_file.c#L160-L212)
 
 ## Overview
 Copies a file block by block from source to destination while optionally computing a checksum during the copy operation.

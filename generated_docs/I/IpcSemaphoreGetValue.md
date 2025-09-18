@@ -1,7 +1,7 @@
 # IpcSemaphoreGetValue
 
 ## Location
-src/backend/port/sysv_sema.c: 198 - 208
+[src/backend/port/sysv_sema.c:198-208](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_sema.c#L198-L208)
 
 ## Overview
 IpcSemaphoreGetValue is a static function that retrieves the current value (semval) of a specific semaphore within a System V IPC semaphore set.

@@ -1,7 +1,7 @@
 # generate_base_implied_equalities_const
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1108 - 1202
+[src/backend/optimizer/path/equivclass.c:1108-1202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1108-L1202)
 
 ## Overview
 Generates implied equality clauses for equivalence classes that contain pseudoconstants by creating "member = const" restrictions for each non-constant member.

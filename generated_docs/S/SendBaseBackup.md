@@ -1,7 +1,7 @@
 # SendBaseBackup
 
 ## Location
-src/backend/backup/basebackup.c: 988 - 1072
+[src/backend/backup/basebackup.c:988-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup.c#L988-L1072)
 
 ## Overview
  is the main entry point function that orchestrates a complete base backup by setting up the backup infrastructure, parsing options, and delegating to perform_base_backup.

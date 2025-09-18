@@ -1,7 +1,7 @@
 # ReceiveArchiveStream
 
 ## Location
-src/bin/pg_basebackup/pg_basebackup.c: 1284 - 1331
+[src/bin/pg_basebackup/pg_basebackup.c:1284-1331](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_basebackup.c#L1284-L1331)
 
 ## Overview
 Receives all archives and backup manifest from the PostgreSQL server as a single COPY stream during pg_basebackup operations.

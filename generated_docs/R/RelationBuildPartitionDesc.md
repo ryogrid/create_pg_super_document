@@ -1,7 +1,7 @@
 # RelationBuildPartitionDesc
 
 ## Location
-src/backend/partitioning/partdesc.c: 134 - 422
+[src/backend/partitioning/partdesc.c:134-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partdesc.c#L134-L422)
 
 ## Overview
 Constructs a partition descriptor for a partitioned table relation and stores it in the relcache entry, managing memory contexts and handling concurrent partition operations.

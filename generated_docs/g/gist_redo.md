@@ -1,7 +1,7 @@
 # gist_redo
 
 ## Location
-src/backend/access/gist/gistxlog.c: 397 - 437
+[src/backend/access/gist/gistxlog.c:397-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L397-L437)
 
 ## Overview
 Main WAL redo dispatcher function for GiST index operations, routing different WAL record types to their appropriate replay handlers.

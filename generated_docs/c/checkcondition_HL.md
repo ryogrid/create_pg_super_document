@@ -1,7 +1,7 @@
 # checkcondition_HL
 
 ## Location
-src/backend/tsearch/wparser_def.c: 1981 - 2031
+[src/backend/tsearch/wparser_def.c:1981-2031](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/wparser_def.c#L1981-L2031)
 
 ## Overview
 A TS_execute callback function for matching tsquery operands to headline words during PostgreSQL text search highlighting operations.

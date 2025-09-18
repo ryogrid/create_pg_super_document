@@ -1,7 +1,7 @@
 # collectComments
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10437 - 10521
+[src/bin/pg_dump/pg_dump.c:10437-10521](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10437-L10521)
 
 ## Overview
 Constructs a table of all comments available for database objects and sets the has-comment component flag for each relevant object in pg_dump.

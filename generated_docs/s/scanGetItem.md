@@ -1,7 +1,7 @@
 # scanGetItem
 
 ## Location
-src/backend/access/gin/ginget.c: 1287 - 1453
+[src/backend/access/gin/ginget.c:1287-1453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L1287-L1453)
 
 ## Overview
 Retrieves the next heap item pointer from a GIN index scan that matches all search keys using AND logic, advancing past a specified position.

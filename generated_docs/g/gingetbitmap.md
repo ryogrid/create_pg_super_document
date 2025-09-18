@@ -1,7 +1,7 @@
 # gingetbitmap
 
 ## Location
-src/backend/access/gin/ginget.c: 1918 - 1969
+[src/backend/access/gin/ginget.c:1918-1969](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L1918-L1969)
 
 ## Overview
 The  function is the core bitmap scan implementation for GIN (Generalized Inverted Index) indexes, responsible for collecting all matching tuple IDs into a TIDBitmap during index scans.

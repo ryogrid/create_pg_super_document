@@ -1,7 +1,7 @@
 # choose_bitmap_and
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 1287 - 1492
+[src/backend/optimizer/path/indxpath.c:1287-1492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L1287-L1492)
 
 ## Overview
  takes a list of bitmap paths and intelligently combines them into a single path, choosing an optimal subset to balance selectivity and computational cost.

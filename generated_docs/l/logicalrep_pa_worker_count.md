@@ -1,7 +1,7 @@
 # logicalrep_pa_worker_count
 
 ## Location
-src/backend/replication/logical/launcher.c: 885 - 911
+[src/backend/replication/logical/launcher.c:885-911](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/launcher.c#L885-L911)
 
 ## Overview
 Counts the number of registered (but not necessarily running) parallel apply workers for a specific subscription in PostgreSQL's logical replication system.

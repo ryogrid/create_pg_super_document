@@ -1,7 +1,7 @@
 # isCompositeType
 
 ## Location
-src/backend/parser/parse_jsontable.c: 377 - 398
+[src/backend/parser/parse_jsontable.c:377-398](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_jsontable.c#L377-L398)
 
 ## Overview
 Determines whether a given type is considered "composite" for the purpose of choosing between JSON_VALUE() or JSON_QUERY() functions in JsonTable column processing.

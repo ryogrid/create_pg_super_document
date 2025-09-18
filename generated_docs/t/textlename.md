@@ -1,7 +1,7 @@
 # textlename
 
 ## Location
-src/backend/utils/adt/varlena.c: 2768 - 2773
+[src/backend/utils/adt/varlena.c:2768-2773](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2768-L2773)
 
 ## Overview
 Compares a text data type with a name data type and returns true if the text is less than or equal to the name value.

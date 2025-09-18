@@ -1,7 +1,7 @@
 # BrinSortTuple
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 157 - 161
+[src/backend/utils/sort/tuplesortvariants.c:157-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L157-L161)
 
 ## Overview
 BrinSortTuple is a wrapper structure used during sorting operations for BRIN (Block Range Index) tuples that includes the tuple length along with the BrinTuple data to facilitate size calculations during sort operations.

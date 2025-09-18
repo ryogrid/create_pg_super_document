@@ -1,7 +1,7 @@
 # DatumGetInt64
 
 ## Location
-src/include/postgres.h: 385 - 402
+[src/include/postgres.h:385-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L385-L402)
 
 ## Overview
 DatumGetInt64 extracts a 64-bit signed integer value from a Datum, handling both pass-by-value and pass-by-reference storage methods transparently based on platform capabilities.

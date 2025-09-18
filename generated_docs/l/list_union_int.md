@@ -1,7 +1,7 @@
 # list_union_int
 
 ## Location
-src/backend/nodes/list.c: 1113 - 1135
+[src/backend/nodes/list.c:1113-1135](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1113-L1135)
 
 ## Overview
 Creates a new list containing the union of two integer lists, eliminating duplicate values.

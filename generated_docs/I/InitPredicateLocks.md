@@ -1,7 +1,7 @@
 # InitPredicateLocks
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 1145 - 1346
+[src/backend/storage/lmgr/predicate.c:1145-1346](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L1145-L1346)
 
 ## Overview
 InitPredicateLocks initializes all shared memory data structures required for PostgreSQL's predicate locking system, which implements serializable snapshot isolation by tracking read-write conflicts between transactions.

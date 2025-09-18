@@ -1,7 +1,7 @@
 # vacuum_get_cutoffs
 
 ## Location
-src/backend/commands/vacuum.c: 1083 - 1250
+[src/backend/commands/vacuum.c:1083-1250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/vacuum.c#L1083-L1250)
 
 ## Overview
 Computes OldestXmin and freeze cutoff points for vacuum operations, determining whether an aggressive vacuum is needed based on transaction age thresholds.

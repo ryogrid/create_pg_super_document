@@ -1,7 +1,7 @@
 # spgPickSplitOut
 
 ## Location
-src/include/access/spgist.h: 117 - 127
+[src/include/access/spgist.h:117-127](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L117-L127)
 
 ## Overview
 spgPickSplitOut is a structure that defines the output parameters for SP-GiST (Space-Partitioned Generalized Search Tree) index pick split operations, used to specify how leaf tuples should be redistributed when splitting an inner node.

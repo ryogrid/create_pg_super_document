@@ -1,7 +1,7 @@
 # BufferDesc
 
 ## Location
-src/include/storage/buf_internals.h: 245 - 256
+[src/include/storage/buf_internals.h:245-256](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/buf_internals.h#L245-L256)
 
 ## Overview
 The  structure is the core descriptor that contains metadata and state information for each buffer in PostgreSQL's shared buffer pool.

@@ -1,7 +1,7 @@
 # pgstat_count_slru_page_hit
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 65 - 70
+[src/backend/utils/activity/pgstat_slru.c:65-70](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L65-L70)
 
 ## Overview
 Increments the cache hit counter for a specific SLRU buffer cache, tracking successful page retrievals from memory without requiring disk I/O.

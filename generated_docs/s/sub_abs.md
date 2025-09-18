@@ -1,7 +1,7 @@
 # sub_abs
 
 ## Location
-src/backend/utils/adt/numeric.c: 11685 - 11766
+[src/backend/utils/adt/numeric.c:11685-11766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L11685-L11766)
 
 ## Overview
 Subtracts the absolute value of var2 from the absolute value of var1 and stores the result in the result variable, used as a core arithmetic operation in PostgreSQL's numeric type implementation.

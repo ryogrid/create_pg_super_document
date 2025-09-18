@@ -1,7 +1,7 @@
 # _hash_doinsert
 
 ## Location
-src/backend/access/hash/hashinsert.c: 38 - 273
+[src/backend/access/hash/hashinsert.c:38-273](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashinsert.c#L38-L273)
 
 ## Overview
 The  function handles the insertion of a single index tuple into a hash index, including all necessary logic for bucket management, overflow pages, and potential table expansion.

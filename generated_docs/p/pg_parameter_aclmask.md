@@ -1,7 +1,7 @@
 # pg_parameter_aclmask
 
 ## Location
-src/backend/catalog/aclchk.c: 3469 - 3532
+[src/backend/catalog/aclchk.c:3469-3532](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3469-L3532)
 
 ## Overview
 A function that examines a user's privileges for PostgreSQL configuration parameters (GUCs) by checking against the pg_parameter_acl system catalog.

@@ -1,7 +1,7 @@
 # htsv_get_valid_status
 
 ## Location
-src/backend/access/heap/pruneheap.c: 960 - 998
+[src/backend/access/heap/pruneheap.c:960-998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/pruneheap.c#L960-L998)
 
 ## Overview
 htsv_get_valid_status is a safety guard function that validates and converts cached heap tuple visibility status values to ensure they have been properly computed before use.

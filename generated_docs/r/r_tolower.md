@@ -1,7 +1,7 @@
 # r_tolower
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2330 - 2473
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2330-2473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2330-L2473)
 
 ## Overview
 A string transformation function that converts Greek uppercase characters to their lowercase equivalents using pattern matching and replacement, as part of the Greek stemming preprocessing pipeline.

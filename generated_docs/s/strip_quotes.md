@@ -1,7 +1,7 @@
 # strip_quotes
 
 ## Location
-src/bin/psql/stringutils.c: 240 - 291
+[src/bin/psql/stringutils.c:240-291](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/stringutils.c#L240-L291)
 
 ## Overview
 A utility function that removes quotes from a string in-place, handling both leading/trailing quotes and embedded escaped quotes according to specified quote and escape characters.

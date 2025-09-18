@@ -1,7 +1,7 @@
 # AsyncQueueControl
 
 ## Location
-src/backend/commands/async.c: 281 - 292
+[src/backend/commands/async.c:281-292](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L281-L292)
 
 ## Overview
 AsyncQueueControl is the main shared memory control structure for PostgreSQL's LISTEN/NOTIFY asynchronous messaging system, coordinating access to the notification queue among multiple backend processes.

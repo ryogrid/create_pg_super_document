@@ -1,7 +1,7 @@
 # ExecEndLockRows
 
 ## Location
-src/backend/executor/nodeLockRows.c: 385 - 393
+[src/backend/executor/nodeLockRows.c:385-393](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeLockRows.c#L385-L393)
 
 ## Overview
 ExecEndLockRows shuts down the LockRows node by cleaning up EPQ state and recursively ending the outer subplan.

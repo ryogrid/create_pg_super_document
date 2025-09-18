@@ -1,7 +1,7 @@
 # FreePagePopSpanLeader
 
 ## Location
-src/backend/utils/mmgr/freepage.c: 1843 - 1870
+[src/backend/utils/mmgr/freepage.c:1843-1870](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/freepage.c#L1843-L1870)
 
 ## Overview
 A utility function that removes a FreePageSpanLeader from its doubly-linked freelist, updating the list pointers and freelist head as necessary.

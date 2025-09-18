@@ -1,7 +1,7 @@
 # pg_get_function_arg_default
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3440 - 3509
+[src/backend/utils/adt/ruleutils.c:3440-3509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3440-L3509)
 
 ## Overview
 A PostgreSQL SQL function that returns the textual representation of a function argument's default value for a specific argument position.

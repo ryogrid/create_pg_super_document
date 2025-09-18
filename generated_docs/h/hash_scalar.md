@@ -1,7 +1,7 @@
 # hash_scalar
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3941 - 3971
+[src/backend/utils/adt/jsonfuncs.c:3941-3971](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3941-L3971)
 
 ## Overview
 A static JSON parsing callback function that handles scalar values during JSON-to-hash conversion, validating input constraints and storing scalar field values.

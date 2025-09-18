@@ -1,7 +1,7 @@
 # detoast_external_attr
 
 ## Location
-src/backend/access/common/detoast.c: 45 - 115
+[src/backend/access/common/detoast.c:45-115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/detoast.c#L45-L115)
 
 ## Overview
 A public entry point function that retrieves a toasted value from external storage, returning a datum containing all data internally without relying on external storage or memory.

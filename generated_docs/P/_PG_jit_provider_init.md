@@ -1,7 +1,7 @@
 # _PG_jit_provider_init
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 164 - 185
+[src/backend/jit/llvm/llvmjit.c:164-185](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L164-L185)
 
 ## Overview
 The initialization function for PostgreSQL's LLVM JIT provider that sets up callback functions for the JIT compilation system.

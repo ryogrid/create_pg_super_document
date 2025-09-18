@@ -1,7 +1,7 @@
 # parse_analyze_varparams
 
 ## Location
-src/backend/parser/analyze.c: 144 - 184
+[src/backend/parser/analyze.c:144-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L144-L184)
 
 ## Overview
 Analyzes a raw parse tree and transforms it into a Query node, with support for dynamic parameter type deduction from context where parameter types can be modified or enlarged during analysis.

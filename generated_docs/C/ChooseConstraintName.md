@@ -1,7 +1,7 @@
 # ChooseConstraintName
 
 ## Location
-src/backend/catalog/pg_constraint.c: 498 - 568
+[src/backend/catalog/pg_constraint.c:498-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_constraint.c#L498-L568)
 
 ## Overview
 Selects a unique, non-conflicting name for a new constraint within a specified namespace by iteratively testing candidate names.

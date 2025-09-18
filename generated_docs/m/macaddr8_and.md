@@ -1,7 +1,7 @@
 # macaddr8_and
 
 ## Location
-src/backend/utils/adt/mac8.c: 434 - 453
+[src/backend/utils/adt/mac8.c:434-453](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac8.c#L434-L453)
 
 ## Overview
 Performs bitwise AND operation between two MAC-8 (EUI-64) addresses, combining corresponding bits using logical AND across all 8 bytes.

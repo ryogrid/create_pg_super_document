@@ -1,7 +1,7 @@
 # pa_stream_abort
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1416 - 1497
+[src/backend/replication/logical/applyparallelworker.c:1416-1497](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1416-L1497)
 
 ## Overview
 pa_stream_abort handles STREAM ABORT messages for transactions that were applied in parallel apply workers during PostgreSQL logical replication, managing both toplevel transaction aborts and subtransaction rollbacks.

@@ -1,7 +1,7 @@
 # runPgDump
 
 ## Location
-src/bin/pg_dump/pg_dumpall.c: 1677 - 1730
+[src/bin/pg_dump/pg_dumpall.c:1677-1730](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dumpall.c#L1677-L1730)
 
 ## Overview
 Executes the pg_dump utility as a subprocess with specified database name and creation options, constructing the appropriate command line and connection parameters.

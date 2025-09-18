@@ -1,7 +1,7 @@
 # _WriteData
 
 ## Location
-src/bin/pg_dump/pg_backup_custom.c: 312 - 328
+[src/bin/pg_dump/pg_backup_custom.c:312-328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_custom.c#L312-L328)
 
 ## Overview
 Handles the actual writing of data chunks to the archive stream, supporting both table data and large object (LO) data through the custom archive format's compression system.

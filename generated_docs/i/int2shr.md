@@ -1,7 +1,7 @@
 # int2shr
 
 ## Location
-src/backend/utils/adt/int.c: 1491 - 1502
+[src/backend/utils/adt/int.c:1491-1502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L1491-L1502)
 
 ## Overview
 Performs a right bit shift operation on a 16-bit signed integer (int2) value using a 32-bit shift count.

@@ -1,7 +1,7 @@
 # ExecEndSampleScan
 
 ## Location
-src/backend/executor/nodeSamplescan.c: 179 - 201
+[src/backend/executor/nodeSamplescan.c:179-201](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeSamplescan.c#L179-L201)
 
 ## Overview
 ExecEndSampleScan performs cleanup operations for a sample scan node, notifying the table sampling method that scanning is complete and closing any open table scan descriptors.

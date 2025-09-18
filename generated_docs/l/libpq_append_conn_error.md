@@ -1,7 +1,7 @@
 # libpq_append_conn_error
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 1380 - 1401
+[src/interfaces/libpq/fe-misc.c:1380-1401](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L1380-L1401)
 
 ## Overview
 A utility function that appends a formatted, translated error message to a PostgreSQL connection's error message buffer with automatic newline termination.

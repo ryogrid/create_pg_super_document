@@ -1,7 +1,7 @@
 # pqTraceOutputInt16
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 125 - 143
+[src/interfaces/libpq/fe-trace.c:125-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L125-L143)
 
 ## Overview
 A static utility function that reads a 2-byte integer from a PostgreSQL protocol message buffer and outputs it to the trace log.

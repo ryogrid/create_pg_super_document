@@ -1,7 +1,7 @@
 # enum_ne
 
 ## Location
-src/backend/utils/adt/enum.c: 333 - 341
+[src/backend/utils/adt/enum.c:333-341](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L333-L341)
 
 ## Overview
 PostgreSQL built-in function that implements the inequality comparison operator (<> or !=) for enum data types using direct OID comparison.

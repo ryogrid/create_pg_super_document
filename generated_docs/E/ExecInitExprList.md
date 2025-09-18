@@ -1,7 +1,7 @@
 # ExecInitExprList
 
 ## Location
-src/backend/executor/execExpr.c: 327 - 361
+[src/backend/executor/execExpr.c:327-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L327-L361)
 
 ## Overview
 ExecInitExprList is a utility function that applies ExecInitExpr to each expression in a list, returning a corresponding list of compiled ExprStates.

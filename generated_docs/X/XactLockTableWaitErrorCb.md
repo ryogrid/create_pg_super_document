@@ -1,7 +1,7 @@
 # XactLockTableWaitErrorCb
 
 ## Location
-src/backend/storage/lmgr/lmgr.c: 838 - 902
+[src/backend/storage/lmgr/lmgr.c:838-902](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lmgr.c#L838-L902)
 
 ## Overview
 Error context callback function that provides detailed context information when transaction lock waits encounter errors or timeouts.

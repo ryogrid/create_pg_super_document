@@ -1,7 +1,7 @@
 # DeleteInitPrivs
 
 ## Location
-src/backend/catalog/dependency.c: 2785 - 2823
+[src/backend/catalog/dependency.c:2785-2823](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/dependency.c#L2785-L2823)
 
 ## Overview
 A static function that removes initial privileges (ACL entries) from the pg_init_privs catalog for a specific database object, typically called during object deletion.

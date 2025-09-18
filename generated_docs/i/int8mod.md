@@ -1,7 +1,7 @@
 # int8mod
 
 ## Location
-src/backend/utils/adt/int8.c: 563 - 605
+[src/backend/utils/adt/int8.c:563-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L563-L605)
 
 ## Overview
 Performs modulo operation on two 64-bit signed integers (bigint) with proper error handling for division by zero and edge case handling for problematic hardware behavior.

@@ -1,7 +1,7 @@
 # make_attrmap
 
 ## Location
-src/backend/access/common/attmap.c: 40 - 55
+[src/backend/access/common/attmap.c:40-55](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/attmap.c#L40-L55)
 
 ## Overview
 A utility function that allocates and initializes an attribute map structure in the current memory context, providing the foundation for PostgreSQL's attribute mapping functionality.

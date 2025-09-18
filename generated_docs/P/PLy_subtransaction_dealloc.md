@@ -1,7 +1,7 @@
 # PLy_subtransaction_dealloc
 
 ## Location
-src/pl/plpython/plpy_subxactobject.c: 71 - 83
+[src/pl/plpython/plpy_subxactobject.c:71-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_subxactobject.c#L71-L83)
 
 ## Overview
 A required but empty deallocation function for PLy subtransaction objects to satisfy Python's type system requirements.

@@ -1,7 +1,7 @@
 # RelationFlushRelation
 
 ## Location
-src/backend/utils/cache/relcache.c: 2866 - 2912
+[src/backend/utils/cache/relcache.c:2866-2912](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L2866-L2912)
 
 ## Overview
 RelationFlushRelation handles cache invalidation events by either rebuilding open relations or removing unused ones, with special handling for relations created in the current transaction.

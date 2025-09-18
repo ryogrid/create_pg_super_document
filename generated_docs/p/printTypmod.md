@@ -1,7 +1,7 @@
 # printTypmod
 
 ## Location
-src/backend/utils/adt/format_type.c: 371 - 411
+[src/backend/utils/adt/format_type.c:371-411](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/format_type.c#L371-L411)
 
 ## Overview
 A static helper function that adds type modifier (typmod) decoration to a PostgreSQL type name, formatting it into a human-readable string representation.

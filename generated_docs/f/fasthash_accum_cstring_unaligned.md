@@ -1,7 +1,7 @@
 # fasthash_accum_cstring_unaligned
 
 ## Location
-src/include/common/hashfn_unstable.h: 224 - 250
+[src/include/common/hashfn_unstable.h:224-250](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/hashfn_unstable.h#L224-L250)
 
 ## Overview
 Processes a null-terminated C string by accumulating it into the hash state in chunks, returning the total length processed.

@@ -1,7 +1,7 @@
 # PLyTupleToOb
 
 ## Location
-src/pl/plpython/plpy_typeio.h: 40 - 50
+[src/pl/plpython/plpy_typeio.h:40-50](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.h#L40-L50)
 
 ## Overview
 PLyTupleToOb is a struct that contains conversion information for transforming PostgreSQL composite types (tuples) to Python dictionary objects.

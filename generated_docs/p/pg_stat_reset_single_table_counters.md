@@ -1,7 +1,7 @@
 # pg_stat_reset_single_table_counters
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1750 - 1760
+[src/backend/utils/adt/pgstatfuncs.c:1750-1760](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1750-L1760)
 
 ## Overview
 A PostgreSQL system function that resets statistics for a single table or relation, handling both regular database tables and shared system relations across the entire cluster.

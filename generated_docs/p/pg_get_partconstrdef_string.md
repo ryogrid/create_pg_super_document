@@ -1,7 +1,7 @@
 # pg_get_partconstrdef_string
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 2108 - 2125
+[src/backend/utils/adt/ruleutils.c:2108-2125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L2108-L2125)
 
 ## Overview
 Returns the partition constraint as a plain C-string for the specified partition relation, formatted with a given table alias and without pretty-printing.

@@ -1,7 +1,7 @@
 # show_context_hook
 
 ## Location
-src/bin/psql/startup.c: 1164 - 1184
+[src/bin/psql/startup.c:1164-1184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L1164-L1184)
 
 ## Overview
 A validation and assignment hook function for the show_context parameter in psql that controls the visibility of error context information.

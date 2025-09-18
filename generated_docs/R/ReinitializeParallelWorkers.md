@@ -1,7 +1,7 @@
 # ReinitializeParallelWorkers
 
 ## Location
-src/backend/access/transam/parallel.c: 554 - 568
+[src/backend/access/transam/parallel.c:554-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/parallel.c#L554-L568)
 
 ## Overview
 Adjusts the number of parallel workers to be launched for an existing parallel context, allowing reuse of the same DSM segment with a different worker count.

@@ -1,7 +1,7 @@
 # EDGE
 
 ## Location
-src/backend/storage/lmgr/deadlock.c: 53 - 60
+[src/backend/storage/lmgr/deadlock.c:53-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/deadlock.c#L53-L60)
 
 ## Overview
 EDGE is a data structure used in PostgreSQL's deadlock detection system to represent a waiting relationship between two lock groups in the wait-for graph.

@@ -1,7 +1,7 @@
 # ParallelTableScanDescData
 
 ## Location
-src/include/access/relscan.h: 63 - 69
+[src/include/access/relscan.h:63-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/relscan.h#L63-L69)
 
 ## Overview
 ParallelTableScanDescData defines the shared state structure for parallel table scans, containing information necessary to coordinate scanning across multiple backend processes.

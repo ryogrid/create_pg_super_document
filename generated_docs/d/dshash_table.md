@@ -1,7 +1,7 @@
 # dshash_table
 
 ## Location
-src/backend/lib/dshash.c: 103 - 113
+[src/backend/lib/dshash.c:103-113](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/dshash.c#L103-L113)
 
 ## Overview
 The dshash_table struct represents per-backend state for a dynamic shared hash table, providing local access and caching for efficient operations on shared hash table data.

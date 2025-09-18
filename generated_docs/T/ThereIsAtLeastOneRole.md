@@ -1,7 +1,7 @@
 # ThereIsAtLeastOneRole
 
 ## Location
-src/backend/utils/init/postinit.c: 1453 - 1468
+[src/backend/utils/init/postinit.c:1453-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L1453-L1468)
 
 ## Overview
 A utility function that checks whether at least one role (user or role) is defined in the database cluster by scanning the pg_authid system catalog.

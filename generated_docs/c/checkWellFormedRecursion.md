@@ -1,7 +1,7 @@
 # checkWellFormedRecursion
 
 ## Location
-src/backend/parser/parse_cte.c: 915 - 1026
+[src/backend/parser/parse_cte.c:915-1026](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_cte.c#L915-L1026)
 
 ## Overview
 checkWellFormedRecursion validates that recursive Common Table Expressions (CTEs) conform to PostgreSQL's strict requirements for recursive query structure and content.

@@ -1,7 +1,7 @@
 # extract_nonindex_conditions
 
 ## Location
-src/backend/optimizer/path/costsize.c: 840 - 897
+[src/backend/optimizer/path/costsize.c:840-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L840-L897)
 
 ## Overview
 Extracts qualification clauses that cannot be handled by the index machinery and must be applied as qpquals during index scanning.

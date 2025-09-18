@@ -1,7 +1,7 @@
 # XLogInsertRecord
 
 ## Location
-src/backend/access/transam/xlog.c: 750 - 1109
+[src/backend/access/transam/xlog.c:750-1109](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L750-L1109)
 
 ## Overview
 XLogInsertRecord is the core function responsible for inserting pre-constructed XLOG records into the Write-Ahead Log (WAL), implementing the fundamental WAL insertion mechanism with proper locking and space reservation.

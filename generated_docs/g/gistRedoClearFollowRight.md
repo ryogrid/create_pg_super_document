@@ -1,7 +1,7 @@
 # gistRedoClearFollowRight
 
 ## Location
-src/backend/access/gist/gistxlog.c: 40 - 69
+[src/backend/access/gist/gistxlog.c:40-69](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L40-L69)
 
 ## Overview
 Replays the clearing of the F_FOLLOW_RIGHT flag on a child page during WAL recovery, ensuring the flag is properly updated even when a full-page image is restored.

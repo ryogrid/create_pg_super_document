@@ -1,7 +1,7 @@
 # CreateOneShotCachedPlan
 
 ## Location
-src/backend/utils/cache/plancache.c: 276 - 365
+[src/backend/utils/cache/plancache.c:276-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L276-L365)
 
 ## Overview
 Creates a specialized CachedPlanSource structure intended for single-use execution, optimized for performance by avoiding data copying and using the caller's memory context.

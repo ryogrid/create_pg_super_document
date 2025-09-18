@@ -1,7 +1,7 @@
 # SN_set_current
 
 ## Location
-src/backend/snowball/libstemmer/api.c: 51 - 56
+[src/backend/snowball/libstemmer/api.c:51-56](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/api.c#L51-L56)
 
 ## Overview
 Sets the current input string in a Snowball stemming environment, preparing it for processing by stemming algorithms.

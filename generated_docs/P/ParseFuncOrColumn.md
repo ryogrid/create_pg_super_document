@@ -1,7 +1,7 @@
 # ParseFuncOrColumn
 
 ## Location
-src/backend/parser/parse_func.c: 90 - 922
+[src/backend/parser/parse_func.c:90-922](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L90-L922)
 
 ## Overview
 Parses a function call or column reference, handling both syntactic forms and resolving ambiguity between function calls and column projections in PostgreSQL's parser.

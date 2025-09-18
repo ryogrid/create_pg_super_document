@@ -1,7 +1,7 @@
 # dataBeginPlaceToPageLeaf
 
 ## Location
-src/backend/access/gin/gindatapage.c: 448 - 715
+[src/backend/access/gin/gindatapage.c:448-715](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/gindatapage.c#L448-L715)
 
 ## Overview
 dataBeginPlaceToPageLeaf prepares to insert data items into a GIN leaf data page, determining whether the items fit or if a page split is required.

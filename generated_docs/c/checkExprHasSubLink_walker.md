@@ -1,7 +1,7 @@
 # checkExprHasSubLink_walker
 
 ## Location
-src/backend/rewrite/rewriteManip.c: 309 - 324
+[src/backend/rewrite/rewriteManip.c:309-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteManip.c#L309-L324)
 
 ## Overview
 A static walker function that recursively traverses expression trees to detect the presence of SubLink nodes representing subqueries within expressions.

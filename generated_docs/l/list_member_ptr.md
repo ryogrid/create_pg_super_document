@@ -1,7 +1,7 @@
 # list_member_ptr
 
 ## Location
-src/backend/nodes/list.c: 682 - 701
+[src/backend/nodes/list.c:682-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L682-L701)
 
 ## Overview
 Tests whether a given pointer value is a member of a pointer list using simple pointer comparison for equality determination.

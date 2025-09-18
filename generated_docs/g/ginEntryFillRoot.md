@@ -1,7 +1,7 @@
 # ginEntryFillRoot
 
 ## Location
-src/backend/access/gin/ginentrypage.c: 723 - 746
+[src/backend/access/gin/ginentrypage.c:723-746](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginentrypage.c#L723-L746)
 
 ## Overview
 Initializes a new root page for a GIN entry tree by inserting downlink tuples to the left and right child pages after a root split operation.

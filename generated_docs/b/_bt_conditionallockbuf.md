@@ -1,7 +1,7 @@
 # _bt_conditionallockbuf
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 1093 - 1108
+[src/backend/access/nbtree/nbtpage.c:1093-1108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L1093-L1108)
 
 ## Overview
 _bt_conditionallockbuf attempts to conditionally acquire a B-tree write lock on a pinned buffer without blocking, returning success or failure status.

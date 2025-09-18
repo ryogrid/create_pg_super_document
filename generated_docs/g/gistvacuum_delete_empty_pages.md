@@ -1,7 +1,7 @@
 # gistvacuum_delete_empty_pages
 
 ## Location
-src/backend/access/gist/gistvacuum.c: 461 - 587
+[src/backend/access/gist/gistvacuum.c:461-587](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistvacuum.c#L461-L587)
 
 ## Overview
 Scans internal pages to find and delete empty child pages, implementing the second stage of GiST vacuum page cleanup with careful deadlock avoidance.

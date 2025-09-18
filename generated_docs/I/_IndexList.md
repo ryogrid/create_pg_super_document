@@ -1,7 +1,7 @@
 # _IndexList
 
 ## Location
-src/backend/bootstrap/bootstrap.c: 163 - 168
+[src/backend/bootstrap/bootstrap.c:163-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/bootstrap/bootstrap.c#L163-L168)
 
 ## Overview
 The  struct (typedef'd as ) is used during PostgreSQL's bootstrap phase to queue index creation operations for later execution.

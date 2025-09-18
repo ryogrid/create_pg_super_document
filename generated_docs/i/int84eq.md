@@ -1,7 +1,7 @@
 # int84eq
 
 ## Location
-src/backend/utils/adt/int8.c: 170 - 178
+[src/backend/utils/adt/int8.c:170-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L170-L178)
 
 ## Overview
 Compares a 64-bit integer with a 32-bit integer for equality, returning true if they are equal.

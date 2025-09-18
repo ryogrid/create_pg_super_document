@@ -1,7 +1,7 @@
 # object_aclmask_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3112 - 3203
+[src/backend/catalog/aclchk.c:3112-3203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3112-L3203)
 
 ## Overview
 The core implementation function for examining user privileges on database objects, providing comprehensive ACL checking with optional missing object handling and snapshot control.

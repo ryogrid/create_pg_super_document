@@ -1,7 +1,7 @@
 # write_target_range
 
 ## Location
-src/bin/pg_rewind/file_ops.c: 88 - 129
+[src/bin/pg_rewind/file_ops.c:88-129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/file_ops.c#L88-L129)
 
 ## Overview
 Writes a buffer of data to a specific offset range in the currently open target file, with progress reporting and dry-run support.

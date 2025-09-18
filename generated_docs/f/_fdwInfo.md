@@ -1,7 +1,7 @@
 # _fdwInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 565 - 572
+[src/bin/pg_dump/pg_dump.h:565-572](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L565-L572)
 
 ## Overview
 The  structure represents foreign data wrapper information in the PostgreSQL dump utility, storing metadata about foreign data wrappers for database export operations.

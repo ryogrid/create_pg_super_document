@@ -1,7 +1,7 @@
 # now
 
 ## Location
-src/backend/utils/adt/timestamp.c: 1618 - 1623
+[src/backend/utils/adt/timestamp.c:1618-1623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L1618-L1623)
 
 ## Overview
 Returns the timestamp with timezone representing the start time of the current transaction, implementing PostgreSQL's NOW() SQL function.

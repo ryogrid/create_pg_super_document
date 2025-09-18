@@ -1,7 +1,7 @@
 # pg_get_indexdef_string
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 1205 - 1214
+[src/backend/utils/adt/ruleutils.c:1205-1214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L1205-L1214)
 
 ## Overview
 An internal C function that returns the complete CREATE INDEX statement including tablespace information, specifically designed for use by ALTER TABLE operations.

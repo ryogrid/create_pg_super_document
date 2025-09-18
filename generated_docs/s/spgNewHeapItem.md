@@ -1,7 +1,7 @@
 # spgNewHeapItem
 
 ## Location
-src/backend/access/spgist/spgscan.c: 463 - 515
+[src/backend/access/spgist/spgscan.c:463-515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L463-L515)
 
 ## Overview
 Creates a new SpGistSearchItem for a leaf tuple in an SP-GiST index scan, storing all necessary information for heap tuple retrieval and result reconstruction.

@@ -1,7 +1,7 @@
 # hash_array_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3928 - 3940
+[src/backend/utils/adt/jsonfuncs.c:3928-3940](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3928-L3940)
 
 ## Overview
 A static JSON parsing callback function that validates against top-level arrays during JSON-to-hash conversion, ensuring only JSON objects are processed.

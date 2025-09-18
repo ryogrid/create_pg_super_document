@@ -1,7 +1,7 @@
 # errstart
 
 ## Location
-src/backend/utils/error/elog.c: 346 - 476
+[src/backend/utils/error/elog.c:346-476](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L346-L476)
 
 ## Overview
 Begins an error-reporting cycle by creating and initializing an error stack entry, handling error level promotion logic, and determining whether the error should be processed.

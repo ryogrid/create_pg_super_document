@@ -1,7 +1,7 @@
 # encryption_negotiation_failed
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 4356 - 4380
+[src/interfaces/libpq/fe-connect.c:4356-4380](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L4356-L4380)
 
 ## Overview
 `encryption_negotiation_failed` is a static function that handles the failure of an encryption method during connection negotiation, marking the failed method and attempting to select the next available encryption method.

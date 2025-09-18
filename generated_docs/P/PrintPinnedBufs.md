@@ -1,7 +1,7 @@
 # PrintPinnedBufs
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4438 - 4481
+[src/backend/storage/buffer/bufmgr.c:4438-4481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4438-L4481)
 
 ## Overview
 A debugging function that prints detailed information about only the currently pinned buffers (buffers with positive private reference counts) to the server log.

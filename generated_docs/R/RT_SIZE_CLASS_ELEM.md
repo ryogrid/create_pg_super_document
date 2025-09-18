@@ -1,7 +1,7 @@
 # RT_SIZE_CLASS_ELEM
 
 ## Location
-src/include/lib/radixtree.h: 642 - 647
+[src/include/lib/radixtree.h:642-647](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L642-L647)
 
 ## Overview
 RT_SIZE_CLASS_ELEM is a macro that generates a type name for a structure containing metadata about different node size classes in PostgreSQL's adaptive radix tree implementation.

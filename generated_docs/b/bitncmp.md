@@ -1,7 +1,7 @@
 # bitncmp
 
 ## Location
-src/backend/utils/adt/network.c: 1569 - 1602
+[src/backend/utils/adt/network.c:1569-1602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L1569-L1602)
 
 ## Overview
 Compares two bit masks for a specified number of bits, returning a comparison result in libc tradition.

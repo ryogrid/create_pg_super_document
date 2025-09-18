@@ -1,7 +1,7 @@
 # startScanKey
 
 ## Location
-src/backend/access/gin/ginget.c: 505 - 602
+[src/backend/access/gin/ginget.c:505-602](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginget.c#L505-L602)
 
 ## Overview
 Initializes a GIN scan key by dividing its entries into required and additional sets to optimize scanning performance, particularly for complex queries with both frequent and rare terms.

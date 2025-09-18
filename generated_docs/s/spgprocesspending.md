@@ -1,7 +1,7 @@
 # spgprocesspending
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 692 - 803
+[src/backend/access/spgist/spgvacuum.c:692-803](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L692-L803)
 
 ## Overview
 Processes the pending-TID list between pages during SP-GiST vacuum operations, handling redirections and expanding inner tuple downlinks.

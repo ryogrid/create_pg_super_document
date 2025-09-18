@@ -1,7 +1,7 @@
 # compute_common_attribute
 
 ## Location
-src/backend/commands/functioncmds.c: 500 - 601
+[src/backend/commands/functioncmds.c:500-601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/functioncmds.c#L500-L601)
 
 ## Overview
 Recognizes and processes common function attributes that can be specified in both CREATE FUNCTION and ALTER FUNCTION statements, while enforcing procedure-specific restrictions and preventing duplicate clauses.

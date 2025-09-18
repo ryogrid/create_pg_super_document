@@ -1,7 +1,7 @@
 # range_after_internal
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 702 - 726
+[src/backend/utils/adt/rangetypes.c:702-726](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L702-L726)
 
 ## Overview
 The  function determines whether one range is strictly positioned after (to the right of) another range, implementing the core logic for range ordering comparisons in the opposite direction of .

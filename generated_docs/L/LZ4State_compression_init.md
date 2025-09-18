@@ -1,7 +1,7 @@
 # LZ4State_compression_init
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 102 - 144
+[src/bin/pg_dump/compress_lz4.c:102-144](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L102-L144)
 
 ## Overview
 Initializes the required LZ4State members for compression operations and writes the LZ4 frame header to a buffer for later use by pg_dump's LZ4 compression functionality.

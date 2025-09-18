@@ -1,7 +1,7 @@
 # tsvector_delete_arr
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 578 - 631
+[src/backend/utils/adt/tsvector_op.c:578-631](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L578-L631)
 
 ## Overview
 Deletes multiple lexemes from a TSVector by accepting an array of lexemes to remove, implementing the user-level ts_delete(tsvector, text[]) function.

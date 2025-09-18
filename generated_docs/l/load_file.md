@@ -1,7 +1,7 @@
 # load_file
 
 ## Location
-src/backend/utils/fmgr/dfmgr.c: 144 - 165
+[src/backend/utils/fmgr/dfmgr.c:144-165](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/dfmgr.c#L144-L165)
 
 ## Overview
 This function loads a shared library file without looking up any particular function in it, with optional security restrictions for plugin directory access.

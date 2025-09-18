@@ -1,7 +1,7 @@
 # PostingItem
 
 ## Location
-src/include/access/ginblock.h: 188 - 189
+[src/include/access/ginblock.h:188-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/ginblock.h#L188-L189)
 
 ## Overview
 PostingItem is a data structure used in PostgreSQL's GIN (Generalized Inverted Index) implementation to represent an entry in a non-leaf posting-tree page, containing a reference to a child block and an associated key.

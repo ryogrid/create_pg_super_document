@@ -1,7 +1,7 @@
 # nocache_index_getattr
 
 ## Location
-src/backend/access/common/indextuple.c: 241 - 455
+[src/backend/access/common/indextuple.c:241-455](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/indextuple.c#L241-L455)
 
 ## Overview
 The `nocache_index_getattr` function extracts a specific attribute value from an IndexTuple when cached offsets are not available, implementing an optimized attribute offset caching strategy.

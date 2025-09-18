@@ -1,7 +1,7 @@
 # view_col_is_auto_updatable
 
 ## Location
-src/backend/rewrite/rewriteHandler.c: 2575 - 2622
+[src/backend/rewrite/rewriteHandler.c:2575-2622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/rewrite/rewriteHandler.c#L2575-L2622)
 
 ## Overview
 Tests whether a specific column of a view is auto-updatable, returning NULL if updatable or an error message string explaining why it cannot be updated.

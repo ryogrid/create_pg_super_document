@@ -1,7 +1,7 @@
 # getExponentialRand
 
 ## Location
-src/bin/pgbench/pgbench.c: 1113 - 1136
+[src/bin/pgbench/pgbench.c:1113-1136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L1113-L1136)
 
 ## Overview
 Generates random integers following an exponential distribution within a specified inclusive range, using a configurable parameter to control the distribution curve.

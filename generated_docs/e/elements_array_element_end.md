@@ -1,7 +1,7 @@
 # elements_array_element_end
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 2370 - 2415
+[src/backend/utils/adt/jsonfuncs.c:2370-2415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L2370-L2415)
 
 ## Overview
 This function serves as a JSON parser callback that handles the end of array elements when converting JSON arrays to PostgreSQL table rows. It processes each array element value and stores it as a tuple in a tuplestore for result set generation.

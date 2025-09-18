@@ -1,7 +1,7 @@
 # keepwal_init
 
 ## Location
-src/bin/pg_rewind/filemap.c: 242 - 249
+[src/bin/pg_rewind/filemap.c:242-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/filemap.c#L242-L249)
 
 ## Overview
 Initializes a separate hash table used to track WAL files that must be kept during pg_rewind operations.

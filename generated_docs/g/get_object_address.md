@@ -1,7 +1,7 @@
 # get_object_address
 
 ## Location
-src/backend/catalog/objectaddress.c: 922 - 1219
+[src/backend/catalog/objectaddress.c:922-1219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/objectaddress.c#L922-L1219)
 
 ## Overview
 Translates an object name and arguments (as passed by the parser) to an ObjectAddress, handling various PostgreSQL database objects with proper locking mechanisms.

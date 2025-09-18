@@ -1,7 +1,7 @@
 # echo_hidden_hook
 
 ## Location
-src/bin/psql/startup.c: 998 - 1018
+[src/bin/psql/startup.c:998-1018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/startup.c#L998-L1018)
 
 ## Overview
 A validation hook function for the ECHO_HIDDEN psql variable that controls the display of internally generated SQL commands with support for boolean and special "noexec" values.

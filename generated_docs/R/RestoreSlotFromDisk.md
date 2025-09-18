@@ -1,7 +1,7 @@
 # RestoreSlotFromDisk
 
 ## Location
-src/backend/replication/slot.c: 2169 - 2404
+[src/backend/replication/slot.c:2169-2404](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L2169-L2404)
 
 ## Overview
 Loads a single replication slot from disk into memory during startup, performing comprehensive validation, checksum verification, and configuration requirement checks.

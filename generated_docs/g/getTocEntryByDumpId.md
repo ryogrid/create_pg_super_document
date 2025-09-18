@@ -1,7 +1,7 @@
 # getTocEntryByDumpId
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2007 - 2019
+[src/bin/pg_dump/pg_backup_archiver.c:2007-2019](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2007-L2019)
 
 ## Overview
 Retrieves a TOC (Table of Contents) entry by its dump ID, providing efficient O(1) lookup after building index arrays.

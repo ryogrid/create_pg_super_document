@@ -1,7 +1,7 @@
 # targetIsInAllPartitionLists
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3812 - 3854
+[src/backend/optimizer/path/allpaths.c:3812-3854](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3812-L3854)
 
 ## Overview
 This function determines whether a given TargetEntry appears in the PARTITION BY clause of every window definition in a query, which is important for qualifier pushdown safety analysis.

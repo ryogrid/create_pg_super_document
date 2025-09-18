@@ -1,7 +1,7 @@
 # fmt_tz
 
 ## Location
-src/backend/utils/adt/formatting.c: 434 - 444
+[src/backend/utils/adt/formatting.c:434-444](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L434-L444)
 
 ## Overview
 A structure used by PostgreSQL's formatting functions to store timezone information during timestamp parsing operations.

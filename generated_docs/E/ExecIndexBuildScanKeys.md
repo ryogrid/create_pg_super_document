@@ -1,7 +1,7 @@
 # ExecIndexBuildScanKeys
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 1135 - 1640
+[src/backend/executor/nodeIndexscan.c:1135-1640](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L1135-L1640)
 
 ## Overview
 ExecIndexBuildScanKeys builds index scan keys from index qualification expressions, converting various types of qualification clauses into ScanKey structures that can be used by index access methods.

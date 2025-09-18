@@ -1,7 +1,7 @@
 # PgStatShared_Subscription
 
 ## Location
-src/include/utils/pgstat_internal.h: 404 - 408
+[src/include/utils/pgstat_internal.h:404-408](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L404-L408)
 
 ## Overview
 PgStatShared_Subscription represents shared memory statistics data for a PostgreSQL logical replication subscription, providing counters for apply and sync errors along with reset timestamp information.

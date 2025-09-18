@@ -1,7 +1,7 @@
 # ExecParallelHashMergeCounters
 
 ## Location
-src/backend/executor/nodeHash.c: 1439 - 1468
+[src/backend/executor/nodeHash.c:1439-1468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L1439-L1468)
 
 ## Overview
 ExecParallelHashMergeCounters transfers backend-local per-batch counters to the shared totals, synchronizing statistics across all parallel workers in a hash join operation.

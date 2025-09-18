@@ -1,7 +1,7 @@
 # brin_free_tuple
 
 ## Location
-src/backend/access/brin/brin_tuple.c: 433 - 445
+[src/backend/access/brin/brin_tuple.c:433-445](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_tuple.c#L433-L445)
 
 ## Overview
 Frees memory allocated for a tuple created by brin_form_tuple or related BRIN tuple creation functions.

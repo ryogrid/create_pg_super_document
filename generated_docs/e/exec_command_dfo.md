@@ -1,7 +1,7 @@
 # exec_command_dfo
 
 ## Location
-src/bin/psql/command.c: 1039 - 1080
+[src/bin/psql/command.c:1039-1080](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L1039-L1080)
 
 ## Overview
 Handles the \df (describe functions) and \do (describe operators) commands in psql, supporting argument pattern matching for more precise filtering of functions and operators.

@@ -1,7 +1,7 @@
 # IsPinnedObject
 
 ## Location
-src/backend/catalog/catalog.c: 343 - 420
+[src/backend/catalog/catalog.c:343-420](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/catalog.c#L343-L420)
 
 ## Overview
 IsPinnedObject determines whether a database object is "pinned" and therefore cannot be dropped because the system requires it to function properly.

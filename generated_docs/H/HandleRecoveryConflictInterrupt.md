@@ -1,7 +1,7 @@
 # HandleRecoveryConflictInterrupt
 
 ## Location
-src/backend/tcop/postgres.c: 3062 - 3073
+[src/backend/tcop/postgres.c:3062-3073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L3062-L3073)
 
 ## Overview
 HandleRecoveryConflictInterrupt is a signal handler function that sets flags to indicate a specific type of recovery conflict that needs to be processed during the next interrupt check cycle.

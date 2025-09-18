@@ -1,7 +1,7 @@
 # SearchCatCacheList
 
 ## Location
-src/backend/utils/cache/catcache.c: 1697 - 2072
+[src/backend/utils/cache/catcache.c:1697-2072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1697-L2072)
 
 ## Overview
 Generates a list of all tuples matching a partial key in the catalog cache, supporting searches on just the first K of the cache's N key columns.

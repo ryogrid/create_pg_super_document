@@ -1,7 +1,7 @@
 # SetOpCmd
 
 ## Location
-src/include/nodes/nodes.h: 401 - 402
+[src/include/nodes/nodes.h:401-402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodes.h#L401-L402)
 
 ## Overview
 SetOpCmd is an enumeration that defines the type of set operation commands for SetOp plan nodes in PostgreSQL's query execution engine.

@@ -1,7 +1,7 @@
 # BufferUsageAdd
 
 ## Location
-src/backend/executor/instrument.c: 226 - 247
+[src/backend/executor/instrument.c:226-247](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/instrument.c#L226-L247)
 
 ## Overview
 A static utility function that accumulates buffer usage statistics by adding all fields from a source BufferUsage structure to a destination BufferUsage structure.

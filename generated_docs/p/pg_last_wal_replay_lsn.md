@@ -1,7 +1,7 @@
 # pg_last_wal_replay_lsn
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 356 - 372
+[src/backend/access/transam/xlogfuncs.c:356-372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L356-L372)
 
 ## Overview
 Returns the last WAL replay location, indicating the position up to which WAL records have been replayed during recovery.

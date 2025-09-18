@@ -1,7 +1,7 @@
 # ReindexObjectType
 
 ## Location
-src/include/nodes/parsenodes.h: 3972 - 3973
+[src/include/nodes/parsenodes.h:3972-3973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3972-L3973)
 
 ## Overview
 ReindexObjectType is an enumeration that specifies the type of database object to be reindexed in PostgreSQL's REINDEX statement.

@@ -1,7 +1,7 @@
 # build_concat_foutcache
 
 ## Location
-src/backend/utils/adt/varlena.c: 5384 - 5421
+[src/backend/utils/adt/varlena.c:5384-5421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L5384-L5421)
 
 ## Overview
 Prepares a cache with function manager information for output functions of datatypes used in arguments of a concat-like function, optimizing repeated type conversions by caching the output function metadata.

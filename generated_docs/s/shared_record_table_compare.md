@@ -1,7 +1,7 @@
 # shared_record_table_compare
 
 ## Location
-src/backend/utils/cache/typcache.c: 215 - 240
+[src/backend/utils/cache/typcache.c:215-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L215-L240)
 
 ## Overview
 A comparator function for SharedRecordTableKey structures that determines equality between two keys by comparing their associated TupleDesc structures.

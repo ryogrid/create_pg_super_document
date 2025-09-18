@@ -1,7 +1,7 @@
 # array_typanalyze
 
 ## Location
-src/backend/utils/adt/array_typanalyze.c: 98 - 215
+[src/backend/utils/adt/array_typanalyze.c:98-215](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_typanalyze.c#L98-L215)
 
 ## Overview
 The array_typanalyze function serves as the typanalyze function for array columns during ANALYZE operations, setting up specialized statistics computation for array data types.

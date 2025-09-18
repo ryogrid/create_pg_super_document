@@ -1,7 +1,7 @@
 # like_selectivity
 
 ## Location
-src/backend/utils/adt/like_support.c: 1323 - 1359
+[src/backend/utils/adt/like_support.c:1323-1359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1323-L1359)
 
 ## Overview
 Estimates the selectivity of a LIKE pattern by analyzing wildcard and literal characters and multiplying their individual selectivity factors.

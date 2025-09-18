@@ -1,7 +1,7 @@
 # create_sort_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2181 - 2214
+[src/backend/optimizer/plan/createplan.c:2181-2214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2181-L2214)
 
 ## Overview
 Creates a Sort plan node from a SortPath, recursively building plans for subpaths and optimizing the target list for efficient sorting operations.

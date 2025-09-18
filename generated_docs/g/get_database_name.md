@@ -1,7 +1,7 @@
 # get_database_name
 
 ## Location
-src/backend/commands/dbcommands.c: 3174 - 3197
+[src/backend/commands/dbcommands.c:3174-3197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dbcommands.c#L3174-L3197)
 
 ## Overview
 A utility function that retrieves the database name given its OID (Object Identifier) from the PostgreSQL system catalog.

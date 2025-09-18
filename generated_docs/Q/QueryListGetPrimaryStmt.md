@@ -1,7 +1,7 @@
 # QueryListGetPrimaryStmt
 
 ## Location
-src/backend/utils/cache/plancache.c: 1753 - 1771
+[src/backend/utils/cache/plancache.c:1753-1771](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/plancache.c#L1753-L1771)
 
 ## Overview
 Extracts the "primary" statement from a list of Query nodes, specifically the one marked with canSetTag, which indicates the statement that can set command tags.

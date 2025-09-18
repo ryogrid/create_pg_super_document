@@ -1,7 +1,7 @@
 # add_enum_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 1018 - 1035
+[src/backend/access/common/reloptions.c:1018-1035](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1018-L1035)
 
 ## Overview
 The add_enum_reloption function adds a new global enumeration-type reloption (relation option) to PostgreSQL's reloptions system with specified enum values and validation.

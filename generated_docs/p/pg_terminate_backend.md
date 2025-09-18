@@ -1,7 +1,7 @@
 # pg_terminate_backend
 
 ## Location
-src/backend/storage/ipc/signalfuncs.c: 216 - 259
+[src/backend/storage/ipc/signalfuncs.c:216-259](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/signalfuncs.c#L216-L259)
 
 ## Overview
 SQL-callable function that terminates a PostgreSQL backend process by sending a SIGTERM signal, with optional timeout-based waiting for confirmation of termination.

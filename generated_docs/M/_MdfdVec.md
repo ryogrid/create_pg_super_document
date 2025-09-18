@@ -1,7 +1,7 @@
 # _MdfdVec
 
 ## Location
-src/backend/storage/smgr/md.c: 80 - 83
+[src/backend/storage/smgr/md.c:80-83](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L80-L83)
 
 ## Overview
 The  structure represents a single segment file descriptor in PostgreSQL's magnetic disk storage manager, tracking both the file descriptor and segment number for managing large relations that are split across multiple physical files.

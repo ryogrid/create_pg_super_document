@@ -1,7 +1,7 @@
 # find_tabstat_entry
 
 ## Location
-src/backend/utils/activity/pgstat_relation.c: 487 - 536
+[src/backend/utils/activity/pgstat_relation.c:487-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_relation.c#L487-L536)
 
 ## Overview
 Finds and returns a copy of an existing PgStat_TableStatus entry for a given relation ID, with subtransaction counters properly accumulated.

@@ -1,7 +1,7 @@
 # pg_atomic_sub_fetch_u64_impl
 
 ## Location
-src/include/port/atomics/generic.h: 415 - 421
+[src/include/port/atomics/generic.h:415-421](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic.h#L415-L421)
 
 ## Overview
 Performs an atomic subtract-and-fetch operation on a 64-bit unsigned integer, returning the new value after the subtraction operation is complete.

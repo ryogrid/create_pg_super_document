@@ -1,7 +1,7 @@
 # XLogRecordBlockCompressHeader
 
 ## Location
-src/include/access/xlogrecord.h: 173 - 176
+[src/include/access/xlogrecord.h:173-176](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogrecord.h#L173-L176)
 
 ## Overview
 XLogRecordBlockCompressHeader provides additional metadata required when a page image is both compressed and contains a "hole", storing the hole length information needed for proper page reconstruction.

@@ -1,7 +1,7 @@
 # RelationGetIndexPredicate
 
 ## Location
-src/backend/utils/cache/relcache.c: 5156 - 5248
+[src/backend/utils/cache/relcache.c:5156-5248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5156-L5248)
 
 ## Overview
 RelationGetIndexPredicate retrieves and processes the predicate (WHERE clause) for a partial index, returning an optimized and canonicalized expression tree suitable for query planning.

@@ -1,7 +1,7 @@
 # ExecFindPartition
 
 ## Location
-src/backend/executor/execPartition.c: 262 - 494
+[src/backend/executor/execPartition.c:262-494](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execPartition.c#L262-L494)
 
 ## Overview
 Returns the ResultRelInfo for the leaf partition that a tuple should belong to, performing partition key evaluation and traversing the partition hierarchy to locate the appropriate destination partition.

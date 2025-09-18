@@ -1,7 +1,7 @@
 # fix_join_expr_mutator
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 3055 - 3193
+[src/backend/optimizer/plan/setrefs.c:3055-3193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L3055-L3193)
 
 ## Overview
 A recursive expression tree mutator function that fixes variable references in expressions for join nodes by mapping them to references from the input target lists of outer and inner child plans.

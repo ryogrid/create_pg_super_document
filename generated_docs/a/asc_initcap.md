@@ -1,7 +1,7 @@
 # asc_initcap
 
 ## Location
-src/backend/utils/adt/formatting.c: 2204 - 2234
+[src/backend/utils/adt/formatting.c:2204-2234](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L2204-L2234)
 
 ## Overview
 A utility function that converts ASCII characters in a string to initial capital format (first letter of each word capitalized) for PostgreSQL formatting operations.

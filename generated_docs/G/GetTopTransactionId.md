@@ -1,7 +1,7 @@
 # GetTopTransactionId
 
 ## Location
-src/backend/access/transam/xact.c: 423 - 437
+[src/backend/access/transam/xact.c:423-437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xact.c#L423-L437)
 
 ## Overview
 Returns the transaction ID (XID) of the main transaction, assigning one if it has not yet been set.

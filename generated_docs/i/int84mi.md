@@ -1,7 +1,7 @@
 # int84mi
 
 ## Location
-src/backend/utils/adt/int8.c: 904 - 917
+[src/backend/utils/adt/int8.c:904-917](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L904-L917)
 
 ## Overview
 The int84mi function performs subtraction of a 32-bit integer from a 64-bit integer, returning the result as a 64-bit integer with overflow detection.

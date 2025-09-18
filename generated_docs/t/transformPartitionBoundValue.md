@@ -1,7 +1,7 @@
 # transformPartitionBoundValue
 
 ## Location
-src/backend/parser/parse_utilcmd.c: 4295 - 4363
+[src/backend/parser/parse_utilcmd.c:4295-4363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_utilcmd.c#L4295-L4363)
 
 ## Overview
 Transforms and evaluates a partition bound expression into a constant value, handling type coercion and validation for partition key specifications.

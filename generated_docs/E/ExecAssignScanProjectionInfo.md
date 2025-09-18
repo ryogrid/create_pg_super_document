@@ -1,7 +1,7 @@
 # ExecAssignScanProjectionInfo
 
 ## Location
-src/backend/executor/execScan.c: 270 - 282
+[src/backend/executor/execScan.c:270-282](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execScan.c#L270-L282)
 
 ## Overview
 ExecAssignScanProjectionInfo sets up projection information for scan nodes by determining whether projection is needed based on target list and tuple descriptor matching.

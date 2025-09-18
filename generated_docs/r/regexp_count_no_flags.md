@@ -1,7 +1,7 @@
 # regexp_count_no_flags
 
 ## Location
-src/backend/utils/adt/regexp.c: 1142 - 1151
+[src/backend/utils/adt/regexp.c:1142-1151](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L1142-L1151)
 
 ## Overview
 A wrapper function for regexp_count that provides compatibility for function calls without the optional flags parameter, kept separate to avoid opr_sanity regression test complaints.

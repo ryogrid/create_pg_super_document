@@ -1,7 +1,7 @@
 # pg_stat_get_backend_pid
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 668 - 680
+[src/backend/utils/adt/pgstatfuncs.c:668-680](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L668-L680)
 
 ## Overview
 Returns the process ID (PID) of a specific PostgreSQL backend process identified by its process number.

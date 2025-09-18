@@ -1,7 +1,7 @@
 # hash_object_field_start
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3851 - 3876
+[src/backend/utils/adt/jsonfuncs.c:3851-3876](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3851-L3876)
 
 ## Overview
 A static JSON parsing callback function that handles the start of object field processing during JSON hash table construction, preparing state for subsequent field value processing.

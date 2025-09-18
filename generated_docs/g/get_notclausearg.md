@@ -1,7 +1,7 @@
 # get_notclausearg
 
 ## Location
-src/include/nodes/nodeFuncs.h: 134 - 152
+[src/include/nodes/nodeFuncs.h:134-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/nodeFuncs.h#L134-L152)
 
 ## Overview
 Extracts the argument from a clause that is known to be a NOT clause (BoolExpr with NOT_EXPR operator).

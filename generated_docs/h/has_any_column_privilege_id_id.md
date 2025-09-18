@@ -1,7 +1,7 @@
 # has_any_column_privilege_id_id
 
 ## Location
-src/backend/utils/adt/acl.c: 2487 - 2537
+[src/backend/utils/adt/acl.c:2487-2537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L2487-L2537)
 
 ## Overview
 Checks whether a user has any column-level privilege on a table by examining both table-level and individual column-level permissions using role ID, table OID, and privilege name.

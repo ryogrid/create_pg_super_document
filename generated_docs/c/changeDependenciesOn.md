@@ -1,7 +1,7 @@
 # changeDependenciesOn
 
 ## Location
-src/backend/catalog/pg_depend.c: 622 - 709
+[src/backend/catalog/pg_depend.c:622-709](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_depend.c#L622-L709)
 
 ## Overview
 Adjusts all dependency records to redirect them from an old referenced object to a new referenced object of the same type, effectively transferring all incoming dependencies.

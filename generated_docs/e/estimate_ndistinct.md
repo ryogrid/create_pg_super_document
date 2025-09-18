@@ -1,7 +1,7 @@
 # estimate_ndistinct
 
 ## Location
-src/backend/statistics/mvdistinct.c: 521 - 549
+[src/backend/statistics/mvdistinct.c:521-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L521-L549)
 
 ## Overview
 A static function that implements the Duj1 estimator algorithm to estimate the number of distinct values from sample data, used by PostgreSQL's statistics collection system.

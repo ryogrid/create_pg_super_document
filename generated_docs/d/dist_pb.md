@@ -1,7 +1,7 @@
 # dist_pb
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 2502 - 2513
+[src/backend/utils/adt/geo_ops.c:2502-2513](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L2502-L2513)
 
 ## Overview
 Calculates the shortest distance from a point to a box (rectangle) in 2D coordinate space.

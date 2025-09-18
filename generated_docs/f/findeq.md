@@ -1,7 +1,7 @@
 # findeq
 
 ## Location
-src/backend/utils/adt/tsquery_rewrite.c: 35 - 205
+[src/backend/utils/adt/tsquery_rewrite.c:35-205](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_rewrite.c#L35-L205)
 
 ## Overview
 The `findeq` function performs pattern matching and replacement within TSQuery tree nodes, searching for a specific subtree pattern and replacing matching portions with a substitution subtree.

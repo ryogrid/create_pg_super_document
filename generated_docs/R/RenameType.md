@@ -1,7 +1,7 @@
 # RenameType
 
 ## Location
-src/backend/commands/typecmds.c: 3741 - 3821
+[src/backend/commands/typecmds.c:3741-3821](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/typecmds.c#L3741-L3821)
 
 ## Overview
 Main entry point function that handles the execution of ALTER TYPE RENAME commands, performing validation and delegating to appropriate internal renaming functions based on the type being renamed.

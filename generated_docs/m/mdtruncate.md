@@ -1,7 +1,7 @@
 # mdtruncate
 
 ## Location
-src/backend/storage/smgr/md.c: 1153 - 1241
+[src/backend/storage/smgr/md.c:1153-1241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1153-L1241)
 
 ## Overview
 mdtruncate truncates a PostgreSQL relation to a specified number of blocks, handling multi-segment files and ensuring proper resource management without memory allocation.

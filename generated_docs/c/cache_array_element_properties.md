@@ -1,7 +1,7 @@
 # cache_array_element_properties
 
 ## Location
-src/backend/utils/cache/typcache.c: 1459 - 1488
+[src/backend/utils/cache/typcache.c:1459-1488](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L1459-L1488)
 
 ## Overview
 Caches the operational properties (equality, comparison, hashing) available for an array types element type.

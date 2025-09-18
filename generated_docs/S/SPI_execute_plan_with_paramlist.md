@@ -1,7 +1,7 @@
 # SPI_execute_plan_with_paramlist
 
 ## Location
-src/backend/executor/spi.c: 733 - 772
+[src/backend/executor/spi.c:733-772](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L733-L772)
 
 ## Overview
 SPI_execute_plan_with_paramlist executes a previously prepared SQL plan using a ParamListInfo structure for parameter passing, providing an efficient interface for executing plans with pre-constructed parameter lists.

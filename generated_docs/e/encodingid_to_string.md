@@ -1,7 +1,7 @@
 # encodingid_to_string
 
 ## Location
-src/bin/initdb/initdb.c: 831 - 842
+[src/bin/initdb/initdb.c:831-842](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L831-L842)
 
 ## Overview
 This utility function converts an integer encoding ID to its string representation for use in database initialization operations.

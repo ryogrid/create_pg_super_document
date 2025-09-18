@@ -1,7 +1,7 @@
 # dumpPublication
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 4339 - 4434
+[src/bin/pg_dump/pg_dump.c:4339-4434](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L4339-L4434)
 
 ## Overview
 Generates the SQL statements to recreate a logical replication publication during pg_dump restore operations.

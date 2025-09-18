@@ -1,7 +1,7 @@
 # set_foreign_rel_properties
 
 ## Location
-src/backend/optimizer/util/relnode.c: 589 - 626
+[src/backend/optimizer/util/relnode.c:589-626](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L589-L626)
 
 ## Overview
 Sets up foreign-join fields for a join relation when both outer and inner relations are foreign tables (or joins) belonging to the same server and assigned to the same user.

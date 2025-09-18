@@ -1,7 +1,7 @@
 # contain_subplans
 
 ## Location
-src/backend/optimizer/util/clauses.c: 330 - 335
+[src/backend/optimizer/util/clauses.c:330-335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L330-L335)
 
 ## Overview
 Recursively searches for subplan nodes within a clause, returning true if any subplan is found.

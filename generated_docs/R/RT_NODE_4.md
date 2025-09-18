@@ -1,7 +1,7 @@
 # RT_NODE_4
 
 ## Location
-src/include/lib/radixtree.h: 518 - 526
+[src/include/lib/radixtree.h:518-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L518-L526)
 
 ## Overview
 RT_NODE_4 is a macro that expands to generate the smallest node type in the adaptive radix tree implementation, designed for nodes with up to 8 children.

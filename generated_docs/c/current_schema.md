@@ -1,7 +1,7 @@
 # current_schema
 
 ## Location
-src/backend/utils/adt/name.c: 279 - 293
+[src/backend/utils/adt/name.c:279-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/name.c#L279-L293)
 
 ## Overview
 The current_schema function is a SQL function that returns the name of the first schema in the current search path.

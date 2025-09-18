@@ -1,7 +1,7 @@
 # CheckRADIUSAuth
 
 ## Location
-src/backend/libpq/auth.c: 2847 - 2941
+[src/backend/libpq/auth.c:2847-2941](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/auth.c#L2847-L2941)
 
 ## Overview
 Main entry point for RADIUS-based authentication that coordinates the entire RADIUS authentication process including server iteration and credential validation.

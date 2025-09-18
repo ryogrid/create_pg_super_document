@@ -1,7 +1,7 @@
 # ReplicationSlotIndex
 
 ## Location
-src/backend/replication/slot.c: 497 - 512
+[src/backend/replication/slot.c:497-512](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/slot.c#L497-L512)
 
 ## Overview
 Returns the array index of a replication slot within the shared memory replication slots array.

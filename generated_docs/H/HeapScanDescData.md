@@ -1,7 +1,7 @@
 # HeapScanDescData
 
 ## Location
-src/include/access/heapam.h: 53 - 108
+[src/include/access/heapam.h:53-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam.h#L53-L108)
 
 ## Overview
 HeapScanDescData is a structure that maintains the complete state and context information for heap table scans, supporting various scan types including sequential, parallel, bitmap, and streaming scans.

@@ -1,7 +1,7 @@
 # DropSubscription
 
 ## Location
-src/backend/commands/subscriptioncmds.c: 1553 - 1843
+[src/backend/commands/subscriptioncmds.c:1553-1843](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/subscriptioncmds.c#L1553-L1843)
 
 ## Overview
 DropSubscription removes a logical replication subscription, cleaning up all associated resources including replication slots, workers, origins, and catalog entries.

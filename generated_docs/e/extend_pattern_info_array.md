@@ -1,7 +1,7 @@
 # extend_pattern_info_array
 
 ## Location
-src/bin/pg_amcheck/pg_amcheck.c: 1334 - 1355
+[src/bin/pg_amcheck/pg_amcheck.c:1334-1355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_amcheck/pg_amcheck.c#L1334-L1355)
 
 ## Overview
 A utility function that dynamically extends a PatternInfoArray to accommodate one additional PatternInfo entry, returning a pointer to the newly allocated and initialized entry.

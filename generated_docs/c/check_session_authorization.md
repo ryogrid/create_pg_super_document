@@ -1,7 +1,7 @@
 # check_session_authorization
 
 ## Location
-src/backend/commands/variable.c: 802 - 898
+[src/backend/commands/variable.c:802-898](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L802-L898)
 
 ## Overview
 A GUC check hook function that validates session authorization changes, verifying that the specified role exists and that the current user has permission to assume that role.

@@ -1,7 +1,7 @@
 # find_join_rel
 
 ## Location
-src/backend/optimizer/util/relnode.c: 527 - 588
+[src/backend/optimizer/util/relnode.c:527-588](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/relnode.c#L527-L588)
 
 ## Overview
 Returns the relation entry corresponding to a set of RT indexes (relids), or NULL if none exists, specifically for join relations.

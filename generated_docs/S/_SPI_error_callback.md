@@ -1,7 +1,7 @@
 # _SPI_error_callback
 
 ## Location
-src/backend/executor/spi.c: 2961 - 3006
+[src/backend/executor/spi.c:2961-3006](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/spi.c#L2961-L3006)
 
 ## Overview
  is an error callback function that adds contextual information when a query invoked via SPI fails, providing better error reporting with query details.

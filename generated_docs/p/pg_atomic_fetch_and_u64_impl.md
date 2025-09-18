@@ -1,7 +1,7 @@
 # pg_atomic_fetch_and_u64_impl
 
 ## Location
-src/include/port/atomics/generic-gcc.h: 306 - 312
+[src/include/port/atomics/generic-gcc.h:306-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/atomics/generic-gcc.h#L306-L312)
 
 ## Overview
 Implements atomic fetch-and-bitwise-AND operation for 64-bit unsigned integers, atomically performing bitwise AND and returning the previous value.

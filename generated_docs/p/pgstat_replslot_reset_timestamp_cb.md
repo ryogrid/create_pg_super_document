@@ -1,7 +1,7 @@
 # pgstat_replslot_reset_timestamp_cb
 
 ## Location
-src/backend/utils/activity/pgstat_replslot.c: 218 - 223
+[src/backend/utils/activity/pgstat_replslot.c:218-223](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_replslot.c#L218-L223)
 
 ## Overview
 A callback function that updates the statistics reset timestamp for replication slot statistics when a reset operation is performed.

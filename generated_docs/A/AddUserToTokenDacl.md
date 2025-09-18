@@ -1,7 +1,7 @@
 # AddUserToTokenDacl
 
 ## Location
-src/common/exec.c: 538 - 679
+[src/common/exec.c:538-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/exec.c#L538-L679)
 
 ## Overview
 Modifies the Discretionary Access Control List (DACL) of a Windows security token to explicitly include the current user account, addressing Windows security restrictions that affect restricted process creation.

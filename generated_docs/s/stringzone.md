@@ -1,7 +1,7 @@
 # stringzone
 
 ## Location
-src/timezone/zic.c: 2811 - 2945
+[src/timezone/zic.c:2811-2945](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2811-L2945)
 
 ## Overview
 Generates a complete POSIX timezone string representation for a timezone zone, including standard and daylight saving time rules and their transition dates.

@@ -1,7 +1,7 @@
 # ReorderBuffer
 
 ## Location
-src/include/replication/reorderbuffer.h: 441 - 544
+[src/include/replication/reorderbuffer.h:441-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/reorderbuffer.h#L441-L544)
 
 ## Overview
 ReorderBuffer is the central management structure for PostgreSQL's logical replication system, coordinating transaction processing, change buffering, memory management, and callback dispatching for logical decoding operations.

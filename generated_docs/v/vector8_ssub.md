@@ -1,7 +1,7 @@
 # vector8_ssub
 
 ## Location
-src/include/port/simd.h: 369 - 384
+[src/include/port/simd.h:369-384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L369-L384)
 
 ## Overview
 Performs saturated subtraction on two 8-byte SIMD vectors, preventing underflow by clamping results to zero.

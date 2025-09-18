@@ -1,7 +1,7 @@
 # cluster_is_permitted_for_relation
 
 ## Location
-src/backend/commands/cluster.c: 1738 - 1747
+[src/backend/commands/cluster.c:1738-1747](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/cluster.c#L1738-L1747)
 
 ## Overview
 Checks whether a specified user has the necessary privileges to perform CLUSTER operations on a given relation, emitting a warning if permission is denied.

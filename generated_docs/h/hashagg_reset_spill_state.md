@@ -1,7 +1,7 @@
 # hashagg_reset_spill_state
 
 ## Location
-src/backend/executor/nodeAgg.c: 3133 - 3172
+[src/backend/executor/nodeAgg.c:3133-3172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L3133-L3172)
 
 ## Overview
 Frees all resources and memory allocated for spilled hash aggregation operations during cleanup or reset scenarios.

@@ -1,7 +1,7 @@
 # xl_heap_truncate
 
 ## Location
-src/include/access/heapam_xlog.h: 133 - 139
+[src/include/access/heapam_xlog.h:133-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/heapam_xlog.h#L133-L139)
 
 ## Overview
 The xl_heap_truncate struct represents the WAL record data for TRUNCATE operations on heap tables in PostgreSQL's recovery and replication system.

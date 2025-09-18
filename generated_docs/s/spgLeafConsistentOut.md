@@ -1,7 +1,7 @@
 # spgLeafConsistentOut
 
 ## Location
-src/include/access/spgist.h: 183 - 189
+[src/include/access/spgist.h:183-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgist.h#L183-L189)
 
 ## Overview
 spgLeafConsistentOut is a structure that defines the output results from SP-GiST leaf node consistency checking operations, providing the reconstructed leaf value, recheck flags, and distance information for matching leaf tuples.

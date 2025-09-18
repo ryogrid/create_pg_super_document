@@ -1,7 +1,7 @@
 # ExecInsertIndexTuples
 
 ## Location
-src/backend/executor/execIndexing.c: 298 - 526
+[src/backend/executor/execIndexing.c:298-526](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execIndexing.c#L298-L526)
 
 ## Overview
 Inserts index tuples into all indices associated with a result relation when a heap tuple is inserted, handling unique constraints, exclusion constraints, and various optimization scenarios including HOT updates and speculative insertions.

@@ -1,7 +1,7 @@
 # process_outer_partition
 
 ## Location
-src/backend/partitioning/partbounds.c: 1980 - 2061
+[src/backend/partitioning/partbounds.c:1980-2061](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L1980-L2061)
 
 ## Overview
 Attempts to assign a given outer partition a merged partition during partitionwise join planning, handling cases where the inner side has or lacks a default partition.

@@ -1,7 +1,7 @@
 # pltcl_func_handler
 
 ## Location
-src/pl/tcl/pltcl.c: 797 - 1055
+[src/pl/tcl/pltcl.c:797-1055](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/tcl/pltcl.c#L797-L1055)
 
 ## Overview
 Handles regular function calls for PL/Tcl, managing argument conversion, Tcl function execution, and result processing for both scalar and set-returning functions.

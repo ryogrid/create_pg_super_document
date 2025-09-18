@@ -1,7 +1,7 @@
 # extract_jsp_path_expr
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 564 - 582
+[src/backend/utils/adt/jsonb_gin.c:564-582](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L564-L582)
 
 ## Overview
 Extracts a single expression node from JSON path expressions, handling both EXISTS queries and equality comparisons by combining multiple extracted nodes with AND logic when necessary.

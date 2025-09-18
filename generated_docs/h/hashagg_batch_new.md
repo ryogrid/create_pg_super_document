@@ -1,7 +1,7 @@
 # hashagg_batch_new
 
 ## Location
-src/backend/executor/nodeAgg.c: 2991 - 3009
+[src/backend/executor/nodeAgg.c:2991-3009](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L2991-L3009)
 
 ## Overview
 Constructs and initializes a new HashAggBatch structure that represents one iteration of hash aggregation processing to be performed.

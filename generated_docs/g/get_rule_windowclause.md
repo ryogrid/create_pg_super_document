@@ -1,7 +1,7 @@
 # get_rule_windowclause
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 6506 - 6537
+[src/backend/utils/adt/ruleutils.c:6506-6537](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L6506-L6537)
 
 ## Overview
 Formats and outputs the WINDOW clause of a SQL query for rule deparsing, displaying named window specifications while ignoring anonymous ones.

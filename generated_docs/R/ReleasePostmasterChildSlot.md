@@ -1,7 +1,7 @@
 # ReleasePostmasterChildSlot
 
 ## Location
-src/backend/storage/ipc/pmsignal.c: 284 - 306
+[src/backend/storage/ipc/pmsignal.c:284-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/pmsignal.c#L284-L306)
 
 ## Overview
 Releases a previously assigned slot after the death of a postmaster child process, marking it as available for reuse.

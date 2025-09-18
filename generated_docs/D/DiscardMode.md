@@ -1,7 +1,7 @@
 # DiscardMode
 
 ## Location
-src/include/nodes/parsenodes.h: 3930 - 3931
+[src/include/nodes/parsenodes.h:3930-3931](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/parsenodes.h#L3930-L3931)
 
 ## Overview
 DiscardMode is an enumeration type that defines the different types of cached information that can be discarded using the PostgreSQL DISCARD SQL statement to free up session-specific resources.

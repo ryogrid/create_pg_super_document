@@ -1,7 +1,7 @@
 # tts_virtual_copyslot
 
 ## Location
-src/backend/executor/execTuples.c: 269 - 290
+[src/backend/executor/execTuples.c:269-290](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L269-L290)
 
 ## Overview
 Copies all attribute values and null indicators from a source TupleTableSlot to a destination VirtualTupleTableSlot, ensuring the destination owns independent copies of all data.

@@ -1,7 +1,7 @@
 # ginUpdateStats
 
 ## Location
-src/backend/access/gin/ginutil.c: 650 - 701
+[src/backend/access/gin/ginutil.c:650-701](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gin/ginutil.c#L650-L701)
 
 ## Overview
 Updates statistical data in a GIN index's metadata page with new values, handling WAL logging and critical section management for crash recovery and consistency.

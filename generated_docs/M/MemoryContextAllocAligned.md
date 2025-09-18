@@ -1,7 +1,7 @@
 # MemoryContextAllocAligned
 
 ## Location
-src/backend/utils/mmgr/mcxt.c: 1408 - 1509
+[src/backend/utils/mmgr/mcxt.c:1408-1509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mmgr/mcxt.c#L1408-L1509)
 
 ## Overview
 Allocates memory from a specified memory context with custom byte alignment requirements, implementing alignment through additional memory allocation and pointer redirection.

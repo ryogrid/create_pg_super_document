@@ -1,7 +1,7 @@
 # CreateTupleDescCopy
 
 ## Location
-src/backend/access/common/tupdesc.c: 133 - 172
+[src/backend/access/common/tupdesc.c:133-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tupdesc.c#L133-L172)
 
 ## Overview
 Creates a new tuple descriptor by copying the basic structure and attributes from an existing TupleDesc, but explicitly excludes constraints and defaults.

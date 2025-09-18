@@ -1,7 +1,7 @@
 # mkdtemp
 
 ## Location
-src/port/mkdtemp.c: 286 - 293
+[src/port/mkdtemp.c:286-293](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/mkdtemp.c#L286-L293)
 
 ## Overview
 Creates a unique temporary directory with mode 0700 (read/write/execute for owner only) by replacing trailing 'X' characters in a template path with randomly generated characters.

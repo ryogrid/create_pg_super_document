@@ -1,7 +1,7 @@
 # create_bitmap_heap_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 1042 - 1074
+[src/backend/optimizer/util/pathnode.c:1042-1074](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L1042-L1074)
 
 ## Overview
 Creates a path node for a bitmap heap scan, which represents an execution plan that first uses bitmap index scan(s) to collect a bitmap of matching tuple IDs and then performs a heap scan guided by that bitmap.

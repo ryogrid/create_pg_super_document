@@ -1,7 +1,7 @@
 # BTInsertStateData
 
 ## Location
-src/include/access/nbtree.h: 809 - 833
+[src/include/access/nbtree.h:809-833](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L809-L833)
 
 ## Overview
 BTInsertStateData is a working area structure used during B-tree insertion operations to track the current position and state while performing uniqueness checks and determining the exact insertion location.

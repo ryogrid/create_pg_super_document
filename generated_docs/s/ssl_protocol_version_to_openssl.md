@@ -1,7 +1,7 @@
 # ssl_protocol_version_to_openssl
 
 ## Location
-src/backend/libpq/be-secure-openssl.c: 1691 - 1725
+[src/backend/libpq/be-secure-openssl.c:1691-1725](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-secure-openssl.c#L1691-L1725)
 
 ## Overview
 Converts PostgreSQL TLS protocol version GUC enumeration values to their corresponding OpenSSL constant values.

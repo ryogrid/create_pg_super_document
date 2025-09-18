@@ -1,7 +1,7 @@
 # interval_cmp_value
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2483 - 2504
+[src/backend/utils/adt/timestamp.c:2483-2504](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2483-L2504)
 
 ## Overview
 Converts an Interval structure to a linear 128-bit integer representation for comparison purposes, normalizing months, days, and time components into a single comparable value.

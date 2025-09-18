@@ -1,7 +1,7 @@
 # do_array_start
 
 ## Location
-src/test/modules/test_json_parser/test_json_parser_incremental.c: 239 - 249
+[src/test/modules/test_json_parser/test_json_parser_incremental.c:239-249](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_json_parser/test_json_parser_incremental.c#L239-L249)
 
 ## Overview
 The  function is a JSON parsing callback function that handles the beginning of JSON arrays in PostgreSQL's incremental JSON parser test module.

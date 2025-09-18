@@ -1,7 +1,7 @@
 # wait_for_end_recovery
 
 ## Location
-src/bin/pg_basebackup/pg_createsubscriber.c: 1511 - 1562
+[src/bin/pg_basebackup/pg_createsubscriber.c:1511-1562](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/pg_createsubscriber.c#L1511-L1562)
 
 ## Overview
 wait_for_end_recovery is a function that waits for a PostgreSQL server to complete its recovery process, ensuring it reaches a consistent state before proceeding with subscription creation operations.

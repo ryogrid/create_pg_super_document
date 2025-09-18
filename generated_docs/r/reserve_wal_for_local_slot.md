@@ -1,7 +1,7 @@
 # reserve_wal_for_local_slot
 
 ## Location
-src/backend/replication/logical/slotsync.c: 474 - 544
+[src/backend/replication/logical/slotsync.c:474-544](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/slotsync.c#L474-L544)
 
 ## Overview
 Reserves WAL segments for a newly created local synchronized slot by setting its restart_lsn and ensuring the required WAL is available.

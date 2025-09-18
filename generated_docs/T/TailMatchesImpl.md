@@ -1,7 +1,7 @@
 # TailMatchesImpl
 
 ## Location
-src/bin/psql/tab-complete.c: 1537 - 1569
+[src/bin/psql/tab-complete.c:1537-1569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/tab-complete.c#L1537-L1569)
 
 ## Overview
 Implements the core logic for TailMatches and TailMatchesCS macros, checking if the last N words in the command line match a given pattern for tab completion purposes.

@@ -1,7 +1,7 @@
 # spgendscan
 
 ## Location
-src/backend/access/spgist/spgscan.c: 429 - 462
+[src/backend/access/spgist/spgscan.c:429-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L429-L462)
 
 ## Overview
 Terminates an SP-GiST index scan and frees all associated memory and resources allocated during the scan lifetime.

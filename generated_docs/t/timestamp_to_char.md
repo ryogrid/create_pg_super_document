@@ -1,7 +1,7 @@
 # timestamp_to_char
 
 ## Location
-src/backend/utils/adt/formatting.c: 4250 - 4284
+[src/backend/utils/adt/formatting.c:4250-4284](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/formatting.c#L4250-L4284)
 
 ## Overview
 SQL callable function that formats a TIMESTAMP value into a string according to a specified format template, implementing the `to_char(timestamp, format)` SQL function.

@@ -1,7 +1,7 @@
 # float4recv
 
 ## Location
-src/backend/utils/adt/float.c: 332 - 342
+[src/backend/utils/adt/float.c:332-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L332-L342)
 
 ## Overview
 PostgreSQL function that converts binary data from external format (network byte order) to a float4 value for binary input/output operations.

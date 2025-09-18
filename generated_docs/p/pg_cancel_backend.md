@@ -1,7 +1,7 @@
 # pg_cancel_backend
 
 ## Location
-src/backend/storage/ipc/signalfuncs.c: 122 - 147
+[src/backend/storage/ipc/signalfuncs.c:122-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/signalfuncs.c#L122-L147)
 
 ## Overview
 SQL-callable function that cancels a running query in a PostgreSQL backend process by sending a SIGINT signal, with appropriate permission checking.

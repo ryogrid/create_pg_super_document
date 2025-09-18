@@ -1,7 +1,7 @@
 # _bt_build_callback
 
 ## Location
-src/backend/access/nbtree/nbtsort.c: 577 - 605
+[src/backend/access/nbtree/nbtsort.c:577-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtsort.c#L577-L605)
 
 ## Overview
 A per-tuple callback function used during B-tree index building that processes each tuple scanned from the heap table and directs it to the appropriate spool for subsequent processing.

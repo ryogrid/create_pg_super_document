@@ -1,7 +1,7 @@
 # circle_sub_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4980 - 4998
+[src/backend/utils/adt/geo_ops.c:4980-4998](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4980-L4998)
 
 ## Overview
 Translates a circle by subtracting the coordinates of a point from the circle's center, returning a new circle with the same radius but at the translated position.

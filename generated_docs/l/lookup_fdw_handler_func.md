@@ -1,7 +1,7 @@
 # lookup_fdw_handler_func
 
 ## Location
-src/backend/commands/foreigncmds.c: 486 - 509
+[src/backend/commands/foreigncmds.c:486-509](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L486-L509)
 
 ## Overview
 Converts a handler function name from the parser into an OID, validating that it has the correct return type for a foreign-data wrapper handler.

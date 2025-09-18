@@ -1,7 +1,7 @@
 # InheritableSocket
 
 ## Location
-src/backend/postmaster/launch_backend.c: 87 - 89
+[src/backend/postmaster/launch_backend.c:87-89](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/launch_backend.c#L87-L89)
 
 ## Overview
 InheritableSocket is a platform-specific type definition that enables socket inheritance between parent and child processes in PostgreSQL. It abstracts the complexities of socket inheritance across Windows and Unix-like systems.

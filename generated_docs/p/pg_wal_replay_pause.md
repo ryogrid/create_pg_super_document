@@ -1,7 +1,7 @@
 # pg_wal_replay_pause
 
 ## Location
-src/backend/access/transam/xlogfuncs.c: 517 - 546
+[src/backend/access/transam/xlogfuncs.c:517-546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogfuncs.c#L517-L546)
 
 ## Overview
 Requests to pause WAL replay during recovery, allowing administrators to temporarily halt the recovery process on a standby server.

@@ -1,7 +1,7 @@
 # KeepFileRestoredFromArchive
 
 ## Location
-src/backend/access/transam/xlogarchive.c: 358 - 443
+[src/backend/access/transam/xlogarchive.c:358-443](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogarchive.c#L358-L443)
 
 ## Overview
 Moves a file restored from archive storage from its temporary location to the permanent location in pg_wal, handling file replacement and necessary cleanup operations.

@@ -1,7 +1,7 @@
 # make_const
 
 ## Location
-src/backend/parser/parse_node.c: 347 - 480
+[src/backend/parser/parse_node.c:347-480](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_node.c#L347-L480)
 
 ## Overview
 A function that converts raw constant values from the parser (A_Const nodes) into typed Const nodes by determining the "natural" type for each constant when no explicit cast is provided.

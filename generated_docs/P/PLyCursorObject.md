@@ -1,7 +1,7 @@
 # PLyCursorObject
 
 ## Location
-src/pl/plpython/plpy_cursorobject.h: 11 - 18
+[src/pl/plpython/plpy_cursorobject.h:11-18](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_cursorobject.h#L11-L18)
 
 ## Overview
 PLyCursorObject is a structure representing a PostgreSQL cursor object within the PL/Python procedural language extension, providing Python access to database cursors for efficient row-by-row processing of query results.

@@ -1,7 +1,7 @@
 # create_index_path
 
 ## Location
-src/backend/optimizer/util/pathnode.c: 993 - 1041
+[src/backend/optimizer/util/pathnode.c:993-1041](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/pathnode.c#L993-L1041)
 
 ## Overview
 Creates an IndexPath node representing an index scan or index-only scan access method, supporting both forward and backward scans with optional ordering and filtering clauses.

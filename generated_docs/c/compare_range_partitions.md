@@ -1,7 +1,7 @@
 # compare_range_partitions
 
 ## Location
-src/backend/partitioning/partbounds.c: 2662 - 2710
+[src/backend/partitioning/partbounds.c:2662-2710](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partbounds.c#L2662-L2710)
 
 ## Overview
 Compares the bounds of two range partitions and determines if they overlap, while also providing comparison results for both lower and upper bounds.

@@ -1,7 +1,7 @@
 # puttzcodepass
 
 ## Location
-src/timezone/zic.c: 2023 - 2036
+[src/timezone/zic.c:2023-2036](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/timezone/zic.c#L2023-L2036)
 
 ## Overview
 A static utility function that conditionally writes integer values to timezone files in either 32-bit or 64-bit format based on the compilation pass number.

@@ -1,7 +1,7 @@
 # check_hostname
 
 ## Location
-src/backend/libpq/hba.c: 1072 - 1162
+[src/backend/libpq/hba.c:1072-1162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L1072-L1162)
 
 ## Overview
 Verifies that a connecting client's IP address matches a given hostname by performing DNS resolution and reverse lookup validation.

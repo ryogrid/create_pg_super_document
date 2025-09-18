@@ -1,7 +1,7 @@
 # pg_get_function_result
 
 ## Location
-src/backend/utils/adt/ruleutils.c: 3184 - 3213
+[src/backend/utils/adt/ruleutils.c:3184-3213](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/ruleutils.c#L3184-L3213)
 
 ## Overview
 Returns a nicely-formatted version of a function's return type, representing what would appear after the RETURNS clause in a CREATE FUNCTION statement.

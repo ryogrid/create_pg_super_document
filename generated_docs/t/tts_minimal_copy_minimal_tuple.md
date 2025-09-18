@@ -1,7 +1,7 @@
 # tts_minimal_copy_minimal_tuple
 
 ## Location
-src/backend/executor/execTuples.c: 669 - 679
+[src/backend/executor/execTuples.c:669-679](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L669-L679)
 
 ## Overview
 Creates an independent copy of the MinimalTuple stored in a MinimalTupleTableSlot.

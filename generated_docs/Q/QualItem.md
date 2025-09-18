@@ -1,7 +1,7 @@
 # QualItem
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5323 - 5409
+[src/backend/optimizer/plan/createplan.c:5323-5409](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5323-L5409)
 
 ## Overview
 A local structure used within the order_qual_clauses function to temporarily hold qualification clauses along with their costs and security levels for sorting purposes.

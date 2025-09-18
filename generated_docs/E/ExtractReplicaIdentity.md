@@ -1,7 +1,7 @@
 # ExtractReplicaIdentity
 
 ## Location
-src/backend/access/heap/heapam.c: 9119 - 9210
+[src/backend/access/heap/heapam.c:9119-9210](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L9119-L9210)
 
 ## Overview
 Builds a heap tuple representing the configured REPLICA IDENTITY for use in UPDATE or DELETE operations in logical replication contexts.

@@ -1,7 +1,7 @@
 # plperl_proc_desc
 
 ## Location
-src/pl/plperl/plperl.c: 100 - 125
+[src/pl/plperl/plperl.c:100-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plperl/plperl.c#L100-L125)
 
 ## Overview
 The plperl_proc_desc structure represents cached information about loaded Perl procedures in PostgreSQL's PL/Perl implementation. It manages the lifecycle, metadata, and execution context for compiled Perl functions.

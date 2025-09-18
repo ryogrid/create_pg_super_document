@@ -1,7 +1,7 @@
 # multirange_contains_range
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 1721 - 1732
+[src/backend/utils/adt/multirangetypes.c:1721-1732](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L1721-L1732)
 
 ## Overview
 PostgreSQL function that tests whether a multirange contains (completely encompasses) a given range, implementing the @> operator for multirange-range containment.

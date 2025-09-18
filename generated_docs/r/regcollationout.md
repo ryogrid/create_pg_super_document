@@ -1,7 +1,7 @@
 # regcollationout
 
 ## Location
-src/backend/utils/adt/regproc.c: 1086 - 1143
+[src/backend/utils/adt/regproc.c:1086-1143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1086-L1143)
 
 ## Overview
 Converts a collation OID to its corresponding collation name string representation in human-readable format.

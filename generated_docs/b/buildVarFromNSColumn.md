@@ -1,7 +1,7 @@
 # buildVarFromNSColumn
 
 ## Location
-src/backend/parser/parse_clause.c: 1640 - 1665
+[src/backend/parser/parse_clause.c:1640-1665](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L1640-L1665)
 
 ## Overview
 Constructs a Var node from ParseNamespaceColumn data, primarily used for building join alias variables.

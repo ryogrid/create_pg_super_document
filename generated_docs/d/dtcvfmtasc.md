@@ -1,7 +1,7 @@
 # dtcvfmtasc
 
 ## Location
-src/interfaces/ecpg/compatlib/informix.c: 644 - 649
+[src/interfaces/ecpg/compatlib/informix.c:644-649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/compatlib/informix.c#L644-L649)
 
 ## Overview
 The dtcvfmtasc function converts an ASCII string to a timestamp using a specified format string, providing Informix ESQL/C compatibility for date/time parsing with custom formats.

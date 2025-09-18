@@ -1,7 +1,7 @@
 # LogicalOutputPrepareWrite
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 52 - 61
+[src/backend/replication/logical/logicalfuncs.c:52-61](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L52-L61)
 
 ## Overview
 PrepareWrite function for logical decoding output that initializes the output buffer for writing logical replication data.

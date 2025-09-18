@@ -1,7 +1,7 @@
 # DatumGetPolygonP
 
 ## Location
-src/include/utils/geo_decls.h: 247 - 251
+[src/include/utils/geo_decls.h:247-251](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L247-L251)
 
 ## Overview
 DatumGetPolygonP is a static inline function that extracts a POLYGON pointer from a PostgreSQL Datum value, with built-in TOAST decompression support for handling variable-length polygon data.

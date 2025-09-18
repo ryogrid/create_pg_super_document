@@ -1,7 +1,7 @@
 # OperatorIsVisibleExt
 
 ## Location
-src/backend/catalog/namespace.c: 2061 - 2120
+[src/backend/catalog/namespace.c:2061-2120](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L2061-L2120)
 
 ## Overview
 OperatorIsVisibleExt determines whether an operator is visible in the current search path, with optional error handling for missing operators.

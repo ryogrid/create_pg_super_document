@@ -1,7 +1,7 @@
 # binary_upgrade_set_next_array_pg_type_oid
 
 ## Location
-src/backend/utils/adt/pg_upgrade_support.c: 65 - 75
+[src/backend/utils/adt/pg_upgrade_support.c:65-75](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_upgrade_support.c#L65-L75)
 
 ## Overview
 Sets the OID to be assigned to the next array type created during binary upgrade operations.

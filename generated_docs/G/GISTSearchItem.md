@@ -1,7 +1,7 @@
 # GISTSearchItem
 
 ## Location
-src/include/access/gist_private.h: 130 - 143
+[src/include/access/gist_private.h:130-143](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/gist_private.h#L130-L143)
 
 ## Overview
 GISTSearchItem represents a generic unvisited item in the GiST search queue, which can be either an index page or a heap tuple, managed within a pairing heap for efficient ordered traversal.

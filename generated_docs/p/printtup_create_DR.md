@@ -1,7 +1,7 @@
 # printtup_create_DR
 
 ## Location
-src/backend/access/common/printtup.c: 71 - 99
+[src/backend/access/common/printtup.c:71-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/printtup.c#L71-L99)
 
 ## Overview
 The printtup_create_DR function creates and initializes a DestReceiver for printtup operations, which is responsible for sending query results to the client through PostgreSQL's communication protocol.

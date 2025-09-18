@@ -1,7 +1,7 @@
 # CreateUserMapping
 
 ## Location
-src/backend/commands/foreigncmds.c: 1111 - 1236
+[src/backend/commands/foreigncmds.c:1111-1236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L1111-L1236)
 
 ## Overview
 Creates a new user mapping that defines authentication and connection information for a specific user to access a foreign server in PostgreSQL's foreign data wrapper system.

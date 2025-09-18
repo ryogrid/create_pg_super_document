@@ -1,7 +1,7 @@
 # add_local_enum_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 1036 - 1052
+[src/backend/access/common/reloptions.c:1036-1052](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L1036-L1052)
 
 ## Overview
 The add_local_enum_reloption function adds a new local enumeration-type reloption (relation option) with specified enum values and target field offset.

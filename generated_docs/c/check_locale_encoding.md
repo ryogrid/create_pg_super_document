@@ -1,7 +1,7 @@
 # check_locale_encoding
 
 ## Location
-src/bin/initdb/initdb.c: 2247 - 2281
+[src/bin/initdb/initdb.c:2247-2281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/initdb/initdb.c#L2247-L2281)
 
 ## Overview
 Validates that the user-specified encoding is compatible with the encoding required by a given locale.

@@ -1,7 +1,7 @@
 # bgworker_die
 
 ## Location
-src/backend/postmaster/bgworker.c: 709 - 722
+[src/backend/postmaster/bgworker.c:709-722](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L709-L722)
 
 ## Overview
 A standard SIGTERM signal handler for background worker processes that terminates the worker with a FATAL error message.

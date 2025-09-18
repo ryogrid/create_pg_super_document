@@ -1,7 +1,7 @@
 # PGOutputTxnData
 
 ## Location
-src/backend/replication/pgoutput/pgoutput.c: 211 - 214
+[src/backend/replication/pgoutput/pgoutput.c:211-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/pgoutput/pgoutput.c#L211-L214)
 
 ## Overview
 PGOutputTxnData is a struct used in PostgreSQL's pgoutput logical replication plugin to track transaction-level state, specifically whether a BEGIN message has been sent for a transaction to optimize network bandwidth by avoiding empty transaction messages.

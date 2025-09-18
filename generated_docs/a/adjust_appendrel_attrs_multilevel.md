@@ -1,7 +1,7 @@
 # adjust_appendrel_attrs_multilevel
 
 ## Location
-src/backend/optimizer/util/appendinfo.c: 521 - 553
+[src/backend/optimizer/util/appendinfo.c:521-553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/appendinfo.c#L521-L553)
 
 ## Overview
 Handles variable translation through multiple levels of inheritance hierarchy, recursively applying transformations from a top-level parent down to a deeply nested child relation.

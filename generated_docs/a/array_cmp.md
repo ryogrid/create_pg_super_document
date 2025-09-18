@@ -1,7 +1,7 @@
 # array_cmp
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3973 - 4145
+[src/backend/utils/adt/arrayfuncs.c:3973-4145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3973-L4145)
 
 ## Overview
 Internal comparison function for arrays that provides lexicographic ordering by comparing array elements pairwise and handling dimensionality differences.

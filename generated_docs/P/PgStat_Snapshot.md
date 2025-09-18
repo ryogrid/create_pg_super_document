@@ -1,7 +1,7 @@
 # PgStat_Snapshot
 
 ## Location
-src/include/utils/pgstat_internal.h: 461 - 485
+[src/include/utils/pgstat_internal.h:461-485](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/pgstat_internal.h#L461-L485)
 
 ## Overview
 PgStat_Snapshot represents a cached statistics snapshot that provides a consistent view of PostgreSQL system statistics at a specific point in time, containing both fixed system-wide statistics and variable per-object statistics.

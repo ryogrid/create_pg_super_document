@@ -1,7 +1,7 @@
 # StartReplicationCmd
 
 ## Location
-src/include/nodes/replnodes.h: 91 - 99
+[src/include/nodes/replnodes.h:91-99](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/replnodes.h#L91-L99)
 
 ## Overview
 StartReplicationCmd is a command structure used to initiate WAL replication from a PostgreSQL server, supporting both physical and logical replication modes.

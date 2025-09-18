@@ -1,7 +1,7 @@
 # vector8_min
 
 ## Location
-src/include/port/simd.h: 412 - 422
+[src/include/port/simd.h:412-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/simd.h#L412-L422)
 
 ## Overview
 Computes the element-wise minimum of two 8-bit unsigned integer vectors using SIMD instructions, providing optimized vector operations for performance-critical code paths.

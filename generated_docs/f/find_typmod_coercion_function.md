@@ -1,7 +1,7 @@
 # find_typmod_coercion_function
 
 ## Location
-src/backend/parser/parse_coerce.c: 3318 - 3367
+[src/backend/parser/parse_coerce.c:3318-3367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_coerce.c#L3318-L3367)
 
 ## Overview
 Determines whether a given data type requires length coercion (type modifier adjustment) by searching for self-referential cast functions.

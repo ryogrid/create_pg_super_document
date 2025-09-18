@@ -1,7 +1,7 @@
 # LsegPGetDatum
 
 ## Location
-src/include/utils/geo_decls.h: 194 - 197
+[src/include/utils/geo_decls.h:194-197](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L194-L197)
 
 ## Overview
 LsegPGetDatum is an inline utility function that converts an LSEG (line segment) pointer to a Datum value, serving as the complementary function to DatumGetLsegP in PostgreSQL's function manager interface.

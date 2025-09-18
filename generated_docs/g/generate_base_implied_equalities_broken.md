@@ -1,7 +1,7 @@
 # generate_base_implied_equalities_broken
 
 ## Location
-src/backend/optimizer/path/equivclass.c: 1313 - 1375
+[src/backend/optimizer/path/equivclass.c:1313-1375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/equivclass.c#L1313-L1375)
 
 ## Overview
 A cleanup function that handles the restoration of RestrictInfo clauses back to the main restrictinfo datastructures when an EquivalenceClass becomes broken during base relation processing.

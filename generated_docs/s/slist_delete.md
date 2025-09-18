@@ -1,7 +1,7 @@
 # slist_delete
 
 ## Location
-src/backend/lib/ilist.c: 31 - 59
+[src/backend/lib/ilist.c:31-59](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/ilist.c#L31-L59)
 
 ## Overview
 Removes a specified node from a singly-linked list by traversing the list to find and unlink the node.

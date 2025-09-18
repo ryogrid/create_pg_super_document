@@ -1,7 +1,7 @@
 # tbm_begin_iterate
 
 ## Location
-src/backend/nodes/tidbitmap.c: 689 - 765
+[src/backend/nodes/tidbitmap.c:689-765](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/tidbitmap.c#L689-L765)
 
 ## Overview
 Creates and initializes a TBMIterator to prepare for sequential iteration through the tuple identifiers stored in a TIDBitmap.

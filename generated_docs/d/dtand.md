@@ -1,7 +1,7 @@
 # dtand
 
 ## Location
-src/backend/utils/adt/float.c: 2488 - 2553
+[src/backend/utils/adt/float.c:2488-2553](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L2488-L2553)
 
 ## Overview
 The  function computes the tangent of an angle specified in degrees, providing accurate trigonometric calculations with special handling for edge cases and domain reduction.

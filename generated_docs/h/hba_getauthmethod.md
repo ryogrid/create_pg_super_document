@@ -1,7 +1,7 @@
 # hba_getauthmethod
 
 ## Location
-src/backend/libpq/hba.c: 3048 - 3060
+[src/backend/libpq/hba.c:3048-3060](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L3048-L3060)
 
 ## Overview
 Determines the appropriate authentication method for a client connection by searching through the parsed HBA (Host-Based Authentication) configuration and storing the result in the port structure.

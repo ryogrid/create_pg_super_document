@@ -1,7 +1,7 @@
 # gist_indexsortbuild_levelstate_add
 
 ## Location
-src/backend/access/gist/gistbuild.c: 461 - 492
+[src/backend/access/gist/gistbuild.c:461-492](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistbuild.c#L461-L492)
 
 ## Overview
 Adds a single index tuple to the current page in a level state during sorted GiST index construction, managing page overflow by advancing to the next page or triggering a flush when pages become full.

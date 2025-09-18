@@ -1,7 +1,7 @@
 # matches_boolean_partition_clause
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 882 - 916
+[src/backend/optimizer/path/pathkeys.c:882-916](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L882-L916)
 
 ## Overview
 Determines if a boolean clause matches a specific partition key column, supporting both direct matches (partkey = true) and NOT matches (partkey = false).

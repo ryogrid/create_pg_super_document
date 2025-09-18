@@ -1,7 +1,7 @@
 # populate_domain
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 3215 - 3248
+[src/backend/utils/adt/jsonfuncs.c:3215-3248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L3215-L3248)
 
 ## Overview
 Populates a domain type value from JSON/JsonB input by converting the underlying base type and applying domain-specific constraints.

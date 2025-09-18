@@ -1,7 +1,7 @@
 # byteatrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 617 - 643
+[src/backend/utils/adt/oracle_compat.c:617-643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L617-L643)
 
 ## Overview
 The byteatrim function removes specified bytes from both the front and back of a bytea (binary data) value based on a set of bytes to be removed.

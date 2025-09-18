@@ -1,7 +1,7 @@
 # pgstat_count_slru_page_read
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 77 - 82
+[src/backend/utils/activity/pgstat_slru.c:77-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L77-L82)
 
 ## Overview
 Increments the disk read counter for a specific SLRU buffer cache, tracking when pages must be physically read from disk storage due to cache misses.

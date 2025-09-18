@@ -1,7 +1,7 @@
 # LookupCreationNamespace
 
 ## Location
-src/backend/catalog/namespace.c: 3428 - 3458
+[src/backend/catalog/namespace.c:3428-3458](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/namespace.c#L3428-L3458)
 
 ## Overview
 Looks up a schema by name and verifies that the current user has CREATE privileges on it, handling the special case of the pg_temp temporary namespace.

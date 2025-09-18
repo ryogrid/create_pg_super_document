@@ -1,7 +1,7 @@
 # ExecInitAgg
 
 ## Location
-src/backend/executor/nodeAgg.c: 3173 - 4037
+[src/backend/executor/nodeAgg.c:3173-4037](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L3173-L4037)
 
 ## Overview
 Initializes the aggregate execution state for PostgreSQL's aggregate node, setting up all necessary data structures, memory contexts, and function lookup information for aggregate computation.

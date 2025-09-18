@@ -1,7 +1,7 @@
 # PageIsAllVisible
 
 ## Location
-src/include/storage/bufpage.h: 427 - 431
+[src/include/storage/bufpage.h:427-431](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L427-L431)
 
 ## Overview
 PageIsAllVisible checks whether all tuples on a page are visible to everyone, indicating that the page can be safely marked in the visibility map.

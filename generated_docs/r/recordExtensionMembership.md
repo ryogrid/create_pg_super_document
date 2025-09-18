@@ -1,7 +1,7 @@
 # recordExtensionMembership
 
 ## Location
-src/bin/pg_dump/common.c: 1052 - 1075
+[src/bin/pg_dump/common.c:1052-1075](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/common.c#L1052-L1075)
 
 ## Overview
 Records the membership relationship between a database object and a PostgreSQL extension in the pg_dump utility's internal tracking system.

@@ -1,7 +1,7 @@
 # is_publishable_class
 
 ## Location
-src/backend/catalog/pg_publication.c: 137 - 149
+[src/backend/catalog/pg_publication.c:137-149](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_publication.c#L137-L149)
 
 ## Overview
 A static utility function that determines if a relation is publishable based on its OID and pg_class form tuple, without requiring the relation to be opened.

@@ -1,7 +1,7 @@
 # ExecInitBitmapHeapScan
 
 ## Location
-src/backend/executor/nodeBitmapHeapscan.c: 685 - 783
+[src/backend/executor/nodeBitmapHeapscan.c:685-783](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeBitmapHeapscan.c#L685-L783)
 
 ## Overview
 ExecInitBitmapHeapScan initializes a bitmap heap scan execution node by setting up the scan state, opening relations, initializing child nodes, and configuring tuple slots and projection information for query execution.

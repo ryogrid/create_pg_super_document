@@ -1,7 +1,7 @@
 # regconfigrecv
 
 ## Location
-src/backend/utils/adt/regproc.c: 1405 - 1414
+[src/backend/utils/adt/regproc.c:1405-1414](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L1405-L1414)
 
 ## Overview
 Converts external binary format data to a regconfig (text search configuration OID) type.

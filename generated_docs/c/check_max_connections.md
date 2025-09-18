@@ -1,7 +1,7 @@
 # check_max_connections
 
 ## Location
-src/backend/utils/init/postinit.c: 594 - 605
+[src/backend/utils/init/postinit.c:594-605](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/postinit.c#L594-L605)
 
 ## Overview
 check_max_connections is a GUC (Grand Unified Configuration) check hook function that validates proposed values for the max_connections configuration parameter to ensure they don't exceed system limits.

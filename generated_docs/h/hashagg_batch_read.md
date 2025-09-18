@@ -1,7 +1,7 @@
 # hashagg_batch_read
 
 ## Location
-src/backend/executor/nodeAgg.c: 3010 - 3058
+[src/backend/executor/nodeAgg.c:3010-3058](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAgg.c#L3010-L3058)
 
 ## Overview
 Reads the next tuple from a batch's logical tape, returning the tuple data along with its associated hash value, or NULL when no more tuples are available.

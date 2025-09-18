@@ -1,7 +1,7 @@
 # getTimelineHistory
 
 ## Location
-src/bin/pg_rewind/pg_rewind.c: 856 - 918
+[src/bin/pg_rewind/pg_rewind.c:856-918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/pg_rewind.c#L856-L918)
 
 ## Overview
 getTimelineHistory retrieves timeline history information for either the source or target PostgreSQL system during pg_rewind operations.

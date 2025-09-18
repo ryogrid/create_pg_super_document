@@ -1,7 +1,7 @@
 # has_tablespace_privilege_name_name
 
 ## Location
-src/backend/utils/adt/acl.c: 4207 - 4232
+[src/backend/utils/adt/acl.c:4207-4232](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/acl.c#L4207-L4232)
 
 ## Overview
 This function checks user privileges on a tablespace, taking a username (Name), tablespace name (text), and privilege name (text) as input parameters.

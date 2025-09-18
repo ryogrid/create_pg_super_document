@@ -1,7 +1,7 @@
 # make_jsp_expr_node_args
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 382 - 394
+[src/backend/utils/adt/jsonb_gin.c:382-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L382-L394)
 
 ## Overview
 Creates a JsonPathGinNode expression with initialized arguments by combining node creation with argument population from a PostgreSQL List.

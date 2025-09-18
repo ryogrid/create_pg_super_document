@@ -1,7 +1,7 @@
 # make_auth_token
 
 ## Location
-src/backend/libpq/hba.c: 257 - 277
+[src/backend/libpq/hba.c:257-277](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/hba.c#L257-L277)
 
 ## Overview
 A constructor function that creates and initializes an AuthToken struct with a copied string and quoted flag, using a single memory allocation for both the struct and string data.

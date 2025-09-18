@@ -1,7 +1,7 @@
 # QTNClearFlags
 
 ## Location
-src/backend/utils/adt/tsquery_util.c: 434 - 448
+[src/backend/utils/adt/tsquery_util.c:434-448](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_util.c#L434-L448)
 
 ## Overview
 Recursively clears specified flag bits from all nodes in a QTNode tree structure.

@@ -1,7 +1,7 @@
 # get_first_col_type
 
 ## Location
-src/backend/optimizer/plan/subselect.c: 118 - 161
+[src/backend/optimizer/plan/subselect.c:118-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/subselect.c#L118-L161)
 
 ## Overview
 Extracts the datatype, typmod, and collation information from the first column of a plan's output, primarily used for ARRAY_SUBLINK execution and expression type functions.

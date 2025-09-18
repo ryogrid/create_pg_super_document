@@ -1,7 +1,7 @@
 # XLogFileName
 
 ## Location
-src/include/access/xlog_internal.h: 166 - 173
+[src/include/access/xlog_internal.h:166-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlog_internal.h#L166-L173)
 
 ## Overview
 XLogFileName generates a standardized WAL (Write-Ahead Log) segment file name using the timeline ID, logical segment number, and WAL segment size.

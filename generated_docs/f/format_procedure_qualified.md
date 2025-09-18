@@ -1,7 +1,7 @@
 # format_procedure_qualified
 
 ## Location
-src/backend/utils/adt/regproc.c: 305 - 325
+[src/backend/utils/adt/regproc.c:305-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regproc.c#L305-L325)
 
 ## Overview
 Converts a procedure OID to its fully qualified string representation, always including schema qualification regardless of the current search path.

@@ -1,7 +1,7 @@
 # pg_cryptohash_free
 
 ## Location
-src/common/cryptohash_openssl.c: 326 - 348
+[src/common/cryptohash_openssl.c:326-348](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/cryptohash_openssl.c#L326-L348)
 
 ## Overview
 Securely frees a cryptographic hash context, clearing all sensitive data from memory before deallocating the context structure.

@@ -1,7 +1,7 @@
 # ChooseExtendedStatisticNameAddition
 
 ## Location
-src/backend/commands/statscmds.c: 851 - 897
+[src/backend/commands/statscmds.c:851-897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/statscmds.c#L851-L897)
 
 ## Overview
 Generates a \"name2\" component for extended statistics objects by concatenating column names from a list of expressions, used as input for the final statistics object naming process.

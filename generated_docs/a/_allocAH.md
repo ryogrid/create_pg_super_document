@@ -1,7 +1,7 @@
 # _allocAH
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 2355 - 2474
+[src/bin/pg_dump/pg_backup_archiver.c:2355-2474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L2355-L2474)
 
 ## Overview
 _allocAH is a static function that allocates and initializes a new ArchiveHandle structure for PostgreSQL archive operations, setting up format-specific handlers and compression settings.

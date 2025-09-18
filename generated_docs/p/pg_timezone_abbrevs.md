@@ -1,7 +1,7 @@
 # pg_timezone_abbrevs
 
 ## Location
-src/backend/utils/adt/datetime.c: 5001 - 5121
+[src/backend/utils/adt/datetime.c:5001-5121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L5001-L5121)
 
 ## Overview
 pg_timezone_abbrevs is a set-returning SQL function that provides access to all available timezone abbreviations in the current PostgreSQL configuration, returning their names, UTC offsets, and daylight saving time status.

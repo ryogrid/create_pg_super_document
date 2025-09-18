@@ -1,7 +1,7 @@
 # enable_vt_processing
 
 ## Location
-src/common/logging.c: 54 - 82
+[src/common/logging.c:54-82](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/logging.c#L54-L82)
 
 ## Overview
 A static function that attempts to enable VT100 sequence processing for colorization on Windows platforms, enabling support for ANSI color codes in terminal output.

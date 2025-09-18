@@ -1,7 +1,7 @@
 # index_concurrently_set_dead
 
 ## Location
-src/backend/catalog/index.c: 1820 - 1880
+[src/backend/catalog/index.c:1820-1880](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/index.c#L1820-L1880)
 
 ## Overview
 Performs the final invalidation stage of DROP INDEX CONCURRENTLY or REINDEX CONCURRENTLY operations, marking an index as dead to all backends before its actual removal.

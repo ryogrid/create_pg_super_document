@@ -1,7 +1,7 @@
 # RE_compile_and_cache
 
 ## Location
-src/backend/utils/adt/regexp.c: 141 - 281
+[src/backend/utils/adt/regexp.c:141-281](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/regexp.c#L141-L281)
 
 ## Overview
 Compiles a regular expression and caches it for reuse, implementing an LRU cache to improve performance by avoiding repeated compilation of the same patterns.

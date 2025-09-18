@@ -1,7 +1,7 @@
 # GetTableInfo
 
 ## Location
-src/bin/pgbench/pgbench.c: 5344 - 5452
+[src/bin/pgbench/pgbench.c:5344-5452](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L5344-L5452)
 
 ## Overview
 Extracts pgbench table information from the database to determine the scaling factor and partitioning configuration by querying the existing pgbench tables.

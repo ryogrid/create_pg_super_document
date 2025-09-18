@@ -1,7 +1,7 @@
 # PageClearFull
 
 ## Location
-src/include/storage/bufpage.h: 421 - 426
+[src/include/storage/bufpage.h:421-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/storage/bufpage.h#L421-L426)
 
 ## Overview
 PageClearFull clears the PD_PAGE_FULL flag bit from a page's header, indicating that the page may have sufficient free space for new tuple insertions.

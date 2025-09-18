@@ -1,7 +1,7 @@
 # printTableCleanup
 
 ## Location
-src/fe_utils/print.c: 3353 - 3402
+[src/fe_utils/print.c:3353-3402](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L3353-L3402)
 
 ## Overview
 Frees all memory allocated to a printTableContent structure, making it ready for reuse or disposal.

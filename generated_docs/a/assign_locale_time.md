@@ -1,7 +1,7 @@
 # assign_locale_time
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 411 - 426
+[src/backend/utils/adt/pg_locale.c:411-426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L411-L426)
 
 ## Overview
 A GUC (Grand Unified Configuration) assign hook function that invalidates cached LC_TIME locale information when the time locale setting is changed.

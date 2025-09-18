@@ -1,7 +1,7 @@
 # assign_random_seed
 
 ## Location
-src/backend/commands/variable.c: 660 - 668
+[src/backend/commands/variable.c:660-668](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/variable.c#L660-L668)
 
 ## Overview
 This function performs the actual assignment of a new random seed value to PostgreSQL's random number generator, working in conjunction with the check_random_seed function to ensure controlled execution.

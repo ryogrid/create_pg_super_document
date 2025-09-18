@@ -1,7 +1,7 @@
 # pushValue_internal
 
 ## Location
-src/backend/utils/adt/tsquery.c: 547 - 579
+[src/backend/utils/adt/tsquery.c:547-579](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery.c#L547-L579)
 
 ## Overview
 Internal function that creates and pushes a QueryOperand structure onto the parser state's polish notation stack with validation for size limits and proper field initialization.

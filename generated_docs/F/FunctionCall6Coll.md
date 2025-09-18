@@ -1,7 +1,7 @@
 # FunctionCall6Coll
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1252 - 1283
+[src/backend/utils/fmgr/fmgr.c:1252-1283](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1252-L1283)
 
 ## Overview
 FunctionCall6Coll is a PostgreSQL function manager utility that invokes a database function with 6 arguments and a specified collation, ensuring a non-null result is returned.

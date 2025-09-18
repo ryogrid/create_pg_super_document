@@ -1,7 +1,7 @@
 # RecoveryPrefetchValue
 
 ## Location
-src/include/access/xlogprefetcher.h: 29 - 31
+[src/include/access/xlogprefetcher.h:29-31](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/xlogprefetcher.h#L29-L31)
 
 ## Overview
 An enumeration type that defines the possible configuration values for the PostgreSQL recovery prefetch feature, controlling how the database prefetches referenced blocks during WAL replay recovery.

@@ -1,7 +1,7 @@
 # enum_out
 
 ## Location
-src/backend/utils/adt/enum.c: 155 - 178
+[src/backend/utils/adt/enum.c:155-178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/enum.c#L155-L178)
 
 ## Overview
 Converts an internal enum OID value to its string representation for display and output purposes.

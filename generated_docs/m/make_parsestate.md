@@ -1,7 +1,7 @@
 # make_parsestate
 
 ## Location
-src/backend/parser/parse_node.c: 39 - 71
+[src/backend/parser/parse_node.c:39-71](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_node.c#L39-L71)
 
 ## Overview
 Allocates and initializes a new ParseState structure for SQL parsing operations, with optional inheritance from a parent ParseState.

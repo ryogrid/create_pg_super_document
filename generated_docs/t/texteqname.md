@@ -1,7 +1,7 @@
 # texteqname
 
 ## Location
-src/backend/utils/adt/varlena.c: 2625 - 2649
+[src/backend/utils/adt/varlena.c:2625-2649](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L2625-L2649)
 
 ## Overview
 A cross-type equality comparison function that compares a text (variable-length string) with a name (fixed-length string) value for equality.

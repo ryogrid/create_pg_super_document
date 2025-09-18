@@ -1,7 +1,7 @@
 # tas_sema
 
 ## Location
-src/backend/storage/lmgr/spin.c: 170 - 180
+[src/backend/storage/lmgr/spin.c:170-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/spin.c#L170-L180)
 
 ## Overview
 A semaphore-based implementation of the test-and-set (TAS) operation, providing atomic lock acquisition semantics using POSIX semaphores as a fallback mechanism.

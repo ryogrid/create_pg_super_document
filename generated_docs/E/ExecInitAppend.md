@@ -1,7 +1,7 @@
 # ExecInitAppend
 
 ## Location
-src/backend/executor/nodeAppend.c: 109 - 287
+[src/backend/executor/nodeAppend.c:109-287](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeAppend.c#L109-L287)
 
 ## Overview
 Initializes an Append node executor state, setting up all subplans for execution and handling partition pruning, async execution capabilities, and memory allocation for the append operation.

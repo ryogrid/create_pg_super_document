@@ -1,7 +1,7 @@
 # r_step5h
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 3274 - 3303
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:3274-3303](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L3274-L3303)
 
 ## Overview
 A static function within the Greek language stemmer that implements step 5h of the Greek stemming algorithm, performing specific suffix removal and replacement operations with two alternative replacement strategies.

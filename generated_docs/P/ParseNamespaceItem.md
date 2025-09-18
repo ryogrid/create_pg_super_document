@@ -1,7 +1,7 @@
 # ParseNamespaceItem
 
 ## Location
-src/include/parser/parse_node.h: 284 - 318
+[src/include/parser/parse_node.h:284-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/parser/parse_node.h#L284-L318)
 
 ## Overview
 ParseNamespaceItem represents an element in the parser's namespace list, defining how table and column names are visible and accessible during SQL parsing operations.

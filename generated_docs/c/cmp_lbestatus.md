@@ -1,7 +1,7 @@
 # cmp_lbestatus
 
 ## Location
-src/backend/utils/activity/backend_status.c: 1049 - 1071
+[src/backend/utils/activity/backend_status.c:1049-1071](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/backend_status.c#L1049-L1071)
 
 ## Overview
 A static comparison function used by bsearch() to search through arrays of LocalPgBackendStatus structures by comparing their proc_number fields.

@@ -1,7 +1,7 @@
 # ecpg_start_test
 
 ## Location
-src/interfaces/ecpg/test/pg_regress_ecpg.c: 148 - 238
+[src/interfaces/ecpg/test/pg_regress_ecpg.c:148-238](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/pg_regress_ecpg.c#L148-L238)
 
 ## Overview
 Initiates an ECPG test process for a specified test file, setting up input/output file paths, filtering source files, and spawning the test execution with proper redirection.

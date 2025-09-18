@@ -1,7 +1,7 @@
 # DependencyGenerator_free
 
 ## Location
-src/backend/statistics/dependencies.c: 196 - 203
+[src/backend/statistics/dependencies.c:196-203](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/dependencies.c#L196-L203)
 
 ## Overview
 Deallocates memory used by a DependencyGenerator, freeing both the dependencies array and the generator state structure.

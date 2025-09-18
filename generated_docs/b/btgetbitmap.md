@@ -1,7 +1,7 @@
 # btgetbitmap
 
 ## Location
-src/backend/access/nbtree/nbtree.c: 266 - 311
+[src/backend/access/nbtree/nbtree.c:266-311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtree.c#L266-L311)
 
 ## Overview
 The btgetbitmap function performs a bitmap index scan by collecting all matching heap tuple IDs from a B-tree index and adding them to a TID bitmap structure.

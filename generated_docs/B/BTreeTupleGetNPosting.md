@@ -1,7 +1,7 @@
 # BTreeTupleGetNPosting
 
 ## Location
-src/include/access/nbtree.h: 518 - 528
+[src/include/access/nbtree.h:518-528](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L518-L528)
 
 ## Overview
 BTreeTupleGetNPosting is an inline function that extracts the number of heap TIDs contained in a posting list tuple.

@@ -1,7 +1,7 @@
 # pg_lfind8
 
 ## Location
-src/include/port/pg_lfind.h: 26 - 57
+[src/include/port/pg_lfind.h:26-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port/pg_lfind.h#L26-L57)
 
 ## Overview
 Searches for a specific 8-bit value within an array of 8-bit integers using vectorized operations for performance optimization.

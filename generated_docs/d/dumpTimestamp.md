@@ -1,7 +1,7 @@
 # dumpTimestamp
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 4136 - 4153
+[src/bin/pg_dump/pg_backup_archiver.c:4136-4153](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L4136-L4153)
 
 ## Overview
 Outputs a formatted timestamp comment to an archive handle for PostgreSQL dump files.

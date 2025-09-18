@@ -1,7 +1,7 @@
 # LockRowsState
 
 ## Location
-src/include/nodes/execnodes.h: 2805 - 2810
+[src/include/nodes/execnodes.h:2805-2810](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/execnodes.h#L2805-L2810)
 
 ## Overview
 LockRowsState is the execution state structure for LockRows nodes in PostgreSQL's executor, used to enforce row-level locking for FOR UPDATE, FOR KEY UPDATE, FOR SHARE, and FOR KEY SHARE clauses.

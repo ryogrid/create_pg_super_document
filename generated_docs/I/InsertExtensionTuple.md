@@ -1,7 +1,7 @@
 # InsertExtensionTuple
 
 ## Location
-src/backend/commands/extension.c: 1866 - 1953
+[src/backend/commands/extension.c:1866-1953](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L1866-L1953)
 
 ## Overview
 InsertExtensionTuple creates a new pg_extension catalog tuple and establishes all necessary dependency relationships for the extension, including owner, schema, and prerequisite extensions.

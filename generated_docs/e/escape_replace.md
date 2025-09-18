@@ -1,7 +1,7 @@
 # escape_replace
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 353 - 378
+[src/test/modules/test_escape/test_escape.c:353-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L353-L378)
 
 ## Overview
 A static helper function in PostgreSQL's test_escape module that implements a simple string escaping method by replacing single quotes with doubled single quotes, suitable for non-core drivers and validating encoding-valid input.

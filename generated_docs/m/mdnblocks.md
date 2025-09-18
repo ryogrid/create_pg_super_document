@@ -1,7 +1,7 @@
 # mdnblocks
 
 ## Location
-src/backend/storage/smgr/md.c: 1089 - 1152
+[src/backend/storage/smgr/md.c:1089-1152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/smgr/md.c#L1089-L1152)
 
 ## Overview
 mdnblocks retrieves the total number of blocks stored in a PostgreSQL relation, with the important side effect of opening all active segments of the relation.

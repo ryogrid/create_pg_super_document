@@ -1,7 +1,7 @@
 # array_ge
 
 ## Location
-src/backend/utils/adt/arrayfuncs.c: 3955 - 3960
+[src/backend/utils/adt/arrayfuncs.c:3955-3960](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arrayfuncs.c#L3955-L3960)
 
 ## Overview
 array_ge is a PostgreSQL function that determines whether one array is greater than or equal to another array based on lexicographic comparison.

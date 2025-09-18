@@ -1,7 +1,7 @@
 # set_frozenxids
 
 ## Location
-src/bin/pg_upgrade/pg_upgrade.c: 827 - 928
+[src/bin/pg_upgrade/pg_upgrade.c:827-928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/pg_upgrade.c#L827-L928)
 
 ## Overview
 Sets frozen XIDs and minimum multixact IDs in the new cluster during pg_upgrade to ensure proper transaction ID management after database upgrade.

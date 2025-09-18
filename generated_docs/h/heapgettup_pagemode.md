@@ -1,7 +1,7 @@
 # heapgettup_pagemode
 
 ## Location
-src/backend/access/heap/heapam.c: 992 - 1081
+[src/backend/access/heap/heapam.c:992-1081](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L992-L1081)
 
 ## Overview
 A specialized version of heapgettup that operates in page-at-a-time mode, processing only pre-identified visible tuples from rs_vistuples[] instead of examining all tuples on a page.

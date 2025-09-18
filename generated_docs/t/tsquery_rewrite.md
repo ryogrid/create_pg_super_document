@@ -1,7 +1,7 @@
 # tsquery_rewrite
 
 ## Location
-src/backend/utils/adt/tsquery_rewrite.c: 410 - 462
+[src/backend/utils/adt/tsquery_rewrite.c:410-462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsquery_rewrite.c#L410-L462)
 
 ## Overview
 The `tsquery_rewrite` function implements a simple single-rule TSQuery rewriting operation, applying one specific pattern-replacement transformation to an input query.

@@ -1,7 +1,7 @@
 # checkcondition_str
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 1295 - 1462
+[src/backend/utils/adt/tsvector_op.c:1295-1462](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L1295-L1462)
 
 ## Overview
 Callback function for TS_execute that searches a tsvector for lexemes matching a query operand, handling both exact matches and prefix searches with optional position data collection for phrase matching.

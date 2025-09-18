@@ -1,7 +1,7 @@
 # contain_volatile_functions_checker
 
 ## Location
-src/backend/optimizer/util/clauses.c: 544 - 549
+[src/backend/optimizer/util/clauses.c:544-549](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/clauses.c#L544-L549)
 
 ## Overview
 A simple checker function that determines if a specific function is volatile by examining its volatility category in the PostgreSQL system catalogs.

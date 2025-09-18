@@ -1,7 +1,7 @@
 # spgvacuumscan
 
 ## Location
-src/backend/access/spgist/spgvacuum.c: 804 - 915
+[src/backend/access/spgist/spgvacuum.c:804-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgvacuum.c#L804-L915)
 
 ## Overview
 Performs the main bulk delete scan for SP-GiST vacuum operations, coordinating page-by-page processing and pending list management.

@@ -1,7 +1,7 @@
 # transformReturnStmt
 
 ## Location
-src/backend/parser/analyze.c: 2388 - 2418
+[src/backend/parser/analyze.c:2388-2418](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/analyze.c#L2388-L2418)
 
 ## Overview
 Transforms a RETURN statement from the parse tree into a Query node structure suitable for execution planning and processing.

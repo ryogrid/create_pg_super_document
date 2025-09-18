@@ -1,7 +1,7 @@
 # hash_initial_lookup
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1716 - 1739
+[src/backend/utils/hash/dynahash.c:1716-1739](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1716-L1739)
 
 ## Overview
 Performs the initial lookup operation to locate a hash bucket for a given hash value, returning both the bucket number and bucket pointer.

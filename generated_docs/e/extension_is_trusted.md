@@ -1,7 +1,7 @@
 # extension_is_trusted
 
 ## Location
-src/backend/commands/extension.c: 848 - 869
+[src/backend/commands/extension.c:848-869](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/extension.c#L848-L869)
 
 ## Overview
 A policy function that determines whether a given extension is trusted for installation by a non-superuser based on extension configuration and user privileges.

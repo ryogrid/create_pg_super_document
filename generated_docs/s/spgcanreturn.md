@@ -1,7 +1,7 @@
 # spgcanreturn
 
 ## Location
-src/backend/access/spgist/spgscan.c: 1083 - 1095
+[src/backend/access/spgist/spgscan.c:1083-1095](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L1083-L1095)
 
 ## Overview
 Determines whether SPGiST index-only scans can return data for a specific attribute without accessing the heap table.

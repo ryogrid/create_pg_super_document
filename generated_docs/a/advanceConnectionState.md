@@ -1,7 +1,7 @@
 # advanceConnectionState
 
 ## Location
-src/bin/pgbench/pgbench.c: 3602 - 4299
+[src/bin/pgbench/pgbench.c:3602-4299](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L3602-L4299)
 
 ## Overview
 The core state machine engine of pgbench that manages the complete lifecycle of client connections, transaction execution, error handling, and performance monitoring.

@@ -1,7 +1,7 @@
 # ExecDropSingleTupleTableSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1341 - 1375
+[src/backend/executor/execTuples.c:1341-1375](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1341-L1375)
 
 ## Overview
 Releases and deallocates a TupleTableSlot created with MakeSingleTupleTableSlot, properly cleaning up all associated resources.

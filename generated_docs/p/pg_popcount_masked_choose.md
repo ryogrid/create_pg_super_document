@@ -1,7 +1,7 @@
 # pg_popcount_masked_choose
 
 ## Location
-src/port/pg_bitutils.c: 204 - 214
+[src/port/pg_bitutils.c:204-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/pg_bitutils.c#L204-L214)
 
 ## Overview
 A static wrapper function that initializes the popcount function selection mechanism and then delegates to the appropriate optimized pg_popcount_masked implementation.

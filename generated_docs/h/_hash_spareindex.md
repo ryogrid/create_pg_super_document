@@ -1,7 +1,7 @@
 # _hash_spareindex
 
 ## Location
-src/backend/access/hash/hashutil.c: 142 - 173
+[src/backend/access/hash/hashutil.c:142-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L142-L173)
 
 ## Overview
 Function that calculates the spare index (global splitpoint phase) for a given bucket number in the hash index's dynamic splitting scheme.

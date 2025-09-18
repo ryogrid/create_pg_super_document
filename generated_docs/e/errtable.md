@@ -1,7 +1,7 @@
 # errtable
 
 ## Location
-src/backend/utils/cache/relcache.c: 5957 - 5973
+[src/backend/utils/cache/relcache.c:5957-5973](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L5957-L5973)
 
 ## Overview
 Stores schema name and table name of a relation within the current error context for enhanced error reporting.

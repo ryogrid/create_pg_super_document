@@ -1,7 +1,7 @@
 # point_eq
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1955 - 1963
+[src/backend/utils/adt/geo_ops.c:1955-1963](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1955-L1963)
 
 ## Overview
 Tests whether two points are equal by comparing both their x and y coordinates using floating-point tolerance.

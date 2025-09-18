@@ -1,7 +1,7 @@
 # PLyObject_FromTransform
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 655 - 666
+[src/pl/plpython/plpy_typeio.c:655-666](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L655-L666)
 
 ## Overview
 Converts a PostgreSQL datum to a Python object using a user-defined SQL-to-Python transform function.

@@ -1,7 +1,7 @@
 # xact_desc_stats
 
 ## Location
-src/backend/access/rmgrdesc/xactdesc.c: 314 - 332
+[src/backend/access/rmgrdesc/xactdesc.c:314-332](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/xactdesc.c#L314-L332)
 
 ## Overview
 A static utility function that formats dropped statistics information from WAL transaction records into human-readable descriptions for debugging and logging purposes.

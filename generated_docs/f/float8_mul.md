@@ -1,7 +1,7 @@
 # float8_mul
 
 ## Location
-src/include/utils/float.h: 208 - 221
+[src/include/utils/float.h:208-221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/float.h#L208-L221)
 
 ## Overview
 Performs multiplication of two double-precision floating-point numbers (float8) with overflow and underflow error checking.

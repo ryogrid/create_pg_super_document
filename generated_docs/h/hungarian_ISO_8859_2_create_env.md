@@ -1,7 +1,7 @@
 # hungarian_ISO_8859_2_create_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c: 859 - 860
+[src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:859-860](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c#L859-L860)
 
 ## Overview
 Creates a Snowball stemming environment specifically configured for Hungarian language text processing using the ISO-8859-2 character encoding.

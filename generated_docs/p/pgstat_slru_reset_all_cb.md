@@ -1,7 +1,7 @@
 # pgstat_slru_reset_all_cb
 
 ## Location
-src/backend/utils/activity/pgstat_slru.c: 196 - 202
+[src/backend/utils/activity/pgstat_slru.c:196-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat_slru.c#L196-L202)
 
 ## Overview
 A callback function that resets all SLRU statistics counters to zero across all known SLRU types in the system.

@@ -1,7 +1,7 @@
 # scalararraysel_containment
 
 ## Location
-src/backend/utils/adt/array_selfuncs.c: 81 - 240
+[src/backend/utils/adt/array_selfuncs.c:81-240](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_selfuncs.c#L81-L240)
 
 ## Overview
 Estimates selectivity of ScalarArrayOpExpr operations via array containment analysis, converting expressions like 'const =/<> ANY/ALL (array_var)' into equivalent array containment operations.

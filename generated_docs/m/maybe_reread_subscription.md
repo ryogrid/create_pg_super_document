@@ -1,7 +1,7 @@
 # maybe_reread_subscription
 
 ## Location
-src/backend/replication/logical/worker.c: 3875 - 4003
+[src/backend/replication/logical/worker.c:3875-4003](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L3875-L4003)
 
 ## Overview
 maybe_reread_subscription checks for changes in subscription configuration and triggers appropriate worker actions including restart or termination when parameters have changed.

@@ -1,7 +1,7 @@
 # RememberReplicaIdentityForRebuilding
 
 ## Location
-src/backend/commands/tablecmds.c: 13689 - 13703
+[src/backend/commands/tablecmds.c:13689-13703](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L13689-L13703)
 
 ## Overview
 RememberReplicaIdentityForRebuilding records replica identity index information when an index needs to be rebuilt during table alterations.

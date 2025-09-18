@@ -1,7 +1,7 @@
 # TransferPredicateLocksToHeapRelation
 
 ## Location
-src/backend/storage/lmgr/predicate.c: 3113 - 3133
+[src/backend/storage/lmgr/predicate.c:3113-3133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/predicate.c#L3113-L3133)
 
 ## Overview
 Transfers all predicate locks from any granularity level on a given relation to a single coarse-grained relation lock on the corresponding heap relation.

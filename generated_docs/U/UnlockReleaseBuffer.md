@@ -1,7 +1,7 @@
 # UnlockReleaseBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 4914 - 4928
+[src/backend/storage/buffer/bufmgr.c:4914-4928](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L4914-L4928)
 
 ## Overview
 UnlockReleaseBuffer is a convenience function that unlocks a buffer's content lock and releases the buffer pin in a single operation.

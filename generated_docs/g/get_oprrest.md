@@ -1,7 +1,7 @@
 # get_oprrest
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1557 - 1580
+[src/backend/utils/cache/lsyscache.c:1557-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1557-L1580)
 
 ## Overview
 Returns the procedure ID (function OID) for computing the restriction selectivity of an operator, or InvalidOid if no selectivity function is defined.

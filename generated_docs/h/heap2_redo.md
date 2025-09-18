@@ -1,7 +1,7 @@
 # heap2_redo
 
 ## Location
-src/backend/access/heap/heapam.c: 10384 - 10422
+[src/backend/access/heap/heapam.c:10384-10422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L10384-L10422)
 
 ## Overview
 WAL redo function for advanced heap operations that require conflict processing during recovery, handling operations like pruning, visibility map updates, and multi-inserts.

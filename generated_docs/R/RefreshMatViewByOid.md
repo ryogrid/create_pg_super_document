@@ -1,7 +1,7 @@
 # RefreshMatViewByOid
 
 ## Location
-src/backend/commands/matview.c: 162 - 388
+[src/backend/commands/matview.c:162-388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L162-L388)
 
 ## Overview
 RefreshMatViewByOid performs the core materialized view refresh operation by creating a new table, populating it with fresh data, and swapping the relfilenumbers to preserve the original OID and permissions.

@@ -1,7 +1,7 @@
 # r_Step_5a
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_porter.c: 515 - 547
+[src/backend/snowball/libstemmer/stem_UTF_8_porter.c:515-547](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_porter.c#L515-L547)
 
 ## Overview
 The r_Step_5a function implements Step 5a of the Porter stemming algorithm, which removes terminal 'e' characters under specific morphological conditions to handle final vowel deletion rules.

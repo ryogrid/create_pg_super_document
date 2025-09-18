@@ -1,7 +1,7 @@
 # r_mark_ymUs_
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_turkish.c: 881 - 892
+[src/backend/snowball/libstemmer/stem_UTF_8_turkish.c:881-892](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_turkish.c#L881-L892)
 
 ## Overview
 Identifies and marks Turkish past participle suffixes ending in -ymUs̈ variants (miş, muş, mış, müş) in the Snowball stemming algorithm for Turkish text processing.

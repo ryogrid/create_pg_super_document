@@ -1,7 +1,7 @@
 # pg_u_islower
 
 ## Location
-src/common/unicode_category.c: 249 - 254
+[src/common/unicode_category.c:249-254](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/unicode_category.c#L249-L254)
 
 ## Overview
 Tests whether a Unicode character has the lowercase property according to Unicode character properties.

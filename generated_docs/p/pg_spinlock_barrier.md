@@ -1,7 +1,7 @@
 # pg_spinlock_barrier
 
 ## Location
-src/backend/port/atomics.c: 29 - 44
+[src/backend/port/atomics.c:29-44](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/atomics.c#L29-L44)
 
 ## Overview
 A fallback memory barrier implementation for systems that lack native memory barrier support, using a system call to provide necessary memory ordering semantics.

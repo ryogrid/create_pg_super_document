@@ -1,7 +1,7 @@
 # AddPostgresIntPart
 
 ## Location
-src/backend/utils/adt/datetime.c: 4523 - 4545
+[src/backend/utils/adt/datetime.c:4523-4545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L4523-L4545)
 
 ## Overview
 A static helper function that appends a PostgreSQL-style interval field to a string buffer, but only if the value is non-zero.

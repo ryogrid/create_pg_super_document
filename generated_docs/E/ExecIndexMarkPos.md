@@ -1,7 +1,7 @@
 # ExecIndexMarkPos
 
 ## Location
-src/backend/executor/nodeIndexscan.c: 813 - 849
+[src/backend/executor/nodeIndexscan.c:813-849](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIndexscan.c#L813-L849)
 
 ## Overview
 Marks the current position in an index scan, allowing the scan to be restored to this position later for EvalPlanQual (EPQ) operations.

@@ -1,7 +1,7 @@
 # funcname_signature_string
 
 ## Location
-src/backend/parser/parse_func.c: 1993 - 2029
+[src/backend/parser/parse_func.c:1993-2029](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_func.c#L1993-L2029)
 
 ## Overview
 Builds a human-readable string representing a function signature with its name and argument types, primarily used for error messages.

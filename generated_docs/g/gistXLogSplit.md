@@ -1,7 +1,7 @@
 # gistXLogSplit
 
 ## Location
-src/backend/access/gist/gistxlog.c: 495 - 551
+[src/backend/access/gist/gistxlog.c:495-551](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistxlog.c#L495-L551)
 
 ## Overview
 Writes a WAL (Write-Ahead Logging) record for a GiST index page split operation, recording all necessary information to replay the split during recovery.

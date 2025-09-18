@@ -1,7 +1,7 @@
 # pa_launch_parallel_worker
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 404 - 469
+[src/backend/replication/logical/applyparallelworker.c:404-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L404-L469)
 
 ## Overview
 Attempts to acquire a parallel apply worker from the pool or launches a new one if none are available.

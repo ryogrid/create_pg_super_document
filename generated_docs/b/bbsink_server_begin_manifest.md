@@ -1,7 +1,7 @@
 # bbsink_server_begin_manifest
 
 ## Location
-src/backend/backup/basebackup_server.c: 228 - 252
+[src/backend/backup/basebackup_server.c:228-252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/backup/basebackup_server.c#L228-L252)
 
 ## Overview
 Opens a temporary backup manifest file on the server filesystem, preparing to write the backup manifest that will be renamed to its final location upon completion.

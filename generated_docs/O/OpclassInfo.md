@@ -1,7 +1,7 @@
 # OpclassInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 273 - 274
+[src/bin/pg_dump/pg_dump.h:273-274](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L273-L274)
 
 ## Overview
 OpclassInfo is a structure used in pg_dump to represent operator class metadata during database dump operations, containing essential information about PostgreSQL operator classes and their associated access methods.

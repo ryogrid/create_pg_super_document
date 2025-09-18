@@ -1,7 +1,7 @@
 # do_stop
 
 ## Location
-src/bin/pg_ctl/pg_ctl.c: 1015 - 1072
+[src/bin/pg_ctl/pg_ctl.c:1015-1072](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_ctl/pg_ctl.c#L1015-L1072)
 
 ## Overview
 Handles the stopping of a PostgreSQL server by sending a termination signal to the postmaster process and optionally waiting for the server to shut down completely.

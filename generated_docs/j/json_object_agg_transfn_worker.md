@@ -1,7 +1,7 @@
 # json_object_agg_transfn_worker
 
 ## Location
-src/backend/utils/adt/json.c: 993 - 1140
+[src/backend/utils/adt/json.c:993-1140](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/json.c#L993-L1140)
 
 ## Overview
 This function is the core worker implementation for the json_object_agg PostgreSQL aggregate function, building JSON objects by accumulating key-value pairs with optional duplicate key checking and null value handling.

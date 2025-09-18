@@ -1,7 +1,7 @@
 # array_agg_array_transfn
 
 ## Location
-src/backend/utils/adt/array_userfuncs.c: 857 - 900
+[src/backend/utils/adt/array_userfuncs.c:857-900](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/array_userfuncs.c#L857-L900)
 
 ## Overview
 Transition function for the ARRAY_AGG(anyarray) aggregate that accumulates array inputs into a single result array.

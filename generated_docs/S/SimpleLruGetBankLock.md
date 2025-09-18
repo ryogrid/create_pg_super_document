@@ -1,7 +1,7 @@
 # SimpleLruGetBankLock
 
 ## Location
-src/include/access/slru.h: 175 - 198
+[src/include/access/slru.h:175-198](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/slru.h#L175-L198)
 
 ## Overview
 SimpleLruGetBankLock is a static inline function that retrieves the appropriate bank lock for a given SLRU (Simple LRU) page number in PostgreSQL's buffer management system.

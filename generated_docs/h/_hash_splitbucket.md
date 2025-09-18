@@ -1,7 +1,7 @@
 # _hash_splitbucket
 
 ## Location
-src/backend/access/hash/hashpage.c: 1073 - 1355
+[src/backend/access/hash/hashpage.c:1073-1355](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashpage.c#L1073-L1355)
 
 ## Overview
 Partitions tuples between old and new buckets during hash table expansion, handling the core redistribution logic with support for incomplete split recovery.

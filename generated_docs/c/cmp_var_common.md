@@ -1,7 +1,7 @@
 # cmp_var_common
 
 ## Location
-src/backend/utils/adt/numeric.c: 8404 - 8446
+[src/backend/utils/adt/numeric.c:8404-8446](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8404-L8446)
 
 ## Overview
 Core comparison function that compares two numeric values represented by their constituent parts (digits, weight, sign) and returns their relative ordering.

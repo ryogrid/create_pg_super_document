@@ -1,7 +1,7 @@
 # ResOwnerPrintBufferIO
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 6025 - 6032
+[src/backend/storage/buffer/bufmgr.c:6025-6032](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L6025-L6032)
 
 ## Overview
 A ResourceOwner callback function that generates diagnostic messages for buffer IO resources that were not properly released during resource cleanup.

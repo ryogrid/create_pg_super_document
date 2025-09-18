@@ -1,7 +1,7 @@
 # RemoveLogrotateSignalFiles
 
 ## Location
-src/backend/postmaster/syslogger.c: 1587 - 1593
+[src/backend/postmaster/syslogger.c:1587-1593](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/syslogger.c#L1587-L1593)
 
 ## Overview
 Removes the signal file that indicates a log rotation request has been made, cleaning up the filesystem after log rotation operations.

@@ -1,7 +1,7 @@
 # llvm_mutable_module
 
 ## Location
-src/backend/jit/llvm/llvmjit.c: 335 - 359
+[src/backend/jit/llvm/llvmjit.c:335-359](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/jit/llvm/llvmjit.c#L335-L359)
 
 ## Overview
 Returns a mutable LLVM module from the JIT context, creating a new module if one doesn't already exist.

@@ -1,7 +1,7 @@
 # overwrite
 
 ## Location
-src/test/examples/testlo64.c: 113 - 150
+[src/test/examples/testlo64.c:113-150](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/examples/testlo64.c#L113-L150)
 
 ## Overview
 A static function that overwrites a specified portion of a PostgreSQL large object with a pattern of 'X' characters starting at a given offset.

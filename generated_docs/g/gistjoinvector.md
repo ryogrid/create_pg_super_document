@@ -1,7 +1,7 @@
 # gistjoinvector
 
 ## Location
-src/backend/access/gist/gistutil.c: 113 - 125
+[src/backend/access/gist/gistutil.c:113-125](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gistutil.c#L113-L125)
 
 ## Overview
 Concatenates two IndexTuple arrays into a single enlarged array by expanding the first array and appending the second array's elements.

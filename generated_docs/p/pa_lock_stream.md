@@ -1,7 +1,7 @@
 # pa_lock_stream
 
 ## Location
-src/backend/replication/logical/applyparallelworker.c: 1540 - 1546
+[src/backend/replication/logical/applyparallelworker.c:1540-1546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/applyparallelworker.c#L1540-L1546)
 
 ## Overview
 pa_lock_stream is a helper function that acquires a lock for stream blocks in PostgreSQL's logical replication parallel worker system, ensuring coordinated access to streaming transaction data.

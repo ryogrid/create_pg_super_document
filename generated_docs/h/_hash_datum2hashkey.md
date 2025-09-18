@@ -1,7 +1,7 @@
 # _hash_datum2hashkey
 
 ## Location
-src/backend/access/hash/hashutil.c: 82 - 101
+[src/backend/access/hash/hashutil.c:82-101](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/hash/hashutil.c#L82-L101)
 
 ## Overview
 Function that converts a Datum value to a hash key by calling the index's hash function for the given data type.

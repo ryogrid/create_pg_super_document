@@ -1,7 +1,7 @@
 # list_free_private
 
 ## Location
-src/backend/nodes/list.c: 1520 - 1545
+[src/backend/nodes/list.c:1520-1545](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1520-L1545)
 
 ## Overview
 Internal helper function that frees all memory associated with a list, with an option to also free the pointed-to elements.

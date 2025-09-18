@@ -1,7 +1,7 @@
 # unistr
 
 ## Location
-src/backend/utils/adt/varlena.c: 6502 - 6667
+[src/backend/utils/adt/varlena.c:6502-6667](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L6502-L6667)
 
 ## Overview
 A PostgreSQL built-in function that processes Unicode escape sequences in text strings and converts them to their corresponding Unicode characters in the server encoding.

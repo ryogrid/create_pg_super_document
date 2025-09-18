@@ -1,7 +1,7 @@
 # WalRcvData
 
 ## Location
-src/include/replication/walreceiver.h: 162 - 190
+[src/include/replication/walreceiver.h:162-190](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/walreceiver.h#L162-L190)
 
 ## Overview
 WalRcvData is a shared memory structure that manages the state and configuration of the WAL receiver process in PostgreSQL physical replication.

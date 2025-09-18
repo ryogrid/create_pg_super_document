@@ -1,7 +1,7 @@
 # RT_ADD_CHILD_48
 
 ## Location
-src/include/lib/radixtree.h: 1335 - 1372
+[src/include/lib/radixtree.h:1335-1372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/radixtree.h#L1335-L1372)
 
 ## Overview
 A macro that resolves to a static inline function for adding a child node to a node48 by finding the first available slot and updating the indirection array and bitmap.

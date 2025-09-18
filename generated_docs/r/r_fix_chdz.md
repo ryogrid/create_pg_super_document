@@ -1,7 +1,7 @@
 # r_fix_chdz
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c: 728 - 749
+[src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:728-749](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c#L728-L749)
 
 ## Overview
 The r_fix_chdz function handles specific Lithuanian character sequence corrections for 'ch' and 'dz' phonetic combinations that require normalization during stemming.

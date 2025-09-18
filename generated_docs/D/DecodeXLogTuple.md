@@ -1,7 +1,7 @@
 # DecodeXLogTuple
 
 ## Location
-src/backend/replication/logical/decode.c: 1266 - 1311
+[src/backend/replication/logical/decode.c:1266-1311](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/decode.c#L1266-L1311)
 
 ## Overview
 DecodeXLogTuple reconstructs a HeapTuple from its WAL representation as logged by heap operations like insert, update, and delete during logical replication decoding.

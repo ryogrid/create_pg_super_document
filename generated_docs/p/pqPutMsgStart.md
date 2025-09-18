@@ -1,7 +1,7 @@
 # pqPutMsgStart
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 458 - 493
+[src/interfaces/libpq/fe-misc.c:458-493](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L458-L493)
 
 ## Overview
 Begins construction of a new protocol message in the output buffer by setting up message headers and tracking pointers.

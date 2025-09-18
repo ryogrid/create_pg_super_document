@@ -1,7 +1,7 @@
 # get_collation_actual_version
 
 ## Location
-src/backend/utils/adt/pg_locale.c: 1752 - 1861
+[src/backend/utils/adt/pg_locale.c:1752-1861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pg_locale.c#L1752-L1861)
 
 ## Overview
 Retrieves provider-specific collation version strings from the operating system or collation library to enable version tracking and compatibility checking.

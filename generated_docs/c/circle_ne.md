@@ -1,7 +1,7 @@
 # circle_ne
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4912 - 4920
+[src/backend/utils/adt/geo_ops.c:4912-4920](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4912-L4920)
 
 ## Overview
 Tests whether two circles have unequal areas within PostgreSQL's floating-point accuracy constraints.

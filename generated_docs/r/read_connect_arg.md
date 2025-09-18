@@ -1,7 +1,7 @@
 # read_connect_arg
 
 ## Location
-src/bin/psql/command.c: 3103 - 3142
+[src/bin/psql/command.c:3103-3142](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L3103-L3142)
 
 ## Overview
 Parses and extracts connection arguments from psql `\connect` command input, handling special cases for backwards compatibility and SQL identifier quoting rules.

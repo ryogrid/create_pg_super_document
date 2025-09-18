@@ -1,7 +1,7 @@
 # brin_minmax_multi_distance_timetz
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 2119 - 2136
+[src/backend/access/brin/brin_minmax_multi.c:2119-2136](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L2119-L2136)
 
 ## Overview
 Computes the distance between two time with timezone values for BRIN minmax multi indexes by combining time and timezone offset differences.

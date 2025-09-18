@@ -1,7 +1,7 @@
 # manifest_writer
 
 ## Location
-src/bin/pg_combinebackup/write_manifest.c: 27 - 47
+[src/bin/pg_combinebackup/write_manifest.c:27-47](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_combinebackup/write_manifest.c#L27-L47)
 
 ## Overview
 The  struct manages the creation and writing of PostgreSQL backup manifest files, maintaining state for incremental JSON generation and checksumming.

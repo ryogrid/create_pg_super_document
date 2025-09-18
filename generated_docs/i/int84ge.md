@@ -1,7 +1,7 @@
 # int84ge
 
 ## Location
-src/backend/utils/adt/int8.c: 215 - 226
+[src/backend/utils/adt/int8.c:215-226](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L215-L226)
 
 ## Overview
 This function compares an 8-byte (int64) integer with a 4-byte (int32) integer and returns true if the 8-byte integer is greater than or equal to the 4-byte integer.

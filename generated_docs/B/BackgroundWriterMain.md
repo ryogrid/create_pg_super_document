@@ -1,7 +1,7 @@
 # BackgroundWriterMain
 
 ## Location
-src/backend/postmaster/bgwriter.c: 87 - 342
+[src/backend/postmaster/bgwriter.c:87-342](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgwriter.c#L87-L342)
 
 ## Overview
 BackgroundWriterMain is the main entry point for PostgreSQL's background writer process, responsible for continuously writing dirty buffers to disk to maintain system performance and reduce checkpoint overhead.

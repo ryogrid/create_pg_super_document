@@ -1,7 +1,7 @@
 # ExecFetchSlotHeapTuple
 
 ## Location
-src/backend/executor/execTuples.c: 1731 - 1778
+[src/backend/executor/execTuples.c:1731-1778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1731-L1778)
 
 ## Overview
 Fetches a HeapTuple representation of a TupleTableSlot's content, providing flexible options for materialization and memory management.

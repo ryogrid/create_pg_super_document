@@ -1,7 +1,7 @@
 # replace_nestloop_params
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 4936 - 4942
+[src/backend/optimizer/plan/createplan.c:4936-4942](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L4936-L4942)
 
 ## Overview
 Replaces outer-relation Vars and PlaceHolderVars in expressions with nestloop Params, facilitating parameter passing between nested loop joins.

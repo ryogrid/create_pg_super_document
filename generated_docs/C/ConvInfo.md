@@ -1,7 +1,7 @@
 # ConvInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 293 - 294
+[src/bin/pg_dump/pg_dump.h:293-294](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L293-L294)
 
 ## Overview
 ConvInfo represents conversion objects in PostgreSQL's pg_dump utility, storing information about character set conversions that need to be dumped and restored.

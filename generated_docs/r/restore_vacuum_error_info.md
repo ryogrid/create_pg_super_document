@@ -1,7 +1,7 @@
 # restore_vacuum_error_info
 
 ## Location
-src/backend/access/heap/vacuumlazy.c: 3189 - 3195
+[src/backend/access/heap/vacuumlazy.c:3189-3195](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/vacuumlazy.c#L3189-L3195)
 
 ## Overview
 Restores vacuum error information from a previously saved state, complementing the save functionality of update_vacuum_error_info.

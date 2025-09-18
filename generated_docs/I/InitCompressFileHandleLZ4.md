@@ -1,7 +1,7 @@
 # InitCompressFileHandleLZ4
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 804 - 809
+[src/bin/pg_dump/compress_lz4.c:804-809](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L804-L809)
 
 ## Overview
 Initializes a CompressFileHandle structure for LZ4 compressed file operations by setting up function pointers and allocating the necessary LZ4 state for stream-based compression and decompression.

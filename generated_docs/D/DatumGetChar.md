@@ -1,7 +1,7 @@
 # DatumGetChar
 
 ## Location
-src/include/postgres.h: 112 - 121
+[src/include/postgres.h:112-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/postgres.h#L112-L121)
 
 ## Overview
 DatumGetChar is an inline function that extracts a character value from a PostgreSQL Datum by casting it to char type.

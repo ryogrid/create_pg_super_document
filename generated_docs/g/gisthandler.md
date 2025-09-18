@@ -1,7 +1,7 @@
 # gisthandler
 
 ## Location
-src/backend/access/gist/gist.c: 59 - 121
+[src/backend/access/gist/gist.c:59-121](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/gist/gist.c#L59-L121)
 
 ## Overview
 The gisthandler function is the main entry point for the GiST (Generalized Search Tree) access method in PostgreSQL, returning an IndexAmRoutine structure populated with all the access method parameters and callback functions.

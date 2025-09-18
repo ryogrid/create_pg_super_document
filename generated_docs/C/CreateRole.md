@@ -1,7 +1,7 @@
 # CreateRole
 
 ## Location
-src/backend/commands/user.c: 132 - 618
+[src/backend/commands/user.c:132-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/user.c#L132-L618)
 
 ## Overview
 The main function that implements the CREATE ROLE SQL statement, creating new database roles with specified attributes and permissions.

@@ -1,7 +1,7 @@
 # pgstat_reset
 
 ## Location
-src/backend/utils/activity/pgstat.c: 733 - 754
+[src/backend/utils/activity/pgstat.c:733-754](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/activity/pgstat.c#L733-L754)
 
 ## Overview
 Resets statistics for a single, specific object identified by kind, database OID, and object OID, with optional database timestamp updating for database-scoped statistics.

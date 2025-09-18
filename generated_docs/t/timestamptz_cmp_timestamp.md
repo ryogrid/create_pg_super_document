@@ -1,7 +1,7 @@
 # timestamptz_cmp_timestamp
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2463 - 2482
+[src/backend/utils/adt/timestamp.c:2463-2482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2463-L2482)
 
 ## Overview
 Compares a timestamp with timezone (timestamptz) value with a plain timestamp value and returns an integer indicating their relative ordering (-1, 0, or 1).

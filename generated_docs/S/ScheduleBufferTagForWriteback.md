@@ -1,7 +1,7 @@
 # ScheduleBufferTagForWriteback
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 5889 - 5918
+[src/backend/storage/buffer/bufmgr.c:5889-5918](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L5889-L5918)
 
 ## Overview
 Adds a dirty buffer to the pending writeback queue for batched I/O operations, managing the coalescing and scheduling of buffer flushes to optimize storage performance.

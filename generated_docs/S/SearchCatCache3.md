@@ -1,7 +1,7 @@
 # SearchCatCache3
 
 ## Location
-src/backend/utils/cache/catcache.c: 1345 - 1352
+[src/backend/utils/cache/catcache.c:1345-1352](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1345-L1352)
 
 ## Overview
 SearchCatCache3 is an optimized version of SearchCatCache specifically designed for catalog cache searches that require exactly three search keys, providing better performance through compiler optimizations.

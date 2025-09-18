@@ -1,7 +1,7 @@
 # generate_partition_qual
 
 ## Location
-src/backend/utils/cache/partcache.c: 337 - 432
+[src/backend/utils/cache/partcache.c:337-432](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/partcache.c#L337-L432)
 
 ## Overview
 Recursively generates the complete partition constraint qualification for a partition by combining its own partition bounds with inherited constraints from parent partitions up the hierarchy.

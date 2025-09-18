@@ -1,7 +1,7 @@
 # RemovePublicationRelById
 
 ## Location
-src/backend/commands/publicationcmds.c: 1441 - 1481
+[src/backend/commands/publicationcmds.c:1441-1481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/publicationcmds.c#L1441-L1481)
 
 ## Overview
 RemovePublicationRelById removes a relation from a publication using its publication-relation mapping OID, handling partition hierarchy invalidation and catalog cleanup.

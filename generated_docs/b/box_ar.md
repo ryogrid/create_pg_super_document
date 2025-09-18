@@ -1,7 +1,7 @@
 # box_ar
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 863 - 871
+[src/backend/utils/adt/geo_ops.c:863-871](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L863-L871)
 
 ## Overview
 Calculates and returns the area of a geometric box by multiplying its width and height.

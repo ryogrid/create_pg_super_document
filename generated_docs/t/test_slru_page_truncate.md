@@ -1,7 +1,7 @@
 # test_slru_page_truncate
 
 ## Location
-src/test/modules/test_slru/test_slru.c: 176 - 184
+[src/test/modules/test_slru/test_slru.c:176-184](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_slru/test_slru.c#L176-L184)
 
 ## Overview
 A PostgreSQL test function that truncates the SLRU to the specified page number, removing all pages beyond that point.

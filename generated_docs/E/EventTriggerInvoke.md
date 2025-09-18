@@ -1,7 +1,7 @@
 # EventTriggerInvoke
 
 ## Location
-src/backend/commands/event_trigger.c: 1069 - 1133
+[src/backend/commands/event_trigger.c:1069-1133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/event_trigger.c#L1069-L1133)
 
 ## Overview
 EventTriggerInvoke is a static function that executes a list of event trigger functions in sequence, managing memory context and ensuring proper isolation between trigger executions.

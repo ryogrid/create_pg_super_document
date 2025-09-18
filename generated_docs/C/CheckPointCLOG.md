@@ -1,7 +1,7 @@
 # CheckPointCLOG
 
 ## Location
-src/backend/access/transam/clog.c: 937 - 958
+[src/backend/access/transam/clog.c:937-958](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/clog.c#L937-L958)
 
 ## Overview
 CheckPointCLOG writes all dirty CLOG pages to disk as part of PostgreSQL's checkpoint process, ensuring transaction status data is safely persisted.

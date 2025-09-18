@@ -1,7 +1,7 @@
 # AlterForeignServerOwner_internal
 
 ## Location
-src/backend/commands/foreigncmds.c: 349 - 425
+[src/backend/commands/foreigncmds.c:349-425](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/foreigncmds.c#L349-L425)
 
 ## Overview
 Internal workhorse function for changing a foreign server's owner, performing ownership validation checks and updating catalog records.

@@ -1,7 +1,7 @@
 # set_rot13
 
 ## Location
-src/test/modules/ssl_passphrase_callback/ssl_passphrase_func.c: 56 - 66
+[src/test/modules/ssl_passphrase_callback/ssl_passphrase_func.c:56-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/ssl_passphrase_callback/ssl_passphrase_func.c#L56-L66)
 
 ## Overview
 Hook function that configures OpenSSL to use a ROT13-based password callback for SSL certificate passphrase handling in PostgreSQL's SSL test module.

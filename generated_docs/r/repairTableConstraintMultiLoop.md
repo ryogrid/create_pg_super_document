@@ -1,7 +1,7 @@
 # repairTableConstraintMultiLoop
 
 ## Location
-src/bin/pg_dump/pg_dump_sort.c: 1073 - 1089
+[src/bin/pg_dump/pg_dump_sort.c:1073-1089](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump_sort.c#L1073-L1089)
 
 ## Overview
 Repairs complex circular dependencies involving tables, their CHECK constraints, and other objects in pg_dump by making the constraint a separately-dumped object and moving it to the post-data phase.

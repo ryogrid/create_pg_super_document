@@ -1,7 +1,7 @@
 # hk_breadth_search
 
 ## Location
-src/backend/lib/bipartite_match.c: 93 - 145
+[src/backend/lib/bipartite_match.c:93-145](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/lib/bipartite_match.c#L93-L145)
 
 ## Overview
 hk_breadth_search implements the breadth-first search phase of the Hopcroft-Karp algorithm, building level structures to identify potential augmenting paths in the bipartite matching.

@@ -1,7 +1,7 @@
 # format_numeric_locale
 
 ## Location
-src/fe_utils/print.c: 314 - 378
+[src/fe_utils/print.c:314-378](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/fe_utils/print.c#L314-L378)
 
 ## Overview
 Formats a numeric string according to the current LC_NUMERIC locale setting, adding thousands separators and locale-specific decimal points.

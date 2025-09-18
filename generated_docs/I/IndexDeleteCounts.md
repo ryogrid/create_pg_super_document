@@ -1,7 +1,7 @@
 # IndexDeleteCounts
 
 ## Location
-src/backend/access/heap/heapam.c: 209 - 214
+[src/backend/access/heap/heapam.c:209-214](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/heapam.c#L209-L214)
 
 ## Overview
 IndexDeleteCounts is a struct used by heap_index_delete_tuples to track groups of TIDs (tuple identifiers) during bottom-up index deletion operations, helping determine which heap blocks to visit for optimal deletion efficiency.

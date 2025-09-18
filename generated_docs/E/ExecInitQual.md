@@ -1,7 +1,7 @@
 # ExecInitQual
 
 ## Location
-src/backend/executor/execExpr.c: 221 - 306
+[src/backend/executor/execExpr.c:221-306](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L221-L306)
 
 ## Overview
 ExecInitQual prepares a conjunctive boolean expression (qualification list with implicit AND semantics) for execution by ExecQual, optimized for WHERE clause evaluation.

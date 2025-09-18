@@ -1,7 +1,7 @@
 # ExtendMultiXactMember
 
 ## Location
-src/backend/access/transam/multixact.c: 2577 - 2651
+[src/backend/access/transam/multixact.c:2577-2651](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/multixact.c#L2577-L2651)
 
 ## Overview
 Ensures that the MultiXactMember SLRU has sufficient space allocated for storing the members of a newly-allocated MultiXactId, handling multi-page scenarios and wraparound cases.

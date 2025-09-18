@@ -1,7 +1,7 @@
 # pg_attribute_aclmask_ext
 
 ## Location
-src/backend/catalog/aclchk.c: 3215 - 3328
+[src/backend/catalog/aclchk.c:3215-3328](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L3215-L3328)
 
 ## Overview
 The comprehensive implementation for examining user privileges on table columns, including robust handling of missing columns, dropped columns, and concurrent relation drops.

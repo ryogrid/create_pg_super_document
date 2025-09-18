@@ -1,7 +1,7 @@
 # range_contains_value
 
 ## Location
-src/backend/access/brin/brin_minmax_multi.c: 1045 - 1133
+[src/backend/access/brin/brin_minmax_multi.c:1045-1133](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_minmax_multi.c#L1045-L1133)
 
 ## Overview
 Determines whether a new value is already contained within a BRIN minmax_multi range list by checking intervals and exact values.

@@ -1,7 +1,7 @@
 # match_foreign_keys_to_quals
 
 ## Location
-src/backend/optimizer/plan/initsplan.c: 3209 - 3373
+[src/backend/optimizer/plan/initsplan.c:3209-3373](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/initsplan.c#L3209-L3373)
 
 ## Overview
 Matches foreign-key constraints to equivalence classes and join quals to enable more reliable selectivity estimates, especially for multiple-column FKs where independence assumptions typically fail.

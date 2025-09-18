@@ -1,7 +1,7 @@
 # ExecGetUpdatedCols
 
 ## Location
-src/backend/executor/execUtils.c: 1288 - 1308
+[src/backend/executor/execUtils.c:1288-1308](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execUtils.c#L1288-L1308)
 
 ## Overview
 Returns a bitmap representing the columns being updated for a given result relation, handling column mapping for child relations in partitioned table hierarchies.

@@ -1,7 +1,7 @@
 # SH_DISTANCE_FROM_OPTIMAL
 
 ## Location
-src/include/lib/simplehash.h: 386 - 394
+[src/include/lib/simplehash.h:386-394](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/lib/simplehash.h#L386-L394)
 
 ## Overview
 Calculates the distance between a hash bucket's actual position and its optimal position in the PostgreSQL simplehash open-addressing hash table implementation.

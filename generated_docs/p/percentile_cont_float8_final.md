@@ -1,7 +1,7 @@
 # percentile_cont_float8_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 613 - 621
+[src/backend/utils/adt/orderedsetaggs.c:613-621](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L613-L621)
 
 ## Overview
 PostgreSQL function implementing the PERCENTILE_CONT ordered-set aggregate for float8 (double precision) data types with continuous percentile calculation.

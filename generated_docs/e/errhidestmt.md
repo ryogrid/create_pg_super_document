@@ -1,7 +1,7 @@
 # errhidestmt
 
 ## Location
-src/backend/utils/error/elog.c: 1411 - 1429
+[src/backend/utils/error/elog.c:1411-1429](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L1411-L1429)
 
 ## Overview
 Controls whether the STATEMENT field should be suppressed in log entries for the current error message.

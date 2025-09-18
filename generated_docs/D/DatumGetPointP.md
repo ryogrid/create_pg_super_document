@@ -1,7 +1,7 @@
 # DatumGetPointP
 
 ## Location
-src/include/utils/geo_decls.h: 176 - 180
+[src/include/utils/geo_decls.h:176-180](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/utils/geo_decls.h#L176-L180)
 
 ## Overview
 DatumGetPointP is an inline utility function that converts a Datum value to a Point pointer, serving as a type-safe wrapper for geometric point data extraction in PostgreSQL's function manager interface.

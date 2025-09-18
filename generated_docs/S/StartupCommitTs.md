@@ -1,7 +1,7 @@
 # StartupCommitTs
 
 ## Location
-src/backend/access/transam/commit_ts.c: 632 - 641
+[src/backend/access/transam/commit_ts.c:632-641](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/commit_ts.c#L632-L641)
 
 ## Overview
 StartupCommitTs is a startup initialization function that activates the commit timestamp subsystem during postmaster or standalone backend startup.

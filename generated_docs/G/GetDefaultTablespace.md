@@ -1,7 +1,7 @@
 # GetDefaultTablespace
 
 ## Location
-src/backend/commands/tablespace.c: 1143 - 1193
+[src/backend/commands/tablespace.c:1143-1193](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablespace.c#L1143-L1193)
 
 ## Overview
 Gets the OID of the current default tablespace for creating new database objects, with special handling for temporary objects and partitioned tables.

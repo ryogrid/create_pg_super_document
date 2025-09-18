@@ -1,7 +1,7 @@
 # PQlibVersion
 
 ## Location
-src/interfaces/libpq/fe-misc.c: 63 - 76
+[src/interfaces/libpq/fe-misc.c:63-76](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-misc.c#L63-L76)
 
 ## Overview
 Returns the version number of the libpq library as an integer value.

@@ -1,7 +1,7 @@
 # check_out_colors_match
 
 ## Location
-src/backend/regex/regc_nfa.c: 3415 - 3468
+[src/backend/regex/regc_nfa.c:3415-3468](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/regex/regc_nfa.c#L3415-L3468)
 
 ## Overview
 A static helper function that compares whether two colors from a given state lead to equivalent sets of destination states in a regular expression NFA (Non-deterministic Finite Automaton).

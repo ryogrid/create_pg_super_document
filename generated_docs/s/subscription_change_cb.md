@@ -1,7 +1,7 @@
 # subscription_change_cb
 
 ## Location
-src/backend/replication/logical/worker.c: 4004 - 4018
+[src/backend/replication/logical/worker.c:4004-4018](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4004-L4018)
 
 ## Overview
 A callback function triggered by subscription syscache invalidation to mark the current subscription as invalid.

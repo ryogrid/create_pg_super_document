@@ -1,7 +1,7 @@
 # RecoveryRequiresIntParameter
 
 ## Location
-src/backend/access/transam/xlogrecovery.c: 4660 - 4740
+[src/backend/access/transam/xlogrecovery.c:4660-4740](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlogrecovery.c#L4660-L4740)
 
 ## Overview
 RecoveryRequiresIntParameter validates that PostgreSQL server configuration parameters meet minimum requirements during recovery, pausing hot standby or terminating recovery if conditions are not met.

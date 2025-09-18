@@ -1,7 +1,7 @@
 # numericvar_to_double_no_overflow
 
 ## Location
-src/backend/utils/adt/numeric.c: 8357 - 8388
+[src/backend/utils/adt/numeric.c:8357-8388](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L8357-L8388)
 
 ## Overview
 Converts a PostgreSQL NumericVar to a double-precision floating-point number, returning +/- HUGE_VAL instead of raising overflow errors.

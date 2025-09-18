@@ -1,7 +1,7 @@
 # range_lower_inc
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 501 - 510
+[src/backend/utils/adt/rangetypes.c:501-510](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L501-L510)
 
 ## Overview
 Checks whether the lower bound of a range type is inclusive, returning a boolean result indicating if the lower bound includes its boundary value.

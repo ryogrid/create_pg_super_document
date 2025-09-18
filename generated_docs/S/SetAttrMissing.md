@@ -1,7 +1,7 @@
 # SetAttrMissing
 
 ## Location
-src/backend/catalog/heap.c: 2069 - 2129
+[src/backend/catalog/heap.c:2069-2129](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L2069-L2129)
 
 ## Overview
 SetAttrMissing sets the missing value for an attribute using a string representation, specifically designed for binary upgrade operations to restore missing value information during PostgreSQL upgrades.

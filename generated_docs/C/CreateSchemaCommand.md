@@ -1,7 +1,7 @@
 # CreateSchemaCommand
 
 ## Location
-src/backend/commands/schemacmds.c: 52 - 248
+[src/backend/commands/schemacmds.c:52-248](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/schemacmds.c#L52-L248)
 
 ## Overview
 CreateSchemaCommand implements the CREATE SCHEMA SQL command, creating a new database schema and executing any embedded SQL statements within the schema creation context.

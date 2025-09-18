@@ -1,7 +1,7 @@
 # ReorderBufferImmediateInvalidation
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 3134 - 3169
+[src/backend/replication/logical/reorderbuffer.c:3134-3169](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L3134-L3169)
 
 ## Overview
 Executes cache invalidation messages immediately outside the context of a decoded transaction, ensuring catalog cache consistency without requiring full transaction state setup.

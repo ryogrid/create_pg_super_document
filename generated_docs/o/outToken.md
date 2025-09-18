@@ -1,7 +1,7 @@
 # outToken
 
 ## Location
-src/backend/nodes/outfuncs.c: 149 - 189
+[src/backend/nodes/outfuncs.c:149-189](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/outfuncs.c#L149-L189)
 
 ## Overview
 Converts an ordinary string (such as an identifier) into a form that will be decoded back to a plain token by PostgreSQL's read functions, handling special character escaping and null/empty string encoding.

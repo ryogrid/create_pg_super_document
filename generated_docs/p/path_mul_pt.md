@@ -1,7 +1,7 @@
 # path_mul_pt
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 4425 - 4437
+[src/backend/utils/adt/geo_ops.c:4425-4437](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L4425-L4437)
 
 ## Overview
 Applies rotation and scaling transformation to a path by multiplying each point with a transformation point, enabling complex geometric transformations.

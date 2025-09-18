@@ -1,7 +1,7 @@
 # r_steps1
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2541 - 2569
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2541-2569](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2541-L2569)
 
 ## Overview
 A secondary stemming function that performs additional Greek suffix removal and stem cleanup, working as part of a multi-phase stemming pipeline after the initial suffix processing.

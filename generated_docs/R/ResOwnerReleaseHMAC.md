@@ -1,7 +1,7 @@
 # ResOwnerReleaseHMAC
 
 ## Location
-src/common/hmac_openssl.c: 384 - 391
+[src/common/hmac_openssl.c:384-391](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/hmac_openssl.c#L384-L391)
 
 ## Overview
 A callback function for PostgreSQL's resource owner system to automatically clean up HMAC contexts when resources are released.

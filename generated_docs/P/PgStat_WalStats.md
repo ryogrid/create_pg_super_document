@@ -1,7 +1,7 @@
 # PgStat_WalStats
 
 ## Location
-src/include/pgstat.h: 431 - 442
+[src/include/pgstat.h:431-442](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/pgstat.h#L431-L442)
 
 ## Overview
 PgStat_WalStats is a structure that contains comprehensive statistics about PostgreSQL Write-Ahead Log (WAL) operations, tracking metrics such as record counts, buffer usage, write operations, and timing information.

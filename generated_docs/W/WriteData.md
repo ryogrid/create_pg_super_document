@@ -1,7 +1,7 @@
 # WriteData
 
 ## Location
-src/bin/pg_dump/pg_backup_archiver.c: 1201 - 1221
+[src/bin/pg_dump/pg_backup_archiver.c:1201-1221](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_backup_archiver.c#L1201-L1221)
 
 ## Overview
 WriteData is a public interface function that provides a safe way to write binary data during PostgreSQL database dumping operations, ensuring the data is written within the proper context of a DataDumper routine.

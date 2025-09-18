@@ -1,7 +1,7 @@
 # ECPGsetconn
 
 ## Location
-src/interfaces/ecpg/ecpglib/connect.c: 195 - 207
+[src/interfaces/ecpg/ecpglib/connect.c:195-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/connect.c#L195-L207)
 
 ## Overview
 ECPGsetconn sets the current active database connection in ECPG by changing the thread-specific connection to the specified named connection.

@@ -1,7 +1,7 @@
 # table_block_relation_estimate_size
 
 ## Location
-src/backend/access/table/tableam.c: 654 - 761
+[src/backend/access/table/tableam.c:654-761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/table/tableam.c#L654-L761)
 
 ## Overview
 A helper function that estimates the size characteristics of a relation (pages, tuples, all-visible fraction) for query planning purposes, handling both cases with and without existing statistics.

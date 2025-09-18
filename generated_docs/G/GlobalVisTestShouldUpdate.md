@@ -1,7 +1,7 @@
 # GlobalVisTestShouldUpdate
 
 ## Location
-src/backend/storage/ipc/procarray.c: 4146 - 4164
+[src/backend/storage/ipc/procarray.c:4146-4164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/procarray.c#L4146-L4164)
 
 ## Overview
 Determines whether it's worth updating the global visibility state boundaries based on current transaction activity.

@@ -1,7 +1,7 @@
 # anytime_typmod_check
 
 ## Location
-src/backend/utils/adt/date.c: 71 - 92
+[src/backend/utils/adt/date.c:71-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L71-L92)
 
 ## Overview
 Validates and normalizes precision values for TIME data types, ensuring they fall within acceptable bounds and issuing appropriate warnings or errors.

@@ -1,7 +1,7 @@
 # pg_free
 
 ## Location
-src/common/fe_memutils.c: 105 - 114
+[src/common/fe_memutils.c:105-114](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/common/fe_memutils.c#L105-L114)
 
 ## Overview
 A simple wrapper around the standard C library free() function, providing a consistent interface for memory deallocation in PostgreSQL frontend utilities.

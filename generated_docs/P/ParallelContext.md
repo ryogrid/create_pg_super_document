@@ -1,7 +1,7 @@
 # ParallelContext
 
 ## Location
-src/include/access/parallel.h: 31 - 48
+[src/include/access/parallel.h:31-48](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/parallel.h#L31-L48)
 
 ## Overview
 A comprehensive structure that manages parallel execution context in PostgreSQL, coordinating the lifecycle of parallel worker processes and their shared memory segments.

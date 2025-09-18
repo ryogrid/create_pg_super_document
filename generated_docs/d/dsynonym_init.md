@@ -1,7 +1,7 @@
 # dsynonym_init
 
 ## Location
-src/backend/tsearch/dict_synonym.c: 92 - 209
+[src/backend/tsearch/dict_synonym.c:92-209](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/dict_synonym.c#L92-L209)
 
 ## Overview
 Initializes a synonym dictionary by parsing a configuration file and building an internal data structure for efficient synonym lookups.

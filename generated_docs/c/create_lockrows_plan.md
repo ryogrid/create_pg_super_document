@@ -1,7 +1,7 @@
 # create_lockrows_plan
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 2792 - 2814
+[src/backend/optimizer/plan/createplan.c:2792-2814](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L2792-L2814)
 
 ## Overview
 Creates a LockRows plan node that implements row-level locking operations, typically used for SELECT FOR UPDATE/SHARE queries and other locking scenarios.

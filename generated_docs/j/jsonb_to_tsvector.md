@@ -1,7 +1,7 @@
 # jsonb_to_tsvector
 
 ## Location
-src/backend/tsearch/to_tsany.c: 344 - 363
+[src/backend/tsearch/to_tsany.c:344-363](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/to_tsany.c#L344-L363)
 
 ## Overview
 A PostgreSQL function that converts a JSONB value to a text search vector (TSVector) using the current default text search configuration and specified indexing flags.

@@ -1,7 +1,7 @@
 # PQresStatus
 
 ## Location
-src/interfaces/libpq/fe-exec.c: 3419 - 3426
+[src/interfaces/libpq/fe-exec.c:3419-3426](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-exec.c#L3419-L3426)
 
 ## Overview
 PQresStatus converts an ExecStatusType enumeration value to its corresponding human-readable string representation.

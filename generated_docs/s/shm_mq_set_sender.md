@@ -1,7 +1,7 @@
 # shm_mq_set_sender
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 224 - 241
+[src/backend/storage/ipc/shm_mq.c:224-241](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L224-L241)
 
 ## Overview
 Sets the identity of the process that will send messages to a shared message queue and signals the receiver if already attached.

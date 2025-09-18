@@ -1,7 +1,7 @@
 # get_dtype
 
 ## Location
-src/interfaces/ecpg/preproc/type.c: 693 - 748
+[src/interfaces/ecpg/preproc/type.c:693-748](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/preproc/type.c#L693-L748)
 
 ## Overview
 get_dtype is a utility function that converts ECPGdtype enumeration values to their corresponding string representations for code generation and debugging purposes.

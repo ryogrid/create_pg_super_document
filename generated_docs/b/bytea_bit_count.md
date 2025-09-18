@@ -1,7 +1,7 @@
 # bytea_bit_count
 
 ## Location
-src/backend/utils/adt/varlena.c: 3151 - 3164
+[src/backend/utils/adt/varlena.c:3151-3164](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L3151-L3164)
 
 ## Overview
 A PostgreSQL function that counts the number of set bits (1s) in a bytea value, implementing the SQL BIT_COUNT() function for binary string data types.

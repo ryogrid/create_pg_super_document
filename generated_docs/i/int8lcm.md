@@ -1,7 +1,7 @@
 # int8lcm
 
 ## Location
-src/backend/utils/adt/int8.c: 682 - 718
+[src/backend/utils/adt/int8.c:682-718](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int8.c#L682-L718)
 
 ## Overview
 Computes the Least Common Multiple (LCM) of two 64-bit signed integers, with overflow detection and error handling.

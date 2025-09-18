@@ -1,7 +1,7 @@
 # LogicalRepTupleData
 
 ## Location
-src/include/replication/logicalproto.h: 84 - 92
+[src/include/replication/logicalproto.h:84-92](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/replication/logicalproto.h#L84-L92)
 
 ## Overview
 LogicalRepTupleData is a structure that stores a tuple received via logical replication, where the columns correspond to the remote table structure.

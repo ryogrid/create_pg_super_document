@@ -1,7 +1,7 @@
 # text_position_reset
 
 ## Location
-src/backend/utils/adt/varlena.c: 1495 - 1502
+[src/backend/utils/adt/varlena.c:1495-1502](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/varlena.c#L1495-L1502)
 
 ## Overview
 Resets the text position search state to its initial condition, preparing for a new search from the beginning of the string.

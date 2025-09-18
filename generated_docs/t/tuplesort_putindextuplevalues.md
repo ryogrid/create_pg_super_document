@@ -1,7 +1,7 @@
 # tuplesort_putindextuplevalues
 
 ## Location
-src/backend/utils/sort/tuplesortvariants.c: 752 - 787
+[src/backend/utils/sort/tuplesortvariants.c:752-787](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/sort/tuplesortvariants.c#L752-L787)
 
 ## Overview
 Creates an IndexTuple from provided values and adds it to the tuplesort, used during index creation to sort index entries before writing them to disk.

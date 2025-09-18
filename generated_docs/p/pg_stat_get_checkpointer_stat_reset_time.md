@@ -1,7 +1,7 @@
 # pg_stat_get_checkpointer_stat_reset_time
 
 ## Location
-src/backend/utils/adt/pgstatfuncs.c: 1247 - 1252
+[src/backend/utils/adt/pgstatfuncs.c:1247-1252](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/pgstatfuncs.c#L1247-L1252)
 
 ## Overview
 This function returns the timestamp of when checkpointer statistics were last reset in PostgreSQL.

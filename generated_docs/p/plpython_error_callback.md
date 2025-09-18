@@ -1,7 +1,7 @@
 # plpython_error_callback
 
 ## Location
-src/pl/plpython/plpy_main.c: 345 - 360
+[src/pl/plpython/plpy_main.c:345-360](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_main.c#L345-L360)
 
 ## Overview
 plpython_error_callback is an error context callback function that provides additional context information when errors occur during PL/Python function or procedure execution.

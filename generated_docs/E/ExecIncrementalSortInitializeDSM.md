@@ -1,7 +1,7 @@
 # ExecIncrementalSortInitializeDSM
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 1194 - 1218
+[src/backend/executor/nodeIncrementalSort.c:1194-1218](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L1194-L1218)
 
 ## Overview
 Initializes dynamic shared memory (DSM) space for collecting and sharing incremental sort statistics across parallel worker processes.

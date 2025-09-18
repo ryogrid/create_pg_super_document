@@ -1,7 +1,7 @@
 # WalReceiverMain
 
 ## Location
-src/backend/replication/walreceiver.c: 183 - 664
+[src/backend/replication/walreceiver.c:183-664](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walreceiver.c#L183-L664)
 
 ## Overview
 WalReceiverMain is the main entry point for the WAL receiver process that handles streaming replication from a primary PostgreSQL server to a standby server.

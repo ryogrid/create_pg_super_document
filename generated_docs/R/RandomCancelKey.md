@@ -1,7 +1,7 @@
 # RandomCancelKey
 
 ## Location
-src/backend/postmaster/postmaster.c: 3870 - 3879
+[src/backend/postmaster/postmaster.c:3870-3879](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L3870-L3879)
 
 ## Overview
 RandomCancelKey generates a cryptographically strong random 32-bit integer to be used as a cancel key for PostgreSQL backend processes.

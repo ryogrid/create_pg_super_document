@@ -1,7 +1,7 @@
 # start_apply
 
 ## Location
-src/backend/replication/logical/worker.c: 4438 - 4477
+[src/backend/replication/logical/worker.c:4438-4477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/worker.c#L4438-L4477)
 
 ## Overview
 A core function that runs the logical replication apply loop with comprehensive error handling and subscription management capabilities.

@@ -1,7 +1,7 @@
 # array_subscript_assign
 
 ## Location
-src/backend/utils/adt/arraysubs.c: 294 - 343
+[src/backend/utils/adt/arraysubs.c:294-343](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/arraysubs.c#L294-L343)
 
 ## Overview
 Evaluates a SubscriptingRef assignment operation for array element assignment, handling both fixed-length and variable-length arrays with appropriate NULL value semantics.

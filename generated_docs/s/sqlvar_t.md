@@ -1,7 +1,7 @@
 # sqlvar_t
 
 ## Location
-src/interfaces/ecpg/test/expected/compat_oracle-char_array.c: 30 - 30
+[src/interfaces/ecpg/test/expected/compat_oracle-char_array.c:30-30](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/compat_oracle-char_array.c#L30-L30)
 
 ## Overview
 sqlvar_t is a typedef representing a variable structure used in PostgreSQL's Embedded SQL (ECPG) interface, providing a unified way to handle database variables across different compatibility modes.

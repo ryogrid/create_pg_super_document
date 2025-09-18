@@ -1,7 +1,7 @@
 # anl_get_next_S
 
 ## Location
-src/backend/utils/misc/sampling.c: 296 - 304
+[src/backend/utils/misc/sampling.c:296-304](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/sampling.c#L296-L304)
 
 ## Overview
 Computes the next skip value S for Vitter's Algorithm Z reservoir sampling, serving as a wrapper around reservoir_get_next_S for ANALYZE operations.

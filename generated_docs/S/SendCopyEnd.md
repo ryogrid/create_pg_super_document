@@ -1,7 +1,7 @@
 # SendCopyEnd
 
 ## Location
-src/backend/commands/copyto.c: 150 - 168
+[src/backend/commands/copyto.c:150-168](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/copyto.c#L150-L168)
 
 ## Overview
 SendCopyEnd is a static function that terminates the COPY TO protocol by sending a CopyDone message to the frontend client, signaling the completion of data transfer.

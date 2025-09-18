@@ -1,7 +1,7 @@
 # pg_wchar2mb
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1001 - 1007
+[src/backend/utils/mb/mbutils.c:1001-1007](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1001-L1007)
 
 ## Overview
 Converts a wide character string to a multibyte character string using the current database encoding.

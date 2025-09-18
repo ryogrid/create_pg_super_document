@@ -1,7 +1,7 @@
 # explain_get_index_name
 
 ## Location
-src/backend/commands/explain.c: 3679 - 3702
+[src/backend/commands/explain.c:3679-3702](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L3679-L3702)
 
 ## Overview
 Retrieves the name of an index for EXPLAIN output, with support for plugin hooks to handle hypothetical indexes.

@@ -1,7 +1,7 @@
 # timestamp_scale
 
 ## Location
-src/backend/utils/adt/timestamp.c: 345 - 365
+[src/backend/utils/adt/timestamp.c:345-365](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L345-L365)
 
 ## Overview
 Adjusts a timestamp value for a specified scale factor as used by the PostgreSQL type system to handle column type modifications.

@@ -1,7 +1,7 @@
 # pg_snapshot_recv
 
 ## Location
-src/backend/utils/adt/xid8funcs.c: 468 - 533
+[src/backend/utils/adt/xid8funcs.c:468-533](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/xid8funcs.c#L468-L533)
 
 ## Overview
 Binary input function for the pg_snapshot data type that deserializes a binary representation of a snapshot from the network or storage format.

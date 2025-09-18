@@ -1,7 +1,7 @@
 # has_row_triggers
 
 ## Location
-src/backend/optimizer/util/plancat.c: 2240 - 2289
+[src/backend/optimizer/util/plancat.c:2240-2289](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L2240-L2289)
 
 ## Overview
 Detects whether a specified relation has any row-level triggers for a given DML event (INSERT, UPDATE, DELETE).

@@ -1,7 +1,7 @@
 # ExecHashTableDetach
 
 ## Location
-src/backend/executor/nodeHash.c: 3381 - 3430
+[src/backend/executor/nodeHash.c:3381-3430](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeHash.c#L3381-L3430)
 
 ## Overview
 Detaches from all shared parallel hash join resources and performs global cleanup when the last process detaches.

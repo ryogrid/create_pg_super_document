@@ -1,7 +1,7 @@
 # transientrel_shutdown
 
 ## Location
-src/backend/commands/matview.c: 520 - 536
+[src/backend/commands/matview.c:520-536](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/matview.c#L520-L536)
 
 ## Overview
 transientrel_shutdown is an executor shutdown callback function that finalizes bulk insert operations and cleanly closes the transient relation while maintaining necessary locks.

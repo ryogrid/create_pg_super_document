@@ -1,7 +1,7 @@
 # ExecReScanIncrementalSort
 
 ## Location
-src/backend/executor/nodeIncrementalSort.c: 1107 - 1172
+[src/backend/executor/nodeIncrementalSort.c:1107-1172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeIncrementalSort.c#L1107-L1172)
 
 ## Overview
 Resets an incremental sort node to its initial state, clearing all cached tuples and sort states to prepare for a fresh execution scan.

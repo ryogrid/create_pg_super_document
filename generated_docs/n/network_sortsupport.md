@@ -1,7 +1,7 @@
 # network_sortsupport
 
 ## Location
-src/backend/utils/adt/network.c: 437 - 472
+[src/backend/utils/adt/network.c:437-472](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/network.c#L437-L472)
 
 ## Overview
 PostgreSQL sort support strategy function that optimizes sorting operations for network address data types by providing specialized comparison and abbreviation mechanisms.

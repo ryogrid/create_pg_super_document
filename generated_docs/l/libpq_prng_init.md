@@ -1,7 +1,7 @@
 # libpq_prng_init
 
 ## Location
-src/interfaces/libpq/fe-connect.c: 1093 - 1119
+[src/interfaces/libpq/fe-connect.c:1093-1119](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-connect.c#L1093-L1119)
 
 ## Overview
 Initializes the pseudo-random number generator state for a libpq connection, using high-quality random bits when available or falling back to a deterministic seed based on connection properties.

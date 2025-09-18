@@ -1,7 +1,7 @@
 # AttrDefaultCmp
 
 ## Location
-src/backend/utils/cache/relcache.c: 4570 - 4584
+[src/backend/utils/cache/relcache.c:4570-4584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/relcache.c#L4570-L4584)
 
 ## Overview
 A qsort comparator function that sorts AttrDefault entries by attribute number (adnum) in ascending order.

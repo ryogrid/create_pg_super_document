@@ -1,7 +1,7 @@
 # pclose
 
 ## Location
-src/include/port.h: 357 - 366
+[src/include/port.h:357-366](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/port.h#L357-L366)
 
 ## Overview
 A platform-specific wrapper for the standard C library pclose() function that provides consistent pipe stream closing behavior across different operating systems in PostgreSQL.

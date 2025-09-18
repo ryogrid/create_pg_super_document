@@ -1,7 +1,7 @@
 # clamp_width_est
 
 ## Location
-src/backend/optimizer/path/costsize.c: 231 - 253
+[src/backend/optimizer/path/costsize.c:231-253](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/costsize.c#L231-L253)
 
 ## Overview
 Forces a tuple-width estimate to a sane value by clamping it from int64 to int32 range while preventing integer overflow.

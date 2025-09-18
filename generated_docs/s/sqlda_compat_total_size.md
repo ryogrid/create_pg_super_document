@@ -1,7 +1,7 @@
 # sqlda_compat_total_size
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 157 - 170
+[src/interfaces/ecpg/ecpglib/sqlda.c:157-170](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L157-L170)
 
 ## Overview
 Calculates the complete memory size required for a compatibility-mode SQLDA structure, including both metadata structures and data storage for a specific row.

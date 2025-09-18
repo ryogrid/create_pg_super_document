@@ -1,7 +1,7 @@
 # ExecEvalAggOrderedTransDatum
 
 ## Location
-src/backend/executor/execExprInterp.c: 5209 - 5222
+[src/backend/executor/execExprInterp.c:5209-5222](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExprInterp.c#L5209-L5222)
 
 ## Overview
 This function invokes an ordered transition function for aggregate operations, specifically handling datum (single value) arguments by storing them in a tuple sort state for ordered processing.

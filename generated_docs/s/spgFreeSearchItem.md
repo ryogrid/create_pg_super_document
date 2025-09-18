@@ -1,7 +1,7 @@
 # spgFreeSearchItem
 
 ## Location
-src/backend/access/spgist/spgscan.c: 84 - 107
+[src/backend/access/spgist/spgscan.c:84-107](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgscan.c#L84-L107)
 
 ## Overview
 A cleanup function that properly deallocates memory for a SpGistSearchItem structure and all its associated dynamically allocated components.

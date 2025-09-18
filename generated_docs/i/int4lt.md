@@ -1,7 +1,7 @@
 # int4lt
 
 ## Location
-src/backend/utils/adt/int.c: 414 - 422
+[src/backend/utils/adt/int.c:414-422](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/int.c#L414-L422)
 
 ## Overview
 Implements the less-than comparison operator for 32-bit integers (int4), returning true if the first argument is less than the second.

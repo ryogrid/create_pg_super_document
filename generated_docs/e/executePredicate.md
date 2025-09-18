@@ -1,7 +1,7 @@
 # executePredicate
 
 ## Location
-src/backend/utils/adt/jsonpath_exec.c: 2025 - 2104
+[src/backend/utils/adt/jsonpath_exec.c:2025-2104](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath_exec.c#L2025-L2104)
 
 ## Overview
 Executes unary or binary predicates with existence semantics by evaluating pairs of items from left and right operand sequences, returning TRUE if any satisfying pair is found.

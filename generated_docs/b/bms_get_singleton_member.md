@@ -1,7 +1,7 @@
 # bms_get_singleton_member
 
 ## Location
-src/backend/nodes/bitmapset.c: 715 - 750
+[src/backend/nodes/bitmapset.c:715-750](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/bitmapset.c#L715-L750)
 
 ## Overview
 Tests whether a bitmapset is a singleton and if so, returns the value of its sole member through an output parameter, providing a convenient and efficient alternative to separate membership testing.

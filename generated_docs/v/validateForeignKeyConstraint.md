@@ -1,7 +1,7 @@
 # validateForeignKeyConstraint
 
 ## Location
-src/backend/commands/tablecmds.c: 12241 - 12337
+[src/backend/commands/tablecmds.c:12241-12337](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L12241-L12337)
 
 ## Overview
 Validates that all existing rows in a table satisfy a newly proposed foreign key constraint by checking referential integrity against the referenced table.

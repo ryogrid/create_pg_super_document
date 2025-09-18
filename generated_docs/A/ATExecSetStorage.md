@@ -1,7 +1,7 @@
 # ATExecSetStorage
 
 ## Location
-src/backend/commands/tablecmds.c: 8887 - 8949
+[src/backend/commands/tablecmds.c:8887-8949](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8887-L8949)
 
 ## Overview
 ATExecSetStorage implements the ALTER TABLE ALTER COLUMN SET STORAGE command, modifying the storage strategy for a specific column in both the table and its associated indexes.

@@ -1,7 +1,7 @@
 # psql_cancel_callback
 
 ## Location
-src/bin/psql/common.c: 297 - 312
+[src/bin/psql/common.c:297-312](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/common.c#L297-L312)
 
 ## Overview
 psql_cancel_callback is a static callback function that handles cancellation requests (typically from SIGINT/Ctrl+C) in psql, providing graceful interruption of operations.

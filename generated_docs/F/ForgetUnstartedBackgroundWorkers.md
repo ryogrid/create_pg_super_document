@@ -1,7 +1,7 @@
 # ForgetUnstartedBackgroundWorkers
 
 ## Location
-src/backend/postmaster/bgworker.c: 547 - 584
+[src/backend/postmaster/bgworker.c:547-584](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/bgworker.c#L547-L584)
 
 ## Overview
 Cancels all not-yet-started background worker requests that have waiting processes during database shutdown, notifying the waiting processes and cleaning up the registrations.

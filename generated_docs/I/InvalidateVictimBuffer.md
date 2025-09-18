@@ -1,7 +1,7 @@
 # InvalidateVictimBuffer
 
 ## Location
-src/backend/storage/buffer/bufmgr.c: 1870 - 1937
+[src/backend/storage/buffer/bufmgr.c:1870-1937](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/buffer/bufmgr.c#L1870-L1937)
 
 ## Overview
 InvalidateVictimBuffer safely invalidates a buffer selected as a victim for replacement, ensuring it can be reused while handling concurrent access scenarios.

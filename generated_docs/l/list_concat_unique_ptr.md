@@ -1,7 +1,7 @@
 # list_concat_unique_ptr
 
 ## Location
-src/backend/nodes/list.c: 1427 - 1447
+[src/backend/nodes/list.c:1427-1447](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/nodes/list.c#L1427-L1447)
 
 ## Overview
 Concatenates two pointer lists by appending unique elements from the second list to the first, using simple pointer equality for membership testing instead of equal() function.

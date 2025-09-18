@@ -1,7 +1,7 @@
 # consume_xids_shortcut
 
 ## Location
-src/test/modules/xid_wraparound/xid_wraparound.c: 200 - 219
+[src/test/modules/xid_wraparound/xid_wraparound.c:200-219](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/xid_wraparound/xid_wraparound.c#L200-L219)
 
 ## Overview
 An optimization function that attempts to fast-forward the transaction ID counter by directly updating the nextXid value, bypassing individual XID allocation when safe to do so.

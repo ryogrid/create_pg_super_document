@@ -1,7 +1,7 @@
 # ATPrepDropColumn
 
 ## Location
-src/backend/commands/tablecmds.c: 8950 - 8977
+[src/backend/commands/tablecmds.c:8950-8977](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8950-L8977)
 
 ## Overview
 ATPrepDropColumn is a preparation function for ALTER TABLE DROP COLUMN that handles special cases and recursion setup before the actual column dropping operation is executed.

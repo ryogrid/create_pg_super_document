@@ -1,7 +1,7 @@
 # PQgetgssctx
 
 ## Location
-src/interfaces/libpq/fe-secure.c: 498 - 503
+[src/interfaces/libpq/fe-secure.c:498-503](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-secure.c#L498-L503)
 
 ## Overview
 Returns the GSSAPI security context associated with a PostgreSQL client connection when GSSAPI authentication or encryption is in use.

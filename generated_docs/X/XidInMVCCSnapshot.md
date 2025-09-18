@@ -1,7 +1,7 @@
 # XidInMVCCSnapshot
 
 ## Location
-src/backend/utils/time/snapmgr.c: 1856 - 1954
+[src/backend/utils/time/snapmgr.c:1856-1954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/time/snapmgr.c#L1856-L1954)
 
 ## Overview
 Determines whether a given transaction ID is still in-progress according to the rules of a specific MVCC snapshot.

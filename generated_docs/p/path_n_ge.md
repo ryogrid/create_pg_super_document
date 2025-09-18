@@ -1,7 +1,7 @@
 # path_n_ge
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1589 - 1601
+[src/backend/utils/adt/geo_ops.c:1589-1601](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1589-L1601)
 
 ## Overview
 A PostgreSQL function that compares two PATH objects to determine if the first path has greater or equal number of points than the second path.

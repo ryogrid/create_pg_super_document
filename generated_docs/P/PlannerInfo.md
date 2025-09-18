@@ -1,7 +1,7 @@
 # PlannerInfo
 
 ## Location
-src/include/optimizer/optimizer.h: 34 - 34
+[src/include/optimizer/optimizer.h:34-34](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/optimizer/optimizer.h#L34-L34)
 
 ## Overview
 PlannerInfo is the central data structure used during query planning in PostgreSQL. It contains all the state information needed by the planner to analyze and optimize a single query level.

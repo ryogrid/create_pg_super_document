@@ -1,7 +1,7 @@
 # assign_record_type_identifier
 
 ## Location
-src/backend/utils/cache/typcache.c: 2045 - 2085
+[src/backend/utils/cache/typcache.c:2045-2085](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2045-L2085)
 
 ## Overview
 Assigns a unique identifier for the lifetime of the backend process to track the current tuple descriptor of a composite type, with different behavior for named types versus anonymous RECORD types.

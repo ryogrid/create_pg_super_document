@@ -1,7 +1,7 @@
 # record_cmp
 
 ## Location
-src/backend/utils/adt/rowtypes.c: 823 - 1066
+[src/backend/utils/adt/rowtypes.c:823-1066](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rowtypes.c#L823-L1066)
 
 ## Overview
 Internal comparison function for composite type (record) values that implements element-by-element comparison logic for PostgreSQL's record comparison operations.

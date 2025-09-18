@@ -1,7 +1,7 @@
 # pgarch_ArchiverCopyLoop
 
 ## Location
-src/backend/postmaster/pgarch.c: 380 - 515
+[src/backend/postmaster/pgarch.c:380-515](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/pgarch.c#L380-L515)
 
 ## Overview
 The core archiving function that discovers WAL files ready for archival and processes them sequentially with retry logic and error handling.

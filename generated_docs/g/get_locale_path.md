@@ -1,7 +1,7 @@
 # get_locale_path
 
 ## Location
-src/port/path.c: 964 - 972
+[src/port/path.c:964-972](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L964-L972)
 
 ## Overview
 Constructs the full path to PostgreSQL's locale directory by calculating a relative path from the executable location.

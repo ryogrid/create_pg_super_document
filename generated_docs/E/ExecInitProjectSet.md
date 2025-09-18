@@ -1,7 +1,7 @@
 # ExecInitProjectSet
 
 ## Location
-src/backend/executor/nodeProjectSet.c: 227 - 327
+[src/backend/executor/nodeProjectSet.c:227-327](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeProjectSet.c#L227-L327)
 
 ## Overview
 ExecInitProjectSet creates the runtime state information for ProjectSet nodes and initializes all necessary data structures for SRF execution.

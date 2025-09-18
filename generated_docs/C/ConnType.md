@@ -1,7 +1,7 @@
 # ConnType
 
 ## Location
-src/include/libpq/hba.h: 65 - 66
+[src/include/libpq/hba.h:65-66](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L65-L66)
 
 ## Overview
 ConnType is an enumeration that defines the different types of database connections supported by PostgreSQL's host-based authentication (HBA) system.

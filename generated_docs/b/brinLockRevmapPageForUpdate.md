@@ -1,7 +1,7 @@
 # brinLockRevmapPageForUpdate
 
 ## Location
-src/backend/access/brin/brin_revmap.c: 134 - 154
+[src/backend/access/brin/brin_revmap.c:134-154](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_revmap.c#L134-L154)
 
 ## Overview
 Prepares a revmap page for update by obtaining and exclusively locking the buffer containing the revmap entry for a given heap block.

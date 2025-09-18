@@ -1,7 +1,7 @@
 # lseg_crossing
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 5397 - 5456
+[src/backend/utils/adt/geo_ops.c:5397-5456](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L5397-L5456)
 
 ## Overview
 Determines if a line segment crosses the positive X-axis from the origin, used as a core component in ray-casting point-in-polygon algorithms.

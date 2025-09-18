@@ -1,7 +1,7 @@
 # pg_rewrite_query
 
 ## Location
-src/backend/tcop/postgres.c: 808 - 889
+[src/backend/tcop/postgres.c:808-889](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tcop/postgres.c#L808-L889)
 
 ## Overview
 Performs query rewriting on a Query structure produced by parse analysis, transforming queries to handle views, rules, and other PostgreSQL rewrite mechanisms.

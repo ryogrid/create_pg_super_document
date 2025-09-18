@@ -1,7 +1,7 @@
 # typeByVal
 
 ## Location
-src/backend/parser/parse_type.c: 609 - 618
+[src/backend/parser/parse_type.c:609-618](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_type.c#L609-L618)
 
 ## Overview
 Returns the 'byval' attribute of a PostgreSQL data type, indicating whether values of this type are passed by value rather than by reference.

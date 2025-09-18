@@ -1,7 +1,7 @@
 # select_mergejoin_clauses
 
 ## Location
-src/backend/optimizer/path/joinpath.c: 2347 - 2433
+[src/backend/optimizer/path/joinpath.c:2347-2433](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/joinpath.c#L2347-L2433)
 
 ## Overview
 Selects and validates mergejoin clauses that are usable for a particular join operation, returning a list of suitable RestrictInfo nodes and determining if mergejoin is allowed for the given join type.

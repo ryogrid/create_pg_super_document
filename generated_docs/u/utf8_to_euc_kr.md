@@ -1,7 +1,7 @@
 # utf8_to_euc_kr
 
 ## Location
-src/backend/utils/mb/conversion_procs/utf8_and_euc_kr/utf8_and_euc_kr.c: 60 - 78
+[src/backend/utils/mb/conversion_procs/utf8_and_euc_kr/utf8_and_euc_kr.c:60-78](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/conversion_procs/utf8_and_euc_kr/utf8_and_euc_kr.c#L60-L78)
 
 ## Overview
 Converts text from UTF-8 encoding to EUC-KR (Extended Unix Code for Korean) encoding using PostgreSQL's encoding conversion infrastructure.

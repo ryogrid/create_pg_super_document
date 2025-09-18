@@ -1,7 +1,7 @@
 # ReadBufferBI
 
 ## Location
-src/backend/access/heap/hio.c: 88 - 139
+[src/backend/access/heap/hio.c:88-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/heap/hio.c#L88-L139)
 
 ## Overview
 ReadBufferBI is a static function that reads a buffer using bulk-insert optimization strategy, providing efficient buffer management for bulk insert operations by caching and reusing the current buffer when possible.

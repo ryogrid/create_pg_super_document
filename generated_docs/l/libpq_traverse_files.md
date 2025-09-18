@@ -1,7 +1,7 @@
 # libpq_traverse_files
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 233 - 325
+[src/bin/pg_rewind/libpq_source.c:233-325](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L233-L325)
 
 ## Overview
 Recursively traverses the PostgreSQL data directory via a libpq connection to retrieve a complete list of all files and directories, including tablespace symbolic links.

@@ -1,7 +1,7 @@
 # complex_in
 
 ## Location
-src/tutorial/complex.c: 31 - 52
+[src/tutorial/complex.c:31-52](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/tutorial/complex.c#L31-L52)
 
 ## Overview
 Input function for the  data type that parses a string representation of a complex number and converts it to the internal PostgreSQL representation.

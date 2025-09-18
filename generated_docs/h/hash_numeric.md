@@ -1,7 +1,7 @@
 # hash_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 2713 - 2792
+[src/backend/utils/adt/numeric.c:2713-2792](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L2713-L2792)
 
 ## Overview
 Computes a hash value for PostgreSQL numeric data types, ensuring that numerically equal values produce the same hash regardless of their internal representation.

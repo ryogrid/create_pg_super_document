@@ -1,7 +1,7 @@
 # check_output_expressions
 
 ## Location
-src/backend/optimizer/path/allpaths.c: 3707 - 3778
+[src/backend/optimizer/path/allpaths.c:3707-3778](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/allpaths.c#L3707-L3778)
 
 ## Overview
 Analyzes each output column of a subquery's target list to identify and flag columns that are unsafe for qual pushdown references, marking specific safety violations for later consultation.

@@ -1,7 +1,7 @@
 # CallerFInfoFunctionCall2
 
 ## Location
-src/backend/utils/fmgr/fmgr.c: 1085 - 1111
+[src/backend/utils/fmgr/fmgr.c:1085-1111](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/fmgr/fmgr.c#L1085-L1111)
 
 ## Overview
 CallerFInfoFunctionCall2 is a utility function that calls a PostgreSQL function with 2 arguments using caller-provided function information (FmgrInfo), allowing for enhanced context and state sharing between caller and callee.

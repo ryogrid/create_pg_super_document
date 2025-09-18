@@ -1,7 +1,7 @@
 # PLy_traceback
 
 ## Location
-src/pl/plpython/plpy_elog.c: 173 - 356
+[src/pl/plpython/plpy_elog.c:173-356](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_elog.c#L173-L356)
 
 ## Overview
 PLy_traceback extracts and formats Python exception information and traceback data into PostgreSQL-compatible error message strings, providing detailed debugging information for PL/Python errors.

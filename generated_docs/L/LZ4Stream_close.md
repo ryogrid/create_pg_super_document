@@ -1,7 +1,7 @@
 # LZ4Stream_close
 
 ## Location
-src/bin/pg_dump/compress_lz4.c: 674 - 733
+[src/bin/pg_dump/compress_lz4.c:674-733](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/compress_lz4.c#L674-L733)
 
 ## Overview
 Finalizes compression or decompression operations and properly closes an LZ4 stream, performing necessary cleanup of resources and contexts.

@@ -1,7 +1,7 @@
 # exec_prog
 
 ## Location
-src/bin/pg_upgrade/exec.c: 85 - 91
+[src/bin/pg_upgrade/exec.c:85-91](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_upgrade/exec.c#L85-L91)
 
 ## Overview
 Executes external programs with stdout/stderr redirection and error handling, primarily used by pg_upgrade for running PostgreSQL utilities and commands during the upgrade process.

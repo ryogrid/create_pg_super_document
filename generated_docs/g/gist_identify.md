@@ -1,7 +1,7 @@
 # gist_identify
 
 ## Location
-src/backend/access/rmgrdesc/gistdesc.c: 90 - 117
+[src/backend/access/rmgrdesc/gistdesc.c:90-117](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/rmgrdesc/gistdesc.c#L90-L117)
 
 ## Overview
 The gist_identify function returns human-readable string identifiers for different types of GiST (Generalized Search Tree) WAL record operations.

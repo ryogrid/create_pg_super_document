@@ -1,7 +1,7 @@
 # libpqsrv_connect_params
 
 ## Location
-src/include/libpq/libpq-be-fe-helpers.h: 84 - 106
+[src/include/libpq/libpq-be-fe-helpers.h:84-106](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/libpq-be-fe-helpers.h#L84-L106)
 
 ## Overview
 A convenience wrapper around PQconnectdbParams() that handles file descriptor reservation and processes interrupts during connection establishment using parameter arrays.

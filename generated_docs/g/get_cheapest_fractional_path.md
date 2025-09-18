@@ -1,7 +1,7 @@
 # get_cheapest_fractional_path
 
 ## Location
-src/backend/optimizer/plan/planner.c: 6499 - 6541
+[src/backend/optimizer/plan/planner.c:6499-6541](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planner.c#L6499-L6541)
 
 ## Overview
 Finds the cheapest path for retrieving a specified fraction of all tuples expected to be returned by a given relation.

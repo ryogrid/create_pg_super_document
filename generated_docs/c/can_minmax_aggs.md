@@ -1,7 +1,7 @@
 # can_minmax_aggs
 
 ## Location
-src/backend/optimizer/plan/planagg.c: 236 - 315
+[src/backend/optimizer/plan/planagg.c:236-315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/planagg.c#L236-L315)
 
 ## Overview
 Examines all aggregates in a query to verify they are MIN/MAX aggregates and builds a list of MinMaxAggInfo nodes for optimization planning.

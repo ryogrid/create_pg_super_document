@@ -1,7 +1,7 @@
 # pg_mbcliplen
 
 ## Location
-src/backend/utils/mb/mbutils.c: 1083 - 1092
+[src/backend/utils/mb/mbutils.c:1083-1092](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L1083-L1092)
 
 ## Overview
 Returns the byte length of a multibyte string up to a specified limit, ensuring multibyte character boundaries are not broken.

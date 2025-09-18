@@ -1,7 +1,7 @@
 # SpGistNewBuffer
 
 ## Location
-src/backend/access/spgist/spgutils.c: 386 - 441
+[src/backend/access/spgist/spgutils.c:386-441](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/spgist/spgutils.c#L386-L441)
 
 ## Overview
 Allocates a new buffer page for a SP-GiST index, either by recycling a free page from the Free Space Map (FSM) or by extending the index file with a new page.

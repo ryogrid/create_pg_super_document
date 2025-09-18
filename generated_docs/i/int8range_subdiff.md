@@ -1,7 +1,7 @@
 # int8range_subdiff
 
 ## Location
-src/backend/utils/adt/rangetypes.c: 1630 - 1638
+[src/backend/utils/adt/rangetypes.c:1630-1638](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/rangetypes.c#L1630-L1638)
 
 ## Overview
 Computes the difference between two bigint values for use in range type operations, returning the result as a float8 value.

@@ -1,7 +1,7 @@
 # ExecComputeStoredGenerated
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 473 - 568
+[src/backend/executor/nodeModifyTable.c:473-568](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L473-L568)
 
 ## Overview
 Computes stored generated columns for a tuple by evaluating their generation expressions and updating the tuple slot with the computed values.

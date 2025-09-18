@@ -1,7 +1,7 @@
 # sigTermHandler
 
 ## Location
-src/bin/pg_dump/parallel.c: 545 - 607
+[src/bin/pg_dump/parallel.c:545-607](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/parallel.c#L545-L607)
 
 ## Overview
 Unix-only signal handler function that manages graceful termination of pg_dump processes in both single-process and parallel operation modes, forwarding termination signals to worker processes and canceling active database operations.

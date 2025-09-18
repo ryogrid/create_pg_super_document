@@ -1,7 +1,7 @@
 # shm_mq_inc_bytes_read
 
 ## Location
-src/backend/storage/ipc/shm_mq.c: 1270 - 1302
+[src/backend/storage/ipc/shm_mq.c:1270-1302](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/ipc/shm_mq.c#L1270-L1302)
 
 ## Overview
 Atomically increments the count of bytes read from a shared message queue and signals the sender process that buffer space has become available.

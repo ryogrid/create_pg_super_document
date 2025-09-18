@@ -1,7 +1,7 @@
 # NISortAffixes
 
 ## Location
-src/backend/tsearch/spell.c: 1976 - 2027
+[src/backend/tsearch/spell.c:1976-2027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/tsearch/spell.c#L1976-L2027)
 
 ## Overview
 NISortAffixes builds the complete affix tree structures (Prefix and Suffix trees) and manages compound affixes from the imported affix rules.

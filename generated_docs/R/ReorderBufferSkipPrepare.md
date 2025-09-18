@@ -1,7 +1,7 @@
 # ReorderBufferSkipPrepare
 
 ## Location
-src/backend/replication/logical/reorderbuffer.c: 2827 - 2845
+[src/backend/replication/logical/reorderbuffer.c:2827-2845](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/reorderbuffer.c#L2827-L2845)
 
 ## Overview
 Marks a transaction with a flag indicating that its prepare phase has been skipped during logical replication processing.

@@ -1,7 +1,7 @@
 # jsonb_in
 
 ## Location
-src/backend/utils/adt/jsonb.c: 73 - 88
+[src/backend/utils/adt/jsonb.c:73-88](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb.c#L73-L88)
 
 ## Overview
 The  function is the input function for the JSONB data type, responsible for converting string representations of JSON into PostgreSQL's internal JSONB format.

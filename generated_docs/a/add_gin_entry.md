@@ -1,7 +1,7 @@
 # add_gin_entry
 
 ## Location
-src/backend/utils/adt/jsonb_gin.c: 172 - 202
+[src/backend/utils/adt/jsonb_gin.c:172-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonb_gin.c#L172-L202)
 
 ## Overview
 Adds a new Datum entry to a GinEntries buffer, automatically resizing the buffer when necessary and returning the index of the added entry.

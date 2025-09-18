@@ -1,7 +1,7 @@
 # get_switched_clauses
 
 ## Location
-src/backend/optimizer/plan/createplan.c: 5239 - 5315
+[src/backend/optimizer/plan/createplan.c:5239-5315](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/createplan.c#L5239-L5315)
 
 ## Overview
 Extracts and rearranges join clauses to ensure the outer join variable is on the left and the inner variable is on the right, creating a modified list of clauses for merge or hash joins.

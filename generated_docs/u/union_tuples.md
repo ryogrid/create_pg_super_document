@@ -1,7 +1,7 @@
 # union_tuples
 
 ## Location
-src/backend/access/brin/brin.c: 2022 - 2162
+[src/backend/access/brin/brin.c:2022-2162](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin.c#L2022-L2162)
 
 ## Overview
 Merges two BRIN tuples by adjusting the first deformed tuple to be consistent with the summary values in both tuples, effectively creating a union of their summarized data ranges.

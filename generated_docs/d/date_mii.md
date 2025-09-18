@@ -1,7 +1,7 @@
 # date_mii
 
 ## Location
-src/backend/utils/adt/date.c: 528 - 563
+[src/backend/utils/adt/date.c:528-563](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L528-L563)
 
 ## Overview
 Subtracts a specified number of days from a date value, returning a new date.

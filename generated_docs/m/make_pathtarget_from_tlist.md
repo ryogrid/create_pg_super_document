@@ -1,7 +1,7 @@
 # make_pathtarget_from_tlist
 
 ## Location
-src/backend/optimizer/util/tlist.c: 591 - 623
+[src/backend/optimizer/util/tlist.c:591-623](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/tlist.c#L591-L623)
 
 ## Overview
 Constructs a PathTarget data structure from a given targetlist, serving as a lightweight representation that strips away TargetEntry decorations while preserving essential expression and sorting information.

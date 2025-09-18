@@ -1,7 +1,7 @@
 # box_width
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 808 - 819
+[src/backend/utils/adt/geo_ops.c:808-819](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L808-L819)
 
 ## Overview
 The  function calculates and returns the width (horizontal magnitude) of a PostgreSQL BOX geometry as a floating-point number.

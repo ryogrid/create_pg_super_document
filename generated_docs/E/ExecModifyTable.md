@@ -1,7 +1,7 @@
 # ExecModifyTable
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 3953 - 4372
+[src/backend/executor/nodeModifyTable.c:3953-4372](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L3953-L4372)
 
 ## Overview
 The main execution function for ModifyTable plan nodes, processing INSERT, UPDATE, DELETE, and MERGE operations while handling triggers, tuple routing, and RETURNING clauses.

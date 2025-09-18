@@ -1,7 +1,7 @@
 # heap_copy_tuple_as_datum
 
 ## Location
-src/backend/access/common/heaptuple.c: 1080 - 1115
+[src/backend/access/common/heaptuple.c:1080-1115](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/heaptuple.c#L1080-L1115)
 
 ## Overview
 Copies a HeapTuple and converts it into a composite-type Datum suitable for use in PostgreSQL's type system.

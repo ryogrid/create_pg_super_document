@@ -1,7 +1,7 @@
 # match_boolean_partition_clause
 
 ## Location
-src/backend/partitioning/partprune.c: 3673 - 3759
+[src/backend/partitioning/partprune.c:3673-3759](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L3673-L3759)
 
 ## Overview
 Matches boolean clauses against a partition key to determine if they can be used for partition pruning, handling various forms of boolean tests and expressions.

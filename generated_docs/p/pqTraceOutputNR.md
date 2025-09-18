@@ -1,7 +1,7 @@
 # pqTraceOutputNR
 
 ## Location
-src/interfaces/libpq/fe-trace.c: 300 - 319
+[src/interfaces/libpq/fe-trace.c:300-319](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/libpq/fe-trace.c#L300-L319)
 
 ## Overview
 A static utility function that outputs trace information for NoticeResponse and ErrorResponse messages in PostgreSQL's libpq protocol tracing.

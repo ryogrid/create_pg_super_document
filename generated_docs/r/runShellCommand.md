@@ -1,7 +1,7 @@
 # runShellCommand
 
 ## Location
-src/bin/pgbench/pgbench.c: 2922 - 3027
+[src/bin/pgbench/pgbench.c:2922-3027](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L2922-L3027)
 
 ## Overview
 Executes a shell command constructed from argument variables and optionally captures its integer output to assign to a pgbench variable.

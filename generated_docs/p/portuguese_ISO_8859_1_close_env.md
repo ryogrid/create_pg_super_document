@@ -1,7 +1,7 @@
 # portuguese_ISO_8859_1_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c: 960 - 961
+[src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c:960-961](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_ISO_8859_1_portuguese.c#L960-L961)
 
 ## Overview
 A cleanup function that properly deallocates and destroys a Snowball environment structure that was previously created for Portuguese stemming with ISO-8859-1 character encoding.

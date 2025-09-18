@@ -1,7 +1,7 @@
 # btrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 342 - 361
+[src/backend/utils/adt/oracle_compat.c:342-361](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L342-L361)
 
 ## Overview
 The btrim function removes characters from both the front and back of a text string based on a specified set of characters to remove.

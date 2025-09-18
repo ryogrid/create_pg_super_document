@@ -1,7 +1,7 @@
 # path_in
 
 ## Location
-src/backend/utils/adt/geo_ops.c: 1402 - 1473
+[src/backend/utils/adt/geo_ops.c:1402-1473](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/geo_ops.c#L1402-L1473)
 
 ## Overview
 Parses a string representation of a geometric path and converts it into PostgreSQL's internal PATH data structure.

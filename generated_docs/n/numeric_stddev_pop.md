@@ -1,7 +1,7 @@
 # numeric_stddev_pop
 
 ## Location
-src/backend/utils/adt/numeric.c: 6357 - 6374
+[src/backend/utils/adt/numeric.c:6357-6374](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L6357-L6374)
 
 ## Overview
 Computes the population standard deviation of numeric values from an aggregate state, providing the final result for the STDDEV_POP() aggregate function.

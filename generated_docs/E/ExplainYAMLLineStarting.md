@@ -1,7 +1,7 @@
 # ExplainYAMLLineStarting
 
 ## Location
-src/backend/commands/explain.c: 5274 - 5298
+[src/backend/commands/explain.c:5274-5298](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/explain.c#L5274-L5298)
 
 ## Overview
 A utility function that handles proper indentation for YAML line formatting in EXPLAIN output, managing line breaks and spacing according to YAML structure requirements.

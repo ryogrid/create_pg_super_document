@@ -1,7 +1,7 @@
 # PhysicalWakeupLogicalWalSnd
 
 ## Location
-src/backend/replication/walsender.c: 1737 - 1761
+[src/backend/replication/walsender.c:1737-1761](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/walsender.c#L1737-L1761)
 
 ## Overview
 PhysicalWakeupLogicalWalSnd notifies logical WAL senders with failover slots when a synchronized physical replication slot advances, enabling coordinated failover behavior.

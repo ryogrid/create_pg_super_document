@@ -1,7 +1,7 @@
 # MakeTupleTableSlot
 
 ## Location
-src/backend/executor/execTuples.c: 1199 - 1257
+[src/backend/executor/execTuples.c:1199-1257](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execTuples.c#L1199-L1257)
 
 ## Overview
 Creates and initializes an empty TupleTableSlot of a specified type, with optional tuple descriptor for optimized memory allocation and fixed lifetime schema.

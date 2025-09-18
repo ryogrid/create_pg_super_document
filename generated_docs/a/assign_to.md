@@ -1,7 +1,7 @@
 # assign_to
 
 ## Location
-src/backend/snowball/libstemmer/utilities.c: 466 - 477
+[src/backend/snowball/libstemmer/utilities.c:466-477](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/utilities.c#L466-L477)
 
 ## Overview
 A function in the Snowball stemming library that copies the entire working buffer to a destination buffer, essentially making a complete copy of the current string.

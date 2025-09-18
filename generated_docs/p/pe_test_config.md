@@ -1,7 +1,7 @@
 # pe_test_config
 
 ## Location
-src/test/modules/test_escape/test_escape.c: 24 - 33
+[src/test/modules/test_escape/test_escape.c:24-33](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/modules/test_escape/test_escape.c#L24-L33)
 
 ## Overview
 A configuration structure that manages test execution parameters and state for the PostgreSQL escape function test module.

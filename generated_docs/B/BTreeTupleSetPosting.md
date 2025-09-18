@@ -1,7 +1,7 @@
 # BTreeTupleSetPosting
 
 ## Location
-src/include/access/nbtree.h: 504 - 517
+[src/include/access/nbtree.h:504-517](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/nbtree.h#L504-L517)
 
 ## Overview
 BTreeTupleSetPosting is an inline function that configures an IndexTuple to be a posting list tuple by setting appropriate flags and storing the number of heap TIDs and posting offset information.

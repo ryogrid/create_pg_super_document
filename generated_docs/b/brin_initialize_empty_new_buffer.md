@@ -1,7 +1,7 @@
 # brin_initialize_empty_new_buffer
 
 ## Location
-src/backend/access/brin/brin_pageops.c: 884 - 915
+[src/backend/access/brin/brin_pageops.c:884-915](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_pageops.c#L884-L915)
 
 ## Overview
 Initializes a buffer as an empty regular BRIN index page, logs the initialization for crash recovery, and records the page's free space in the FSM.

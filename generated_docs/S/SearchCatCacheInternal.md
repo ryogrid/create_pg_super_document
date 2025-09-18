@@ -1,7 +1,7 @@
 # SearchCatCacheInternal
 
 ## Location
-src/backend/utils/cache/catcache.c: 1363 - 1474
+[src/backend/utils/cache/catcache.c:1363-1474](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/catcache.c#L1363-L1474)
 
 ## Overview
 Internal work-horse function for catalog cache searching that handles the core lookup logic for SearchCatCache and SearchCatCacheN functions.

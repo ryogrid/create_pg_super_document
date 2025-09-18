@@ -1,7 +1,7 @@
 # run_simple_query
 
 ## Location
-src/bin/pg_rewind/libpq_source.c: 164 - 191
+[src/bin/pg_rewind/libpq_source.c:164-191](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_rewind/libpq_source.c#L164-L191)
 
 ## Overview
 Executes a SQL query that is expected to return a single string value and returns that value as a dynamically allocated string.

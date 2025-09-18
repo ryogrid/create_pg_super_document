@@ -1,7 +1,7 @@
 # asyncQueueFillWarning
 
 ## Location
-src/backend/commands/async.c: 1527 - 1580
+[src/backend/commands/async.c:1527-1580](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L1527-L1580)
 
 ## Overview
 Internal function that monitors notification queue utilization and emits warnings when the queue becomes at least 50% full, with rate limiting to prevent excessive warning messages.

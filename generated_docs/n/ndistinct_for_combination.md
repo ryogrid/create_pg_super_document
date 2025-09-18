@@ -1,7 +1,7 @@
 # ndistinct_for_combination
 
 ## Location
-src/backend/statistics/mvdistinct.c: 425 - 520
+[src/backend/statistics/mvdistinct.c:425-520](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/statistics/mvdistinct.c#L425-L520)
 
 ## Overview
 A static function that estimates the number of distinct values in a combination of columns using PostgreSQL's standard n-distinct estimator algorithm.

@@ -1,7 +1,7 @@
 # array_to_tsvector
 
 ## Location
-src/backend/utils/adt/tsvector_op.c: 747 - 818
+[src/backend/utils/adt/tsvector_op.c:747-818](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/tsvector_op.c#L747-L818)
 
 ## Overview
 Constructs a TSVector from an array of lexeme strings, creating a valid full-text search vector with sorted and deduplicated lexemes.

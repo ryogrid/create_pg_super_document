@@ -1,7 +1,7 @@
 # jsonb_insert
 
 ## Location
-src/backend/utils/adt/jsonfuncs.c: 5003 - 5051
+[src/backend/utils/adt/jsonfuncs.c:5003-5051](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonfuncs.c#L5003-L5051)
 
 ## Overview
 Inserts a new value at a specified path in a JSONB structure, with the option to insert before or after an existing element.

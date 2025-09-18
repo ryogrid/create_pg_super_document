@@ -1,7 +1,7 @@
 # ftod
 
 ## Location
-src/backend/utils/adt/float.c: 1176 - 1187
+[src/backend/utils/adt/float.c:1176-1187](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/float.c#L1176-L1187)
 
 ## Overview
 A conversion function that converts a float4 (single precision) number to a float8 (double precision) number.

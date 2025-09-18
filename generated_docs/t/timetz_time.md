@@ -1,7 +1,7 @@
 # timetz_time
 
 ## Location
-src/backend/utils/adt/date.c: 2815 - 2827
+[src/backend/utils/adt/date.c:2815-2827](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/date.c#L2815-L2827)
 
 ## Overview
 Extracts the time portion from a time with time zone (TimeTzADT) value, discarding the timezone information and returning a plain time (TimeADT) value.

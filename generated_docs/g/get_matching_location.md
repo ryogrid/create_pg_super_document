@@ -1,7 +1,7 @@
 # get_matching_location
 
 ## Location
-src/backend/parser/parse_clause.c: 3176 - 3200
+[src/backend/parser/parse_clause.c:3176-3200](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_clause.c#L3176-L3200)
 
 ## Overview
 A utility function that finds the parse location of an expression in the original DISTINCT ON list that corresponds to a specific sort group reference, used for precise error reporting.

@@ -1,7 +1,7 @@
 # percentile_cont_interval_final
 
 ## Location
-src/backend/utils/adt/orderedsetaggs.c: 622 - 633
+[src/backend/utils/adt/orderedsetaggs.c:622-633](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/orderedsetaggs.c#L622-L633)
 
 ## Overview
 PostgreSQL function implementing the PERCENTILE_CONT ordered-set aggregate for interval data types with continuous percentile calculation and interpolation.

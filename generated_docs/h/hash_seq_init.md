@@ -1,7 +1,7 @@
 # hash_seq_init
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1388 - 1397
+[src/backend/utils/hash/dynahash.c:1388-1397](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1388-L1397)
 
 ## Overview
 Initializes a sequential scan over a PostgreSQL dynamic hash table, setting up the iteration state to traverse all entries in the table.

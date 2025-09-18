@@ -1,7 +1,7 @@
 # DoLockModesConflict
 
 ## Location
-src/backend/storage/lmgr/lock.c: 570 - 589
+[src/backend/storage/lmgr/lock.c:570-589](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/storage/lmgr/lock.c#L570-L589)
 
 ## Overview
 A utility function that determines whether two lock modes would conflict with each other by consulting the default lock method's conflict table.

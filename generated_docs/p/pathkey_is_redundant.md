@@ -1,7 +1,7 @@
 # pathkey_is_redundant
 
 ## Location
-src/backend/optimizer/path/pathkeys.c: 158 - 196
+[src/backend/optimizer/path/pathkeys.c:158-196](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/pathkeys.c#L158-L196)
 
 ## Overview
 Determines whether a PathKey is redundant with respect to an existing list of PathKeys, helping optimize query plans by eliminating unnecessary sort operations.

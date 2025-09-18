@@ -1,7 +1,7 @@
 # spgxlogAddLeaf
 
 ## Location
-src/include/access/spgxlog.h: 46 - 57
+[src/include/access/spgxlog.h:46-57](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/access/spgxlog.h#L46-L57)
 
 ## Overview
 The spgxlogAddLeaf structure contains WAL record data for SP-GiST operations that add a new leaf tuple to the index.

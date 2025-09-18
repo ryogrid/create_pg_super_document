@@ -1,7 +1,7 @@
 # SerializePendingSyncs
 
 ## Location
-src/backend/catalog/storage.c: 584 - 634
+[src/backend/catalog/storage.c:584-634](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/storage.c#L584-L634)
 
 ## Overview
 SerializePendingSyncs serializes pending sync operations for parallel workers, allowing them to inherit the sync requirements from the main process.

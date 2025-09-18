@@ -1,7 +1,7 @@
 # _transformInfo
 
 ## Location
-src/bin/pg_dump/pg_dump.h: 517 - 523
+[src/bin/pg_dump/pg_dump.h:517-523](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.h#L517-L523)
 
 ## Overview
 The  structure represents transform information in PostgreSQL's pg_dump utility, storing metadata about how data types are converted between SQL and procedural languages.

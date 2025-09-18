@@ -1,7 +1,7 @@
 # get_partition_ancestors
 
 ## Location
-src/backend/catalog/partition.c: 134 - 152
+[src/backend/catalog/partition.c:134-152](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/partition.c#L134-L152)
 
 ## Overview
 Obtains all ancestors of a given partition relation, returning them as a list ordered from immediate parent to topmost parent.

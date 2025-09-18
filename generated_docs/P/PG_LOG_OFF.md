@@ -1,7 +1,7 @@
 # PG_LOG_OFF
 
 ## Location
-src/include/common/logging.h: 48 - 60
+[src/include/common/logging.h:48-60](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/common/logging.h#L48-L60)
 
 ## Overview
 PG_LOG_OFF is an enum value in the pg_log_level enumeration that represents a special log level used to turn off all logging functionality in PostgreSQL frontend programs.

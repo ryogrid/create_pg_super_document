@@ -1,7 +1,7 @@
 # GetSessionUserIsSuperuser
 
 ## Location
-src/backend/utils/init/miscinit.c: 561 - 567
+[src/backend/utils/init/miscinit.c:561-567](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/init/miscinit.c#L561-L567)
 
 ## Overview
 GetSessionUserIsSuperuser returns whether the current session user has superuser privileges, providing session-level superuser status information.

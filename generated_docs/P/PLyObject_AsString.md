@@ -1,7 +1,7 @@
 # PLyObject_AsString
 
 ## Location
-src/pl/plpython/plpy_typeio.c: 1024 - 1073
+[src/pl/plpython/plpy_typeio.c:1024-1073](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_typeio.c#L1024-L1073)
 
 ## Overview
 Converts a Python object to a C string in PostgreSQL server encoding, with special handling for different Python object types and comprehensive validation.

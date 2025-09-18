@@ -1,7 +1,7 @@
 # btint2sortsupport
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 100 - 108
+[src/backend/access/nbtree/nbtcompare.c:100-108](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L100-L108)
 
 ## Overview
 This function initializes and configures sort support for 16-bit signed integer (smallint) operations in PostgreSQL, setting up optimized comparison functions for sorting performance.

@@ -1,7 +1,7 @@
 # get_func_rettype
 
 ## Location
-src/backend/utils/cache/lsyscache.c: 1655 - 1673
+[src/backend/utils/cache/lsyscache.c:1655-1673](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/lsyscache.c#L1655-L1673)
 
 ## Overview
 Returns the result type OID of a given function by looking up the function's return type in the system catalog.

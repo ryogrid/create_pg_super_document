@@ -1,7 +1,7 @@
 # bail_out
 
 ## Location
-src/test/regress/pg_regress.c: 254 - 278
+[src/test/regress/pg_regress.c:254-278](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L254-L278)
 
 ## Overview
 A critical error handling function that terminates the test process when unrecoverable errors prevent further testing from continuing.

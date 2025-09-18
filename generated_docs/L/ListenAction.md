@@ -1,7 +1,7 @@
 # ListenAction
 
 ## Location
-src/backend/commands/async.c: 343 - 344
+[src/backend/commands/async.c:343-344](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/async.c#L343-L344)
 
 ## Overview
 ListenAction is a structure that represents a queued LISTEN/NOTIFY operation, containing both the action type and the channel name for deferred execution during transaction commit.

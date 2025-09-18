@@ -1,7 +1,7 @@
 # TidStoreIsMember
 
 ## Location
-src/backend/access/common/tidstore.c: 432 - 481
+[src/backend/access/common/tidstore.c:432-481](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/tidstore.c#L432-L481)
 
 ## Overview
 Tests whether a given TID (Tuple Identifier) is present in the TidStore, returning true if found.

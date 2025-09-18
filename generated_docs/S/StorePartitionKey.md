@@ -1,7 +1,7 @@
 # StorePartitionKey
 
 ## Location
-src/backend/catalog/heap.c: 3376 - 3500
+[src/backend/catalog/heap.c:3376-3500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L3376-L3500)
 
 ## Overview
 Stores partition key information for a partitioned table into the pg_partitioned_table system catalog, establishing the necessary metadata and dependencies for table partitioning.

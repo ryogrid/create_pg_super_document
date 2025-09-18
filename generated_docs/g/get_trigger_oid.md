@@ -1,7 +1,7 @@
 # get_trigger_oid
 
 ## Location
-src/backend/commands/trigger.c: 1366 - 1415
+[src/backend/commands/trigger.c:1366-1415](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/trigger.c#L1366-L1415)
 
 ## Overview
 get_trigger_oid is a utility function that looks up a trigger by name and relation ID to return its OID, with optional error handling for missing triggers.

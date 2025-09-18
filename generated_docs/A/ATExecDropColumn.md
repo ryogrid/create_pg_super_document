@@ -1,7 +1,7 @@
 # ATExecDropColumn
 
 ## Location
-src/backend/commands/tablecmds.c: 8978 - 9178
+[src/backend/commands/tablecmds.c:8978-9178](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/tablecmds.c#L8978-L9178)
 
 ## Overview
 ATExecDropColumn implements the execution phase of ALTER TABLE DROP COLUMN, handling the complex logic of dropping columns from tables while managing inheritance hierarchies, partition constraints, and cascading effects.

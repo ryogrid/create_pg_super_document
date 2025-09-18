@@ -1,7 +1,7 @@
 # pq_begintypsend
 
 ## Location
-src/backend/libpq/pqformat.c: 326 - 345
+[src/backend/libpq/pqformat.c:326-345](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/pqformat.c#L326-L345)
 
 ## Overview
 Initializes a StringInfo buffer for constructing a bytea result that will be sent over the PostgreSQL wire protocol.

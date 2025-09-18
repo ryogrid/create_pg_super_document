@@ -1,7 +1,7 @@
 # btint84cmp
 
 ## Location
-src/backend/access/nbtree/nbtcompare.c: 189 - 202
+[src/backend/access/nbtree/nbtcompare.c:189-202](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtcompare.c#L189-L202)
 
 ## Overview
 A B-tree comparison function that compares an 8-byte (int64) integer with a 4-byte (int32) integer, returning the ordering relationship between the two values.

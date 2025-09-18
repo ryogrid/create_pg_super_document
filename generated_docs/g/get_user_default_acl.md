@@ -1,7 +1,7 @@
 # get_user_default_acl
 
 ## Location
-src/backend/catalog/aclchk.c: 4306 - 4381
+[src/backend/catalog/aclchk.c:4306-4381](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/aclchk.c#L4306-L4381)
 
 ## Overview
 Retrieves the appropriate default ACL for newly created objects within a given schema by merging global and schema-specific default privileges, returning NULL if built-in system defaults should be used.

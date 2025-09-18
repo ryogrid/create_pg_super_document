@@ -1,7 +1,7 @@
 # length_in_encoding
 
 ## Location
-src/backend/utils/mb/mbutils.c: 615 - 643
+[src/backend/utils/mb/mbutils.c:615-643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/mb/mbutils.c#L615-L643)
 
 ## Overview
 A PostgreSQL function that calculates the length of a string in characters when interpreted in a specified character encoding, while validating that the byte sequence is valid for that encoding.

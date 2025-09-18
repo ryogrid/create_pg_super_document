@@ -1,7 +1,7 @@
 # MJFillOuter
 
 ## Location
-src/backend/executor/nodeMergejoin.c: 452 - 482
+[src/backend/executor/nodeMergejoin.c:452-482](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeMergejoin.c#L452-L482)
 
 ## Overview
 Generates a fake join tuple with NULLs for the inner tuple columns to handle unmatched outer tuples in left outer joins.

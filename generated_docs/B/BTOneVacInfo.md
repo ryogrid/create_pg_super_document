@@ -1,7 +1,7 @@
 # BTOneVacInfo
 
 ## Location
-src/backend/access/nbtree/nbtutils.c: 4367 - 4371
+[src/backend/access/nbtree/nbtutils.c:4367-4371](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtutils.c#L4367-L4371)
 
 ## Overview
 BTOneVacInfo is a structure that tracks active B-tree vacuum operations by storing the global index identifier and associated vacuum cycle ID for concurrency management.

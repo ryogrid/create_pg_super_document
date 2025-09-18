@@ -1,7 +1,7 @@
 # multirange_constructor2
 
 ## Location
-src/backend/utils/adt/multirangetypes.c: 941 - 1022
+[src/backend/utils/adt/multirangetypes.c:941-1022](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/multirangetypes.c#L941-L1022)
 
 ## Overview
 Constructs a multirange value from an array of ranges, providing the main entry point for creating multiranges from multiple range inputs.

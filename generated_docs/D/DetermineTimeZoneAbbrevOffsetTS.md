@@ -1,7 +1,7 @@
 # DetermineTimeZoneAbbrevOffsetTS
 
 ## Location
-src/backend/utils/adt/datetime.c: 1784 - 1820
+[src/backend/utils/adt/datetime.c:1784-1820](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/datetime.c#L1784-L1820)
 
 ## Overview
 Determines the GMT offset and DST flag for a dynamic time zone abbreviation using a TimestampTz (UTC time) as the probe time, returning DST status via output parameter rather than modifying input structure.

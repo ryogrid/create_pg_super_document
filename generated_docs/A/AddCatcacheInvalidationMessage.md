@@ -1,7 +1,7 @@
 # AddCatcacheInvalidationMessage
 
 ## Location
-src/backend/utils/cache/inval.c: 396 - 423
+[src/backend/utils/cache/inval.c:396-423](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/inval.c#L396-L423)
 
 ## Overview
 AddCatcacheInvalidationMessage is a static function that creates and adds a catalog cache invalidation message to an invalidation message group, specifically targeting entries in the system catalog cache.

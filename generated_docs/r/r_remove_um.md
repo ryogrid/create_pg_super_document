@@ -1,7 +1,7 @@
 # r_remove_um
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_tamil.c: 1124 - 1147
+[src/backend/snowball/libstemmer/stem_UTF_8_tamil.c:1124-1147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_tamil.c#L1124-L1147)
 
 ## Overview
 Removes the specific Tamil "um" suffix pattern and replaces it with a standardized form while applying morphological corrections.

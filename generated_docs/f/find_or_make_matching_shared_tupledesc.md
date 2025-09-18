@@ -1,7 +1,7 @@
 # find_or_make_matching_shared_tupledesc
 
 ## Location
-src/backend/utils/cache/typcache.c: 2756 - 2867
+[src/backend/utils/cache/typcache.c:2756-2867](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/typcache.c#L2756-L2867)
 
 ## Overview
 Searches for an existing shared tuple descriptor that matches the given descriptor, or creates a new one if none exists, managing shared record type registries.

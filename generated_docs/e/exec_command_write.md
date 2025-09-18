@@ -1,7 +1,7 @@
 # exec_command_write
 
 ## Location
-src/bin/psql/command.c: 2751 - 2852
+[src/bin/psql/command.c:2751-2852](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/command.c#L2751-L2852)
 
 ## Overview
 Implements the psql \w command, which writes the contents of the query buffer to a file or pipes it to a shell command.

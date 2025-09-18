@@ -1,7 +1,7 @@
 # XLogwrtRqst
 
 ## Location
-src/backend/access/transam/xlog.c: 320 - 324
+[src/backend/access/transam/xlog.c:320-324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/transam/xlog.c#L320-L324)
 
 ## Overview
 XLogwrtRqst is a shared-memory data structure that tracks byte positions in the Write-Ahead Log (WAL) that need to be written to disk and/or fsynced to ensure durability.

@@ -1,7 +1,7 @@
 # dir_strcmp
 
 ## Location
-src/port/path.c: 689 - 736
+[src/port/path.c:689-736](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/port/path.c#L689-L736)
 
 ## Overview
 A specialized string comparison function for directory paths that treats different directory separators as equivalent and honors filesystem case sensitivity rules.

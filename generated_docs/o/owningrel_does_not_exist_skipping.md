@@ -1,7 +1,7 @@
 # owningrel_does_not_exist_skipping
 
 ## Location
-src/backend/commands/dropcmds.c: 139 - 173
+[src/backend/commands/dropcmds.c:139-173](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/commands/dropcmds.c#L139-L173)
 
 ## Overview
 owningrel_does_not_exist_skipping is a helper function that determines whether a missing rule or trigger should be skipped because its owning relation or schema doesn't exist, rather than the object itself being missing.

@@ -1,7 +1,7 @@
 # macaddr_out
 
 ## Location
-src/backend/utils/adt/mac.c: 121 - 139
+[src/backend/utils/adt/mac.c:121-139](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/mac.c#L121-L139)
 
 ## Overview
 This function converts PostgreSQL's internal macaddr data type to its string representation in a standardized colon-separated hexadecimal format.

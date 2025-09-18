@@ -1,7 +1,7 @@
 # r_steps9
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_greek.c: 2830 - 2861
+[src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2830-2861](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_greek.c#L2830-L2861)
 
 ## Overview
 A static function that implements step 9 of the Greek language stemming algorithm, performing suffix pattern matching and replacement with specific character validation checks.

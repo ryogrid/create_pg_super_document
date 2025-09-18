@@ -1,7 +1,7 @@
 # update_grouptailpos
 
 ## Location
-src/backend/executor/nodeWindowAgg.c: 1985 - 2045
+[src/backend/executor/nodeWindowAgg.c:1985-2045](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeWindowAgg.c#L1985-L2045)
 
 ## Overview
 A static function that computes and sets the group tail position for the current row in window function processing, identifying the first row after the current peer group for GROUPS-based frame operations.

@@ -1,7 +1,7 @@
 # dumpExtension
 
 ## Location
-src/bin/pg_dump/pg_dump.c: 10792 - 10919
+[src/bin/pg_dump/pg_dump.c:10792-10919](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_dump/pg_dump.c#L10792-L10919)
 
 ## Overview
 Generates SQL commands to recreate a PostgreSQL extension during database restore, with different strategies for regular dumps versus binary upgrade scenarios.

@@ -1,7 +1,7 @@
 # add_local_real_reloption
 
 ## Location
-src/backend/access/common/reloptions.c: 972 - 988
+[src/backend/access/common/reloptions.c:972-988](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/common/reloptions.c#L972-L988)
 
 ## Overview
 The add_local_real_reloption function adds a new local floating-point reloption (relation option) with specified validation constraints and default value.

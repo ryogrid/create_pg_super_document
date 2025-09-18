@@ -1,7 +1,7 @@
 # win32_deadchild_waitinfo
 
 ## Location
-src/backend/postmaster/postmaster.c: 462 - 469
+[src/backend/postmaster/postmaster.c:462-469](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/postmaster.c#L462-L469)
 
 ## Overview
 win32_deadchild_waitinfo is a Windows-specific struct that holds information needed to track child process completion using Windows' I/O completion ports mechanism.

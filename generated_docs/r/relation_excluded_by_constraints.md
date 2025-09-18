@@ -1,7 +1,7 @@
 # relation_excluded_by_constraints
 
 ## Location
-src/backend/optimizer/util/plancat.c: 1576 - 1763
+[src/backend/optimizer/util/plancat.c:1576-1763](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/util/plancat.c#L1576-L1763)
 
 ## Overview
 Determines whether a relation can be excluded from scanning based on constraint analysis, detecting self-inconsistent restrictions or restrictions that contradict the relation's constraints.

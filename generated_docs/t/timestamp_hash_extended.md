@@ -1,7 +1,7 @@
 # timestamp_hash_extended
 
 ## Location
-src/backend/utils/adt/timestamp.c: 2315 - 2324
+[src/backend/utils/adt/timestamp.c:2315-2324](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/timestamp.c#L2315-L2324)
 
 ## Overview
 The timestamp_hash_extended function computes an extended hash value for timestamp data types by delegating to the hashint8extended function.

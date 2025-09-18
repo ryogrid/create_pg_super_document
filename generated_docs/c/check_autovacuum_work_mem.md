@@ -1,7 +1,7 @@
 # check_autovacuum_work_mem
 
 ## Location
-src/backend/postmaster/autovacuum.c: 3364 - 3384
+[src/backend/postmaster/autovacuum.c:3364-3384](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/postmaster/autovacuum.c#L3364-L3384)
 
 ## Overview
 check_autovacuum_work_mem is a GUC (Grand Unified Configuration) validation function that validates and adjusts the autovacuum_work_mem configuration parameter to ensure it meets minimum requirements.

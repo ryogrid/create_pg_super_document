@@ -1,7 +1,7 @@
 # make_directory
 
 ## Location
-src/test/regress/pg_regress.c: 1326 - 1335
+[src/test/regress/pg_regress.c:1326-1335](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/test/regress/pg_regress.c#L1326-L1335)
 
 ## Overview
 A utility function that creates a directory with full permissions for all users (owner, group, and others).

@@ -1,7 +1,7 @@
 # float8_numeric
 
 ## Location
-src/backend/utils/adt/numeric.c: 4609 - 4643
+[src/backend/utils/adt/numeric.c:4609-4643](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/numeric.c#L4609-L4643)
 
 ## Overview
 Converts a PostgreSQL float8 (double precision) value to a Numeric type, handling special floating-point values like NaN and infinity.

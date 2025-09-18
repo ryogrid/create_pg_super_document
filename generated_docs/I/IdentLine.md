@@ -1,7 +1,7 @@
 # IdentLine
 
 ## Location
-src/include/libpq/hba.h: 140 - 147
+[src/include/libpq/hba.h:140-147](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/libpq/hba.h#L140-L147)
 
 ## Overview
 IdentLine is a structure that represents a single parsed line from the pg_ident.conf configuration file, defining user mapping rules between system users and PostgreSQL users.

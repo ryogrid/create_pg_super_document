@@ -1,7 +1,7 @@
 # addToArray
 
 ## Location
-src/backend/utils/misc/tzparser.c: 188 - 275
+[src/backend/utils/misc/tzparser.c:188-275](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/tzparser.c#L188-L275)
 
 ## Overview
 Inserts a timezone entry into a sorted array while maintaining alphabetical order and handling duplicate entries.

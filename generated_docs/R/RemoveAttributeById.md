@@ -1,7 +1,7 @@
 # RemoveAttributeById
 
 ## Location
-src/backend/catalog/heap.c: 1666 - 1766
+[src/backend/catalog/heap.c:1666-1766](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/heap.c#L1666-L1766)
 
 ## Overview
 RemoveAttributeById is the core function for ALTER TABLE DROP COLUMN operations that marks an attribute as deleted in the pg_attribute system catalog and removes associated statistical entries.

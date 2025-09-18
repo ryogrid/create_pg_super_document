@@ -1,7 +1,7 @@
 # make_partitionedrel_pruneinfo
 
 ## Location
-src/backend/partitioning/partprune.c: 438 - 713
+[src/backend/partitioning/partprune.c:438-713](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/partitioning/partprune.c#L438-L713)
 
 ## Overview
 Builds a list of PartitionedRelPruneInfo structures for each partitioned relation in a hierarchy, enabling runtime partition pruning during query execution.

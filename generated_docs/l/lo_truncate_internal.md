@@ -1,7 +1,7 @@
 # lo_truncate_internal
 
 ## Location
-src/backend/libpq/be-fsstubs.c: 553 - 573
+[src/backend/libpq/be-fsstubs.c:553-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/libpq/be-fsstubs.c#L553-L573)
 
 ## Overview
 Internal static function that truncates an open large object to a specified length using a file descriptor.

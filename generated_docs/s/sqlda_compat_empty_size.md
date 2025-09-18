@@ -1,7 +1,7 @@
 # sqlda_compat_empty_size
 
 ## Location
-src/interfaces/ecpg/ecpglib/sqlda.c: 45 - 64
+[src/interfaces/ecpg/ecpglib/sqlda.c:45-64](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/ecpglib/sqlda.c#L45-L64)
 
 ## Overview
 Calculates the minimum memory size required for an empty compatibility-mode SQLDA structure that can hold metadata for a given PostgreSQL result set.

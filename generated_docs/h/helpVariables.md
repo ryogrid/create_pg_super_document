@@ -1,7 +1,7 @@
 # helpVariables
 
 ## Location
-src/bin/psql/help.c: 361 - 573
+[src/bin/psql/help.c:361-573](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/psql/help.c#L361-L573)
 
 ## Overview
 The helpVariables function displays comprehensive documentation for all psql variables, display settings, and environment variables that control psql behavior.

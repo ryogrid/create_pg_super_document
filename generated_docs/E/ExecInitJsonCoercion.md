@@ -1,7 +1,7 @@
 # ExecInitJsonCoercion
 
 ## Location
-src/backend/executor/execExpr.c: 4538 - 4560
+[src/backend/executor/execExpr.c:4538-4560](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execExpr.c#L4538-L4560)
 
 ## Overview
 Initializes a EEOP_JSONEXPR_COERCION step to coerce the value given in resv to the specified RETURNING type for JSON expressions.

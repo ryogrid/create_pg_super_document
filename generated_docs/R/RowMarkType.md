@@ -1,7 +1,7 @@
 # RowMarkType
 
 ## Location
-src/include/nodes/plannodes.h: 1335 - 1336
+[src/include/nodes/plannodes.h:1335-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/include/nodes/plannodes.h#L1335-L1336)
 
 ## Overview
 An enumeration that defines different types of row-marking operations used for tuple locking and row identification in PostgreSQL's query execution, particularly for SELECT FOR UPDATE/SHARE operations.

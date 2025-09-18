@@ -1,7 +1,7 @@
 # InvalidateTableSpaceCacheCallback
 
 ## Location
-src/backend/utils/cache/spccache.c: 55 - 77
+[src/backend/utils/cache/spccache.c:55-77](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/cache/spccache.c#L55-L77)
 
 ## Overview
 A cache invalidation callback function that flushes all tablespace cache entries when the pg_tablespace system catalog is updated.

@@ -1,7 +1,7 @@
 # danish_UTF_8_close_env
 
 ## Location
-src/backend/snowball/libstemmer/stem_UTF_8_danish.c: 317 - 318
+[src/backend/snowball/libstemmer/stem_UTF_8_danish.c:317-318](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/snowball/libstemmer/stem_UTF_8_danish.c#L317-L318)
 
 ## Overview
 Destructor function that properly deallocates and cleans up a Danish stemming environment structure and all its associated resources.

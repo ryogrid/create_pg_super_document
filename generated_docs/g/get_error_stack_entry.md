@@ -1,7 +1,7 @@
 # get_error_stack_entry
 
 ## Location
-src/backend/utils/error/elog.c: 755 - 781
+[src/backend/utils/error/elog.c:755-781](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/error/elog.c#L755-L781)
 
 ## Overview
 Allocates and initializes a new error stack entry for PostgreSQL's error handling system, managing the error data stack used during error processing and recovery.

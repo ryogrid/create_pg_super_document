@@ -1,7 +1,7 @@
 # _bt_search_insert
 
 ## Location
-src/backend/access/nbtree/nbtinsert.c: 317 - 407
+[src/backend/access/nbtree/nbtinsert.c:317-407](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtinsert.c#L317-L407)
 
 ## Overview
 A specialized search wrapper for B-tree insertions that implements fastpath optimization for rightmost leaf page insertions.

@@ -1,7 +1,7 @@
 # fix_alternative_subplan
 
 ## Location
-src/backend/optimizer/plan/setrefs.c: 2104 - 2159
+[src/backend/optimizer/plan/setrefs.c:2104-2159](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/plan/setrefs.c#L2104-L2159)
 
 ## Overview
 A cost-based selection function that chooses the most efficient subplan from an AlternativeSubPlan during plan reference fixing, discarding unused alternatives.

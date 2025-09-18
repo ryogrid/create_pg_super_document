@@ -1,7 +1,7 @@
 # bbstreamer_buffer_bytes
 
 ## Location
-src/bin/pg_basebackup/bbstreamer.h: 157 - 174
+[src/bin/pg_basebackup/bbstreamer.h:157-174](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pg_basebackup/bbstreamer.h#L157-L174)
 
 ## Overview
 This convenience function appends a specified number of bytes from incoming data to a bbstreamer's internal buffer and adjusts the data pointer and length accordingly.

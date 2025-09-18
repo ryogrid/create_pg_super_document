@@ -1,7 +1,7 @@
 # jsonpath_send
 
 ## Location
-src/backend/utils/adt/jsonpath.c: 147 - 172
+[src/backend/utils/adt/jsonpath.c:147-172](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/jsonpath.c#L147-L172)
 
 ## Overview
 The  function is a PostgreSQL binary send function for the jsonpath data type, responsible for serializing jsonpath values into PostgreSQL's binary protocol format for transmission.

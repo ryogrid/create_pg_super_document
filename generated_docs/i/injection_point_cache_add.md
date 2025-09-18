@@ -1,7 +1,7 @@
 # injection_point_cache_add
 
 ## Location
-src/backend/utils/misc/injection_point.c: 117 - 161
+[src/backend/utils/misc/injection_point.c:117-161](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/misc/injection_point.c#L117-L161)
 
 ## Overview
 Adds an injection point entry to the local backend cache, creating a hash table if this is the first injection point being cached.

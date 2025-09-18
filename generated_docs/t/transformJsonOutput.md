@@ -1,7 +1,7 @@
 # transformJsonOutput
 
 ## Location
-src/backend/parser/parse_expr.c: 3500 - 3546
+[src/backend/parser/parse_expr.c:3500-3546](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/parser/parse_expr.c#L3500-L3546)
 
 ## Overview
 Transforms a JSON output clause from parse tree representation to an internal JsonReturning structure, handling type resolution, format assignment, and validation.

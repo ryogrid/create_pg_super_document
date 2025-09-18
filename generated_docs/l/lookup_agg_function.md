@@ -1,7 +1,7 @@
 # lookup_agg_function
 
 ## Location
-src/backend/catalog/pg_aggregate.c: 826 - 914
+[src/backend/catalog/pg_aggregate.c:826-914](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/catalog/pg_aggregate.c#L826-L914)
 
 ## Overview
 lookup_agg_function is a utility function that validates and resolves function names for aggregate support functions, ensuring they meet the requirements for use in aggregate definitions.

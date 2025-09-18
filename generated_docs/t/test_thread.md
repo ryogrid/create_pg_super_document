@@ -1,7 +1,7 @@
 # test_thread
 
 ## Location
-src/interfaces/ecpg/test/expected/thread-thread_implicit.c: 132 - 207
+[src/interfaces/ecpg/test/expected/thread-thread_implicit.c:132-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/interfaces/ecpg/test/expected/thread-thread_implicit.c#L132-L207)
 
 ## Overview
 The test_thread function is a thread worker function used in ECPG (Embedded SQL in C for PostgreSQL) threading tests to validate concurrent database operations by multiple threads.

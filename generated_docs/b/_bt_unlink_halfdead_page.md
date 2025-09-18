@@ -1,7 +1,7 @@
 # _bt_unlink_halfdead_page
 
 ## Location
-src/backend/access/nbtree/nbtpage.c: 2314 - 2812
+[src/backend/access/nbtree/nbtpage.c:2314-2812](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/nbtree/nbtpage.c#L2314-L2812)
 
 ## Overview
 This function performs the second stage of B-tree page deletion by unlinking a single page from its siblings and marking it as fully deleted, progressing through the subtree from top parent to leaf.

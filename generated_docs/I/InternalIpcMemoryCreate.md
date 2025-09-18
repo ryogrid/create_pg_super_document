@@ -1,7 +1,7 @@
 # InternalIpcMemoryCreate
 
 ## Location
-src/backend/port/sysv_shmem.c: 121 - 285
+[src/backend/port/sysv_shmem.c:121-285](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/port/sysv_shmem.c#L121-L285)
 
 ## Overview
 InternalIpcMemoryCreate is a static function that creates a new System V shared memory segment with a specified key and attaches it to the current process.

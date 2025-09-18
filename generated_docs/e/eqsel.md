@@ -1,7 +1,7 @@
 # eqsel
 
 ## Location
-src/backend/utils/adt/selfuncs.c: 228 - 236
+[src/backend/utils/adt/selfuncs.c:228-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/selfuncs.c#L228-L236)
 
 ## Overview
 The eqsel function provides selectivity estimation for equality operators ("=") and other operators with comparable selectivity behavior across any PostgreSQL data types.

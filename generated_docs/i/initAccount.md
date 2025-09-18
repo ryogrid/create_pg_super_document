@@ -1,7 +1,7 @@
 # initAccount
 
 ## Location
-src/bin/pgbench/pgbench.c: 4946 - 4954
+[src/bin/pgbench/pgbench.c:4946-4954](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/bin/pgbench/pgbench.c#L4946-L4954)
 
 ## Overview
 The  function generates account initialization data for pgbench's test database by formatting account records into a SQL buffer.

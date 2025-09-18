@@ -1,7 +1,7 @@
 # pg_logical_slot_peek_binary_changes
 
 ## Location
-src/backend/replication/logical/logicalfuncs.c: 358 - 367
+[src/backend/replication/logical/logicalfuncs.c:358-367](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/replication/logical/logicalfuncs.c#L358-L367)
 
 ## Overview
 Returns binary changes from a logical replication slot without consuming them, allowing the same changes to be retrieved again in subsequent calls.

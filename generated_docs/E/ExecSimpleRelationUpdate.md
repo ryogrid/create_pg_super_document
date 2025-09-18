@@ -1,7 +1,7 @@
 # ExecSimpleRelationUpdate
 
 ## Location
-src/backend/executor/execReplication.c: 554 - 622
+[src/backend/executor/execReplication.c:554-622](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/execReplication.c#L554-L622)
 
 ## Overview
 ExecSimpleRelationUpdate performs a complete tuple update operation, including constraint checking, trigger execution, index maintenance, and stored generated column computation.

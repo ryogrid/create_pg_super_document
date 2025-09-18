@@ -1,7 +1,7 @@
 # brin_xlog_samepage_update
 
 ## Location
-src/backend/access/brin/brin_xlog.c: 170 - 207
+[src/backend/access/brin/brin_xlog.c:170-207](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/access/brin/brin_xlog.c#L170-L207)
 
 ## Overview
 A static function that handles WAL replay for in-place BRIN tuple updates that occur within the same page during crash recovery.

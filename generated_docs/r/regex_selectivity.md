@@ -1,7 +1,7 @@
 # regex_selectivity
 
 ## Location
-src/backend/utils/adt/like_support.c: 1455 - 1500
+[src/backend/utils/adt/like_support.c:1455-1500](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/like_support.c#L1455-L1500)
 
 ## Overview
 Main entry point for estimating the selectivity of regular expression patterns, handling trailing anchors and fixed prefix adjustments.

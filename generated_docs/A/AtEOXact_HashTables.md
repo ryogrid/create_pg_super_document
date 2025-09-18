@@ -1,7 +1,7 @@
 # AtEOXact_HashTables
 
 ## Location
-src/backend/utils/hash/dynahash.c: 1872 - 1897
+[src/backend/utils/hash/dynahash.c:1872-1897](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/hash/dynahash.c#L1872-L1897)
 
 ## Overview
 Cleans up any remaining active sequential scan operations at the end of a transaction, handling both commit and abort scenarios.

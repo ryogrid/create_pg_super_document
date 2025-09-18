@@ -1,7 +1,7 @@
 # match_saopclause_to_indexcol
 
 ## Location
-src/backend/optimizer/path/indxpath.c: 2623 - 2690
+[src/backend/optimizer/path/indxpath.c:2623-2690](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/optimizer/path/indxpath.c#L2623-L2690)
 
 ## Overview
 Handles ScalarArrayOpExpr clauses (ANY/IN operations) to determine if they can be converted into index scan conditions for query optimization.

@@ -1,7 +1,7 @@
 # PLy_result_str
 
 ## Location
-src/pl/plpython/plpy_resultobject.c: 225 - 236
+[src/pl/plpython/plpy_resultobject.c:225-236](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/pl/plpython/plpy_resultobject.c#L225-L236)
 
 ## Overview
 PLy_result_str is a static function that implements the string representation method (__str__) for PLyResultObject instances in the PL/Python extension, providing a formatted string representation of query result objects.

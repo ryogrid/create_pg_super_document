@@ -1,7 +1,7 @@
 # ExecPendingInserts
 
 ## Location
-src/backend/executor/nodeModifyTable.c: 1304 - 1336
+[src/backend/executor/nodeModifyTable.c:1304-1336](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/executor/nodeModifyTable.c#L1304-L1336)
 
 ## Overview
 Flushes all accumulated pending batch inserts to foreign tables by iterating through the pending lists and calling ExecBatchInsert for each relation with buffered tuples.

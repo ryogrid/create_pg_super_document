@@ -1,7 +1,7 @@
 # bytealtrim
 
 ## Location
-src/backend/utils/adt/oracle_compat.c: 644 - 670
+[src/backend/utils/adt/oracle_compat.c:644-670](https://github.com/postgres/postgres/tree/92268b35d04c2de416279f187d12f264afa22614/src/backend/utils/adt/oracle_compat.c#L644-L670)
 
 ## Overview
 The  function removes bytes from the beginning (left side) of a bytea string, trimming all leading bytes that match any byte in the specified set.
